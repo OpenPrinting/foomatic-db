@@ -50,25 +50,25 @@
     &lt;tt&gt;drivers/usb/scanner.c&lt;/tt&gt; file in the kernel 
     source:&lt;p&gt;
 
-    &lt;tt&gt;&lt;pre&gt;
-    if (dev-&amp;gt;config[0].bNumInterfaces != 1) {
-        info("probe_scanner: Only one device interface is supported.");
-        return NULL;
-    }
-    &lt;/pre&gt;&lt;/tt&gt;
+    &lt;tt&gt;
+    if (dev-&amp;gt;config[0].bNumInterfaces != 1) {&lt;br&gt;
+    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;info("probe_scanner: Only one device interface is supported.");&lt;br&gt;
+    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;return NULL;&lt;br&gt;
+    }&lt;p&gt;
+    &lt;/tt&gt;
 
     Then you have to recompile, install, and reload the
     "&lt;tt&gt;scanner.o&lt;/tt&gt;" kernel module (the commands have
     to be executed as "root", we assume that the kernel source code is
     in the &lt;tt&gt;/usr/src/linux&lt;/tt&gt; directory):&lt;p&gt;
 
-    &lt;tt&gt;&lt;pre&gt;
-    cd /usr/src/linux 
-    make modules 
-    cp drivers/usb/scanner.o /lib/modules/&amp;lt;Linux version&amp;gt;/kernel/drivers/usb/ 
-    rmmod scanner 
-    modprobe scanner vendor=0x04b8 product=0x0802
-    &lt;/pre&gt;&lt;/tt&gt;
+    &lt;tt&gt;
+    cd /usr/src/linux&lt;br&gt; 
+    make modules&lt;br&gt;
+    cp drivers/usb/scanner.o /lib/modules/&amp;lt;Linux version&amp;gt;/kernel/drivers/usb/&lt;br&gt;
+    rmmod scanner&lt;br&gt;
+    modprobe scanner vendor=0x04b8 product=0x0802&lt;p&gt;
+    &lt;/tt&gt;
 
     After having done so you can configure &lt;a
     href="http://www.mostang.com/sane/"&gt;SANE&lt;/a&gt; to use the
