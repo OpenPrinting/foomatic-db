@@ -22,7 +22,7 @@
   </lang>
   <autodetect>
   </autodetect>
-  <functionality>A</functionality>
+  <functionality>B</functionality>
   <driver>gimp-print</driver>
   <!--verified-->
   <!--no "contrib_url"-->
@@ -50,42 +50,43 @@
 
     You have to remove the following from the
     &lt;tt&gt;drivers/usb/scanner.c&lt;/tt&gt; file in the kernel 
-    source:&lt;p&gt;:
+    source:&lt;p&gt;
 
-    &lt;pre&gt;
+    &lt;tt&gt;&lt;pre&gt;
     if (dev-&amp;gt;config[0].bNumInterfaces != 1) {
         info("probe_scanner: Only one device interface is supported.");
         return NULL;
     }
-    &lt;/pre&gt;
+    &lt;/pre&gt;&lt;/tt&gt;
 
     Then you have to recompile, install, and reload the
-    "&lt;tt&gt;scanner.o&lt;/tt&gt;" Kernel module (assuming that the
-    kernel source code is in the &lt;tt&gt;/usr/src/linux&lt;/tt&gt;
-    directory, the commands have to be executed as "root"):&lt;p&gt;
+    "&lt;tt&gt;scanner.o&lt;/tt&gt;" kernel module (the commands have
+    to be executed as "root", we assume that the kernel source code is
+    in the &lt;tt&gt;/usr/src/linux&lt;/tt&gt; directory):&lt;p&gt;
 
-    &lt;pre&gt;
+    &lt;tt&gt;&lt;pre&gt;
     cd /usr/src/linux 
     make modules 
     cp drivers/usb/scanner.o /lib/modules/&amp;lt;Linux version&amp;gt;/kernel/drivers/usb/ 
     rmmod scanner 
     modprobe scanner vendor=0x04b8 product=&amp;lt;Product ID&amp;gt;
-    &lt;/pre&gt;
+    &lt;/pre&gt;&lt;/tt&gt;
 
     For "&lt;tt&gt;&amp;lt;Product ID&amp;gt;&lt;/tt&gt;" you must
     insert the product ID of the scanner part of your CX5200. You can
     look it up in the &lt;tt&gt;/proc/bus/usb/devices&lt;/tt&gt;
-    file. Look for line containing something like
-    "&lt;tt&gt;Vendor=03f0 ProdID=1e11 Rev= 1.00&lt;/tt&gt;" which is
+    file. Look for a line containing something like
+    "&lt;tt&gt;Vendor=04b8 ProdID=0803 Rev= 1.00&lt;/tt&gt;" which is
     located near the manufacturer and model name. Note that there are
     two entries for this device, one for the printing and one for the
     scanning part, so don&apos;t take the wrong one (you cannot damage
     anything, simply take the other one when the first one did not
     work).&lt;p&gt;
 
-    After having done so you can configure SANE to use the CX5200 with
-    the "&lt;tt&gt;epson&lt;/tt&gt;" scanner driver, it is probably
-    compatible to the Epson Perfection 1200U.&lt;p&gt;
+    After having done so you can configure &lt;a
+    href="http://www.mostang.com/sane/"&gt;SANE&lt;/a&gt; to use the
+    CX5200 with the "&lt;tt&gt;epson&lt;/tt&gt;" scanner driver, it is
+    probably compatible to the Epson Perfection 1200U.&lt;p&gt;
 
     Copying should just work with the front panel of the
     device.&lt;p&gt;
