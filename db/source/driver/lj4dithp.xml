@@ -3,7 +3,7 @@
   <url>http://www.linuxprinting.org/download/japanese_printers/</url>
   <execution>
     <ghostscript/>
-    <prototype>gs -q -dBATCH -dPARANOIDSAFER -dQUIET -dNOPAUSE -sDEVICE=lj4dithp%A%Z -sOutputFile=- - | perl -e &quot;while (\$line = &lt;&gt;) { \$match |= ( \$line =~ s/\x1b&amp;l\d+A/\$&amp;%E/ ); print \$line }&quot;</prototype>
+    <prototype>gs -q -dBATCH -dPARANOIDSAFER -dQUIET -dNOPAUSE -sDEVICE=lj4dithp%A%Z -sOutputFile=- - | perl -p -0033 -e &quot; s/^&amp;l\d+[aA]/$&amp;%E/; &quot; </prototype>
     </execution>
   <comments>
     <en>
