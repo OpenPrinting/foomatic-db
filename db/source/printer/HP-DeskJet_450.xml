@@ -12,7 +12,7 @@
     </resolution>
     <consumables>
       <comments>
-        <en>One Color(CMY) + one Black(K) or Photo (cmK)</en>
+        <en>One Color(CMY) and/or one Black(K) or Photo (cmK)</en>
       </comments>
     <!--one or more "partno" elements.--></consumables>
   </mechanism>
@@ -73,9 +73,76 @@
     photo mode where the image is rendered in 1200 dpi and
     interpolated to 4800x1200 dpi by the hardware.&lt;p&gt;
 
-    Border-less (full bleed) printing on paper sizes up to
-    Oufuku-Hagaki is supported with the &quot;hpijs&quot;
-    driver.&lt;p&gt;
+    There is also no full-bleed mode as the other printers of the same
+    generation (DeskJet 555x, OfficeJet 61xx, PSC 2xxx, PhotoSmart
+    7xxx) have, but the unprintable margins are smaller when using the
+    photo/card/envelope feeder.&lt;p&gt;
+
+    There is also no automatic head alignment, but it is possible to
+    do this manually with free software. Proceed as follows (head
+    alignment is not needed when only one cartridge is
+    installed):&lt;p&gt;
+
+    &lt;ol&gt;
+    &lt;li&gt;
+
+    Copy the needed files from the driver CD which comes with the 
+    printer:&lt;p&gt;
+
+    &lt;pre&gt;
+   cp -a /mnt/cdrom/Drivers/DOS/europe/PCL .
+    &lt;/pre&gt;
+
+    &lt;li&gt;
+
+    Print the alignment page in raw (unfiltered) mode of your spooler
+    (or send the file directly to the device). If you have the color
+    (CMY) cartridge and the black (K) cartridge installed (4-ink mode)
+    use&lt;p&gt;
+
+    &lt;pre&gt;
+   lpr -l PCL/Align4.pcl
+    &lt;/pre&gt;
+
+    and if you have the color (CMY) cartridge and the photo (cmK)
+    cartridge installed (6-ink mode) use&lt;p&gt;
+
+    &lt;pre&gt;
+   lpr -l PCL/Align6.pcl
+    &lt;/pre&gt;
+
+    &lt;li&gt;
+
+    Now look on the printed alignment page and choose the best
+    matching pattern in each series, for example A5, B4, C4, and
+    D2.&lt;p&gt;
+
+    &lt;li&gt;
+
+    To align the heads appropriately, "print" the needed alignment
+    commands in raw mode (or send them directly to the device). The
+    correct commands are in files named
+    "&lt;tt&gt;alignXYY.pcl&lt;/tt&gt;". "&lt;tt&gt;X&lt;/tt&gt;" has
+    to be replaced by the number of inks and "&lt;tt&gt;YY&lt;/tt&gt;"
+    by the ID of the best pattern with the letter in lower case (Note
+    that in some file names upper/lower case are not consistent, see
+    the directory listing). So for the example above in 4-ink mode you
+    have to run the commands:&lt;p&gt;
+
+    &lt;pre&gt;
+   lpr -l PCL/align4a5.pcl
+   lpr -l PCL/align4b4.pcl
+   lpr -l PCL/align4c4.pcl
+   lpr -l PCL/align4d2.pcl
+    &lt;/pre&gt;
+
+    Now the heads are aligned.&lt;p&gt;
+
+    &lt;li&gt;
+
+    Repeat this procedure whenever you change a cartridge.&lt;p&gt;
+
+    &lt;/ol&gt;
 
     Up/downloading of photos between the PC and the printer/memory
     card works with the &lt;a
