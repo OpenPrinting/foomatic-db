@@ -85,12 +85,14 @@ Dependencies
 
 This package does not require anything else. It is needed by
 foomatic-db-engine, the database engine of Foomatic. It is highly
-recommended to use foomatic-db-engine 2.9.1 or newer, otherwise the
-composite options will not show up in the generated PPD files. Do not
-use this databse with Foomatic 2.0.x or older, the composite options
-will probably appear but they will not work. With foomatic-db-engine
-3.0.0beta1 or newer also the definitions of unprintable margins in
-this package will be made use of.
+recommended to use foomatic-db-engine 3.0.0beta2 or newer, as it
+contains important bug fixes and also support for boolean options
+being member options of the composite options. It also supports the
+definitions of unprintable margins, of extra lines for the PPD files,
+and of the "<general>" and "<ieee1284>" tags in the auto-detection
+sections of the printer entries. Do not use this database with
+Foomatic 2.0.x or older, the composite options will probably appear
+but they will not work.
 
 See the USAGE file for installation details.
 
@@ -505,16 +507,25 @@ printer/100576
 # interfaces the printers report back an IEEE-1284-complient ID string
 # from which the fields "MFG" (<manufacturer>...</manufacturer>),
 # "MDL" (<model>...</model>), "DES" (<description>...</description>),
-# and "CMD" (<commandset>...</commandset>) are used. A complete entry
-# could look like:
+# and "CMD" (<commandset>...</commandset>) are used. The string itself
+# can be put between <ieee1284>...</ieee1284> tags, but all items
+# which are not constant for all printers of this model, as the serial
+# number ("SERN:...;") and the device status ("VSTATUS:...;") have to
+# be removed here. As the ID string is usually the same for all
+# detection methods, on can put the entries between
+# <general>...</general> tags, then the <parallel>...</parallel>,
+# <usb>...</usb>, and <snmp>...</snmp> are only used only for
+# differences to the data between the <general>...</general> tags. A
+# complete entry could look like:
 #
 #  <autodetect>
-#    <parallel>
+#    <general>
+#      <ieee1284>MFG:HEWLETT-PACKARD;MDL:DESKJET 600;CMD:MLC,PCL,PML;CLASS:PRINTER;DESCRIPTION:Hewlett-Packard DeskJet 600;</ieee1284>
 #      <commandset>MLC,PCL,PML</commandset>
-#      <description>Hewlett-Packard DeskJet 660C</description>
+#      <description>Hewlett-Packard DeskJet 600</description>
 #      <manufacturer>HEWLETT-PACKARD</manufacturer>
-#      <model>DESKJET 660C</model>
-#    </parallel>
+#      <model>DESKJET 600</model>
+#    </general>
 #  </autodetect>
 #
 
@@ -883,8 +894,8 @@ leave out one of them. These individual options are the member options
 of the composite option. Not all options of a driver/printer combo
 need to be member options of the composite option. It is not allowed
 to have one option being member of more than one composite option. The
-composite option and all member options must be enumerated choice
-options.
+composite option must be an enumerated choice options, the member
+options must be enumerated choice or boolean.
 
 It is enough to add a composite option as shown. The PPD generator
 (getppd() in lib/Foomatic/DB.pm, package "foomatic-db-engine") will
@@ -1026,3 +1037,182 @@ Miscellaneous
   Options which do not fit into the mentioned groups and for which it
   is not worth to make a special group.
 
+
+Unprintable margins
+-------------------
+
+On most printers you cannot print arbitrarily close to the borders of
+the paper. You usually will have margins of certain width on which you
+cannot print. For filters and applkication programs to know about
+these margins PPD file have "*ImageableArea" lines which define the
+positions of the lower, the upper, the left, and the right borders of
+the area on which the printer can print. There is one line for each
+paper size listed in the "*PageSize" option.
+
+To conveniently generating these lines one can use the following XML
+structure in the Foomatic database entries:
+
+--------------------------------------------------------------------------
+<margins>
+     <general>
+       <!-- The margins here are valid for every paper size for -->
+       <!-- which there is no "exception" section -->
+       <!-- ---------- -->
+       <!-- possible units: -->
+       <!-- pt, inches, mm, cm,
+       <!-- dotsNNNdpi (NNN: resolution in which dots are counted) -->
+       <!-- if "unit" not present, default unit is pt -->
+       <!-- ---------- -->
+       <!-- if a margin is not present, default width is 0 -->
+       <!-- ---------- -->
+       <!-- a missing "general" section assumes zero borders as the -->
+       <!-- general borders and "pt" as the default unit for -->
+       <!-- "exceptions". -->
+       <unit>pt</unit>
+       <top>9</top>
+       <bottom>36</bottom>
+       <left>18</left>
+       <right>18</right>
+     </general>
+     <exception PageSize="Photo4x6TearoffTab">
+       <!-- if one or more of "unit", "top", "bottom", "left", -->
+       <!-- "right" is missing, the appropriate item of the "general" -->
+       <!-- section is used -->
+       <top>0</top>
+       <left>0</left>
+       <right>0</right>
+     </exception>
+     <exception PageSize="A4">
+       <!-- It is also possible to give absolute values in PostScript -->
+       <!-- coordinates where the origin is the lower left corner. To -->
+       <!-- do so, the <absolute /> tag has to be added, otherwise -->
+       <!-- the values are the widths of the unprintable margins -->
+       <absolute />
+       <left>10</left>
+       <right>585</right>
+     </exception>
+     <exception PageSize="...">
+       ...
+     </exception>
+     ...
+<margins>
+--------------------------------------------------------------------------
+
+This structure is allowed in printer entries in the "<mechanism>" 
+section and in driver entries in the "<execution>" section or inside a 
+"<printer>" entry of the driver's printer list. In the "<execution>" 
+section of a driver entry the margins are valid for all printers used 
+with this driver, in a "<printer>" entry they apply only to the given 
+printer/driver combo.
+
+The shown example could be for the HP PhotoSmart 7150/7350, which does 
+full-bleed only on HP's special photo paper with an 0.5 inch wide 
+tear-off tab on the lower border (and some other paper sizes used in the 
+photo tray). On all other paper sizes the printer leaves white borders 
+of half an inch at the top and at the bottom and a quarter of an inch on 
+the left and right hand side (1 inch are 72 pt). In addition, the page 
+size "A4" allows to print up to 10 points to the left and the right borders.
+
+At first we give the general borders ("<general>" section) where we 
+choose the unit "pt" (PostScript points) for the numbers. These borders 
+are valid for all paper sizes which are not explicitly mentioned with an 
+"<exception ...>" section. For our printers one of the exceptions is the 
+4x6 photo paper with the tear-off tab (including the tab the paper is 
+4x6.5 inches large). here the printer prints up to the left, right, and 
+top borders. Therefore we have margins of zero here. At the lower border 
+the printer still leaves half an inch white (therefore probably HP 
+introduced the tear-off tab), so we keep the 36 pt of the "<general>" 
+section by not mentioning a new lower border. For A4 we redefine the 
+left and the right border. This is also possible in absolute PostScript 
+coordinates measured from the lower left corner, as we do here. We 
+indicate this with the "<absolute />" tag. The left border is at 10 pt 
+from the left, and as A4 paper is 595 pt wide, the right border is at 
+585 points from the left.
+
+One hint for the choice of the units: Float numbers as border widths are 
+allowed, but it is recommended for having exact info to choose a unit 
+which gives integer numbers for the widths (which is always possible 
+with the "dotsNNNdpi" unit with NNN being the maximum resolution of the 
+printer).
+
+A "<margins>" section in a printer entry should represent the printer's 
+hardware capabilities. Such a section in a driver entry should represent 
+how the driver's limitations are. If there are margins defined in both 
+the printer and the driver entry of the desired printer/driver combo, 
+the more restrictive (wider) borders count. If there are no border 
+definitions in both the printer and the driver entry, the borders are 
+assumed to be of zero width (full-bleed).
+
+
+Adding arbitrary extra entries to the PPD file
+----------------------------------------------
+
+The "<ppdentry>" tags allow to add extra lines to the PPD file. The 
+tags can be put into the top level ("<printer>") of a printer XML entry, 
+into the "<execution>" section of a driver XML entry, or into the 
+"<printer>" entries of the printer list in a driver XML file. They serve 
+mainly to put a default resolution into PPD files for drivers without 
+"Resolution" option. Examples:
+
+"hpijs"  driver, default resolution for HP DeskJet 350. For this driver 
+the default resolution depends on the printer class. Therefore the 
+appropriate "<ppdentry>"s have to be in the printer entries of the 
+printer list:
+
+--------------------------------------------------------------------------
+<driver id="driver/hpijs">
+  <name>hpijs</name>
+  ...
+  <printers>
+   <printer>
+    <id>printer/620306</id><!-- HP DeskJet 350C -->
+    <ppdentry>
+      *DefaultResolution: 600dpi
+      *Resolution 600dpi/600 dpi: &quot;&quot;
+    </ppdentry>
+    <margins>
+     <general>
+      <unit>in</unit>
+      <relative />
+      <left>0.25</left>
+      <right>0.25</right>
+      <top>0.125</top>
+      <bottom>0.67</bottom>
+     </general>
+     <exception PageSize="A4">
+      <left>0.135</left>
+      <right>0.135</right>
+     </exception>
+    </margins>
+   </printer>
+   ...
+  </printers>
+</driver>
+--------------------------------------------------------------------------
+
+"pnm2ppa" driver: This driver has no "Resolution" option, and all 
+printers print in 600 dpi with it. So we put the "<ppdentry>" into the 
+"<execution>" section:
+
+--------------------------------------------------------------------------
+<driver id="driver/pnm2ppa">
+  <name>pnm2ppa</name>
+  <url>http://sourceforge.net/projects/pnm2ppa/</url>
+  <execution>
+   <filter />
+   <prototype>gs -q -dNOPAUSE -dPARANOIDSAFER -dBATCH -r600%A%Z 
+-sOutputFile=- - | pnm2ppa%C%B -i - -o -</prototype>
+   <ppdentry>
+    *DefaultResolution: 600dpi
+    *Resolution 600dpi/600 dpi: &quot;&quot;
+   </ppdentry>
+  </execution>
+  ...
+</driver>
+--------------------------------------------------------------------------
+
+Note that leading spaces are removed from the lines between the
+"<ppdentry>" tags before they get inserted into the PPD file.
+
+The lines are added at the end of the PPD file header, right after the
+lines for the basic hardware capabilities of the printer.
