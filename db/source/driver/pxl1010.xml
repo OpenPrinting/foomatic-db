@@ -1,0 +1,38 @@
+<driver id="driver/pxl1010">
+ <name>pxl1010</name>
+ <url></url>
+ <execution>
+  <ghostscript />
+  <prototype>gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -sDEVICE=pxlmono%A%Z -sOutputFile=- - | perl -0777 -e &quot;my $d; read(STDIN, $d, 10000); $d =~ s/(ENTER LANGUAGE[^\n]*\n[^\n]*\n[^A]*A)/$1\xc2\x11\x20\x70\x68\xf8\x91\x46/s; print $d; while (read(STDIN, $d, 10000)) {print $d}&quot; | perl -p -e &quot;s/\xc0.\xf8\x26/\xc0%E\xf8\x26/g&quot;</prototype>
+  <ppdentry>
+   *DefaultResolution: 600dpi
+  </ppdentry>
+ </execution>
+ <comments>
+  <en>
+    
+    "pxl1010" is not a new driver, but a special way of using the
+    "pxlmono" GhostScript driver to make the HP LaserJet 1010 and 1012
+    work reliably.  The trick is to add a special sequence of 8 bytes
+    at the BeginSession operator of the PCL-XL data stream.&lt;p&gt;
+
+    Simply using "pxlmono" does not print anything and using a PCL-5e
+    driver (HPIJS, "ljet4", ...) leads inprinciple to the jobs being
+    printed, but sometimes the printer crashes with an "Unsupported
+    personality: PCL" message.&lt;p&gt;
+
+    Thanks to Carl Michal (michal at physics dot ubc dot ca) for
+    finding out that. He analyzed the output of the Windows driver,
+    where he found this "magic" 8-byte sequence.&lt;p&gt;
+
+  </en>
+ </comments>
+ <printers>
+  <printer>
+   <id>printer/HP-LaserJet_1010</id>
+  </printer>
+  <printer>
+   <id>printer/HP-LaserJet_1012</id>
+  </printer>
+ </printers>
+</driver>

@@ -29,8 +29,8 @@
       <model>hp LaserJet 1010</model>
     </general>
   </autodetect>
-  <functionality>D</functionality>
-  <driver>hpijs</driver>
+  <functionality>A</functionality>
+  <driver>pxl1010</driver>
   <!--no "contrib_url"-->
   <comments>
     <en>
@@ -55,21 +55,24 @@
     "ljet4"/"lj4dith", "gimp-print"). Adam tried also PCL-6 drivers
     ("lj5gray"/"lj5mono", "pxlmono") but without success.&lt;p&gt;
 
-    Unfortunately, the new LaserJet 1010/1012/1015 series seems not to
+    Unfortunately, the new LaserJet 1010/1012 series seems not to
     be absolutely compatible with older HP printers or it has a
     firmware bug. Sometimes it happens that the printer stops working
     and reports the error "&lt;tt&gt;Unsupported Personality:
     PCL&lt;/tt&gt;". It only continues working when one kills the job
-    and power-cycles the printer. So up to now it is not recommended
-    to buy this printer.&lt;p&gt;
+    and power-cycles the printer.&lt;p&gt;
 
-    Please test the printer with these drivers in all available
-    resolutions and also with special options as toner saving. REt,
-    toner density, ... Try also the PPD files for the HP LaserJet 4050
-    to test the "FastRes" option with a resolution setting of 600
-    dpi. Does this give a better printout quality? Please report all
-    your results and experiences on the HP forum of
-    linuxprinting.org.&lt;p&gt;
+    The problem of the "&lt;tt&gt;Unsupported Personality:
+    PCL&lt;/tt&gt;" was finally solved by Carl Michal (michal at
+    physics dot ubc dot ca). By analyzing the output of the Windows
+    driver he found out that after the BeginSession operator in the
+    beginning of a PCL 6 job a special sequence of 8 bytes has to be
+    added. He added it by a filter to the output of GhostScript's
+    "pxlmono" driver and from then on the printer worked.&lt;p&gt;
+
+    The recommended "pxl1010" driver is a not more than the "pxlmono"
+    GhostScript driver with a simple filter added to insert the
+    "magic" 8-byte sequence.&lt;p&gt;
 
     </en>
   </comments>
