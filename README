@@ -146,8 +146,8 @@ source/opt/2.xml
 
 <option type="enum" id="opt/2">
 
-# Options are of a type "enum", "bool", "int" or "float"
-# options have an ID.  The id is also the filename.
+# Options are of a type "enum", "bool", "int", "float", "string", or
+# "password", options have an ID.  The id is also the filename.
 
 # The shortname is a spaceless short name for the thing.  It must not
 # contain / or : (otherwise it will not be handled correctly in PPD
@@ -410,13 +410,15 @@ source/opt/2.xml
 
 # This name should not contain spaces, ":", or "/".
 
-printer/100576
-==============
+# See below for string and password options.
+
+printer/HP-LaserJet_4000.xml
+============================
 
 # The printer file contains information specific to a particular
 # printer.
 
-<printer id="printer/100576">
+<printer id="printer/HP-LaserJet_4000">
 
 # Make and model are not internationalized.  There will eventually be
 # an "alias" mechanism, but the need is different.
@@ -519,9 +521,9 @@ printer/100576
 # which are not constant for all printers of this model, as the serial
 # number ("SERN:...;") and the device status ("VSTATUS:...;") have to
 # be removed here. As the ID string is usually the same for all
-# detection methods, on can put the entries between
+# detection methods, one can put the entries between
 # <general>...</general> tags, then the <parallel>...</parallel>,
-# <usb>...</usb>, and <snmp>...</snmp> are only used only for
+# <usb>...</usb>, and <snmp>...</snmp> are only used for
 # differences to the data between the <general>...</general> tags. A
 # complete entry could look like:
 #
@@ -642,8 +644,8 @@ print "$result\n";
 </printer>
 
 
-driver/md2k
-===========
+driver/md2k.xml
+===============
 
 The driver files contain information about drivers.  There are a few
 things, but the two biggies are the prototype and the printers list
@@ -656,7 +658,7 @@ things, but the two biggies are the prototype and the printers list
 # a file name with an up to 8 characters log base name and an up to 3
 # characters long extension, and upper and lower case letters being
 # considered as equal. As every PPD file is for a printer/driver combo,
-# we let the last 2 characters being provided by the printer entry:
+# we let the last 2 characters being provided by the driver entry:
 
  <pcdriver>M2</pcdriver>
  <url>http://plaza26.mbn.or.jp/~higamasa/gdevmd2k/</url>
@@ -719,16 +721,16 @@ things, but the two biggies are the prototype and the printers list
 
  <printers>
   <printer>
-   <id>printer/240137</id><!-- Alps MD-1000 -->
+   <id>printer/Alps-MD-1000</id><!-- Alps MD-1000 -->
   </printer>
   <printer>
-   <id>printer/240169</id><!-- Alps MD-1300 -->
+   <id>printer/Alps-MD-1300</id><!-- Alps MD-1300 -->
   </printer>
   <printer>
-   <id>printer/240105</id><!-- Alps MD-2000 -->
+   <id>printer/Alps-MD-2000</id><!-- Alps MD-2000 -->
   </printer>
   <printer>
-   <id>printer/240073</id><!-- Alps MD-4000 -->
+   <id>printer/Alps-MD-4000</id><!-- Alps MD-4000 -->
   </printer>
  </printers>
 </driver>
@@ -737,7 +739,7 @@ things, but the two biggies are the prototype and the printers list
 # a certain printer/driver pair:
 #
 #  <printer>
-#   <id>printer/62304</id><!-- HP LaserJet 4050 -->
+#   <id>printer/HP-LaserJet_4050</id><!-- HP LaserJet 4050 -->
 #   <comments>
 #    <en>to 1200dpi</en>
 #   </comments>
@@ -773,7 +775,7 @@ choices are the following:
 
 These choices can also have one of the following modifiers:
 
-   Modifyier     Intention
+   Modifier      Intention
    -----------------------------------------------------------------------
    .Gray         Grayscale printing on a color printer
    .Mono         Monochrome printing (no grayscales, black or white)
@@ -803,7 +805,7 @@ when manual intervention (other cartridge, photo paper) is needed.
 
 To add such an option to the database, one only needs to add an option
 XML file like the one below into the db/source/opt directory of the
-database. The file "db/source/opt/pcl3-PrintoutMode.xml could look
+database. The file db/source/opt/pcl3-PrintoutMode.xml could look
 like this:
 
 --------------------------------------------------------------------------
@@ -1057,7 +1059,7 @@ such an option, it hides the member options by only using
 "*Foomatic..." keywords to describe them, not any standard PPD
 keywords as "*OpenUI...", "*OrderDependency...", ... This way
 PPD-aware graphical frontends do not see the member options but
-"foomatic-rip" has all information from them to run the driver
+foomatic-rip has all information from them to run the driver
 correctly.
 
 
@@ -1278,7 +1280,7 @@ characters except numbers, letters, and underscores ("_") will be
 replaced by underscores.
 
 The option types "string" and "password" are treated exactly the same
-way by the PPD generator and by "foomatic-rip", the different names
+way by the PPD generator and by foomatic-rip, the different names
 are only for frontends to know whether the input field should display
 the typed characters or asterisks on the screen.
 
@@ -1512,10 +1514,9 @@ printer list:
   ...
   <printers>
    <printer>
-    <id>printer/620306</id><!-- HP DeskJet 350C -->
+    <id>printer/HP-DeskJet_350C</id><!-- HP DeskJet 350C -->
     <ppdentry>
       *DefaultResolution: 600dpi
-      *Resolution 600dpi/600 dpi: &quot;&quot;
     </ppdentry>
     <margins>
      <general>
@@ -1551,7 +1552,6 @@ printers print in 600 dpi with it. So we put the "<ppdentry>" into the
 -sOutputFile=- - | pnm2ppa%C%B -i - -o -</prototype>
    <ppdentry>
     *DefaultResolution: 600dpi
-    *Resolution 600dpi/600 dpi: &quot;&quot;
    </ppdentry>
   </execution>
   ...
