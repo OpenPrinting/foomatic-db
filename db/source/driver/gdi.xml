@@ -3,13 +3,20 @@
  <url>http://www.linuxprinting.org/download/printing/samsung-gdi/</url>
  <execution>
   <ghostscript />
-  <prototype>gs -q -dBATCH -dPARANOIDSAFER -dQUIET -dNOPAUSE -sDEVICE=gdi%A%Z -sOutputFile=- -</prototype>
+  <prototype>gs -q -dBATCH -dPARANOIDSAFER -dQUIET -dNOPAUSE -sDEVICE=gdi%A%Z -sOutputFile=- - | perl -p -e &quot;s/PJL SET TONERSAVE = OFF/PJL SET TONERSAVE = %E/&quot;</prototype>
  </execution>
  <comments>
   <en>
+
     The name of this driver is very confusing, it is not a driver for
     all GDI printers, it only works with the so-called
-    &quot;SmartGDI&quot;/&quot;PrinThru&quot; printers of Samsung.&lt;p&gt;
+    &quot;SmartGDI&quot; or &quot;PrinThru&quot; printers of
+    Samsung. The original driver published under the GPL by Samsung
+    some years ago has a bug which prevents some files from being
+    printed. Grant Taylor has fixed the bug. On the driver's download
+    page (it is here on linuxprinting.org, Samsung does not provide
+    this driver any more) you will find a patch and an already fixed
+    version.&lt;p&gt;
 
     If you are using MagicFilter 1.2, you can use &lt;a
     href=&quot;http://www.linuxprinting.org/download/printing/samsung-gdi/gdi-filter.gz&quot;&gt;this
