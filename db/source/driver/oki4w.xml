@@ -1,39 +1,32 @@
 <driver id="driver/oki4w">
  <name>oki4w</name>
- <url>http://www.picante.com/~gtaylor/download/printing/</url>
+ <url>http://www.cups.org/espgs/index.php</url>
  <execution>
   <filter />
-  <prototype>(echo -n "%F%A"; cat) 1&gt;/dev/oki4drv 2&gt;/dev/null</prototype>
+  <prototype>gs -q -dBATCH -dPARANOIDSAFER -dQUIET -dNOPAUSE -sDEVICE=oki4w%A%Z -sOutputFile=- -</prototype>
+  <margins>
+   <general>
+    <unit>in</unit>
+    <relative />
+    <left>0.125</left>
+    <right>0.125</right>
+    <top>0.07</top>
+    <bottom>0.25</bottom>
+   </general>
+  </margins>
  </execution>
  <comments>
   <en>
-    Version 2.0 of this driver was developed in mid-2000 by Marcin
-    Dalecki, with cooperation from Okidata, who sent him a printer and
-    some protocol help.  (Heck, they sent me (Grant) one, too!)  &lt;p&gt;
 
-    The driver comes with all sorts of performance warnings and is
-    structured such that, if used according to the directions, it is
-    slightly awkward to fit into normal print spoolers.  This weakness
-    aside, it does work. The only flaw was that version 2.0 ejected a
-    blank page after every job. This is fixed in version 2.1.&lt;p&gt;
+    This is a simple GhostScript driver for the Okidata Okipage 4L and
+    similar host-based Okidata laser printers. In contrary to the
+    "oki4drv" it does not need any special daemon but simply
+    integrates in the usual printing workflow.&lt;p&gt;
 
-    I (Grant) have constructed a framework that lets you use this
-    driver under normal spoolers. The execution data and Foomatic
-    support here assumes that you are using this framework. To use it,
-    obtain oki4linux-2.1gst.tar.gz from the &lt;a
-    href="download/printing/"&gt;download area&lt;/a&gt;.&lt;p&gt;
+    The driver was in GNU GhostScript 6.x, but was removed again in
+    7.x. Currently it is available in ESP GhostScript 7.07.x and
+    8.15.x.&lt;p&gt;
 
-    Note that when you use these foomatic config files the printer
-    must be always on the first parallel port. Any output device set
-    in the spooler will be ignored. So the best is to choose
-    &lt;tt&gt;/dev/null&lt;/tt&gt; as the destination device to not
-    block the real device. In CUPS you do this with the URI
-    &quot;&lt;tt&gt;file:/dev/null&lt;/tt&gt;&quot; and in LPD and
-    LPRng with the entry &quot;&lt;tt&gt;lp=/dev/null&lt;/tt&gt;&quot;
-    in the &lt;tt&gt;/etc/printcap&lt;/tt&gt; file.&lt;p&gt;
-
-    Fl&amp;aacute;vio Coelho (fccoelho at uerj dot br) reports that the
-    Okipage 6w only works with the old 2.0 version of the driver.
   </en>
  </comments>
  <printers>
