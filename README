@@ -94,7 +94,7 @@ sections of the printer entries. Do not use this database with
 Foomatic 2.0.x or older, the composite options will probably appear
 but they will not work.
 
-Foomatic 3.0.0rc1 or newer support also string, password, and forced
+Foomatic 3.0.0rc2 or newer support also string, password, and forced
 composite options, but they are not used yet in the Foomatic database,
 
 See the USAGE file for installation details.
@@ -615,6 +615,7 @@ print "$result\n";
 #   > --> &gt;
 #   " --> &quot;
 #   ' --> &apos;
+#   & --> &amp;
 #
 
   <comments>
@@ -1062,20 +1063,74 @@ String and Password Options
 ---------------------------
 
 These options allow the user to supply nearly arbitrary strings
-(within a length limit) to the printer driver, for example names of
-color calibration files, fax numbers, passwords for confidential jobs,
-... Frequently needed strings can be added as enumerated choices, so a
-frontend can show the option as a combo-box. The enumerated choices
-are also used for frontends which only support options as defined by
-the PPD spec.
+(within limits of length, characters and structure) to the printer
+driver, for example names of color calibration files, fax numbers,
+passwords for confidential jobs, ... Frequently needed strings can be
+added as enumerated choices, so a frontend can show the option as a
+combo-box. The enumerated choices are also used for frontends which
+only support options as defined by the PPD spec. So having enumerated
+choices is highly recommended for most of these options.
 
 In the XML database string and password options look similar to
 enumerated choice options. The differences are the option types
-"string" or "password" and the additional "<arg_maxlength>" tags to
-give the length limit. Here is an example for an option to supply the
-file name for an ICC profile for the "foo2zjs" driver (this option is
-neither in the CVS for the Foomatic database nor tested with this
-driver):
+"string" or "password" and the additional tags to restrict the
+possible strings.
+
+The "<arg_maxlength>" tags give a length limit, it should once not
+allow strings longer than around 100 characters, as otherwise
+foomatic-configure could generate a line longer than the allowed 255
+characters in the PPD file when setting the default value, and second,
+which is very important, it should not allow strings which are too
+long for the printer filter or driver so that buffer overflows cannot
+occur. Not using the "<arg_maxlength>" tags makes arbitrary long
+strings to be accepted, this is not recommended.
+
+With "<arg_allowedchars>" the accepted strings can be restricted to
+contain only the characters given in the list. This restrictions does
+not only avoid that the filter chokes on a wrong option, it serves
+mainly for security reasons, for example to avoid a string like "|| rm
+-rf * ||" for a command line option. So if the option prototype does
+not quote the string, command delimiter characters, I/O re-directors,
+and shell special characters (";", "|", "&", "<", ">", "*", "?", "[",
+"]", "{", "}", "(", ")", "$", "\", "'", """) should not be allowed. If
+the string is quoted by the option prototype, the closing quote
+character and the backslash should not be allowed, so that one cannot
+escape from the quoting. The allowed characters are checked by a
+"/^[...]*$/" expression in the Perl scripts, so ranges with "-", a
+list of forbidden characters with a leading "^", or special characters
+as "\w", "\d", "\x07", ...  are allowed. To allow a backslash, one has
+to escape it by using two backslashes ("\\").
+
+"<arg_allowedregexp>" allows also to restrict the structure of the
+string, as it defines an arbitrary Perl regular expression (see "man
+perlre") which has to be matched by the string. This serves also for
+having only strings which are usable by the filter and which do not
+destroy the command line structure. With this one can for example
+forbid a backslash as the last character to avoid escaping the closing
+quote of the option prototype. Regular expressions are applied via a
+'/.../' expression in the Perl scripts. To apply the pattern matching
+modifiers "i", "m", "s", or "x" (as "/.../i" for case-insensitive
+matching) begin the regular expression with "(?<modifiers>)" (as
+"(?i)..." for case-insensitive matching).
+
+It is highly recommended to use at least one of "<arg_allowedchars>"
+and "<arg_allowedregexp>", as otherwise all characters are allowed in
+the user-supplied string and so a malicious user can execute arbitrary
+shell or PostScript commands. If both tags are used, both conditions
+have to be fulfilled.
+
+Note that for the character lists and regular expressions in the XML
+files the following character substitutions have to be done:
+
+   < --> &lt;
+   > --> &gt;
+   " --> &quot;
+   ' --> &apos;
+   & --> &amp;
+
+Here is an example for an option to supply the file name for an ICC
+profile for the "foo2zjs" driver (this option is neither in the CVS
+for the Foomatic database nor tested with this driver):
 
 --------------------------------------------------------------------------
 <option type="string" id="opt/foo2zjs-ICM">
@@ -1096,6 +1151,8 @@ driver):
 	<arg_proto>-G%s </arg_proto>
     </arg_execution>
     <arg_maxlength>127</arg_maxlength>
+    <arg_allowedchars>A-Za-z0-9\._-/</arg_allowedchars>
+    <arg_allowedregexp>(?&lt;!\/)$</arg_allowedregexp>
     <constraints>
 	<constraint sense="true">
 	    <driver>foo2zjs</driver>
@@ -1117,7 +1174,7 @@ driver):
     <enum_vals>
 	<enum_val id="ev/foo2zjs-ICM-none">
 	    <ev_longname> <en>No ICM color correction</en> </ev_longname>
-	    <ev_shortname> <en>none</en> </ev_shortname>
+	    <ev_shortname> <en>None</en> </ev_shortname>
 	    <ev_driverval></ev_driverval>
 	</enum_val>
 	<enum_val id="ev/foo2zjs-ICM-DL2312">
@@ -1149,11 +1206,16 @@ driver):
 
 This option allows to choose either one of the given file names,
 either by using the "<ev_shortname>"s or the "<ev_driverval>"s, or one
-can give every arbitrary other file name, file names exceeding the
-"<arg_maxlength>" limit are cut off at the limit. Giving a limit is
-optional, if none is given, arbitrary long strings are accepted, but
-this is not recommended, as it can cause buffer overflows in some
-drivers or too long lines in the PostScript code of the job.
+can give every arbitrary other file name with a maximum length of 127
+characters, only containing letters, digits, periods, underscores,
+dashes, and slashes, and not having a slash in the end (no
+directories). Note that in Perl the period must be escaped by a
+backslash to be taken literally, otherwise it stands for an arbitrary
+character. The regukar expression for blocking out strings ending with
+a slash is "(?<!\/)$" (see "man perlre", search for "(?"). Here the
+slash is quoted by a backslash. In the XML file the "<" is replaced by
+"&lt;" so that the XML structure does not get broken. foomatic-rip
+translates this back before applying the regular expression.
 
 To be able to offer strings as an enumerated choice which are not
 allowed as an option name in a PPD file, the "<ev_shortname>" may
@@ -1166,11 +1228,11 @@ the "<ev_shortname>". In this example both
 
 and
 
-   lpr -o ICM=none file.ps
+   lpr -o ICM=None file.ps
 
 supply an empty string as the value of the ICM option.
 
-For the default value there must be an enumerate choice, if there is
+For the default value there must be an enumerated choice, if there is
 none, the PPD generator will create one. So this entry is allowed
 (this option is only an example, it is not in the CVS of the Foomatic
 database):
@@ -1193,6 +1255,7 @@ database):
    <arg_proto> --pass=%s</arg_proto>
   </arg_execution>
   <arg_maxlength>30</arg_maxlength>
+  <arg_allowedchars>A-Za-z0-9\.,_\+\=\:-/</arg_allowedchars>
   <constraints>
      <constraint sense='true'>
       <driver>mydriver</driver>
