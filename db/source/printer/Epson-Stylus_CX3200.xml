@@ -22,7 +22,7 @@
   </lang>
   <autodetect>
   </autodetect>
-  <functionality>D</functionality>
+  <functionality>B</functionality>
   <driver>gimp-print</driver>
   <!--verified-->
   <!--no "contrib_url"-->
@@ -31,20 +31,48 @@
 
     Multi-function device: Printer, Scanner, Copier.&lt;p&gt;
 
-    The printing engine seems to be the C62, a user reported that it
-    prints perfectly using a driver for the C62, so use it with
-    GIMP-Print pretending that you have the C62.&lt;p&gt;
+    The printing engine is the one of the C62, a user reported that it
+    prints perfectly using a driver for the C62, so when your
+    GIMP-Print version does not list this device explicitly as
+    supported, pretend that you have the C62.&lt;p&gt;
 
-    If it does not print, try to print through the daemon of
+    To be able to scan you need to do a small change in the
+    "&lt;tt&gt;scanner.o&lt;/tt&gt;" kernel module. See &lt;a
+    href="http://www.geocrawler.com/archives/3/2571/2002/10/0/9767006/"&gt;this
+    posting on the linux-usb-devel mailing list&lt;/a&gt; and the thread
     &quot;&lt;a
-    href=&quot;http://xwtools.automatix.de/files/mtink.tar.gz&quot;&gt;&lt;tt&gt;mtink&lt;/tt&gt;&lt;/a&gt;&quot;. This
-    way the printer is driven in the so-called "packet mode" which is
-    perhaps needed for a multi-function device like this.&lt;p&gt;
+    href="http://www.linuxprinting.org/pipermail/epson-list/2002q4/thread.html"&gt;Epson
+    Stylus cx3200 MFP&lt;/a&gt;&quot; on the &lt;a
+    href="http://www.linuxprinting.org/cgi-bin/mailman/listinfo/epson-list"&gt;Epson
+    Forum&lt;/a&gt;.&lt;p&gt;
 
-    For the scanner we have no idea yet from which stand-alone scanner
-    it is derived. Look for an Epson scanner with the same maximum
-    resolution (1200x600 dpi) in the SANE list of supported scanners
-    and try this driver first.&lt;p&gt;
+    You have to remove the following from the
+    &lt;tt&gt;drivers/usb/scanner.c&lt;/tt&gt; file in the kernel 
+    source:&lt;p&gt;:
+
+    &lt;pre&gt;
+    if (dev-&amp;gt;config[0].bNumInterfaces != 1) {
+        info("probe_scanner: Only one device interface is supported.");
+        return NULL;
+    }
+    &lt;/pre&gt;
+
+    Then you have to recompile, install, and reload the
+    "&lt;tt&gt;scanner.o&lt;/tt&gt;" Kernel module (assuming that the
+    kernel source code is in the &lt;tt&gt;/usr/src/linux&lt;/tt&gt;
+    directory, the commands have to be executed as "root"):&lt;p&gt;
+
+    &lt;pre&gt;
+    cd /usr/src/linux 
+    make modules 
+    cp drivers/usb/scanner.o /lib/modules/&amp;lt;Linux version&amp;gt;/kernel/drivers/usb/ 
+    rmmod scanner 
+    modprobe scanner vendor=0x04b8 product=0x0802
+    &lt;/pre&gt;
+
+    After having done so you can configure SANE to use the CX3200 with
+    the "&lt;tt&gt;epson&lt;/tt&gt;" scanner driver, it is compatible
+    to the Epson Perfection 1200U.&lt;p&gt;
 
     Copying should just work with the front panel of the
     device.&lt;p&gt;
