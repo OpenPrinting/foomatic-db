@@ -1,0 +1,51 @@
+<driver id="driver/drv_x125">
+ <name>drv_x125</name>
+ <url>http://sourceforge.net/projects/x125-linux/</url>
+ <execution>
+  <filter />
+  <prototype>%Dx125_cmyk_print.sh $size %C %A %B %E</prototype>
+ </execution>
+ <comments>
+  <en>
+
+    Version 0.2.3.  REQUIRES SPECIAL SETUP (see below).&lt;p&gt;
+    
+    Simple driver for the Lexmark X125 printer.  Supports 300x600,
+    600x600 or 1200x600 dpi in grayscale (using only the black ink
+    cartridge), CMY (using only the color cartridge) or CMYK (using
+    both black and color).  Also supports bidirectional printing
+    (fast!).  Note that black mode is significantly less CPU intensive
+    than color modes.  A resolution of 2400 dpi is not yet supported.
+    The driver is still in experimental state but works.  Bug reports
+    and feature requests are welcome and should be made to the
+    sourceforge project.&lt;p&gt;
+    
+    Because the driver needs to read status codes from the printer,
+    this driver requires special setup which will be shown here for
+    Red Hat systems, on other distributions it should work in a
+    similar way. For Queue type, select Locally-connected, click
+    "Custom Device" and specify /dev/null as the device.  If you don't
+    specify /dev/null, nothing will happen when you print because the
+    driver won't be able to connect directly to the printer since the
+    resource will be in use.  If your printer has locked up in the
+    past, you may need to unplug it from the power outlet and plug it
+    back in before this driver will work.  If your printer is not
+    connected to /dev/usb/lp0, you can specify a different device
+    using the driver options.&lt;p&gt;
+    
+    Note that this driver must always run on the machine to which the
+    printer is directly connected. You cannot hook your printer onto
+    an ethernet print box. If you wish to be able to set up your Linux
+    box as a Samba printing host and let the Windows clients use the
+    Windows driver from Lexmark, use the x125_network driver on your
+    Samba server. It is also available on the sourceforge
+    site.&lt;p&gt;
+
+  </en>
+ </comments>
+ <printers>
+  <printer>
+   <id>printer/Lexmark-X125</id><!-- Lexmark X125 -->
+  </printer>
+ </printers>
+</driver>
