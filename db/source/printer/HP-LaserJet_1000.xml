@@ -32,14 +32,36 @@
     with the &quot;pbmtozjs&quot; driver from Szalai Robert.&lt;p&gt;
 
     PCL is only implemented in the Windows driver, to support DOS
-    applications in the DOS box of Windows.&lt;p&gt;
-
-    The printer has only 1 MB of RAM and 32 kb (!) of ROM and is USB
-    only. The firmware of the printer must be uploaded after turning
-    it on. See below.&lt;p&gt;
+    applications in the DOS box of Windows. The printer has only 1 MB
+    of RAM and 32 kb (!) of ROM and is USB only. &lt;p&gt;
 
     HP tries to enter the super-low-cost-disposable-printer market
     with this model. It costs only around 250 bucks.&lt;p&gt;
+
+    The firmware of the printer must be uploaded after turning
+    it on. Do not use the firmware on the CD supplied with the
+    printer, download the current Windows driver for the printer from
+    HP&apos;s web site, and extract the firmware file from it with
+    &quot;&lt;tt&gt;unzip&lt;/tt&gt;&quot;, then you can send it to
+    the printer with a simple &quot;&lt;tt&gt;cat&lt;/tt&gt;&quot;
+    command. Here are instructions which were posted on the &lt;a
+    href=&quot;http://www.linuxprinting.org/newsportal/article.php3?id=2347&amp;group=linuxprinting.hp.general&quot;&gt;HP
+    forum&lt;/a&gt; of this site:&lt;p&gt;
+
+    &lt;tt&gt;&lt;pre&gt;
+   1. Get new firmware from HP site
+   (this is bloat download ~12MB but we need only ~115kB from it)
+
+   ftp://ftp.hp.com/pub/softlib/software1/lj1488/lj-1145-2/lj1488en.exe
+
+   2. extract sihp1000.img from it.
+
+   # unzip lj1488en.exe sihp1000.img
+
+   3. power printer and ...
+
+   # cat sihp1000.img &gt; /dev/usb/lp0
+    &lt;/pre&gt;&lt;/tt&gt;
 
     Szalai Robert (szalai at ktk dot bme dot hu), the
     author of the "pbmtozjs" driver posted the following on the HP forum
