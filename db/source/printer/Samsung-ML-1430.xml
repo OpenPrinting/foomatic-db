@@ -27,34 +27,21 @@
   <comments>
     <en>
 
-    Currently Samsung supports this printer with proprietary drivers which
-    come with the printer on its driver CD or can be downloaded on the web
-    sites of Samsung. Unfortunately, these drivers do not work necessarily
-    with all Linux distributions.&lt;p&gt;
+    One of Samsung's line of host-based lasers.  They generally work
+    well and cost little.
 
-    As nearly all of Samsung's low-cost lasers use the same
-    proprietary printer language (during the time it eas called
-    SmartGDI, PrinThru, and SPL) on can also use a free GhostScript
-    driver which Samsung published some time ago for the
-    ML-4500.&lt;p&gt;
+    Samsung sort of supports Linux use, with installable Linux/x86
+    cups drivers often in the box, a penguin often on the box, etc.
 
-    They provided a Ghostscript RPM and an installer that adjusts Red
-    Hat&apos;s printtool or printconf-gui. There was also a PPD for
-    distros using CUPS (as Mandrake 7.2 or newer) and a possibility to
-    integrate the driver in SuSE&apos;s APS filters. For users of
-    other distributions/printing systems (especially the current
-    CUPS/Foomatic environments) appropriate Foomatic information is
-    provided here in the "gdi" driver entry.&lt;p&gt;
+    Note that there is a minor USB timing issue.  Specifically, when
+    you turn on the printer, it whirs (I guess booting and heating up)
+    for some 15-45 seconds.  For the first 15, the device is present
+    and detectable on the USB bus, but will not completely initialize
+    in the kernel because it won't accept an address.
 
-    Stupidly, Samsung has named the driver &quot;gdi&quot;. This name
-    is confusing, because the driver supports only Samsungs GDI
-    printers. SuSE has called it "samsunggdi", in ESP GhostScript both
-    names can be used.&lt;p&gt;
-
-    The driver was removed from Samsung&apos;s website but a copy with
-    some improvements is available &lt;a
-    href=&quot;/download/printing/samsung-gdi/&quot;&gt;here&lt;/a&gt;. Also
-    ESP GhostScript contains this driver.&lt;p&gt;
+    The USB hub code tries exactly twice - once with a fast timeout
+    and once for slow devices with a slightly longer timeout.  There
+    is a patch in the archives if this is still a problem.
 
     </en>
   </comments>
