@@ -1,10 +1,5 @@
 See also the bugtracker at foomatic.sourceforge.net.
 
- - Extend foomatic-ppdload to handle more things.  Extend the backends
-   and schema to accomodate doing all the other things from PPD files.
-
- - Write foomatic-ipp
-
  - Possibility for users to have their personal default options
    (.lpoptions file as in CUPS, due to the Foomatic options having the same
    names as the CUPS-O-MATIC options one can even use an .lpoptions file
@@ -13,31 +8,16 @@ See also the bugtracker at foomatic.sourceforge.net.
 
  - Write a few key lint-like and transforming tools for the xml data.
 
- - Reimplement the backends.  The plan is to have one base type
-   "PHTDB::Backend", with a variety of derived types like
-   "PHTDB::Backend::CUPS".  Each derived backend just fills in some
-   methods like "how do I get the user's provided options", and turns
-   a few steps on or off, and the main code handles the bulk of the
-   work.
-
- - Fold foomatic-gswrapper into the ::Backends?
+ - Fold foomatic-gswrapper into the foomatic-rip
 
  - Improve ascii support to lpdomatic and pdq files.  ASCII should
    simply be a matter of observing the ascii bit in the printer $dat
    and sending either crlf-ed text or postscriptifying and running
-   through the ps driver.  Right now it's right in PDQ but dumb in
-   lpdomatic, where it always runs enscript.
-
- - If a `%A' commandline placeholder occurs more than once, put
-   everything that goes in it in each place.  This will provide a
-   mechanism for using filters that need to also have derived options
-   passed into Ghostscript.  Ie:
-
-   gs ....  `pnmtofoobar --calc-gsopts %A` | pnmtofoobar %A
-
-   The idea being that whatever pnmtofoobar needs for the options in
-   %A can be told to Ghostscript using the derived options calculated
-   by pnmtofoobar itself.
+   through the ps driver.  Right now text is always translated to
+   PostScript (with the advantage of more nicely-looking text
+   output (with head line, page numbers, ...). When one implements
+   the possibility to pass text directly to the printer, one should
+   consider the optional use or the "pr" filter.
 
  - PDQ file versioning is still unsatisfactory.  I changed from a
    checksum to the current timestamp.  So now it's sequential, but
