@@ -1,0 +1,49 @@
+<driver id="driver/alc4000">
+ <name>alc4000</name>
+ <url>http://www.epkowa.co.jp/english/linux_e/lpd_e.html</url>
+ <execution>
+  <ghostscript />
+  <prototype>gs -q -dBATCH -dSAFER -dNOPAUSE -sDEVICE=alc4000%A%Z -sOutputFile=- -</prototype>
+ </execution>
+ <comments>
+  <en>
+
+    The Epson color laser printers understand PCL 5e or PCL 6 but
+    print only in grayscale with these languages. PostScript is an
+    option which costs around 250 US$. This driver provided by Epson
+    allows colour printing on the non-PostScript models and gives some
+    additional options to the supported printers.&lt;p&gt;
+
+    There is a version 1.0.4 of Epson&apos;s laser printer
+    drivers. This version has no &quot;alc4000&quot; device. You have
+    to use at least version 3.0.2, which you automatically get when
+    you choose the AcuLaser C4000 as your printer model on
+    Epson&apos;s driver download page. This driver version is prepared
+    for both GhostScript 5.x and 6.x. For GhostScript 7.x or newer a
+    small fix is needed: Execute the following command line in the
+    main directory of the unpacked driver source package:&lt;p&gt;
+
+    &lt;tt&gt;perl -p -i -e
+    &quot;s/GS_VERSION_MAJOR\s*==\s*6/GS_VERSION_MAJOR &amp;gt;=
+    6/&quot; gdevescv.c gdevesmv.c&lt;/tt&gt;&lt;p&gt;
+
+    Then the driver also compiles with these versions of
+    GhostScript.&lt;p&gt;
+
+    On the home page of this driver is told that it only supports
+    grayscale but I have tested it and it prints in
+    colour. Unfortunately, the driver needs a lot of resources and so
+    for high-resolution photos 512 MB RAM and a fast processor are
+    recommended (or alternatively the PostScript module).&lt;p&gt;
+
+  </en>
+ </comments>
+ <printers>
+  <printer>
+   <id>printer/Epson-AcuLaser_C4000</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-AcuLaser_C4000PS</id>
+  </printer>
+ </printers>
+</driver>

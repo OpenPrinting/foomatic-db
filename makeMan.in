@@ -1,0 +1,49 @@
+#!@PERL@ -w
+#
+# Generates manpages from manpage.in files by substituting @...@ tags.
+#
+
+use lib 'lib/Foomatic/';
+use Defaults;
+use Getopt::Std;
+
+my (%opt,@files);
+getopts( 'v', \%opt);
+my $VERBOSE = defined $opt{v} ? $opt{v} : 0;
+
+if (@ARGV)
+{
+  @files = @ARGV;
+}
+else
+{
+  opendir CWD, "." or die "Ooops! Can't read current dir!";
+  @files = readdir CWD;
+  closedir CWD;
+}
+
+my %sysdeps = %$Foomatic::Defaults::sysdeps;
+my $append;
+FILE:
+foreach my $file (@files)
+{
+	print STDERR "Checking file `$file' ... " if $VERBOSE;
+	$append = "discard\n";
+	next unless -f $file and $file =~ /^(.*\.[1-9])\.in$/;
+	my ($man) = $1;
+	next unless `file $file` =~ m/\b[ntg]roff\b/;
+	print STDERR "MATCHED\n" if $VERBOSE;
+	$append = '';
+	open IN, "<$file" or (warn "Can't read input file $file!" and next FILE);
+	open OUT, ">$man" or (warn "Can't write output file $man!" and next FILE);
+	while (<IN>)
+	{
+		s/@([^@]*)@/eval $1/ge;
+		print OUT;
+	}
+	close IN;
+}
+continue
+{
+	print STDERR $append if $VERBOSE;
+}

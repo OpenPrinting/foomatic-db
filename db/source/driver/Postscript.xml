@@ -1,0 +1,527 @@
+<driver id="driver/Postscript">
+ <name>Postscript</name>
+ <url>http://www.adobe.com/products/printerdrivers/winppd.html</url>
+ <execution>
+  <postscript />
+  <prototype>level=%D; echo -en &quot;%!\n%C&quot;; if (( $level &gt; 0 )); then if (( $level &lt; 99 )); then level=&quot; -dLanguageLevel=$level&quot;; else level=&quot;&quot;; fi; gs -q -dSAFER -dNOPAUSE -dBATCH -sDEVICE=pswrite$level%A%Z -sOutputFile=- -; else cat; fi</prototype>
+ </execution>
+ <comments>
+  <en>
+    Generic Postscript driver. Generally, for Postscript printers, you
+    will not need a driver, or you will use a PPD file. This site's
+    automagic configuration system adds little, it provides some
+    standard options, so that one can use it for printing systems
+    which do not support PPD files.&lt;p&gt;
+
+    In addition, this driver allows to convert the PostScript data
+    from the application to a lower PostScript level, so that
+    applications which only produce level 2 or 3 can print on old
+    printers using only level 1. If the GhostScript on your machine
+    has fonts installed which are not standard PostScript fonts, the
+    fonts will get embedded in the data sent to the printer, so that
+    the printer is able to print these fonts. This needs extra memory
+    in the printer, if your printer does not print the job, the memory
+    is unsufficient, try to lower the resolution or to use a PCL
+    driver (ljet4, lj5gray/lj5mono, pxlmono).&lt;p&gt;
+
+    One can make use of all functionality which the PostScript
+    printers have under Windows/MacOS when one uses the PPD file
+    coming with the printer, downloaded from &lt;a
+    href=&quot;/download/PPD/&quot;&gt;here on
+    linuxprinting.org&lt;/a&gt;, from the manufacturer&apos;s home
+    page (&lt;a
+    href="http://hp.sourceforge.net/"&gt;http://hp.sourceforge.net/&lt;/a&gt;
+    for all HP PostScript printers), or from &lt;a
+    href="http://www.adobe.com/products/printerdrivers/winppd.html"&gt;Adobe&apos;s&lt;/a&gt;
+    web site (do &quot;&lt;tt&gt;unzip -L
+    [filename].EXE&lt;/tt&gt;&quot; to get the PPD files). CUPS and
+    PPR support PPD files directly, LPD/GNUlpr/LPRng users can set up
+    a raw queue and print with &lt;a
+    href=&quot;http://sourceforge.net/projects/lpr&quot;&gt;GPR/ppdfilt&lt;/a&gt;
+    into it. So all PostScript printers work perfectly under Linux or
+    other free operating systems. GhostScript and/or
+    &lt;tt&gt;cupsomatic&lt;/tt&gt;/&lt;tt&gt;ppromatic&lt;/tt&gt;/&lt;tt&gt;lpdomatic&lt;/tt&gt;
+    is not needed for them. See our &lt;a
+    href=&quot;ppd-doc.html&quot;&gt;PPD documentation page&lt;/a&gt;
+    for instructions and also &lt;a
+    href=&quot;http://www.mandrakeuser.org/hardware/hcups2.html#instpostscript&quot;&gt;instructions&lt;/a&gt;
+    for Mandrake Linux 7.2 or newer (should work also on other systems
+    with CUPS installed).&lt;p&gt;
+
+    See the tutorial chapter &quot;&lt;a
+    href=&quot;http://www.linuxprinting.org/kpfeifle/LinuxKongress2002/Tutorial/III.PostScript-and-PPDs/III.PostScript-and-PPDs.html&quot;&gt;Some
+    Theoretical Background: CUPS, PPDs, PostScript, and
+    GhostScript&lt;/a&gt;&quot; (&lt;a
+    href=&quot;http://www.linuxprinting.org/kpfeifle/LinuxKongress2002/Tutorial/III.PostScript-and-PPDs/III.PostScript-and-PPDs.pdf&quot;&gt;PDF&lt;/a&gt;)
+    for detailed information about PostScript and PPD files.&lt;p&gt;
+
+  </en>
+ </comments>
+ <printers>
+  <printer>
+   <id>printer/225673</id><!-- Apple 12/640ps -->
+  </printer>
+  <printer>
+   <id>printer/Apple-LaserWriter_4_600</id>
+  </printer>
+  <printer>
+   <id>printer/160969</id><!-- Apple LaserWriter 16/600 -->
+  </printer>
+  <printer>
+   <id>printer/169641</id><!-- Apple LaserWriter IINTX -->
+  </printer>
+  <printer>
+   <id>printer/178336</id><!-- Apple LaserWriter IIg -->
+  </printer>
+  <printer>
+   <id>printer/44128</id><!-- Apple LaserWriter NT -->
+  </printer>
+  <printer>
+   <id>printer/582898</id><!-- Apple LaserWriter Pro 630 -->
+   <comments>
+    <en>You need to set the "mode switch" on the printer to a Postscript (as opposed to an HP-PCL) mode.  Mode 0 works fine.</en>
+   </comments>
+  </printer>
+  <printer>
+   <id>printer/94016</id><!-- Apple LaserWriter Select 360 -->
+   <comments>
+    <en>Configured for 600x600 Postscript with printtool.  Printing with printer set to "Postscript/Normal" on the parallel port.  Note that printer can also handle PCL.</en>
+   </comments>
+  </printer>
+  <printer>
+   <id>printer/99840</id><!-- Brother HL-1070 -->
+  </printer>
+  <printer>
+   <id>printer/78336</id><!-- Brother HL-1260 -->
+  </printer>
+  <printer>
+   <id>printer/165408</id><!-- Brother HL-1270N -->
+  </printer>
+  <printer>
+   <id>printer/Brother-HL-1450</id>
+  </printer>
+  <printer>
+   <id>printer/Brother-HL-1470N</id>
+  </printer>
+  <printer>
+   <id>printer/613522</id><!-- Brother HL-1650 -->
+  </printer>
+  <printer>
+   <id>printer/165536</id><!-- Brother HL-1660e -->
+  </printer>
+  <printer>
+   <id>printer/613618</id><!-- Brother HL-1670N -->
+  </printer>
+  <printer>
+   <id>printer/121952</id><!-- Brother HL-2060 -->
+  </printer>
+  <printer>
+   <id>printer/Brother-HL-2460</id>
+  </printer>
+  <printer>
+   <id>printer/Brother-HL-2460N</id>
+  </printer>
+  <printer>
+   <id>printer/Brother-HL-2400CeN</id>
+  </printer>
+  <printer>
+   <id>printer/Brother-HL-3400CN</id>
+  </printer>
+  <printer>
+   <id>printer/63008</id><!-- Canon GP 335 -->
+   <comments>
+    <en>Native PS3 interpreter.</en>
+   </comments>
+  </printer>
+  <printer>
+   <id>printer/280649</id><!-- Canon GP 405 -->
+   <comments>
+    <en>Native Postscript device</en>
+   </comments>
+  </printer>
+  <printer>
+   <id>printer/78816</id><!-- DEC LN07 -->
+  </printer>
+  <printer>
+   <id>printer/Epson-EPL-5800PS</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-EPL-5900PS</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-EPL-N1600PS</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-EPL-N2050PS</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-EPL-N2050PSplus</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-EPL-N2750PS</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-AcuLaser_C2000PS</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-AcuLaser_C4000PS</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-AcuLaser_C8500PS</id>
+  </printer>
+  <printer>
+   <id>printer/HP-2500CM</id>
+  </printer>
+  <printer>
+   <id>printer/517906</id><!-- HP Business Inkjet 2250 -->
+  </printer>
+  <printer>
+   <id>printer/517970</id><!-- HP Business Inkjet 2250TN -->
+  </printer>
+  <printer>
+   <id>printer/HP-Business_Inkjet_2280</id>
+  </printer>
+  <printer>
+   <id>printer/HP-Business_Inkjet_2600</id>
+  </printer>
+  <printer>
+   <id>printer/HP-Business_Inkjet_3000</id>
+  </printer>
+  <printer>
+   <id>printer/69824</id><!-- HP Color LaserJet 4500 -->
+  </printer>
+  <printer>
+   <id>printer/365737</id><!-- HP Color LaserJet 8550GN -->
+  </printer>
+  <printer>
+   <id>printer/134880</id><!-- HP DesignJet 3500CP -->
+  </printer>
+  <printer>
+   <id>printer/HP-DesignJet_5500ps</id>
+  </printer>
+  <printer>
+   <id>printer/61152</id><!-- HP DeskJet 1600CM -->
+  </printer>
+  <printer>
+   <id>printer/78688</id><!-- HP LaserJet 2 w/PS -->
+  </printer>
+  <printer>
+   <id>printer/86176</id><!-- HP LaserJet 3P w/PS -->
+  </printer>
+  <printer>
+   <id>printer/69088</id><!-- HP LaserJet 4ML -->
+  </printer>
+  <printer>
+   <id>printer/69120</id><!-- HP LaserJet 4M -->
+  </printer>
+  <printer>
+   <id>printer/91232</id><!-- HP LaserJet 5M -->
+  </printer>
+  <printer>
+   <id>printer/64864</id><!-- HP LaserJet 5MP -->
+  </printer>
+  <printer>
+   <id>printer/67296</id><!-- HP LaserJet 6MP -->
+  </printer>
+  <printer>
+   <id>printer/64064</id><!-- HP LaserJet 2100M -->
+  </printer>
+  <printer>
+   <id>printer/100576</id><!-- HP LaserJet 4000 -->
+   <comments>
+    <en>Using CUPS and the PS PPD from HP's printer driver site gives excellent results with this printer. This also gives you a lot more configuration options such as duplexing. 1200x1200dpi also seems to function with this PPD</en>
+   </comments>
+  </printer>
+  <printer>
+   <id>printer/62304</id><!-- HP LaserJet 4050 -->
+   <comments>
+    <en>to 1200dpi</en>
+   </comments>
+  </printer>
+  <printer>
+   <id>printer/67136</id><!-- HP LaserJet 5000 -->
+  </printer>
+  <printer>
+   <id>printer/67168</id><!-- HP LaserJet 8000 -->
+  </printer>
+  <printer>
+   <id>printer/67200</id><!-- HP LaserJet 8100 -->
+   <comments>
+    <en>[also uses PostScript Level 2 (same as model 8000). With PS you only get 600dpi. Info supplied by Kurt Pfeifle]</en>
+   </comments>
+  </printer>
+  <printer>
+   <id>printer/287561</id><!-- HP Mopier 240 -->
+  </printer>
+  <printer>
+   <id>printer/67232</id><!-- HP Mopier 320 -->
+  </printer>
+  <printer>
+   <id>printer/HP-LaserJet_1200</id>
+  </printer>
+  <printer>
+   <id>printer/HP-LaserJet_1220</id>
+  </printer>
+  <printer>
+   <id>printer/HP-LaserJet_2200</id>
+  </printer>
+  <printer>
+   <id>printer/HP-LaserJet_3200m</id>
+  </printer>
+  <printer>
+   <id>printer/HP-LaserJet_3300_MFP</id>
+  </printer>
+  <printer>
+   <id>printer/HP-LaserJet_3310_MFP</id>
+  </printer>
+  <printer>
+   <id>printer/HP-LaserJet_3320_MFP</id>
+  </printer>
+  <printer>
+   <id>printer/HP-LaserJet_3320N_MFP</id>
+  </printer>
+  <printer>
+   <id>printer/HP-LaserJet_3330_MFP</id>
+  </printer>
+  <printer>
+   <id>printer/HP-LaserJet_4100</id>
+  </printer>
+  <printer>
+   <id>printer/HP-Color_LaserJet_2500</id>
+  </printer>
+  <printer>
+   <id>printer/HP-Color_LaserJet_4550</id>
+  </printer>
+  <printer>
+   <id>printer/HP-Color_LaserJet_4600</id>
+  </printer>
+  <printer>
+   <id>printer/HP-Color_LaserJet_5500</id>
+  </printer>
+  <printer>
+   <id>printer/HP-LaserJet_5100</id>
+  </printer>
+  <printer>
+   <id>printer/HP-LaserJet_8150</id>
+  </printer>
+  <printer>
+   <id>printer/HP-LaserJet_9000</id>
+  </printer>
+  <printer>
+   <id>printer/287273</id><!-- Heidelberg Digimaster 9110 -->
+  </printer>
+  <printer>
+   <id>printer/287401</id><!-- Hitachi DDP 70 (with MicroPress) -->
+  </printer>
+  <printer>
+   <id>printer/74688</id><!-- IBM 4029 10P -->
+  </printer>
+  <printer>
+   <id>printer/114016</id><!-- IBM 4303 Network Color Printer -->
+  </printer>
+  <printer>
+   <id>printer/191689</id><!-- IBM Page Printer 3112 -->
+  </printer>
+  <printer>
+   <id>printer/287689</id><!-- Kodak DigiSource 9110 -->
+  </printer>
+  <printer>
+   <id>printer/287657</id><!-- Kodak IS 70 CPII -->
+  </printer>
+  <printer>
+   <id>printer/93120</id><!-- Kyocera FS-600 (KPDL-2) -->
+  </printer>
+  <printer>
+   <id>printer/77472</id><!-- Kyocera FS-800 -->
+  </printer>
+  <printer>
+   <id>printer/269289</id><!-- Kyocera FS-1200 -->
+  </printer>
+  <printer>
+   <id>printer/68736</id><!-- Kyocera FS-1700+ -->
+  </printer>
+  <printer>
+   <id>printer/181792</id><!-- Kyocera FS-1750 -->
+  </printer>
+  <printer>
+   <id>printer/91840</id><!-- Kyocera FS-5900C -->
+  </printer>
+  <printer>
+   <id>printer/Kyocera-FS-1010</id>
+  </printer>
+  <printer>
+   <id>printer/Kyocera-FS-1800</id>
+  </printer>
+  <printer>
+   <id>printer/Kyocera-FS-1900</id>
+  </printer>
+  <printer>
+   <id>printer/Kyocera-FS-3800</id>
+  </printer>
+  <printer>
+   <id>printer/Kyocera-FS-9100DN</id>
+  </printer>
+  <printer>
+   <id>printer/Kyocera-FS-9500DN</id>
+  </printer>
+  <printer>
+   <id>printer/70144</id><!-- Lexmark 4039 10plus -->
+  </printer>
+  <printer>
+   <id>printer/60800</id><!-- Lexmark Optra Color 40 -->
+  </printer>
+  <printer>
+   <id>printer/60832</id><!-- Lexmark Optra Color 45 -->
+  </printer>
+  <printer>
+   <id>printer/60896</id><!-- Lexmark Optra Color 1200 -->
+  </printer>
+  <printer>
+   <id>printer/60864</id><!-- Lexmark Optra Color 1275 -->
+  </printer>
+  <printer>
+   <id>printer/72736</id><!-- Lexmark Optra E310 -->
+  </printer>
+  <printer>
+   <id>printer/321929</id><!-- Lexmark Optra E312 -->
+  </printer>
+  <printer>
+   <id>printer/59616</id><!-- Lexmark Optra Ep -->
+  </printer>
+  <printer>
+   <id>printer/72544</id><!-- Lexmark Optra K 1220 -->
+  </printer>
+  <printer>
+   <id>printer/378729</id><!-- Lexmark Optra M410 -->
+  </printer>
+  <printer>
+   <id>printer/378665</id><!-- Lexmark Optra M412 -->
+  </printer>
+  <printer>
+   <id>printer/74144</id><!-- Lexmark Optra R+ -->
+  </printer>
+  <printer>
+   <id>printer/59648</id><!-- Lexmark Optra S 1250 -->
+  </printer>
+  <printer>
+   <id>printer/69568</id><!-- Lexmark Optra S 1855 -->
+  </printer>
+  <printer>
+   <id>printer/86784</id><!-- Lexmark Optra Se 3455 -->
+  </printer>
+  <printer>
+   <id>printer/315753</id><!-- Lexmark Optra T610 -->
+  </printer>
+  <printer>
+   <id>printer/378825</id><!-- Lexmark Optra T612 -->
+  </printer>
+  <printer>
+   <id>printer/378889</id><!-- Lexmark Optra T614 -->
+  </printer>
+  <printer>
+   <id>printer/378953</id><!-- Lexmark Optra T616 -->
+  </printer>
+  <printer>
+   <id>printer/181984</id><!-- Lexmark Optra W810 -->
+  </printer>
+  <printer>
+   <id>printer/Lexmark-Optra_C710</id>
+  </printer>
+  <printer>
+   <id>printer/135529</id><!-- NEC SilentWriter LC 890 -->
+  </printer>
+  <printer>
+   <id>printer/56608</id><!-- NEC Silentwriter 95f -->
+  </printer>
+  <printer>
+   <id>printer/245033</id><!-- NEC Silentwriter2 S60P -->
+  </printer>
+  <printer>
+   <id>printer/78720</id><!-- NEC Silentwriter2 model 290 -->
+  </printer>
+  <printer>
+   <id>printer/531058</id><!-- NEC SuperScript 4600N -->
+  </printer>
+  <printer>
+   <id>printer/76352</id><!-- Oce 3165 -->
+  </printer>
+  <printer>
+   <id>printer/62944</id><!-- Okidata OL 610e/PS -->
+  </printer>
+  <printer>
+   <id>printer/66176</id><!-- Okidata OL 810e/PS -->
+  </printer>
+  <printer>
+   <id>printer/125024</id><!-- Okidata OL830Plus -->
+  </printer>
+  <printer>
+   <id>printer/64704</id><!-- Okidata Okipage 8c -->
+  </printer>
+  <printer>
+   <id>printer/85344</id><!-- Okidata Okipage 12i -->
+  </printer>
+  <printer>
+   <id>printer/86208</id><!-- Okidata Okipage 20DXn -->
+  </printer>
+  <printer>
+   <id>printer/65216</id><!-- Panasonic KX-P5400 -->
+  </printer>
+  <printer>
+   <id>printer/65408</id><!-- Panasonic KX-P8420 -->
+  </printer>
+  <printer>
+   <id>printer/65344</id><!-- Panasonic KX-P8475 -->
+  </printer>
+  <printer>
+   <id>printer/67744</id><!-- QMS 2425 Turbo EX -->
+  </printer>
+  <printer>
+   <id>printer/310313</id><!-- QMS magicolor 2+ -->
+  </printer>
+  <printer>
+   <id>printer/151625</id><!-- QMS ps-810 -->
+  </printer>
+  <printer>
+   <id>printer/29472</id><!-- Ricoh Aficio AP2000 -->
+  </printer>
+  <printer>
+   <id>printer/194345</id><!-- Ricoh Aficio Color 2206 -->
+  </printer>
+  <printer>
+   <id>printer/550610</id><!-- Tektronix Phaser 350 -->
+   <comments>
+    <en>Use PPD from Windows or MacOS.</en>
+   </comments>
+  </printer>
+  <printer>
+   <id>printer/202441</id><!-- Tektronix Phaser 780 -->
+  </printer>
+  <printer>
+   <id>printer/157312</id><!-- Tektronix Phaser 850 -->
+  </printer>
+  <printer>
+   <id>printer/130336</id><!-- Tektronix Phaser IISX -->
+  </printer>
+  <printer>
+   <id>printer/130080</id><!-- Tektronix Phaser PX -->
+  </printer>
+  <printer>
+   <id>printer/125408</id><!-- Xerox DocuPrint C20 -->
+   <comments>
+    <en>Lexmark Postscript</en>
+   </comments>
+  </printer>
+  <printer>
+   <id>printer/64320</id><!-- Xerox DocuPrint C55 -->
+  </printer>
+  <printer>
+   <id>printer/62624</id><!-- Xerox DocuPrint N17 -->
+  </printer>
+  <printer>
+   <id>printer/64288</id><!-- Xerox DocuPrint N32 -->
+  </printer>
+  <printer>
+   <id>printer/Xerox-DocuPrint_N4512_PS</id>
+  </printer>
+ </printers>
+</driver>

@@ -1,0 +1,41 @@
+<option type="enum" id="opt/PageSize-A4only">
+  <!-- This option is fake, it has only one choice: A4, it serves for
+       drivers which are hard-coded to A4 paper size to satisfy the
+       demand of CUPS having always a PageSize option. Some frontends
+       (as printerdrake) will not show it because it has only one choice -->
+  <!-- A multilingual <comments> block can appear here, too;
+       it should be treated as documentation for the user. -->
+  <arg_longname>
+   <en>Page Size</en>
+  </arg_longname>
+  <arg_shortname>
+   <en>PageSize</en><!-- backends only know <en> shortnames! -->
+  </arg_shortname>
+  <arg_execution>
+   <arg_order>100</arg_order>
+   <arg_spot>Z</arg_spot>
+   <arg_postscript />
+   <arg_proto>&lt;&lt;/PageSize[%s]/ImagingBBox null&gt;&gt;setpagedevice</arg_proto>
+  </arg_execution>
+  <constraints>
+     <constraint sense="false">
+      <driver>drv_z42</driver>
+      <arg_defval>ev/PageSize-A4only-A4</arg_defval>
+     </constraint>
+  </constraints>
+  <enum_vals>
+   <enum_val id="ev/PageSize-A4only-A4">
+    <ev_longname>
+     <en>A4</en>
+    </ev_longname>
+    <!-- A multilingual <comments> block can appear here, too;
+         it should be treated as documentation for the user. -->
+    <ev_shortname>
+     <en>A4</en>
+     <!-- Until someone tells me how to learn the user locale in 
+          backends, the shortname must be monolingual in <en>! -->
+    </ev_shortname>
+    <ev_driverval>595 842</ev_driverval>
+   </enum_val>
+  </enum_vals>
+</option>

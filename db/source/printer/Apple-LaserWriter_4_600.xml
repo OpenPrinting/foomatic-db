@@ -1,0 +1,86 @@
+<printer id="printer/Apple-LaserWriter_4_600">
+  <make>Apple</make>
+  <model>LaserWriter 4/600</model>
+  <mechanism>
+    <laser/><!--not "color"-->
+    <resolution>
+      <dpi>
+        <x>600</x>
+        <y>600</y>
+      </dpi>
+    </resolution>
+    <consumables>
+      <comments>
+        <en>toner cartridge, standard for engine</en>
+      </comments>
+    <!--one or more "partno" elements.--></consumables>
+  </mechanism><!--no "url"-->
+  <lang>
+    <postscript level="2">
+    <!--unknown ppd filename "ppd"--></postscript><!--no pjl-->
+    <text>
+      <charset>us-ascii</charset>
+    </text>
+  </lang>
+  <autodetect>
+  <!--no known parport probe information--></autodetect>
+  <functionality>A</functionality>
+  <driver>Postscript</driver>
+  <unverified/>
+  <!--no "contrib_url"-->
+  <comments>
+    <en>
+       Bart De Gruyter (bdg at link42 dot net) posted on the Apple forum:
+       &lt;p&gt;
+       &lt;pre&gt;
+
+Hi there,
+
+Just to let you know that the linuxprinting.org database can be
+updated. I am using the apple laserwriter 4/600 ps and it works
+perfectly!
+
+How?
+The laserwriter 4/600 ps has a localtalk connector and I print to
+it from a suse 7.2 installation on a plain pc. Between the pc and
+the printer there is an AsanteTalk box which bridges plain ethernet
+and etherTalk (over localtalk).
+
+pc eth0 ------ AsanteTalk ------ laserwriter 4/600 PS
+
+On the linux pc I&apos;ve made an entry under /var/spool called 
+laserwriter4600ps under /var/spool/laserwriter4600ps:
+
+- I&apos;ve created a file called .paprc containing: (without the ---)
+
+---
+BDG&apos;s LaserWriter 4/600 PS:LaserWriter
+---
+
+my /etc/printcap file contains:
+###
+lp|Link42 LaserWriter|BDG&apos;s LaserWriter 4/600 PS:\
+        :sd=/usr/spool/laserwriter4600ps:\
+        :lp=/dev/null:\
+        :pl#63:pw#85:\
+        :mx#0:\
+        :sh:sf:\
+        :lf=/var/log/lpd-errs:\
+        :if=/etc/atalk/filters/ifpaprev:\
+        :of=/etc/atalk/filters/ofpap:\
+        :tf=/etc/atalk/filters/tfpaprev:
+###
+
+You need the following rpm&apos;s (or newer versions) to get it
+working, it might also work with earlier versions, file
+locations may be different between versions...
+
+netatalk-1.4.99-40
+
+Bart De Gruyter
+www.link42.net
+
+       &lt;/pre&gt;
+    </en>
+  </comments>
+</printer>

@@ -1,0 +1,25 @@
+<driver id="driver/ljet3d">
+ <name>ljet3d</name>
+ <url>http://www.cs.wisc.edu/~ghost/doc/printer.htm</url>
+ <execution>
+  <ghostscript />
+  <prototype>gs -q -dBATCH -dSAFER -dQUIET -dNOPAUSE -sDEVICE=ljet3d%A%Z -sOutputFile=- - | perl -e &quot;while (\$line = &lt;&gt;) { \$match |= ( \$line =~ s/\x1b&amp;l\d+A/\$&amp;%E/ ); print \$line }&quot;</prototype>
+ </execution>
+ <comments>
+  <en>
+    This driver is the same as &quot;ljet3&quot; but with duplex
+    printing support.
+  </en>
+ </comments>
+ <printers>
+  <printer>
+   <id>printer/23168</id><!-- HP LaserJet 3D -->
+  </printer>
+  <printer>
+   <id>printer/86176</id><!-- HP LaserJet 3P w/PS -->
+   <comments>
+    <en>Same as ljet3 but activates duplex mode. (Cannot be activated by PS code because Ghostscript ignores this?)</en>
+   </comments>
+  </printer>
+ </printers>
+</driver>

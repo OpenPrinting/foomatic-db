@@ -1,0 +1,89 @@
+<driver id="driver/lxm3200-tweaked">
+ <name>lxm3200</name>
+ <url>http://www.distantvoices.org/</url>
+ <execution>
+  <ghostscript />
+  <prototype>gs -q -dBATCH -dSAFER -dQUIET -dNOPAUSE -sDEVICE=lxm3200%A%Z -sOutputFile=- -</prototype>
+ </execution>
+ <comments>
+  <en>
+
+    Tweaked version of Daniel Gordini's &quot;lxm3200&quot; driver for
+    the Lexmark 3200. Boer Attila (boera at unitbv dot ro) and Tomas
+    Groth (tomasgroth at hotmail dot com) discovered that this driver
+    works also on the Z12 and the Z31 when one does some small
+    tweaking on it. So they have made a modified version of the
+    original driver, with an additional
+    &quot;&lt;tt&gt;-dmodel=&lt;/tt&gt;&lt;i&gt;n&lt;/i&gt;&quot;
+    (Lexmark 3200: &lt;i&gt;n&lt;/i&gt;&lt;tt&gt; = 0&lt;/tt&gt;, Z12:
+    &lt;i&gt;n&lt;/i&gt;&lt;tt&gt; = 1&lt;/tt&gt;, Z31:
+    &lt;i&gt;n&lt;/i&gt;&lt;tt&gt; = 2&lt;/tt&gt;) option to fit the
+    driver to the appropriate model.&lt;p&gt;
+
+    Notes:&lt;p&gt;
+
+    The 1200 dpi will come out somewhat dark, correct this by the
+    gamma correction of CUPS, or use the 600dpi resolution (native
+    resolution of the printer).&lt;p&gt;
+
+    The Compaq IJ750 is a rebadged Lexmark 3200, so use it with
+    &quot;&lt;tt&gt;-dmodel=0&lt;/tt&gt;&quot;.&lt;p&gt;
+
+    The Z22 and Z32 have protocols similar to the Lexmark 3200 and
+    work partially with this driver
+    (&quot;&lt;tt&gt;-dmodel=0&lt;/tt&gt;&quot;). Note that you have
+    to turn off and on the Z22/Z32 after the job has finished. For
+    black text printing this driver is usable on the Z22/Z32. But note
+    that these printers are not officially supported by this
+    driver. Use Lexmark&apos;s drivers for the Z22/Z32.&lt;p&gt;
+
+    This driver is also in the CVS of ESP GhostScript
+    (&quot;lxm3200&quot; device). When one does not use the
+    &quot;&lt;tt&gt;-dmodel=&lt;/tt&gt;&lt;i&gt;n&lt;/i&gt;&quot;
+    option, the driver behaves as the original &quot;lxm3200&quot;
+    driver.&lt;p&gt;
+
+  </en>
+ </comments>
+ <printers>
+  <printer>
+   <id>printer/132864</id><!-- Compaq IJ750 -->
+  </printer>
+  <printer>
+   <id>printer/70912</id><!-- Lexmark 3200 -->
+  </printer>
+  <printer>
+   <id>printer/327401</id><!-- Lexmark Z22 -->
+   <comments>
+    <en>
+    You have to turn off and on the printer after the job has
+    finished. For black text printing this driver is usable on the
+    Z22/Z32.
+    </en>
+   </comments>
+  </printer>
+  <printer>
+   <id>printer/486066</id><!-- Lexmark Z12 -->
+   <comments>
+    <en>
+    To avoid that the printer makes strange noise, print only in
+    bidirectional mode (&quot;-dbidir=1&quot;). This printer is only
+    tested with the black cartridge.
+    </en>
+   </comments>
+  </printer>
+  <printer>
+   <id>printer/618706</id><!-- Lexmark Z31 -->
+  </printer>
+  <printer>
+   <id>printer/317129</id><!-- Lexmark Z32 -->
+   <comments>
+    <en>
+    You have to turn off and on the printer after the job has
+    finished. For black text printing this driver is usable on the
+    Z22/Z32.
+    </en>
+   </comments>
+  </printer>
+ </printers>
+</driver>

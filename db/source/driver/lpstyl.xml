@@ -1,0 +1,63 @@
+<driver id="driver/lpstyl">
+ <name>lpstyl</name>
+ <url>http://www.linuxprinting.org/download/printing/stylewriter.tar.gz</url>
+ <execution>
+  <filter />
+  <prototype>gs -q -dBATCH -dSAFER -dQUIET -dNOPAUSE -r360x360 %E%F</prototype>
+ </execution>
+ <comments>
+  <en>
+    This driver is a little bit special, the printer is connected by
+    the serial port and the driver asks the printer which model it
+    is. So the connection between driver and printer must be
+    bidirectional. With LPD this is no problem, it issues the command
+    line shown here under &quot;Execution Details&quot; plus a "
+    &amp;gt; DEVICE" where DEVICE is the /dev file for the serial port
+    where the printer is connected to. CUPS passes the output of the
+    driver command line shown here through a backend filter which does
+    not support bidirectional access. Use the "Device" option to send
+    the output directly to the /dev file. Give read/write access to
+    the user "lp" to make this possible. If the desired device is not
+    under the choices, use the "Link stylewriter in dev ..."  option
+    and set a link of your device file to /dev/stylewriter.&lt;p&gt;
+    
+    The original home page of the driver does not exist any more, To
+    make the driver available I (Till) have put version 0.9.9 (which I
+    have downloaded for including in Mandrake Linux a year ago) into
+    the download area of linuxprinting.org.
+  </en>
+ </comments>
+ <printers>
+  <printer>
+   <id>printer/279849</id><!-- Apple Color StyleWriter 1500 -->
+   <comments>
+    <en>Listed as working in lpstyl documentation</en>
+   </comments>
+  </printer>
+  <printer>
+   <id>printer/279785</id><!-- Apple Color StyleWriter 2200 -->
+  </printer>
+  <printer>
+   <id>printer/279913</id><!-- Apple Color StyleWriter 2400 -->
+  </printer>
+  <printer>
+   <id>printer/77824</id><!-- Apple Color StyleWriter 2500 -->
+  </printer>
+  <printer>
+   <id>printer/279721</id><!-- Apple StyleWriter 1200 -->
+   <comments>
+    <en>AKA StyleWriter III
+&lt;br&gt;Listed as working in lpstyl docuemtation.</en>
+   </comments>
+  </printer>
+  <printer>
+   <id>printer/279593</id><!-- Apple StyleWriter I -->
+  </printer>
+  <printer>
+   <id>printer/279657</id><!-- Apple StyleWriter II -->
+   <comments>
+    <en>Listed as supported in lpstyl documentation.</en>
+   </comments>
+  </printer>
+ </printers>
+</driver>

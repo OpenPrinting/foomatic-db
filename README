@@ -1,0 +1,1100 @@
+
+Foomatic Database
+=================
+
+foomatic-db
+-----------
+
+The collected knowledge about printers, drivers, and driver options in
+XML files, used by foomatic-db-engine to generate PPD files.
+
+
+Grant Taylor <gtaylor@picante.com>
+Till Kamppeter <till.kamppeter@gmx.net>
+
+http://www.linuxprinting.org/
+
+This README contains mainly info for developers. See the file USAGE if
+you want to know how to use Foomatic.
+
+Copying
+-------
+
+This package and also the other Foomatic packages are under the
+GPL. See http://www.gnu.org/.
+
+If you spot a data error or any other bug, send mail describing the bug to
+foomatic-devel@linuxprinting.org
+
+General discussion happens in the foomatic-devel forum/list thing at
+www.linuxprinting.org.
+
+Intro
+-----
+
+This is the development version of Foomatic. See
+
+http://www.linuxprinting.org/contribute.html#programming
+http://www.linuxprinting.org/pipermail/foomatic-devel/2002q3/thread.html
+http://www.linuxprinting.org/kpfeifle/LinuxKongress2002/Tutorial/IV.Foomatic-Developer/IV.tutorial-handout-foomatic-development.html
+
+Your suggestions, bug reports, patches, ... are welcome on
+
+http://www.linuxprinting.org/newsportal/thread.php3?name=linuxprinting.foomatic.devel
+
+Do not use this package in production environments, it can contain
+severe bugs or even be non-functional.
+
+
+Programs and important files from this package
+----------------------------------------------
+
+configure.ac
+
+  The source from which GNU autoconf generates the "configure" script
+
+acinclude.m4
+
+  Additional macros for the "configure" script
+
+make_configure
+
+  Calls aclocal and autoconf to generate "configure" from "configure.ac" 
+  and "acinclude.m4"
+
+Makefile.in
+
+  The template from which "configure" generates the Makefile
+
+install-sh
+
+  Helper script for "configure"
+
+db/
+
+  The XML database. See below.
+
+
+Dependencies
+------------
+
+This package does not require anything else. It is needed by
+foomatic-db-engine, the database engine of Foomatic.
+
+It is highly recommended to use foomatic-db-engine to handle this
+data.
+
+See the USAGE file for installation details.
+
+
+About the database
+------------------
+
+The database is provided by the "foomatic-db" package, additional database
+entries are in "foomatic-db-hpijs", other "foomatic-db-..." packages or are
+supplied with the drivers. "foomatic-db" is required for using the programs
+provided by this package.
+
+There is a $libdir, somewhere.  Underneath $libdir there are (Install
+"foomatic-db" at first and then this package. Then the $libdir will be
+auto-detected):
+
+ db/                             - the database
+ db/kitload.log                  - list of third-party "kit" files
+ db/source/                      - "source" data, provided by humans, etc
+ db/source/printer/<poid>.xml    - printer-specific data, one per printer id
+ db/source/driver/<driver>.xml   - driver-specific data, one per driver name
+ db/source/opt/<idx>.xml         - option data, one file per option
+
+You can edit the files whenever you want and regenerate the affected
+printer queues with foomatic-configure, there is no on-disk cache (it
+is not needed, the database handling is fast enough), the data is
+always directly derived from the source files. So you changes will be
+taken into account without any special steps.
+
+
+Data
+----
+
+There are three main source datafiles; annotated examples:
+
+source/opt/2.xml
+================
+
+Every option exists independently from printers or drivers, because
+they might apply to arbitrary combinations of printers and/or drivers.
+In practice, some drivers have wholly unique options (gimp-print/stp,
+for example), while others (lots of generic basic Ghostscript drivers,
+for example) share some options.
+
+<option type="enum" id="opt/2">
+
+# Options are of a type "enum", "bool", "int" or "float"
+# options have an ID.  The id is also the filename.
+
+# The shortname is a spaceless short name for the thing.  It must not
+# contain / or : (otherwise it will not be handled correctly in PPD
+# files). It should be one of the standard Adobe PPD option names if
+# apropriate
+
+  <arg_shortname>
+
+# Various things here, and all <comments>, are internationalized.
+# They take the usual posix locale codes in the form xx[_YY], where xx
+# is a two-letter iso language code, and YY is two-letter country code
+# to distinguise differing national dialects.
+#
+# Generally the national dialects won't be very common or necessary
+# here.  The backends currently require that <en> content be provided.
+
+   <en>PageSize</en><!-- backends only know <en> shortnames! -->
+  </arg_shortname>
+
+# The longname is a short phrase describing the thing in more detail
+# GUI tools usually show longnames
+
+  <arg_longname>
+   <en>Page Size</en>
+  </arg_longname>
+
+# The comments are used to form documentation.  In theory these can
+# become man pages or the like.
+
+  <!-- A multilingual <comments> block can appear here, too;
+       it should be treated as documentation for the user. -->
+
+# The execution section describe how the backend should execute this
+# option. The order and spot apply to the *driver*'s prototype for
+# <arg_substitution /> (once called commandline) style options, or
+# just the order applies for <arg_postscript /> and <arg_pjl />
+# options.  The user's value gets put into the arg_proto's %s
+# location.
+
+# For <arg_substitution /> options the <arg_proto> is inserted into
+# the driver's command line, at the spot (e. g. "%A") whose letter is
+# given between the <arg_spot>...</arg_spot> tags, the <arg_proto> of
+# an <arg_postscript /> option is a snippet of PostScript code which
+# is inserted in the beginning of the PostScript data stream of the
+# job, not after the code for the first page begins. The <arg_proto>
+# lines of <arg_pjl> are PJL commands which are sent to the printer
+# before the output of the drivers command line is sent. Because this
+# only works reliably when the driver output does not have its own PJL
+# command header, these options are ignored when the driver's XML file
+# is marked with a <nopjl /> tag in its <execution> section. Drivers
+# which produce their own PJL and therefore marked with <nopjl /> are
+# for example "hpijs" and "hl1250".
+
+  <arg_execution>
+   <arg_order>100</arg_order>
+   <arg_spot>Z</arg_spot>
+   <arg_postscript />
+   <arg_proto>&lt;&lt;/PageSize[%s]/ImagingBBox null&gt;&gt;setpagedevice</arg_proto>
+  </arg_execution>
+
+# The constraints define what printer/driver combinations this option
+# applies to.  The *most specific* constraint rules the day; it's
+# "sense" says whether or not the option is "in".  The winning
+# constraint also provides the default value used when this option
+# applies to that printer and driver.
+
+# Constraint elements are: driver, make, model.  The driver is the
+# driver name, or not present to apply to any driver.  The make is the
+# printer make, or not present to apply to any printer make.  The
+# model is the driver model, or not present to apply to any printer.
+# Instead of make/model, you can also specify <printer>id</printer>.
+
+# IMPORTANT: The make and model must match the one in the printer xml
+# definition, and everywhere else in the other options. One needs to
+# write a utility to change printer names sensibly.
+
+# It is illegal to have a model with no make.
+
+# It is illegal to have none of make/model/driver.
+
+# It is illegal to have *no* constraints, or at least such options are
+# never used.
+
+# For enum options, the defval is the id of the enum_val that is the
+# default.  For other option types, it is the actual default value
+# (ie, a number, or 1 or 0 for boolean, etc).
+
+  <constraints>
+     <constraint sense="true">
+      <driver>sj48</driver>
+      <arg_defval>ev/1</arg_defval>
+     </constraint>
+     <constraint sense="true">
+      <driver>r4081</driver>
+      <arg_defval>ev/1</arg_defval>
+     </constraint>
+# A gajillion constraings deleted
+  </constraints>
+  <enum_vals>
+   <enum_val id="ev/1">
+    <ev_longname>
+     <en>US Letter</en>
+    </ev_longname>
+    <!-- A multilingual <comments> block can appear here, too;
+         it should be treated as documentation for the user. -->
+    <ev_shortname>
+     <en>Letter</en>
+     <!-- Until someone tells me how to learn the user locale in 
+          backends, the shortname must be monolingual in <en>! -->
+    </ev_shortname>
+
+# If present, the driverval is what gets substituted in for the %s in
+# the option's prototype.  This way the user-visible stuff can be
+# anything.
+
+    <ev_driverval>612 792</ev_driverval>
+
+# This enum_val has no constraints.  It *is* OK for enum_vals to
+# have no constraints; they are assumed to apply unless
+# constrained otherwise.
+
+   </enum_val>
+   <enum_val id="ev/115">
+    <ev_longname>
+     <en>A3</en>
+    </ev_longname>
+    <!-- A multilingual <comments> block can appear here, too;
+         it should be treated as documentation for the user. -->
+    <ev_shortname>
+     <en>A3</en>
+     <!-- Until someone tells me how to learn the user locale in 
+          backends, the shortname must be monolingual in <en>! -->
+    </ev_shortname>
+    <ev_driverval>842 1191</ev_driverval>
+
+# Here are some example constraints for an enum_val.  The A3 size
+# paper doesn't fit on lots of printers, so there are various
+# constraints to make the right thing happen.
+
+    <constraints>
+     <constraint sense="true">
+      <driver>ml85p</driver>
+      <arg_defval>na</arg_defval>
+     </constraint>
+     <constraint sense="true">
+      <make>HP</make>
+      <model>DeskJet 1000C</model>
+      <driver>pnm2ppa</driver>
+      <arg_defval>na</arg_defval>
+     </constraint>
+     <constraint sense="false">
+      <make>HP</make>
+      <model>DeskJet 820C</model>
+      <driver>pnm2ppa</driver>
+      <arg_defval>na</arg_defval>
+     </constraint>
+
+     # lots more...
+
+    </constraints>
+   </enum_val>
+  </enum_vals>
+</option>
+
+For numerical (int, float) and bool options there is no <enum_vals>
+section. Instead of this section numerical options have tags to
+specify minimum and maximum value:
+
+  <arg_max>10.0</arg_max>
+  <arg_min>0.0</arg_min>
+
+For the %s in the <arg_proto> a number, either the user's choice when
+he has specified this option or the default value is inserted. Only
+numbers between the minimum and the maximum and in case of int options
+only integer numbers are allowed.
+
+Bool options can be set or not be set. There <arg_proto> will be
+inserted if they are set, nothing if they are not set. A %s in the
+<arg_proto> is not allowed, there is nothing to insert for it. As
+<arg_defval> in the option's constraints one can use 0 for not setting
+the option by default or 1 for setting it by default.
+
+Bool options need the specification of a name for the case when they
+are not set. This will be used by GUIs and in PPD files:
+
+  <arg_shortname_false>
+    <en>CorrectBlack</en><!-- Backends only know <en> shortnames! -->
+  </arg_shortname_false>
+
+This name should not contain spaces, ":", or "/".
+
+printer/100576
+==============
+
+# The printer file contains information specific to a particular
+# printer.
+
+<printer id="printer/100576">
+
+# Make and model are not internationalized.  There will eventually be
+# an "alias" mechanism, but the need is different.
+
+  <make>HP</make>
+  <model>LaserJet 4000</model>
+
+# Various stuff about the machine
+
+  <mechanism>
+
+# Printer types can be <laser />, <led />, <inkjet />, <dotmatrix />,
+# <impact />, <sublimation />, <transfer />. Other types we have to
+# add to the CGI script on linuxprinting.org to make the web interface
+# displaying them properly.
+
+    <laser/>
+
+# At some point we can make color be less of a boolean flag and more
+# of a section full of goodies.
+
+    <!--not "color"-->
+    <resolution>
+
+# In theory this is a list.  In practice We've only got one per
+# printer which is the maximum resolution the manufacturer claims
+# for this printer.
+
+      <dpi>
+        <x>1200</x>
+        <y>1200</y>
+      </dpi>
+    </resolution>
+
+    <consumables>
+
+# Information about ink, drums, etc.
+# The comments are supposed to be qualitative ("Separate drum and
+# toner cartridges")
+
+      <comments>
+        <en>toner</en>
+      </comments>
+
+# There should be <partno>12A1975</partno> elements with manufacturer
+# part numbers for the various carts, etc it takes. Then one could
+# have a price watcher thingy like there is now for the printers.
+
+      <!--one or more "partno" elements.-->
+    </consumables>
+  </mechanism>
+
+  <url>http://www.pandi.hp.com/pandi-db/prod_info.show?model=C4118A&amp;name=LaserJet4000</url>
+
+# The lang section.  In practice this will be only minimally useful;
+# 
+#  - Backends can pstops the ps down a level if needed
+#  - Backends know if pjl options apply
+#  - Backends can know if "quick text" will work
+#
+# Commonly used language tags: <pcl level="x" />, <escp2 />, <proprietary />
+
+  <lang>
+    <postscript level="2">
+    <!--unknown ppd filename "ppd"--></postscript>
+    <pjl/>
+    <text>
+      <charset>us-ascii</charset>
+    </text>
+  </lang>
+
+# The autodetection stuff
+
+  <autodetect>
+
+# There are three ways to auto-detect a printer, via the parallel port
+# (<parallel>...</parallel>), the USB (<usb>...</usb>), or SNMP
+# (TCP/Socket-connected printer, <snmp>...</snmp>). Through these
+# interfaces the printers report back an IEEE-1284-complient ID string
+# from which the fields "MFG" (<manufacturer>...</manufacturer>),
+# "MDL" (<model>...</model>), "DES" (<description>...</description>),
+# and "CMD" (<commandset>...</commandset>) are used. A complete entry
+# could look like:
+#
+#  <autodetect>
+#    <parallel>
+#      <commandset>MLC,PCL,PML</commandset>
+#      <description>Hewlett-Packard DeskJet 660C</description>
+#      <manufacturer>HEWLETT-PACKARD</manufacturer>
+#      <model>DESKJET 660C</model>
+#    </parallel>
+#  </autodetect>
+#
+
+# On Linux you find this info for the parallel ports (/dev/lp<N>, <N>
+# = 0, 1, 2, ...) in the files
+#
+#   /proc/sys/dev/parport/parport0/autoprobe*
+#
+# for the USB under Linux it is more complicated, easiest is to use a little
+# Perl script, called "getusbprinterid.pl":
+
+# --------------------------------------------------------------------------
+
+#!/usr/bin/perl
+
+open FILE, "$ARGV[0]" or die;
+
+my $result;
+# Calculation of IOCTL function 0x84005001 (to get device ID string):
+# len = 1024
+# IOCNR_GET_DEVICE_ID = 1
+# LPIOC_GET_DEVICE_ID(len) = _IOC(_IOC_READ, 'P', IOCNR_GET_DEVICE_ID, len)
+# _IOC(), _IOC_READ as defined in /usr/include/asm/ioctl.h
+
+ioctl(FILE, 0x84005001, $result) or die;
+close FILE;
+
+# Cut resulting string to its real length
+my $length = ord(substr($result, 1, 1)) + (ord(substr($result, 0, 1)) << 8);
+$result = substr($result, 2, $length-2);
+
+# Remove non-printable characters
+$result =~ tr/[\x0-\x1f]/\./;
+print "$result\n";
+
+# --------------------------------------------------------------------------
+
+# Running the program with "./getusbprinterid.pl /dev/usb/lp0" returns the
+# ID string of the device on /dev/usb/lp0.
+
+    <!--no known parport probe information-->
+  </autodetect>
+
+# Our grading system.  It's US-style letter grades A, B, D, and F,
+# which the website shows as "Perfectly", "Mostly", "Partially" and
+# "Paperweight" .
+# THERE IS NO `C'!!!
+
+  <functionality>A</functionality>
+
+# Arguably, the scores should live with the printer/driver association
+# and not on the printer, but then it's a big hassle to figure out if
+# a printer works... So the score is the one reached with the driver
+# working best, the "recommended" driver.
+
+# There's a spot for this "recommended" driver, usually the driver
+# which gives the maximum output quality. It is for user information
+# on the web site, but newbie-friendly printer setup GUIs should use
+# it, too. Unfortunately, only "printerdrake" of Mandrake Linux makes
+# use of it.
+
+  <!--unknown preferred "driver"-->
+
+# The <unverified /> tag was on all printer entries which were
+# formerly entered by visitors using the web printer input interface
+# as the database was still PostGreSQL-driven.
+
+  <!--not "unverified"-->
+
+# If there is a web site with additional interesting info about this
+# printer, it can be mentioned in the entry by putting it between
+# <contrib_url>...</contrib_url> tags,
+
+  <!--no "contrib_url"-->
+
+# The regular notes section.  The allowed tags are: <p>, <a
+# href="foobar"> </a> and many other simple tags (<b>, <i>, <tt>,
+# ...). Not that to distinguish what is XML and what is the embedded
+# HTML, make the following replacements:
+#
+#   < --> &lt;
+#   > --> &gt;
+#   " --> &quot;
+#   ' --> &apos;
+#
+
+  <comments>
+    <en>
+    I don&apos;t believe this:&lt;p&gt;
+
+    &lt;i&gt;1200x1200 dpi only possible with Windows drivers,
+    600x600 can be reached w/o particular software.
+    The difference is visible, but only slightly, so
+    the Functionality got &quot;Mostly&quot;&lt;p&gt;&lt;/i&gt;&lt;p&gt;
+
+    Do the following:&lt;p&gt;
+
+    Set the resolution on the front panel to &quot;Prores 1200&quot;, not
+    to &quot;Fastres 1200&quot;. When you use CUPS with HPs PPD file, turn
+    off &quot;Fastres 1200&quot; in the printer configuration
+    options.&lt;p&gt;
+
+    Try the generic PostScript PPD file which comes with KUPS 1.0 or newer.
+    </en>
+  </comments>
+</printer>
+
+
+driver/md2k
+===========
+
+The driver files contain information about drivers.  There are a few
+things, but the two biggies are the prototype and the printers list
+
+<driver id="driver/md2k">
+ <name>md2k</name>
+ <url>http://plaza26.mbn.or.jp/~higamasa/gdevmd2k/</url>
+ <execution>
+
+# Driver types are 
+#
+#  <ghostscript /> : The driver code is compiled into GhostScript
+#
+#  <filter /> :      The driver code is a separate executable, either a
+#                    filter which converts generic bitmap output of
+#                    GhostScript to the printer's language, a wrapper 
+#                    around GhostScript, or an IJS plug-in.
+#
+#  <uniprint /> :    A uniprint driver, consisting of one or more .upp
+#                    files for GhostScript.
+#
+#  <postscript /> :  A driver which has PostScript also as output (for 
+#                    PostScript printers). It usually does not call
+#                    GhostScript but only applies the user's option
+#                    settings to the data stream. But GhostScript can
+#                    be called here, too, as for downgrading to a lower
+#                    PostScript level.
+#
+# The driver type only provides information for the web pages, it is not
+# used when generating config files for a spooler.
+
+# The driver's <execution> section can also contain a
+#
+# <nopjl />
+#
+# which suppresses the usage of PJL options (options which send PJL
+# commands to the printer). This one does with drivers where the
+# driver itself already produces a PJL header, the second one built
+# by the PJL options would then be ignored by the printer, and so
+# this kind of options does not make sense. Such driver are for
+# example "hpijs" and "hl1250".
+
+# The prototype defines what command the backends run to drive this
+# printer.  It must take postscript on stdin and generate "printer
+# stuff" on stdout.  Various %A, %B, etc substitution "spots" are
+# specified; this is where substition options will be placed.
+
+  <prototype>gs -q -dBATCH -dSAFER -dQUIET -dNOPAUSE -sDEVICE=md2k%A%Z -sOutputFile=- -</prototype>
+ </execution>
+ <comments>
+  <en>
+    Part of the gdevmd2k-0.2a package by Shinya Umino.  The web page and
+    documentation are in Japanese.
+    &lt;a href="/clippings/MD5000-translation.txt"&gt;Here&lt;/a&gt;
+    is an English translation of the driver's web page, and &lt;a
+    href="/clippings/alpsmd.txt"&gt;here&lt;/a&gt; is the README from the
+    driver package.
+  </en>
+ </comments>
+
+# The printer list is a simple list of printers that this driver works
+# with.  Historically, these "bits" were on the printer cgi form page,
+# but now they're put here.
+
+ <printers>
+  <printer>
+   <id>printer/240137</id><!-- Alps MD-1000 -->
+  </printer>
+  <printer>
+   <id>printer/240169</id><!-- Alps MD-1300 -->
+  </printer>
+  <printer>
+   <id>printer/240105</id><!-- Alps MD-2000 -->
+  </printer>
+  <printer>
+   <id>printer/240073</id><!-- Alps MD-4000 -->
+  </printer>
+ </printers>
+</driver>
+
+# In the printer list it is also possible to place comments specific to
+# a certain printer/driver pair:
+#
+#  <printer>
+#   <id>printer/62304</id><!-- HP LaserJet 4050 -->
+#   <comments>
+#    <en>to 1200dpi</en>
+#   </comments>
+#  </printer>
+
+
+Example for a Foomatic-generated PPD file with embedded Perl structure
+----------------------------------------------------------------------
+
+The extension of the usual PPD structure is in the "COMDATA" comment
+lines. This is a dump of a Perl data structure more or less equivalent
+to the Combo-XML data (the output of "foomatic-combo-xml"). You get
+the pure Perl data when you generate a datafile for LPD/LPRng or
+spooler-less printing with "foomatic-datafile -t lpd -p <printer-id>
+-d <driver>" or by running "foomatic-perl-data" on a combo XML
+file. This Perl structure is read by the backend scripts (lpdomatic,
+cupsomatic, ppromatic, directomatic) which are written in pure
+standard Perl without needing special libraries (as one would probably
+need to read XML or PPD files without too high effort). Also XPP and
+the KDE printing system (only with CUPS as spooler) read the Perl data
+structure to provide true numerical options. Here is an example (all
+lines not beginning with an asterisk '*' are my comments and not
+really in the file, download URL for the file:
+http://www.linuxprinting.org/ppd-o-matic.cgi?driver=lxm5700m&printer=62016
+or generate it locally with "foomatic-datafile -t ppd -p 62016 -d
+lxm5700m"):
+
+
+### The following is the usual stuff of PPD files
+
+*PPD-Adobe: "4.3"
+*%
+*% For information on using this, and to obtain the required backend
+*% script, consult http://www.linuxprinting.org/ppd-doc.html
+*%
+*% PPD-O-MATIC generated this PPD file. It is for use with all programs 
+*% and environments which use PPD files for dealing with printer capabilty
+*% information. The printer must be configured with a Foomatic backend
+*% filter script. This file and the backend filter script work together to
+*% support PPD-controlled printer driver option access with arbitrary free 
+*% software printer drivers and printing spoolers.
+*%
+*% You may save this file as 'Lexmark-5700-lxm5700m-ppd.ppd'
+*%
+*%
+*FormatVersion:	"4.3"
+*FileVersion:	"1.1"
+*LanguageVersion: English 
+*LanguageEncoding: ISOLatin1
+*PCFileName:	"COM.PPD"
+*Manufacturer:	"Lexmark"
+*Product:	"5700"
+*cupsVersion:	1.0
+*cupsManualCopies: True
+*cupsModelNumber:  2
+*cupsFilter:	"application/vnd.cups-postscript 0 cupsomatic"
+*ModelName:     "5700"
+*ShortNickName: "5700"
+*NickName:      "Lexmark 5700, Foomatic + lxm5700m"
+*PSVersion:	"(3010.000) 550"
+*PSVersion:	"(3010.000) 651"
+*PSVersion:	"(3010.000) 652"
+*LanguageLevel:	"3"
+*ColorDevice:	True
+*DefaultColorSpace: RGB
+*FileSystem:	False
+*Throughput:	"1"
+*LandscapeOrientation: Plus90
+*VariablePaperSize: False
+*TTRasterizer:	Type42
+
+### PageSize option, must be treated especially: Needs to appear twice, once
+### as "PageSize", once as "PageRegion", needs also "PaperDimension" and 
+### "Imageable Area" entries. Margins are set to zero because I don't have
+### margin info.
+
+*OpenUI *PageSize/Page Size: PickOne
+*DefaultPageSize: Letter
+*PageSize A4/A4: "<</PageSize[595 842]/ImagingBBox null>>setpagedevice"
+*PageSize Executive/Executive: "<</PageSize[522 756]/ImagingBBox null>>setpagedevice"
+*PageSize EnvC5/Envelope C5: "<</PageSize[459 649]/ImagingBBox null>>setpagedevice"
+*PageSize EnvMonarch/Envelope Monarch: "<</PageSize[279 540]/ImagingBBox null>>setpagedevice"
+*PageSize Letter/US Letter: "<</PageSize[612 792]/ImagingBBox null>>setpagedevice"
+*PageSize Legal/US Legal: "<</PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+*PageSize EnvISOB5/Envelope B5: "<</PageSize[499 709]/ImagingBBox null>>setpagedevice"
+*PageSize Env10/Envelope #10: "<</PageSize[297 684]/ImagingBBox null>>setpagedevice"
+*PageSize EnvDL/Envelope DL: "<</PageSize[312 624]/ImagingBBox null>>setpagedevice"
+*PageSize B5/B5 (JIS): "<</PageSize[516 729]/ImagingBBox null>>setpagedevice"
+*PageSize A5/A5: "<</PageSize[421 595]/ImagingBBox null>>setpagedevice"
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 10 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion A4/A4: "<</PageSize[595 842]/ImagingBBox null>>setpagedevice"
+*PageRegion Executive/Executive: "<</PageSize[522 756]/ImagingBBox null>>setpagedevice"
+*PageRegion EnvC5/Envelope C5: "<</PageSize[459 649]/ImagingBBox null>>setpagedevice"
+*PageRegion EnvMonarch/Envelope Monarch: "<</PageSize[279 540]/ImagingBBox null>>setpagedevice"
+*PageRegion Letter/US Letter: "<</PageSize[612 792]/ImagingBBox null>>setpagedevice"
+*PageRegion Legal/US Legal: "<</PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+*PageRegion EnvISOB5/Envelope B5: "<</PageSize[499 709]/ImagingBBox null>>setpagedevice"
+*PageRegion Env10/Envelope #10: "<</PageSize[297 684]/ImagingBBox null>>setpagedevice"
+*PageRegion EnvDL/Envelope DL: "<</PageSize[312 624]/ImagingBBox null>>setpagedevice"
+*PageRegion B5/B5 (JIS): "<</PageSize[516 729]/ImagingBBox null>>setpagedevice"
+*PageRegion A5/A5: "<</PageSize[421 595]/ImagingBBox null>>setpagedevice"
+*CloseUI: *PageRegion
+
+*DefaultImageableArea: Letter
+*ImageableArea A4/A4: "0 0 595 842"
+*ImageableArea Executive/Executive: "0 0 522 756"
+*ImageableArea EnvC5/Envelope C5: "0 0 459 649"
+*ImageableArea EnvMonarch/Envelope Monarch: "0 0 279 540"
+*ImageableArea Letter/US Letter: "0 0 612 792"
+*ImageableArea Legal/US Legal: "0 0 612 1008"
+*ImageableArea EnvISOB5/Envelope B5: "0 0 499 709"
+*ImageableArea Env10/Envelope #10: "0 0 297 684"
+*ImageableArea EnvDL/Envelope DL: "0 0 312 624"
+*ImageableArea B5/B5 (JIS): "0 0 516 729"
+*ImageableArea A5/A5: "0 0 421 595"
+
+*DefaultPaperDimension: Letter
+*PaperDimension A4/A4: "595 842"
+*PaperDimension Executive/Executive: "522 756"
+*PaperDimension EnvC5/Envelope C5: "459 649"
+*PaperDimension EnvMonarch/Envelope Monarch: "279 540"
+*PaperDimension Letter/US Letter: "612 792"
+*PaperDimension Legal/US Legal: "612 1008"
+*PaperDimension EnvISOB5/Envelope B5: "499 709"
+*PaperDimension Env10/Envelope #10: "297 684"
+*PaperDimension EnvDL/Envelope DL: "312 624"
+*PaperDimension B5/B5 (JIS): "516 729"
+*PaperDimension A5/A5: "421 595"
+
+### A driver-specific option. Driver-specific enumerated or boolean
+### options look like the "PageSize" options, a numerical option as
+### this one is mapped to an enumerated option as shown here, because
+### numerical options are not supported by the PPD syntax. This option
+### is also not executed by inserting PostScript code into the job
+### data (PostScript generated by the "Print" command of any Unix
+### application), but by adding a command line option to the
+### GhostScript command line which is set up and executed by the
+### Foomatic backend filter script (cupsomatic, ppromatic, lpdomatic,
+### directomatic). The PostScript code to be inserted into the job
+### data by a client application (as Star Office, gpr, ppdfilt, the
+### Adobe PostScript driver for Windows, ...) is a comment line
+### (beginning with '%') and the Foomatic backend filter script
+### searches the job data for these lines to translate its contents
+### into appropriate command line options.
+
+*OpenUI *HeadSeparation/Head Separation: PickOne
+*DefaultHeadSeparation: 16
+*HeadSeparation 0/0: "%% FoomaticOpt: HeadSeparation=0"
+*HeadSeparation 1/1: "%% FoomaticOpt: HeadSeparation=1"
+*HeadSeparation 2/2: "%% FoomaticOpt: HeadSeparation=2"
+*HeadSeparation 3/3: "%% FoomaticOpt: HeadSeparation=3"
+*HeadSeparation 4/4: "%% FoomaticOpt: HeadSeparation=4"
+*HeadSeparation 5/5: "%% FoomaticOpt: HeadSeparation=5"
+*HeadSeparation 6/6: "%% FoomaticOpt: HeadSeparation=6"
+*HeadSeparation 7/7: "%% FoomaticOpt: HeadSeparation=7"
+*HeadSeparation 8/8: "%% FoomaticOpt: HeadSeparation=8"
+*HeadSeparation 9/9: "%% FoomaticOpt: HeadSeparation=9"
+*HeadSeparation 10/10: "%% FoomaticOpt: HeadSeparation=10"
+*HeadSeparation 11/11: "%% FoomaticOpt: HeadSeparation=11"
+*HeadSeparation 12/12: "%% FoomaticOpt: HeadSeparation=12"
+*HeadSeparation 13/13: "%% FoomaticOpt: HeadSeparation=13"
+*HeadSeparation 14/14: "%% FoomaticOpt: HeadSeparation=14"
+*HeadSeparation 15/15: "%% FoomaticOpt: HeadSeparation=15"
+*HeadSeparation 16/16: "%% FoomaticOpt: HeadSeparation=16"
+*HeadSeparation 17/17: "%% FoomaticOpt: HeadSeparation=17"
+*HeadSeparation 18/18: "%% FoomaticOpt: HeadSeparation=18"
+*HeadSeparation 19/19: "%% FoomaticOpt: HeadSeparation=19"
+*HeadSeparation 20/20: "%% FoomaticOpt: HeadSeparation=20"
+*HeadSeparation 21/21: "%% FoomaticOpt: HeadSeparation=21"
+*HeadSeparation 22/22: "%% FoomaticOpt: HeadSeparation=22"
+*HeadSeparation 23/23: "%% FoomaticOpt: HeadSeparation=23"
+*HeadSeparation 24/24: "%% FoomaticOpt: HeadSeparation=24"
+*HeadSeparation 25/25: "%% FoomaticOpt: HeadSeparation=25"
+*HeadSeparation 26/26: "%% FoomaticOpt: HeadSeparation=26"
+*HeadSeparation 27/27: "%% FoomaticOpt: HeadSeparation=27"
+*HeadSeparation 28/28: "%% FoomaticOpt: HeadSeparation=28"
+*HeadSeparation 29/29: "%% FoomaticOpt: HeadSeparation=29"
+*HeadSeparation 30/30: "%% FoomaticOpt: HeadSeparation=30"
+*CloseUI: *HeadSeparation
+
+### Here comes the font info as needed by GhostScript.
+
+*% Generic boilerplate PPD stuff as standard PostScript fonts and so on
+
+
+
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Standard ROM
+
+### This is the mentioned Perl data structure.
+
+*% What follows is a dumped representation of the internal Perl data
+*% structure representing one entry in the Linux Printing Database.
+*% This can be used by frontends to give advanced features which are
+*% beyond the possibilities which can be defined by Adobe-compliant PPDs.
+*% The lines are comment lines, so that programs which require 
+*% Adobe-compliant PPD files can handle this file. They simply ignore
+*% this additional information.
+*%
+*% COMDATA #$VAR1 = {
+
+### Some fields of the printer and driver XML files (not needed by
+### backend filters)
+
+### CMD field of "auto detection" section
+*% COMDATA #  'pnp_cmd' => undef,
+
+### style field of driver XML, here "GhostScript", which means a
+### driver compiled into GhostScript
+*% COMDATA #  'type' => 'G',
+
+### Printer does not support PJL, so the backend filter does not insert the
+### "<ESC>%-12345X@PJL ..." stuff around the job data.
+*% COMDATA #  'pjl' => undef,
+
+### MFG field of "auto detection" section (not used by backend)
+*% COMDATA #  'pnp_mfg' => undef,
+
+### Option data, this data is read by all backend filters so that the
+### backend knows all the options and can insert appropriate code into
+### the job or into the command line. Also XPP and the KDE printing
+### system (when CUPS is the spooler) read these option entries to
+### provide true numerical options.
+*% COMDATA #  'args_byname' => {
+
+### Here begins the option record for the "HeadSeparation" option, a
+### numerical option
+*% COMDATA #    'HeadSeparation' => {
+
+### Name of the option
+*% COMDATA #      'name' => 'HeadSeparation',
+
+### The style says how to insert the code, 'C' means "command line"
+### and so the code is inserted at the given spot of the command
+### line. Other possibilties are 'G' ("GhostScript") to insert the
+### code into the job data before passing it through GhostScript and
+### "J" for a PJL option, to be inserted in the PJL header.
+*% COMDATA #      'style' => 'C',
+
+### Integer option
+*% COMDATA #      'type' => 'int',
+
+### GUI string, backend filters use it to construct the help page
+*% COMDATA #      'comment' => 'Head Separation',
+
+### Minimum value
+*% COMDATA #      'min' => '0',
+
+### If there is more than one option for this spot, insert them in
+### ascending order of this number
+*% COMDATA #      'order' => 110,
+
+### Code to insert, '%s' will be replaced by the user-supplied value
+*% COMDATA #      'proto' => ' -dHeadSeparation=%s',
+
+### Default value
+*% COMDATA #      'default' => 16,
+
+### Option ID, not used by the backend filter
+*% COMDATA #      'idx' => 'opt/46',
+
+### Maximum value
+*% COMDATA #      'max' => 30,
+
+### Spot where the option has to be inserted into the command line,
+### here "%A". This field has no effect for GhostScript and PJL
+### options.
+*% COMDATA #      'spot' => 'A'
+*% COMDATA #    },
+
+### Here begins the option record for the "PageSize" option, an
+### enumerated choice (PickOne) option
+*% COMDATA #    'PageSize' => {
+
+### Enumerated choice options have always a list of possible values
+*% COMDATA #      'vals_byname' => {
+*% COMDATA #        'Letter' => {
+
+### Used for help page
+*% COMDATA #          'comment' => 'US Letter',
+*% COMDATA #          'value' => 'Letter',
+
+### Choice ID
+*% COMDATA #          'idx' => 'ev/1',
+
+### Code piece to replace the %s in the code to be inserted by the option.
+*% COMDATA #          'driverval' => '612 792'
+*% COMDATA #        },
+*% COMDATA #        'EnvMonarch' => {
+*% COMDATA #          'comment' => 'Envelope Monarch',
+*% COMDATA #          'value' => 'EnvMonarch',
+*% COMDATA #          'idx' => 'ev/902',
+*% COMDATA #          'driverval' => '279 540'
+*% COMDATA #        },
+*% COMDATA #        'EnvC5' => {
+*% COMDATA #          'comment' => 'Envelope C5',
+*% COMDATA #          'value' => 'EnvC5',
+*% COMDATA #          'idx' => 'ev/900',
+*% COMDATA #          'driverval' => '459 649'
+*% COMDATA #        },
+*% COMDATA #        'Executive' => {
+*% COMDATA #          'comment' => 'Executive',
+*% COMDATA #          'value' => 'Executive',
+*% COMDATA #          'idx' => 'ev/895',
+*% COMDATA #          'driverval' => '522 756'
+*% COMDATA #        },
+*% COMDATA #        'A4' => {
+*% COMDATA #          'comment' => 'A4',
+*% COMDATA #          'value' => 'A4',
+*% COMDATA #          'idx' => 'ev/3',
+*% COMDATA #          'driverval' => '595 842'
+*% COMDATA #        },
+*% COMDATA #        'Legal' => {
+*% COMDATA #          'comment' => 'US Legal',
+*% COMDATA #          'value' => 'Legal',
+*% COMDATA #          'idx' => 'ev/2',
+*% COMDATA #          'driverval' => '612 1008'
+*% COMDATA #        },
+*% COMDATA #        'A5' => {
+*% COMDATA #          'comment' => 'A5',
+*% COMDATA #          'value' => 'A5',
+*% COMDATA #          'idx' => 'ev/896',
+*% COMDATA #          'driverval' => '421 595'
+*% COMDATA #        },
+*% COMDATA #        'B5' => {
+*% COMDATA #          'comment' => 'B5 (JIS)',
+*% COMDATA #          'value' => 'B5',
+*% COMDATA #          'idx' => 'ev/897',
+*% COMDATA #          'driverval' => '516 729'
+*% COMDATA #        },
+*% COMDATA #        'EnvDL' => {
+*% COMDATA #          'comment' => 'Envelope DL',
+*% COMDATA #          'value' => 'EnvDL',
+*% COMDATA #          'idx' => 'ev/901',
+*% COMDATA #          'driverval' => '312 624'
+*% COMDATA #        },
+*% COMDATA #        'Env10' => {
+*% COMDATA #          'comment' => 'Envelope #10',
+*% COMDATA #          'value' => 'Env10',
+*% COMDATA #          'idx' => 'ev/899',
+*% COMDATA #          'driverval' => '297 684'
+*% COMDATA #        },
+*% COMDATA #        'EnvISOB5' => {
+*% COMDATA #          'comment' => 'Envelope B5',
+*% COMDATA #          'value' => 'EnvISOB5',
+*% COMDATA #          'idx' => 'ev/898',
+*% COMDATA #          'driverval' => '499 709'
+*% COMDATA #        }
+*% COMDATA #      },
+*% COMDATA #      'name' => 'PageSize',
+
+### GhostScript style option, so the code is PostScript which has to
+### be inserted into the job data before the job being rendered by
+### GhostScript
+*% COMDATA #      'style' => 'G',
+
+### Enumerated choice option
+*% COMDATA #      'type' => 'enum',
+*% COMDATA #      'comment' => 'Page Size',
+*% COMDATA #      'order' => 100,
+
+### PostScript code for setting the paper size
+*% COMDATA #      'proto' => '<</PageSize[%s]/ImagingBBox null>>setpagedevice',
+
+### Default choice
+*% COMDATA #      'default' => 'Letter',
+*% COMDATA #      'idx' => 'opt/2',
+
+### This will be filled up with links later, so that one can access
+### the option choices not only through a hash but also through an
+### array.
+*% COMDATA #      'vals' => [
+*% COMDATA #        {},
+*% COMDATA #        {},
+*% COMDATA #        {},
+*% COMDATA #        {},
+*% COMDATA #        {},
+*% COMDATA #        {},
+*% COMDATA #        {},
+*% COMDATA #        {},
+*% COMDATA #        {},
+*% COMDATA #        {},
+*% COMDATA #        {}
+*% COMDATA #      ],
+
+### The spot is not used for a GhostScript option.
+*% COMDATA #      'spot' => 'Z'
+*% COMDATA #    }
+*% COMDATA #  },
+
+### This printer does not print plain text (not used by backend)
+*% COMDATA #  'ascii' => '0',
+
+### More fields which are not used by the backend filters
+*% COMDATA #  'pnp_des' => undef,
+*% COMDATA #  'pnp_mdl' => undef,
+*% COMDATA #  'maxspot' => 'Z',
+*% COMDATA #  'driver' => 'lxm5700m',
+*% COMDATA #  'id' => 62016,
+
+### Here there will be placed links to access the options through an array.
+*% COMDATA #  'args' => [
+*% COMDATA #    {},
+*% COMDATA #    {}
+*% COMDATA #  ],
+*% COMDATA #  'compiled-at' => 'Sat Feb  9 10:44:25 2002',
+*% COMDATA #  'model' => 5700,
+*% COMDATA #  'url' => 'http://www.ultranet.com/~setaylor/papers.htm',
+*% COMDATA #  'comment' => '
+*% COMDATA #    Monochrome driver for the Lexmark 5700. Fast and less memory
+*% COMDATA #    consuming alternative to the "pbm2l7k" colour driver. You should
+*% COMDATA #    have it installed when you do not only use your printer for images
+*% COMDATA #    but also for letters and listings.
+*% COMDATA #  ',
+*% COMDATA #  'timestamp' => '1013269465',
+
+### The GhostScript command line to be used by the backend filter,
+### expects PostScript at stdin, produces data for the printer on
+### stdout, letters preceeded by a '%' are the spots where the code of
+### the "command line"-style options will be inserted.
+*% COMDATA #  'cmd' => 'gs -q -dBATCH -dSAFER -dQUIET -dNOPAUSE -sDEVICE=lxm5700m %A%Z -sOutputFile=- -',
+
+*% COMDATA #  'compiled-by' => 'www-data@poblano',
+*% COMDATA #  'make' => 'Lexmark',
+*% COMDATA #  'color' => 1
+*% COMDATA #};
+
+### these lines set links so that the backend filter Perl scripts can
+### access the options and choices through arrays.
+*% COMDATA #$VAR1->{'args_byname'}{'PageSize'}{'vals'}[0] = $VAR1->{'args_byname'}{'PageSize'}{'vals_byname'}{'A4'};
+*% COMDATA #$VAR1->{'args_byname'}{'PageSize'}{'vals'}[1] = $VAR1->{'args_byname'}{'PageSize'}{'vals_byname'}{'Executive'};
+*% COMDATA #$VAR1->{'args_byname'}{'PageSize'}{'vals'}[2] = $VAR1->{'args_byname'}{'PageSize'}{'vals_byname'}{'EnvC5'};
+*% COMDATA #$VAR1->{'args_byname'}{'PageSize'}{'vals'}[3] = $VAR1->{'args_byname'}{'PageSize'}{'vals_byname'}{'EnvMonarch'};
+*% COMDATA #$VAR1->{'args_byname'}{'PageSize'}{'vals'}[4] = $VAR1->{'args_byname'}{'PageSize'}{'vals_byname'}{'Letter'};
+*% COMDATA #$VAR1->{'args_byname'}{'PageSize'}{'vals'}[5] = $VAR1->{'args_byname'}{'PageSize'}{'vals_byname'}{'Legal'};
+*% COMDATA #$VAR1->{'args_byname'}{'PageSize'}{'vals'}[6] = $VAR1->{'args_byname'}{'PageSize'}{'vals_byname'}{'EnvISOB5'};
+*% COMDATA #$VAR1->{'args_byname'}{'PageSize'}{'vals'}[7] = $VAR1->{'args_byname'}{'PageSize'}{'vals_byname'}{'Env10'};
+*% COMDATA #$VAR1->{'args_byname'}{'PageSize'}{'vals'}[8] = $VAR1->{'args_byname'}{'PageSize'}{'vals_byname'}{'EnvDL'};
+*% COMDATA #$VAR1->{'args_byname'}{'PageSize'}{'vals'}[9] = $VAR1->{'args_byname'}{'PageSize'}{'vals_byname'}{'B5'};
+*% COMDATA #$VAR1->{'args_byname'}{'PageSize'}{'vals'}[10] = $VAR1->{'args_byname'}{'PageSize'}{'vals_byname'}{'A5'};
+*% COMDATA #$VAR1->{'args'}[0] = $VAR1->{'args_byname'}{'PageSize'};
+*% COMDATA #$VAR1->{'args'}[1] = $VAR1->{'args_byname'}{'HeadSeparation'};
+
+The structure is produced by foomatic-perl-data.c and somewhat
+beautified by DB.pm.

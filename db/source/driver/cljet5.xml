@@ -1,0 +1,37 @@
+<driver id="driver/cljet5">
+ <name>cljet5</name>
+ <url>http://www.cs.wisc.edu/~ghost/doc/printer.htm</url>
+ <execution>
+  <ghostscript />
+  <prototype>gs -q -dBATCH -dSAFER -dQUIET -dNOPAUSE -sDEVICE=cljet5%B%A%Z -sOutputFile=- - | perl -e &quot;while (\$line = &lt;&gt;) { \$match |= ( \$line =~ s/\x1b&amp;l\d+A/\$&amp;%E/ ); print \$line }&quot;</prototype>
+ </execution>
+ <comments>
+  <en>
+    The &quot;cljet5&quot; driver in GNU GhostScript 6.51 is buggy,
+    often only the first page gets printed and then GhostScript quits
+    with an error message. Use &quot;cljet5c&quot; instead (when using
+    Foomatic keep the default setting &quot;Contone&quot; for the
+    &quot;Mode&quot; option).&lt;p&gt;
+
+    The printing system/execution information for this driver serves
+    also for the other cljet5c drivers.
+  </en>
+ </comments> 
+ <printers>
+  <printer>
+   <id>printer/122336</id><!-- HP Color LaserJet 5 -->
+  </printer>
+  <printer>
+   <id>printer/49888</id><!-- HP Color LaserJet 5000 -->
+   <comments>
+    <en>Not tested, probably works.</en>
+   </comments>
+  </printer>
+  <printer>
+   <id>printer/125408</id><!-- Xerox DocuPrint C20 -->
+   <comments>
+    <en>Should work fine with this color laserjet driver.</en>
+   </comments>
+  </printer>
+ </printers>
+</driver>

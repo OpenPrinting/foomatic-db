@@ -1,0 +1,28 @@
+<driver id="driver/ljet4d">
+ <name>ljet4d</name>
+ <url>http://www.cs.wisc.edu/~ghost/doc/printer.htm</url>
+ <execution>
+  <ghostscript />
+  <prototype>gs -q -dBATCH -dSAFER -dQUIET -dNOPAUSE -sDEVICE=ljet4d%A%Z -sOutputFile=- - | perl -e &quot;while (\$line = &lt;&gt;) { \$match |= ( \$line =~ s/\x1b&amp;l\d+A/\$&amp;%E/ ); print \$line }&quot;</prototype>
+ </execution>
+ <comments>
+  <en>
+    This driver is the same as &quot;ljet4&quot; but with duplex
+    printing support. It is probably not really needed because one can
+    control the duplex units of the HP LaserJet 4 series by PJL
+    commands and with the PJL commands one has also control over
+    long-edge or short-edge binding.
+  </en>
+ </comments>
+ <printers>
+  <printer>
+   <id>printer/439570</id><!-- HP LaserJet 4Si -->
+  </printer>
+  <printer>
+   <id>printer/69120</id><!-- HP LaserJet 4M -->
+   <comments>
+    <en>For PCL</en>
+   </comments>
+  </printer>
+ </printers>
+</driver>
