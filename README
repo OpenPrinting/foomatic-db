@@ -84,10 +84,11 @@ Dependencies
 ------------
 
 This package does not require anything else. It is needed by
-foomatic-db-engine, the database engine of Foomatic.
-
-It is highly recommended to use foomatic-db-engine to handle this
-data.
+foomatic-db-engine, the database engine of Foomatic. It is highly
+recommended to use foomatic-db-engine 2.9.1 or newer, otherwise
+the composite options will not show up in the generated PPD files. Do
+not use this databse with Foomatic 2.0.x or older, the composite
+options will probably appear but they will not work.
 
 See the USAGE file for installation details.
 
@@ -184,19 +185,34 @@ source/opt/2.xml
 # the driver's command line, at the spot (e. g. "%A") whose letter is
 # given between the <arg_spot>...</arg_spot> tags, the <arg_proto> of
 # an <arg_postscript /> option is a snippet of PostScript code which
-# is inserted in the beginning of the PostScript data stream of the
-# job, not after the code for the first page begins. The <arg_proto>
-# lines of <arg_pjl> are PJL commands which are sent to the printer
-# before the output of the drivers command line is sent. Because this
+# is inserted into the PostScript data stream of the job, for
+# DSC-conforming PostScript into the section specified with
+# <arg_section>, otherwise in the beginning. The <arg_proto> lines of
+# <arg_pjl /> options are PJL commands which are sent to the printer
+# before the output of the driver's command line is sent. Because this
 # only works reliably when the driver output does not have its own PJL
 # command header, these options are ignored when the driver's XML file
 # is marked with a <nopjl /> tag in its <execution> section. Drivers
-# which produce their own PJL and therefore marked with <nopjl /> are
-# for example "hpijs" and "hl1250". The user's value gets put into the
-# <arg_proto>'s %s location.
+# which produce their own PJL and therefore are marked with <nopjl />
+# are for example "hpijs" and "hl1250". There is also the
+# <arg_composite /> execution style for composite options, see the
+# "Composite Options" section below. The user's value gets put into
+# the <arg_proto>'s %s location. 
 
+# The <arg_group>...</arg_group> tags put the option into the PPD
+# option group named here. In many PPD-based GUIs ("kprinter", "xpp",
+# OpenOffice.org, ...) every group is shown as a tab or a tree branch
+# containing the member options of this group. You can also specify
+# subgroups. Then you have to use a "group path" similar to directory
+# paths, with the group and subgroup names separated by slashes
+# (<arg_group>General/Paper</arg_group> is the "Paper" subgroup in the
+# "General" group). Subgroups are not recommended as there is no GUI
+# supporting them. If an option is member of a composite option (See
+# "Composite Options" section below), the <arg_group>...</arg_group>
+# tags will be ignored.
 
   <arg_execution>
+   <arg_group>General</arg_group>
    <arg_order>100</arg_order>
    <arg_section>DocumentSetup</arg_section>
    <arg_spot>Z</arg_spot>
@@ -706,4 +722,305 @@ things, but the two biggies are the prototype and the printers list
 #   </comments>
 #  </printer>
 
+
+Composite Options
+-----------------
+
+This is a new option type to make it easier for users to choose the
+best settings for a certain printing task, even if the driver has very
+many options. The idea is to have an enumerated choice option which
+does not directly modify something in the driver's command line but
+sets several of the other options.
+
+One example is the "PrintoutMode" option which will be made available
+for all printer/driver combos which have at least one option regarding
+the printout quality or document type. 
+
+The possible choices should be the same for every printer and driver,
+so that users (especially newbies) can bring their printers in the
+right mode by choosing one easy to understand item from a menu instead
+of having to switch several cryptic driver options. For now the
+choices are the following:
+
+   Command line  GUI                Intention
+   -----------------------------------------------------------------------
+   Draft         Draft              Very fast, ink/toner-saving printout
+   Normal        Normal             Quick standard quality printout
+   High          High Quality       High quality for plain paper
+   VeryHigh      Very High Quality  Highest quality for plain/inkjet paper
+   Photo         Photo              Highest quality for photo paper
+
+These choices can also have one of the following modifiers:
+
+   Modifyier     Intention
+   -----------------------------------------------------------------------
+   .Gray         Grayscale printing on a color printer
+   .Mono         Monochrome printing (no grayscales, black or white)
+
+Examples:
+
+   Command line   GUI                      Comment
+   ---------------------------------------------------------------------
+   High.Gray      High Quality Grayscale
+   Photo          Photo                    Color photos on color printer
+   VeryHigh.Mono  Very High Quality Monochrome  Really black text in
+                                           highest quality on inkjet
+                                           printer, not suitable for
+                                           halftone images.
+   Normal         Normal                   Standard color in 300/360 dpi
+                                           on normal paper, grayscale
+                                           on black-and-white printers
+
+Not all choices/combinations of basic choices and modifiers must be
+present. Often modes are simply not available on certain
+printer/driver combos, as "Photo" on most lasers. It is highly
+recommended to have "Normal" available, though (and having this the
+default).
+
+The GUI names can have additional remarks in parantheses, for example
+when manual intervention (other cartridge, photo paper) is needed.
+
+To add such an option to the database, one only needs to add an option
+XML file like the one below into the db/source/opt directory of the
+database. The file "db/source/opt/pcl3-PrintoutMode.xml could look
+like this:
+
+--------------------------------------------------------------------------
+<option type="enum" id="opt/pcl3-PrintoutMode">
+  <!-- A multilingual <comments> block can appear here, too;
+       it should be treated as documentation for the user. -->
+  <arg_longname>
+   <en>Printout Mode</en>
+  </arg_longname>
+  <arg_shortname>
+   <en>PrintoutMode</en><!-- backends only know <en> shortnames! -->
+  </arg_shortname>
+  <arg_execution>
+   <arg_order>10</arg_order>
+   <arg_section>AnySetup</arg_section>
+   <arg_spot>A</arg_spot>
+   <arg_composite />
+   <!-- <arg_proto></arg_proto> -->
+  </arg_execution>
+  <constraints>
+     <constraint sense="true">
+      <driver>pcl3</driver>
+      <arg_defval>ev/pcl3-PrintoutMode-Normal</arg_defval>
+     </constraint>
+  </constraints>
+  <enum_vals>
+   <enum_val id="ev/pcl3-PrintoutMode-Draft">
+    <ev_longname>
+     <en>Draft</en>
+    </ev_longname>
+    <!-- A multilingual <comments> block can appear here, too;
+         it should be treated as documentation for the user. -->
+    <ev_shortname>
+     <en>Draft</en>
+     <!-- Until someone tells me how to learn the user locale in
+          backends, the shortname must be monolingual in <en>! -->
+    </ev_shortname>
+    <ev_driverval>MediaType=Plain Resolution=150 Quality=Draft IntensityRendering=Halftones Passes=1</ev_driverval>
+   </enum_val>
+   <enum_val id="ev/pcl3-PrintoutMode-Normal">
+    <ev_longname>
+     <en>Normal</en>
+    </ev_longname>
+    <!-- A multilingual <comments> block can appear here, too;
+         it should be treated as documentation for the user. -->
+    <ev_shortname>
+     <en>Normal</en>
+     <!-- Until someone tells me how to learn the user locale in
+          backends, the shortname must be monolingual in <en>! -->
+    </ev_shortname>
+    <ev_driverval>MediaType=Plain Resolution=300 Quality=Normal IntensityRendering=Halftones Passes=1</ev_driverval>
+   </enum_val>
+   <enum_val id="ev/pcl3-PrintoutMode-High">
+    <ev_longname>
+     <en>High</en>
+    </ev_longname>
+    <!-- A multilingual <comments> block can appear here, too;
+         it should be treated as documentation for the user. -->
+    <ev_shortname>
+     <en>High</en>
+     <!-- Until someone tells me how to learn the user locale in
+          backends, the shortname must be monolingual in <en>! -->
+    </ev_shortname>
+    <ev_driverval>MediaType=Plain Resolution=600 Quality=Presentation IntensityRendering=FloydSteinberg Passes=4</ev_driverval>
+   </enum_val>
+   <enum_val id="ev/pcl3-PrintoutMode-Photo">
+    <ev_longname>
+     <en>Photo (on photo paper)</en>
+    </ev_longname>
+    <!-- A multilingual <comments> block can appear here, too;
+         it should be treated as documentation for the user. -->
+    <ev_shortname>
+     <en>Photo</en>
+     <!-- Until someone tells me how to learn the user locale in
+          backends, the shortname must be monolingual in <en>! -->
+    </ev_shortname>
+    <ev_driverval>MediaType=Premium Resolution=600 Quality=Presentation IntensityRendering=FloydSteinberg Passes=4</ev_driverval>
+   </enum_val>
+  </enum_vals>
+</option>
+--------------------------------------------------------------------------
+
+The shown option is only an example, it is neither in the CVS nore
+will it work with all printers which use the "pcl3" driver. You can
+paste it into a file (make the <ev_driverval>"s being one line, the
+items separated by spaces) and copy it to db/source/opt/ to try it
+out.
+
+The "<arg_composite />" tag for the execution style specifies it as a
+composite option. The <arg_spot> and <arg_proto> are meaningless in a
+composite option and the "<ev_driverval>"s contain a space-separated
+list of all settings of which the pre-made configuration represented
+by this choice consists. Every choice of the composite option must set
+EXACTLY THE SAME individual options. In no choice it is allowed to
+leave out one of them. These individual options are the member options
+of the composite option. Not all options of a driver/printer combo
+need to be member options of the composite option. It is not allowed
+to have one option being member of more than one composite option. The
+composite option and all member options must be enumerated choice
+options.
+
+It is enough to add a composite option as shown. The PPD generator
+(getppd() in lib/Foomatic/DB.pm, package "foomatic-db-engine") will
+take care of the rest. It will
+
+   - Order all member options into a group (PPD group, see "Option
+     Grouping" below) named after the composite option.
+
+   - Add to every member option the choice "Controlled by '<name of
+     the composite option>'" and make this choice the default. If this
+     is chosen, the composite option will set the value for this
+     member, depending on what value is chosen for the composite
+     option. If the user chooses something else than "Controlled by
+     '<name of the composite option>'" the member option does not obey
+     the setting given by the composite option. So the advanced user
+     can also set the member options individually.
+
+   - If necessary the <arg_order> and <arg_section> of the composite
+     option is replaced by other values in the PPD file, so that the
+     composite option will be stuffed into the PostScript data stream
+     always before all its member options. Do not give "0" as the
+     order number to any of the member options.
+
+A composite option can also span only one (but not zero) member
+option. This is for example done with the "PrintoutMode" option of the
+HPIJS driver ("foomatic-db-hpijs" package). This driver has only one
+option for setting resolution and quality, but this options has
+sometimes many choices with rather cryptic names. The "PrintoutMode"
+maps to the most important choices with the above-mentioned names, and
+in addition, these names are the same as of the "PrintoutMode" options
+of other drivers, so the user finds the important printing modes more
+easily.
+
+The facility of composite options can also be used for other things
+than for a "PrintoutMode" option, for example a finisher could be
+controlled by a composite option (to have the most common finishing
+tasks as "Bound booklet", "Stapled booklet", "Letter in envelope",
+...).
+
+
+Option Grouping
+---------------
+
+All options should be put in groups (with the tags
+"<arg_group>...</arg_group>" in the "<arg_execution>" section of the
+option XML files, see above). This way many GUIs sort the options into
+tabs or tree branches according to the groups. This way one gets only
+the most important options on the first tab and not so often needed
+ones on additional tabs. This also overrides the automatic option
+grouping of CUPS (Groups "General" and "Extra").
+
+It is recommended to have the options in groups as follows (plus
+perhaps special groups, but not one group for every option):
+
+General
+
+  Here go options which are most used on a job-by-job basis, as the
+  options for paper type, size, and tray, ink type, duplex, ... and
+  all options affecting the printout quality, as resolution,
+  dithering, ... and especially "PrintoutMode". If a "PrintoutMode"
+  option is present, all quality-related options covered by the
+  "PrintoutMode" option go into the automatically created
+  "PrintoutMode" group (see above). And this is intended, these
+  options are now usually controlled by "PrintoutMode" and so they are
+  not the most important options for the first tab any more.
+
+  Do not put color/brightness/gamma, ... options here, they go to
+  "Adjustment".
+
+  Options typically to go here are:
+
+    o PageSize
+    o InputSlot
+    o MediaType
+    o InkType
+    o Duplex
+    o PrintoutMode
+    o Resolution
+    o REt
+    o Dither
+    o FastRes
+    o Economode
+    o ...
+
+  All options mentioned after "PrintoutMode" will usually be used as
+  member options for "PrintoutMode", they are only in this group when
+  there is no "PrintoutMode" option.
+
+PrintoutMode
+
+  This group only exists if there is a "PrintoutMode" option, because
+  it is generated by this option. It contains the member options of
+  "PrintoutMode". Typical candidates are
+
+    o Resolution
+    o REt
+    o Dither
+    o FastRes
+    o Economode
+    o ...
+
+  They do not need an "<arg_group>PrintoutMode</arg_group>" line, they
+  are put into this group automatically. You should better put an
+  "<arg_group>General</arg_group>" line into these options, so that
+  they go into the "General" group when there is a printer/driver
+  combo for which no "PrintoutMode" option applies.
+
+Adjustment
+
+  Options for correcting the appearance of colors, contrast, ..., for
+  head alignment, ... etc. Here most numerical options will go, but
+  also things like "Density", also if it is an enumerated choice
+  option. Typical candidates are:
+
+    o Gamma
+    o Brightness
+    o Contrast
+    o Density
+    o Saturation
+    o Cyan
+    o Magenta
+    o Yellow
+    o ...
+
+Finishing
+
+  If a printer has a stapler, folder, cutter, envelope packer, or
+  similar devices to do additional processing on the ready printout,
+  the options to control this stuff go into this group. Examples:
+
+    o Stapling
+    o Binding
+    o Cutting
+    o Booklet
+    o ...
+
+Miscellaneous
+
+  Options which do not fit into the mentioned groups and for which it
+  is not worth to make a special group.
 
