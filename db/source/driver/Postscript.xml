@@ -7,11 +7,16 @@
  </execution>
  <comments>
   <en>
-    Generic Postscript driver. Generally, for Postscript printers, you
-    will not need a driver, or you will use a PPD file. This site's
-    automagic configuration system adds little, it provides some
-    standard options, so that one can use it for printing systems
-    which do not support PPD files.&lt;p&gt;
+
+    Generic Postscript &quot;driver&quot;. Generally, for Postscript
+    printers, you will not need a driver, as all applications produce
+    PostScript. For the printing system getting access to the
+    printer-specific features the manufacturer supplies a PPD file for
+    every PostScript printer. Use this PPD file instead of a
+    Foomatic-generated one to get all functionality of your PostScript
+    printer working. The files provided by Foomatic are generic files
+    which contain only some standard options, use them only if you do
+    not find an appropriate PPD for your printer.&lt;p&gt;
 
     In addition, this driver allows to convert the PostScript data
     from the application to a lower PostScript level, so that
@@ -22,7 +27,9 @@
     the printer is able to print these fonts. This needs extra memory
     in the printer, if your printer does not print the job, the memory
     is unsufficient, try to lower the resolution or to use a PCL
-    driver (ljet4, lj5gray/lj5mono, pxlmono).&lt;p&gt;
+    driver (&quot;hpijs&quot;, &quot;ljet4&quot;,
+    &quot;lj5gray&quot;/&quot;lj5mono&quot;,
+    &quot;pxlmono&quot;/&quot;pxlcolor&quot;).&lt;p&gt;
 
     One can make use of all functionality which the PostScript
     printers have under Windows/MacOS when one uses the PPD file
@@ -34,19 +41,21 @@
     for all HP PostScript printers), or from &lt;a
     href="http://www.adobe.com/products/printerdrivers/winppd.html"&gt;Adobe&apos;s&lt;/a&gt;
     web site (do &quot;&lt;tt&gt;unzip -L
-    [filename].EXE&lt;/tt&gt;&quot; to get the PPD files). CUPS and
-    PPR support PPD files directly, LPD/GNUlpr/LPRng users can set up
-    a raw queue and print with &lt;a
-    href=&quot;http://sourceforge.net/projects/lpr&quot;&gt;GPR/ppdfilt&lt;/a&gt;
-    into it. So all PostScript printers work perfectly under Linux or
-    other free operating systems. GhostScript and/or
-    &lt;tt&gt;cupsomatic&lt;/tt&gt;/&lt;tt&gt;ppromatic&lt;/tt&gt;/&lt;tt&gt;lpdomatic&lt;/tt&gt;
-    is not needed for them. See our &lt;a
-    href=&quot;ppd-doc.html&quot;&gt;PPD documentation page&lt;/a&gt;
-    for instructions and also &lt;a
-    href=&quot;http://www.mandrakeuser.org/hardware/hcups2.html#instpostscript&quot;&gt;instructions&lt;/a&gt;
-    for Mandrake Linux 7.2 or newer (should work also on other systems
-    with CUPS installed).&lt;p&gt;
+    [filename].EXE&lt;/tt&gt;&quot; to get the PPD files). If there
+    are several different PPD files for your printer model and none
+    dedicated for Linux or Unix, the PPD for Windows NT works best in
+    most cases.&lt;p&gt;
+
+
+    CUPS and PPR support PPD files directly, LPD/GNUlpr/LPRng, PDQ,
+    CPS, and spooler-less users can set up their printers with
+    &lt;tt&gt;foomatic-rip&lt;/tt&gt; as they would set up a printer
+    with a Foomatic PPD file. &lt;tt&gt;foomatic-rip&lt;/tt&gt; works
+    as well with manufacturer-supplied PostScript PPD files. This way
+    all PostScript printers work perfectly under GNU/Linux or other
+    free operating systems. GhostScript is not needed for them. See
+    also our &lt;a href=&quot;ppd-doc.html&quot;&gt;PPD documentation
+    page&lt;/a&gt; for instructions.&lt;p&gt;
 
     See the tutorial chapter &quot;&lt;a
     href=&quot;http://www.linuxprinting.org/kpfeifle/LinuxKongress2002/Tutorial/III.PostScript-and-PPDs/III.PostScript-and-PPDs.html&quot;&gt;Some
