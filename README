@@ -1100,7 +1100,10 @@ escape from the quoting. The allowed characters are checked by a
 "/^[...]*$/" expression in the Perl scripts, so ranges with "-", a
 list of forbidden characters with a leading "^", or special characters
 as "\w", "\d", "\x07", ...  are allowed. To allow a backslash, one has
-to escape it by using two backslashes ("\\").
+to escape it by using two backslashes ("\\"). To allow a "-" it must
+be in the end of the list to not make it defining a range and for a
+"^" must be placed at any other place than the beginning of the string
+if it should be explicitly allowed.
 
 "<arg_allowedregexp>" allows also to restrict the structure of the
 string, as it defines an arbitrary Perl regular expression (see "man
@@ -1152,7 +1155,7 @@ for the Foomatic database nor tested with this driver):
 	<arg_proto>-G%s </arg_proto>
     </arg_execution>
     <arg_maxlength>127</arg_maxlength>
-    <arg_allowedchars>A-Za-z0-9\._-/</arg_allowedchars>
+    <arg_allowedchars>A-Za-z0-9\._/-</arg_allowedchars>
     <arg_allowedregexp>(?&lt;!\/)$</arg_allowedregexp>
     <constraints>
 	<constraint sense="true">
