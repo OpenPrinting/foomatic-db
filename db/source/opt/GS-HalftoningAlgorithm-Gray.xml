@@ -1,0 +1,154 @@
+<option type="enum" id="opt/GS-HalftoningAlgorithm-Gray">
+  <!-- A multilingual <comments> block can appear here, too;
+       it should be treated as documentation for the user. -->
+  <arg_longname>
+   <en>Halftoning Algorithm</en>
+  </arg_longname>
+  <arg_shortname>
+   <en>HalftoningAlgorithm</en><!-- backends only know <en> shortnames! -->
+  </arg_shortname>
+  <arg_execution>
+   <arg_group>Adjustment</arg_group>
+   <arg_order>1000</arg_order>
+   <arg_section>PageSetup</arg_section>
+   <arg_spot>Z</arg_spot>
+   <arg_required />
+   <arg_postscript />
+   <arg_proto>%s</arg_proto>
+  </arg_execution>
+  <constraints>
+     <constraint sense="true">
+      <driver>deskjet</driver>
+      <arg_defval>ev/GS-HalftoningAlgorithm-Gray-Standard</arg_defval>
+     </constraint>
+     <constraint sense="true">
+      <driver>djet500</driver>
+      <arg_defval>ev/GS-HalftoningAlgorithm-Gray-Standard</arg_defval>
+     </constraint>
+     <constraint sense="true">
+      <driver>dj505j</driver>
+      <arg_defval>ev/GS-HalftoningAlgorithm-Gray-Standard</arg_defval>
+     </constraint>
+     <constraint sense="true">
+      <driver>ljet4</driver>
+      <arg_defval>ev/GS-HalftoningAlgorithm-Gray-Standard</arg_defval>
+     </constraint>
+     <constraint sense="true">
+      <driver>ljet4d</driver>
+      <arg_defval>ev/GS-HalftoningAlgorithm-Gray-Standard</arg_defval>
+     </constraint>
+     <constraint sense="true">
+      <driver>ljet4pjl</driver>
+      <arg_defval>ev/GS-HalftoningAlgorithm-Gray-Standard</arg_defval>
+     </constraint>
+     <constraint sense="true">
+      <driver>ljet3</driver>
+      <arg_defval>ev/GS-HalftoningAlgorithm-Gray-Standard</arg_defval>
+     </constraint>
+     <constraint sense="true">
+      <driver>ljet3d</driver>
+      <arg_defval>ev/GS-HalftoningAlgorithm-Gray-Standard</arg_defval>
+     </constraint>
+     <constraint sense="true">
+      <driver>ljet2p</driver>
+      <arg_defval>ev/GS-HalftoningAlgorithm-Gray-Standard</arg_defval>
+     </constraint>
+     <constraint sense="true">
+      <driver>ljetplus</driver>
+      <arg_defval>ev/GS-HalftoningAlgorithm-Gray-Standard</arg_defval>
+     </constraint>
+     <constraint sense="true">
+      <driver>laserjet</driver>
+      <arg_defval>ev/GS-HalftoningAlgorithm-Gray-Standard</arg_defval>
+     </constraint>
+     <constraint sense="true">
+      <driver>gdi</driver>
+      <arg_defval>ev/GS-ScreeningType-Standard</arg_defval>
+     </constraint>
+     <constraint sense="true">
+      <driver>hl1240</driver>
+      <arg_defval>ev/GS-ScreeningType-Standard</arg_defval>
+     </constraint>
+     <constraint sense="true">
+      <driver>hl1250</driver>
+      <arg_defval>ev/GS-ScreeningType-Standard</arg_defval>
+     </constraint>
+     <constraint sense="true">
+      <driver>hl7x0</driver>
+      <arg_defval>ev/GS-ScreeningType-Standard</arg_defval>
+     </constraint>
+     <constraint sense="true">
+      <driver>oki4w</driver>
+      <arg_defval>ev/GS-ScreeningType-Standard</arg_defval>
+     </constraint>
+     <constraint sense="true">
+      <driver>coslw2p</driver>
+      <arg_defval>ev/GS-ScreeningType-Standard</arg_defval>
+     </constraint>
+     <constraint sense="true">
+      <driver>coslwxl</driver>
+      <arg_defval>ev/GS-ScreeningType-Standard</arg_defval>
+     </constraint>
+  </constraints>
+  <enum_vals>
+   <enum_val id="ev/GS-HalftoningAlgorithm-Gray-Standard">
+    <ev_longname>
+     <en>Standard</en>
+    </ev_longname>
+    <!-- A multilingual <comments> block can appear here, too;
+         it should be treated as documentation for the user. -->
+    <ev_shortname>
+     <en>Standard</en>
+     <!-- Until someone tells me how to learn the user locale in 
+          backends, the shortname must be monolingual in <en>! -->
+    </ev_shortname>
+    <ev_driverval></ev_driverval>
+   </enum_val>
+   <enum_val id="ev/GS-HalftoningAlgorithm-Gray-Accurate">
+    <ev_longname>
+     <en>Accurate</en>
+    </ev_longname>
+    <!-- A multilingual <comments> block can appear here, too;
+         it should be treated as documentation for the user. -->
+    <ev_shortname>
+     <en>Accurate</en>
+     <!-- Until someone tells me how to learn the user locale in 
+          backends, the shortname must be monolingual in <en>! -->
+    </ev_shortname>
+    <ev_driverval>
+      &lt;&lt; /UseWTS false &gt;&gt; setuserparams
+      &lt;&lt;
+        /AccurateScreens true
+        /HalftoneType 1
+        /HalftoneName (Round Dot Screen)
+        /SpotFunction { 180 mul cos exch 180 mul cos add 2 div}
+        /Frequency 137
+        /Angle 37
+      &gt;&gt; sethalftone
+    </ev_driverval>
+   </enum_val>
+   <enum_val id="ev/GS-HalftoningAlgorithm-Gray-WTS">
+    <ev_longname>
+     <en>Well-Tempered Screening</en>
+    </ev_longname>
+    <!-- A multilingual <comments> block can appear here, too;
+         it should be treated as documentation for the user. -->
+    <ev_shortname>
+     <en>WTS</en>
+     <!-- Until someone tells me how to learn the user locale in 
+          backends, the shortname must be monolingual in <en>! -->
+    </ev_shortname>
+    <ev_driverval>
+      &lt;&lt; /UseWTS true &gt;&gt; setuserparams
+      &lt;&lt;
+        /AccurateScreens true
+        /HalftoneType 1
+        /HalftoneName (Round Dot Screen)
+        /SpotFunction { 180 mul cos exch 180 mul cos add 2 div}
+        /Frequency 137
+        /Angle 37
+      &gt;&gt; sethalftone
+    </ev_driverval>
+   </enum_val>
+  </enum_vals>
+</option>
