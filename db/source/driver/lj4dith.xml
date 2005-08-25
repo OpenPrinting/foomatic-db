@@ -3,18 +3,27 @@
  <url>http://www.cs.wisc.edu/~ghost/doc/printer.htm</url>
  <execution>
   <ghostscript />
-  <prototype />
+  <prototype>gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -sDEVICE=lj4dith%B%A%Z -sOutputFile=- - | perl -p -0033 -e &quot; s/^&amp;l\d+[aA]/$&amp;%E/; &quot; </prototype>
  </execution>
  <comments>
   <en>
 
-    Same as &lt;a
-    href="show_driver.cgi?driver=ljet4"&gt;ljet4&lt;/a&gt; with
-    Floyd-Steinberg dithering. Therefore the LPD/CUPS/PDQ driver
-    information (which serves for both drivers) can only be obtained
-    there. The "Dithering" option there switches between this driver
-    and the original "ljet4" driver. Another possibility to get a
-    better grayscale quality is the HPIJS driver.
+    Replacement for the &lt;a
+    href="show_driver.cgi?driver=ljet4"&gt;ljet4&lt;/a&gt; GhostScript
+    driver intended to enhance the image output quality with
+    Floyd-Steinberg dithering. Unfortunately, this driver has problems
+    with the margins. The document is not placed exactly at the same
+    position as with the "ljet4" driver. The page seems to be shifted
+    to the upper right, probably due to the upper and right
+    unprintable borders not taken into account. Therefore the driver
+    is not used any more together with "ljet4" in the same PPD files,
+    with an option to switch between the two.&lt;p&gt;
+
+    To get higher output quality you can set Well-Tempered screening
+    when you use the "ljet4" driver with GhostScript 8.x or later,
+    which is the recommended replacement for "lj4dith". Or use &lt;a
+    href="show_driver.cgi?driver=hpijs"&gt;HPIJS&lt;/a&gt; or &lt;a
+    href="show_driver.cgi?driver=gimp-print"&gt;Gimp-Print&lt;/a&gt;.&lt;p&gt;
 
   </en>
  </comments>
@@ -192,10 +201,52 @@
    </comments>
   </printer>
   <printer>
+   <id>printer/Epson-EPL-5800PS</id>
+  </printer>
+  <printer>
    <id>printer/Epson-EPL-5900</id>
   </printer>
   <printer>
+   <id>printer/Epson-EPL-5900PS</id>
+  </printer>
+  <printer>
    <id>printer/Epson-EPL-6100</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-EPL-6100PS</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-EPL-N1600</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-EPL-N1600PS</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-EPL-N2050</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-EPL-N2050PS</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-EPL-N2050plus</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-EPL-N2050PSplus</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-EPL-N2120</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-EPL-N2500</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-EPL-N2500PS</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-EPL-N2750</id>
+  </printer>
+  <printer>
+   <id>printer/Epson-EPL-N2750PS</id>
   </printer>
   <printer>
    <id>printer/Epson-AcuLaser_C1900</id>
@@ -229,6 +280,18 @@
   </printer>
   <printer>
    <id>printer/Epson-AcuLaser_C4000PS</id>
+   <comments>
+    <en>Grayscale only.</en>
+   </comments>
+  </printer>
+  <printer>
+   <id>printer/Epson-AcuLaser_C4100</id>
+   <comments>
+    <en>Grayscale only.</en>
+   </comments>
+  </printer>
+  <printer>
+   <id>printer/Epson-AcuLaser_C4100PS</id>
    <comments>
     <en>Grayscale only.</en>
    </comments>
@@ -618,6 +681,48 @@
    <id>printer/Samsung-ML-1651N</id><!-- Samsung ML-1651N -->
   </printer>
   <printer>
+   <id>printer/Samsung-ML-1450</id>
+  </printer>
+  <printer>
+   <id>printer/Samsung-ML-1450PS</id>
+  </printer>
+  <printer>
+   <id>printer/Samsung-ML-1750</id>
+  </printer>
+  <printer>
+   <id>printer/Samsung-ML-2150</id>
+  </printer>
+  <printer>
+   <id>printer/Samsung-ML-2150PS</id>
+  </printer>
+  <printer>
+   <id>printer/Samsung-ML-2151N</id>
+  </printer>
+  <printer>
+   <id>printer/Samsung-ML-2151NPS</id>
+  </printer>
+  <printer>
+   <id>printer/Samsung-ML-2152W</id>
+  </printer>
+  <printer>
+   <id>printer/Samsung-ML-2152WPS</id>
+  </printer>
+  <printer>
+   <id>printer/Samsung-ML-2550</id>
+  </printer>
+  <printer>
+   <id>printer/Samsung-ML-2551N</id>
+  </printer>
+  <printer>
+   <id>printer/Samsung-ML-2552W</id>
+  </printer>
+  <printer>
+   <id>printer/Samsung-ML-7300</id>
+  </printer>
+  <printer>
+   <id>printer/Samsung-ML-7300N</id>
+  </printer>
+  <printer>
    <id>printer/Samsung-ML-4600</id><!-- Samsung ML-4600 -->
   </printer>
   <printer>
@@ -662,5 +767,4 @@
   <printer>
    <id>printer/Xerox-Able_1406</id>
   </printer>
- </printers>
 </driver>

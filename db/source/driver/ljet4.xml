@@ -3,17 +3,55 @@
  <url>http://www.cs.wisc.edu/~ghost/doc/printer.htm</url>
  <execution>
   <ghostscript />
-  <prototype>gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE%B%A%Z -sOutputFile=- - | perl -p -0033 -e &quot; s/^&amp;l\d+[aA]/$&amp;%E/; &quot; </prototype>
+  <prototype>gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -sDEVICE=ljet4%B%A%Z -sOutputFile=- - | perl -p -0033 -e &quot; s/^&amp;l\d+[aA]/$&amp;%E/; &quot; </prototype>
  </execution>
  <comments>
   <en>
     Ghostscript's HP LaserJet 4 (PCL 5e) driver.&lt;p&gt;
 
+    "ljet4" is the classical GhostScript driver for PCL 5e
+    printers. It is probably widely used, as it is part of GhostScript
+    and does not require any extra software, but before GhostScript
+    8.x its output quality was lousy and one has searched for
+    alternative drivers. From GhostScript 8.x the well-tempered
+    screening was introduced which gives much better quality for
+    half-tone images. You can make use of it by downloading the PPD
+    file for your printer here and using the "HalftoningAlgorithm"
+    option.&lt;p&gt;
+
+    The &lt;a
+    href="show_driver.cgi?driver=lj4dith"&gt;"lj4dith"&lt;/a&gt;
+    GhostScript driver which uses Floyd-Steinberg dithering to improve
+    the image output quality. Unfortunately, this driver has problems
+    with the margins. The document is not placed exactly at the same
+    position as with the "ljet4" driver. The page seems to be shifted
+    to the upper right, probably due to the upper and right
+    unprintable borders not taken into account. Formerly, you could
+    use the driver with the same PPD file as "ljet4", simply by
+    switching an option, but we have removed this feature due to the
+    paper size problem. Use Well-Tempered screening if you want to
+    enhance the image printing quality.&lt;p&gt;
+
+    A good PCL 5e driver is &lt;a
+    href="show_driver.cgi?driver=hpijs"&gt;HPIJS&lt;/a&gt; which is
+    developed by HP to support their non-PostScript laser
+    printers. &lt;a
+    href="show_driver.cgi?driver=gimp-print"&gt;Gimp-Print&lt;/a&gt;
+    supports even PCL 4, 5, and 5e so that it serves as an alternative
+    driver even for older printers. Gimp_print has many dithering
+    algorithms to choose, but most are optimized for inkjets.&lt;p&gt;
+
     Note that many printers listed as supported by this driver also
     understand PCL-XL and so they can be used with the
     &quot;lj5gray&quot;/&quot;lj5mono&quot; and
     &quot;pxlmono&quot;/&quot;pxlcolor&quot; drivers which give a much
-    higher output quality and resolutions up to 1200 dpi,
+    higher output quality and resolutions up to 1200 dpi,&lt;p&gt;
+
+    Unfortunately, the PCL drivers are not always absolutely
+    compatible with every printer. Se &lt;a
+    href="http://www.mit.edu/~jik/3000cn/"&gt;this example&lt;/a&gt;
+    for what can happen.&lt;p&gt;
+
   </en>
  </comments>
  <printers>
