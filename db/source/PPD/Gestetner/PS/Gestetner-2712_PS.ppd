@@ -1,0 +1,1394 @@
+*PPD-Adobe: "4.3"
+*%
+*%  Printer Description file
+*%    for "Gestetner 2712 PS"
+*%
+*%    CreationDate: 2001/02/08
+*%    Modified:     2005/08/29
+*%
+*%    COPYRIGHT (C) 2001-2005 RICOH COMPANY, LTD.
+*%    
+*%    Permission is hereby granted, free of charge, to any person obtaining
+*%    a copy of this software and associated documentation files (the
+*%    "Software"), to deal in the Software without restriction, including
+*%    without limitation the rights to use, copy, modify, merge, publish,
+*%    distribute, sublicense, and/or sell copies of the Software, and to
+*%    permit persons to whom the Software is furnished to do so, subject to
+*%    the following conditions:
+*%    
+*%    The above copyright notice and this permission notice shall be
+*%    included in all copies or substantial portions of the Software.
+*%    
+*%    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+*%    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+*%    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+*%    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+*%    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+*%    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+*%    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*%    
+*%    [this is the MIT open source license -- please see www.opensource.org]
+*%
+
+*FileVersion: "1.1"
+*FormatVersion: "4.3"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+*ModelName: "Gestetner 2712"
+*PCFileName: "GES27123.PPD"
+*Manufacturer: "Gestetner"
+*Product: "(Gestetner 2712 PS3)"
+*PSVersion: "(3011.103) 2"
+*ShortNickName: "Gestetner 2712 PS"
+*NickName: "Gestetner 2712 PS"
+
+*%========== Basic Device Capabilities ==========
+
+*Protocols: PJL BCP
+*JCLBegin: "<1B>%-12345X@PJL JOB<0A>"
+*JCLToPSInterpreter: "@PJL ENTER LANGUAGE = POSTSCRIPT <0A>"
+*JCLEnd: "<1B>%-12345X@PJL EOJ<0A>"
+
+*LanguageLevel: "3"
+*ColorDevice: False
+*DefaultColorSpace: Gray
+
+*TTRasterizer: Type42
+*?TTRasterizer: "
+   save
+      42 /FontType resourcestatus
+      { pop pop (Type42)} {pop pop (None)} ifelse = flush
+   restore
+"
+*End
+
+*FileSystem: True
+*?FileSystem: "
+  save
+  statusdict /diskonline get exec
+  {(True)}{(False)}ifelse = flush
+  restore
+"
+*End
+
+*Throughput: "27"
+
+*%========== Installable Options ==========
+*%========== & System Management ==========
+
+*OpenGroup: InstallableOptions/Installable Options
+
+*OpenUI *Option1/Option Tray: PickOne
+*DefaultOption1: None
+*Option1 None/Not Installed: ""
+*Option1 1Cassette/Tray 3(LCT): ""
+*Option1 2Cassette/Tray 3 and 4: ""
+*?Option1: "
+  save
+  {
+   /num 0 def
+   currentpagedevice /InputAttributes get
+   {type (dicttype) eq {/num num 1 add def} if pop} forall
+   num
+     dup 3 eq { (None) exit } if
+     dup 4 eq { (1Cassette) exit } if
+     5 eq { (2Cassette) exit } if
+     (Unknown) exit
+   } loop
+   mark count 1 sub 2 roll cleartomark
+   = flush
+  restore
+"
+*End
+*CloseUI: *Option1
+
+*OpenUI *Option3/Bypass Tray: PickOne
+*DefaultOption3: False
+*Option3 False/Not Installed: ""
+*Option3 True/Installed: ""
+*?Option3: "
+  save
+  currentpagedevice /InputAttributes get
+  {exch 0 eq {type (dicttype)
+  eq {(True) exit} {(False) exit} ifelse}if} forall
+  mark count 1 sub 2 roll cleartomark
+  = flush
+  restore
+"
+*End
+*CloseUI: *Option3
+
+*OpenUI *Option10/Duplex Unit: Boolean
+*DefaultOption10: False
+*Option10 False/Not Installed: ""
+*Option10 True/Installed: ""
+*?Option10: "
+  save
+  statusdict /duplex get
+  {(True)}{(False)}ifelse = flush
+  restore
+"
+*End
+*CloseUI: *Option10
+
+*OpenUI *Option20/Internal Tray 2: PickOne
+*DefaultOption20: False
+*Option20 False/Not Installed: ""
+*Option20 True/Installed: ""
+*?Option20: "
+  save
+  currentpagedevice /OutputAttributes get
+  {exch 2 eq {type (dicttype)
+  eq {(True) exit} {(False) exit} ifelse}if} forall
+  mark count 1 sub 2 roll cleartomark
+  = flush
+  restore
+"
+*End
+*CloseUI: *Option20
+
+*OpenUI *Option25/Shift Tray: PickOne
+*DefaultOption25: False
+*Option25 False/Not Installed: ""
+*Option25 True/Installed: ""
+*?Option25: "
+  save
+  currentpagedevice /OutputAttributes get
+  {exch 23 eq {type (dicttype)
+  eq {(True) exit} {(False) exit} ifelse}if} forall
+  mark count 1 sub 2 roll cleartomark
+  = flush
+  restore
+"
+*End
+*CloseUI: *Option25
+
+*OpenUI *Option30/Finisher: PickOne
+*DefaultOption30: None
+*Option30 None/Not Installed: ""
+*Option30 Fin500/Finisher 500: ""
+*Option30 Fin1000/Finisher 1000: ""
+*?Option30: "
+  save {
+  currentpagedevice /OutputAttributes get
+  {exch 2 eq {type (dicttype) eq {/num 0 def}{/num 1 def}ifelse}if}forall
+  currentpagedevice /OutputAttributes get
+  {exch 3 eq {type (dicttype) eq {}{/num num 1 add def}ifelse}if} forall
+  currentpagedevice /OutputAttributes get
+  {type (dicttype) eq {/num num 1 add def} if pop} forall
+  num
+     dup 3 eq { (None) exit } if
+     dup 4 eq { (Fin500) exit } if
+     5 eq { (Fin1000) exit } if
+     (Unknown) exit
+  } loop
+  mark count 1 sub 2 roll cleartomark
+  = flush
+  restore
+"
+*End
+*CloseUI: *Option30
+
+*CloseGroup: InstallableOptions
+
+*%====== Option Tray & InputSlot
+*UIConstraints: *Option1 None *InputSlot 3Tray
+*UIConstraints: *Option1 None *InputSlot 4Tray
+*UIConstraints: *Option1 1Cassette *InputSlot 4Tray
+*UIConstraints: *Option3 False *InputSlot MultiTray
+*UIConstraints: *InputSlot 3Tray *Option1 None
+*UIConstraints: *InputSlot 4Tray *Option1 None
+*UIConstraints: *InputSlot 4Tray *Option1 1Cassette
+*UIConstraints: *InputSlot MultiTray *Option3 False
+
+*%====== Duplex Unit & Duplex
+*UIConstraints: *Option10 False *Duplex DuplexTumble
+*UIConstraints: *Option10 False *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexTumble *Option10 False
+*UIConstraints: *Duplex DuplexNoTumble *Option10 False
+
+*%====== Internal Tray & Bin1(Destination)
+*UIConstraints: *Option20 False *OutputBin Bin1
+*UIConstraints: *OutputBin Bin1 *Option20 False
+
+*%====== Shift Tray & Shift(Destination)
+*UIConstraints: *Option25 False *OutputBin Shift
+*UIConstraints: *OutputBin Shift *Option25 False
+
+*%====== Shift Tray & Standard(Destination)
+*UIConstraints: *Option25 True *OutputBin Standard
+*UIConstraints: *OutputBin Standard *Option25 True
+
+*%====== Shift Tray & Finisher
+*UIConstraints: *Option25 True *Option30 Fin500
+*UIConstraints: *Option25 True *Option30 Fin1000
+*UIConstraints: *Option30 Fin500 *Option25 True
+*UIConstraints: *Option30 Fin1000 *Option25 True
+
+*%====== Finisher & Finisher(Destination)
+*UIConstraints: *Option30 None *OutputBin FujigawaShift
+*UIConstraints: *Option30 None *OutputBin KingUpper
+*UIConstraints: *Option30 None *OutputBin KingLower
+*UIConstraints: *Option30 Fin500 *OutputBin KingUpper
+*UIConstraints: *Option30 Fin500 *OutputBin KingLower
+*UIConstraints: *Option30 Fin1000 *OutputBin FujigawaShift
+*UIConstraints: *OutputBin FujigawaShift *Option30 None
+*UIConstraints: *OutputBin KingUpper *Option30 None
+*UIConstraints: *OutputBin KingLower *Option30 None
+*UIConstraints: *OutputBin KingUpper *Option30 Fin500
+*UIConstraints: *OutputBin KingLower *Option30 Fin500
+*UIConstraints: *OutputBin FujigawaShift *Option30 Fin1000
+
+*%====== Staple & Finisher
+*UIConstraints: *RIStaple UpperLeft *Option30 None
+*UIConstraints: *RIStaple UpperRight *Option30 None
+*UIConstraints: *RIStaple LowerLeft *Option30 None
+*UIConstraints: *RIStaple LowerRight *Option30 None
+*UIConstraints: *RIStaple LeftW *Option30 None
+*UIConstraints: *RIStaple RightW *Option30 None
+*UIConstraints: *RIStaple UpperW *Option30 None
+*UIConstraints: *RIStaple LowerW *Option30 None
+*UIConstraints: *Option30 None *RIStaple UpperLeft
+*UIConstraints: *Option30 None *RIStaple UpperRight
+*UIConstraints: *Option30 None *RIStaple LowerLeft
+*UIConstraints: *Option30 None *RIStaple LowerRight
+*UIConstraints: *Option30 None *RIStaple LeftW
+*UIConstraints: *Option30 None *RIStaple RightW
+*UIConstraints: *Option30 None *RIStaple UpperW
+*UIConstraints: *Option30 None *RIStaple LowerW
+*UIConstraints: *Option30 Fin500 *RIStaple LeftW
+*UIConstraints: *Option30 Fin500 *RIStaple RightW
+*UIConstraints: *Option30 Fin500 *RIStaple UpperW
+*UIConstraints: *Option30 Fin500 *RIStaple LowerW
+*UIConstraints: *RIStaple LeftW *Option30 Fin500
+*UIConstraints: *RIStaple RightW *Option30 Fin500
+*UIConstraints: *RIStaple UpperW *Option30 Fin500
+*UIConstraints: *RIStaple LowerW *Option30 Fin500
+
+*%====== MediaType & InputSlot
+*UIConstraints: *MediaType Labels *InputSlot 1Tray
+*UIConstraints: *MediaType Labels *InputSlot 3Tray
+*UIConstraints: *MediaType Labels *InputSlot 4Tray
+*UIConstraints: *MediaType OHP *InputSlot 1Tray
+*UIConstraints: *MediaType OHP *InputSlot 3Tray
+*UIConstraints: *MediaType OHP *InputSlot 4Tray
+*UIConstraints: *MediaType Thick *InputSlot 1Tray
+*UIConstraints: *MediaType Thick *InputSlot 3Tray
+*UIConstraints: *MediaType Thick *InputSlot 4Tray
+*UIConstraints: *MediaType Thin *InputSlot 1Tray
+*UIConstraints: *MediaType Thin *InputSlot 3Tray
+*UIConstraints: *MediaType Thin *InputSlot 4Tray
+*UIConstraints: *InputSlot 1Tray *MediaType Labels
+*UIConstraints: *InputSlot 3Tray *MediaType Labels
+*UIConstraints: *InputSlot 4Tray *MediaType Labels
+*UIConstraints: *InputSlot 1Tray *MediaType OHP
+*UIConstraints: *InputSlot 3Tray *MediaType OHP
+*UIConstraints: *InputSlot 4Tray *MediaType OHP
+*UIConstraints: *InputSlot 1Tray *MediaType Thick
+*UIConstraints: *InputSlot 3Tray *MediaType Thick
+*UIConstraints: *InputSlot 4Tray *MediaType Thick
+*UIConstraints: *InputSlot 1Tray *MediaType Thin
+*UIConstraints: *InputSlot 3Tray *MediaType Thin
+*UIConstraints: *InputSlot 4Tray *MediaType Thin
+
+*%====== PageSize & InputSlot
+*UIConstraints: *PageSize A6 *InputSlot 1Tray
+*UIConstraints: *PageSize A6 *InputSlot 3Tray
+*UIConstraints: *PageSize A6 *InputSlot 4Tray
+*UIConstraints: *PageSize Env10 *InputSlot 1Tray
+*UIConstraints: *PageSize Env10 *InputSlot 3Tray
+*UIConstraints: *PageSize Env10 *InputSlot 4Tray
+*UIConstraints: *PageSize EnvMonarch *InputSlot 1Tray
+*UIConstraints: *PageSize EnvMonarch *InputSlot 3Tray
+*UIConstraints: *PageSize EnvMonarch *InputSlot 4Tray
+*UIConstraints: *PageSize EnvC5 *InputSlot 1Tray
+*UIConstraints: *PageSize EnvC5 *InputSlot 3Tray
+*UIConstraints: *PageSize EnvC5 *InputSlot 4Tray
+*UIConstraints: *PageSize EnvC6 *InputSlot 1Tray
+*UIConstraints: *PageSize EnvC6 *InputSlot 3Tray
+*UIConstraints: *PageSize EnvC6 *InputSlot 4Tray
+*UIConstraints: *PageSize DLEnv *InputSlot 1Tray
+*UIConstraints: *PageSize DLEnv *InputSlot 3Tray
+*UIConstraints: *PageSize DLEnv *InputSlot 4Tray
+*UIConstraints: *InputSlot 1Tray *PageSize A6
+*UIConstraints: *InputSlot 3Tray *PageSize A6
+*UIConstraints: *InputSlot 4Tray *PageSize A6
+*UIConstraints: *InputSlot 1Tray *PageSize Env10
+*UIConstraints: *InputSlot 3Tray *PageSize Env10
+*UIConstraints: *InputSlot 4Tray *PageSize Env10
+*UIConstraints: *InputSlot 1Tray *PageSize EnvMonarch
+*UIConstraints: *InputSlot 3Tray *PageSize EnvMonarch
+*UIConstraints: *InputSlot 4Tray *PageSize EnvMonarch
+*UIConstraints: *InputSlot 1Tray *PageSize EnvC5
+*UIConstraints: *InputSlot 3Tray *PageSize EnvC5
+*UIConstraints: *InputSlot 4Tray *PageSize EnvC5
+*UIConstraints: *InputSlot 1Tray *PageSize EnvC6
+*UIConstraints: *InputSlot 3Tray *PageSize EnvC6
+*UIConstraints: *InputSlot 4Tray *PageSize EnvC6
+*UIConstraints: *InputSlot 1Tray *PageSize DLEnv
+*UIConstraints: *InputSlot 3Tray *PageSize DLEnv
+*UIConstraints: *InputSlot 4Tray *PageSize DLEnv
+
+*UIConstraints: *PageRegion A6 *InputSlot 1Tray
+*UIConstraints: *PageRegion A6 *InputSlot 3Tray
+*UIConstraints: *PageRegion A6 *InputSlot 4Tray
+*UIConstraints: *PageRegion Env10 *InputSlot 1Tray
+*UIConstraints: *PageRegion Env10 *InputSlot 3Tray
+*UIConstraints: *PageRegion Env10 *InputSlot 4Tray
+*UIConstraints: *PageRegion EnvMonarch *InputSlot 1Tray
+*UIConstraints: *PageRegion EnvMonarch *InputSlot 3Tray
+*UIConstraints: *PageRegion EnvMonarch *InputSlot 4Tray
+*UIConstraints: *PageRegion EnvC5 *InputSlot 1Tray
+*UIConstraints: *PageRegion EnvC5 *InputSlot 3Tray
+*UIConstraints: *PageRegion EnvC5 *InputSlot 4Tray
+*UIConstraints: *PageRegion EnvC6 *InputSlot 1Tray
+*UIConstraints: *PageRegion EnvC6 *InputSlot 3Tray
+*UIConstraints: *PageRegion EnvC6 *InputSlot 4Tray
+*UIConstraints: *PageRegion DLEnv *InputSlot 1Tray
+*UIConstraints: *PageRegion DLEnv *InputSlot 3Tray
+*UIConstraints: *PageRegion DLEnv *InputSlot 4Tray
+*UIConstraints: *InputSlot 1Tray *PageRegion A6
+*UIConstraints: *InputSlot 3Tray *PageRegion A6
+*UIConstraints: *InputSlot 4Tray *PageRegion A6
+*UIConstraints: *InputSlot 1Tray *PageRegion Env10
+*UIConstraints: *InputSlot 3Tray *PageRegion Env10
+*UIConstraints: *InputSlot 4Tray *PageRegion Env10
+*UIConstraints: *InputSlot 1Tray *PageRegion EnvMonarch
+*UIConstraints: *InputSlot 3Tray *PageRegion EnvMonarch
+*UIConstraints: *InputSlot 4Tray *PageRegion EnvMonarch
+*UIConstraints: *InputSlot 1Tray *PageRegion EnvC5
+*UIConstraints: *InputSlot 3Tray *PageRegion EnvC5
+*UIConstraints: *InputSlot 4Tray *PageRegion EnvC5
+*UIConstraints: *InputSlot 1Tray *PageRegion EnvC6
+*UIConstraints: *InputSlot 3Tray *PageRegion EnvC6
+*UIConstraints: *InputSlot 4Tray *PageRegion EnvC6
+*UIConstraints: *InputSlot 1Tray *PageRegion DLEnv
+*UIConstraints: *InputSlot 3Tray *PageRegion DLEnv
+*UIConstraints: *InputSlot 4Tray *PageRegion DLEnv
+
+*%====== PageSize & Duplex
+*UIConstraints: *PageSize A6 *Duplex DuplexTumble
+*UIConstraints: *PageSize A6 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize Env10 *Duplex DuplexTumble
+*UIConstraints: *PageSize Env10 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize EnvMonarch *Duplex DuplexTumble
+*UIConstraints: *PageSize EnvMonarch *Duplex DuplexNoTumble
+*UIConstraints: *PageSize EnvC5 *Duplex DuplexTumble
+*UIConstraints: *PageSize EnvC5 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize EnvC6 *Duplex DuplexTumble
+*UIConstraints: *PageSize EnvC6 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize DLEnv *Duplex DuplexTumble
+*UIConstraints: *PageSize DLEnv *Duplex DuplexNoTumble
+*UIConstraints: *PageSize 8Kai *Duplex DuplexTumble
+*UIConstraints: *PageSize 8Kai *Duplex DuplexNoTumble
+*UIConstraints: *PageSize 16Kai *Duplex DuplexTumble
+*UIConstraints: *PageSize 16Kai *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexTumble *PageSize A6
+*UIConstraints: *Duplex DuplexNoTumble *PageSize A6
+*UIConstraints: *Duplex DuplexTumble *PageSize Env10
+*UIConstraints: *Duplex DuplexNoTumble *PageSize Env10
+*UIConstraints: *Duplex DuplexTumble *PageSize EnvMonarch
+*UIConstraints: *Duplex DuplexNoTumble *PageSize EnvMonarch
+*UIConstraints: *Duplex DuplexTumble *PageSize EnvC5
+*UIConstraints: *Duplex DuplexNoTumble *PageSize EnvC5
+*UIConstraints: *Duplex DuplexTumble *PageSize EnvC6
+*UIConstraints: *Duplex DuplexNoTumble *PageSize EnvC6
+*UIConstraints: *Duplex DuplexTumble *PageSize DLEnv
+*UIConstraints: *Duplex DuplexNoTumble *PageSize DLEnv
+*UIConstraints: *Duplex DuplexTumble *PageSize 8Kai
+*UIConstraints: *Duplex DuplexNoTumble *PageSize 8Kai
+*UIConstraints: *Duplex DuplexTumble *PageSize 16Kai
+*UIConstraints: *Duplex DuplexNoTumble *PageSize 16Kai
+
+*UIConstraints: *PageRegion A6 *Duplex DuplexTumble
+*UIConstraints: *PageRegion A6 *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion Env10 *Duplex DuplexTumble
+*UIConstraints: *PageRegion Env10 *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion EnvMonarch *Duplex DuplexTumble
+*UIConstraints: *PageRegion EnvMonarch *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion EnvC5 *Duplex DuplexTumble
+*UIConstraints: *PageRegion EnvC5 *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion EnvC6 *Duplex DuplexTumble
+*UIConstraints: *PageRegion EnvC6 *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion DLEnv *Duplex DuplexTumble
+*UIConstraints: *PageRegion DLEnv *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexTumble *PageRegion A6
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion A6
+*UIConstraints: *Duplex DuplexTumble *PageRegion Env10
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion Env10
+*UIConstraints: *Duplex DuplexTumble *PageRegion EnvMonarch
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion EnvMonarch
+*UIConstraints: *Duplex DuplexTumble *PageRegion EnvC5
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion EnvC5
+*UIConstraints: *Duplex DuplexTumble *PageRegion EnvC6
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion EnvC6
+*UIConstraints: *Duplex DuplexTumble *PageRegion DLEnv
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion DLEnv
+
+*%====== PageSize & Destination
+*UIConstraints: *PageSize A5 *OutputBin FujigawaShift
+*UIConstraints: *PageSize A6 *OutputBin Bin1
+*UIConstraints: *PageSize A6 *OutputBin FujigawaShift
+*UIConstraints: *PageSize A6 *OutputBin KingLower
+*UIConstraints: *PageSize HalfLetter *OutputBin FujigawaShift
+*UIConstraints: *PageSize F *OutputBin FujigawaShift
+*UIConstraints: *PageSize Folio *OutputBin FujigawaShift
+*UIConstraints: *PageSize Env10 *OutputBin Bin1
+*UIConstraints: *PageSize Env10 *OutputBin FujigawaShift
+*UIConstraints: *PageSize Env10 *OutputBin KingUpper
+*UIConstraints: *PageSize Env10 *OutputBin KingLower
+*UIConstraints: *PageSize EnvMonarch *OutputBin Bin1
+*UIConstraints: *PageSize EnvMonarch *OutputBin FujigawaShift
+*UIConstraints: *PageSize EnvMonarch *OutputBin KingUpper
+*UIConstraints: *PageSize EnvMonarch *OutputBin KingLower
+*UIConstraints: *PageSize EnvC5 *OutputBin Bin1
+*UIConstraints: *PageSize EnvC5 *OutputBin FujigawaShift
+*UIConstraints: *PageSize EnvC5 *OutputBin KingUpper
+*UIConstraints: *PageSize EnvC5 *OutputBin KingLower
+*UIConstraints: *PageSize EnvC6 *OutputBin Bin1
+*UIConstraints: *PageSize EnvC6 *OutputBin FujigawaShift
+*UIConstraints: *PageSize EnvC6 *OutputBin KingUpper
+*UIConstraints: *PageSize EnvC6 *OutputBin KingLower
+*UIConstraints: *PageSize DLEnv *OutputBin Bin1
+*UIConstraints: *PageSize DLEnv *OutputBin FujigawaShift
+*UIConstraints: *PageSize DLEnv *OutputBin KingUpper
+*UIConstraints: *PageSize DLEnv *OutputBin KingLower
+*UIConstraints: *PageSize 8Kai *OutputBin Bin1
+*UIConstraints: *PageSize 8Kai *OutputBin FujigawaShift
+*UIConstraints: *PageSize 8Kai *OutputBin KingUpper
+*UIConstraints: *PageSize 8Kai *OutputBin KingLower
+*UIConstraints: *PageSize 16Kai *OutputBin Bin1
+*UIConstraints: *PageSize 16Kai *OutputBin FujigawaShift
+*UIConstraints: *PageSize 16Kai *OutputBin KingUpper
+*UIConstraints: *PageSize 16Kai *OutputBin KingLower
+*UIConstraints: *OutputBin FujigawaShift *PageSize A5
+*UIConstraints: *OutputBin Bin1 *PageSize A6
+*UIConstraints: *OutputBin FujigawaShift *PageSize A6
+*UIConstraints: *OutputBin KingLower *PageSize A6
+*UIConstraints: *OutputBin FujigawaShift *PageSize HalfLetter
+*UIConstraints: *OutputBin FujigawaShift *PageSize F
+*UIConstraints: *OutputBin FujigawaShift *PageSize Folio
+*UIConstraints: *OutputBin Bin1 *PageSize Env10
+*UIConstraints: *OutputBin FujigawaShift *PageSize Env10
+*UIConstraints: *OutputBin KingUpper *PageSize Env10
+*UIConstraints: *OutputBin KingLower *PageSize Env10
+*UIConstraints: *OutputBin Bin1 *PageSize EnvMonarch
+*UIConstraints: *OutputBin FujigawaShift *PageSize EnvMonarch
+*UIConstraints: *OutputBin KingUpper *PageSize EnvMonarch
+*UIConstraints: *OutputBin KingLower *PageSize EnvMonarch
+*UIConstraints: *OutputBin Bin1 *PageSize EnvC5
+*UIConstraints: *OutputBin FujigawaShift *PageSize EnvC5
+*UIConstraints: *OutputBin KingUpper *PageSize EnvC5
+*UIConstraints: *OutputBin KingLower *PageSize EnvC5
+*UIConstraints: *OutputBin Bin1 *PageSize EnvC6
+*UIConstraints: *OutputBin FujigawaShift *PageSize EnvC6
+*UIConstraints: *OutputBin KingUpper *PageSize EnvC6
+*UIConstraints: *OutputBin KingLower *PageSize EnvC6
+*UIConstraints: *OutputBin Bin1 *PageSize DLEnv
+*UIConstraints: *OutputBin FujigawaShift *PageSize DLEnv
+*UIConstraints: *OutputBin KingUpper *PageSize DLEnv
+*UIConstraints: *OutputBin KingLower *PageSize DLEnv
+*UIConstraints: *OutputBin Bin1 *PageSize 8Kai
+*UIConstraints: *OutputBin FujigawaShift *PageSize 8Kai
+*UIConstraints: *OutputBin KingUpper *PageSize 8Kai
+*UIConstraints: *OutputBin KingLower *PageSize 8Kai
+*UIConstraints: *OutputBin Bin1 *PageSize 16Kai
+*UIConstraints: *OutputBin FujigawaShift *PageSize 16Kai
+*UIConstraints: *OutputBin KingUpper *PageSize 16Kai
+*UIConstraints: *OutputBin KingLower *PageSize 16Kai
+
+*UIConstraints: *PageRegion A5 *OutputBin FujigawaShift
+*UIConstraints: *PageRegion A6 *OutputBin Bin1
+*UIConstraints: *PageRegion A6 *OutputBin FujigawaShift
+*UIConstraints: *PageRegion A6 *OutputBin KingLower
+*UIConstraints: *PageRegion HalfLetter *OutputBin FujigawaShift
+*UIConstraints: *PageRegion F *OutputBin FujigawaShift
+*UIConstraints: *PageRegion Folio *OutputBin FujigawaShift
+*UIConstraints: *PageRegion Env10 *OutputBin Bin1
+*UIConstraints: *PageRegion Env10 *OutputBin FujigawaShift
+*UIConstraints: *PageRegion Env10 *OutputBin KingUpper
+*UIConstraints: *PageRegion Env10 *OutputBin KingLower
+*UIConstraints: *PageRegion EnvMonarch *OutputBin Bin1
+*UIConstraints: *PageRegion EnvMonarch *OutputBin FujigawaShift
+*UIConstraints: *PageRegion EnvMonarch *OutputBin KingUpper
+*UIConstraints: *PageRegion EnvMonarch *OutputBin KingLower
+*UIConstraints: *PageRegion EnvC5 *OutputBin Bin1
+*UIConstraints: *PageRegion EnvC5 *OutputBin FujigawaShift
+*UIConstraints: *PageRegion EnvC5 *OutputBin KingUpper
+*UIConstraints: *PageRegion EnvC5 *OutputBin KingLower
+*UIConstraints: *PageRegion EnvC6 *OutputBin Bin1
+*UIConstraints: *PageRegion EnvC6 *OutputBin FujigawaShift
+*UIConstraints: *PageRegion EnvC6 *OutputBin KingUpper
+*UIConstraints: *PageRegion EnvC6 *OutputBin KingLower
+*UIConstraints: *PageRegion DLEnv *OutputBin Bin1
+*UIConstraints: *PageRegion DLEnv *OutputBin FujigawaShift
+*UIConstraints: *PageRegion DLEnv *OutputBin KingUpper
+*UIConstraints: *PageRegion DLEnv *OutputBin KingLower
+*UIConstraints: *PageRegion 8Kai *OutputBin Bin1
+*UIConstraints: *PageRegion 8Kai *OutputBin FujigawaShift
+*UIConstraints: *PageRegion 8Kai *OutputBin KingUpper
+*UIConstraints: *PageRegion 8Kai *OutputBin KingLower
+*UIConstraints: *PageRegion 16Kai *OutputBin Bin1
+*UIConstraints: *PageRegion 16Kai *OutputBin FujigawaShift
+*UIConstraints: *PageRegion 16Kai *OutputBin KingUpper
+*UIConstraints: *PageRegion 16Kai *OutputBin KingLower
+*UIConstraints: *OutputBin FujigawaShift *PageRegion A5
+*UIConstraints: *OutputBin Bin1 *PageRegion A6
+*UIConstraints: *OutputBin FujigawaShift *PageRegion A6
+*UIConstraints: *OutputBin KingLower *PageRegion A6
+*UIConstraints: *OutputBin FujigawaShift *PageRegion HalfLetter
+*UIConstraints: *OutputBin FujigawaShift *PageRegion F
+*UIConstraints: *OutputBin FujigawaShift *PageRegion Folio
+*UIConstraints: *OutputBin Bin1 *PageRegion Env10
+*UIConstraints: *OutputBin FujigawaShift *PageRegion Env10
+*UIConstraints: *OutputBin KingUpper *PageRegion Env10
+*UIConstraints: *OutputBin KingLower *PageRegion Env10
+*UIConstraints: *OutputBin Bin1 *PageRegion EnvMonarch
+*UIConstraints: *OutputBin FujigawaShift *PageRegion EnvMonarch
+*UIConstraints: *OutputBin KingUpper *PageRegion EnvMonarch
+*UIConstraints: *OutputBin KingLower *PageRegion EnvMonarch
+*UIConstraints: *OutputBin Bin1 *PageRegion EnvC5
+*UIConstraints: *OutputBin FujigawaShift *PageRegion EnvC5
+*UIConstraints: *OutputBin KingUpper *PageRegion EnvC5
+*UIConstraints: *OutputBin KingLower *PageRegion EnvC5
+*UIConstraints: *OutputBin Bin1 *PageRegion EnvC6
+*UIConstraints: *OutputBin FujigawaShift *PageRegion EnvC6
+*UIConstraints: *OutputBin KingUpper *PageRegion EnvC6
+*UIConstraints: *OutputBin KingLower *PageRegion EnvC6
+*UIConstraints: *OutputBin Bin1 *PageRegion DLEnv
+*UIConstraints: *OutputBin FujigawaShift *PageRegion DLEnv
+*UIConstraints: *OutputBin KingUpper *PageRegion DLEnv
+*UIConstraints: *OutputBin KingLower *PageRegion DLEnv
+*UIConstraints: *OutputBin Bin1 *PageRegion 8Kai
+*UIConstraints: *OutputBin FujigawaShift *PageRegion 8Kai
+*UIConstraints: *OutputBin KingUpper *PageRegion 8Kai
+*UIConstraints: *OutputBin KingLower *PageRegion 8Kai
+*UIConstraints: *OutputBin Bin1 *PageRegion 16Kai
+*UIConstraints: *OutputBin FujigawaShift *PageRegion 16Kai
+*UIConstraints: *OutputBin KingUpper *PageRegion 16Kai
+*UIConstraints: *OutputBin KingLower *PageRegion 16Kai
+
+*%====== MediaType & Output
+*UIConstraints: *MediaType Labels *OutputBin Bin1
+*UIConstraints: *MediaType Labels *OutputBin FujigawaShift
+*UIConstraints: *MediaType Labels *OutputBin KingUpper
+*UIConstraints: *MediaType Labels *OutputBin KingLower
+*UIConstraints: *MediaType OHP *OutputBin Bin1
+*UIConstraints: *MediaType OHP *OutputBin FujigawaShift
+*UIConstraints: *MediaType OHP *OutputBin KingLower
+*UIConstraints: *MediaType Thick *OutputBin Bin1
+*UIConstraints: *MediaType Thin *OutputBin Bin1
+*UIConstraints: *MediaType Thin *OutputBin FujigawaShift
+*UIConstraints: *MediaType Thin *OutputBin KingLower
+*UIConstraints: *OutputBin Bin1 *MediaType Labels
+*UIConstraints: *OutputBin FujigawaShift *MediaType Labels
+*UIConstraints: *OutputBin KingUpper *MediaType Labels
+*UIConstraints: *OutputBin KingLower *MediaType Labels
+*UIConstraints: *OutputBin Bin1 *MediaType OHP
+*UIConstraints: *OutputBin FujigawaShift *MediaType OHP
+*UIConstraints: *OutputBin KingLower *MediaType OHP
+*UIConstraints: *OutputBin Bin1 *MediaType Thick
+*UIConstraints: *OutputBin Bin1 *MediaType Thin
+*UIConstraints: *OutputBin FujigawaShift *MediaType Thin
+*UIConstraints: *OutputBin KingLower *MediaType Thin
+
+*%====== Duplex & Bypass Tray
+*UIConstraints: *Duplex DuplexTumble *InputSlot MultiTray
+*UIConstraints: *Duplex DuplexNoTumble *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *Duplex DuplexTumble
+*UIConstraints: *InputSlot MultiTray *Duplex DuplexNoTumble
+
+*%====== Duplex & MediaType
+*UIConstraints: *Duplex DuplexTumble *MediaType Labels
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Labels
+*UIConstraints: *Duplex DuplexTumble *MediaType OHP
+*UIConstraints: *Duplex DuplexNoTumble *MediaType OHP
+*UIConstraints: *Duplex DuplexTumble *MediaType Thick
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Thick
+*UIConstraints: *Duplex DuplexTumble *MediaType Thin
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Thin
+*UIConstraints: *MediaType Labels *Duplex DuplexTumble
+*UIConstraints: *MediaType Labels *Duplex DuplexNoTumble
+*UIConstraints: *MediaType OHP *Duplex DuplexTumble
+*UIConstraints: *MediaType OHP *Duplex DuplexNoTumble
+*UIConstraints: *MediaType Thick *Duplex DuplexTumble
+*UIConstraints: *MediaType Thick *Duplex DuplexNoTumble
+*UIConstraints: *MediaType Thin *Duplex DuplexTumble
+*UIConstraints: *MediaType Thin *Duplex DuplexNoTumble
+
+*FreeVM: "2261000"
+
+*Password: "0"
+*ExitServer: "
+  count 0 eq 
+  {false}{true exch startjob}ifelse
+  not {(WARNING: Cannot modify initial VM.) =
+       (Missing or invalid Password.) =
+       (Please contact the author.) = flush quit
+  }if
+"
+*End
+*Reset: "
+  count 0 eq
+  {false}{true exch startjob}ifelse
+  not {(WARNING: Cannot reset printer.) =
+       (Missing or invalid Password.) =
+       (Please contact the author.) = flush quit
+  }if 
+  systemdict /quit get exec
+  (WARNING: Printer Reset Failed.) = flush
+"
+*End
+
+*DefaultResolution: 600dpi
+*?Resolution: "
+  save
+  currentpagedevice /HWResolution get 0 get
+  (       ) cvs print (dpi) = flush
+  restore
+"
+*End
+
+*SuggestedJobTimeout: "0"
+*SuggestedWaitTimeout: "300"
+*PrintPSErrors: True
+*%DeviceAdjustMatrix: "[1 0 0 1 0 0]"
+
+*%========== Media Selection ==========
+*LandscapeOrientation: Minus90
+
+*OpenUI *PageSize: PickOne
+*OrderDependency: 20 AnySetup *PageSize
+*DefaultPageSize: A4
+*PageSize A3/A3: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [842 1191] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize A4/A4: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [595 842] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize A5/A5: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [421 595] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize A6/A6: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [298 421] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize B4/B4 (JIS): "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [728 1031] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize B5/B5 (JIS): "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [516 729] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize Legal/Legal: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize Letter/Letter: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [612 792] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize HalfLetter/5.5 x 8.5: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [396 612] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize 11x17/11x17: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [792 1224] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize Executive/Executive: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [522 756] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize F/8x13: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [576 936] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize Folio/8.25x13: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [595 935] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize FanFoldGermanLegal/8.5x13: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [612 936] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize Env10/Com10 Env.: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [297 684] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize EnvMonarch/Mon. Env.: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [279 540] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize EnvC5/C5 Env.: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [459 649] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize EnvC6/C6 Env.: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [323 459] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize DLEnv/DL Env.: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [311 623] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize 8Kai/8K: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [757 1106] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize 16Kai/16K: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [553 757] /ImagingBBox null>> setpagedevice"
+*End
+*?PageSize: "
+  save
+  currentpagedevice /PageSize get aload pop
+  2 copy gt {exch}if (Unknown)
+  20 dict
+    dup [842 1191] (A3) put
+    dup [595 842]  (A4) put
+    dup [421 595]  (A5) put
+    dup [298 421]  (A6) put
+    dup [728 1031] (B4) put
+    dup [516 729]  (B5) put
+    dup [612 1008] (Legal) put
+    dup [612 792]  (Letter) put
+    dup [396 612]  (HalfLetter) put
+    dup [792 1224] (11x17) put
+    dup [522 756] (Executive) put
+    dup [576 936] (F) put
+    dup [595 935] (Folio) put
+    dup [612 936] (FanFoldGermanLegal) put
+    dup [297 684] (Env10) put
+    dup [279 540] (EnvMonarch) put
+    dup [459 649] (EnvC5) put
+    dup [323 459] (EnvC6) put
+    dup [311 623] (DLEnv) put
+    dup [757 1106] (8Kai) put
+    dup [553 757] (16Kai) put
+    {exch aload pop 4 index sub abs 5 le exch 5 index
+     sub abs 5 le and {exch pop exit}{pop}ifelse 
+    }bind forall = flush pop pop
+    restore
+"
+*End
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 25 AnySetup *PageRegion
+*DefaultPageRegion: A4
+*PageRegion A3/A3: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [842 1191] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion A4/A4: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [595 842] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion A5/A5: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [421 595] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion A6/A6: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [298 421] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion B4/B4 (JIS): "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [728 1031] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion B5/B5 (JIS): "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [516 729] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion Legal/Legal: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion Letter/Letter: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [612 792] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion HalfLetter/5.5 x 8.5: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [396 612] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion 11x17/11x17: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [792 1224] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion Executive/Executive: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [522 756] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion F/8x13: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [576 936] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion Folio/8.25x13: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [595 935] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion FanFoldGermanLegal/8.5x13: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [612 936] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion Env10/Com10 Env.: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [297 684] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion EnvMonarch/Mon. Env.: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [279 540] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion EnvC5/C5 Env.: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [459 649] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion EnvC6/C6 Env.: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [323 459] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion DLEnv/DL Env.: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [311 623] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion 8Kai/8K: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [757 1106] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion 16Kai/16K: "<< /DeferredMediaSelection true
+  /Policies << /PageSize 2 /MediaType 2 >>
+  /PageSize [553 757] /ImagingBBox null>> setpagedevice"
+*End
+*CloseUI: *PageRegion
+
+*%========== Information About Media Sizes ==========
+
+*DefaultImageableArea: A4
+*ImageableArea A3/A3: "12 12 830 1179"
+*ImageableArea A4/A4: "12 12 583 830"
+*ImageableArea A5/A5: "12 12 408 583"
+*ImageableArea A6/A6: "12 12 285 408"
+*ImageableArea B4/B4 (JIS): "12 12 717 1020"
+*ImageableArea B5/B5 (JIS): "12 12 504 717"
+*ImageableArea Legal/Legal: "12 12 600 996"
+*ImageableArea Letter/Letter: "12 12 600 780"
+*ImageableArea HalfLetter/5.5 x 8.5: "12 12 384 600"
+*ImageableArea 11x17/11x17: "12 12 780 1212"
+*ImageableArea Executive/Executive: "12 12 510 744"
+*ImageableArea F/8x13: "12 12 564 924"
+*ImageableArea Folio/8.25x13: "12 12 583 923"
+*ImageableArea FanFoldGermanLegal/8.5x13: "12 12 600 924"
+*ImageableArea Env10/Com10 Env.: "12 12 285 672"
+*ImageableArea EnvMonarch/Mon. Env.: "12 12 267 528"
+*ImageableArea EnvC5/C5 Env.: "12 12 447 637"
+*ImageableArea EnvC6/C6 Env.: "12 12 311 447"
+*ImageableArea DLEnv/DL Env.: "12 12 299 611"
+*ImageableArea 8Kai/8K: "12 12 745 1094"
+*ImageableArea 16Kai/16K: "12 12 541 745"
+*?ImageableArea: "
+  save
+  /cvp {(            ) cvs print (               ) print}bind def
+  newpath clippath pathbbox 4 -2 roll exch
+  2 {10000 mul ceiling 10000 div cvp}repeat exch
+  2 {10000 mul floor 10000 div cvp}repeat flush
+  restore
+"
+*End
+
+*DefaultPaperDimension: A4
+*PaperDimension A3/A3: "842 1191"
+*PaperDimension A4/A4: "595 842"
+*PaperDimension A5/A5: "420 595"
+*PaperDimension A6/A6: "297 420"
+*PaperDimension B4/B4 (JIS): "729 1032"
+*PaperDimension B5/B5 (JIS): "516 729"
+*PaperDimension Legal/Legal: "612 1008"
+*PaperDimension Letter/Letter: "612 792"
+*PaperDimension HalfLetter/5.5 x 8.5: "396 612"
+*PaperDimension 11x17/11x17: "792 1224"
+*PaperDimension Executive/Executive: "522 756"
+*PaperDimension F/8x13: "576 936"
+*PaperDimension Folio/8.25x13: "595 935"
+*PaperDimension FanFoldGermanLegal/8.5x13: "612 936"
+*PaperDimension Env10/Com10 Env.: "297 684"
+*PaperDimension EnvMonarch/Mon. Env.: "279 540"
+*PaperDimension EnvC5/C5 Env.: "459 649"
+*PaperDimension EnvC6/C6 Env.: "323 459"
+*PaperDimension DLEnv/DL Env.: "311 623"
+*PaperDimension 8Kai/8K: "757 1106"
+*PaperDimension 16Kai/16K: "553 757"
+
+*%========== Media Handling Features ==========
+
+*OpenUI *InputSlot: PickOne
+*OrderDependency: 30 AnySetup *InputSlot
+*DefaultInputSlot: 1Tray
+*InputSlot MultiTray/Bypass Tray: "<</MediaPosition 0>> setpagedevice"
+*InputSlot 1Tray/Tray 1: "<</MediaPosition 1>> setpagedevice"
+*InputSlot 2Tray/Tray 2: "<</MediaPosition 2>> setpagedevice"
+*InputSlot 3Tray/Tray 3: "<</MediaPosition 3>> setpagedevice"
+*InputSlot 4Tray/Tray 4: "<</MediaPosition 4>> setpagedevice"
+*?InputSlot: "
+  save
+  [(MultiTray)(1Tray)(2Tray)(3Tray)(4Tray)]
+  statusdict /papertray get exec {get}stopped
+  {pop pop (Unknown)}if = flush
+  restore
+"
+*End
+*CloseUI: *InputSlot
+
+*%=== Custom Paper Support =================
+*LeadingEdge Short: ""
+*LeadingEdge Long: ""
+*DefaultLeadingEdge: Short
+
+*MaxMediaWidth:  "842"
+*MaxMediaHeight: "1701"
+*HWMargins:      12 12 12 12
+*CustomPageSize True: "pop pop pop 
+  << /PageSize [ 5 -2 roll ]  /ImagingBBox null
+  /Policies <</PageSize 2 /MediaType 2>>
+  /DeferredMediaSelection true
+  >> setpagedevice"
+*End
+
+*ParamCustomPageSize Width:        1 points 255 842
+*ParamCustomPageSize Height:       2 points 419 1701
+*ParamCustomPageSize WidthOffset:  3 points 0 0
+*ParamCustomPageSize HeightOffset: 4 points 0 0
+*ParamCustomPageSize Orientation:  5 int 1 1
+
+*NonUIOrderDependency: 21 AnySetup *CustomPageSize True
+
+*RequiresPageRegion MultiTray: True
+*RequiresPageRegion 1Tray: True
+*RequiresPageRegion 2Tray: True
+*RequiresPageRegion 3Tray: True
+*RequiresPageRegion 4Tray: True
+
+*OpenUI *TraySwitch/Auto Tray Switch: Boolean
+*OrderDependency: 35 AnySetup *TraySwitch
+*DefaultTraySwitch: True
+*TraySwitch True/On: "<</TraySwitch true>>setpagedevice"
+*TraySwitch False/Off: "<</TraySwitch false>>setpagedevice"
+*?TraySwitch: "
+  save
+  currentpagedevice /TraySwitch get
+  {(True)}{(False)}ifelse = flush
+  restore
+"
+*End
+*CloseUI: *TraySwitch
+
+*OpenUI *Duplex/Duplex: PickOne
+*OrderDependency: 50 AnySetup *Duplex
+*DefaultDuplex: None
+*Duplex None/Off: "<</Duplex false>>setpagedevice"
+*Duplex DuplexNoTumble/Long Edge: "<</Duplex true /Tumble false>>setpagedevice"
+*Duplex DuplexTumble/Short Edge: "<</Duplex true /Tumble true>>setpagedevice"
+*?Duplex: "
+  save
+  currentpagedevice /Duplex get
+  {currentpagedevice /Tumble get
+    {(DuplexTumble)}{(DuplexNoTumble)}ifelse
+  }{(None)}ifelse = flush
+  restore
+"
+*End
+*CloseUI: *Duplex
+
+*%========== Resolution and Appearance Control ==========
+
+*OpenUI *RICollate/Collate: Boolean
+*OrderDependency: 200 AnySetup *RICollate
+*DefaultRICollate: False
+*RICollate False/Off: "<</Collate false>>setpagedevice"
+*RICollate True/On: "<</Collate true
+  /CollateDetails <</Type 6 /AlignSet false>>
+  >>setpagedevice"
+*End
+*?RICollate: "
+  save
+  currentpagedevice /Collate get 
+  {{(True)}{(False)}ifelse }stopped {(Unknown)}if = flush
+  restore
+"
+*End
+*CloseUI: *RICollate
+
+*OpenUI *RIPrintMode/Print Mode: PickOne
+*OrderDependency: 45 AnySetup *RIPrintMode
+*DefaultRIPrintMode: 1rhit
+*RIPrintMode 1rhit/Edge Smoothing: "<</PostRenderingEnhance true
+  /PostRenderingEnhanceDetails << /Type 34 /OutputMode 0>> >> setpagedevice
+  /version (3010.103) def"
+*End
+*RIPrintMode 0rhit/Through: "
+  <</PostRenderingEnhance false>> setpagedevice
+  /version (3010.103) def"
+*End
+*RIPrintMode 5rhit/Toner Saving 1: "<</PostRenderingEnhance true
+  /PostRenderingEnhanceDetails << /Type 34 /OutputMode 3>> >> setpagedevice
+  /version (3010.103) def"
+*End
+*RIPrintMode 4rhit/Toner Saving 2: "<</PostRenderingEnhance true
+  /PostRenderingEnhanceDetails << /Type 34 /OutputMode 4>> >> setpagedevice
+  /version (3010.103) def"
+*End
+*?RIPrintMode: "
+  save
+  /UK (Unknown) def
+  {
+    currentpagedevice dup /PostRenderingEnhance 2 copy known not { UK exit } if
+    get dup false eq {pop (0rhit) exit }
+    {pop /PostRenderingEnhanceDetails get dup /OutputMode get
+    dup 0 eq {pop (1rhit) exit} if
+    dup 3 eq {pop (5rhit) exit} if
+    dup 4 eq {pop (4rhit) exit} if
+    UK exit
+    } ifelse
+  } bind loop
+  mark count 1 sub 2 roll cleartomark
+  = flush
+  restore
+"
+*End
+*CloseUI: *RIPrintMode
+
+*OpenUI *MediaType/Paper Type: PickOne
+*OrderDependency: 205 AnySetup *MediaType
+*MediaType Plain/Plain: "<< /MediaType (Plain) >> setpagedevice"
+*MediaType Recycled/Recycled: "<< /MediaType (Recycled) >> setpagedevice"
+*MediaType Special/Special: "<< /MediaType (Special) >> setpagedevice"
+*MediaType Colored/Color: "<< /MediaType (Color) >> setpagedevice"
+*MediaType Letterhead/Letterhead: "<< /MediaType (Letterhead) >> setpagedevice"
+*MediaType Preprinted/Preprinted: "<< /MediaType (Preprinted) >> setpagedevice"
+*MediaType Prepunched/Prepunched: "<< /MediaType (Prepunched) >> setpagedevice"
+*MediaType Labels/Labels: "<< /MediaType (Labels) >> setpagedevice"
+*MediaType Bond/Bond: "<< /MediaType (Bond) >> setpagedevice"
+*MediaType Cardstock/Cardstock: "<< /MediaType (Cardstock) >> setpagedevice"
+*MediaType OHP/Transparency: "<< /MediaType (Transparency) >> setpagedevice"
+*MediaType Thick/Thick: "<< /MediaType (Thick) >> setpagedevice"
+*MediaType Thin/Thin: "<< /MediaType (Thin) >> setpagedevice"
+*?MediaType: "
+  save
+  /UK (Unknown) def
+  {
+    currentpagedevice /MediaType 2 copy known not { UK exit } if
+    get dup null eq 1 index (Plain) eq or { (Plain) exit } if
+    dup (Recycled) eq { dup exit } if
+    dup (Special) eq { dup exit } if
+    UK exit
+  } bind loop
+  mark count 1 sub 2 roll cleartomark
+  = flush
+  restore
+"
+*End
+*DefaultMediaType: Plain
+*CloseUI: *MediaType
+
+*OpenUI *OutputBin/Destination: PickOne
+*OrderDependency: 210 AnySetup *OutputBin
+*OutputBin Default/Printer Default: "<</OutputType null>>setpagedevice"
+*OutputBin Standard/Internal Tray 1: "<</OutputType (Standard)>>setpagedevice"
+*OutputBin Bin1/Internal Tray 2: "<</OutputType (1Bin)>>setpagedevice"
+*OutputBin Shift/Shift Tray: "<</OutputType (Shift)>>setpagedevice"
+*OutputBin FujigawaShift/Finisher Tray: "<</OutputType (FujigawaShift)>>setpagedevice"
+*OutputBin KingUpper/Finisher Proof Tray: "<</OutputType (KingUpper)>>setpagedevice"
+*OutputBin KingLower/Finisher Shift Tray: "<</OutputType (KingLower)>>setpagedevice"
+*DefaultOutputBin: Default
+*?OutputBin: "
+  save
+  currentpagedevice /OutputType get = flush
+  restore
+"
+*End
+*CloseUI: *OutputBin
+
+*OpenUI *RIStaple/Staple: PickOne
+*OrderDependency: 220 AnySetup *RIStaple
+*DefaultRIStaple: None
+*RIStaple None/Off: "<< /Staple 0 >> setpagedevice"
+*RIStaple UpperLeft/Top Left: "<< 
+  /Collate true  /CollateDetails <</Type 6 /AlignSet true>>
+  /Staple 2  /StapleDetails << /Type 14 /Angle 0 /Position 0 >>
+  >> setpagedevice"
+*End
+*RIStaple UpperRight/Top Right: "<< 
+  /Collate true  /CollateDetails <</Type 6 /AlignSet true>>
+  /Staple 2  /StapleDetails << /Type 14 /Angle 0 /Position 6 >>
+  >> setpagedevice"
+*End
+*RIStaple LowerLeft/Bottom Left: "<< 
+  /Collate true  /CollateDetails <</Type 6 /AlignSet true>>
+  /Staple 2  /StapleDetails << /Type 14 /Angle 0 /Position 2 >>
+  >> setpagedevice"
+*End
+*RIStaple LowerRight/Bottom Right: "<< 
+  /Collate true  /CollateDetails <</Type 6 /AlignSet true>>
+  /Staple 2  /StapleDetails << /Type 14 /Angle 0 /Position 4 >>
+  >> setpagedevice"
+*End
+*RIStaple LeftW/Left 2: "<< 
+  /Collate true  /CollateDetails <</Type 6 /AlignSet true>>
+  /Staple 2  /StapleDetails << /Type 14 /Angle 0 /Position 1 >>
+  >> setpagedevice"
+*End
+*RIStaple RightW/Right 2: "<< 
+  /Collate true  /CollateDetails <</Type 6 /AlignSet true>>
+  /Staple 2  /StapleDetails << /Type 14 /Angle 0 /Position 5 >>
+  >> setpagedevice"
+*End
+*RIStaple UpperW/Top 2: "<< 
+  /Collate true  /CollateDetails <</Type 6 /AlignSet true>>
+  /Staple 2  /StapleDetails << /Type 14 /Angle 0 /Position 7 >>
+  >> setpagedevice"
+*End
+*RIStaple LowerW/Bottom 2: "<< 
+  /Collate true  /CollateDetails <</Type 6 /AlignSet true>>
+  /Staple 2  /StapleDetails << /Type 14 /Angle 0 /Position 3 >>
+  >> setpagedevice"
+*End
+*?RIStaple: "
+  save
+  /UK (Unknown) def
+  {
+    currentpagedevice dup /Staple 2 copy known not { UK exit } if
+    get dup 0 eq {pop (None) exit }
+    {pop /StapleDetails get dup /Position get
+    dup 0 eq {pop (UpperLeft) exit} if
+    dup 6 eq {pop (LowerLeft) exit} if
+    dup 2 eq {pop (UpperRight) exit} if
+    dup 4 eq {pop (LowerRight) exit} if
+    UK exit
+    } ifelse
+  } bind loop
+  mark count 1 sub 2 roll cleartomark
+  = flush
+  restore
+"
+*End
+*CloseUI: *RIStaple
+
+*%========== Gray Levels and Halftoning ==========
+*AccurateScreensSupport: True
+*ScreenFreq: "85.0"
+*ScreenAngle: "45.0"
+*DefaultScreenProc: Dot
+*ScreenProc Dot: "
+  {abs exch abs 2 copy add 1 gt
+   {1 sub dup mul exch 1 sub dup mul add 1 sub}
+   {dup mul exch dup mul add 1 exch sub}
+   ifelse}
+"
+*End
+*ScreenProc Line: "{pop}"
+*ScreenProc Ellipse: "
+  {dup 5 mul 8 div mul exch dup mul exch add sqrt 1 exch sub}
+"
+*End
+
+*%========== Font ==========
+
+*DefaultFont: Courier
+*Font AlbertusMT: Standard "(001.000)" Standard ROM
+*Font AlbertusMT-Italic: Standard "(001.000)" Standard ROM
+*Font AlbertusMT-Light: Standard "(001.000)" Standard ROM
+*Font AntiqueOlive-Bold: Standard "(501.009)" ExtendedRoman ROM
+*Font AntiqueOlive-Compact: Standard "(501.008)" ExtendedRoman ROM
+*Font AntiqueOlive-Italic: Standard "(501.010)" ExtendedRoman ROM
+*Font AntiqueOlive-Roman: Standard "(501.008)" ExtendedRoman ROM
+*Font Apple-Chancery: Standard "(001.001)" ExtendedRoman ROM
+*Font ArialMT: Standard "(501.009)" ExtendedRoman ROM
+*Font Arial-BoldMT: Standard "(501.009)" ExtendedRoman ROM
+*Font Arial-BoldItalicMT: Standard "(501.009)" ExtendedRoman ROM
+*Font Arial-ItalicMT: Standard "(501.012)" ExtendedRoman ROM
+*Font AvantGarde-Book: Standard "(501.009)" ExtendedRoman ROM
+*Font AvantGarde-BookOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font AvantGarde-Demi: Standard "(501.010)" ExtendedRoman ROM
+*Font AvantGarde-DemiOblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Bodoni: Standard "(501.008)" ExtendedRoman ROM
+*Font Bodoni-Bold: Standard "(501.006)" ExtendedRoman ROM
+*Font Bodoni-BoldItalic: Standard "(501.007)" ExtendedRoman ROM
+*Font Bodoni-Italic: Standard "(501.007)" ExtendedRoman ROM
+*Font Bodoni-Poster: Standard "(501.009)" ExtendedRoman ROM
+*Font Bodoni-PosterCompressed: Standard "(501.007)" ExtendedRoman ROM
+*Font Bookman-Demi: Standard "(501.007)" ExtendedRoman ROM
+*Font Bookman-DemiItalic: Standard "(501.008)" ExtendedRoman ROM
+*Font Bookman-Light: Standard "(501.006)" ExtendedRoman ROM
+*Font Bookman-LightItalic: Standard "(501.007)" ExtendedRoman ROM
+*Font Carta: Special "(001.001)" Special ROM
+*Font Chicago: Standard "(501.011)" ExtendedRoman ROM
+*Font Clarendon-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Clarendon-Light: Standard "(501.009)" ExtendedRoman ROM
+*Font Clarendon: Standard "(501.009)" ExtendedRoman ROM
+*Font CooperBlack-Italic: Standard "(001.003)" Standard ROM
+*Font CooperBlack: Standard "(001.003)" Standard ROM
+*Font Copperplate-ThirtyThreeBC: Standard "(001.002)" Standard ROM
+*Font Copperplate-ThirtyTwoBC: Standard "(001.002)" Standard ROM
+*Font Coronet-Regular: Standard "(001.000)" ExtendedRoman ROM
+*Font Courier-Bold: Standard "(501.010)" ExtendedRoman ROM
+*Font Courier-BoldOblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Courier-Oblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Courier: Standard "(501.010)" ExtendedRoman ROM
+*Font Eurostile-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Eurostile-BoldExtendedTwo: Standard "(501.008)" ExtendedRoman ROM
+*Font Eurostile-ExtendedTwo: Standard "(501.010)" ExtendedRoman ROM
+*Font Eurostile: Standard "(501.008)" ExtendedRoman ROM
+*Font Geneva: Standard "(501.007)" ExtendedRoman ROM
+*Font GillSans: Standard "(501.009)" ExtendedRoman ROM
+*Font GillSans-Bold: Standard "(501.007)" ExtendedRoman ROM
+*Font GillSans-BoldCondensed: Standard "(501.006)" ExtendedRoman ROM
+*Font GillSans-BoldItalic: Standard "(501.008)" ExtendedRoman ROM
+*Font GillSans-Condensed: Standard "(501.007)" ExtendedRoman ROM
+*Font GillSans-ExtraBold: Standard "(501.008)" ExtendedRoman ROM
+*Font GillSans-Italic: Standard "(501.008)" ExtendedRoman ROM
+*Font GillSans-Light: Standard "(501.009)" ExtendedRoman ROM
+*Font GillSans-LightItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font Goudy: Standard "(001.003)" Standard ROM
+*Font Goudy-Bold: Standard "(001.002)" Standard ROM
+*Font Goudy-BoldItalic: Standard "(001.002)" Standard ROM
+*Font Goudy-ExtraBold: Standard "(001.001)" Standard ROM
+*Font Goudy-Italic: Standard "(001.002)" Standard ROM
+*Font Helvetica: Standard "(501.008)" ExtendedRoman ROM
+*Font Helvetica-Bold: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-BoldOblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Condensed-Bold: Standard "(501.009)" ExtendedRoman ROM
+*Font Helvetica-Condensed-BoldObl: Standard "(501.009)" ExtendedRoman ROM
+*Font Helvetica-Condensed-Oblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Condensed: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Narrow-Bold: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Narrow-Oblique: Standard "(501.008)" ExtendedRoman ROM
+*Font Helvetica-Narrow: Standard "(501.008)" ExtendedRoman ROM
+*Font Helvetica-Oblique: Standard "(501.008)" ExtendedRoman ROM
+*Font HoeflerText-Black: Standard "(501.008)" ExtendedRoman ROM
+*Font HoeflerText-BlackItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font HoeflerText-Italic: Standard "(501.010)" ExtendedRoman ROM
+*Font HoeflerText-Ornaments: Special "(001.001)" Special ROM
+*Font HoeflerText-Regular: Standard "(501.009)" ExtendedRoman ROM
+*Font JoannaMT: Standard "(501.009)" ExtendedRoman ROM
+*Font JoannaMT-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font JoannaMT-BoldItalic: Standard "(501.008)" ExtendedRoman ROM
+*Font JoannaMT-Italic: Standard "(501.008)" ExtendedRoman ROM
+*Font LetterGothic: Standard "(501.009)" ExtendedRoman ROM
+*Font LetterGothic-Bold: Standard "(501.010)" ExtendedRoman ROM
+*Font LetterGothic-BoldSlanted: Standard "(501.010)" ExtendedRoman ROM
+*Font LetterGothic-Slanted: Standard "(501.010)" ExtendedRoman ROM
+*Font LubalinGraph-Book: Standard "(501.009)" ExtendedRoman ROM
+*Font LubalinGraph-BookOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font LubalinGraph-Demi: Standard "(501.009)" ExtendedRoman ROM
+*Font LubalinGraph-DemiOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font Marigold: Standard "(001.000)" Standard ROM
+*Font MonaLisa-Recut: Standard "(001.000)" Standard ROM
+*Font Monaco: Standard "(501.012)" ExtendedRoman ROM
+*Font NewCenturySchlbk-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font NewCenturySchlbk-Italic: Standard "(501.011)" ExtendedRoman ROM
+*Font NewCenturySchlbk-Roman: Standard "(501.008)" ExtendedRoman ROM
+*Font NewYork: Standard "(501.013)" ExtendedRoman ROM
+*Font Optima-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Optima-BoldItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font Optima-Italic: Standard "(501.010)" ExtendedRoman ROM
+*Font Optima: Standard "(501.010)" ExtendedRoman ROM
+*Font Oxford: Standard "(001.000)" Standard ROM
+*Font Palatino-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Palatino-BoldItalic: Standard "(501.007)" ExtendedRoman ROM
+*Font Palatino-Italic: Standard "(501.008)" ExtendedRoman ROM
+*Font Palatino-Roman: Standard "(501.006)" ExtendedRoman ROM
+*Font StempelGaramond-Bold: Standard "(501.007)" ExtendedRoman ROM
+*Font StempelGaramond-BoldItalic: Standard "(501.012)" ExtendedRoman ROM
+*Font StempelGaramond-Italic: Standard "(501.009)" ExtendedRoman ROM
+*Font StempelGaramond-Roman: Standard "(501.011)" ExtendedRoman ROM
+*Font Symbol: Special "(001.008)" Special ROM
+*Font Tekton: Standard "(001.001)" Standard ROM
+*Font Times-Bold: Standard "(501.009)" ExtendedRoman ROM
+*Font Times-BoldItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font Times-Italic: Standard "(501.010)" ExtendedRoman ROM
+*Font Times-Roman: Standard "(501.010)" ExtendedRoman ROM
+*Font TimesNewRomanPS-BoldItalicMT: Standard "(501.011)" ExtendedRoman ROM
+*Font TimesNewRomanPS-BoldMT: Standard "(501.009)" ExtendedRoman ROM
+*Font TimesNewRomanPS-ItalicMT: Standard "(501.011)" ExtendedRoman ROM
+*Font TimesNewRomanPSMT: Standard "(501.010)" ExtendedRoman ROM
+*Font Univers: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Univers-BoldExt: Standard "(501.010)" ExtendedRoman ROM
+*Font Univers-BoldExtObl: Standard "(501.010)" ExtendedRoman ROM
+*Font Univers-BoldOblique: Standard "(501.008)" ExtendedRoman ROM
+*Font Univers-Condensed: Standard "(501.011)" ExtendedRoman ROM
+*Font Univers-CondensedBold: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-CondensedBoldOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-CondensedOblique: Standard "(501.011)" ExtendedRoman ROM
+*Font Univers-Extended: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-ExtendedObl: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-Light: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-LightOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-Oblique: Standard "(501.009)" ExtendedRoman ROM
+*Font Wingdings-Regular: Special "(001.001)" Special ROM
+*Font ZapfChancery-MediumItalic: Standard "(002.000)" ExtendedRoman ROM
+*Font ZapfDingbats: Special "(001.005S)" Special ROM
+
+*?FontQuery: "
+  save
+  {count 1 gt {
+    exch dup 127 string cvs (/) print print (:) print
+    /Font resourcestatus {pop pop (Yes)}{(NO)}ifelse =
+    }{exit}ifelse 
+  }bind loop (*) = flush
+  restore
+"
+*End
+
+*?FontList: "
+  save
+  (*) {cvn ==} 128 string /Font resourceforall (*) = flush
+  restore
+"
+*End
+
+*Status: "initializing"
+*Status: "holding"
+*Status: "idle"
+*Status: "busy"
+*Status: "waiting"
+*Status: "printing"
+*Status: "print test page"
+
+*Source: "Parallel"
+*Source: "TCP/IP"
+*Source: "EtherTalk"
+*Source: "SPX/IPX"
+*Source: "NetBEUI"
+*Source: "IEEE1394"
+
+*Message: "%%[ exitserver: permanent state may be changed ]%%"
+*Message: "%%[ Flushing: rest of job (to end-of-file) will be ignored ]%%"
+*Message: "\FontName\ not found, using Courier"
+
+*%========== Color Separation ==========
+
+*DefaultColorSep: ProcessBlack.106lpi.600dpi/106 lpi / 600 dpi
+
+*%===== For 106 lpi / 600 dpi =====
+
+*ColorSepScreenAngle ProcessBlack.106lpi.600dpi/106 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.106lpi.600dpi/106 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.106lpi.600dpi/106 lpi / 600 dpi: "15.0"
+*ColorSepScreenAngle ProcessMagenta.106lpi.600dpi/106 lpi / 600 dpi: "75.0"
+*ColorSepScreenAngle ProcessYellow.106lpi.600dpi/106 lpi / 600 dpi: "0.0"
+
+*ColorSepScreenFreq ProcessBlack.106lpi.600dpi/106 lpi / 600 dpi: "106"
+*ColorSepScreenFreq CustomColor.106lpi.600dpi/106 lpi / 600 dpi: "106"
+*ColorSepScreenFreq ProcessCyan.106lpi.600dpi/106 lpi / 600 dpi: "106"
+*ColorSepScreenFreq ProcessMagenta.106lpi.600dpi/106 lpi / 600 dpi: "106"
+*ColorSepScreenFreq ProcessYellow.106lpi.600dpi/106 lpi / 600 dpi: "106"
+
+*% end of Printer Description file
