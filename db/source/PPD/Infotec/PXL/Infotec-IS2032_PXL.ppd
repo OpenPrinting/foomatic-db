@@ -1,0 +1,513 @@
+*PPD-Adobe: "4.3"
+*%
+*%  Printer Description file
+*%    for "infotec  IS2032 PXL"
+*%
+*%    CreationDate: 2001/02/08
+*%    Modified:     2005/08/29
+*%
+*%    COPYRIGHT (C) 2001-2005 RICOH COMPANY, LTD.
+*%    
+*%    Permission is hereby granted, free of charge, to any person obtaining
+*%    a copy of this software and associated documentation files (the
+*%    "Software"), to deal in the Software without restriction, including
+*%    without limitation the rights to use, copy, modify, merge, publish,
+*%    distribute, sublicense, and/or sell copies of the Software, and to
+*%    permit persons to whom the Software is furnished to do so, subject to
+*%    the following conditions:
+*%    
+*%    The above copyright notice and this permission notice shall be
+*%    included in all copies or substantial portions of the Software.
+*%    
+*%    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+*%    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+*%    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+*%    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+*%    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+*%    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+*%    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*%    
+*%    [this is the MIT open source license -- please see www.opensource.org]
+*%
+
+
+*FileVersion: "1.0"
+*FormatVersion: "4.3"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+*ModelName: "infotec  IS2032"
+*PCFileName: "INF20323.PPD"
+*Manufacturer: "Infotec"
+*Product: "(infotec  IS2032 PS3)"
+*PSVersion: "(3011.103) 2"
+*ShortNickName: "infotec  IS2032 PXL"
+*NickName: "infotec  IS2032 PXL"
+
+*cupsVersion:      1.0
+*cupsManualCopies: True
+*cupsModelNumber:  2
+*cupsFilter:       "application/vnd.cups-postscript 0 foomatic-rip"
+
+*%========== Basic Device Capabilities ==========
+
+*LanguageLevel: "3"
+*ColorDevice: False
+*DefaultColorSpace: Gray
+*TTRasterizer: Type42
+*FileSystem: True
+*Throughput: "32"
+*LandscapeOrientation: Minus90
+
+*%========== Installable Options ==========
+*%========== & System Management ==========
+
+*OpenGroup: InstallableOptions/Installable Options
+
+*OpenUI *Option20InternalTray2/Internal Tray 2: PickOne
+*DefaultOption20InternalTray2: False
+*Option20InternalTray2 False/Not Installed: ""
+*Option20InternalTray2 True/Installed: ""
+*CloseUI *Option20InternalTray2
+
+*OpenUI *Option25ShiftTray/Shift Tray: PickOne
+*DefaultOption25ShiftTray: False
+*Option25ShiftTray False/Not Installed: ""
+*Option25ShiftTray True/Installed: ""
+*CloseUI *Option25ShiftTray
+
+*OpenUI *Option10DuplexUnit/Duplex Unit: PickOne
+*DefaultOption10DuplexUnit: False
+*Option10DuplexUnit False/Not Installed: ""
+*Option10DuplexUnit True/Installed: ""
+*CloseUI *Option10DuplexUnit
+
+*OpenUI *Option30Finisher/Finisher: PickOne
+*DefaultOption30Finisher: None
+*Option30Finisher None/Not Installed: ""
+*Option30Finisher Fin500/Finisher 500: ""
+*Option30Finisher Fin1000/Finisher 1000: ""
+*CloseUI *Option30Finisher
+
+*OpenUI *Option3BypassTray/Bypass Tray: PickOne
+*DefaultOption3BypassTray: False
+*Option3BypassTray False/Not Installed: ""
+*Option3BypassTray True/Installed: ""
+*CloseUI *Option3BypassTray
+
+*OpenUI *Option1OptionTray/Option Tray: PickOne
+*DefaultOption1OptionTray: None
+*Option1OptionTray None/Not Installed: ""
+*Option1OptionTray 1Cassette/Tray 3(LCT): ""
+*Option1OptionTray 2Cassette/Tray 3 and 4: ""
+*CloseUI *Option1OptionTray
+
+
+*CloseGroup: InstallableOptions
+
+*%========== Ghostscript Command line ==========
+
+*FoomaticIDs: Infotec-IS2032 pxlmono
+*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE%B%A%C -sOutputFile=- - %D%E"
+
+*OpenGroup: General
+*%========== Media Selection ==========
+
+*HWMargins:      12 12 12 12
+*OpenUI *PageSize/PageSize: PickOne
+*FoomaticRIPOption PageSize: enum CmdLine C
+*OrderDependency: 20 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
+*FoomaticRIPOptionSetting PageSize=A3: " -sPAPERSIZE=a3"
+*PageSize A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
+*FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4"
+*PageSize Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
+*FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter"
+*PageSize 11x17/11x17: "%% FoomaticRIPOptionSetting: PageSize=11x17"
+*FoomaticRIPOptionSetting PageSize=11x17: " -sPAPERSIZE=11x17"
+*PageSize Executive/Executive: "%% FoomaticRIPOptionSetting: PageSize=Executive"
+*FoomaticRIPOptionSetting PageSize=Executive: " -sPAPERSIZE=exe"
+*PageSize Env10/Com10 Env.: "%% FoomaticRIPOptionSetting: PageSize=Env10"
+*FoomaticRIPOptionSetting PageSize=Env10: " -sPAPERSIZE=c10"
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 25 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
+*PageRegion A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
+*PageRegion Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
+*PageRegion 11x17/11x17: "%% FoomaticRIPOptionSetting: PageSize=11x17"
+*PageRegion Executive/Executive: "%% FoomaticRIPOptionSetting: PageSize=Executive"
+*PageRegion Env10/Com10 Env.: "%% FoomaticRIPOptionSetting: PageSize=Env10"
+*CloseUI: *PageRegion
+
+*%========== Information About Media Sizes ==========
+
+*DefaultImageableArea: Letter
+*ImageableArea A3/A3: "12 12 830 1179"
+*ImageableArea A4/A4: "12 12 583 830"
+*ImageableArea Letter/Letter: "12 12 600 780"
+*ImageableArea 11x17/11x17: "12 12 780 1212"
+*ImageableArea Executive/Executive: "12 12 510 744"
+*ImageableArea Env10/Com10 Env.: "12 12 285 672"
+
+*DefaultPaperDimension: Letter
+*PaperDimension A3/A3: "842 1191"
+*PaperDimension A4/A4: "595 842"
+*PaperDimension Letter/Letter: "612 792"
+*PaperDimension 11x17/11x17: "792 1224"
+*PaperDimension Executive/Executive: "522 756"
+*PaperDimension Env10/Com10 Env.: "297 684"
+
+*%========== Media Handling Features ==========
+
+*OpenUI *InputSlot/InputSlot: PickOne
+*FoomaticRIPOption InputSlot: enum CmdLine E
+*OrderDependency: 30 AnySetup *InputSlot
+*DefaultInputSlot: Auto
+*InputSlot MultiTray/Bypass Tray: "%% FoomaticRIPOptionSetting: InputSlot=MultiTray"
+*FoomaticRIPOptionSetting InputSlot=MultiTray: "&&
+ | perl -p -e &quot;s/\xc0\x00\xf8\x26/\xc0\x02\xf8\x26/g&quot;"
+*End
+*InputSlot 1Tray/Tray 1: "%% FoomaticRIPOptionSetting: InputSlot=1Tray"
+*FoomaticRIPOptionSetting InputSlot=1Tray: "&&
+ | perl -p -e &quot;s/\xc0\x00\xf8\x26/\xc0\x04\xf8\x26/g&quot;"
+*End
+*InputSlot 2Tray/Tray 2: "%% FoomaticRIPOptionSetting: InputSlot=2Tray"
+*FoomaticRIPOptionSetting InputSlot=2Tray: "&&
+ | perl -p -e &quot;s/\xc0\x00\xf8\x26/\xc0\x05\xf8\x26/g&quot;"
+*End
+*InputSlot 3Tray/Tray 3: "%% FoomaticRIPOptionSetting: InputSlot=3Tray"
+*FoomaticRIPOptionSetting InputSlot=3Tray: "&&
+ | perl -p -e &quot;s/\xc0\x00\xf8\x26/\xc0\x07\xf8\x26/g&quot;"
+*End
+*InputSlot 4Tray/Tray 4: "%% FoomaticRIPOptionSetting: InputSlot=4Tray"
+*FoomaticRIPOptionSetting InputSlot=4Tray: "&&
+ | perl -p -e &quot;s/\xc0\x00\xf8\x26/\xc0\x08\xf8\x26/g&quot;"
+*End
+*InputSlot Auto/Auto Select: "%% FoomaticRIPOptionSetting: InputSlot=Auto"
+*FoomaticRIPOptionSetting InputSlot=Auto: ""
+*CloseUI: *InputSlot
+
+*OpenUI *TraySwitch/Auto Tray Switch: PickOne
+*FoomaticRIPOption TraySwitch: enum JCL A
+*OrderDependency: 35 AnySetup *TraySwitch
+*DefaultTraySwitch: True
+*TraySwitch True/On: "%% FoomaticRIPOptionSetting: TraySwitch=True"
+*FoomaticRIPOptionSetting TraySwitch=True: "SET AUTOTRAYCHANGE=ON"
+*TraySwitch False/Off: "%% FoomaticRIPOptionSetting: TraySwitch=False"
+*FoomaticRIPOptionSetting TraySwitch=False: "SET AUTOTRAYCHANGE=OFF"
+*CloseUI: *TraySwitch
+
+*OpenUI *Duplex/Duplex: PickOne
+*FoomaticRIPOption Duplex: enum CmdLine D
+*OrderDependency: 50 AnySetup *Duplex
+*DefaultDuplex: None
+*Duplex None/Off: "%% FoomaticRIPOptionSetting: Duplex=None"
+*FoomaticRIPOptionSetting Duplex=None: ""
+*Duplex DuplexNoTumble/Long Edge: "%% FoomaticRIPOptionSetting: Duplex=DuplexNoTumble"
+*FoomaticRIPOptionSetting Duplex=DuplexNoTumble: "&&
+ | perl -p -e &quot;s/\xc0\x00\xf8\x34/\xc0\x01\xf8\x35/g&quot;"
+*End
+*Duplex DuplexTumble/Short Edge: "%% FoomaticRIPOptionSetting: Duplex=DuplexTumble"
+*FoomaticRIPOptionSetting Duplex=DuplexTumble: "&&
+ | perl -p -e &quot;s/\xc0\x00\xf8\x34/\xc0\x00\xf8\x35/g&quot;"
+*End
+*CloseUI: *Duplex
+
+*OpenUI *ColorModel/Color Mode: PickOne
+*FoomaticRIPOption ColorModel: enum Composite B
+*OrderDependency: 10 AnySetup *ColorModel
+*DefaultColorModel: Grayscale
+*ColorModel Grayscale/Grayscale: "%% FoomaticRIPOptionSetting: ColorModel=Grayscale"
+*FoomaticRIPOptionSetting ColorModel=Grayscale: "GSCmdLine=Grayscale"
+*CloseUI: *ColorModel
+
+*FoomaticRIPOption GSCmdLine: enum CmdLine B 10
+*FoomaticRIPOptionSetting GSCmdLine=FromColorModel: ""
+*FoomaticRIPOptionSetting GSCmdLine=Grayscale: " -sDEVICE=pxlmono"
+*End
+
+*OpenUI *Resolution/Resolution: PickOne
+*FoomaticRIPOption Resolution: enum Composite A
+*OrderDependency: 40 AnySetup *Resolution
+*DefaultResolution: 600dpi
+*Resolution 300dpi:  "%% FoomaticRIPOptionSetting: Resolution=300x300dpi"
+*FoomaticRIPOptionSetting Resolution=300x300dpi: "JCLResolution=300x300dpi GSResolution=300x300dpi"
+*Resolution 600dpi:  "%% FoomaticRIPOptionSetting: Resolution=600x600dpi"
+*FoomaticRIPOptionSetting Resolution=600x600dpi: "JCLResolution=600x600dpi GSResolution=600x600dpi"
+*CloseUI: *Resolution
+
+*FoomaticRIPOption GSResolution: enum CmdLine A 100
+*FoomaticRIPOptionSetting GSResolution=FromResolution: ""
+*FoomaticRIPOptionSetting GSResolution=300x300dpi: " -r300x300"
+*FoomaticRIPOptionSetting GSResolution=600x600dpi: " -r600x600"
+
+*FoomaticRIPOption JCLResolution: enum JCL A 100
+*FoomaticRIPOptionSetting JCLResolution=FromResolution: ""
+*FoomaticRIPOptionSetting JCLResolution=300x300dpi: "SET RESOLUTION=300"
+*FoomaticRIPOptionSetting JCLResolution=600x600dpi: "SET RESOLUTION=600"
+
+
+*OpenUI *MediaType/Paper Type: PickOne
+*FoomaticRIPOption MediaType: enum JCL A
+*OrderDependency: 205 AnySetup *MediaType
+*DefaultMediaType: Plain
+*MediaType Plain/Plain: "%% FoomaticRIPOptionSetting: MediaType=Plain"
+*FoomaticRIPOptionSetting MediaType=Plain: "SET MEDIATYPE=PLAIN"
+*MediaType Recycled/Recycled: "%% FoomaticRIPOptionSetting: MediaType=Recycled"
+*FoomaticRIPOptionSetting MediaType=Recycled: "SET MEDIATYPE=RECYCLED"
+*MediaType Special/Special: "%% FoomaticRIPOptionSetting: MediaType=Special"
+*FoomaticRIPOptionSetting MediaType=Special: "SET MEDIATYPE=SPECIAL"
+*MediaType Colored/Color: "%% FoomaticRIPOptionSetting: MediaType=Colored"
+*FoomaticRIPOptionSetting MediaType=Colored: "SET MEDIATYPE=COLOR"
+*MediaType Letterhead/Letterhead: "%% FoomaticRIPOptionSetting: MediaType=Letterhead"
+*FoomaticRIPOptionSetting MediaType=Letterhead: "SET MEDIATYPE=LETTERHEAD"
+*MediaType Preprinted/Preprinted: "%% FoomaticRIPOptionSetting: MediaType=Preprinted"
+*FoomaticRIPOptionSetting MediaType=Preprinted: "SET MEDIATYPE=PREPRINTED"
+*MediaType Prepunched/Prepunched: "%% FoomaticRIPOptionSetting: MediaType=Prepunched"
+*FoomaticRIPOptionSetting MediaType=Prepunched: "SET MEDIATYPE=PREPUNCHED"
+*MediaType Labels/Labels: "%% FoomaticRIPOptionSetting: MediaType=Labels"
+*FoomaticRIPOptionSetting MediaType=Labels: "SET MEDIATYPE=LABELS"
+*MediaType Bond/Bond: "%% FoomaticRIPOptionSetting: MediaType=Bond"
+*FoomaticRIPOptionSetting MediaType=Bond: "SET MEDIATYPE=BOND"
+*MediaType Cardstock/Cardstock: "%% FoomaticRIPOptionSetting: MediaType=Cardstock"
+*FoomaticRIPOptionSetting MediaType=Cardstock: "SET MEDIATYPE=CARDSTOCK"
+*MediaType OHP/Transparency: "%% FoomaticRIPOptionSetting: MediaType=OHP"
+*FoomaticRIPOptionSetting MediaType=OHP: "SET MEDIATYPE=TRANSPARENCY"
+*MediaType Thick/Thick: "%% FoomaticRIPOptionSetting: MediaType=Thick"
+*FoomaticRIPOptionSetting MediaType=Thick: "SET MEDIATYPE=THICK"
+*MediaType Thin/Thin: "%% FoomaticRIPOptionSetting: MediaType=Thin"
+*FoomaticRIPOptionSetting MediaType=Thin: "SET MEDIATYPE=THIN"
+*CloseUI: *MediaType
+
+*OpenUI *OutputBin/Destination: PickOne
+*FoomaticRIPOption OutputBin: enum JCL A
+*OrderDependency: 210 AnySetup *OutputBin
+*DefaultOutputBin: Default
+*OutputBin Default/Printer Default: "%% FoomaticRIPOptionSetting: OutputBin=Default"
+*FoomaticRIPOptionSetting OutputBin=Default: "SET OUTBIN=SYSDEFAULT"
+*OutputBin Standard/Internal Tray 1: "%% FoomaticRIPOptionSetting: OutputBin=Standard"
+*FoomaticRIPOptionSetting OutputBin=Standard: "SET OUTBIN=UPPER"
+*OutputBin Bin1/Internal Tray 2: "%% FoomaticRIPOptionSetting: OutputBin=Bin1"
+*FoomaticRIPOptionSetting OutputBin=Bin1: "SET OUTBIN=INNER"
+*OutputBin Shift/Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=Shift"
+*FoomaticRIPOptionSetting OutputBin=Shift: "SET OUTBIN=UPPER"
+*OutputBin FujigawaShift/Finisher Tray: "%% FoomaticRIPOptionSetting: OutputBin=FujigawaShift"
+*FoomaticRIPOptionSetting OutputBin=FujigawaShift: "SET OUTBIN=FINISHERSHIFT"
+*OutputBin KingUpper/Finisher Proof Tray: "%% FoomaticRIPOptionSetting: OutputBin=KingUpper"
+*FoomaticRIPOptionSetting OutputBin=KingUpper: "SET OUTBIN=FINISHERPROOF"
+*OutputBin KingLower/Finisher Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=KingLower"
+*FoomaticRIPOptionSetting OutputBin=KingLower: "SET OUTBIN=FINISHERSHIFT"
+*CloseUI: *OutputBin
+
+*OpenUI *RIStaple/Staple: PickOne
+*FoomaticRIPOption RIStaple: enum JCL A
+*OrderDependency: 220 AnySetup *RIStaple
+*DefaultRIStaple: None
+*RIStaple None/Off: "%% FoomaticRIPOptionSetting: RIStaple=None"
+*FoomaticRIPOptionSetting RIStaple=None: "SET STAPLE=OFF"
+*RIStaple UpperLeft/Top Left: "%% FoomaticRIPOptionSetting: RIStaple=UpperLeft"
+*FoomaticRIPOptionSetting RIStaple=UpperLeft: "SET STAPLE=LEFTTOP"
+*RIStaple UpperRight/Top Right: "%% FoomaticRIPOptionSetting: RIStaple=UpperRight"
+*FoomaticRIPOptionSetting RIStaple=UpperRight: "SET STAPLE=RIGHTTOP"
+*RIStaple LeftW/Left 2: "%% FoomaticRIPOptionSetting: RIStaple=LeftW"
+*FoomaticRIPOptionSetting RIStaple=LeftW: "SET STAPLE=LEFT2PORT"
+*RIStaple RightW/Right 2: "%% FoomaticRIPOptionSetting: RIStaple=RightW"
+*FoomaticRIPOptionSetting RIStaple=RightW: "SET STAPLE=RIGHT2PORT"
+*RIStaple UpperW/Top 2: "%% FoomaticRIPOptionSetting: RIStaple=UpperW"
+*FoomaticRIPOptionSetting RIStaple=UpperW: "SET STAPLE=TOP2PORT"
+*CloseUI: *RIStaple
+
+
+*OpenUI *RIPrintMode/Toner Saving: PickOne
+*FoomaticRIPOption RIPrintMode: enum JCL A
+*OrderDependency: 45 AnySetup *RIPrintMode
+*DefaultRIPrintMode: 0rhit
+*RIPrintMode 0rhit/Off: "%% FoomaticRIPOptionSetting: RIPrintMode=0rhit"
+*FoomaticRIPOptionSetting RIPrintMode=0rhit: "SET ECONOMODE=OFF"
+*RIPrintMode 5rhit/On: "%% FoomaticRIPOptionSetting: RIPrintMode=5rhit"
+*FoomaticRIPOptionSetting RIPrintMode=5rhit: "SET ECONOMODE=ON"
+*CloseUI: *RIPrintMode
+
+
+*CloseGroup: General
+
+
+*UIConstraints: *Option1OptionTray None *InputSlot 3Tray
+*UIConstraints: *Option1OptionTray None *InputSlot 4Tray
+*UIConstraints: *Option1OptionTray 1Cassette *InputSlot 4Tray
+*UIConstraints: *Option3BypassTray False *InputSlot MultiTray
+*UIConstraints: *InputSlot 3Tray *Option1OptionTray None
+*UIConstraints: *InputSlot 4Tray *Option1OptionTray None
+*UIConstraints: *InputSlot 4Tray *Option1OptionTray 1Cassette
+*UIConstraints: *InputSlot MultiTray *Option3BypassTray False
+*UIConstraints: *Option10DuplexUnit False *Duplex DuplexTumble
+*UIConstraints: *Option10DuplexUnit False *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexTumble *Option10DuplexUnit False
+*UIConstraints: *Duplex DuplexNoTumble *Option10DuplexUnit False
+*UIConstraints: *Option20InternalTray2 False *OutputBin Bin1
+*UIConstraints: *OutputBin Bin1 *Option20InternalTray2 False
+*UIConstraints: *Option25ShiftTray False *OutputBin Shift
+*UIConstraints: *OutputBin Shift *Option25ShiftTray False
+*UIConstraints: *Option25ShiftTray True *OutputBin Standard
+*UIConstraints: *OutputBin Standard *Option25ShiftTray True
+*UIConstraints: *Option25ShiftTray True *Option30Finisher Fin500
+*UIConstraints: *Option25ShiftTray True *Option30Finisher Fin1000
+*UIConstraints: *Option30Finisher Fin500 *Option25ShiftTray True
+*UIConstraints: *Option30Finisher Fin1000 *Option25ShiftTray True
+*UIConstraints: *Option30Finisher None *OutputBin FujigawaShift
+*UIConstraints: *Option30Finisher None *OutputBin KingUpper
+*UIConstraints: *Option30Finisher None *OutputBin KingLower
+*UIConstraints: *Option30Finisher Fin500 *OutputBin KingUpper
+*UIConstraints: *Option30Finisher Fin500 *OutputBin KingLower
+*UIConstraints: *Option30Finisher Fin1000 *OutputBin FujigawaShift
+*UIConstraints: *OutputBin FujigawaShift *Option30Finisher None
+*UIConstraints: *OutputBin KingUpper *Option30Finisher None
+*UIConstraints: *OutputBin KingLower *Option30Finisher None
+*UIConstraints: *OutputBin KingUpper *Option30Finisher Fin500
+*UIConstraints: *OutputBin KingLower *Option30Finisher Fin500
+*UIConstraints: *OutputBin FujigawaShift *Option30Finisher Fin1000
+*UIConstraints: *RIStaple UpperLeft *Option30Finisher None
+*UIConstraints: *RIStaple UpperRight *Option30Finisher None
+*UIConstraints: *RIStaple LeftW *Option30Finisher None
+*UIConstraints: *RIStaple RightW *Option30Finisher None
+*UIConstraints: *RIStaple UpperW *Option30Finisher None
+*UIConstraints: *Option30Finisher None *RIStaple UpperLeft
+*UIConstraints: *Option30Finisher None *RIStaple UpperRight
+*UIConstraints: *Option30Finisher None *RIStaple LeftW
+*UIConstraints: *Option30Finisher None *RIStaple RightW
+*UIConstraints: *Option30Finisher None *RIStaple UpperW
+*UIConstraints: *Option30Finisher Fin500 *RIStaple LeftW
+*UIConstraints: *Option30Finisher Fin500 *RIStaple RightW
+*UIConstraints: *Option30Finisher Fin500 *RIStaple UpperW
+*UIConstraints: *RIStaple LeftW *Option30Finisher Fin500
+*UIConstraints: *RIStaple RightW *Option30Finisher Fin500
+*UIConstraints: *RIStaple UpperW *Option30Finisher Fin500
+*UIConstraints: *MediaType Labels *InputSlot 1Tray
+*UIConstraints: *MediaType Labels *InputSlot 3Tray
+*UIConstraints: *MediaType Labels *InputSlot 4Tray
+*UIConstraints: *MediaType OHP *InputSlot 1Tray
+*UIConstraints: *MediaType OHP *InputSlot 3Tray
+*UIConstraints: *MediaType OHP *InputSlot 4Tray
+*UIConstraints: *MediaType Thick *InputSlot 1Tray
+*UIConstraints: *MediaType Thick *InputSlot 3Tray
+*UIConstraints: *MediaType Thick *InputSlot 4Tray
+*UIConstraints: *MediaType Thin *InputSlot 1Tray
+*UIConstraints: *MediaType Thin *InputSlot 3Tray
+*UIConstraints: *MediaType Thin *InputSlot 4Tray
+*UIConstraints: *InputSlot 1Tray *MediaType Labels
+*UIConstraints: *InputSlot 3Tray *MediaType Labels
+*UIConstraints: *InputSlot 4Tray *MediaType Labels
+*UIConstraints: *InputSlot 1Tray *MediaType OHP
+*UIConstraints: *InputSlot 3Tray *MediaType OHP
+*UIConstraints: *InputSlot 4Tray *MediaType OHP
+*UIConstraints: *InputSlot 1Tray *MediaType Thick
+*UIConstraints: *InputSlot 3Tray *MediaType Thick
+*UIConstraints: *InputSlot 4Tray *MediaType Thick
+*UIConstraints: *InputSlot 1Tray *MediaType Thin
+*UIConstraints: *InputSlot 3Tray *MediaType Thin
+*UIConstraints: *InputSlot 4Tray *MediaType Thin
+*UIConstraints: *PageSize Env10 *InputSlot 1Tray
+*UIConstraints: *PageSize Env10 *InputSlot 3Tray
+*UIConstraints: *PageSize Env10 *InputSlot 4Tray
+*UIConstraints: *InputSlot 1Tray *PageSize Env10
+*UIConstraints: *InputSlot 3Tray *PageSize Env10
+*UIConstraints: *InputSlot 4Tray *PageSize Env10
+*UIConstraints: *PageSize Env10 *Duplex DuplexTumble
+*UIConstraints: *PageSize Env10 *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexTumble *PageSize Env10
+*UIConstraints: *Duplex DuplexNoTumble *PageSize Env10
+*UIConstraints: *PageSize Env10 *OutputBin Bin1
+*UIConstraints: *PageSize Env10 *OutputBin FujigawaShift
+*UIConstraints: *PageSize Env10 *OutputBin KingUpper
+*UIConstraints: *PageSize Env10 *OutputBin KingLower
+*UIConstraints: *OutputBin Bin1 *PageSize Env10
+*UIConstraints: *OutputBin FujigawaShift *PageSize Env10
+*UIConstraints: *OutputBin KingUpper *PageSize Env10
+*UIConstraints: *OutputBin KingLower *PageSize Env10
+*UIConstraints: *MediaType Labels *OutputBin Bin1
+*UIConstraints: *MediaType Labels *OutputBin FujigawaShift
+*UIConstraints: *MediaType Labels *OutputBin KingUpper
+*UIConstraints: *MediaType Labels *OutputBin KingLower
+*UIConstraints: *MediaType OHP *OutputBin Bin1
+*UIConstraints: *MediaType OHP *OutputBin FujigawaShift
+*UIConstraints: *MediaType OHP *OutputBin KingLower
+*UIConstraints: *MediaType Thick *OutputBin Bin1
+*UIConstraints: *MediaType Thin *OutputBin Bin1
+*UIConstraints: *MediaType Thin *OutputBin FujigawaShift
+*UIConstraints: *MediaType Thin *OutputBin KingLower
+*UIConstraints: *OutputBin Bin1 *MediaType Labels
+*UIConstraints: *OutputBin FujigawaShift *MediaType Labels
+*UIConstraints: *OutputBin KingUpper *MediaType Labels
+*UIConstraints: *OutputBin KingLower *MediaType Labels
+*UIConstraints: *OutputBin Bin1 *MediaType OHP
+*UIConstraints: *OutputBin FujigawaShift *MediaType OHP
+*UIConstraints: *OutputBin KingLower *MediaType OHP
+*UIConstraints: *OutputBin Bin1 *MediaType Thick
+*UIConstraints: *OutputBin Bin1 *MediaType Thin
+*UIConstraints: *OutputBin FujigawaShift *MediaType Thin
+*UIConstraints: *OutputBin KingLower *MediaType Thin
+*UIConstraints: *Duplex DuplexTumble *InputSlot MultiTray
+*UIConstraints: *Duplex DuplexNoTumble *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *Duplex DuplexTumble
+*UIConstraints: *InputSlot MultiTray *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexTumble *MediaType Labels
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Labels
+*UIConstraints: *Duplex DuplexTumble *MediaType OHP
+*UIConstraints: *Duplex DuplexNoTumble *MediaType OHP
+*UIConstraints: *Duplex DuplexTumble *MediaType Thick
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Thick
+*UIConstraints: *Duplex DuplexTumble *MediaType Thin
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Thin
+*UIConstraints: *MediaType Labels *Duplex DuplexTumble
+*UIConstraints: *MediaType Labels *Duplex DuplexNoTumble
+*UIConstraints: *MediaType OHP *Duplex DuplexTumble
+*UIConstraints: *MediaType OHP *Duplex DuplexNoTumble
+*UIConstraints: *MediaType Thick *Duplex DuplexTumble
+*UIConstraints: *MediaType Thick *Duplex DuplexNoTumble
+*UIConstraints: *MediaType Thin *Duplex DuplexTumble
+*UIConstraints: *MediaType Thin *Duplex DuplexNoTumble
+
+
+
+*% Generic boilerplate PPD stuff as standard PostScript fonts and so on
+
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Standard ROM
+*% end of Printer Description file
