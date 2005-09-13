@@ -1,0 +1,1671 @@
+*PPD-Adobe: "4.3"
+*%
+*%  Printer Description file
+*%    for "Ricoh DDP 70 PS"
+*%
+*%    CreationDate: 2005/07/29
+*%    Modified:     2005/09/12
+*%
+*%    COPYRIGHT (C) 2005 RICOH COMPANY, LTD.
+*%    
+*%    Permission is hereby granted, free of charge, to any person obtaining
+*%    a copy of this software and associated documentation files (the
+*%    "Software"), to deal in the Software without restriction, including
+*%    without limitation the rights to use, copy, modify, merge, publish,
+*%    distribute, sublicense, and/or sell copies of the Software, and to
+*%    permit persons to whom the Software is furnished to do so, subject to
+*%    the following conditions:
+*%    
+*%    The above copyright notice and this permission notice shall be
+*%    included in all copies or substantial portions of the Software.
+*%    
+*%    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+*%    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+*%    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+*%    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+*%    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+*%    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+*%    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*%    
+*%    [this is the MIT open source license -- please see www.opensource.org]
+*%
+
+*FileVersion: "2.9"  
+*FormatVersion: "4.3"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+*Manufacturer: "Ricoh"
+*ModelName: "Ricoh DDP 70"
+*ShortNickName: "Ricoh DDP 70 PS"
+*NickName: "Ricoh DDP 70 PS"
+*PCFileName: "rkddp701.ppd"
+*Product: "(DDP 70)"
+*PSVersion: "(3010.106) 147"
+
+*% ==== Options and Constraints =====
+*OpenUI *Option1/High Capacity Feeder: Boolean
+*DefaultOption1: True
+*Option1 True/Installed: ""
+*Option1 False/Not Installed: ""
+*?Option1: "save currentpagedevice /InputAttributes get 4 get dup null eq
+    { (False)}
+    { (True)}
+    ifelse = flush
+restore
+"
+*End
+*CloseUI: *Option1
+
+*OpenUI *Option2/Paper Output: PickOne
+*OrderDependency: 50.0 AnySetup *Option2
+*DefaultOption2: AdvancedFinisher
+*Option2 OutputTray/Output Tray:""
+*Option2 AdvancedFinisher/Advanced Finisher:""
+*Option2 PublishingFinisher/Publishing Finisher with Advanced Finisher:""
+*Option2 OneContainerStacker/One Container Stacker:""
+*Option2 TwoContainerStackers/Two Container Stackers:""
+*Option2 OneContainerStackerwithAdvancedFinisher/One Container Stacker with Advanced Finisher:""
+*?Option2: "save false currentpagedevice /OutputAttributes get
+    {
+	% OutputTray Tray
+        exch pop /OutputType get (Stacker 1) eq
+        {
+            pop true
+        }
+        if
+    }
+    forall
+    {(OutputTray)}
+    {	
+	    % No Output Tray, looking for PF
+	    false currentpagedevice /OutputAttributes get
+	    {
+		% Booklet Tray
+        	exch pop /OutputType get (Stacker 4) eq
+		{
+	            pop true
+        	}
+	        if
+	    }
+	    forall
+
+	    { (PublishingFinisher)}
+	    { 
+        	% No PF. Looking for CS and AF
+	        false currentpagedevice /OutputAttributes get
+        	{
+	            exch pop /OutputType get (Sample Tray) eq
+	            {
+        	        pop true
+	            }
+        	    if
+	        }
+	        forall
+        
+        	{
+	            % Sample Tray => One or Two CS no AF
+        	    false currentpagedevice /OutputAttributes get
+	            {
+        	        exch pop /OutputType get (Stacker 7) eq
+                	{
+	                    pop true
+        	        }
+                	if
+	            }
+        	    forall
+            
+	            {(TwoContainerStackers)}
+        	    {(OneContainerStacker)}
+	            ifelse
+	        }
+        	{
+        	    % No Sample Tray => AF + possible one or two CS
+	            false currentpagedevice /OutputAttributes get
+        	    {
+                	exch pop /OutputType get (Stacker 7) eq
+	                {
+        	            pop true
+                	}
+	                if
+        	    }
+	            forall
+            
+        	    {(TwoContainerStackerswithAdvancedFinisher)}
+	            {
+        	        % No second CS => AF + one possible CS
+                	false currentpagedevice /OutputAttributes get
+	                {
+        	            exch pop /OutputType get (Stacker 5) eq
+       	             	    {
+        	                pop true
+                    	    }
+                            if
+                        }
+                	forall
+                
+		        {(OneContainerStackerwithAdvancedFinisher)}
+                	{(AdvancedFinisher)}
+	                ifelse
+        	    }
+	            ifelse
+        	}
+	        ifelse
+          }
+	  ifelse
+    }
+    ifelse = flush
+restore
+"
+*End
+*CloseUI: *Option2
+
+*% Installable options
+*UIConstraints: *Option1 False *InputSlot HCF
+*UIConstraints: *InputSlot HCF *Option1 False
+
+*UIConstraints: *Option2 OutputTray *Booklet
+*UIConstraints: *Option2 OutputTray *OutputBin BookletTray
+*UIConstraints: *Option2 OutputTray *OutputBin Stacker6
+*UIConstraints: *Option2 OutputTray *OutputBin Stacker8
+*UIConstraints: *Option2 OutputTray *OutputBin Stacker5
+*UIConstraints: *Option2 OutputTray *OutputBin Stacker7
+*UIConstraints: *Option2 OutputTray *OutputBin SampleTray
+*UIConstraints: *Option2 OutputTray *OutputBin ElevatorStacker
+*UIConstraints: *Option2 OutputTray *OutputBin UpperStacker
+
+
+*UIConstraints: *OutputBin BookletTray *Option2 OutputTray
+*UIConstraints: *OutputBin Stacker6 *Option2 OutputTray
+*UIConstraints: *OutputBin Stacker8 *Option2 OutputTray
+*UIConstraints: *OutputBin Stacker5 *Option2 OutputTray 
+*UIConstraints: *OutputBin Stacker7 *Option2 OutputTray 
+*UIConstraints: *OutputBin SampleTray *Option2 OutputTray 
+*UIConstraints: *OutputBin ElevatorStacker *Option2 OutputTray 
+*UIConstraints: *OutputBin UpperStacker *Option2 OutputTray 
+
+
+*UIConstraints: *Option2 AdvancedFinisher *Booklet
+*UIConstraints: *Option2 AdvancedFinisher *OutputBin BookletTray
+*UIConstraints: *Option2 AdvancedFinisher *OutputBin Stacker6
+*UIConstraints: *Option2 AdvancedFinisher *OutputBin Stacker8
+*UIConstraints: *Option2 AdvancedFinisher *OutputBin Stacker5
+*UIConstraints: *Option2 AdvancedFinisher *OutputBin Stacker7
+*UIConstraints: *Option2 AdvancedFinisher *OutputBin SampleTray
+*UIConstraints: *Option2 AdvancedFinisher *OutputBin OutputTray
+
+*UIConstraints: *Option2 PublishingFinisher *OutputBin Stacker6
+*UIConstraints: *Option2 PublishingFinisher *OutputBin Stacker8
+*UIConstraints: *Option2 PublishingFinisher *OutputBin Stacker5
+*UIConstraints: *Option2 PublishingFinisher *OutputBin Stacker7
+*UIConstraints: *Option2 PublishingFinisher *OutputBin SampleTray
+*UIConstraints: *Option2 PublishingFinisher *OutputBin OutputTray
+
+*UIConstraints: *Option2 OneContainerStacker *Booklet
+*UIConstraints: *Option2 OneContainerStacker *OutputBin BookletTray
+*UIConstraints: *Option2 OneContainerStacker *OutputBin ElevatorStacker
+*UIConstraints: *Option2 OneContainerStacker *OutputBin UpperStacker
+*UIConstraints: *Option2 OneContainerStacker *OutputBin Stacker8
+*UIConstraints: *Option2 OneContainerStacker *OutputBin Stacker7
+*UIConstraints: *Option2 OneContainerStacker *OutputBin OutputTray
+
+*UIConstraints: *Option2 TwoContainerStackers *Booklet
+*UIConstraints: *Option2 TwoContainerStackers *OutputBin BookletTray
+*UIConstraints: *Option2 TwoContainerStackers *OutputBin ElevatorStacker
+*UIConstraints: *Option2 TwoContainerStackers *OutputBin UpperStacker
+*UIConstraints: *Option2 TwoContainerStackers *OutputBin OutputTray
+
+*UIConstraints: *Option2 OneContainerStackerwithAdvancedFinisher *Booklet
+*UIConstraints: *Option2 OneContainerStackerwithAdvancedFinisher *OutputBin BookletTray
+*UIConstraints: *Option2 OneContainerStackerwithAdvancedFinisher *OutputBin Stacker8
+*UIConstraints: *Option2 OneContainerStackerwithAdvancedFinisher *OutputBin Stacker7
+*UIConstraints: *Option2 OneContainerStackerwithAdvancedFinisher *OutputBin SampleTray
+*UIConstraints: *Option2 OneContainerStackerwithAdvancedFinisher *OutputBin OutputTray
+
+*UIConstraints: *Booklet *Option2 AdvancedFinisher 
+*UIConstraints: *OutputBin BookletTray *Option2 AdvancedFinisher 
+*UIConstraints: *OutputBin Stacker6 *Option2 AdvancedFinisher 
+*UIConstraints: *OutputBin Stacker8 *Option2 AdvancedFinisher 
+*UIConstraints: *OutputBin Stacker5 *Option2 AdvancedFinisher 
+*UIConstraints: *OutputBin Stacker7 *Option2 AdvancedFinisher 
+*UIConstraints: *OutputBin SampleTray *Option2 AdvancedFinisher 
+*UIConstraints: *OutputBin Stacker6 *Option2 PublishingFinisher 
+*UIConstraints: *OutputBin Stacker8 *Option2 PublishingFinisher 
+*UIConstraints: *OutputBin Stacker5 *Option2 PublishingFinisher 
+*UIConstraints: *OutputBin Stacker7 *Option2 PublishingFinisher 
+*UIConstraints: *OutputBin SampleTray *Option2 PublishingFinisher 
+*UIConstraints: *Booklet *Option2 OneContainerStacker 
+*UIConstraints: *OutputBin BookletTray *Option2 OneContainerStacker 
+*UIConstraints: *OutputBin ElevatorStacker *Option2 OneContainerStacker 
+*UIConstraints: *OutputBin UpperStacker *Option2 OneContainerStacker 
+*UIConstraints: *OutputBin Stacker8 *Option2 OneContainerStacker 
+*UIConstraints: *OutputBin Stacker7 *Option2 OneContainerStacker 
+*UIConstraints: *Booklet *Option2 TwoContainerStackers 
+*UIConstraints: *OutputBin BookletTray *Option2 TwoContainerStackers 
+*UIConstraints: *OutputBin ElevatorStacker *Option2 TwoContainerStackers 
+*UIConstraints: *OutputBin UpperStacker *Option2 TwoContainerStackers 
+*UIConstraints: *Booklet *Option2 OneContainerStackerwithAdvancedFinisher 
+*UIConstraints: *OutputBin BookletTray *Option2 OneContainerStackerwithAdvancedFinisher 
+*UIConstraints: *OutputBin Stacker8 *Option2 OneContainerStackerwithAdvancedFinisher 
+*UIConstraints: *OutputBin Stacker7 *Option2 OneContainerStackerwithAdvancedFinisher 
+*UIConstraints: *OutputBin SampleTray *Option2 OneContainerStackerwithAdvancedFinisher 
+
+*UIConstraints: *OutputBin OutputTray *Option2 AdvancedFinisher
+*UIConstraints: *OutputBin OutputTray *Option2 PublishingFinisher 
+*UIConstraints: *OutputBin OutputTray *Option2 OneContainerStacker  
+*UIConstraints: *OutputBin OutputTray *Option2 TwoContainerStackers 
+*UIConstraints: *OutputBin OutputTray *Option2 OneContainerStackerwithAdvancedFinisher 
+*UIConstraints: *Booklet *Option2 OutputTray
+
+*% Finishing options
+*UIConstraints: *Booklet False *HKStapleLocation SaddleStitch
+*UIConstraints: *HKStapleLocation SaddleStitch *Booklet False 
+
+*UIConstraints: *OutputBin ElevatorStacker *HKStapleLocation SaddleStitch
+*UIConstraints: *OutputBin UpperStacker *HKStapleLocation SaddleStitch
+*UIConstraints: *OutputBin Stacker6 *HKStapleLocation SaddleStitch
+*UIConstraints: *OutputBin Stacker8 *HKStapleLocation SaddleStitch
+*UIConstraints: *OutputBin Stacker5 *HKStapleLocation SaddleStitch
+*UIConstraints: *OutputBin Stacker7 *HKStapleLocation SaddleStitch
+*UIConstraints: *OutputBin SampleTray *HKStapleLocation SaddleStitch
+*UIConstraints: *OutputBin OutputTray *HKStapleLocation SaddleStitch
+
+*UIConstraints: *HKStapleLocation SaddleStitch *OutputBin ElevatorStacker 
+*UIConstraints: *HKStapleLocation SaddleStitch *OutputBin UpperStacker 
+*UIConstraints: *HKStapleLocation SaddleStitch *OutputBin Stacker6 
+*UIConstraints: *HKStapleLocation SaddleStitch *OutputBin Stacker8 
+*UIConstraints: *HKStapleLocation SaddleStitch *OutputBin Stacker5 
+*UIConstraints: *HKStapleLocation SaddleStitch *OutputBin Stacker7 
+*UIConstraints: *HKStapleLocation SaddleStitch *OutputBin SampleTray 
+*UIConstraints: *HKStapleLocation SaddleStitch *OutputBin OutputTray
+
+*UIConstraints: *OutputBin BookletTray *HKHalfFolding False
+*UIConstraints: *HKHalfFolding False *OutputBin BookletTray
+*UIConstraints: *OutputBin OutputTray *HKHalfFolding True
+*UIConstraints: *HKHalfFolding True *OutputBin OutputTray
+*UIConstraints: *OutputBin UpperStacker *HKHalfFolding True
+*UIConstraints: *HKHalfFolding True *OutputBin UpperStacker 
+*UIConstraints: *OutputBin ElevatorStacker *HKHalfFolding True
+*UIConstraints: *HKHalfFolding True *OutputBin ElevatorStacker 
+*UIConstraints: *OutputBin Stacker6 *HKHalfFolding True
+*UIConstraints: *HKHalfFolding True *OutputBin Stacker6
+*UIConstraints: *OutputBin Stacker8 *HKHalfFolding True
+*UIConstraints: *HKHalfFolding True *OutputBin Stacker8
+*UIConstraints: *OutputBin Stacker5 *HKHalfFolding True
+*UIConstraints: *HKHalfFolding True *OutputBin Stacker5
+*UIConstraints: *OutputBin Stacker7 *HKHalfFolding True
+*UIConstraints: *HKHalfFolding True *OutputBin Stacker7
+*UIConstraints: *OutputBin SampleTray *HKHalfFolding True
+*UIConstraints: *HKHalfFolding True *OutputBin SampleTray
+
+*UIConstraints: *Collate False *HKHalfFolding
+*UIConstraints: *HKHalfFolding *Collate False
+
+*% Paper types & HalfFolding
+*UIConstraints: *MediaType Transparency *HKHalfFolding
+*UIConstraints: *MediaType Transparency-pp *HKHalfFolding
+*UIConstraints: *MediaType Label *HKHalfFolding
+*UIConstraints: *HKHalfFolding *MediaType Transparency 
+*UIConstraints: *HKHalfFolding *MediaType Transparency-pp 
+*UIConstraints: *HKHalfFolding *MediaType Label 
+
+*% Paper types & FaceUp
+*UIConstraints: *MediaType Transparency *HKOutputFaceUp
+*UIConstraints: *MediaType Transparency-pp *HKOutputFaceUp
+*UIConstraints: *MediaType Label *HKOutputFaceUp
+*UIConstraints: *HKOutputFaceUp *MediaType Transparency 
+*UIConstraints: *HKOutputFaceUp *MediaType Transparency-pp 
+*UIConstraints: *HKOutputFaceUp *MediaType Label 
+
+*UIConstraints: *Booklet False *HKTrimming
+*UIConstraints: *OutputBin BookletTray *HKStapleLocation None
+*UIConstraints: *OutputBin BookletTray *PageSize B5
+*UIConstraints: *OutputBin BookletTray *PageSize A5
+*UIConstraints: *OutputBin BookletTray *HKStapleLocation TopLeftPortrait
+*UIConstraints: *OutputBin BookletTray *HKStapleLocation TopLeftLandscape
+*UIConstraints: *OutputBin BookletTray *HKStapleLocation TopRightPortrait
+*UIConstraints: *OutputBin BookletTray *HKStapleLocation TopRightLandscape
+*UIConstraints: *OutputBin BookletTray *HKStapleLocation TopCenterPortrait
+*UIConstraints: *OutputBin BookletTray *HKStapleLocation LeftCenterPortrait
+*UIConstraints: *OutputBin BookletTray *HKStapleLocation RightCenterPortrait
+*UIConstraints: *OutputBin BookletTray *HKStapleLocation TopCenterLandscape
+*UIConstraints: *OutputBin BookletTray *HKStapleLocation LeftCenterLandscape
+*UIConstraints: *OutputBin BookletTray *HKStapleLocation RightCenterLandscape
+
+*UIConstraints: *OutputBin OutputTray *HKStapleLocation TopLeftPortrait
+*UIConstraints: *OutputBin OutputTray *HKStapleLocation TopLeftLandscape
+*UIConstraints: *OutputBin OutputTray *HKStapleLocation TopRightPortrait
+*UIConstraints: *OutputBin OutputTray *HKStapleLocation TopRightLandscape
+*UIConstraints: *OutputBin OutputTray *HKStapleLocation TopCenterPortrait
+*UIConstraints: *OutputBin OutputTray *HKStapleLocation LeftCenterPortrait
+*UIConstraints: *OutputBin OutputTray *HKStapleLocation RightCenterPortrait
+*UIConstraints: *OutputBin OutputTray *HKStapleLocation TopCenterLandscape
+*UIConstraints: *OutputBin OutputTray *HKStapleLocation LeftCenterLandscape
+*UIConstraints: *OutputBin OutputTray *HKStapleLocation RightCenterLandscape
+
+*UIConstraints: *HKTrimming *Booklet False 
+*UIConstraints: *HKStapleLocation None *OutputBin BookletTray 
+*UIConstraints: *PageSize B5 *OutputBin BookletTray 
+*UIConstraints: *PageSize A5 *OutputBin BookletTray 
+*UIConstraints: *PageRegion B5 *OutputBin BookletTray 
+*UIConstraints: *PageRegion A5 *OutputBin BookletTray 
+*UIConstraints: *OutputBin BookletTray  *PageRegion B5 
+*UIConstraints: *OutputBin BookletTray  *PageRegion A5 
+
+*UIConstraints: *HKStapleLocation TopLeftPortrait *OutputBin BookletTray 
+*UIConstraints: *HKStapleLocation TopLeftLandscape *OutputBin BookletTray 
+*UIConstraints: *HKStapleLocation TopRightPortrait *OutputBin BookletTray 
+*UIConstraints: *HKStapleLocation TopRightLandscape *OutputBin BookletTray 
+*UIConstraints: *HKStapleLocation TopCenterPortrait *OutputBin BookletTray 
+*UIConstraints: *HKStapleLocation LeftCenterPortrait *OutputBin BookletTray 
+*UIConstraints: *HKStapleLocation RightCenterPortrait *OutputBin BookletTray 
+*UIConstraints: *HKStapleLocation TopCenterLandscape *OutputBin BookletTray 
+*UIConstraints: *HKStapleLocation LeftCenterLandscape *OutputBin BookletTray 
+*UIConstraints: *HKStapleLocation RightCenterLandscape *OutputBin BookletTray 
+
+*UIConstraints: *HKStapleLocation TopLeftPortrait *OutputBin OutputTray 
+*UIConstraints: *HKStapleLocation TopLeftLandscape *OutputBin OutputTray 
+*UIConstraints: *HKStapleLocation TopRightPortrait *OutputBin OutputTray 
+*UIConstraints: *HKStapleLocation TopRightLandscape *OutputBin OutputTray 
+*UIConstraints: *HKStapleLocation TopCenterPortrait *OutputBin OutputTray 
+*UIConstraints: *HKStapleLocation LeftCenterPortrait *OutputBin OutputTray 
+*UIConstraints: *HKStapleLocation RightCenterPortrait *OutputBin OutputTray 
+*UIConstraints: *HKStapleLocation TopCenterLandscape *OutputBin OutputTray 
+*UIConstraints: *HKStapleLocation LeftCenterLandscape *OutputBin OutputTray 
+*UIConstraints: *HKStapleLocation RightCenterLandscape *OutputBin OutputTray 
+
+
+*UIConstraints: *PageSize Statement *OutputBin Stacker6
+*UIConstraints: *PageSize Executive *OutputBin Stacker6
+*UIConstraints: *PageSize A5 *OutputBin Stacker6
+*UIConstraints: *PageSize TabloidExtra *OutputBin Stacker6
+*UIConstraints: *PageSize TabStockL *OutputBin Stacker6
+*UIConstraints: *PageSize TabStockA *OutputBin Stacker6
+*UIConstraints: *OutputBin Stacker6 *PageSize Statement 
+*UIConstraints: *OutputBin Stacker6 *PageSize Executive 
+*UIConstraints: *OutputBin Stacker6 *PageSize A5 
+*UIConstraints: *OutputBin Stacker6 *PageSize TabloidExtra 
+*UIConstraints: *OutputBin Stacker6 *PageSize TabStockL 
+*UIConstraints: *OutputBin Stacker6 *PageSize TabStockA 
+
+
+*UIConstraints: *PageRegion Statement *OutputBin Stacker6
+*UIConstraints: *PageRegion Executive *OutputBin Stacker6
+*UIConstraints: *PageRegion A5 *OutputBin Stacker6
+*UIConstraints: *PageRegion TabloidExtra *OutputBin Stacker6
+*UIConstraints: *PageRegion TabStockL *OutputBin Stacker6
+*UIConstraints: *PageRegion TabStockA *OutputBin Stacker6
+*UIConstraints: *OutputBin Stacker6 *PageRegion Statement 
+*UIConstraints: *OutputBin Stacker6 *PageRegion Executive 
+*UIConstraints: *OutputBin Stacker6 *PageRegion A5 
+*UIConstraints: *OutputBin Stacker6 *PageRegion TabloidExtra 
+*UIConstraints: *OutputBin Stacker6 *PageRegion TabStockL 
+*UIConstraints: *OutputBin Stacker6 *PageRegion TabStockA 
+
+
+
+*NonUIConstraints: *CustomPageSize True *OutputBin Stacker6
+
+
+
+*UIConstraints: *PageSize Statement *OutputBin Stacker8
+*UIConstraints: *PageSize Executive *OutputBin Stacker8
+*UIConstraints: *PageSize A5 *OutputBin Stacker8
+*UIConstraints: *PageSize TabloidExtra *OutputBin Stacker8
+*UIConstraints: *PageSize TabStockL *OutputBin Stacker8
+*UIConstraints: *PageSize TabStockA *OutputBin Stacker8
+
+*UIConstraints: *OutputBin Stacker8 *PageSize Statement 
+*UIConstraints: *OutputBin Stacker8 *PageSize Executive 
+*UIConstraints: *OutputBin Stacker8 *PageSize A5 
+*UIConstraints: *OutputBin Stacker8 *PageSize TabloidExtra 
+*UIConstraints: *OutputBin Stacker8 *PageSize TabStockL 
+*UIConstraints: *OutputBin Stacker8 *PageSize TabStockA 
+
+*UIConstraints: *PageRegion Statement *OutputBin Stacker8
+*UIConstraints: *PageRegion Executive *OutputBin Stacker8
+*UIConstraints: *PageRegion A5 *OutputBin Stacker8
+*UIConstraints: *PageRegion TabloidExtra *OutputBin Stacker8
+*UIConstraints: *PageRegion TabStockL *OutputBin Stacker8
+*UIConstraints: *PageRegion TabStockA *OutputBin Stacker8
+
+*UIConstraints: *OutputBin Stacker8 *PageRegion Statement 
+*UIConstraints: *OutputBin Stacker8 *PageRegion Executive 
+*UIConstraints: *OutputBin Stacker8 *PageRegion A5 
+*UIConstraints: *OutputBin Stacker8 *PageRegion TabloidExtra 
+*UIConstraints: *OutputBin Stacker8 *PageRegion TabStockL 
+*UIConstraints: *OutputBin Stacker8 *PageRegion TabStockA 
+
+
+*NonUIConstraints: *CustomPageSize True *OutputBin Stacker8
+
+*UIConstraints: *PageSize Statement *OutputBin Stacker5
+*UIConstraints: *PageSize Executive *OutputBin Stacker5
+*UIConstraints: *PageSize A5 *OutputBin Stacker5
+*UIConstraints: *PageSize TabloidExtra *OutputBin Stacker5
+*UIConstraints: *PageSize TabStockL *OutputBin Stacker5
+*UIConstraints: *PageSize TabStockA *OutputBin Stacker5
+
+*UIConstraints: *OutputBin Stacker5 *PageSize Statement 
+*UIConstraints: *OutputBin Stacker5 *PageSize Executive 
+*UIConstraints: *OutputBin Stacker5 *PageSize A5 
+*UIConstraints: *OutputBin Stacker5 *PageSize TabloidExtra 
+*UIConstraints: *OutputBin Stacker5 *PageSize TabStockL 
+*UIConstraints: *OutputBin Stacker5 *PageSize TabStockA 
+
+*UIConstraints: *PageRegion Statement *OutputBin Stacker5
+*UIConstraints: *PageRegion Executive *OutputBin Stacker5
+*UIConstraints: *PageRegion A5 *OutputBin Stacker5
+*UIConstraints: *PageRegion TabloidExtra *OutputBin Stacker5
+*UIConstraints: *PageRegion TabStockL *OutputBin Stacker5
+*UIConstraints: *PageRegion TabStockA *OutputBin Stacker5
+
+*UIConstraints: *OutputBin Stacker5 *PageRegion Statement 
+*UIConstraints: *OutputBin Stacker5 *PageRegion Executive 
+*UIConstraints: *OutputBin Stacker5 *PageRegion A5 
+*UIConstraints: *OutputBin Stacker5 *PageRegion TabloidExtra 
+*UIConstraints: *OutputBin Stacker5 *PageRegion TabStockL 
+*UIConstraints: *OutputBin Stacker5 *PageRegion TabStockA 
+
+*NonUIConstraints: *CustomPageSize True *OutputBin Stacker5
+
+*UIConstraints: *PageSize Statement *OutputBin Stacker7
+*UIConstraints: *PageSize Executive *OutputBin Stacker7
+*UIConstraints: *PageSize A5 *OutputBin Stacker7
+*UIConstraints: *PageSize TabloidExtra *OutputBin Stacker7
+*UIConstraints: *PageSize TabStockL *OutputBin Stacker7
+*UIConstraints: *PageSize TabStockA *OutputBin Stacker7
+
+*UIConstraints: *OutputBin Stacker7 *PageSize Statement 
+*UIConstraints: *OutputBin Stacker7 *PageSize Executive 
+*UIConstraints: *OutputBin Stacker7 *PageSize A5 
+*UIConstraints: *OutputBin Stacker7 *PageSize TabloidExtra 
+*UIConstraints: *OutputBin Stacker7 *PageSize TabStockL 
+*UIConstraints: *OutputBin Stacker7 *PageSize TabStockA 
+
+*UIConstraints: *PageRegion Statement *OutputBin Stacker7
+*UIConstraints: *PageRegion Executive *OutputBin Stacker7
+*UIConstraints: *PageRegion A5 *OutputBin Stacker7
+*UIConstraints: *PageRegion TabloidExtra *OutputBin Stacker7
+*UIConstraints: *PageRegion TabStockL *OutputBin Stacker7
+*UIConstraints: *PageRegion TabStockA *OutputBin Stacker7
+
+*UIConstraints: *OutputBin Stacker7 *PageRegion Statement 
+*UIConstraints: *OutputBin Stacker7 *PageRegion Executive 
+*UIConstraints: *OutputBin Stacker7 *PageRegion A5 
+*UIConstraints: *OutputBin Stacker7 *PageRegion TabloidExtra 
+*UIConstraints: *OutputBin Stacker7 *PageRegion TabStockL 
+*UIConstraints: *OutputBin Stacker7 *PageRegion TabStockA 
+
+
+*NonUIConstraints: *CustomPageSize True *OutputBin Stacker7
+
+
+*% Duplex
+*%UIConstraints: *InputSlot HCF *Duplex DuplexTumble
+*%UIConstraints: *InputSlot HCF *Duplex DuplexNoTumble
+*%UIConstraints: *Duplex DuplexTumble *InputSlot HCF
+*%UIConstraints: *Duplex DuplexNoTumble *InputSlot HCF
+*UIConstraints: *InputSlot MBT *Duplex DuplexTumble
+*UIConstraints: *InputSlot MBT *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexTumble *InputSlot MBT
+*UIConstraints: *Duplex DuplexNoTumble *InputSlot MBT
+*UIConstraints: *PageSize TabStockL *Duplex DuplexTumble
+*UIConstraints: *PageSize TabStockL *Duplex DuplexNoTumble
+*UIConstraints: *PageSize TabStockA *Duplex DuplexTumble
+*UIConstraints: *PageSize TabStockA *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion TabStockL *Duplex DuplexTumble
+*UIConstraints: *PageRegion TabStockL *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion TabStockA *Duplex DuplexTumble
+*UIConstraints: *PageRegion TabStockA *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexTumble *PageSize TabStockL
+*UIConstraints: *Duplex DuplexNoTumble *PageSize TabStockL
+*UIConstraints: *Duplex DuplexTumble *PageSize TabStockA
+*UIConstraints: *Duplex DuplexNoTumble *PageSize TabStockA
+*UIConstraints: *Duplex DuplexTumble *PageRegion TabStockL
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion TabStockL
+*UIConstraints: *Duplex DuplexTumble *PageRegion TabStockA
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion TabStockA
+*UIConstraints: *MediaType Transparency *Duplex DuplexTumble
+*UIConstraints: *MediaType Transparency *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexTumble *MediaType Transparency
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Transparency
+*UIConstraints: *MediaType Transparency-pp *Duplex DuplexTumble
+*UIConstraints: *MediaType Transparency-pp *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexTumble *MediaType Transparency-pp
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Transparency-pp
+*UIConstraints: *MediaType Label *Duplex DuplexTumble
+*UIConstraints: *MediaType Label *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexTumble *MediaType Label
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Label
+
+*% Paper sizes
+*NonUIConstraints: *InputSlot Tray1 *CustomPageSize True
+*NonUIConstraints: *CustomPageSize True *InputSlot Tray1
+
+*UIConstraints: *InputSlot Tray1 *PageSize A5
+*UIConstraints: *InputSlot Tray1 *PageSize Statement
+*UIConstraints: *PageSize A5 *InputSlot Tray1
+*UIConstraints: *PageSize Statement *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *PageRegion A5
+*UIConstraints: *InputSlot Tray1 *PageRegion Statement
+*UIConstraints: *PageRegion A5 *InputSlot Tray1
+*UIConstraints: *PageRegion Statement *InputSlot Tray1
+
+
+*UIConstraints: *InputSlot HCF *PageSize A5
+*UIConstraints: *InputSlot HCF *PageSize A3
+*UIConstraints: *InputSlot HCF *PageSize B4
+*UIConstraints: *InputSlot HCF *PageSize B5
+*UIConstraints: *InputSlot HCF *PageSize Statement
+*UIConstraints: *InputSlot HCF *PageSize Ledger
+*UIConstraints: *InputSlot HCF *PageSize FanFoldGermanLegal
+*UIConstraints: *InputSlot HCF *PageSize Legal
+*UIConstraints: *InputSlot HCF *PageSize Executive
+*UIConstraints: *InputSlot HCF *PageSize TabStockL
+*UIConstraints: *InputSlot HCF *PageSize TabStockA
+*UIConstraints: *InputSlot HCF *PageSize TabloidExtra
+*UIConstraints: *PageSize A5 *InputSlot HCF
+*UIConstraints: *PageSize A3 *InputSlot HCF
+*UIConstraints: *PageSize B4 *InputSlot HCF
+*UIConstraints: *PageSize B5 *InputSlot HCF
+*UIConstraints: *PageSize B5 *HKLeadingEdge ShortEdge
+*UIConstraints: *HKLeadingEdge ShortEdge *PageSize B5 
+*UIConstraints: *PageRegion B5 *HKLeadingEdge ShortEdge
+*UIConstraints: *HKLeadingEdge ShortEdge *PageRegion B5 
+*UIConstraints: *InputSlot HCF *HKLeadingEdge ShortEdge
+*UIConstraints: *HKLeadingEdge ShortEdge *InputSlot HCF
+
+*UIConstraints: *PageSize Statement *InputSlot HCF
+*UIConstraints: *PageSize Ledger *InputSlot HCF
+*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot HCF
+*UIConstraints: *PageSize Legal *InputSlot HCF
+*UIConstraints: *PageSize Executive *InputSlot HCF
+*UIConstraints: *PageSize TabStockL *InputSlot HCF
+*UIConstraints: *PageSize TabStockA *InputSlot HCF
+*UIConstraints: *PageSize TabloidExtra *InputSlot HCF
+*UIConstraints: *InputSlot HCF *PageRegion A5
+*UIConstraints: *InputSlot HCF *PageRegion A3
+*UIConstraints: *InputSlot HCF *PageRegion B4
+*UIConstraints: *InputSlot HCF *PageRegion B5
+*UIConstraints: *InputSlot HCF *PageRegion Statement
+*UIConstraints: *InputSlot HCF *PageRegion Ledger
+*UIConstraints: *InputSlot HCF *PageRegion FanFoldGermanLegal
+*UIConstraints: *InputSlot HCF *PageRegion Legal
+*UIConstraints: *InputSlot HCF *PageRegion Executive
+*UIConstraints: *InputSlot HCF *PageRegion TabStockL
+*UIConstraints: *InputSlot HCF *PageRegion TabStockA
+*UIConstraints: *InputSlot HCF *PageRegion TabloidExtra
+*UIConstraints: *PageRegion A5 *InputSlot HCF
+*UIConstraints: *PageRegion A3 *InputSlot HCF
+*UIConstraints: *PageRegion B4 *InputSlot HCF
+*UIConstraints: *PageRegion B5 *InputSlot HCF
+*UIConstraints: *PageRegion Statement *InputSlot HCF
+*UIConstraints: *PageRegion Ledger *InputSlot HCF
+*UIConstraints: *PageRegion FanFoldGermanLegal *InputSlot HCF
+*UIConstraints: *PageRegion Legal *InputSlot HCF
+*UIConstraints: *PageRegion Executive *InputSlot HCF
+*UIConstraints: *PageRegion TabStockL *InputSlot HCF
+*UIConstraints: *PageRegion TabStockA *InputSlot HCF
+*UIConstraints: *PageRegion TabloidExtra *InputSlot HCF
+*NonUIConstraints: *CustomPageSize True *InputSlot HCF
+*NonUIConstraints: *InputSlot HCF *CustomPageSize True
+
+*% Paper sizes & Stapling
+*NonUIConstraints: *CustomPageSize True *HKStapleLocation
+*UIConstraints: *PageSize TabStockL *HKStapleLocation
+*UIConstraints: *PageSize TabStockA *HKStapleLocation
+*UIConstraints: *HKStapleLocation *PageSize TabStockL
+*UIConstraints: *HKStapleLocation *PageSize TabStockA
+*UIConstraints: *HKStapleLocation *PageRegion TabStockL
+*UIConstraints: *HKStapleLocation *PageRegion TabStockA
+*UIConstraints: *PageRegion TabStockL *HKStapleLocation
+*UIConstraints: *PageRegion TabStockA *HKStapleLocation
+
+*%UIConstraints: *PageSize A3 *HKStapleLocation LeftCenterPortrait
+*%UIConstraints: *PageSize A3 *HKStapleLocation RightCenterPortrait
+*%UIConstraints: *PageSize Legal *HKStapleLocation TopCenterLandscape
+*%UIConstraints: *HKStapleLocation LeftCenterPortrait *PageSize A3
+*%UIConstraints: *PageRegion A3 *HKStapleLocation LeftCenterPortrait
+*%UIConstraints: *HKStapleLocation LeftCenterLandscape *PageRegion A5 
+
+*% Paper sizes & HKTrimming
+*NonUIConstraints: *CustomPageSize True *HKTrimming
+*NonUIConstraints: *HKTrimming *CustomPageSize True
+*UIConstraints: *PageSize Statement *HKTrimming
+*UIConstraints:  *HKTrimming *PageSize Statement
+*UIConstraints: *PageSize Executive *HKTrimming
+*UIConstraints:  *HKTrimming *PageSize Executive
+*UIConstraints: *PageSize TabStockL *HKTrimming
+*UIConstraints:  *HKTrimming *PageSize TabStockL
+*UIConstraints: *PageSize TabStockA *HKTrimming
+*UIConstraints:  *HKTrimming *PageSize TabStockA
+*UIConstraints:  *HKTrimming *HKLeadingEdge LongEdge
+*UIConstraints:  *HKLeadingEdge LongEdge *HKTrimming 
+
+*UIConstraints: *PageRegion Statement *HKTrimming
+*UIConstraints:  *HKTrimming *PageRegion Statement
+*UIConstraints: *PageRegion Executive *HKTrimming
+*UIConstraints:  *HKTrimming *PageRegion Executive
+*UIConstraints: *PageRegion TabStockL *HKTrimming
+*UIConstraints:  *HKTrimming *PageRegion TabStockL
+*UIConstraints: *PageRegion TabStockA *HKTrimming
+*UIConstraints:  *HKTrimming *PageRegion TabStockA
+
+*UIConstraints: *Collate False *Booklet
+*UIConstraints: *Booklet *Collate False 
+*% Paper types & HKTrimming
+*UIConstraints: *MediaType Transparency *HKTrimming
+*UIConstraints: *MediaType Transparency-pp *HKTrimming
+*UIConstraints: *MediaType Label *HKTrimming
+*UIConstraints: *HKTrimming *MediaType Transparency 
+*UIConstraints: *HKTrimming *MediaType Transparency-pp 
+*UIConstraints: *HKTrimming *MediaType Label 
+
+*% Paper types & Stapling
+*UIConstraints: *MediaType Transparency *HKStapleLocation
+*UIConstraints: *MediaType Transparency-pp *HKStapleLocation
+*UIConstraints: *MediaType Label *HKStapleLocation
+*UIConstraints: *HKStapleLocation *MediaType Transparency 
+*UIConstraints: *HKStapleLocation *MediaType Transparency-pp 
+*UIConstraints: *HKStapleLocation *MediaType Label 
+
+*% Paper types & Booklet
+*UIConstraints: *MediaType Transparency *Booklet
+*UIConstraints: *MediaType Transparency-pp *Booklet
+*UIConstraints: *MediaType Label *Booklet
+*UIConstraints: *Booklet *MediaType Transparency 
+*UIConstraints: *Booklet *MediaType Transparency-pp 
+*UIConstraints: *Booklet *MediaType Label 
+
+*% Paper sizes & Booklet
+*NonUIConstraints: *CustomPageSize True *Booklet
+*NonUIConstraints: *Booklet *CustomPageSize True
+*UIConstraints: *PageSize Statement *Booklet
+*UIConstraints:  *Booklet *PageSize Statement
+*UIConstraints: *PageSize Executive *Booklet
+*UIConstraints:  *Booklet *PageSize Executive
+*UIConstraints: *PageSize TabStockL *Booklet
+*UIConstraints:  *Booklet *PageSize TabStockL
+*UIConstraints: *PageSize TabStockA *Booklet
+*UIConstraints:  *Booklet *PageSize TabStockA
+
+*UIConstraints: *PageRegion Statement *Booklet
+*UIConstraints:  *Booklet *PageRegion Statement
+*UIConstraints: *PageRegion Executive *Booklet
+*UIConstraints:  *Booklet *PageRegion Executive
+*UIConstraints: *PageRegion TabStockL *Booklet
+*UIConstraints:  *Booklet *PageRegion TabStockL
+*UIConstraints: *PageRegion TabStockA *Booklet
+*UIConstraints:  *Booklet *PageRegion TabStockA
+
+*UIConstraints:  *Booklet *HKLeadingEdge LongEdge
+*UIConstraints:  *HKLeadingEdge LongEdge *Booklet
+*UIConstraints: *OutputBin BookletTray *HKLeadingEdge LongEdge
+*UIConstraints: *HKLeadingEdge LongEdge *OutputBin BookletTray 
+*UIConstraints: *OutputBin BookletTray *HKLeadingEdge AutoSelect
+*UIConstraints: *HKLeadingEdge AutoSelect *OutputBin BookletTray 
+
+*UIConstraints: *Booklet False *OutputBin BookletTray
+*UIConstraints: *OutputBin UpperStacker *Jog EndOfJob
+*UIConstraints: *OutputBin UpperStacker *Booklet
+*UIConstraints: *OutputBin BookletTray *Jog EndOfJob
+*UIConstraints: *OutputBin SampleTray *Jog EndOfJob
+*UIConstraints: *OutputBin OutputTray *Jog EndOfJob
+*UIConstraints: *Jog EndOfJob *OutputBin OutputTray 
+
+*UIConstraints: *OutputBin UpperStacker *HKStapleLocation
+*UIConstraints: *OutputBin Stacker6 *HKStapleLocation
+*UIConstraints: *OutputBin Stacker5 *HKStapleLocation
+*UIConstraints: *OutputBin Stacker8 *HKStapleLocation
+*UIConstraints: *OutputBin Stacker7 *HKStapleLocation
+*UIConstraints: *OutputBin SampleTray *HKStapleLocation
+
+*UIConstraints: *OutputBin BookletTray *HKOutputFaceUp
+*UIConstraints: *OutputBin Stacker6 *HKOutputFaceUp
+*UIConstraints: *OutputBin Stacker5 *HKOutputFaceUp
+*UIConstraints: *OutputBin Stacker8 *HKOutputFaceUp
+*UIConstraints: *OutputBin Stacker7 *HKOutputFaceUp
+*UIConstraints: *OutputBin SampleTray *HKOutputFaceUp
+
+*UIConstraints: *OutputBin BookletTray *Booklet False 
+*UIConstraints: *Jog EndOfJob *OutputBin UpperStacker 
+*UIConstraints: *Booklet *OutputBin UpperStacker 
+*UIConstraints: *Jog EndOfJob *OutputBin BookletTray 
+*UIConstraints: *Jog EndOfJob *OutputBin SampleTray 
+
+*UIConstraints: *HKStapleLocation *OutputBin UpperStacker 
+*UIConstraints: *HKStapleLocation *OutputBin Stacker6 
+*UIConstraints: *HKStapleLocation *OutputBin Stacker5 
+*UIConstraints: *HKStapleLocation *OutputBin Stacker8 
+*UIConstraints: *HKStapleLocation *OutputBin Stacker7 
+*UIConstraints: *HKStapleLocation *OutputBin SampleTray 
+*UIConstraints: *HKStapleLocation *OutputBin OutputTray 
+*UIConstraints: *OutputBin OutputTray *HKStapleLocation  
+
+*UIConstraints: *HKOutputFaceUp *OutputBin BookletTray 
+*UIConstraints: *HKOutputFaceUp *OutputBin Stacker6 
+*UIConstraints: *HKOutputFaceUp *OutputBin Stacker5 
+*UIConstraints: *HKOutputFaceUp *OutputBin Stacker8 
+*UIConstraints: *HKOutputFaceUp *OutputBin Stacker7 
+*UIConstraints: *HKOutputFaceUp *OutputBin SampleTray 
+
+*UIConstraints: *Jog EndOfJob *HKStapleLocation
+*UIConstraints: *HKStapleLocation *Jog EndOfJob
+
+*% Paper types & InputTray
+
+*UIConstraints: *MediaType Transparency *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *MediaType Transparency 
+
+*UIConstraints: *MediaType Transparency *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *MediaType Transparency 
+
+*UIConstraints: *MediaType Transparency *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *MediaType Transparency 
+
+*UIConstraints: *MediaType Transparency *InputSlot HCF
+*UIConstraints: *InputSlot HCF *MediaType Transparency 
+*UIConstraints: *MediaType Other *InputSlot HCF
+*UIConstraints: *InputSlot HCF *MediaType Other 
+
+*%UIConstraints: *MediaType Transparency *InputSlot InserterTray1
+*%*UIConstraints: *InputSlot InserterTray1 *MediaType Transparency 
+*%*UIConstraints: *MediaType Transparency *InputSlot InserterTray2
+*%*UIConstraints: *InputSlot InserterTray2 *MediaType Transparency 
+
+
+*UIConstraints: *MediaType Transparency-pp *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *MediaType Transparency-pp
+
+*UIConstraints: *MediaType Transparency-pp *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *MediaType Transparency-pp 
+
+*UIConstraints: *MediaType Transparency-pp *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *MediaType Transparency-pp 
+
+*UIConstraints: *MediaType Transparency-pp *InputSlot HCF
+*UIConstraints: *InputSlot HCF *MediaType Transparency-pp 
+
+*%*UIConstraints: *MediaType Transparency-pp *InputSlot InserterTray1
+*%*UIConstraints: *InputSlot InserterTray1 *MediaType Transparency-pp 
+*%UIConstraints: *MediaType Transparency-pp *InputSlot InserterTray2
+*%UIConstraints: *InputSlot InserterTray2 *MediaType Transparency-pp 
+
+*UIConstraints: *MediaType Label *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *MediaType Label 
+
+*UIConstraints: *MediaType Label *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *MediaType Label 
+
+*UIConstraints: *MediaType Label *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *MediaType Label 
+
+*UIConstraints: *MediaType Label *InputSlot HCF
+*UIConstraints: *InputSlot HCF *MediaType Label 
+
+*%*UIConstraints: *MediaType Label *InputSlot InserterTray1
+*%*UIConstraints: *InputSlot InserterTray1 *MediaType Label 
+*%UIConstraints: *MediaType Label *InputSlot InserterTray2
+*%UIConstraints: *InputSlot InserterTray2 *MediaType Label 
+
+
+*% Paper sizes with Long Edge Feed
+*UIConstraints: *PageSize Executive *HKLeadingEdge ShortEdge
+*UIConstraints: *PageSize TabStockL *HKLeadingEdge ShortEdge
+*UIConstraints: *PageSize B5 *HKLeadingEdge ShortEdge
+*UIConstraints: *PageSize TabStockA *HKLeadingEdge ShortEdge
+
+*UIConstraints: *PageRegion Executive *HKLeadingEdge ShortEdge
+*UIConstraints: *PageRegion TabStockL *HKLeadingEdge ShortEdge
+*UIConstraints: *PageRegion B5 *HKLeadingEdge ShortEdge
+*UIConstraints: *PageRegion TabStockA *HKLeadingEdge ShortEdge
+
+
+*UIConstraints: *HKLeadingEdge ShortEdge *PageSize B5
+*UIConstraints: *HKLeadingEdge ShortEdge *PageSize Executive 
+*UIConstraints: *HKLeadingEdge ShortEdge *PageSize TabStockL 
+*UIConstraints: *HKLeadingEdge ShortEdge *PageSize TabStockA
+
+*UIConstraints: *HKLeadingEdge ShortEdge *PageRegion B5
+*UIConstraints: *HKLeadingEdge ShortEdge *PageRegion Executive 
+*UIConstraints: *HKLeadingEdge ShortEdge *PageRegion TabStockL 
+*UIConstraints: *HKLeadingEdge ShortEdge *PageRegion TabStockA
+
+
+*% Paper sizes with Short Edge Feed
+*UIConstraints: *PageSize Legal *HKLeadingEdge LongEdge
+*UIConstraints: *PageSize Ledger *HKLeadingEdge LongEdge
+*UIConstraints: *PageSize A3 *HKLeadingEdge LongEdge
+*UIConstraints: *PageSize A5 *HKLeadingEdge LongEdge
+*UIConstraints: *PageSize B4 *HKLeadingEdge LongEdge
+*UIConstraints: *PageSize Statement *HKLeadingEdge LongEdge
+*UIConstraints: *PageSize FanFoldGermanLegal *HKLeadingEdge LongEdge
+*UIConstraints: *PageSize TabloidExtra *HKLeadingEdge LongEdge
+
+*UIConstraints: *PageRegion Legal *HKLeadingEdge LongEdge
+*UIConstraints: *PageRegion Ledger *HKLeadingEdge LongEdge
+*UIConstraints: *PageRegion A3 *HKLeadingEdge LongEdge
+*UIConstraints: *PageRegion A5 *HKLeadingEdge LongEdge
+*UIConstraints: *PageRegion B4 *HKLeadingEdge LongEdge
+*UIConstraints: *PageRegion Statement *HKLeadingEdge LongEdge
+*UIConstraints: *PageRegion FanFoldGermanLegal *HKLeadingEdge LongEdge
+*UIConstraints: *PageRegion TabloidExtra *HKLeadingEdge LongEdge
+
+
+*UIConstraints: *HKLeadingEdge LongEdge *PageSize Legal
+*UIConstraints: *HKLeadingEdge LongEdge *PageSize Ledger
+*UIConstraints: *HKLeadingEdge LongEdge *PageSize A3
+*UIConstraints: *HKLeadingEdge LongEdge *PageSize A5
+*UIConstraints: *HKLeadingEdge LongEdge *PageSize B4
+*UIConstraints: *HKLeadingEdge LongEdge *PageSize Statement
+*UIConstraints: *HKLeadingEdge LongEdge *PageSize FanFoldGermanLegal
+*UIConstraints: *HKLeadingEdge LongEdge *PageSize TabloidExtra
+
+*UIConstraints: *HKLeadingEdge LongEdge *PageRegion Legal
+*UIConstraints: *HKLeadingEdge LongEdge *PageRegion Ledger
+*UIConstraints: *HKLeadingEdge LongEdge *PageRegion A3
+*UIConstraints: *HKLeadingEdge LongEdge *PageRegion A5
+*UIConstraints: *HKLeadingEdge LongEdge *PageRegion B4
+*UIConstraints: *HKLeadingEdge LongEdge *PageRegion Statement
+*UIConstraints: *HKLeadingEdge LongEdge *PageRegion FanFoldGermanLegal
+*UIConstraints: *HKLeadingEdge LongEdge *PageRegion TabloidExtra
+
+*% General Information and Defaults ===============
+*ColorDevice: False
+*DefaultColorSpace: Gray
+*LanguageLevel: "3"
+*Password: "()"
+*Protocols: TBCP
+*Throughput: "70"
+*TTRasterizer: Type42
+*DefaultHalftoneType: 3
+*DefaultGuaranteedMaxSeparations:4
+*VariablePaperSize: True
+
+*ExitServer: "
+ count 0 eq
+ { false } { true exch startjob } ifelse
+ not {
+     (WARNING: Cannot modify initial VM.) =
+     (Missing or invalid password.) =
+     (Please contact the author of this software.) = flush quit
+     } if
+"
+*End
+
+*Reset: "
+ count 0 eq
+ { false } { true exch startjob } ifelse
+ not {
+	 (WARNING: Cannot reset printer.) =
+    (Missing or invalid password.) =
+    (Please contact the author of this software.) = flush quit
+    } if
+ systemdict /quit get exec
+ (WARNING : Printer Reset Failed.) = flush
+"
+*End
+
+*FileSystem: True
+*?FileSystem: "
+  save false
+   (%disk?%)
+   { currentdevparams dup /Writeable known
+      { /Writeable get {pop true} if }  { pop } ifelse
+    } 10 string /IODevice resourceforall
+    {(True)}{(False)} ifelse = flush
+ restore
+"
+*End
+
+*FreeVM: "102400000"
+*VMOption 128MB: "102400000"
+
+*FCacheSize 128MB: 8601600
+
+
+*OpenUI *Resolution: PickOne
+*OrderDependency: 10.0 AnySetup *Resolution
+*DefaultResolution: 600x600dpi
+*%  redefine currentscreen to output spot function
+*Resolution 600x600dpi: "
+<</HWResolution [600 600]>> setpagedevice
+userdict /currentscreen {systemdict /currentscreen get exec pop 
+  {abs  exch  abs  2 copy  add  1 gt  {1 sub  dup  mul  exch
+  1 sub  dup  mul  add  1 sub } {dup  mul  exch  dup  mul
+  add  1 exch  sub } ifelse }
+} put
+"
+*End
+*?Resolution: "
+  save 
+     currentpagedevice /HWResolution get 0 get (          ) cvs 
+     print (dpi) = flush
+  restore 
+"
+*End
+*CloseUI: *Resolution
+
+*% Halftone Information ===============
+*ScreenFreq: "85.0"
+*ScreenAngle: "45.0"
+
+*DefaultScreenProc: Dot
+*ScreenProc Dot: "
+{abs  exch  abs  2 copy  add  1 gt  {1 sub  dup  mul  exch
+1 sub  dup  mul  add  1 sub } {dup  mul  exch  dup  mul
+add  1 exch  sub } ifelse }
+"
+*End
+*ScreenProc Line: "{ pop }"
+*ScreenProc Ellipse: "{ dup 5 mul 8 div mul exch dup mul exch add sqrt 1 exch sub }"
+*DefaultTransfer: Null
+*Transfer Null: "{ }"
+*Transfer Null.Inverse: "{ 1 exch sub }"
+
+*% Paper Handling ===================
+*% Code in this section both selects a tray and sets up a frame buffer.
+*OpenUI *PageSize: PickOne
+*OrderDependency: 30.0 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize TabStockA/A4 Tabstock: "<</PageSize [842 638] /ImagingBBox null>> setpagedevice"
+*PageSize Letter: "<</PageSize [612 792] /ImagingBBox null>> setpagedevice"
+*PageSize Legal: "<</PageSize [612 1008] /ImagingBBox null>> setpagedevice"
+*PageSize Ledger/11x17: "<</PageSize [792 1224] /ImagingBBox null>> setpagedevice"
+*PageSize A3: "<</PageSize [842 1191] /ImagingBBox null>> setpagedevice"
+*PageSize A4: "<</PageSize [595 842] /ImagingBBox null>> setpagedevice"
+*PageSize A5: "<</PageSize [420 595] /ImagingBBox null>> setpagedevice"
+*PageSize B4/B4-JIS: "<</PageSize [729 1032] /ImagingBBox null>> setpagedevice"
+*PageSize B5/B5-JIS: "<</PageSize [516 729] /ImagingBBox null>> setpagedevice"
+*PageSize Statement: "<</PageSize [396 612] /ImagingBBox null>> setpagedevice"
+*PageSize FanFoldGermanLegal/Folio(8.5x13): "<</PageSize [612 936] /ImagingBBox null>> setpagedevice"
+*PageSize Executive: "<</PageSize [522 756] /ImagingBBox null>> setpagedevice"
+*PageSize TabStockL/Letter Tabstock: "<</PageSize [792 648] /ImagingBBox null>> setpagedevice"
+*PageSize TabloidExtra/12x18: "<</PageSize [864 1296] /ImagingBBox null>> setpagedevice"
+*?PageSize: "
+ save
+   currentpagedevice /PageSize get aload pop
+   2 copy gt {exch} if
+   (Unknown)
+   18 dict
+     dup [612 792] (Letter) put
+     dup [612 1008] (Legal) put
+     dup [792 1224] (Ledger) put
+     dup [842 1190] (A3) put
+     dup [595 842] (A4) put
+     dup [420 595] (A5) put
+     dup [729 1032] (B4) put
+     dup [516 728] (B5) put
+     dup [396 612] (Statement) put
+     dup [612 936] (FanFoldGermanLegal) put
+     dup [522 756] (Executive) put
+     dup [864 1296] (TabloidExtra) put
+     dup [792 648] (TabStockL) put
+     dup [842 638] (TabStockA) put
+   { exch aload pop 4 index sub abs 5 le exch
+     5 index sub abs 5 le and
+     {exch pop exit} {pop} ifelse
+   } bind forall
+   = flush pop pop
+ restore
+"
+*End
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 40.0 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion Letter: "<</PageSize [612 792] /ImagingBBox null>> setpagedevice"
+*PageRegion Legal: "<</PageSize [612 1008] /ImagingBBox null>> setpagedevice"
+*PageRegion Ledger/11x17: "<</PageSize [792 1224] /ImagingBBox null>> setpagedevice"
+*PageRegion A3: "<</PageSize [842 1191] /ImagingBBox null>> setpagedevice"
+*PageRegion A4: "<</PageSize [595 842] /ImagingBBox null>> setpagedevice"
+*PageRegion A5: "<</PageSize [420 595] /ImagingBBox null>> setpagedevice"
+*PageRegion B4/B4-JIS: "<</PageSize [729 1032] /ImagingBBox null>> setpagedevice"
+*PageRegion B5/B5-JIS: "<</PageSize [516 729] /ImagingBBox null>> setpagedevice"
+*PageRegion Statement: "<</PageSize [396 612] /ImagingBBox null>> setpagedevice"
+*PageRegion FanFoldGermanLegal/Folio(8.5x13): "<</PageSize [612 936] /ImagingBBox null>> setpagedevice"
+*PageRegion Executive: "<</PageSize [522 756] /ImagingBBox null>> setpagedevice"
+*PageRegion TabloidExtra/12x18: "<</PageSize [864 1296] /ImagingBBox null>> setpagedevice"
+*PageRegion TabStockL/Letter Tabstock: "<</PageSize [792 648] /ImagingBBox null>> setpagedevice"
+*PageRegion TabStockA/A4 Tabstock: "<</PageSize [842 638] /ImagingBBox null>> setpagedevice"
+*CloseUI: *PageRegion
+
+*DefaultImageableArea: Letter
+*ImageableArea Letter: "12 15 598 780"
+*ImageableArea Legal: "12 13 598 997"
+*ImageableArea Ledger/11x17: "12 13 1213 779"
+*ImageableArea A3: "12 15 829 1179"
+*ImageableArea A4: "12 16 582 830"
+*ImageableArea A5: "11 12 405 583"
+*ImageableArea B4/B4-JIS: "12 18 717 1021"
+*ImageableArea B5/B5-JIS: "11 11 501 716"
+*ImageableArea Statement: "11 14 382 600"
+*ImageableArea FanFoldGermanLegal/Folio(8.5x13): "12 15 598 925"
+*ImageableArea Executive: "11 15 509 744"
+*ImageableArea TabloidExtra/12x18: "12 21 847 1285"
+*ImageableArea TabStockL/Letter Tabstock: "15 12 777 636"
+*ImageableArea TabStockA/A4 Tabstock: "16 12 826 619"
+*?ImageableArea: "
+ save
+   /cvp { (                ) cvs print ( ) print } bind def
+	/upperright {10000 mul floor 10000 div} bind def
+   /lowerleft {10000 mul ceiling 10000 div} bind def
+   newpath clippath pathbbox
+   4 -2 roll exch 2 {lowerleft cvp} repeat
+   exch 2 {upperright cvp} repeat flush
+ restore
+"
+*End
+
+*% These provide the physical dimensions of the paper (by keyword)
+*DefaultPaperDimension: Letter
+*PaperDimension Letter: "612 792"
+*PaperDimension Legal: "612 1008"
+*PaperDimension Ledger/11x17: "1224 792"
+*PaperDimension A3: "842 1191"
+*PaperDimension A4: "595 842"
+*PaperDimension A5: "420 595"
+*PaperDimension B4/B4-JIS: "729 1032"
+*PaperDimension B5/B5-JIS: "516 729"
+*PaperDimension Statement: "396 612"
+*PaperDimension FanFoldGermanLegal/Folio(8.5x13): "612 936"
+*PaperDimension Executive: "522 756"
+*PaperDimension TabloidExtra/12x18: "864 1296"
+*PaperDimension TabStockL/Letter Tabstock: "792 648"
+*PaperDimension TabStockA/A4 Tabstock: "842 638"
+
+*LandscapeOrientation: Minus90
+
+*MaxMediaWidth: "876"
+*MaxMediaHeight: "1296"
+*HWMargins: 8 8 8 8
+*ParamCustomPageSize Width: 1 points 396 876
+*ParamCustomPageSize Height: 2 points 518 1296
+*ParamCustomPageSize Orientation: 3 int 0 3
+*ParamCustomPageSize WidthOffset: 4 points 0 0
+*ParamCustomPageSize HeightOffset: 5 points 0 0
+*CustomPageSize True: "
+  pop pop
+  2 mod 0 eq {exch} if
+  (<<) cvx exec
+  /PageSize  [ 5 -2 roll ]
+  /ImagingBBox null
+  (>>) cvx exec setpagedevice
+"
+*End
+
+
+*OpenUI *Duplex: PickOne
+*OrderDependency: 50.0 AnySetup *Duplex
+*DefaultDuplex: None
+*Duplex DuplexTumble/Tumble: "<</Duplex true /Tumble true>> setpagedevice"
+*Duplex DuplexNoTumble/Normal: "<</Duplex true /Tumble false>> setpagedevice"
+*Duplex None: "<</Duplex false>> setpagedevice"
+*?Duplex: "save currentpagedevice /Duplex get
+{ currentpagedevice /Tumble get
+{(DuplexTumble)}{(DuplexNoTumble)}ifelse
+}
+{ (None)}
+ifelse = flush
+restore
+"
+*End
+*CloseUI: *Duplex
+
+
+*OpenUI *MediaType: PickOne
+*OrderDependency: 40.0 AnySetup *MediaType
+*DefaultMediaType: Plain
+*MediaType Plain: "<</MediaType (Plain)>> setpagedevice"
+*MediaType Bond: "<</MediaType (Bond)>> setpagedevice"
+*MediaType Recycled: "<</MediaType (Recycled)>> setpagedevice"
+*MediaType Color: "<</MediaType (Color)>> setpagedevice"
+*MediaType Pre-punched: "<</MediaType (Pre-punched)>> setpagedevice"
+*MediaType Letterhead: "<</MediaType (Letterhead)>> setpagedevice"
+*MediaType Preprinted: "<</MediaType (Preprinted)>> setpagedevice"
+*MediaType Special: "<</MediaType (Special)>> setpagedevice"
+*MediaType Other: "<</MediaType (Other)>> setpagedevice"
+*MediaType Transparency: "<</MediaType (Transparency)>> setpagedevice"
+*MediaType Transparency-pp: "<</MediaType (Transparency-pp)>> setpagedevice"
+*MediaType Label: "<</MediaType (Label)>> setpagedevice"
+*?MediaType: "save
+/MainErrorHandler
+{
+(Unknown) = flush
+} def % MainErrorHandler
+errordict /handleerror  /MainErrorHandler load put
+currentpagedevice /MediaType get 
+
+cvn
+<<
+    /Plain (Plain)
+    /Bond (Bond)
+    /Recycled (Recycled)
+    /Color (Color)
+    /Prepunched (Pre-punched)
+    /Letterhead (Letterhead)
+    /Preprinted (Preprinted)
+    /Special (Special)
+    /Other (Other)
+    /Transparency (Transparency)
+    /Transparency-pp (Transparency-pp)
+    /Label (Label)
+>>
+exch get 
+= flush 
+restore
+"
+*End
+*CloseUI: *MediaType
+
+*OpenUI *InputSlot: PickOne
+*OrderDependency: 20.0 AnySetup *InputSlot
+*DefaultInputSlot:  Tray1
+*InputSlot Tray1/Tray 1/Lower: "currentpagedevice /InputAttributes get 0 get dup null eq {pop}{7 dict copy 
+   dup /ManualFeed false put
+   dup /MediaType known not {dup /MediaType null put}if
+   dup /MediaWeight known not {dup /MediaWeight null put}if
+   dup /MediaColor known not {dup /MediaColor null put}if
+   dup /MediaClass known not {dup /MediaClass null put}if
+   dup /InputAttributes <</Priority [0]>> put setpagedevice} ifelse"
+*End
+*InputSlot Tray2/Tray 2: "currentpagedevice /InputAttributes get 1 get dup null eq {pop}{7 dict copy 
+   dup /ManualFeed false put
+   dup /MediaType known not {dup /MediaType null put}if
+   dup /MediaWeight known not {dup /MediaWeight null put}if
+   dup /MediaColor known not {dup /MediaColor null put}if
+   dup /MediaClass known not {dup /MediaClass null put}if
+   dup /InputAttributes <</Priority [1]>> put setpagedevice} ifelse"
+*End
+*InputSlot Tray3/Tray 3: "currentpagedevice /InputAttributes get 2 get dup null eq {pop}{7 dict copy 
+   dup /ManualFeed false put
+   dup /MediaType known not {dup /MediaType null put}if
+   dup /MediaWeight known not {dup /MediaWeight null put}if
+   dup /MediaColor known not {dup /MediaColor null put}if
+   dup /MediaClass known not {dup /MediaClass null put}if
+   dup /InputAttributes <</Priority [2]>> put setpagedevice} ifelse"
+*End
+*InputSlot HCF/High Capacity Feeder: "currentpagedevice /InputAttributes get 4 get dup null eq {pop}{7 dict copy 
+   dup /ManualFeed false put
+   dup /MediaType known not {dup /MediaType null put}if
+   dup /MediaWeight known not {dup /MediaWeight null put}if
+   dup /MediaColor known not {dup /MediaColor null put}if
+   dup /MediaClass known not {dup /MediaClass null put}if
+   dup /InputAttributes <</Priority [4]>> put setpagedevice} ifelse"
+*End
+*InputSlot MBT/Multi Bypass Tray: "currentpagedevice /InputAttributes get 3 get dup null eq {pop}{7 dict copy 
+   dup /ManualFeed false put
+   dup /MediaType known not {dup /MediaType null put}if
+   dup /MediaWeight known not {dup /MediaWeight null put}if
+   dup /MediaColor known not {dup /MediaColor null put}if
+   dup /MediaClass known not {dup /MediaClass null put}if
+   dup /InputAttributes <</Priority [3]>> put setpagedevice} ifelse"
+*End
+*%InputSlot InserterTray1/Inserter Tray 1: ""
+*%InputSlot InserterTray2/Inserter Tray 2: ""
+
+
+
+*%InputSlot ManualFeed/ManualFeed: "<</ManualFeed true>> setpagedevice"
+
+*?InputSlot: "
+ save
+  4 dict
+  dup /0 (Tray1) put
+  dup /1 (Tray2) put
+  dup /2 (Tray3) put
+  dup /4 (HCF) put
+  dup /3 (MBT) put
+  currentpagedevice /InputAttributes get
+  dup /Priority known
+  { /Priority get 0 get (      ) cvs cvn get }
+  {
+    dup length 1 eq
+    { {pop} forall (       ) cvs cvn get }
+    { pop pop (Unknown) } ifelse
+  } ifelse
+  = flush
+ restore
+"
+*End
+*CloseUI: *InputSlot
+
+*OpenUI *OutputBin/Output Bin: PickOne
+*OrderDependency: 40.0 AnySetup *OutputBin
+*DefaultOutputBin: UpperStacker
+*OutputBin OutputTray/Output Tray: "<</OutputType (Stacker 1)>> setpagedevice"
+*OutputBin UpperStacker/Upper Stacker: "<</OutputType (Stacker 3)>> setpagedevice"
+*OutputBin ElevatorStacker/Elevator Stacker: "<</OutputType (Stacker 2)>> setpagedevice"
+*OutputBin BookletTray/Booklet Tray: "<</OutputType (Stacker 4)>> setpagedevice"
+*OutputBin Stacker6/CS1 Top Container: "<</OutputType (Stacker 6)>> setpagedevice"
+*OutputBin Stacker5/CS1 Bottom Container: "<</OutputType (Stacker 5)>> setpagedevice"
+*OutputBin Stacker8/CS2 Top Container: "<</OutputType (Stacker 8)>> setpagedevice"
+*OutputBin Stacker7/CS2 Bottom Container: "<</OutputType (Stacker 7)>> setpagedevice"
+*OutputBin SampleTray/CS1 Sample Tray: "<</OutputType (Sample Tray)>> setpagedevice"
+*?OutputBin: "save 
+ currentpagedevice /OutputType get 
+ <<
+    (Stacker 1)   (OutputTray)
+    (Stacker 3)   (UpperStacker)
+    (Stacker 2)   (ElevatorStacker)
+    (Stacker 4)   (BookletTray)
+    (Stacker 5)   (Stacker5)
+    (Stacker 6)   (Stacker6)
+    (Stacker 7)   (Stacker7)
+    (Stacker 8)   (Stacker8)
+    (Sample Tray) (SampleTray)
+>>
+ exch get 
+ = flush
+restore 
+"
+*End
+*CloseUI: *OutputBin
+
+*OpenUI *HKStapleLocation/Staple Location: PickOne
+*OrderDependency: 50.0 AnySetup *HKStapleLocation
+*DefaultHKStapleLocation: None
+*HKStapleLocation None: "<</Staple 0>> setpagedevice"
+*HKStapleLocation SaddleStitch/Saddle Stitch: "<</Staple 1 /StapleDetails <</StapleLocation 1>>>> setpagedevice"
+*HKStapleLocation TopLeftPortrait/Portrait Top Left: "<</Staple 1 /StapleDetails <</Type 2 /StapleLocation 10>>>> setpagedevice"
+*HKStapleLocation TopLeftLandscape/Landscape Top Left: "<</Staple 1 /StapleDetails <</Type 2 /StapleLocation 16>>>> setpagedevice"
+*HKStapleLocation TopRightPortrait/Portrait Top Right: "<</Staple 1 /StapleDetails <</Type 2 /StapleLocation 12>>>> setpagedevice"
+*HKStapleLocation TopRightLandscape/Landscape Top Right: "<</Staple 1 /StapleDetails <</Type 2 /StapleLocation 10>>>> setpagedevice"
+*HKStapleLocation TopCenterPortrait/Portrait Top Center: "<</Staple 1 /StapleDetails <</Type 2 /StapleLocation 11>>>> setpagedevice"
+*HKStapleLocation LeftCenterPortrait/Portrait Left Center: "<</Staple 1 /StapleDetails <</Type 2 /StapleLocation 17>>>> setpagedevice"
+*HKStapleLocation RightCenterPortrait/Portrait Right Center: "<</Staple 1 /StapleDetails <</Type 2 /StapleLocation 13>>>> setpagedevice"
+*HKStapleLocation TopCenterLandscape/Landscape Top Center: "<</Staple 1 /StapleDetails <</Type 2 /StapleLocation 17>>>> setpagedevice"
+*HKStapleLocation LeftCenterLandscape/Landscape Left Center: "<</Staple 1 /StapleDetails <</Type 2 /StapleLocation 15>>>> setpagedevice"
+*HKStapleLocation RightCenterLandscape/Landscape Right Center: "<</Staple 1 /StapleDetails <</Type 2 /StapleLocation 11>>>> setpagedevice"
+*CloseUI: *HKStapleLocation
+
+*OpenUI *Booklet/Booklet: Boolean
+*OrderDependency: 50.0 AnySetup *Booklet
+*DefaultBooklet: False
+*Booklet True/On: ""
+*Booklet False/Off: ""
+*CloseUI: *Booklet
+
+*OpenUI *HKTrimming/Trimming:  Boolean
+*OrderDependency: 50.0 AnySetup *HKTrimming
+*DefaultHKTrimming: False
+*HKTrimming True/On: "<</Trim 1>> setpagedevice"
+*HKTrimming False/Off: "<</Trim 0>> setpagedevice"
+*?HKTrimming: "save currentpagedevice /Trim get 1 eq
+    { (True)}
+    { (False)}
+    ifelse = flush
+restore
+"
+*End
+*CloseUI: *HKTrimming
+
+*OpenUI *HKHalfFolding/Half Folding:  Boolean
+*OrderDependency: 50.0 AnySetup *HKHalfFolding
+*DefaultHKHalfFolding: False
+*HKHalfFolding True/On: "<</Fold 1 /FoldDetails <</FoldType 2>> >> setpagedevice"
+*HKHalfFolding False/Off: "<</Fold 0>> setpagedevice"
+*?HKHalfFolding: "save currentpagedevice /Fold get 1 eq
+    { (True)}
+    { (False)}
+    ifelse = flush
+restore
+"
+*End
+*CloseUI: *HKHalfFolding
+
+*OpenUI *Jog/Jog:  PickOne
+*OrderDependency: 50.0 AnySetup *Jog
+*DefaultJog: None
+*Jog EndOfJob/On: "<</Jog 1>> setpagedevice"
+*Jog None/Off: "<</Jog 0>> setpagedevice"
+*?Jog: "save currentpagedevice /Jog get 1 eq
+   { (None)}
+   { (EndOfJob)}
+   ifelse = flush
+restore
+"
+*End
+*CloseUI: *Jog
+
+*OpenUI *HKEdgeToEdge/Edge To Edge:  Boolean
+*OrderDependency: 50.0 AnySetup *HKEdgeToEdge
+*DefaultHKEdgeToEdge: False
+*HKEdgeToEdge True/On: "<</EdgeToEdge true>> setpagedevice"
+*HKEdgeToEdge False/Off: "<</EdgeToEdge false>> setpagedevice"
+*?HKEdgeToEdge: "save currentpagedevice /EdgeToEdge get
+    { (True)}
+    { (False)}
+    ifelse = flush
+restore
+"
+*End
+*CloseUI: *HKEdgeToEdge
+
+*OpenUI *ExitJamRecovery/Exit Jam Recovery:  Boolean
+*OrderDependency: 50.0 AnySetup *ExitJamRecovery
+*DefaultExitJamRecovery: True
+*ExitJamRecovery True/On: "<</ExitJamRecovery true>> setpagedevice"
+*ExitJamRecovery False/Off: "<</ExitJamRecovery false>> setpagedevice"
+*?ExitJamRecovery: "save currentpagedevice /ExitJamRecovery get
+    { (True)}
+    { (False)}
+    ifelse = flush
+restore
+"
+*End
+*CloseUI: *ExitJamRecovery
+
+*OpenUI *MirrorPrint/Mirror Print:  Boolean
+*OrderDependency: 50.0 AnySetup *MirrorPrint
+*DefaultMirrorPrint: False
+*MirrorPrint True/On: "<</MirrorPrint true>> setpagedevice"
+*MirrorPrint False/Off: "<</MirrorPrint false>> setpagedevice"
+*?MirrorPrint: "save currentpagedevice /MirrorPrint get
+    { (True)}
+    { (False)}
+    ifelse = flush
+restore
+"
+*End
+*CloseUI: *MirrorPrint
+
+*OpenUI *NegativePrint/Negative Print:  Boolean
+*OrderDependency: 50.0 AnySetup *NegativePrint
+*DefaultNegativePrint: False
+*NegativePrint True/On: "<</NegativePrint true>> setpagedevice"
+*NegativePrint False/Off: "<</NegativePrint false>> setpagedevice"
+*?NegativePrint: "save currentpagedevice /NegativePrint get
+    { (True)}
+    { (False)}
+    ifelse = flush
+restore
+"
+*End
+*CloseUI: *NegativePrint
+
+*OpenUI *HKOutputFaceUp/Output Face Up:  Boolean
+*OrderDependency: 50.0 AnySetup *HKOutputFaceUp
+*DefaultHKOutputFaceUp: False
+*HKOutputFaceUp True/On: "<</OutputFaceUp true>> setpagedevice"
+*HKOutputFaceUp False/Off: "<</OutputFaceUp false>> setpagedevice"
+*?HKOutputFaceUp: "save currentpagedevice /OutputFaceUp get
+    { (True)}
+    { (False)}
+    ifelse = flush
+restore
+"
+*End
+*CloseUI: *HKOutputFaceUp
+
+*OpenUI *TraySwitch/Tray AutoCascade:  Boolean
+*OrderDependency: 50.0 AnySetup *HKOutputFaceUp
+*DefaultTraySwitch: False
+*TraySwitch True/On: "<</TraySwitch true>> setpagedevice"
+*TraySwitch False/Off: "<</TraySwitch false>> setpagedevice"
+*?TraySwitch: "save currentpagedevice /TraySwitch get
+    { (True)}
+    { (False)}
+    ifelse = flush
+restore
+"
+*End
+*CloseUI: *TraySwitch
+
+*OpenUI *HKLeadingEdge/Leading Edge:  PickOne
+*OrderDependency: 30.0 AnySetup *HKLeadingEdge
+*DefaultHKLeadingEdge: AutoSelect/AutoSelect
+*HKLeadingEdge AutoSelect/AutoSelect: ""
+*HKLeadingEdge ShortEdge/Short Edge: "<</LeadingEdge 2>> setpagedevice"
+*HKLeadingEdge LongEdge/Long Edge: "<</LeadingEdge 3>> setpagedevice"
+*?HKLeadingEdge: "save currentpagedevice /LeadingEdge get dup null eq
+    { pop (ShortEdge) }
+    { [(ShortEdge) (LongEdge) (ShortEdge) (LongEdge)] exch get }
+    ifelse 
+= flush
+restore
+"
+*End
+*CloseUI: *HKLeadingEdge
+
+*OpenUI *Collate/Collate:  Boolean
+*OrderDependency: 50.0 AnySetup *Collate
+*DefaultCollate: True
+*Collate True/On: "<</Collate true>> setpagedevice"
+*Collate False/Off: "<</Collate false>> setpagedevice"
+*?Collate: "save currentpagedevice /Collate get
+    { (True)}
+    { (False)}
+    ifelse = flush
+restore
+"
+*End
+*CloseUI: *Collate
+
+*% Font Information =====================
+*DefaultFont: Courier
+*Font AdobeSansMM: Standard "(001.000)" Standard ROM
+*Font AdobeSerifMM: Standard "(001.001)" Standard ROM
+*Font AlbertusMT: Standard "(001.000)" Standard Disk
+*Font AlbertusMT-Italic: Standard "(001.000)" Standard Disk
+*Font AlbertusMT-Light: Standard "(001.000)" Standard Disk
+*Font AntiqueOlive-Bold: Standard "(001.001)" Standard Disk
+*Font AntiqueOlive-Compact: Standard "(001.001)" Standard Disk
+*Font AntiqueOlive-Italic: Standard "(001.001)" Standard Disk
+*Font AntiqueOlive-Roman: Standard "(001.001)" Standard Disk
+*Font Apple-Chancery: Standard "(2.0)" Standard Disk
+*Font Arial-BoldItalicMT: Standard "(2.00)" Standard Disk
+*Font Arial-BoldMT: Standard "(2.00)" Standard Disk
+*Font Arial-ItalicMT: Standard "(2.00)" Standard Disk
+*Font ArialMT: Standard "(2.00)" Standard Disk
+*Font AvantGarde-Book: Standard "(002.000)" Standard Disk
+*Font AvantGarde-BookOblique: Standard "(002.000)" Standard Disk
+*Font AvantGarde-Demi: Standard "(002.000)" Standard Disk
+*Font AvantGarde-DemiOblique: Standard "(002.000)" Standard Disk
+*Font Bodoni: Standard "(001.002)" Standard Disk
+*Font Bodoni-Bold: Standard "(001.002)" Standard Disk
+*Font Bodoni-BoldItalic: Standard "(001.002)" Standard Disk
+*Font Bodoni-Italic: Standard "(001.002)" Standard Disk
+*Font Bodoni-Poster: Standard "(001.002)" Standard Disk
+*Font Bodoni-PosterCompressed: Standard "(001.001)" Standard Disk
+*Font Bookman-Demi: Standard "(002.000)" Standard Disk
+*Font Bookman-DemiItalic: Standard "(002.000)" Standard Disk
+*Font Bookman-Light: Standard "(002.000)" Standard Disk
+*Font Bookman-LightItalic: Standard "(002.000)" Standard Disk
+*Font Carta: Special "(001.001)" Special Disk
+*Font Chicago: Standard "(2.0)" Standard Disk
+*Font Clarendon: Standard "(001.001)" Standard Disk
+*Font Clarendon-Bold: Standard "(001.001)" Standard Disk
+*Font Clarendon-Light: Standard "(001.001)" Standard Disk
+*Font CooperBlack: Standard "(001.003)" Standard Disk
+*Font CooperBlack-Italic: Standard "(001.003)" Standard Disk
+*Font Copperplate-ThirtyThreeBC: Standard "(001.002)" Standard Disk
+*Font Copperplate-ThirtyTwoBC: Standard "(001.002)" Standard Disk
+*Font Coronet-Regular: Standard "(001.000)" Standard Disk
+*Font Courier: Standard "(003.000)" Standard Disk
+*Font Courier-Bold: Standard "(003.000)" Standard Disk
+*Font Courier-BoldOblique: Standard "(003.000)" Standard Disk
+*Font Courier-Oblique: Standard "(003.000)" Standard Disk
+*Font Eurostile: Standard "(001.002)" Standard Disk
+*Font Eurostile-Bold: Standard "(001.001)" Standard Disk
+*Font Eurostile-BoldExtendedTwo: Standard "(001.002)" Standard Disk
+*Font Eurostile-ExtendedTwo: Standard "(001.002)" Standard Disk
+*Font Geneva: Standard "(2.0)" Standard Disk
+*Font GillSans: Standard "(001.002)" Standard Disk
+*Font GillSans-Bold: Standard "(001.001)" Standard Disk
+*Font GillSans-BoldCondensed: Standard "(001.001)" Standard Disk
+*Font GillSans-BoldItalic: Standard "(001.002)" Standard Disk
+*Font GillSans-Condensed: Standard "(001.001)" Standard Disk
+*Font GillSans-ExtraBold: Standard "(001.001)" Standard Disk
+*Font GillSans-Italic: Standard "(001.002)" Standard Disk
+*Font GillSans-Light: Standard "(001.001)" Standard Disk
+*Font GillSans-LightItalic: Standard "(001.002)" Standard Disk
+*Font Goudy: Standard "(001.003)" Standard Disk
+*Font Goudy-Bold: Standard "(001.002)" Standard Disk
+*Font Goudy-BoldItalic: Standard "(001.002)" Standard Disk
+*Font Goudy-ExtraBold: Standard "(001.001)" Standard Disk
+*Font Goudy-Italic: Standard "(001.002)" Standard Disk
+*Font Helvetica: Standard "(002.000)" Standard Disk
+*Font Helvetica-Bold: Standard "(002.000)" Standard Disk
+*Font Helvetica-BoldOblique: Standard "(002.000)" Standard Disk
+*Font Helvetica-Condensed: Standard "(002.000)" Standard Disk
+*Font Helvetica-Condensed-Bold: Standard "(002.000)" Standard Disk
+*Font Helvetica-Condensed-BoldObl: Standard "(002.000)" Standard Disk
+*Font Helvetica-Condensed-Oblique: Standard "(002.000)" Standard Disk
+*Font Helvetica-Narrow: Standard "(002.000)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(002.000)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(002.000)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(002.000)" Standard ROM
+*Font Helvetica-Oblique: Standard "(002.000)" Standard Disk
+*Font HoeflerText-Black: Standard "(2.0)" Standard Disk
+*Font HoeflerText-BlackItalic: Standard "(2.0)" Standard Disk
+*Font HoeflerText-Italic: Standard "(2.0)" Standard Disk
+*Font HoeflerText-Ornaments: Special "(2.0)" Special Disk
+*Font HoeflerText-Regular: Standard "(2.0)" Standard Disk
+*Font JoannaMT: Standard "(001.000)" Standard Disk
+*Font JoannaMT-Bold: Standard "(001.000)" Standard Disk
+*Font JoannaMT-BoldItalic: Standard "(001.000)" Standard Disk
+*Font JoannaMT-Italic: Standard "(001.000)" Standard Disk
+*Font LetterGothic: Standard "(001.004)" Standard Disk
+*Font LetterGothic-Bold: Standard "(001.006)" Standard Disk
+*Font LetterGothic-BoldSlanted: Standard "(001.005)" Standard Disk
+*Font LetterGothic-Slanted: Standard "(001.004)" Standard Disk
+*Font LubalinGraph-Book: Standard "(001.002)" Standard Disk
+*Font LubalinGraph-BookOblique: Standard "(001.002)" Standard Disk
+*Font LubalinGraph-Demi: Standard "(001.002)" Standard Disk
+*Font LubalinGraph-DemiOblique: Standard "(001.002)" Standard Disk
+*Font Marigold: Standard "(001.000)" Standard Disk
+*Font Monaco: Standard "(2.0)" Standard Disk
+*Font MonaLisa-Recut: Standard "(001.000)" Standard Disk
+*Font NewCenturySchlbk-Bold: Standard "(002.000)" Standard Disk
+*Font NewCenturySchlbk-BoldItalic: Standard "(002.000)" Standard Disk
+*Font NewCenturySchlbk-Italic: Standard "(002.000)" Standard Disk
+*Font NewCenturySchlbk-Roman: Standard "(002.000)" Standard Disk
+*Font NewYork: Standard "(2.0)" Standard Disk
+*Font Optima: Standard "(001.005)" Standard Disk
+*Font Optima-Bold: Standard "(001.005)" Standard Disk
+*Font Optima-BoldItalic: Standard "(001.000)" Standard Disk
+*Font Optima-Italic: Standard "(001.000)" Standard Disk
+*Font Oxford: Standard "(001.000)" Standard Disk
+*Font Palatino-Bold: Standard "(002.000)" Standard Disk
+*Font Palatino-BoldItalic: Standard "(002.000)" Standard Disk
+*Font Palatino-Italic: Standard "(002.000)" Standard Disk
+*Font Palatino-Roman: Standard "(002.000)" Standard Disk
+*Font StempelGaramond-Bold: Standard "(001.002)" Standard Disk
+*Font StempelGaramond-BoldItalic: Standard "(001.002)" Standard Disk
+*Font StempelGaramond-Italic: Standard "(001.002)" Standard Disk
+*Font StempelGaramond-Roman: Standard "(001.002)" Standard Disk
+*Font Symbol: Special "(001.008)" Special Disk
+*Font Tekton: Standard "(001.001)" Standard Disk
+*Font Times-Bold: Standard "(002.000)" Standard Disk
+*Font Times-BoldItalic: Standard "(002.000)" Standard Disk
+*Font Times-Italic: Standard "(002.000)" Standard Disk
+*Font TimesNewRomanPS-BoldItalicMT: Standard "(2.00)" Standard Disk
+*Font TimesNewRomanPS-BoldMT: Standard "(2.00)" Standard Disk
+*Font TimesNewRomanPS-ItalicMT: Standard "(2.00)" Standard Disk
+*Font TimesNewRomanPSMT: Standard "(2.00)" Standard Disk
+*Font Times-Roman: Standard "(002.000)" Standard Disk
+*Font Univers: Standard "(001.003)" Standard Disk
+*Font Univers-Bold: Standard "(001.003)" Standard Disk
+*Font Univers-BoldExt: Standard "(001.000)" Standard Disk
+*Font Univers-BoldExtObl: Standard "(001.000)" Standard Disk
+*Font Univers-BoldOblique: Standard "(001.003)" Standard Disk
+*Font Univers-Condensed: Standard "(001.002)" Standard Disk
+*Font Univers-CondensedBold: Standard "(001.001)" Standard Disk
+*Font Univers-CondensedBoldOblique: Standard "(001.001)" Standard Disk
+*Font Univers-CondensedOblique: Standard "(001.002)" Standard Disk
+*Font Univers-Extended: Standard "(001.000)" Standard Disk
+*Font Univers-ExtendedObl: Standard "(001.000)" Standard Disk
+*Font Univers-Light: Standard "(001.003)" Standard Disk
+*Font Univers-LightOblique: Standard "(001.003)" Standard Disk
+*Font Univers-Oblique: Standard "(001.003)" Standard Disk
+*Font Wingdings-Regular: Special "(2.00)" Special Disk
+*Font ZapfChancery-MediumItalic: Standard "(002.000)" Standard Disk
+*Font ZapfDingbats: Special "(002.000)" Special Disk
+*?FontQuery: "
+ save
+   { count 1 gt
+      { exch dup 127 string cvs (/) print print (:) print
+	/Font resourcestatus {pop pop (Yes)} {(No)} ifelse =
+      } { exit } ifelse
+   } bind loop
+   (*) = flush
+ restore
+"
+*End
+
+*?FontList: "
+save
+  (*) {cvn ==} 128 string /Font resourceforall
+  (*) = flush
+restore
+"
+*End
+
+*% Printer Messages (verbatim from printer):
+*Message: "%%[ exitserver: permanent state may be changed ]%%"
+*Message: "%%[ Flushing: rest of job (to end-of-file) will be ignored ]%%"
+*Message: "\FontName\ not found, using Courier"
+
+*% Status (format: %%[ status: <one of these> ] %%)
+*Status: "Ready"
+*Status: "Job in progress"
+*Status: "Processing"
+*Status: "Waiting for data"
+*Status: "Printing copy xxx of xxx"
+*Status: "Printing Pg xxx"
+*Status: "Copy X of Y"
+*Status: "Offline"
+*Status: "Composing status page"
+*Status: "Energy save mode"
+*Status: "Control panel locked"
+*Status: "Control panel unlocked"
+*Status: "Canceling job"
+*Status: "Internal self test"
+*Status: "Lifting tray x"
+*Status: "Warming up"
+*Status: "Printing xxx"
+*Status: "No station ID"
+*Status: "Install tray xxx yyy"
+*Status: "Install tray zzz"
+*Status: "Load MPT/ENV xxx (yyy)"
+*Status: "PrinterError: Out of toner, Replace EP Cartridge"
+*Status: "PrinterError: EP cartridge not in position"
+*Status: "Finisher door open"
+
+*% Input Sources (format: %%[ status: <stat>; source: <one of these> ]%% )
+*Source: "Serial"
+*Source: "LocalTalk"
+*Source: "Parallel"
+*Source: "Internal"
+*Source: "VP_Server"
+
+
+*%DeviceAdjustMatrix: "[1 0 0 1 0 0]"
+
+*% Color Separation Information =====================
+
+*DefaultColorSep: ProcessBlack.85lpi.600x600dpi/85 lpi / 600x600 dpi
+
+*%  For 85 lpi / 600x600 dpi  (5,5,2,6,6,2,20/3,0) =====================
+
+*ColorSepScreenAngle ProcessBlack.85lpi.600x600dpi/85 lpi / 600x600 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.85lpi.600x600dpi/85 lpi / 600x600 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.85lpi.600x600dpi/85 lpi / 600x600 dpi: "75.0"
+*ColorSepScreenAngle ProcessMagenta.85lpi.600x600dpi/85 lpi / 600x600 dpi: "15.0"
+*ColorSepScreenAngle ProcessYellow.85lpi.600x600dpi/85 lpi / 600x600 dpi: "0.0"
+
+*ColorSepScreenFreq ProcessBlack.85lpi.600x600dpi/85 lpi / 600x600 dpi: "85.0"
+*ColorSepScreenFreq CustomColor.85lpi.600x600dpi/85 lpi / 600x600 dpi: "85.0"
+*ColorSepScreenFreq ProcessCyan.85lpi.600x600dpi/85 lpi / 600x600 dpi: "85.0"
+*ColorSepScreenFreq ProcessMagenta.85lpi.600x600dpi/85 lpi / 600x600 dpi: "85.0"
+*ColorSepScreenFreq ProcessYellow.85lpi.600x600dpi/85 lpi / 600x600 dpi: "85.0"
+
+*ColorSepScreenProc ProcessYellow.85lpi.600x600dpi/85 lpi / 600x600 dpi: "
+{1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch
+1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch
+abs exch abs 2 copy add 1 gt {1 sub dup mul exch 1 sub dup mul add 1
+sub }{dup mul exch dup mul add 1 exch sub }ifelse }"
+*End
+

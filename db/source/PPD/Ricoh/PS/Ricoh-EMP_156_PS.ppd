@@ -1,0 +1,758 @@
+*PPD-Adobe: "4.3"
+*%
+*%  Printer Description file
+*%    for "Ricoh EMP 156 PS"
+*%
+*%    CreationDate: 2005/07/29
+*%    Modified:     2005/09/12
+*%
+*%    COPYRIGHT (C) 2005 RICOH COMPANY, LTD.
+*%    
+*%    Permission is hereby granted, free of charge, to any person obtaining
+*%    a copy of this software and associated documentation files (the
+*%    "Software"), to deal in the Software without restriction, including
+*%    without limitation the rights to use, copy, modify, merge, publish,
+*%    distribute, sublicense, and/or sell copies of the Software, and to
+*%    permit persons to whom the Software is furnished to do so, subject to
+*%    the following conditions:
+*%    
+*%    The above copyright notice and this permission notice shall be
+*%    included in all copies or substantial portions of the Software.
+*%    
+*%    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+*%    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+*%    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+*%    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+*%    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+*%    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+*%    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*%    
+*%    [this is the MIT open source license -- please see www.opensource.org]
+*%
+
+*FileVersion: "1.1"
+*FormatVersion: "4.3"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+*Manufacturer: "Ricoh"
+*ModelName: "Ricoh EMP 156"
+*ShortNickName: "Ricoh EMP 156 PS"
+*NickName: "Ricoh EMP 156 PS"
+*PCFileName: "rkemp156.ppd"
+*Product: "(EMP156)"
+*PSVersion: "(3015.103) 1"
+
+*% ======== Installable Options ========
+*OpenGroup: InstallableOptions/Options Installed
+*OpenUI *Option1/High Capacity Feeder: PickOne
+*DefaultOption1: None
+*Option1 None/None: ""
+*Option1 One/HCF1: ""
+*Option1 Two/HCF1 + HCF2: ""
+*?Option1: "
+  save currentpagedevice /InputAttributes get dup 4 known
+  {pop (Two)}{2 known{(One)}{(None)}ifelse}ifelse = flush restore
+"
+*End
+*CloseUI: *Option1
+
+*OpenUI *Option2/Container Stacker: PickOne
+*DefaultOption2: One
+*Option2 None/Not Installed: ""
+*Option2 One/CS1: ""
+*Option2 Two/CS1 + CS2: ""
+*?Option2: "
+  save (None) currentpagedevice /OutputAttributes get {
+    exch pop dup /OutputType get (Stacker 7) eq
+    {pop pop (Two) exit}{/OutputType get (Stacker 5) eq {pop (One)}if}ifelse
+  } forall = flush restore
+"
+*End
+*CloseUI: *Option2
+
+*OpenUI *InstalledMemory/Memory Configuration: PickOne
+*DefaultInstalledMemory: 256MB
+*InstalledMemory 256MB/256MB: ""
+*?InstalledMemory: "
+  save currentsystemparams /InstalledRam get 1048576 div round cvi dup 0 lt {pop 0}if
+  256 ge {(256MB)}{(Unknown)}ifelse = flush restore
+"
+*End
+*CloseUI: *InstalledMemory
+*CloseGroup: InstallableOptions
+
+*% ======== Constraints ========
+*% Option1:HCF0
+*UIConstraints: *Option1 None *InputSlot HCF1B
+*UIConstraints: *InputSlot HCF1B *Option1 None
+*UIConstraints: *Option1 None *InputSlot HCF1T
+*UIConstraints: *InputSlot HCF1T *Option1 None
+*UIConstraints: *Option1 None *InputSlot HCF2B
+*UIConstraints: *InputSlot HCF2B *Option1 None
+*UIConstraints: *Option1 None *InputSlot HCF2T
+*UIConstraints: *InputSlot HCF2T *Option1 None
+*% Option1:HCF1
+*UIConstraints: *Option1 One *InputSlot HCF2B
+*UIConstraints: *InputSlot HCF2B *Option1 One
+*UIConstraints: *Option1 One *InputSlot HCF2T
+*UIConstraints: *InputSlot HCF2T *Option1 One
+*% Option2:CS0
+*UIConstraints: *Option2 None *OutputBin Stacker5
+*UIConstraints: *OutputBin Stacker5 *Option2 None
+*UIConstraints: *Option2 None *OutputBin Stacker6
+*UIConstraints: *OutputBin Stacker6 *Option2 None
+*UIConstraints: *Option2 None *OutputBin Stacker7
+*UIConstraints: *OutputBin Stacker7 *Option2 None
+*UIConstraints: *Option2 None *OutputBin Stacker8
+*UIConstraints: *OutputBin Stacker8 *Option2 None
+*% Option2:CS1
+*UIConstraints: *Option2 One *OutputBin Stacker7
+*UIConstraints: *OutputBin Stacker7 *Option2 One
+*UIConstraints: *Option2 One *OutputBin Stacker8
+*UIConstraints: *OutputBin Stacker8 *Option2 One
+*% OutputBin:SampleTray
+*UIConstraints: *OutputBin SampleTray *HKOutputFaceUp
+*UIConstraints: *HKOutputFaceUp *OutputBin SampleTray
+*UIConstraints: *OutputBin SampleTray *HKJog
+*UIConstraints: *HKJog *OutputBin SampleTray
+*% HKScreenProc
+*UIConstraints: *HKScreenProc None *HKScreenFreq
+*UIConstraints: *HKScreenFreq *HKScreenProc None
+*UIConstraints: *HKScreenProc None *HKScreenAngle
+*UIConstraints: *HKScreenAngle *HKScreenProc None
+*%Duplex
+*UIConstraints: *MediaType Label *Duplex 
+*UIConstraints: *Duplex *MediaType Label 
+
+
+*% ======== General Information ========
+*LanguageLevel: "3"
+*Password: "()"
+*Protocols: TBCP
+*Throughput: "156"
+*PrintPSErrors: True
+*TTRasterizer: Type42
+*?TTRasterizer: "
+  save 42 /FontType resourcestatus {pop pop (Type42)}{(None)}ifelse = flush restore
+"
+*End
+*FreeVM: "102400000"
+*VMOption 256MB: "102400000"
+*FCacheSize 256MB: 8601600
+
+*ExitServer: "
+  count 0 eq {false}{true exch startjob}ifelse not {
+    (WARNING: Cannot modify initial VM.) =
+    (Missing or invalid password.) =
+    (Please contact the author of this software.) = flush quit
+  }if
+"
+*End
+
+*Reset: "
+  count 0 eq {false}{true exch startjob}ifelse not {
+    (WARNING: Cannot reset printer.) =
+    (Missing or invalid password.) =
+    (Please contact the author of this software.) = flush quit
+  }if
+  systemdict /quit get exec
+  (WARNING : Printer Reset Failed.) = flush
+"
+*End
+
+*FileSystem: True
+*?FileSystem: "
+  save false
+  (%disk?%)
+  {currentdevparams dup /Writeable known {/Writeable get {pop true}if}{pop}ifelse}
+  10 string /IODevice resourceforall
+  {(True)}{(False)}ifelse = flush restore
+"
+*End
+
+*% ======== Halftone Information ========
+*ColorDevice: False
+*DefaultColorSpace: Gray
+*DefaultHalftoneType: 3
+*ScreenFreq: "85.0"
+*ScreenAngle: "45.0"
+*DefaultScreenProc: Dot
+*ScreenProc Dot: "
+  {abs exch abs 2 copy add 1 gt {1 sub dup mul exch 1 sub dup mul add 1 sub}
+  {dup mul exch dup mul add 1 exch sub}ifelse}
+"
+*End
+
+*% ======== Job Patch File ========
+*JobPatchFile 0: "
+  <</MediaWeight null>> setpagedevice
+"
+*End
+
+*% ======== Resolution Information ========
+*OpenUI *Resolution: PickOne
+*OrderDependency: 2.0 AnySetup *Resolution
+*DefaultResolution: 600x600dpi
+*Resolution 300x300dpi: "<</HWResolution [300 300]>> setpagedevice"
+*Resolution 600x600dpi: "<</HWResolution [600 600]>> setpagedevice"
+*?Resolution: "
+  save currentpagedevice /HWResolution get dup aload pop 600 eq exch 600 eq and
+  {pop (600x600dpi)}{aload pop 300 eq exch 300 eq and{(300x300dpi)}{(Unknown)}ifelse }ifelse
+  = flush restore
+"
+*End
+*CloseUI: *Resolution
+
+*% ======== Standard options ========
+*OpenUI *TraySwitch/Tray Auto Cascade: Boolean
+*OrderDependency: 35.0 AnySetup *TraySwitch
+*DefaultTraySwitch: True
+*TraySwitch False/Off: "<</TraySwitch false>> setpagedevice"
+*TraySwitch True/On: "<</TraySwitch true>> setpagedevice"
+*?TraySwitch: "
+  save currentpagedevice dup /TraySwitch known
+  {/TraySwitch get {(True)}{(False)}ifelse}{pop (Unknown)}ifelse = flush restore
+"
+*End
+*CloseUI: *TraySwitch
+
+*VariablePaperSize: True
+*LeadingEdge Short:""
+*LeadingEdge Long:""
+*DefaultLeadingEdge: Short
+*MaxMediaWidth: "1008"
+*MaxMediaHeight: "1296"
+*HWMargins:0 0 0 0
+*ParamCustomPageSize Width: 1 points 576 1008
+*ParamCustomPageSize Height: 2 points 504 1296
+*ParamCustomPageSize Orientation: 3 int 0 3
+*ParamCustomPageSize WidthOffset: 4 points 0 0
+*ParamCustomPageSize HeightOffset: 5 points 0 0
+*NonUIOrderDependency: 42.0 AnySetup *CustomPageSize
+*CustomPageSize True: "
+  pop pop 2 mod 0 eq {exch}if
+  (<<) cvx exec /PageSize [5 -2 roll] /ImagingBBox null (>>) cvx exec setpagedevice
+"
+*End
+
+*OpenUI *PageSize: PickOne
+*OrderDependency: 40.0 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize A4: "<</PageSize [595 842] /ImagingBBox null>> setpagedevice"
+*PageSize A3: "<</PageSize [842 1191] /ImagingBBox null>> setpagedevice"
+*PageSize B5: "<</PageSize [516 729] /ImagingBBox null>> setpagedevice"
+*PageSize B4: "<</PageSize [729 1032] /ImagingBBox null>> setpagedevice"
+*PageSize Letter: "<</PageSize [612 792] /ImagingBBox null>> setpagedevice"
+*PageSize Folio: "<</PageSize [612 936] /ImagingBBox null>> setpagedevice"
+*PageSize Legal: "<</PageSize [612 1008] /ImagingBBox null>> setpagedevice"
+*PageSize Tabloid: "<</PageSize [792 1224] /ImagingBBox null>> setpagedevice"
+*PageSize Executive: "<</PageSize [522 756] /ImagingBBox null>> setpagedevice"
+*PageSize 12x18: "<</PageSize [864 1296] /ImagingBBox null>> setpagedevice"
+*?PageSize: "
+  save currentpagedevice /PageSize get aload pop 2 copy gt {exch}if (Unknown)
+  (<<) cvx exec
+    [595 842] (A4)
+    [842 1191] (A3)
+    [516 729] (B5)
+    [729 1032] (B4)
+    [612 792] (Letter)
+    [612 936] (Folio)
+    [612 1008] (Legal)
+    [792 1224] (Tabloid)
+    [522 756] (Executive)
+    [864 1296] (12x18)
+  (>>) cvx exec {
+    exch aload pop 4 index sub abs 5 le exch 5 index sub abs 5 le and {exch pop exit}{pop}ifelse
+  }bind forall = flush pop pop restore
+"
+*End
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 45.0 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion A4: "<</PageSize [595 842] /ImagingBBox null>> setpagedevice"
+*PageRegion A3: "<</PageSize [842 1191] /ImagingBBox null>> setpagedevice"
+*PageRegion B5: "<</PageSize [516 729] /ImagingBBox null>> setpagedevice"
+*PageRegion B4: "<</PageSize [729 1032] /ImagingBBox null>> setpagedevice"
+*PageRegion Letter: "<</PageSize [612 792] /ImagingBBox null>> setpagedevice"
+*PageRegion Folio: "<</PageSize [612 936] /ImagingBBox null>> setpagedevice"
+*PageRegion Legal: "<</PageSize [612 1008] /ImagingBBox null>> setpagedevice"
+*PageRegion Tabloid: "<</PageSize [792 1224] /ImagingBBox null>> setpagedevice"
+*PageRegion Executive: "<</PageSize [522 756] /ImagingBBox null>> setpagedevice"
+*PageRegion 12x18: "<</PageSize [864 1296] /ImagingBBox null>> setpagedevice"
+*CloseUI: *PageRegion
+
+*DefaultImageableArea: Letter
+*ImageableArea A4: "0 0 595 842"
+*ImageableArea A3: "0 0 842 1191"
+*ImageableArea B5: "0 0 516 729"
+*ImageableArea B4: "0 0 729 1032"
+*ImageableArea Letter: "0 0 612 792"
+*ImageableArea Folio: "0 0 612 936"
+*ImageableArea Legal: "0 0 612 1008"
+*ImageableArea Tabloid: "0 0 792 1224"
+*ImageableArea Executive: "0 0 522 756"
+*ImageableArea 12x18: "0 0 864 1296"
+*?ImageableArea: "
+  save /cvp {(                ) cvs print ( ) print}bind def
+  /upperright {10000 mul floor 10000 div}bind def
+  /lowerleft {10000 mul ceiling 10000 div}bind def
+  newpath clippath pathbbox 4 -2 roll exch 2 {lowerleft cvp}repeat
+  exch 2 {upperright cvp}repeat flush (\n) print flush restore
+"
+*End
+
+*DefaultPaperDimension: Letter
+*PaperDimension A4: "595 842"
+*PaperDimension A3: "842 1191"
+*PaperDimension B5: "516 729"
+*PaperDimension B4: "729 1032"
+*PaperDimension Letter: "612 792"
+*PaperDimension Folio: "612 936"
+*PaperDimension Legal: "612 1008"
+*PaperDimension Tabloid: "792 1224"
+*PaperDimension Executive: "522 756"
+*PaperDimension 12x18: "864 1296"
+
+*LandscapeOrientation: Minus90
+
+*OpenUI *InputSlot: PickOne
+*OrderDependency: 60.0 AnySetup *InputSlot
+*DefaultInputSlot:  Tray1
+*InputSlot Tray1/Lower: "
+  currentpagedevice /InputAttributes get dup 0 known
+  {0 get 4 dict copy dup /InputAttributes <</Priority [0]>> put setpagedevice}{pop}ifelse
+"
+*End
+*InputSlot Tray2/Upper: "
+  currentpagedevice /InputAttributes get dup 1 known
+  {1 get 4 dict copy dup /InputAttributes <</Priority [1]>> put setpagedevice}{pop}ifelse
+"
+*End
+*InputSlot HCF1T/HCF1 Upper: "
+  currentpagedevice /InputAttributes get dup 3 known
+  {3 get 4 dict copy dup /InputAttributes <</Priority [3]>> put setpagedevice}{pop}ifelse
+"
+*End
+*InputSlot HCF1B/HCF1 Lower: "
+  currentpagedevice /InputAttributes get dup 2 known
+  {2 get 4 dict copy dup /InputAttributes <</Priority [2]>> put setpagedevice}{pop}ifelse
+"
+*End
+*InputSlot HCF2T/HCF2 Upper: "
+  currentpagedevice /InputAttributes get dup 5 known
+  {5 get 4 dict copy dup /InputAttributes <</Priority [5]>> put setpagedevice}{pop}ifelse
+"
+*End
+*InputSlot HCF2B/HCF2 Lower: "
+  currentpagedevice /InputAttributes get dup 4 known
+  {4 get 4 dict copy dup /InputAttributes <</Priority [4]>> put setpagedevice}{pop}ifelse
+"
+*End
+*?InputSlot: "
+  save (<<) cvx exec
+    /0 (Tray1)
+    /1 (Tray2)
+    /2 (HCF1B)
+    /3 (HCF1T)
+    /4 (HCF2B)
+    /5 (HCF2T)
+  (>>) cvx exec
+  currentpagedevice /InputAttributes get dup /Priority known
+  {/Priority get 0 get (      ) cvs cvn get}
+  {dup length 1 eq {{pop}forall (       ) cvs cvn get}{pop pop (Unknown)}ifelse}ifelse
+  = flush restore
+"
+*End
+*CloseUI: *InputSlot
+
+*OpenUI *Duplex: PickOne
+*OrderDependency: 80.0 AnySetup *Duplex
+*DefaultDuplex: None
+*Duplex None: "<</Duplex false>> setpagedevice"
+*Duplex DuplexTumble/Tumble: "<</Duplex true /Tumble true>> setpagedevice"
+*Duplex DuplexNoTumble/Normal: "<</Duplex true /Tumble false>> setpagedevice"
+*?Duplex: "
+  save currentpagedevice dup /Duplex get
+  {/Tumble get {(DuplexTumble)}{(DuplexNoTumble)}ifelse}{pop (None)}ifelse = flush restore
+"
+*End
+*CloseUI: *Duplex
+
+*% ======== Input options ========
+*OpenUI *MediaType: PickOne
+*OrderDependency: 50.0 AnySetup *MediaType
+*DefaultMediaType: Plain
+*MediaType AutoSelect/Auto Select: "<</MediaType null>> setpagedevice"
+*MediaType Plain: "<</MediaType (Plain)>> setpagedevice"
+*MediaType Bond: "<</MediaType (Bond)>> setpagedevice"
+*MediaType Color: "<</MediaType (Color)>> setpagedevice"
+*MediaType Label: "<</MediaType (Label)>> setpagedevice"
+*MediaType Letterhead: "<</MediaType (Letterhead)>> setpagedevice"
+*MediaType Preprinted: "<</MediaType (Preprinted)>> setpagedevice"
+*MediaType Prepunched: "<</MediaType (Prepunched)>> setpagedevice"
+*MediaType Recycled: "<</MediaType (Recycled)>> setpagedevice"
+*MediaType Special: "<</MediaType (Special)>> setpagedevice"
+*MediaType HKOther/Other: "<</MediaType (Other)>> setpagedevice"
+*?MediaType: "
+  save (<<) cvx exec
+    /Plain (Plain)
+    /Bond (Bond)
+    /Color (Color)
+    /Label (Label)
+    /Letterhead (Letterhead)
+    /Preprinted (Preprinted)
+    /Prepunched (Prepunched)
+    /Recycled (Recycled)
+    /Special (Special)
+    /Other (HKOther)
+  (>>) cvx exec currentpagedevice dup /MediaType known
+  {/MediaType get dup null ne {cvn get}{pop pop (AutoSelect)}ifelse}
+  {pop pop (Unknown)}ifelse = flush restore
+"
+*End
+*CloseUI: *MediaType
+
+*OpenUI *HKLeadingEdge/Leading Edge: PickOne
+*OrderDependency: 55.0 AnySetup *HKLeadingEdge
+*DefaultHKLeadingEdge: AutoSelect
+*HKLeadingEdge AutoSelect/Auto Select: "<</LeadingEdge null>> setpagedevice"
+*HKLeadingEdge LongEdge/Long Edge (LEF): "<</LeadingEdge 3>> setpagedevice"
+*HKLeadingEdge ShortEdge/Short Edge (SEF): "<</LeadingEdge 2>> setpagedevice"
+*?HKLeadingEdge: "
+  save currentpagedevice dup /LeadingEdge known {
+    /LeadingEdge get dup null eq {pop (AutoSelect)}{3 eq {(LongEdge)}{(ShortEdge)}ifelse}ifelse
+  }{pop (Unknown)}ifelse = flush restore
+"
+*End
+*CloseUI: *HKLeadingEdge
+
+*% ======== Output options ========
+*OpenUI *OutputBin/Output Tray: PickOne
+*OrderDependency: 70.0 AnySetup *OutputBin
+*DefaultOutputBin: None
+*OutputBin None/Printer Default: ""
+*OutputBin Stacker6/Container 1 Upper: "<</OutputType (Stacker 6)>> setpagedevice"
+*OutputBin Stacker5/Container 1 Lower: "<</OutputType (Stacker 5)>> setpagedevice"
+*OutputBin Stacker8/Container 2 Upper: "<</OutputType (Stacker 8)>> setpagedevice"
+*OutputBin Stacker7/Container 2 Lower: "<</OutputType (Stacker 7)>> setpagedevice"
+*OutputBin SampleTray: "<</OutputType (Stacker 0)>> setpagedevice"
+*OutputBin AutoCascade: "<</OutputType (Auto)>> setpagedevice"
+*?OutputBin: "
+  save (<<) cvx exec
+    (Stacker 5) (Stacker5)
+    (Stacker 6) (Stacker6)
+    (Stacker 7) (Stacker7)
+    (Stacker 8) (Stacker8)
+    (Stacker 0) (SampleTray)
+    (Auto) (AutoCascade)
+  (>>) cvx exec
+  currentpagedevice dup /OutputType known
+  {/OutputType get 2 copy known {get}{pop pop (Unknown)}ifelse}
+  {pop pop (Unknown)}ifelse = flush restore
+"
+*End
+*CloseUI: *OutputBin
+
+*OpenUI *HKJog/Jog: Boolean
+*OrderDependency: 75.0 AnySetup *HKJog
+*DefaultHKJog: False
+*HKJog False/Off: "<</Jog 0>> setpagedevice"
+*HKJog True/On: "<</Jog 1>> setpagedevice"
+*?HKJog: "
+  save currentpagedevice dup /Jog known
+  {/Jog get 0 eq {(False)}{(True)}ifelse}{pop (Unknown)}ifelse = flush restore
+"
+*End
+*CloseUI: *HKJog
+
+*OpenUI *HKOutputFaceUp/Output Face Up: PickOne
+*OrderDependency: 78.0 AnySetup *HKOutputFaceUp
+*DefaultHKOutputFaceUp: False
+*HKOutputFaceUp False/Off: "<</OutputFaceUp false>> setpagedevice"
+*HKOutputFaceUp True/On: "<</OutputFaceUp true>> setpagedevice"
+*?HKOutputFaceUp: "
+  save currentpagedevice dup /OutputFaceUp known
+  {/OutputFaceUp get {(True)}{(False)}ifelse}{pop (Unknown)}ifelse = flush restore
+"
+*End
+*CloseUI: *HKOutputFaceUp
+
+*% ======== Advanced options ========
+*OpenUI *HKCollate/Collate: Boolean
+*OrderDependency: 20.0 AnySetup *HKCollate
+*DefaultHKCollate: True
+*HKCollate False/Off: "<</Collate false>> setpagedevice"
+*HKCollate True/On: "<</Collate true>> setpagedevice"
+*?HKCollate: "
+  save currentpagedevice /Collate get {(True)}{(False)}ifelse = flush restore
+"
+*End
+*CloseUI: *HKCollate
+
+*OpenUI *HKEdgeToEdge/Edge To Edge: PickOne
+*OrderDependency: 10.0 AnySetup *HKEdgeToEdge
+*DefaultHKEdgeToEdge: True
+*HKEdgeToEdge False/Off: "
+  <</PostRenderingEnhance true /PostRenderingEnhanceDetails <</EdgeToEdge false>> >> setpagedevice
+"
+*End
+*HKEdgeToEdge True/On: "
+  <</PostRenderingEnhance true /PostRenderingEnhanceDetails <</EdgeToEdge true>> >> setpagedevice
+"
+*End
+*?HKEdgeToEdge: "
+  save 0 currentpagedevice dup /PostRenderingEnhance known {
+    dup /PostRenderingEnhance get true eq {
+      dup /PostRenderingEnhanceDetails known {
+        /PostRenderingEnhanceDetails get dup /EdgeToEdge known
+        {/EdgeToEdge get true eq {2}{1}ifelse exch pop}{pop}ifelse
+      }{pop}ifelse
+    }{pop pop 1}ifelse
+  }{pop}ifelse
+  dup 2 eq {pop (True)}{1 eq {(False)}{(Unknown)}ifelse}ifelse = flush restore
+"
+*End
+*CloseUI: *HKEdgeToEdge
+
+*% ======== Halftone options ========
+*OpenUI *HKScreenProc/Screen Procedure: PickOne
+*OrderDependency: 90.0 AnySetup *HKScreenProc
+*DefaultHKScreenProc: None
+*HKScreenProc None/Printer Default: ""
+*HKScreenProc Dot/Dot: "
+  currentscreen pop {abs exch abs 2 copy add 1 gt
+    {1 sub dup mul exch 1 sub dup mul add 1 sub}{dup mul exch dup mul add 1 exch sub}ifelse
+  }setscreen
+"
+*End
+*HKScreenProc Line/Line: "currentscreen pop{pop}setscreen"
+*HKScreenProc Ellipse/Ellipse: "currentscreen pop{dup 5 mul 8 div mul exch dup mul exch add sqrt 1 exch sub}setscreen"
+*HKScreenProc Square/Square: "currentscreen pop{abs exch abs 2 copy lt {exch}if pop neg}setscreen"
+*HKScreenProc Diamond/Diamond: "
+  currentscreen pop {abs exch abs 2 copy add .75 le {
+    dup mul exch dup mul add 1 exch sub}{2 copy add 1.23 le
+    {.85 mul add 1 exch sub}{1 sub dup mul exch 1 sub dup mul add 1 sub}ifelse
+  }ifelse}setscreen
+"
+*End
+*HKScreenProc Cross/Cross: "currentscreen pop{abs exch abs 2 copy gt {exch}if pop neg}setscreen"
+*CloseUI: *HKScreenProc
+
+*OpenUI *HKScreenFreq/Screen Frequency: PickOne
+*OrderDependency: 95.0 AnySetup *HKScreenFreq
+*DefaultHKScreenFreq: None
+*HKScreenFreq None/Printer Default: ""
+*HKScreenFreq 121L/121 Lpi: "currentscreen 3 2 roll pop 121.2 3 -2 roll setscreen"
+*HKScreenFreq 106L/106 Lpi: "currentscreen 3 2 roll pop 106 3 -2 roll setscreen"
+*HKScreenFreq 85L/85 Lpi: "currentscreen 3 2 roll pop 84.9 3 -2 roll setscreen"
+*HKScreenFreq 71L/71 Lpi: "currentscreen 3 2 roll pop 70.7 3 -2 roll setscreen"
+*HKScreenFreq 60L/60 Lpi: "currentscreen 3 2 roll pop 60.6 3 -2 roll setscreen"
+*CloseUI: *HKScreenFreq
+
+*OpenUI *HKScreenAngle/Screen Angle: PickOne
+*OrderDependency: 98.0 AnySetup *HKScreenAngle
+*DefaultHKScreenAngle: None
+*HKScreenAngle None/Printer Default: ""
+*HKScreenAngle 0A/0 Degree: "currentscreen 3 1 roll pop 0 3 -1 roll setscreen"
+*HKScreenAngle 15A/15 Degrees: "currentscreen 3 1 roll pop 15 3 -1 roll setscreen"
+*HKScreenAngle 30A/30 Degrees: "currentscreen 3 1 roll pop 30 3 -1 roll setscreen"
+*HKScreenAngle 45A/45 Degrees: "currentscreen 3 1 roll pop  45 3 -1 roll setscreen"
+*HKScreenAngle 60A/60 Degrees: "currentscreen 3 1 roll pop  60 3 -1 roll setscreen"
+*HKScreenAngle 75A/75 Degrees: "currentscreen 3 1 roll pop  75 3 -1 roll setscreen"
+*CloseUI: *HKScreenAngle
+
+*% ======== Font Information ========
+*DefaultFont: Courier
+*Font AlbertusMT:Standard "(001.001)" Standard ROM
+*Font AlbertusMT-Italic:Standard "(001.001)" Standard ROM
+*Font AlbertusMT-Light:Standard "(001.001)" Standard ROM
+*Font AntiqueOlive-Bold:Standard "(001.002)" Standard ROM
+*Font AntiqueOlive-Compact:Standard "(001.002)" Standard ROM
+*Font AntiqueOlive-Italic:Standard "(001.002)" Standard ROM
+*Font AntiqueOlive-Roman:Standard "(001.002)" Standard ROM
+*Font Apple-Chancery:Standard "(001.002)" ExtendedRoman ROM
+*Font Arial-BoldItalicMT:Standard "(001.002)" Standard ROM
+*Font Arial-BoldMT:Standard "(001.002)" Standard ROM
+*Font Arial-ItalicMT:Standard "(001.002)" Standard ROM
+*Font ArialMT:Standard "(001.002)" Standard ROM
+*Font AvantGarde-Book: Standard "(003.000)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(003.000)" Standard ROM
+*Font AvantGarde-Demi: Standard "(003.000)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(003.000)" Standard ROM
+*Font Bodoni: Standard "(001.003)" Standard ROM
+*Font Bodoni-Bold: Standard "(001.003)" Standard ROM
+*Font Bodoni-BoldItalic: Standard "(001.003)" Standard ROM
+*Font Bodoni-Italic: Standard "(001.003)" Standard ROM
+*Font Bodoni-Poster: Standard "(001.003)" Standard ROM
+*Font Bodoni-PosterCompressed: Standard "(001.003)" Standard ROM
+*Font Bookman-Demi: Standard "(003.000)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(003.000)" Standard ROM
+*Font Bookman-Light: Standard "(003.000)" Standard ROM
+*Font Bookman-LightItalic: Standard "(003.000)" Standard ROM
+*Font Carta: Special "(001.001)" Special ROM
+*Font Chicago: Standard "(001.000)" ExtendedRoman ROM
+*Font Clarendon: Standard "(001.002)" Standard ROM
+*Font Clarendon-Bold: Standard "(001.002)" Standard ROM
+*Font Clarendon-Light: Standard "(001.002)" Standard ROM
+*Font CooperBlack: Standard "(001.004)" Standard ROM
+*Font CooperBlack-Italic: Standard "(001.004)" Standard ROM
+*Font Copperplate-ThirtyThreeBC: Standard "(001.003)" Standard ROM
+*Font Copperplate-ThirtyTwoBC: Standard "(001.003)" Standard ROM
+*Font Coronet-Regular: Standard "(001.001)" Standard ROM
+*Font Courier: Standard "(004.000)" Standard ROM
+*Font Courier-Bold: Standard "(004.000)" Standard ROM
+*Font Courier-BoldOblique: Standard "(004.000)" Standard ROM
+*Font Courier-Oblique: Standard "(004.000)" Standard ROM
+*Font Eurostile: Standard "(001.003)" Standard ROM
+*Font Eurostile-Bold: Standard "(001.003)" Standard ROM
+*Font Eurostile-BoldExtendedTwo: Standard "(001.003)" Standard ROM
+*Font Eurostile-ExtendedTwo: Standard "(001.003)" Standard ROM
+*Font Geneva: Standard "(001.003)" ExtendedRoman ROM
+*Font GillSans: Standard "(001.003)" Standard ROM
+*Font GillSans-Bold: Standard "(001.003)" Standard ROM
+*Font GillSans-BoldCondensed: Standard "(001.003)" Standard ROM
+*Font GillSans-BoldItalic: Standard "(001.003)" Standard ROM
+*Font GillSans-Condensed: Standard "(001.003)" Standard ROM
+*Font GillSans-ExtraBold: Standard "(001.003)" Standard ROM
+*Font GillSans-Italic: Standard "(001.003)" Standard ROM
+*Font GillSans-Light: Standard "(001.003)" Standard ROM
+*Font GillSans-LightItalic: Standard "(001.003)" Standard ROM
+*Font Goudy: Standard "(001.003)" Standard ROM
+*Font Goudy-Bold: Standard "(001.003)" Standard ROM
+*Font Goudy-BoldItalic: Standard "(001.003)" Standard ROM
+*Font Goudy-ExtraBold: Standard "(001.003)" Standard ROM
+*Font Goudy-Italic: Standard "(001.003)" Standard ROM
+*Font Helvetica: Standard "(003.000)" Standard ROM
+*Font Helvetica-Bold: Standard "(003.000)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(003.000)" Standard ROM
+*Font Helvetica-Condensed: Standard "(003.000)" Standard ROM
+*Font Helvetica-Condensed-Bold: Standard "(003.000)" Standard ROM
+*Font Helvetica-Condensed-BoldObl: Standard "(003.000)" Standard ROM
+*Font Helvetica-Condensed-Oblique: Standard "(003.000)" Standard ROM
+*Font Helvetica-Narrow: Standard "(003.000)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(003.000)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(003.000)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(003.000)" Standard ROM
+*Font Helvetica-Oblique: Standard "(003.000)" Standard ROM
+*Font HoeflerText-Black: Standard "(001.000)" ExtendedRoman ROM
+*Font HoeflerText-BlackItalic: Standard "(001.000)" ExtendedRoman ROM
+*Font HoeflerText-Italic: Standard "(001.000)" ExtendedRoman ROM
+*Font HoeflerText-Ornaments: Special "(001.000)" Special ROM
+*Font HoeflerText-Regular: Standard "(001.000)" ExtendedRoman ROM
+*Font JoannaMT: Standard "(001.001)" Standard ROM
+*Font JoannaMT-Bold: Standard "(001.001)" Standard ROM
+*Font JoannaMT-BoldItalic: Standard "(001.001)" Standard ROM
+*Font JoannaMT-Italic: Standard "(001.001)" Standard ROM
+*Font LetterGothic: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Bold: Standard "(001.005)" Standard ROM
+*Font LetterGothic-BoldSlanted: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Slanted: Standard "(001.005)" Standard ROM
+*Font LubalinGraph-Book: Standard "(001.004)" Standard ROM
+*Font LubalinGraph-BookOblique: Standard "(001.004)" Standard ROM
+*Font LubalinGraph-Demi: Standard "(001.004)" Standard ROM
+*Font LubalinGraph-DemiOblique: Standard "(001.004)" Standard ROM
+*Font Marigold: Standard "(001.001)" Standard ROM
+*Font Monaco: Standard "(001.000)" ExtendedRoman ROM
+*Font MonaLisa-Recut: Standard "(001.001)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(003.000)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(003.000)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(003.000)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(003.000)" Standard ROM
+*Font NewYork: Standard "(001.000)" ExtendedRoman ROM
+*Font Optima: Standard "(001.006)" Standard ROM
+*Font Optima-Bold: Standard "(001.006)" Standard ROM
+*Font Optima-BoldItalic: Standard "(001.006)" Standard ROM
+*Font Optima-Italic: Standard "(001.006)" Standard ROM
+*Font Oxford: Standard "(001.001)" Standard ROM
+*Font Palatino-Bold: Standard "(003.000)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(003.000)" Standard ROM
+*Font Palatino-Italic: Standard "(003.000)" Standard ROM
+*Font Palatino-Roman: Standard "(003.000)" Standard ROM
+*Font StempelGaramond-Bold: Standard "(001.003)" Standard ROM
+*Font StempelGaramond-BoldItalic: Standard "(001.003)" Standard ROM
+*Font StempelGaramond-Italic: Standard "(001.003)" Standard ROM
+*Font StempelGaramond-Roman: Standard "(001.003)" Standard ROM
+*Font Symbol: Special "(001.008)" Special ROM
+*Font Tekton: Standard "(001.002)" Standard ROM
+*Font Times-Bold: Standard "(003.000)" Standard ROM
+*Font Times-BoldItalic: Standard "(003.000)" Standard ROM
+*Font Times-Italic: Standard "(003.000)" Standard ROM
+*Font Times-Roman: Standard "(003.000)" Standard ROM
+*Font TimesNewRomanPS-BoldItalicMT: Standard "(001.003)" Standard ROM
+*Font TimesNewRomanPS-BoldMT: Standard "(001.003)" Standard ROM
+*Font TimesNewRomanPS-ItalicMT: Standard "(001.003)" Standard ROM
+*Font TimesNewRomanPSMT: Standard "(001.003)" Standard ROM
+*Font Univers: Standard "(001.001)" Standard ROM
+*Font Univers-Bold: Standard "(001.001)" Standard ROM
+*Font Univers-BoldExt: Standard "(001.001)" Standard ROM
+*Font Univers-BoldExtObl: Standard "(001.001)" Standard ROM
+*Font Univers-BoldOblique: Standard "(001.001)" Standard ROM
+*Font Univers-Condensed: Standard "(001.001)" Standard ROM
+*Font Univers-CondensedBold: Standard "(001.001)" Standard ROM
+*Font Univers-CondensedBoldOblique: Standard "(001.001)" Standard ROM
+*Font Univers-CondensedOblique: Standard "(001.001)" Standard ROM
+*Font Univers-Extended: Standard "(001.001)" Standard ROM
+*Font Univers-ExtendedObl: Standard "(001.001)" Standard ROM
+*Font Univers-Light: Standard "(001.001)" Standard ROM
+*Font Univers-LightOblique: Standard "(001.001)" Standard ROM
+*Font Univers-Oblique: Standard "(001.001)" Standard ROM
+*Font Wingdings-Regular: Special "(001.001)" Special ROM
+*Font ZapfChancery-MediumItalic: Standard "(003.000)" Standard ROM
+*Font ZapfDingbats: Special "(002.000)" Special ROM
+*?FontQuery: "
+  save {
+    count 1 gt {
+      exch dup 127 string cvs (/) print print (:) print /Font resourcestatus
+      {pop pop (Yes)}{(No)}ifelse =
+    }{exit}ifelse
+  }bind loop (*) = flush restore
+"
+*End
+*?FontList: "
+  save (*) {cvn ==} 128 string /Font resourceforall (*) = flush restore
+"
+*End
+
+*% Printer Messages (verbatim from printer):
+*Message: "%%[ exitserver: permanent state may be changed ]%%"
+*Message: "%%[ Flushing: rest of job (to end-of-file) will be ignored ]%%"
+*Message: "\FontName\ not found, using Courier"
+
+*% Status (format: %%[ status: <one of these> ] %%)
+*Status: "busy"
+*Status: "idle"
+*Status: "initializing"
+*Status: "waiting"
+
+*% Input Sources (format: %%[ status: <stat>; source: <one of these> ]%% )
+*Source: "Disk I/O"
+*Source: "LPD I/O"
+*Source: "Network"
+*Source: "Parallel"
+*Source: "Socket I/O"
+
+*% ======== Color Separation Information ========
+*DefaultGuaranteedMaxSeparations: 4
+*DefaultColorSep: ProcessBlack.85lpi.600x600dpi/85 lpi / 600x600 dpi
+
+*% For 85 lpi / 600x600 dpi  (5,5,2,6,6,2,20/3,0)
+*ColorSepScreenAngle ProcessBlack.85lpi.600x600dpi/85 lpi / 600x600 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.85lpi.600x600dpi/85 lpi / 600x600 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.85lpi.600x600dpi/85 lpi / 600x600 dpi: "75.0"
+*ColorSepScreenAngle ProcessMagenta.85lpi.600x600dpi/85 lpi / 600x600 dpi: "15.0"
+*ColorSepScreenAngle ProcessYellow.85lpi.600x600dpi/85 lpi / 600x600 dpi: "0.0"
+*ColorSepScreenFreq ProcessBlack.85lpi.600x600dpi/85 lpi / 600x600 dpi: "85.0"
+*ColorSepScreenFreq CustomColor.85lpi.600x600dpi/85 lpi / 600x600 dpi: "85.0"
+*ColorSepScreenFreq ProcessCyan.85lpi.600x600dpi/85 lpi / 600x600 dpi: "85.0"
+*ColorSepScreenFreq ProcessMagenta.85lpi.600x600dpi/85 lpi / 600x600 dpi: "85.0"
+*ColorSepScreenFreq ProcessYellow.85lpi.600x600dpi/85 lpi / 600x600 dpi: "85.0"
+*ColorSepScreenProc ProcessYellow.85lpi.600x600dpi/85 lpi / 600x600 dpi: "
+  {1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch 1 add 2 div 3 mul dup
+   floor sub 2 mul 1 sub exch abs exch abs 2 copy add 1 gt {1 sub dup mul
+   exch 1 sub dup mul add 1 sub}{dup mul exch dup mul add 1 exch sub}ifelse}
+"
+*End
+
+*% end of PPD file
