@@ -1,0 +1,3284 @@
+*PPD-Adobe: "4.3"
+*%=============================================================================
+*%
+*%  PPD file for Kyocera Mita FS-9520DN (German)
+*%  Linux Version
+*%
+*%  Copyright (C) 2000 KYOCERA CORPORATION
+*%  Copyright (C) 2005 Revised Edition KYOCERA MITA CORPORATION
+*%
+*%  Permission is hereby granted, free of charge, to any person obtaining
+*%  a copy of this software and associated documentation files (the
+*%  "Software"), to deal in the Software without restriction, including
+*%  without limitation the rights to use, copy, modify, merge, publish,
+*%  distribute, sublicense, and/or sell copies of the Software, and to
+*%  permit persons to whom the Software is furnished to do so, subject to
+*%  the following conditions:
+*%
+*%  The above copyright notice and this permission notice shall be
+*%  included in all copies or substantial portions of the Software.
+*%
+*%  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+*%  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+*%  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+*%  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+*%  LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+*%  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+*%  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*%
+*%  [this is the MIT open source license -- see www.opensource.org]
+*%
+*%=============================================================================
+
+*FileVersion: "8.2"
+*FormatVersion: "4.3"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: German
+*Product: "(FS-9520DN)"
+*PSVersion: "(3011.103) 2001"
+*Manufacturer: "Kyocera Mita"
+*ModelName: "Kyocera Mita FS-9520DN"
+*ShortNickName: "Kyocera Mita FS-9520DN"
+*NickName: "Kyocera Mita FS-9520DN"
+*PCFileName: "KM9520DE.PPD"
+
+*% Basic Device Capabilities
+*LanguageLevel: "3"
+*ColorDevice: False
+*DefaultColorSpace: Gray
+*TTRasterizer: Type42
+*?TTRasterizer: "
+ save
+   42 /FontType resourcestatus
+   { pop pop (Type42) }{ pop pop (None) } ifelse = flush
+ restore"
+*End
+
+*Throughput: "50"
+
+*% System Management
+*SuggestedJobTimeout: "0"
+*SuggestedManualFeedTimeout: "0"
+*SuggestedWaitTimeout: "120"
+*PrintPSErrors: True
+
+*Password: "0"
+
+*ExitServer: " count 0 eq { true }
+ { dup statusdict /checkpassword get exec not } ifelse
+ { (WARNING : Cannot perform the exitserver command.) =
+   (Password supplied is not valid.) =
+   (Please contact the author of this software.) = flush quit } if
+ serverdict /exitserver get exec"
+*End
+
+*Reset: " count 0 eq { true }
+  { dup statusdict /checkpassword get exec not } ifelse
+  { (WARNING : Cannot perform the exitserver command.) =
+    (Password supplied is not valid.) =
+    (Please contact the author of this software.) = flush quit } if
+  serverdict /exitserver get exec
+  systemdict /quit get exec
+  (WARNING : Printer Reset Failed.) = flush"
+*End
+
+*% Protocols 
+*Protocols: BCP PJL TBCP
+
+*%1284Modes Parallel: Compat Nibble ECP
+*%1284DeviceID: "MFG:Kyocera Mita:Model:Kyocera Mita FS-9520DN;COMMAND SET: POSTSCRIPT,PJL,PCL"
+*% JCL Information 
+*JCLBegin: "<1B>%-12345X@PJL JOB<0A>"
+*JCLToPSInterpreter: "@PJL ENTER LANGUAGE=POSTSCRIPT<0A>"
+*JCLEnd: "<1B>%-12345X@PJL EOJ<0A><1B>%-12345X"
+
+*% Installable Options
+*OpenGroup: InstallableOptions/Installierte Optionen
+
+*% Paper Feeder
+*OpenUI *Option01/Zusatzkassette: PickOne
+*DefaultOption01: NONE
+*Option01 NONE/Nicht installiert: ""
+*Option01 OF1/Kassette 3,4: ""
+*Option01 OF2/Grosse Papierzuf<FC>hrung: ""
+*?Option01: "
+  save
+  (None) currentpagedevice dup /InputAttributes known {
+    /InputAttributes get
+    dup 4 known {dup 4 get null ne {exch pop (OF2) exch} if} if
+    dup 5 known {dup 5 get null ne {exch pop (OF1) exch} if} if
+  } if pop
+  = flush restore"
+*End
+*CloseUI: *Option01
+
+*% Finisher
+*OpenUI *Option17/Finisher: PickOne
+*DefaultOption17: None
+*Option17 None/Nicht installiert: ""
+*Option17 DF70/3000 Finisher: ""
+*Option17 DF73/1000 Finisher: ""
+*Option17 DF75/Brosch.Hefter: ""
+*?Option17: "
+  save
+  currentpagedevice /OutputAttributes get
+  1 get
+  dup null ne {
+    /OutputType get
+    << /STAPLER (DF70) /SIMPLE_FINISHER (DF73) >> 
+    exch 2 copy known { get }{ pop pop (NO) } ifelse
+    dup (DF70) eq { currentpagedevice /Fold known { pop (DF75) } 
+    if} if}{pop (NO)
+  } ifelse
+  = flush restore"
+*End
+*CloseUI: *Option17
+
+*% Mailbin
+*OpenUI *Option47/Mailbox: Boolean
+*DefaultOption47: None
+*Option47 None/Nicht installiert: ""
+*Option47 MB1/Installiert: ""
+*?Option47: "
+  save
+  currentpagedevice dup /OutputAttributes known {
+    /OutputAttributes get
+    dup 7 known {
+      7 get dup null ne {
+         /OutputType get
+        dup (MULTI_TRAY5) eq { (MB1) } {
+      (None)
+        } ifelse
+      }{(None)} ifelse
+    }{(None)} ifelse
+    exch pop
+  }{
+    pop (None)
+  } ifelse
+  = flush restore"
+*End
+*CloseUI: *Option47
+
+*% Punch Unit
+*OpenUI *Option22/Stanzeinheit: Boolean
+*DefaultOption22: None
+*Option22 None/Nicht installiert: ""
+*Option22 PN1/Installiert: ""
+*?Option22: "
+  save
+  currentpagedevice /Punch known {(PN1)}{(None)} ifelse
+  = flush restore"
+*End
+*CloseUI: *Option22
+
+*% Disk Drive
+*OpenUI *Option18/Optionaler Datentr<E4>ger: PickOne
+*DefaultOption18: None
+*Option18 None/Nicht installiert: ""
+*Option18 RAMDisk/RAM Disk: ""
+*Option18 HardDisk/Festplatte: ""
+*?Option18: "
+  save
+  false
+  (%disk?%)
+  { currentdevparams dup /Writeable known
+  	   { dup /Writeable get
+   { exch pop /LogicalSize get dup 0 gt exch 102400 lt eq true }{ pop pop false } ifelse }
+   { pop pop } ifelse
+  } 100 string /IODevice resourceforall
+  { {(RAMDisk)}{(HardDisk)} ifelse }{(None)} ifelse = flush
+  restore"
+*End
+*CloseUI: *Option18
+
+*% Installed Memory
+*OpenUI *InstalledMemory/Speicher: PickOne
+*DefaultInstalledMemory: 64MB
+*InstalledMemory 64MB/64MB(Standard): ""
+*InstalledMemory 96MB/96MB(32MB Erweiterung): ""
+*InstalledMemory 128MB/128MB(64MB Erweiterung): ""
+*InstalledMemory 160MB/160MB(96MB Erweiterung): ""
+*InstalledMemory 192MB/192MB(128MB Erweiterung): ""
+*InstalledMemory 224MB/224MB(160MB Erweiterung): ""
+*InstalledMemory 256MB/256MB(192MB Erweiterung): ""
+*InstalledMemory 320MB/320MB(256MB Erweiterung): ""
+*InstalledMemory 352MB/352MB(288MB Erweiterung): ""
+*InstalledMemory 384MB/384MB(320MB Erweiterung): ""
+*InstalledMemory 448MB/448MB(384MB Erweiterung): ""
+*InstalledMemory 576MB/576MB(512MB Erweiterung): ""
+*?InstalledMemory: "
+  save
+  currentsystemparams /RamSize get
+  524288 div ceiling cvi 2 div cvi
+  /vmsize 20 string def
+  vmsize cvs print (MB) print (\n) print flush
+  restore"
+*End
+*CloseUI: *InstalledMemory
+
+*CloseGroup: InstallableOptions
+
+*% Virtual Memory 
+
+*FreeVM: "32000000"
+
+*VMOption 64MB: "32000000"
+*VMOption 96MB: "32000000"
+*VMOption 128MB: "32000000"
+*VMOption 160MB: "32000000"
+*VMOption 192MB: "32000000"
+*VMOption 224MB: "32000000"
+*VMOption 256MB: "32000000"
+*VMOption 320MB: "32000000"
+*VMOption 352MB: "32000000"
+*VMOption 384MB: "32000000"
+*VMOption 448MB: "32000000"
+*VMOption 576MB: "32000000"
+
+*% Option Device Constraints=====
+*UIConstraints: *Option17 None *Option47 MB1
+*UIConstraints: *Option17 None *Option22 PN1
+*UIConstraints: *Option17 DF73 *Option47 MB1
+*UIConstraints: *Option17 DF73 *Option22 PN1
+*UIConstraints: *Option17 DF75 *Option47 MB1
+*UIConstraints: *Option47 MB1 *Option17 None
+*UIConstraints: *Option47 MB1 *Option17 DF73
+*UIConstraints: *Option47 MB1 *Option17 DF75
+*UIConstraints: *Option22 PN1 *Option17 None
+*UIConstraints: *Option22 PN1 *Option17 DF73
+
+*UIConstraints: *Option01 NONE *InputSlot LCD
+*UIConstraints: *Option01 NONE *InputSlot Tray3
+*UIConstraints: *Option01 NONE *InputSlot Tray4
+*UIConstraints: *Option01 OF2 *InputSlot Tray3
+*UIConstraints: *Option01 OF2 *InputSlot Tray4
+*UIConstraints: *Option01 OF1 *InputSlot LCD
+
+*UIConstraints: *Option17 None *OutputBin Main
+*UIConstraints: *Option17 None *OutputBin Sub
+*UIConstraints: *Option17 None *OutputBin Internal
+*UIConstraints: *Option17 None *KMStapleMode Front1
+*UIConstraints: *Option17 None *KMStapleMode Front2
+*UIConstraints: *Option17 None *KMStapleMode Center1
+*UIConstraints: *Option17 None *KMStapleMode Rear1
+*UIConstraints: *Option17 None *Fold ON
+*UIConstraints: *Option17 DF70 *OutputBin Internal
+*UIConstraints: *Option17 DF70 *Fold ON
+*UIConstraints: *Option17 DF70 *KCPunch autoholes
+*UIConstraints: *Option17 DF70 *KMStapleMode Front2
+*UIConstraints: *Option17 DF73 *OutputBin Internal
+*UIConstraints: *Option17 DF73 *KMStapleMode Front1
+*UIConstraints: *Option17 DF73 *KMStapleMode Front2
+*UIConstraints: *Option17 DF73 *KMStapleMode Center1
+*UIConstraints: *Option17 DF73 *Fold ON
+*UIConstraints: *Option17 DF75 *OutputBin Internal
+*UIConstraints: *Option17 DF75 *KMStapleMode Front2
+*UIConstraints: *Option17 DF75 *KCPunch 2holesUS
+*UIConstraints: *Option17 DF75 *KCPunch 2holesEUR
+*UIConstraints: *Option17 DF75 *KCPunch 3holes
+*UIConstraints: *Option17 DF75 *KCPunch 4holes
+
+*UIConstraints: *Option37 None *OutputBin Stacker
+
+*UIConstraints: *Option47 None *OutputBin MB1Dn
+*UIConstraints: *Option47 None *OutputBin MB2Dn
+*UIConstraints: *Option47 None *OutputBin MB3Dn
+*UIConstraints: *Option47 None *OutputBin MB4Dn
+*UIConstraints: *Option47 None *OutputBin MB5Dn
+*UIConstraints: *Option47 None *OutputBin MB6Dn
+*UIConstraints: *Option47 None *OutputBin MB7Dn
+*UIConstraints: *Option47 None *OutputBin MB1Up
+*UIConstraints: *Option47 None *OutputBin MB2Up
+*UIConstraints: *Option47 None *OutputBin MB3Up
+*UIConstraints: *Option47 None *OutputBin MB4Up
+*UIConstraints: *Option47 None *OutputBin MB5Up
+*UIConstraints: *Option47 None *OutputBin MB6Up
+*UIConstraints: *Option47 None *OutputBin MB7Up
+
+*UIConstraints: *Option22 None *KCPunch 2holesUS
+*UIConstraints: *Option22 None *KCPunch 2holesEUR
+*UIConstraints: *Option22 None *KCPunch 3holes
+*UIConstraints: *Option22 None *KCPunch 4holes
+*UIConstraints: *Option22 None *KCPunch autoholes
+
+*% Optinal Disk Constraints=====
+*UIConstraints: *Option18 None *KCCollate Temp
+*UIConstraints: *Option18 None *KCCollate Perm
+*UIConstraints: *Option18 None *KCCollate VMBAdmin
+*UIConstraints: *Option18 None *KCCollate VMBUser01
+*UIConstraints: *Option18 None *KCCollate VMBUser02
+*UIConstraints: *Option18 None *KCCollate VMBUser03
+*UIConstraints: *Option18 None *KCCollate VMBUser04
+*UIConstraints: *Option18 None *KCCollate VMBUser05
+*UIConstraints: *Option18 None *KCCollate VMBUser06
+*UIConstraints: *Option18 None *KCCollate VMBUser07
+*UIConstraints: *Option18 None *KCCollate VMBUser08
+*UIConstraints: *Option18 None *KCCollate VMBUser09
+*UIConstraints: *Option18 None *KCCollate VMBUser10
+*UIConstraints: *Option18 None *KCCollate QuickCopy
+*UIConstraints: *Option18 None *KCCollate ProofHold
+*UIConstraints: *Option18 None *KCCollate JobStorage
+*UIConstraints: *Option18 None *KCBooklet LeftOpen
+*UIConstraints: *Option18 None *KCBooklet RightOpen
+*UIConstraints: *Option18 RAMDisk *KCCollate Temp
+*UIConstraints: *Option18 RAMDisk *KCCollate Perm
+*UIConstraints: *Option18 RAMDisk *KCCollate VMBAdmin
+*UIConstraints: *Option18 RAMDisk *KCCollate VMBUser01
+*UIConstraints: *Option18 RAMDisk *KCCollate VMBUser02
+*UIConstraints: *Option18 RAMDisk *KCCollate VMBUser03
+*UIConstraints: *Option18 RAMDisk *KCCollate VMBUser04
+*UIConstraints: *Option18 RAMDisk *KCCollate VMBUser05
+*UIConstraints: *Option18 RAMDisk *KCCollate VMBUser06
+*UIConstraints: *Option18 RAMDisk *KCCollate VMBUser07
+*UIConstraints: *Option18 RAMDisk *KCCollate VMBUser08
+*UIConstraints: *Option18 RAMDisk *KCCollate VMBUser09
+*UIConstraints: *Option18 RAMDisk *KCCollate VMBUser10
+*UIConstraints: *Option18 RAMDisk *KCCollate QuickCopy
+*UIConstraints: *Option18 RAMDisk *KCCollate JobStorage
+
+*%InputSlot-PageSize Constraints=====
+*UIConstraints: *InputSlot Tray1 *PageSize A6
+*UIConstraints: *InputSlot Tray1 *PageSize B6
+*UIConstraints: *InputSlot Tray1 *PageSize Executive
+*UIConstraints: *InputSlot Tray1 *PageSize EnvC4
+*UIConstraints: *InputSlot Tray1 *PageSize EnvC5
+*UIConstraints: *InputSlot Tray1 *PageSize EnvPersonal
+*UIConstraints: *InputSlot Tray1 *PageSize ISOB5
+*UIConstraints: *InputSlot Tray1 *PageSize P8K
+*UIConstraints: *InputSlot Tray1 *PageSize P16K
+*UIConstraints: *InputSlot Tray1 *CustomPageSize
+*UIConstraints: *InputSlot Tray1 *PageSize Env9
+*UIConstraints: *InputSlot Tray1 *PageSize Env10
+*UIConstraints: *InputSlot Tray1 *PageSize EnvDL
+*UIConstraints: *InputSlot Tray1 *PageSize EnvMonarch
+*UIConstraints: *InputSlot Tray2 *PageSize A6
+*UIConstraints: *InputSlot Tray2 *PageSize B6
+*UIConstraints: *InputSlot Tray2 *PageSize Executive
+*UIConstraints: *InputSlot Tray2 *PageSize EnvPersonal
+*UIConstraints: *InputSlot Tray2 *PageSize ISOB5
+*UIConstraints: *InputSlot Tray2 *PageSize P8K
+*UIConstraints: *InputSlot Tray2 *PageSize P16K
+*UIConstraints: *InputSlot Tray2 *CustomPageSize
+*UIConstraints: *InputSlot Tray2 *PageSize Env9
+*UIConstraints: *InputSlot Tray2 *PageSize Env10
+*UIConstraints: *InputSlot Tray2 *PageSize EnvMonarch
+*UIConstraints: *InputSlot Tray2 *PageSize EnvDL
+*UIConstraints: *InputSlot Tray2 *PageSize EnvC4
+*UIConstraints: *InputSlot Tray2 *PageSize EnvC5
+*UIConstraints: *InputSlot Tray3 *PageSize A6
+*UIConstraints: *InputSlot Tray3 *PageSize B6
+*UIConstraints: *InputSlot Tray3 *PageSize Executive
+*UIConstraints: *InputSlot Tray3 *PageSize EnvPersonal
+*UIConstraints: *InputSlot Tray3 *PageSize ISOB5
+*UIConstraints: *InputSlot Tray3 *PageSize P8K
+*UIConstraints: *InputSlot Tray3 *PageSize P16K
+*UIConstraints: *InputSlot Tray3 *CustomPageSize
+*UIConstraints: *InputSlot Tray3 *PageSize Env9
+*UIConstraints: *InputSlot Tray3 *PageSize Env10
+*UIConstraints: *InputSlot Tray3 *PageSize EnvMonarch
+*UIConstraints: *InputSlot Tray3 *PageSize EnvDL
+*UIConstraints: *InputSlot Tray3 *PageSize EnvC4
+*UIConstraints: *InputSlot Tray3 *PageSize EnvC5
+*UIConstraints: *InputSlot Tray4 *PageSize A6
+*UIConstraints: *InputSlot Tray4 *PageSize B6
+*UIConstraints: *InputSlot Tray4 *PageSize Executive
+*UIConstraints: *InputSlot Tray4 *PageSize EnvPersonal
+*UIConstraints: *InputSlot Tray4 *PageSize ISOB5
+*UIConstraints: *InputSlot Tray4 *PageSize P8K
+*UIConstraints: *InputSlot Tray4 *PageSize P16K
+*UIConstraints: *InputSlot Tray4 *CustomPageSize
+*UIConstraints: *InputSlot Tray4 *PageSize Env9
+*UIConstraints: *InputSlot Tray4 *PageSize Env10
+*UIConstraints: *InputSlot Tray4 *PageSize EnvMonarch
+*UIConstraints: *InputSlot Tray4 *PageSize EnvDL
+*UIConstraints: *InputSlot Tray4 *PageSize EnvC4
+*UIConstraints: *InputSlot Tray4 *PageSize EnvC5
+*UIConstraints: *InputSlot LCD *PageSize A3
+*UIConstraints: *InputSlot LCD *PageSize A5
+*UIConstraints: *InputSlot LCD *PageSize A6
+*UIConstraints: *InputSlot LCD *PageSize B4
+*UIConstraints: *InputSlot LCD *PageSize B6
+*UIConstraints: *InputSlot LCD *PageSize OficioII
+*UIConstraints: *InputSlot LCD *PageSize Folio
+*UIConstraints: *InputSlot LCD *PageSize Legal
+*UIConstraints: *InputSlot LCD *PageSize Tabloid
+*UIConstraints: *InputSlot LCD *PageSize Executive
+*UIConstraints: *InputSlot LCD *PageSize Statement
+*UIConstraints: *InputSlot LCD *PageSize EnvPersonal
+*UIConstraints: *InputSlot LCD *PageSize ISOB5
+*UIConstraints: *InputSlot LCD *PageSize P8K
+*UIConstraints: *InputSlot LCD *PageSize P16K
+*UIConstraints: *InputSlot LCD *CustomPageSize
+*UIConstraints: *InputSlot LCD *PageSize Env9
+*UIConstraints: *InputSlot LCD *PageSize Env10
+*UIConstraints: *InputSlot LCD *PageSize EnvMonarch
+*UIConstraints: *InputSlot LCD *PageSize EnvDL
+*UIConstraints: *InputSlot LCD *PageSize EnvC4
+*UIConstraints: *InputSlot LCD *PageSize EnvC5
+*UIConstraints: *PageSize A6 *InputSlot Tray1
+*UIConstraints: *PageSize B6 *InputSlot Tray1
+*UIConstraints: *PageSize Executive *InputSlot Tray1
+*UIConstraints: *PageSize EnvC4 *InputSlot Tray1
+*UIConstraints: *PageSize EnvC5 *InputSlot Tray1
+*UIConstraints: *PageSize EnvPersonal *InputSlot Tray1
+*UIConstraints: *PageSize ISOB5 *InputSlot Tray1
+*UIConstraints: *PageSize P8K *InputSlot Tray1
+*UIConstraints: *PageSize P16K *InputSlot Tray1
+*UIConstraints: *CustomPageSize *InputSlot Tray1
+*UIConstraints: *PageSize Env9 *InputSlot Tray1
+*UIConstraints: *PageSize Env10 *InputSlot Tray1
+*UIConstraints: *PageSize EnvDL *InputSlot Tray1
+*UIConstraints: *PageSize EnvMonarch *InputSlot Tray1
+*UIConstraints: *PageSize A6 *InputSlot Tray2
+*UIConstraints: *PageSize B6 *InputSlot Tray2
+*UIConstraints: *PageSize Executive *InputSlot Tray2
+*UIConstraints: *PageSize EnvC4 *InputSlot Tray2
+*UIConstraints: *PageSize EnvC5 *InputSlot Tray2
+*UIConstraints: *PageSize EnvPersonal *InputSlot Tray2
+*UIConstraints: *PageSize ISOB5 *InputSlot Tray2
+*UIConstraints: *PageSize P8K *InputSlot Tray2
+*UIConstraints: *PageSize P16K *InputSlot Tray2
+*UIConstraints: *CustomPageSize *InputSlot Tray2
+*UIConstraints: *PageSize Env9 *InputSlot Tray2
+*UIConstraints: *PageSize Env10 *InputSlot Tray2
+*UIConstraints: *PageSize EnvDL *InputSlot Tray2
+*UIConstraints: *PageSize EnvMonarch *InputSlot Tray2
+*UIConstraints: *PageSize A6 *InputSlot Tray3
+*UIConstraints: *PageSize B6 *InputSlot Tray3
+*UIConstraints: *PageSize Executive *InputSlot Tray3
+*UIConstraints: *PageSize EnvC4 *InputSlot Tray3
+*UIConstraints: *PageSize EnvC5 *InputSlot Tray3
+*UIConstraints: *PageSize EnvPersonal *InputSlot Tray3
+*UIConstraints: *PageSize ISOB5 *InputSlot Tray3
+*UIConstraints: *PageSize P8K *InputSlot Tray3
+*UIConstraints: *PageSize P16K *InputSlot Tray3
+*UIConstraints: *CustomPageSize *InputSlot Tray3
+*UIConstraints: *PageSize Env9 *InputSlot Tray3
+*UIConstraints: *PageSize Env10 *InputSlot Tray3
+*UIConstraints: *PageSize EnvDL *InputSlot Tray3
+*UIConstraints: *PageSize EnvMonarch *InputSlot Tray3
+*UIConstraints: *PageSize A6 *InputSlot Tray4
+*UIConstraints: *PageSize B6 *InputSlot Tray4
+*UIConstraints: *PageSize Executive *InputSlot Tray4
+*UIConstraints: *PageSize EnvC4 *InputSlot Tray4
+*UIConstraints: *PageSize EnvC5 *InputSlot Tray4
+*UIConstraints: *PageSize EnvPersonal *InputSlot Tray4
+*UIConstraints: *PageSize ISOB5 *InputSlot Tray4
+*UIConstraints: *PageSize P8K *InputSlot Tray4
+*UIConstraints: *PageSize P16K *InputSlot Tray4
+*UIConstraints: *CustomPageSize *InputSlot Tray4
+*UIConstraints: *PageSize Env9 *InputSlot Tray4
+*UIConstraints: *PageSize Env10 *InputSlot Tray4
+*UIConstraints: *PageSize EnvDL *InputSlot Tray4
+*UIConstraints: *PageSize EnvMonarch *InputSlot Tray4
+*UIConstraints: *PageSize A3 *InputSlot LCD
+*UIConstraints: *PageSize A5 *InputSlot LCD
+*UIConstraints: *PageSize A6 *InputSlot LCD
+*UIConstraints: *PageSize B4 *InputSlot LCD
+*UIConstraints: *PageSize B6 *InputSlot LCD
+*UIConstraints: *PageSize OficioII *InputSlot LCD
+*UIConstraints: *PageSize Folio *InputSlot LCD
+*UIConstraints: *PageSize Legal *InputSlot LCD
+*UIConstraints: *PageSize Tabloid *InputSlot LCD
+*UIConstraints: *PageSize Executive *InputSlot LCD
+*UIConstraints: *PageSize Statement *InputSlot LCD
+*UIConstraints: *PageSize EnvPersonal *InputSlot LCD
+*UIConstraints: *PageSize ISOB5 *InputSlot LCD
+*UIConstraints: *PageSize P8K *InputSlot LCD
+*UIConstraints: *PageSize P16K *InputSlot LCD
+*UIConstraints: *CustomPageSize *InputSlot LCD
+*UIConstraints: *PageSize Env9 *InputSlot LCD
+*UIConstraints: *PageSize Env10 *InputSlot LCD
+*UIConstraints: *PageSize EnvMonarch *InputSlot LCD
+*UIConstraints: *PageSize EnvDL *InputSlot LCD
+*UIConstraints: *PageSize EnvC4 *InputSlot LCD
+*UIConstraints: *PageSize EnvC5 *InputSlot LCD
+
+*% Duplex-PageSize Constraints=====
+*UIConstraints: *PageSize A6 *Duplex DuplexTumble
+*UIConstraints: *PageSize B6 *Duplex DuplexTumble
+*UIConstraints: *PageSize EnvPersonal *Duplex DuplexTumble
+*UIConstraints: *PageSize P8K *Duplex DuplexTumble
+*UIConstraints: *PageSize P16K *Duplex DuplexTumble
+*UIConstraints: *CustomPageSize *Duplex DuplexTumble
+*UIConstraints: *PageSize EnvC4 *Duplex DuplexTumble
+*UIConstraints: *PageSize EnvC5 *Duplex DuplexTumble
+*UIConstraints: *PageSize Env9 *Duplex DuplexTumble
+*UIConstraints: *PageSize Env10 *Duplex DuplexTumble
+*UIConstraints: *PageSize EnvDL *Duplex DuplexTumble
+*UIConstraints: *PageSize EnvMonarch *Duplex DuplexTumble
+*UIConstraints: *PageSize A6 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize B6 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize EnvPersonal *Duplex DuplexNoTumble
+*UIConstraints: *PageSize P8K *Duplex DuplexNoTumble
+*UIConstraints: *PageSize P16K *Duplex DuplexNoTumble
+*UIConstraints: *CustomPageSize *Duplex DuplexNoTumble
+*UIConstraints: *PageSize EnvC4 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize EnvC5 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize Env9 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize Env10 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize EnvDL *Duplex DuplexNoTumble
+*UIConstraints: *PageSize EnvMonarch *Duplex DuplexNoTumble
+*UIConstraints: *Duplex *PageSize A6
+*UIConstraints: *Duplex *PageSize B6
+*UIConstraints: *Duplex *PageSize EnvPersonal
+*UIConstraints: *Duplex *PageSize P8K
+*UIConstraints: *Duplex *PageSize P16K
+*UIConstraints: *Duplex *CustomPageSize
+*UIConstraints: *Duplex *PageSize EnvC4
+*UIConstraints: *Duplex *PageSize EnvC5
+*UIConstraints: *Duplex *PageSize Env9
+*UIConstraints: *Duplex *PageSize Env10
+*UIConstraints: *Duplex *PageSize EnvDL
+*UIConstraints: *Duplex *PageSize EnvMonarch
+
+*%Finish - PageSize Constraints=====
+*UIConstraints: *PageSize A6 *OutputBin Main
+*UIConstraints: *PageSize B6 *OutputBin Main
+*UIConstraints: *PageSize Executive *OutputBin Main
+*UIConstraints: *PageSize EnvC4 *OutputBin Main
+*UIConstraints: *PageSize EnvPersonal *OutputBin Main
+*UIConstraints: *PageSize EnvC5 *OutputBin Main
+*UIConstraints: *PageSize ISOB5 *OutputBin Main
+*UIConstraints: *PageSize P8K *OutputBin Main
+*UIConstraints: *PageSize P16K *OutputBin Main
+*UIConstraints: *CustomPageSize *OutputBin Main
+*UIConstraints: *PageSize Env9 *OutputBin Main
+*UIConstraints: *PageSize Env10 *OutputBin Main
+*UIConstraints: *PageSize EnvDL *OutputBin Main
+*UIConstraints: *PageSize EnvMonarch *OutputBin Main
+*UIConstraints: *PageSize OficioII *OutputBin Main
+*UIConstraints: *OutputBin Main *PageSize A6 
+*UIConstraints: *OutputBin Main *PageSize B6 
+*UIConstraints: *OutputBin Main *PageSize Executive
+*UIConstraints: *OutputBin Main *PageSize ISOB5
+*UIConstraints: *OutputBin Main *PageSize P8K
+*UIConstraints: *OutputBin Main *PageSize P16K
+*UIConstraints: *OutputBin Main *CustomPageSize
+*UIConstraints: *OutputBin Main *PageSize Env9
+*UIConstraints: *OutputBin Main *PageSize EnvC4
+*UIConstraints: *OutputBin Main *PageSize EnvC5
+*UIConstraints: *OutputBin Main *PageSize EnvPersonal
+*UIConstraints: *OutputBin Main *PageSize Env10
+*UIConstraints: *OutputBin Main *PageSize EnvDL
+*UIConstraints: *OutputBin Main *PageSize EnvMonarch
+*UIConstraints: *OutputBin Main *PageSize OficioII
+
+*UIConstraints: *PageSize Executive *OutputBin Sub
+*UIConstraints: *PageSize EnvC4 *OutputBin Sub
+*UIConstraints: *PageSize EnvPersonal *OutputBin Sub
+*UIConstraints: *PageSize EnvC5 *OutputBin Sub
+*UIConstraints: *PageSize ISOB5 *OutputBin Sub
+*UIConstraints: *PageSize P8K *OutputBin Sub
+*UIConstraints: *PageSize P16K *OutputBin Sub
+*UIConstraints: *CustomPageSize *OutputBin Sub
+*UIConstraints: *PageSize Env9 *OutputBin Sub
+*UIConstraints: *PageSize Env10 *OutputBin Sub
+*UIConstraints: *PageSize EnvDL *OutputBin Sub
+*UIConstraints: *PageSize EnvMonarch *OutputBin Sub
+*UIConstraints: *PageSize OficioII *OutputBin Sub
+
+*UIConstraints: *PageSize A6 *OutputBin Internal
+*UIConstraints: *PageSize B6 *OutputBin Internal
+*UIConstraints: *PageSize Executive *OutputBin Internal
+*UIConstraints: *PageSize ISOB5 *OutputBin Internal
+*UIConstraints: *PageSize P8K *OutputBin Internal
+*UIConstraints: *PageSize P16K *OutputBin Internal
+*UIConstraints: *CustomPageSize *OutputBin Internal
+*UIConstraints: *PageSize Env9 *OutputBin Internal
+*UIConstraints: *PageSize Env10 *OutputBin Internal
+*UIConstraints: *PageSize EnvC4 *OutputBin Internal
+*UIConstraints: *PageSize EnvPersonal *OutputBin Internal
+*UIConstraints: *PageSize EnvC5 *OutputBin Internal
+*UIConstraints: *PageSize EnvDL *OutputBin Internal
+*UIConstraints: *PageSize EnvMonarch *OutputBin Internal
+*UIConstraints: *PageSize OficioII *OutputBin Internal
+*UIConstraints: *OutputBin Internal *PageSize A6
+*UIConstraints: *OutputBin Internal *PageSize B6
+*UIConstraints: *OutputBin Internal *PageSize Executive
+*UIConstraints: *OutputBin Internal *PageSize ISOB5
+*UIConstraints: *OutputBin Internal *PageSize P8K
+*UIConstraints: *OutputBin Internal *PageSize P16K
+*UIConstraints: *OutputBin Internal *CustomPageSize
+*UIConstraints: *OutputBin Internal *PageSize Env9
+*UIConstraints: *OutputBin Internal *PageSize EnvC4
+*UIConstraints: *OutputBin Internal *PageSize EnvC5
+*UIConstraints: *OutputBin Internal *PageSize EnvPersonal
+*UIConstraints: *OutputBin Internal *PageSize Env10
+*UIConstraints: *OutputBin Internal *PageSize EnvDL
+*UIConstraints: *OutputBin Internal *PageSize EnvMonarch
+*UIConstraints: *OutputBin Internal *PageSize OficioII
+
+*UIConstraints: *PageSize A6 *OutputBin Stacker
+*UIConstraints: *PageSize B6 *OutputBin Stacker
+*UIConstraints: *PageSize Executive *OutputBin Stacker
+*UIConstraints: *PageSize P8K *OutputBin Stacker
+*UIConstraints: *PageSize P16K *OutputBin Stacker
+*UIConstraints: *CustomPageSize *OutputBin Stacker
+*UIConstraints: *PageSize Env9 *OutputBin Stacker
+*UIConstraints: *PageSize EnvC4 *OutputBin Stacker
+*UIConstraints: *PageSize EnvPersonal *OutputBin Stacker
+*UIConstraints: *PageSize EnvC5 *OutputBin Stacker
+*UIConstraints: *PageSize ISOB5 *OutputBin Stacker
+*UIConstraints: *PageSize Env10 *OutputBin Stacker
+*UIConstraints: *PageSize EnvDL *OutputBin Stacker
+*UIConstraints: *PageSize EnvMonarch *OutputBin Stacker
+*UIConstraints: *PageSize OficioII *OutputBin Stacker
+*UIConstraints: *OutputBin Stacker *PageSize A6
+*UIConstraints: *OutputBin Stacker *PageSize B6
+*UIConstraints: *OutputBin Stacker *PageSize Executive
+*UIConstraints: *OutputBin Stacker *PageSize ISOB5
+*UIConstraints: *OutputBin Stacker *PageSize P8K
+*UIConstraints: *OutputBin Stacker *PageSize P16K
+*UIConstraints: *OutputBin Stacker *CustomPageSize
+*UIConstraints: *OutputBin Stacker *PageSize Env9
+*UIConstraints: *OutputBin Stacker *PageSize EnvC4
+*UIConstraints: *OutputBin Stacker *PageSize EnvC5
+*UIConstraints: *OutputBin Stacker *PageSize EnvPersonal
+*UIConstraints: *OutputBin Stacker *PageSize Env10
+*UIConstraints: *OutputBin Stacker *PageSize EnvDL
+*UIConstraints: *OutputBin Stacker *PageSize EnvMonarch
+*UIConstraints: *OutputBin Stacker *PageSize OficioII
+
+*UIConstraints: *PageSize Executive *OutputBin MB1Dn
+*UIConstraints: *PageSize EnvC4 *OutputBin MB1Dn
+*UIConstraints: *PageSize EnvPersonal *OutputBin MB1Dn
+*UIConstraints: *PageSize EnvC5 *OutputBin MB1Dn
+*UIConstraints: *PageSize ISOB5 *OutputBin MB1Dn
+*UIConstraints: *PageSize P8K *OutputBin MB1Dn
+*UIConstraints: *PageSize P16K *OutputBin MB1Dn
+*UIConstraints: *CustomPageSize *OutputBin MB1Dn
+*UIConstraints: *PageSize Env9 *OutputBin MB1Dn
+*UIConstraints: *PageSize Env10 *OutputBin MB1Dn
+*UIConstraints: *PageSize EnvDL *OutputBin MB1Dn
+*UIConstraints: *PageSize EnvMonarch *OutputBin MB1Dn
+*UIConstraints: *PageSize OficioII *OutputBin MB1Dn
+*UIConstraints: *PageSize Executive *OutputBin MB1Up
+*UIConstraints: *PageSize EnvC4 *OutputBin MB1Up
+*UIConstraints: *PageSize EnvPersonal *OutputBin MB1Up
+*UIConstraints: *PageSize EnvC5 *OutputBin MB1Up
+*UIConstraints: *PageSize ISOB5 *OutputBin MB1Up
+*UIConstraints: *PageSize P8K *OutputBin MB1Up
+*UIConstraints: *PageSize P16K *OutputBin MB1Up
+*UIConstraints: *CustomPageSize *OutputBin MB1Up
+*UIConstraints: *PageSize Env9 *OutputBin MB1Up
+*UIConstraints: *PageSize Env10 *OutputBin MB1Up
+*UIConstraints: *PageSize EnvDL *OutputBin MB1Up
+*UIConstraints: *PageSize EnvMonarch *OutputBin MB1Up
+*UIConstraints: *PageSize OficioII *OutputBin MB1Up
+*UIConstraints: *PageSize Executive *OutputBin MB2Dn
+*UIConstraints: *PageSize EnvC4 *OutputBin MB2Dn
+*UIConstraints: *PageSize EnvPersonal *OutputBin MB2Dn
+*UIConstraints: *PageSize EnvC5 *OutputBin MB2Dn
+*UIConstraints: *PageSize ISOB5 *OutputBin MB2Dn
+*UIConstraints: *PageSize P8K *OutputBin MB2Dn
+*UIConstraints: *PageSize P16K *OutputBin MB2Dn
+*UIConstraints: *CustomPageSize *OutputBin MB2Dn
+*UIConstraints: *PageSize Env9 *OutputBin MB2Dn
+*UIConstraints: *PageSize Env10 *OutputBin MB2Dn
+*UIConstraints: *PageSize EnvDL *OutputBin MB2Dn
+*UIConstraints: *PageSize EnvMonarch *OutputBin MB2Dn
+*UIConstraints: *PageSize OficioII *OutputBin MB2Dn
+*UIConstraints: *PageSize Executive *OutputBin MB2Up
+*UIConstraints: *PageSize EnvC4 *OutputBin MB2Up
+*UIConstraints: *PageSize EnvPersonal *OutputBin MB2Up
+*UIConstraints: *PageSize EnvC5 *OutputBin MB2Up
+*UIConstraints: *PageSize ISOB5 *OutputBin MB2Up
+*UIConstraints: *PageSize P8K *OutputBin MB2Up
+*UIConstraints: *PageSize P16K *OutputBin MB2Up
+*UIConstraints: *CustomPageSize *OutputBin MB2Up
+*UIConstraints: *PageSize Env9 *OutputBin MB2Up
+*UIConstraints: *PageSize Env10 *OutputBin MB2Up
+*UIConstraints: *PageSize EnvDL *OutputBin MB2Up
+*UIConstraints: *PageSize EnvMonarch *OutputBin MB2Up
+*UIConstraints: *PageSize OficioII *OutputBin MB2Up
+*UIConstraints: *PageSize Executive *OutputBin MB3Dn
+*UIConstraints: *PageSize EnvC4 *OutputBin MB3Dn
+*UIConstraints: *PageSize EnvPersonal *OutputBin MB3Dn
+*UIConstraints: *PageSize EnvC5 *OutputBin MB3Dn
+*UIConstraints: *PageSize ISOB5 *OutputBin MB3Dn
+*UIConstraints: *PageSize P8K *OutputBin MB3Dn
+*UIConstraints: *PageSize P16K *OutputBin MB3Dn
+*UIConstraints: *CustomPageSize *OutputBin MB3Dn
+*UIConstraints: *PageSize Env9 *OutputBin MB3Dn
+*UIConstraints: *PageSize Env10 *OutputBin MB3Dn
+*UIConstraints: *PageSize EnvDL *OutputBin MB3Dn
+*UIConstraints: *PageSize EnvMonarch *OutputBin MB3Dn
+*UIConstraints: *PageSize OficioII *OutputBin MB3Dn
+*UIConstraints: *PageSize Executive *OutputBin MB3Up
+*UIConstraints: *PageSize EnvC4 *OutputBin MB3Up
+*UIConstraints: *PageSize EnvPersonal *OutputBin MB3Up
+*UIConstraints: *PageSize EnvC5 *OutputBin MB3Up
+*UIConstraints: *PageSize ISOB5 *OutputBin MB3Up
+*UIConstraints: *PageSize P8K *OutputBin MB3Up
+*UIConstraints: *PageSize P16K *OutputBin MB3Up
+*UIConstraints: *CustomPageSize *OutputBin MB3Up
+*UIConstraints: *PageSize Env9 *OutputBin MB3Up
+*UIConstraints: *PageSize Env10 *OutputBin MB3Up
+*UIConstraints: *PageSize EnvDL *OutputBin MB3Up
+*UIConstraints: *PageSize EnvMonarch *OutputBin MB3Up
+*UIConstraints: *PageSize OficioII *OutputBin MB3Up
+*UIConstraints: *PageSize Executive *OutputBin MB4Dn
+*UIConstraints: *PageSize EnvC4 *OutputBin MB4Dn
+*UIConstraints: *PageSize EnvPersonal *OutputBin MB4Dn
+*UIConstraints: *PageSize EnvC5 *OutputBin MB4Dn
+*UIConstraints: *PageSize ISOB5 *OutputBin MB4Dn
+*UIConstraints: *PageSize P8K *OutputBin MB4Dn
+*UIConstraints: *PageSize P16K *OutputBin MB4Dn
+*UIConstraints: *CustomPageSize *OutputBin MB4Dn
+*UIConstraints: *PageSize Env9 *OutputBin MB4Dn
+*UIConstraints: *PageSize Env10 *OutputBin MB4Dn
+*UIConstraints: *PageSize EnvDL *OutputBin MB4Dn
+*UIConstraints: *PageSize EnvMonarch *OutputBin MB4Dn
+*UIConstraints: *PageSize OficioII *OutputBin MB4Dn
+*UIConstraints: *PageSize Executive *OutputBin MB4Up
+*UIConstraints: *PageSize EnvC4 *OutputBin MB4Up
+*UIConstraints: *PageSize EnvPersonal *OutputBin MB4Up
+*UIConstraints: *PageSize EnvC5 *OutputBin MB4Up
+*UIConstraints: *PageSize ISOB5 *OutputBin MB4Up
+*UIConstraints: *PageSize P8K *OutputBin MB4Up
+*UIConstraints: *PageSize P16K *OutputBin MB4Up
+*UIConstraints: *CustomPageSize *OutputBin MB4Up
+*UIConstraints: *PageSize Env9 *OutputBin MB4Up
+*UIConstraints: *PageSize Env10 *OutputBin MB4Up
+*UIConstraints: *PageSize EnvDL *OutputBin MB4Up
+*UIConstraints: *PageSize EnvMonarch *OutputBin MB4Up
+*UIConstraints: *PageSize OficioII *OutputBin MB4Up
+*UIConstraints: *PageSize Executive *OutputBin MB5Dn
+*UIConstraints: *PageSize EnvC4 *OutputBin MB5Dn
+*UIConstraints: *PageSize EnvPersonal *OutputBin MB5Dn
+*UIConstraints: *PageSize EnvC5 *OutputBin MB5Dn
+*UIConstraints: *PageSize ISOB5 *OutputBin MB5Dn
+*UIConstraints: *PageSize P8K *OutputBin MB5Dn
+*UIConstraints: *PageSize P16K *OutputBin MB5Dn
+*UIConstraints: *CustomPageSize *OutputBin MB5Dn
+*UIConstraints: *PageSize Env9 *OutputBin MB5Dn
+*UIConstraints: *PageSize Env10 *OutputBin MB5Dn
+*UIConstraints: *PageSize EnvDL *OutputBin MB5Dn
+*UIConstraints: *PageSize EnvMonarch *OutputBin MB5Dn
+*UIConstraints: *PageSize OficioII *OutputBin MB5Dn
+*UIConstraints: *PageSize Executive *OutputBin MB5Up
+*UIConstraints: *PageSize EnvC4 *OutputBin MB5Up
+*UIConstraints: *PageSize EnvPersonal *OutputBin MB5Up
+*UIConstraints: *PageSize EnvC5 *OutputBin MB5Up
+*UIConstraints: *PageSize ISOB5 *OutputBin MB5Up
+*UIConstraints: *PageSize P8K *OutputBin MB5Up
+*UIConstraints: *PageSize P16K *OutputBin MB5Up
+*UIConstraints: *CustomPageSize *OutputBin MB5Up
+*UIConstraints: *PageSize Env9 *OutputBin MB5Up
+*UIConstraints: *PageSize Env10 *OutputBin MB5Up
+*UIConstraints: *PageSize EnvDL *OutputBin MB5Up
+*UIConstraints: *PageSize EnvMonarch *OutputBin MB5Up
+*UIConstraints: *PageSize OficioII *OutputBin MB5Up
+*UIConstraints: *PageSize Executive *OutputBin MB6Dn
+*UIConstraints: *PageSize EnvC4 *OutputBin MB6Dn
+*UIConstraints: *PageSize EnvPersonal *OutputBin MB6Dn
+*UIConstraints: *PageSize EnvC5 *OutputBin MB6Dn
+*UIConstraints: *PageSize ISOB5 *OutputBin MB6Dn
+*UIConstraints: *PageSize P8K *OutputBin MB6Dn
+*UIConstraints: *PageSize P16K *OutputBin MB6Dn
+*UIConstraints: *CustomPageSize *OutputBin MB6Dn
+*UIConstraints: *PageSize Env9 *OutputBin MB6Dn
+*UIConstraints: *PageSize Env10 *OutputBin MB6Dn
+*UIConstraints: *PageSize EnvDL *OutputBin MB6Dn
+*UIConstraints: *PageSize EnvMonarch *OutputBin MB6Dn
+*UIConstraints: *PageSize OficioII *OutputBin MB6Dn
+*UIConstraints: *PageSize Executive *OutputBin MB6Up
+*UIConstraints: *PageSize EnvC4 *OutputBin MB6Up
+*UIConstraints: *PageSize EnvPersonal *OutputBin MB6Up
+*UIConstraints: *PageSize EnvC5 *OutputBin MB6Up
+*UIConstraints: *PageSize ISOB5 *OutputBin MB6Up
+*UIConstraints: *PageSize P8K *OutputBin MB6Up
+*UIConstraints: *PageSize P16K *OutputBin MB6Up
+*UIConstraints: *CustomPageSize *OutputBin MB6Up
+*UIConstraints: *PageSize Env9 *OutputBin MB6Up
+*UIConstraints: *PageSize Env10 *OutputBin MB6Up
+*UIConstraints: *PageSize EnvDL *OutputBin MB6Up
+*UIConstraints: *PageSize EnvMonarch *OutputBin MB6Up
+*UIConstraints: *PageSize OficioII *OutputBin MB6Up
+*UIConstraints: *PageSize Executive *OutputBin MB7Dn
+*UIConstraints: *PageSize EnvC4 *OutputBin MB7Dn
+*UIConstraints: *PageSize EnvPersonal *OutputBin MB7Dn
+*UIConstraints: *PageSize EnvC5 *OutputBin MB7Dn
+*UIConstraints: *PageSize ISOB5 *OutputBin MB7Dn
+*UIConstraints: *PageSize P8K *OutputBin MB7Dn
+*UIConstraints: *PageSize P16K *OutputBin MB7Dn
+*UIConstraints: *CustomPageSize *OutputBin MB7Dn
+*UIConstraints: *PageSize Env9 *OutputBin MB7Dn
+*UIConstraints: *PageSize Env10 *OutputBin MB7Dn
+*UIConstraints: *PageSize EnvDL *OutputBin MB7Dn
+*UIConstraints: *PageSize EnvMonarch *OutputBin MB7Dn
+*UIConstraints: *PageSize OficioII *OutputBin MB7Dn
+*UIConstraints: *PageSize Executive *OutputBin MB7Up
+*UIConstraints: *PageSize EnvC4 *OutputBin MB7Up
+*UIConstraints: *PageSize EnvPersonal *OutputBin MB7Up
+*UIConstraints: *PageSize EnvC5 *OutputBin MB7Up
+*UIConstraints: *PageSize ISOB5 *OutputBin MB7Up
+*UIConstraints: *PageSize P8K *OutputBin MB7Up
+*UIConstraints: *PageSize P16K *OutputBin MB7Up
+*UIConstraints: *CustomPageSize *OutputBin MB7Up
+*UIConstraints: *PageSize Env9 *OutputBin MB7Up
+*UIConstraints: *PageSize Env10 *OutputBin MB7Up
+*UIConstraints: *PageSize EnvDL *OutputBin MB7Up
+*UIConstraints: *PageSize EnvMonarch *OutputBin MB7Up
+*UIConstraints: *PageSize OficioII *OutputBin MB7Up
+*UIConstraints: *OutputBin MB1Dn *PageSize Executive
+*UIConstraints: *OutputBin MB1Dn *PageSize ISOB5
+*UIConstraints: *OutputBin MB1Dn *PageSize P8K
+*UIConstraints: *OutputBin MB1Dn *PageSize P16K
+*UIConstraints: *OutputBin MB1Dn *CustomPageSize
+*UIConstraints: *OutputBin MB1Dn *PageSize Env9
+*UIConstraints: *OutputBin MB1Dn *PageSize EnvC4
+*UIConstraints: *OutputBin MB1Dn *PageSize EnvC5
+*UIConstraints: *OutputBin MB1Dn *PageSize EnvPersonal
+*UIConstraints: *OutputBin MB1Dn *PageSize Env10
+*UIConstraints: *OutputBin MB1Dn *PageSize EnvDL
+*UIConstraints: *OutputBin MB1Dn *PageSize EnvMonarch
+*UIConstraints: *OutputBin MB1Dn *PageSize OficioII
+*UIConstraints: *OutputBin MB1Up *PageSize Executive
+*UIConstraints: *OutputBin MB1Up *PageSize ISOB5
+*UIConstraints: *OutputBin MB1Up *PageSize P8K
+*UIConstraints: *OutputBin MB1Up *PageSize P16K
+*UIConstraints: *OutputBin MB1Up *CustomPageSize
+*UIConstraints: *OutputBin MB1Up *PageSize Env9
+*UIConstraints: *OutputBin MB1Up *PageSize EnvC4
+*UIConstraints: *OutputBin MB1Up *PageSize EnvC5
+*UIConstraints: *OutputBin MB1Up *PageSize EnvPersonal
+*UIConstraints: *OutputBin MB1Up *PageSize Env10
+*UIConstraints: *OutputBin MB1Up *PageSize EnvDL
+*UIConstraints: *OutputBin MB1Up *PageSize EnvMonarch
+*UIConstraints: *OutputBin MB1Up *PageSize OficioII
+*UIConstraints: *OutputBin MB2Dn *PageSize Executive
+*UIConstraints: *OutputBin MB2Dn *PageSize ISOB5
+*UIConstraints: *OutputBin MB2Dn *PageSize P8K
+*UIConstraints: *OutputBin MB2Dn *PageSize P16K
+*UIConstraints: *OutputBin MB2Dn *CustomPageSize
+*UIConstraints: *OutputBin MB2Dn *PageSize Env9
+*UIConstraints: *OutputBin MB2Dn *PageSize EnvC4
+*UIConstraints: *OutputBin MB2Dn *PageSize EnvC5
+*UIConstraints: *OutputBin MB2Dn *PageSize EnvPersonal
+*UIConstraints: *OutputBin MB2Dn *PageSize Env10
+*UIConstraints: *OutputBin MB2Dn *PageSize EnvDL
+*UIConstraints: *OutputBin MB2Dn *PageSize EnvMonarch
+*UIConstraints: *OutputBin MB2Dn *PageSize OficioII
+*UIConstraints: *OutputBin MB2Up *PageSize Executive
+*UIConstraints: *OutputBin MB2Up *PageSize ISOB5
+*UIConstraints: *OutputBin MB2Up *PageSize P8K
+*UIConstraints: *OutputBin MB2Up *PageSize P16K
+*UIConstraints: *OutputBin MB2Up *CustomPageSize
+*UIConstraints: *OutputBin MB2Up *PageSize Env9
+*UIConstraints: *OutputBin MB2Up *PageSize EnvC4
+*UIConstraints: *OutputBin MB2Up *PageSize EnvC5
+*UIConstraints: *OutputBin MB2Up *PageSize EnvPersonal
+*UIConstraints: *OutputBin MB2Up *PageSize Env10
+*UIConstraints: *OutputBin MB2Up *PageSize EnvDL
+*UIConstraints: *OutputBin MB2Up *PageSize EnvMonarch
+*UIConstraints: *OutputBin MB2Up *PageSize OficioII
+*UIConstraints: *OutputBin MB3Dn *PageSize Executive
+*UIConstraints: *OutputBin MB3Dn *PageSize ISOB5
+*UIConstraints: *OutputBin MB3Dn *PageSize P8K
+*UIConstraints: *OutputBin MB3Dn *PageSize P16K
+*UIConstraints: *OutputBin MB3Dn *CustomPageSize
+*UIConstraints: *OutputBin MB3Dn *PageSize Env9
+*UIConstraints: *OutputBin MB3Dn *PageSize EnvC4
+*UIConstraints: *OutputBin MB3Dn *PageSize EnvC5
+*UIConstraints: *OutputBin MB3Dn *PageSize EnvPersonal
+*UIConstraints: *OutputBin MB3Dn *PageSize Env10
+*UIConstraints: *OutputBin MB3Dn *PageSize EnvDL
+*UIConstraints: *OutputBin MB3Dn *PageSize EnvMonarch
+*UIConstraints: *OutputBin MB3Dn *PageSize OficioII
+*UIConstraints: *OutputBin MB3Up *PageSize Executive
+*UIConstraints: *OutputBin MB3Up *PageSize ISOB5
+*UIConstraints: *OutputBin MB3Up *PageSize P8K
+*UIConstraints: *OutputBin MB3Up *PageSize P16K
+*UIConstraints: *OutputBin MB3Up *CustomPageSize
+*UIConstraints: *OutputBin MB3Up *PageSize P8K
+*UIConstraints: *OutputBin MB3Up *PageSize P16K
+*UIConstraints: *OutputBin MB3Up *CustomPageSize
+*UIConstraints: *OutputBin MB3Up *PageSize Env9
+*UIConstraints: *OutputBin MB3Up *PageSize EnvC4
+*UIConstraints: *OutputBin MB3Up *PageSize EnvC5
+*UIConstraints: *OutputBin MB3Up *PageSize EnvPersonal
+*UIConstraints: *OutputBin MB3Up *PageSize Env10
+*UIConstraints: *OutputBin MB3Up *PageSize EnvDL
+*UIConstraints: *OutputBin MB3Up *PageSize EnvMonarch
+*UIConstraints: *OutputBin MB3Up *PageSize OficioII
+*UIConstraints: *OutputBin MB4Dn *PageSize Executive
+*UIConstraints: *OutputBin MB4Dn *PageSize ISOB5
+*UIConstraints: *OutputBin MB4Dn *PageSize P8K
+*UIConstraints: *OutputBin MB4Dn *PageSize P16K
+*UIConstraints: *OutputBin MB4Dn *CustomPageSize
+*UIConstraints: *OutputBin MB4Dn *PageSize Env9
+*UIConstraints: *OutputBin MB4Dn *PageSize EnvC4
+*UIConstraints: *OutputBin MB4Dn *PageSize EnvC5
+*UIConstraints: *OutputBin MB4Dn *PageSize EnvPersonal
+*UIConstraints: *OutputBin MB4Dn *PageSize Env10
+*UIConstraints: *OutputBin MB4Dn *PageSize EnvDL
+*UIConstraints: *OutputBin MB4Dn *PageSize EnvMonarch
+*UIConstraints: *OutputBin MB4Dn *PageSize OficioII
+*UIConstraints: *OutputBin MB4Up *PageSize Executive
+*UIConstraints: *OutputBin MB4Up *PageSize ISOB5
+*UIConstraints: *OutputBin MB4Up *PageSize P8K
+*UIConstraints: *OutputBin MB4Up *PageSize P16K
+*UIConstraints: *OutputBin MB4Up *CustomPageSize
+*UIConstraints: *OutputBin MB4Up *PageSize Env9
+*UIConstraints: *OutputBin MB4Up *PageSize EnvC4
+*UIConstraints: *OutputBin MB4Up *PageSize EnvC5
+*UIConstraints: *OutputBin MB4Up *PageSize EnvPersonal
+*UIConstraints: *OutputBin MB4Up *PageSize Env10
+*UIConstraints: *OutputBin MB4Up *PageSize EnvDL
+*UIConstraints: *OutputBin MB4Up *PageSize EnvMonarch
+*UIConstraints: *OutputBin MB4Up *PageSize OficioII
+*UIConstraints: *OutputBin MB5Dn *PageSize Executive
+*UIConstraints: *OutputBin MB5Dn *PageSize ISOB5
+*UIConstraints: *OutputBin MB5Dn *PageSize P8K
+*UIConstraints: *OutputBin MB5Dn *PageSize P16K
+*UIConstraints: *OutputBin MB5Dn *CustomPageSize
+*UIConstraints: *OutputBin MB5Dn *PageSize Env9
+*UIConstraints: *OutputBin MB5Dn *PageSize EnvC4
+*UIConstraints: *OutputBin MB5Dn *PageSize EnvC5
+*UIConstraints: *OutputBin MB5Dn *PageSize EnvPersonal
+*UIConstraints: *OutputBin MB5Dn *PageSize Env10
+*UIConstraints: *OutputBin MB5Dn *PageSize EnvDL
+*UIConstraints: *OutputBin MB5Dn *PageSize EnvMonarch
+*UIConstraints: *OutputBin MB5Dn *PageSize OficioII
+*UIConstraints: *OutputBin MB5Up *PageSize Executive
+*UIConstraints: *OutputBin MB5Up *PageSize ISOB5
+*UIConstraints: *OutputBin MB5Up *PageSize P8K
+*UIConstraints: *OutputBin MB5Up *PageSize P16K
+*UIConstraints: *OutputBin MB5Up *CustomPageSize
+*UIConstraints: *OutputBin MB5Up *PageSize Env9
+*UIConstraints: *OutputBin MB5Up *PageSize EnvC4
+*UIConstraints: *OutputBin MB5Up *PageSize EnvC5
+*UIConstraints: *OutputBin MB5Up *PageSize EnvPersonal
+*UIConstraints: *OutputBin MB5Up *PageSize Env10
+*UIConstraints: *OutputBin MB5Up *PageSize EnvDL
+*UIConstraints: *OutputBin MB5Up *PageSize EnvMonarch
+*UIConstraints: *OutputBin MB5Up *PageSize OficioII
+*UIConstraints: *OutputBin MB6Dn *PageSize Executive
+*UIConstraints: *OutputBin MB6Dn *PageSize ISOB5
+*UIConstraints: *OutputBin MB6Dn *PageSize P8K
+*UIConstraints: *OutputBin MB6Dn *PageSize P16K
+*UIConstraints: *OutputBin MB6Dn *CustomPageSize
+*UIConstraints: *OutputBin MB6Dn *PageSize Env9
+*UIConstraints: *OutputBin MB6Dn *PageSize EnvC4
+*UIConstraints: *OutputBin MB6Dn *PageSize EnvC5
+*UIConstraints: *OutputBin MB6Dn *PageSize EnvPersonal
+*UIConstraints: *OutputBin MB6Dn *PageSize Env10
+*UIConstraints: *OutputBin MB6Dn *PageSize EnvDL
+*UIConstraints: *OutputBin MB6Dn *PageSize EnvMonarch
+*UIConstraints: *OutputBin MB6Dn *PageSize OficioII
+*UIConstraints: *OutputBin MB6Up *PageSize Executive
+*UIConstraints: *OutputBin MB6Up *PageSize ISOB5
+*UIConstraints: *OutputBin MB6Up *PageSize P8K
+*UIConstraints: *OutputBin MB6Up *PageSize P16K
+*UIConstraints: *OutputBin MB6Up *CustomPageSize
+*UIConstraints: *OutputBin MB6Up *PageSize Env9
+*UIConstraints: *OutputBin MB6Up *PageSize EnvC4
+*UIConstraints: *OutputBin MB6Up *PageSize EnvC5
+*UIConstraints: *OutputBin MB6Up *PageSize EnvPersonal
+*UIConstraints: *OutputBin MB6Up *PageSize Env10
+*UIConstraints: *OutputBin MB6Up *PageSize EnvDL
+*UIConstraints: *OutputBin MB6Up *PageSize EnvMonarch
+*UIConstraints: *OutputBin MB6Up *PageSize OficioII
+*UIConstraints: *OutputBin MB7Dn *PageSize Executive
+*UIConstraints: *OutputBin MB7Dn *PageSize ISOB5
+*UIConstraints: *OutputBin MB7Dn *PageSize P8K
+*UIConstraints: *OutputBin MB7Dn *PageSize P16K
+*UIConstraints: *OutputBin MB7Dn *CustomPageSize
+*UIConstraints: *OutputBin MB7Dn *PageSize Env9
+*UIConstraints: *OutputBin MB7Dn *PageSize EnvC4
+*UIConstraints: *OutputBin MB7Dn *PageSize EnvC5
+*UIConstraints: *OutputBin MB7Dn *PageSize EnvPersonal
+*UIConstraints: *OutputBin MB7Dn *PageSize Env10
+*UIConstraints: *OutputBin MB7Dn *PageSize EnvDL
+*UIConstraints: *OutputBin MB7Dn *PageSize EnvMonarch
+*UIConstraints: *OutputBin MB7Dn *PageSize OficioII
+*UIConstraints: *OutputBin MB7Up *PageSize Executive
+*UIConstraints: *OutputBin MB7Up *PageSize ISOB5
+*UIConstraints: *OutputBin MB7Up *PageSize P8K
+*UIConstraints: *OutputBin MB7Up *PageSize P16K
+*UIConstraints: *OutputBin MB7Up *CustomPageSize
+*UIConstraints: *OutputBin MB7Up *PageSize Env9
+*UIConstraints: *OutputBin MB7Up *PageSize EnvC4
+*UIConstraints: *OutputBin MB7Up *PageSize EnvC5
+*UIConstraints: *OutputBin MB7Up *PageSize EnvPersonal
+*UIConstraints: *OutputBin MB7Up *PageSize Env10
+*UIConstraints: *OutputBin MB7Up *PageSize EnvDL
+*UIConstraints: *OutputBin MB7Up *PageSize EnvMonarch
+*UIConstraints: *OutputBin MB7Up *PageSize OficioII
+
+*%Punch - PageSize==
+*UIConstraints: *KCPunch 2holesEUR *PageSize A6
+*UIConstraints: *KCPunch 2holesEUR *PageSize B6
+*UIConstraints: *KCPunch 2holesEUR *PageSize Executive
+*UIConstraints: *KCPunch 2holesEUR *PageSize Tabloid
+*UIConstraints: *KCPunch 2holesEUR *PageSize ISOB5
+*UIConstraints: *KCPunch 2holesEUR *PageSize P8K
+*UIConstraints: *KCPunch 2holesEUR *PageSize P16K
+*UIConstraints: *KCPunch 2holesEUR *CustomPageSize
+*UIConstraints: *KCPunch 2holesEUR *PageSize Env9
+*UIConstraints: *KCPunch 2holesEUR *PageSize EnvC4
+*UIConstraints: *KCPunch 2holesEUR *PageSize EnvC5
+*UIConstraints: *KCPunch 2holesEUR *PageSize EnvPersonal
+*UIConstraints: *KCPunch 2holesEUR *PageSize Env10
+*UIConstraints: *KCPunch 2holesEUR *PageSize EnvDL
+*UIConstraints: *KCPunch 2holesEUR *PageSize EnvMonarch
+*UIConstraints: *KCPunch 2holesEUR *PageSize OficioII
+*UIConstraints: *KCPunch 2holesUS *PageSize A6
+*UIConstraints: *KCPunch 2holesUS *PageSize B6
+*UIConstraints: *KCPunch 2holesUS *PageSize Executive
+*UIConstraints: *KCPunch 2holesUS *PageSize Tabloid
+*UIConstraints: *KCPunch 2holesUS *PageSize ISOB5
+*UIConstraints: *KCPunch 2holesUS *PageSize P8K
+*UIConstraints: *KCPunch 2holesUS *PageSize P16K
+*UIConstraints: *KCPunch 2holesUS *CustomPageSize
+*UIConstraints: *KCPunch 2holesUS *PageSize Env9
+*UIConstraints: *KCPunch 2holesUS *PageSize EnvC4
+*UIConstraints: *KCPunch 2holesUS *PageSize EnvC5
+*UIConstraints: *KCPunch 2holesUS *PageSize EnvPersonal
+*UIConstraints: *KCPunch 2holesUS *PageSize Env10
+*UIConstraints: *KCPunch 2holesUS *PageSize EnvDL
+*UIConstraints: *KCPunch 2holesUS *PageSize EnvMonarch
+*UIConstraints: *KCPunch 2holesUS *PageSize OficioII
+*UIConstraints: *KCPunch 3holes *PageSize A3
+*UIConstraints: *KCPunch 3holes *PageSize A4
+*UIConstraints: *KCPunch 3holes *PageSize A5
+*UIConstraints: *KCPunch 3holes *PageSize A6
+*UIConstraints: *KCPunch 3holes *PageSize B4
+*UIConstraints: *KCPunch 3holes *PageSize B6
+*UIConstraints: *KCPunch 3holes *PageSize B5
+*UIConstraints: *KCPunch 3holes *PageSize Folio
+*UIConstraints: *KCPunch 3holes *PageSize Executive
+*UIConstraints: *KCPunch 3holes *PageSize Statement
+*UIConstraints: *KCPunch 3holes *PageSize Legal
+*UIConstraints: *KCPunch 3holes *PageSize ISOB5
+*UIConstraints: *KCPunch 3holes *PageSize P8K
+*UIConstraints: *KCPunch 3holes *PageSize P16K
+*UIConstraints: *KCPunch 3holes *CustomPageSize
+*UIConstraints: *KCPunch 3holes *PageSize Env9
+*UIConstraints: *KCPunch 3holes *PageSize EnvC4
+*UIConstraints: *KCPunch 3holes *PageSize EnvC5
+*UIConstraints: *KCPunch 3holes *PageSize EnvPersonal
+*UIConstraints: *KCPunch 3holes *PageSize Env10
+*UIConstraints: *KCPunch 3holes *PageSize EnvDL
+*UIConstraints: *KCPunch 3holes *PageSize EnvMonarch
+*UIConstraints: *KCPunch 3holes *PageSize OficioII
+*UIConstraints: *KCPunch 4holes *PageSize A5
+*UIConstraints: *KCPunch 4holes *PageSize A6
+*UIConstraints: *KCPunch 4holes *PageSize B4
+*UIConstraints: *KCPunch 4holes *PageSize B6
+*UIConstraints: *KCPunch 4holes *PageSize B5
+*UIConstraints: *KCPunch 4holes *PageSize Folio
+*UIConstraints: *KCPunch 4holes *PageSize Tabloid
+*UIConstraints: *KCPunch 4holes *PageSize Letter
+*UIConstraints: *KCPunch 4holes *PageSize Legal
+*UIConstraints: *KCPunch 4holes *PageSize Executive
+*UIConstraints: *KCPunch 4holes *PageSize Statement
+*UIConstraints: *KCPunch 4holes *PageSize ISOB5
+*UIConstraints: *KCPunch 4holes *PageSize P8K
+*UIConstraints: *KCPunch 4holes *PageSize P16K
+*UIConstraints: *KCPunch 4holes *CustomPageSize
+*UIConstraints: *KCPunch 4holes *PageSize Env9
+*UIConstraints: *KCPunch 4holes *PageSize EnvC4
+*UIConstraints: *KCPunch 4holes *PageSize EnvC5
+*UIConstraints: *KCPunch 4holes *PageSize EnvPersonal
+*UIConstraints: *KCPunch 4holes *PageSize Env10
+*UIConstraints: *KCPunch 4holes *PageSize EnvDL
+*UIConstraints: *KCPunch 4holes *PageSize EnvMonarch
+*UIConstraints: *KCPunch 4holes *PageSize OficioII
+*UIConstraints: *KCPunch autoholes *PageSize A5
+*UIConstraints: *KCPunch autoholes *PageSize A6
+*UIConstraints: *KCPunch autoholes *PageSize B6
+*UIConstraints: *KCPunch autoholes *PageSize Statement
+*UIConstraints: *KCPunch autoholes *PageSize Executive
+*UIConstraints: *KCPunch autoholes *PageSize ISOB5
+*UIConstraints: *KCPunch autoholes *PageSize P8K
+*UIConstraints: *KCPunch autoholes *PageSize P16K
+*UIConstraints: *KCPunch autoholes *CustomPageSize
+*UIConstraints: *KCPunch autoholes *PageSize Env9
+*UIConstraints: *KCPunch autoholes *PageSize EnvC4
+*UIConstraints: *KCPunch autoholes *PageSize EnvC5
+*UIConstraints: *KCPunch autoholes *PageSize EnvPersonal
+*UIConstraints: *KCPunch autoholes *PageSize Env10
+*UIConstraints: *KCPunch autoholes *PageSize EnvDL
+*UIConstraints: *KCPunch autoholes *PageSize EnvMonarch
+*UIConstraints: *KCPunch autoholes *PageSize OficioII
+*UIConstraints: *PageSize A6 *KCPunch 2holesEUR
+*UIConstraints: *PageSize B6 *KCPunch 2holesEUR
+*UIConstraints: *PageSize Executive *KCPunch 2holesEUR
+*UIConstraints: *PageSize Tabloid *KCPunch 2holesEUR
+*UIConstraints: *PageSize ISOB5 *KCPunch 2holesEUR
+*UIConstraints: *PageSize P8K *KCPunch 2holesEUR
+*UIConstraints: *PageSize P16K *KCPunch 2holesEUR
+*UIConstraints: *CustomPageSize *KCPunch 2holesEUR
+*UIConstraints: *PageSize Env9 *KCPunch 2holesEUR
+*UIConstraints: *PageSize EnvC4 *KCPunch 2holesEUR
+*UIConstraints: *PageSize EnvC5 *KCPunch 2holesEUR
+*UIConstraints: *PageSize EnvPersonal *KCPunch 2holesEUR
+*UIConstraints: *PageSize Env10 *KCPunch 2holesEUR
+*UIConstraints: *PageSize EnvDL *KCPunch 2holesEUR
+*UIConstraints: *PageSize EnvMonarch *KCPunch 2holesEUR
+*UIConstraints: *PageSize OficioII *KCPunch 2holesEUR
+*UIConstraints: *PageSize A6 *KCPunch 2holesUS
+*UIConstraints: *PageSize B6 *KCPunch 2holesUS
+*UIConstraints: *PageSize Executive *KCPunch 2holesUS
+*UIConstraints: *PageSize Tabloid *KCPunch 2holesUS
+*UIConstraints: *PageSize ISOB5 *KCPunch 2holesUS
+*UIConstraints: *PageSize P8K *KCPunch 2holesUS
+*UIConstraints: *PageSize P16K *KCPunch 2holesUS
+*UIConstraints: *CustomPageSize *KCPunch 2holesUS
+*UIConstraints: *PageSize Env9 *KCPunch 2holesUS
+*UIConstraints: *PageSize EnvC4 *KCPunch 2holesUS
+*UIConstraints: *PageSize EnvC5 *KCPunch 2holesUS
+*UIConstraints: *PageSize EnvPersonal *KCPunch 2holesUS
+*UIConstraints: *PageSize Env10 *KCPunch 2holesUS
+*UIConstraints: *PageSize EnvDL *KCPunch 2holesUS
+*UIConstraints: *PageSize EnvMonarch *KCPunch 2holesUS
+*UIConstraints: *PageSize OficioII *KCPunch 2holesUS
+*UIConstraints: *PageSize A3 *KCPunch 3holes
+*UIConstraints: *PageSize A4 *KCPunch 3holes
+*UIConstraints: *PageSize A5 *KCPunch 3holes
+*UIConstraints: *PageSize A6 *KCPunch 3holes
+*UIConstraints: *PageSize B4 *KCPunch 3holes
+*UIConstraints: *PageSize B6 *KCPunch 3holes
+*UIConstraints: *PageSize B5 *KCPunch 3holes
+*UIConstraints: *PageSize Folio *KCPunch 3holes
+*UIConstraints: *PageSize Executive *KCPunch 3holes
+*UIConstraints: *PageSize Statement *KCPunch 3holes
+*UIConstraints: *PageSize Legal *KCPunch 3holes
+*UIConstraints: *PageSize ISOB5 *KCPunch 3holes
+*UIConstraints: *PageSize P8K *KCPunch 3holes
+*UIConstraints: *PageSize P16K *KCPunch 3holes
+*UIConstraints: *CustomPageSize *KCPunch 3holes
+*UIConstraints: *PageSize Env9 *KCPunch 3holes
+*UIConstraints: *PageSize EnvC4 *KCPunch 3holes
+*UIConstraints: *PageSize EnvC5 *KCPunch 3holes
+*UIConstraints: *PageSize EnvPersonal *KCPunch 3holes
+*UIConstraints: *PageSize Env10 *KCPunch 3holes
+*UIConstraints: *PageSize EnvDL *KCPunch 3holes
+*UIConstraints: *PageSize EnvMonarch *KCPunch 3holes
+*UIConstraints: *PageSize OficioII *KCPunch 3holes
+*UIConstraints: *PageSize A5 *KCPunch 4holes
+*UIConstraints: *PageSize A6 *KCPunch 4holes
+*UIConstraints: *PageSize B4 *KCPunch 4holes
+*UIConstraints: *PageSize B6 *KCPunch 4holes
+*UIConstraints: *PageSize B5 *KCPunch 4holes
+*UIConstraints: *PageSize Folio *KCPunch 4holes
+*UIConstraints: *PageSize Tabloid *KCPunch 4holes
+*UIConstraints: *PageSize Letter *KCPunch 4holes
+*UIConstraints: *PageSize Legal *KCPunch 4holes
+*UIConstraints: *PageSize Executive *KCPunch 4holes
+*UIConstraints: *PageSize Statement *KCPunch 4holes
+*UIConstraints: *PageSize ISOB5 *KCPunch 4holes
+*UIConstraints: *PageSize P8K *KCPunch 4holes
+*UIConstraints: *PageSize P16K *KCPunch 4holes
+*UIConstraints: *CustomPageSize *KCPunch 4holes
+*UIConstraints: *PageSize Env9 *KCPunch 4holes
+*UIConstraints: *PageSize EnvC4 *KCPunch 4holes
+*UIConstraints: *PageSize EnvC5 *KCPunch 4holes
+*UIConstraints: *PageSize EnvPersonal *KCPunch 4holes
+*UIConstraints: *PageSize Env10 *KCPunch 4holes
+*UIConstraints: *PageSize EnvDL *KCPunch 4holes
+*UIConstraints: *PageSize EnvMonarch *KCPunch 4holes
+*UIConstraints: *PageSize OficioII *KCPunch 4holes
+*UIConstraints: *PageSize A5 *KCPunch autoholes
+*UIConstraints: *PageSize A6 *KCPunch autoholes
+*UIConstraints: *PageSize B6 *KCPunch autoholes
+*UIConstraints: *PageSize Statement *KCPunch autoholes
+*UIConstraints: *PageSize Executive *KCPunch autoholes
+*UIConstraints: *PageSize ISOB5 *KCPunch autoholes
+*UIConstraints: *PageSize P8K *KCPunch autoholes
+*UIConstraints: *PageSize P16K *KCPunch autoholes
+*UIConstraints: *CustomPageSize *KCPunch autoholes
+*UIConstraints: *PageSize Env9 *KCPunch autoholes
+*UIConstraints: *PageSize EnvC4 *KCPunch autoholes
+*UIConstraints: *PageSize EnvC5 *KCPunch autoholes
+*UIConstraints: *PageSize EnvPersonal *KCPunch autoholes
+*UIConstraints: *PageSize Env10 *KCPunch autoholes
+*UIConstraints: *PageSize EnvDL *KCPunch autoholes
+*UIConstraints: *PageSize EnvMonarch *KCPunch autoholes
+*UIConstraints: *PageSize OficioII *KCPunch autoholes
+
+*%Staple - PageSize==
+*UIConstraints: *KMStapleMode Front1 *PageSize A5
+*UIConstraints: *KMStapleMode Front1 *PageSize A6
+*UIConstraints: *KMStapleMode Front1 *PageSize B6
+*UIConstraints: *KMStapleMode Front1 *PageSize Statement
+*UIConstraints: *KMStapleMode Front1 *PageSize Executive
+*UIConstraints: *KMStapleMode Front1 *PageSize ISOB5
+*UIConstraints: *KMStapleMode Front1 *PageSize P8K
+*UIConstraints: *KMStapleMode Front1 *PageSize P16K
+*UIConstraints: *KMStapleMode Front1 *CustomPageSize
+*UIConstraints: *KMStapleMode Front1 *PageSize Env9
+*UIConstraints: *KMStapleMode Front1 *PageSize EnvC4
+*UIConstraints: *KMStapleMode Front1 *PageSize EnvC5
+*UIConstraints: *KMStapleMode Front1 *PageSize EnvPersonal
+*UIConstraints: *KMStapleMode Front1 *PageSize Env10
+*UIConstraints: *KMStapleMode Front1 *PageSize EnvDL
+*UIConstraints: *KMStapleMode Front1 *PageSize EnvMonarch
+*UIConstraints: *KMStapleMode Front1 *PageSize OficioII
+*UIConstraints: *KMStapleMode Front2 *PageSize A5
+*UIConstraints: *KMStapleMode Front2 *PageSize A6
+*UIConstraints: *KMStapleMode Front2 *PageSize B6
+*UIConstraints: *KMStapleMode Front2 *PageSize Statement
+*UIConstraints: *KMStapleMode Front2 *PageSize Executive
+*UIConstraints: *KMStapleMode Front2 *PageSize ISOB5
+*UIConstraints: *KMStapleMode Front2 *PageSize P8K
+*UIConstraints: *KMStapleMode Front2 *PageSize P16K
+*UIConstraints: *KMStapleMode Front2 *CustomPageSize
+*UIConstraints: *KMStapleMode Front2 *PageSize Env9
+*UIConstraints: *KMStapleMode Front2 *PageSize EnvC4
+*UIConstraints: *KMStapleMode Front2 *PageSize EnvC5
+*UIConstraints: *KMStapleMode Front2 *PageSize EnvPersonal
+*UIConstraints: *KMStapleMode Front2 *PageSize Env10
+*UIConstraints: *KMStapleMode Front2 *PageSize EnvDL
+*UIConstraints: *KMStapleMode Front2 *PageSize EnvMonarch
+*UIConstraints: *KMStapleMode Front2 *PageSize Folio
+*UIConstraints: *KMStapleMode Front2 *PageSize OficioII
+*UIConstraints: *KMStapleMode Rear1 *PageSize A5
+*UIConstraints: *KMStapleMode Rear1 *PageSize A6
+*UIConstraints: *KMStapleMode Rear1 *PageSize B6
+*UIConstraints: *KMStapleMode Rear1 *PageSize Statement
+*UIConstraints: *KMStapleMode Rear1 *PageSize Executive
+*UIConstraints: *KMStapleMode Rear1 *PageSize ISOB5
+*UIConstraints: *KMStapleMode Rear1 *PageSize P8K
+*UIConstraints: *KMStapleMode Rear1 *PageSize P16K
+*UIConstraints: *KMStapleMode Rear1 *CustomPageSize
+*UIConstraints: *KMStapleMode Rear1 *PageSize Env9
+*UIConstraints: *KMStapleMode Rear1 *PageSize EnvC4
+*UIConstraints: *KMStapleMode Rear1 *PageSize EnvC5
+*UIConstraints: *KMStapleMode Rear1 *PageSize EnvPersonal
+*UIConstraints: *KMStapleMode Rear1 *PageSize Env10
+*UIConstraints: *KMStapleMode Rear1 *PageSize EnvDL
+*UIConstraints: *KMStapleMode Rear1 *PageSize EnvMonarch
+*UIConstraints: *KMStapleMode Rear1 *PageSize OficioII
+*UIConstraints: *KMStapleMode Center1 *PageSize A5
+*UIConstraints: *KMStapleMode Center1 *PageSize A6
+*UIConstraints: *KMStapleMode Center1 *PageSize B6
+*UIConstraints: *KMStapleMode Center1 *PageSize Folio
+*UIConstraints: *KMStapleMode Center1 *PageSize Statement
+*UIConstraints: *KMStapleMode Center1 *PageSize Executive
+*UIConstraints: *KMStapleMode Center1 *PageSize ISOB5
+*UIConstraints: *KMStapleMode Center1 *PageSize P8K
+*UIConstraints: *KMStapleMode Center1 *PageSize P16K
+*UIConstraints: *KMStapleMode Center1 *CustomPageSize
+*UIConstraints: *KMStapleMode Center1 *PageSize Env9
+*UIConstraints: *KMStapleMode Center1 *PageSize EnvC4
+*UIConstraints: *KMStapleMode Center1 *PageSize EnvC5
+*UIConstraints: *KMStapleMode Center1 *PageSize EnvPersonal
+*UIConstraints: *KMStapleMode Center1 *PageSize Env10
+*UIConstraints: *KMStapleMode Center1 *PageSize EnvDL
+*UIConstraints: *KMStapleMode Center1 *PageSize EnvMonarch
+*UIConstraints: *KMStapleMode Center1 *PageSize OficioII
+*UIConstraints: *Fold ON *PageSize A6
+*UIConstraints: *Fold ON *PageSize B6
+*UIConstraints: *Fold ON *PageSize Folio
+*UIConstraints: *Fold ON *PageSize Legal
+*UIConstraints: *Fold ON *PageSize Executive
+*UIConstraints: *Fold ON *PageSize ISOB5
+*UIConstraints: *Fold ON *PageSize P8K
+*UIConstraints: *Fold ON *PageSize P16K
+*UIConstraints: *Fold ON *CustomPageSize
+*UIConstraints: *Fold ON *PageSize Env9
+*UIConstraints: *Fold ON *PageSize EnvC4
+*UIConstraints: *Fold ON *PageSize EnvC5
+*UIConstraints: *Fold ON *PageSize EnvPersonal
+*UIConstraints: *Fold ON *PageSize Env10
+*UIConstraints: *Fold ON *PageSize EnvDL
+*UIConstraints: *Fold ON *PageSize EnvMonarch
+*UIConstraints: *Fold ON *PageSize OficioII
+*UIConstraints: *PageSize A5 *KMStapleMode Front1
+*UIConstraints: *PageSize A6 *KMStapleMode Front1
+*UIConstraints: *PageSize B6 *KMStapleMode Front1
+*UIConstraints: *PageSize Statement *KMStapleMode Front1
+*UIConstraints: *PageSize Executive *KMStapleMode Front1
+*UIConstraints: *PageSize ISOB5 *KMStapleMode Front1
+*UIConstraints: *PageSize P8K *KMStapleMode Front1
+*UIConstraints: *PageSize P16K *KMStapleMode Front1
+*UIConstraints: *CustomPageSize *KMStapleMode Front1
+*UIConstraints: *PageSize Env9 *KMStapleMode Front1
+*UIConstraints: *PageSize EnvC4 *KMStapleMode Front1
+*UIConstraints: *PageSize EnvC5 *KMStapleMode Front1
+*UIConstraints: *PageSize EnvPersonal *KMStapleMode Front1
+*UIConstraints: *PageSize Env10 *KMStapleMode Front1
+*UIConstraints: *PageSize EnvDL *KMStapleMode Front1
+*UIConstraints: *PageSize EnvMonarch *KMStapleMode Front1
+*UIConstraints: *PageSize OficioII *KMStapleMode Front1
+*UIConstraints: *PageSize A5 *KMStapleMode Front2
+*UIConstraints: *PageSize A6 *KMStapleMode Front2
+*UIConstraints: *PageSize B6 *KMStapleMode Front2
+*UIConstraints: *PageSize Folio *KMStapleMode Front2
+*UIConstraints: *PageSize Statement *KMStapleMode Front2
+*UIConstraints: *PageSize Executive *KMStapleMode Front2
+*UIConstraints: *PageSize ISOB5 *KMStapleMode Front2
+*UIConstraints: *PageSize P8K *KMStapleMode Front2
+*UIConstraints: *PageSize P16K *KMStapleMode Front2
+*UIConstraints: *CustomPageSize *KMStapleMode Front2
+*UIConstraints: *PageSize Env9 *KMStapleMode Front2
+*UIConstraints: *PageSize EnvC4 *KMStapleMode Front2
+*UIConstraints: *PageSize EnvC5 *KMStapleMode Front2
+*UIConstraints: *PageSize EnvPersonal *KMStapleMode Front2
+*UIConstraints: *PageSize Env10 *KMStapleMode Front2
+*UIConstraints: *PageSize EnvDL *KMStapleMode Front2
+*UIConstraints: *PageSize EnvMonarch *KMStapleMode Front2
+*UIConstraints: *PageSize OficioII *KMStapleMode Front2
+*UIConstraints: *PageSize A5 *KMStapleMode Rear1
+*UIConstraints: *PageSize A6 *KMStapleMode Rear1
+*UIConstraints: *PageSize B6 *KMStapleMode Rear1
+*UIConstraints: *PageSize Statement *KMStapleMode Rear1
+*UIConstraints: *PageSize Executive *KMStapleMode Rear1
+*UIConstraints: *PageSize ISOB5 *KMStapleMode Rear1
+*UIConstraints: *PageSize P8K *KMStapleMode Rear1
+*UIConstraints: *PageSize P16K *KMStapleMode Rear1
+*UIConstraints: *CustomPageSize *KMStapleMode Rear1
+*UIConstraints: *PageSize Env9 *KMStapleMode Rear1
+*UIConstraints: *PageSize EnvC4 *KMStapleMode Rear1
+*UIConstraints: *PageSize EnvC5 *KMStapleMode Rear1
+*UIConstraints: *PageSize EnvPersonal *KMStapleMode Rear1
+*UIConstraints: *PageSize Env10 *KMStapleMode Rear1
+*UIConstraints: *PageSize EnvDL *KMStapleMode Rear1
+*UIConstraints: *PageSize EnvMonarch *KMStapleMode Rear1
+*UIConstraints: *PageSize OficioII *KMStapleMode Rear1
+*UIConstraints: *PageSize A5 *KMStapleMode Center1
+*UIConstraints: *PageSize A6 *KMStapleMode Center1
+*UIConstraints: *PageSize B6 *KMStapleMode Center1
+*UIConstraints: *PageSize Folio *KMStapleMode Center1
+*UIConstraints: *PageSize Statement *KMStapleMode Center1
+*UIConstraints: *PageSize Executive *KMStapleMode Center1
+*UIConstraints: *PageSize ISOB5 *KMStapleMode Center1
+*UIConstraints: *PageSize P8K *KMStapleMode Center1
+*UIConstraints: *PageSize P16K *KMStapleMode Center1
+*UIConstraints: *CustomPageSize *KMStapleMode Center1
+*UIConstraints: *PageSize Env9 *KMStapleMode Center1
+*UIConstraints: *PageSize EnvC4 *KMStapleMode Center1
+*UIConstraints: *PageSize EnvC5 *KMStapleMode Center1
+*UIConstraints: *PageSize EnvPersonal *KMStapleMode Center1
+*UIConstraints: *PageSize Env10 *KMStapleMode Center1
+*UIConstraints: *PageSize EnvDL *KMStapleMode Center1
+*UIConstraints: *PageSize EnvMonarch *KMStapleMode Center1
+*UIConstraints: *PageSize OficioII *KMStapleMode Center1
+*UIConstraints: *PageSize A6 *Fold ON
+*UIConstraints: *PageSize B6 *Fold ON
+*UIConstraints: *PageSize Folio *Fold ON
+*UIConstraints: *PageSize Legal *Fold ON
+*UIConstraints: *PageSize Executive *Fold ON
+*UIConstraints: *PageSize ISOB5 *Fold ON
+*UIConstraints: *PageSize P8K *Fold ON
+*UIConstraints: *PageSize P16K *Fold ON
+*UIConstraints: *CustomPageSize *Fold ON
+*UIConstraints: *PageSize Env9 *Fold ON
+*UIConstraints: *PageSize EnvC4 *Fold ON
+*UIConstraints: *PageSize EnvC5 *Fold ON
+*UIConstraints: *PageSize EnvPersonal *Fold ON
+*UIConstraints: *PageSize Env10 *Fold ON
+*UIConstraints: *PageSize EnvDL *Fold ON
+*UIConstraints: *PageSize EnvMonarch *Fold ON
+*UIConstraints: *PageSize OficioII *Fold ON
+
+*%InputSlot-Media Type Constraints=====
+*UIConstraints: *InputSlot Tray1 *MediaType Transparency
+*UIConstraints: *InputSlot Tray1 *MediaType Labels
+*UIConstraints: *InputSlot Tray1 *MediaType Envelope
+*UIConstraints: *InputSlot Tray1 *MediaType Cardstock
+*UIConstraints: *InputSlot Tray1 *MediaType Thick
+*UIConstraints: *InputSlot Tray2 *MediaType Transparency
+*UIConstraints: *InputSlot Tray2 *MediaType Labels
+*UIConstraints: *InputSlot Tray2 *MediaType Envelope
+*UIConstraints: *InputSlot Tray2 *MediaType Cardstock
+*UIConstraints: *InputSlot Tray2 *MediaType Thick
+*UIConstraints: *InputSlot Tray3 *MediaType Transparency
+*UIConstraints: *InputSlot Tray3 *MediaType Labels
+*UIConstraints: *InputSlot Tray3 *MediaType Envelope
+*UIConstraints: *InputSlot Tray3 *MediaType Cardstock
+*UIConstraints: *InputSlot Tray3 *MediaType Thick
+*UIConstraints: *InputSlot Tray4 *MediaType Transparency
+*UIConstraints: *InputSlot Tray4 *MediaType Labels
+*UIConstraints: *InputSlot Tray4 *MediaType Envelope
+*UIConstraints: *InputSlot Tray4 *MediaType Cardstock
+*UIConstraints: *InputSlot Tray4 *MediaType Thick
+*UIConstraints: *InputSlot LCD *MediaType Transparency
+*UIConstraints: *InputSlot LCD *MediaType Labels
+*UIConstraints: *InputSlot LCD *MediaType Envelope
+*UIConstraints: *InputSlot LCD *MediaType Cardstock
+*UIConstraints: *InputSlot LCD *MediaType Thick
+*UIConstraints: *MediaType Transparency *InputSlot Tray1
+*UIConstraints: *MediaType Labels *InputSlot Tray1
+*UIConstraints: *MediaType Envelope *InputSlot Tray1
+*UIConstraints: *MediaType Cardstock *InputSlot Tray1
+*UIConstraints: *MediaType Thick *InputSlot Tray1
+*UIConstraints: *MediaType Transparency *InputSlot Tray2
+*UIConstraints: *MediaType Labels *InputSlot Tray2
+*UIConstraints: *MediaType Envelope *InputSlot Tray2
+*UIConstraints: *MediaType Cardstock *InputSlot Tray2
+*UIConstraints: *MediaType Thick *InputSlot Tray2
+*UIConstraints: *MediaType Transparency *InputSlot Tray3
+*UIConstraints: *MediaType Labels *InputSlot Tray3
+*UIConstraints: *MediaType Envelope *InputSlot Tray3
+*UIConstraints: *MediaType Cardstock *InputSlot Tray3
+*UIConstraints: *MediaType Thick *InputSlot Tray3
+*UIConstraints: *MediaType Transparency *InputSlot Tray4
+*UIConstraints: *MediaType Labels *InputSlot Tray4
+*UIConstraints: *MediaType Envelope *InputSlot Tray4
+*UIConstraints: *MediaType Cardstock *InputSlot Tray4
+*UIConstraints: *MediaType Thick *InputSlot Tray4
+*UIConstraints: *MediaType Transparency *InputSlot LCD
+*UIConstraints: *MediaType Labels *InputSlot LCD
+*UIConstraints: *MediaType Envelope *InputSlot LCD
+*UIConstraints: *MediaType Cardstock *InputSlot LCD
+*UIConstraints: *MediaType Thick *InputSlot LCD
+
+*%MediaType-Duplex Constraints=====
+*UIConstraints: *Duplex *MediaType Transparency
+*UIConstraints: *Duplex *MediaType Labels
+*UIConstraints: *Duplex *MediaType Vellum
+*UIConstraints: *Duplex *MediaType Envelope
+*UIConstraints: *Duplex *MediaType Cardstock
+*UIConstraints: *Duplex *MediaType Thick
+*UIConstraints: *MediaType Transparency *Duplex DuplexTumble
+*UIConstraints: *MediaType Labels *Duplex DuplexTumble
+*UIConstraints: *MediaType Vellum *Duplex DuplexTumble
+*UIConstraints: *MediaType Envelope *Duplex DuplexTumble
+*UIConstraints: *MediaType Cardstock *Duplex DuplexTumble
+*UIConstraints: *MediaType Thick *Duplex DuplexTumble
+*UIConstraints: *MediaType Transparency *Duplex DuplexNoTumble
+*UIConstraints: *MediaType Labels *Duplex DuplexNoTumble
+*UIConstraints: *MediaType Vellum *Duplex DuplexNoTumble
+*UIConstraints: *MediaType Envelope *Duplex DuplexNoTumble
+*UIConstraints: *MediaType Cardstock *Duplex DuplexNoTumble
+*UIConstraints: *MediaType Thick *Duplex DuplexNoTumble
+
+*%MediaType - Destination==
+*UIConstraints: *OutputBin Main *MediaType Transparency
+*UIConstraints: *OutputBin Main *MediaType Labels
+*UIConstraints: *OutputBin Main *MediaType Vellum
+*UIConstraints: *OutputBin Main *MediaType Envelope
+*UIConstraints: *OutputBin Main *MediaType Cardstock
+*UIConstraints: *OutputBin Main *MediaType Thick
+*UIConstraints: *OutputBin Sub *MediaType Transparency
+*UIConstraints: *OutputBin Sub *MediaType Labels
+*UIConstraints: *OutputBin Sub *MediaType Vellum
+*UIConstraints: *OutputBin Sub *MediaType Envelope
+*UIConstraints: *OutputBin Sub *MediaType Cardstock
+*UIConstraints: *OutputBin Sub *MediaType Thick
+*UIConstraints: *OutputBin Internal *MediaType Transparency
+*UIConstraints: *OutputBin Internal *MediaType Labels
+*UIConstraints: *OutputBin Internal *MediaType Vellum
+*UIConstraints: *OutputBin Internal *MediaType Envelope
+*UIConstraints: *OutputBin Internal *MediaType Cardstock
+*UIConstraints: *OutputBin Stacker *MediaType Transparency
+*UIConstraints: *OutputBin Stacker *MediaType Labels
+*UIConstraints: *OutputBin Stacker *MediaType Vellum
+*UIConstraints: *OutputBin Stacker *MediaType Envelope
+*UIConstraints: *OutputBin Stacker *MediaType Cardstock
+*UIConstraints: *OutputBin MB1Dn *MediaType Transparency
+*UIConstraints: *OutputBin MB1Dn *MediaType Labels
+*UIConstraints: *OutputBin MB1Dn *MediaType Vellum
+*UIConstraints: *OutputBin MB1Dn *MediaType Envelope
+*UIConstraints: *OutputBin MB1Dn *MediaType Cardstock
+*UIConstraints: *OutputBin MB1Dn *MediaType Thick
+*UIConstraints: *OutputBin MB1Up *MediaType Transparency
+*UIConstraints: *OutputBin MB1Up *MediaType Labels
+*UIConstraints: *OutputBin MB1Up *MediaType Vellum
+*UIConstraints: *OutputBin MB1Up *MediaType Envelope
+*UIConstraints: *OutputBin MB1Up *MediaType Cardstock
+*UIConstraints: *OutputBin MB1Up *MediaType Thick
+*UIConstraints: *OutputBin MB2Dn *MediaType Transparency
+*UIConstraints: *OutputBin MB2Dn *MediaType Labels
+*UIConstraints: *OutputBin MB2Dn *MediaType Vellum
+*UIConstraints: *OutputBin MB2Dn *MediaType Envelope
+*UIConstraints: *OutputBin MB2Dn *MediaType Cardstock
+*UIConstraints: *OutputBin MB2Dn *MediaType Thick
+*UIConstraints: *OutputBin MB2Up *MediaType Transparency
+*UIConstraints: *OutputBin MB2Up *MediaType Labels
+*UIConstraints: *OutputBin MB2Up *MediaType Vellum
+*UIConstraints: *OutputBin MB2Up *MediaType Envelope
+*UIConstraints: *OutputBin MB2Up *MediaType Cardstock
+*UIConstraints: *OutputBin MB2Up *MediaType Thick
+*UIConstraints: *OutputBin MB3Dn *MediaType Transparency
+*UIConstraints: *OutputBin MB3Dn *MediaType Labels
+*UIConstraints: *OutputBin MB3Dn *MediaType Vellum
+*UIConstraints: *OutputBin MB3Dn *MediaType Envelope
+*UIConstraints: *OutputBin MB3Dn *MediaType Cardstock
+*UIConstraints: *OutputBin MB3Dn *MediaType Thick
+*UIConstraints: *OutputBin MB3Up *MediaType Transparency
+*UIConstraints: *OutputBin MB3Up *MediaType Labels
+*UIConstraints: *OutputBin MB3Up *MediaType Vellum
+*UIConstraints: *OutputBin MB3Up *MediaType Envelope
+*UIConstraints: *OutputBin MB3Up *MediaType Cardstock
+*UIConstraints: *OutputBin MB3Up *MediaType Thick
+*UIConstraints: *OutputBin MB4Dn *MediaType Transparency
+*UIConstraints: *OutputBin MB4Dn *MediaType Labels
+*UIConstraints: *OutputBin MB4Dn *MediaType Vellum
+*UIConstraints: *OutputBin MB4Dn *MediaType Envelope
+*UIConstraints: *OutputBin MB4Dn *MediaType Cardstock
+*UIConstraints: *OutputBin MB4Dn *MediaType Thick
+*UIConstraints: *OutputBin MB4Up *MediaType Transparency
+*UIConstraints: *OutputBin MB4Up *MediaType Labels
+*UIConstraints: *OutputBin MB4Up *MediaType Vellum
+*UIConstraints: *OutputBin MB4Up *MediaType Envelope
+*UIConstraints: *OutputBin MB4Up *MediaType Cardstock
+*UIConstraints: *OutputBin MB4Up *MediaType Thick
+*UIConstraints: *OutputBin MB5Dn *MediaType Transparency
+*UIConstraints: *OutputBin MB5Dn *MediaType Labels
+*UIConstraints: *OutputBin MB5Dn *MediaType Vellum
+*UIConstraints: *OutputBin MB5Dn *MediaType Envelope
+*UIConstraints: *OutputBin MB5Dn *MediaType Cardstock
+*UIConstraints: *OutputBin MB5Dn *MediaType Thick
+*UIConstraints: *OutputBin MB5Up *MediaType Transparency
+*UIConstraints: *OutputBin MB5Up *MediaType Labels
+*UIConstraints: *OutputBin MB5Up *MediaType Vellum
+*UIConstraints: *OutputBin MB5Up *MediaType Envelope
+*UIConstraints: *OutputBin MB5Up *MediaType Cardstock
+*UIConstraints: *OutputBin MB5Up *MediaType Thick
+*UIConstraints: *OutputBin MB6Dn *MediaType Transparency
+*UIConstraints: *OutputBin MB6Dn *MediaType Labels
+*UIConstraints: *OutputBin MB6Dn *MediaType Vellum
+*UIConstraints: *OutputBin MB6Dn *MediaType Envelope
+*UIConstraints: *OutputBin MB6Dn *MediaType Cardstock
+*UIConstraints: *OutputBin MB6Dn *MediaType Thick
+*UIConstraints: *OutputBin MB6Up *MediaType Transparency
+*UIConstraints: *OutputBin MB6Up *MediaType Labels
+*UIConstraints: *OutputBin MB6Up *MediaType Vellum
+*UIConstraints: *OutputBin MB6Up *MediaType Envelope
+*UIConstraints: *OutputBin MB6Up *MediaType Cardstock
+*UIConstraints: *OutputBin MB6Up *MediaType Thick
+*UIConstraints: *OutputBin MB7Dn *MediaType Transparency
+*UIConstraints: *OutputBin MB7Dn *MediaType Labels
+*UIConstraints: *OutputBin MB7Dn *MediaType Vellum
+*UIConstraints: *OutputBin MB7Dn *MediaType Envelope
+*UIConstraints: *OutputBin MB7Dn *MediaType Cardstock
+*UIConstraints: *OutputBin MB7Dn *MediaType Thick
+*UIConstraints: *OutputBin MB7Up *MediaType Transparency
+*UIConstraints: *OutputBin MB7Up *MediaType Labels
+*UIConstraints: *OutputBin MB7Up *MediaType Vellum
+*UIConstraints: *OutputBin MB7Up *MediaType Envelope
+*UIConstraints: *OutputBin MB7Up *MediaType Cardstock
+*UIConstraints: *OutputBin MB7Up *MediaType Thick
+
+*UIConstraints: *MediaType Transparency *OutputBin Main
+*UIConstraints: *MediaType Labels *OutputBin Main
+*UIConstraints: *MediaType Vellum *OutputBin Main
+*UIConstraints: *MediaType Envelope *OutputBin Main
+*UIConstraints: *MediaType Cardstock *OutputBin Main
+*UIConstraints: *MediaType Transparency *OutputBin Sub
+*UIConstraints: *MediaType Labels *OutputBin Sub
+*UIConstraints: *MediaType Vellum *OutputBin Sub
+*UIConstraints: *MediaType Envelope *OutputBin Sub
+*UIConstraints: *MediaType Cardstock *OutputBin Sub
+*UIConstraints: *MediaType Thick *OutputBin Sub
+*UIConstraints: *MediaType Transparency *OutputBin Internal
+*UIConstraints: *MediaType Labels *OutputBin Internal
+*UIConstraints: *MediaType Vellum *OutputBin Internal
+*UIConstraints: *MediaType Envelope *OutputBin Internal
+*UIConstraints: *MediaType Cardstock *OutputBin Internal
+*UIConstraints: *MediaType Transparency *OutputBin Stacker 
+*UIConstraints: *MediaType Labels *OutputBin Stacker 
+*UIConstraints: *MediaType Vellum *OutputBin Stacker 
+*UIConstraints: *MediaType Envelope *OutputBin Stacker 
+*UIConstraints: *MediaType Cardstock *OutputBin Stacker 
+*UIConstraints: *MediaType Transparency *OutputBin MB1Dn 
+*UIConstraints: *MediaType Labels *OutputBin MB1Dn 
+*UIConstraints: *MediaType Vellum *OutputBin MB1Dn 
+*UIConstraints: *MediaType Envelope *OutputBin MB1Dn 
+*UIConstraints: *MediaType Cardstock *OutputBin MB1Dn 
+*UIConstraints: *MediaType Thick *OutputBin MB1Dn
+*UIConstraints: *MediaType Transparency *OutputBin MB1Up
+*UIConstraints: *MediaType Labels *OutputBin MB1Up 
+*UIConstraints: *MediaType Vellum *OutputBin MB1Up 
+*UIConstraints: *MediaType Envelope *OutputBin MB1Up 
+*UIConstraints: *MediaType Cardstock *OutputBin MB1Up 
+*UIConstraints: *MediaType Thick *OutputBin MB1Up
+*UIConstraints: *MediaType Transparency *OutputBin MB2Dn 
+*UIConstraints: *MediaType Labels *OutputBin MB2Dn 
+*UIConstraints: *MediaType Vellum *OutputBin MB2Dn 
+*UIConstraints: *MediaType Envelope *OutputBin MB2Dn 
+*UIConstraints: *MediaType Cardstock *OutputBin MB2Dn 
+*UIConstraints: *MediaType Thick *OutputBin MB2Dn
+*UIConstraints: *MediaType Transparency *OutputBin MB2Up
+*UIConstraints: *MediaType Labels *OutputBin MB2Up 
+*UIConstraints: *MediaType Vellum *OutputBin MB2Up 
+*UIConstraints: *MediaType Envelope *OutputBin MB2Up 
+*UIConstraints: *MediaType Cardstock *OutputBin MB2Up 
+*UIConstraints: *MediaType Thick *OutputBin MB2Up
+*UIConstraints: *MediaType Transparency *OutputBin MB3Dn 
+*UIConstraints: *MediaType Labels *OutputBin MB3Dn 
+*UIConstraints: *MediaType Vellum *OutputBin MB3Dn 
+*UIConstraints: *MediaType Envelope *OutputBin MB3Dn 
+*UIConstraints: *MediaType Cardstock *OutputBin MB3Dn 
+*UIConstraints: *MediaType Thick *OutputBin MB3Dn
+*UIConstraints: *MediaType Transparency *OutputBin MB3Up
+*UIConstraints: *MediaType Labels *OutputBin MB3Up 
+*UIConstraints: *MediaType Vellum *OutputBin MB3Up 
+*UIConstraints: *MediaType Envelope *OutputBin MB3Up 
+*UIConstraints: *MediaType Cardstock *OutputBin MB3Up 
+*UIConstraints: *MediaType Thick *OutputBin MB3Up
+*UIConstraints: *MediaType Transparency *OutputBin MB4Dn 
+*UIConstraints: *MediaType Labels *OutputBin MB4Dn 
+*UIConstraints: *MediaType Vellum *OutputBin MB4Dn 
+*UIConstraints: *MediaType Envelope *OutputBin MB4Dn 
+*UIConstraints: *MediaType Cardstock *OutputBin MB4Dn 
+*UIConstraints: *MediaType Thick *OutputBin MB4Dn
+*UIConstraints: *MediaType Transparency *OutputBin MB4Up
+*UIConstraints: *MediaType Labels *OutputBin MB4Up 
+*UIConstraints: *MediaType Vellum *OutputBin MB4Up 
+*UIConstraints: *MediaType Envelope *OutputBin MB4Up 
+*UIConstraints: *MediaType Cardstock *OutputBin MB4Up 
+*UIConstraints: *MediaType Thick *OutputBin MB4Up
+*UIConstraints: *MediaType Transparency *OutputBin MB5Dn 
+*UIConstraints: *MediaType Labels *OutputBin MB5Dn 
+*UIConstraints: *MediaType Vellum *OutputBin MB5Dn 
+*UIConstraints: *MediaType Envelope *OutputBin MB5Dn 
+*UIConstraints: *MediaType Cardstock *OutputBin MB5Dn 
+*UIConstraints: *MediaType Thick *OutputBin MB5Dn
+*UIConstraints: *MediaType Transparency *OutputBin MB5Up
+*UIConstraints: *MediaType Labels *OutputBin MB5Up 
+*UIConstraints: *MediaType Vellum *OutputBin MB5Up 
+*UIConstraints: *MediaType Envelope *OutputBin MB5Up 
+*UIConstraints: *MediaType Cardstock *OutputBin MB5Up 
+*UIConstraints: *MediaType Thick *OutputBin MB5Up
+*UIConstraints: *MediaType Transparency *OutputBin MB6Dn 
+*UIConstraints: *MediaType Labels *OutputBin MB6Dn 
+*UIConstraints: *MediaType Vellum *OutputBin MB6Dn 
+*UIConstraints: *MediaType Envelope *OutputBin MB6Dn 
+*UIConstraints: *MediaType Cardstock *OutputBin MB6Dn 
+*UIConstraints: *MediaType Thick *OutputBin MB6Dn
+*UIConstraints: *MediaType Transparency *OutputBin MB6Up
+*UIConstraints: *MediaType Labels *OutputBin MB6Up 
+*UIConstraints: *MediaType Vellum *OutputBin MB6Up 
+*UIConstraints: *MediaType Envelope *OutputBin MB6Up 
+*UIConstraints: *MediaType Cardstock *OutputBin MB6Up 
+*UIConstraints: *MediaType Thick *OutputBin MB6Up
+*UIConstraints: *MediaType Transparency *OutputBin MB7Dn 
+*UIConstraints: *MediaType Labels *OutputBin MB7Dn 
+*UIConstraints: *MediaType Vellum *OutputBin MB7Dn 
+*UIConstraints: *MediaType Envelope *OutputBin MB7Dn 
+*UIConstraints: *MediaType Cardstock *OutputBin MB7Dn 
+*UIConstraints: *MediaType Thick *OutputBin MB7Dn
+*UIConstraints: *MediaType Transparency *OutputBin MB7Up
+*UIConstraints: *MediaType Labels *OutputBin MB7Up 
+*UIConstraints: *MediaType Vellum *OutputBin MB7Up 
+*UIConstraints: *MediaType Envelope *OutputBin MB7Up 
+*UIConstraints: *MediaType Cardstock *OutputBin MB7Up 
+*UIConstraints: *MediaType Thick *OutputBin MB7Up
+
+*%MediaType - Staple=====
+*UIConstraints: *KMStapleMode Front1 *MediaType Transparency
+*UIConstraints: *KMStapleMode Front1 *MediaType Labels
+*UIConstraints: *KMStapleMode Front1 *MediaType Vellum
+*UIConstraints: *KMStapleMode Front1 *MediaType Envelope
+*UIConstraints: *KMStapleMode Front1 *MediaType Cardstock
+*UIConstraints: *KMStapleMode Front1 *MediaType Thick
+*UIConstraints: *KMStapleMode Front2 *MediaType Transparency
+*UIConstraints: *KMStapleMode Front2 *MediaType Labels
+*UIConstraints: *KMStapleMode Front2 *MediaType Vellum
+*UIConstraints: *KMStapleMode Front2 *MediaType Envelope
+*UIConstraints: *KMStapleMode Front2 *MediaType Cardstock
+*UIConstraints: *KMStapleMode Front2 *MediaType Thick
+*UIConstraints: *KMStapleMode Rear1 *MediaType Transparency
+*UIConstraints: *KMStapleMode Rear1 *MediaType Labels
+*UIConstraints: *KMStapleMode Rear1 *MediaType Vellum
+*UIConstraints: *KMStapleMode Rear1 *MediaType Envelope
+*UIConstraints: *KMStapleMode Rear1 *MediaType Cardstock
+*UIConstraints: *KMStapleMode Rear1 *MediaType Thick
+*UIConstraints: *KMStapleMode Center1 *MediaType Transparency
+*UIConstraints: *KMStapleMode Center1 *MediaType Labels
+*UIConstraints: *KMStapleMode Center1 *MediaType Vellum
+*UIConstraints: *KMStapleMode Center1 *MediaType Envelope
+*UIConstraints: *KMStapleMode Center1 *MediaType Cardstock
+*UIConstraints: *KMStapleMode Center1 *MediaType Thick
+*UIConstraints: *Fold ON *MediaType Transparency
+*UIConstraints: *Fold ON *MediaType Labels
+*UIConstraints: *Fold ON *MediaType Vellum
+*UIConstraints: *Fold ON *MediaType Envelope
+*UIConstraints: *Fold ON *MediaType Cardstock
+*UIConstraints: *Fold ON *MediaType Thick
+*UIConstraints: *MediaType Transparency *KMStapleMode Front1
+*UIConstraints: *MediaType Labels *KMStapleMode Front1
+*UIConstraints: *MediaType Vellum *KMStapleMode Front1
+*UIConstraints: *MediaType Envelope *KMStapleMode Front1
+*UIConstraints: *MediaType Cardstock *KMStapleMode Front1
+*UIConstraints: *MediaType Thick *KMStapleMode Front1
+*UIConstraints: *MediaType Transparency *KMStapleMode Front2
+*UIConstraints: *MediaType Labels *KMStapleMode Front2
+*UIConstraints: *MediaType Vellum *KMStapleMode Front2
+*UIConstraints: *MediaType Envelope *KMStapleMode Front2
+*UIConstraints: *MediaType Cardstock *KMStapleMode Front2
+*UIConstraints: *MediaType Thick *KMStapleMode Front2
+*UIConstraints: *MediaType Transparency *KMStapleMode Rear1
+*UIConstraints: *MediaType Labels *KMStapleMode Rear1
+*UIConstraints: *MediaType Vellum *KMStapleMode Rear1
+*UIConstraints: *MediaType Envelope *KMStapleMode Rear1
+*UIConstraints: *MediaType Cardstock *KMStapleMode Rear1
+*UIConstraints: *MediaType Thick *KMStapleMode Rear1
+*UIConstraints: *MediaType Transparency *KMStapleMode Center1
+*UIConstraints: *MediaType Labels *KMStapleMode Center1
+*UIConstraints: *MediaType Vellum *KMStapleMode Center1
+*UIConstraints: *MediaType Envelope *KMStapleMode Center1
+*UIConstraints: *MediaType Cardstock *KMStapleMode Center1
+*UIConstraints: *MediaType Thick *KMStapleMode Center1
+*UIConstraints: *MediaType Transparency *Fold ON
+*UIConstraints: *MediaType Labels *Fold ON
+*UIConstraints: *MediaType Vellum *Fold ON
+*UIConstraints: *MediaType Envelope *Fold ON
+*UIConstraints: *MediaType Cardstock *Fold ON
+*UIConstraints: *MediaType Thick *Fold ON
+
+*%MediaType - Punch=====
+*UIConstraints: *KCPunch 2holesUS *MediaType Transparency
+*UIConstraints: *KCPunch 2holesUS *MediaType Labels
+*UIConstraints: *KCPunch 2holesUS *MediaType Vellum
+*UIConstraints: *KCPunch 2holesUS *MediaType Envelope
+*UIConstraints: *KCPunch 2holesUS *MediaType Cardstock
+*UIConstraints: *KCPunch 2holesUS *MediaType Thick
+*UIConstraints: *KCPunch 2holesEUR *MediaType Transparency
+*UIConstraints: *KCPunch 2holesEUR *MediaType Labels
+*UIConstraints: *KCPunch 2holesEUR *MediaType Vellum
+*UIConstraints: *KCPunch 2holesEUR *MediaType Envelope
+*UIConstraints: *KCPunch 2holesEUR *MediaType Cardstock
+*UIConstraints: *KCPunch 2holesEUR *MediaType Thick
+*UIConstraints: *KCPunch 3holes *MediaType Transparency
+*UIConstraints: *KCPunch 3holes *MediaType Labels
+*UIConstraints: *KCPunch 3holes *MediaType Vellum
+*UIConstraints: *KCPunch 3holes *MediaType Envelope
+*UIConstraints: *KCPunch 3holes *MediaType Cardstock
+*UIConstraints: *KCPunch 3holes *MediaType Thick
+*UIConstraints: *KCPunch 4holes *MediaType Transparency
+*UIConstraints: *KCPunch 4holes *MediaType Labels
+*UIConstraints: *KCPunch 4holes *MediaType Vellum
+*UIConstraints: *KCPunch 4holes *MediaType Envelope
+*UIConstraints: *KCPunch 4holes *MediaType Cardstock
+*UIConstraints: *KCPunch 4holes *MediaType Thick
+*UIConstraints: *KCPunch autoholes *MediaType Transparency
+*UIConstraints: *KCPunch autoholes *MediaType Labels
+*UIConstraints: *KCPunch autoholes *MediaType Vellum
+*UIConstraints: *KCPunch autoholes *MediaType Envelope
+*UIConstraints: *KCPunch autoholes *MediaType Cardstock
+*UIConstraints: *KCPunch autoholes *MediaType Thick
+*UIConstraints: *MediaType Transparency *KCPunch 2holesUS
+*UIConstraints: *MediaType Labels *KCPunch 2holesUS
+*UIConstraints: *MediaType Vellum *KCPunch 2holesUS
+*UIConstraints: *MediaType Envelope *KCPunch 2holesUS
+*UIConstraints: *MediaType Cardstock *KCPunch 2holesUS
+*UIConstraints: *MediaType Thick *KCPunch 2holesUS
+*UIConstraints: *MediaType Transparency *KCPunch 2holesEUR
+*UIConstraints: *MediaType Labels *KCPunch 2holesEUR
+*UIConstraints: *MediaType Vellum *KCPunch 2holesEUR
+*UIConstraints: *MediaType Envelope *KCPunch 2holesEUR
+*UIConstraints: *MediaType Cardstock *KCPunch 2holesEUR
+*UIConstraints: *MediaType Thick *KCPunch 2holesEUR
+*UIConstraints: *MediaType Transparency *KCPunch 3holes
+*UIConstraints: *MediaType Labels *KCPunch 3holes
+*UIConstraints: *MediaType Vellum *KCPunch 3holes
+*UIConstraints: *MediaType Envelope *KCPunch 3holes
+*UIConstraints: *MediaType Cardstock *KCPunch 3holes
+*UIConstraints: *MediaType Thick *KCPunch 3holes
+*UIConstraints: *MediaType Transparency *KCPunch 4holes
+*UIConstraints: *MediaType Labels *KCPunch 4holes
+*UIConstraints: *MediaType Vellum *KCPunch 4holes
+*UIConstraints: *MediaType Envelope *KCPunch 4holes
+*UIConstraints: *MediaType Cardstock *KCPunch 4holes
+*UIConstraints: *MediaType Thick *KCPunch 4holes
+*UIConstraints: *MediaType Transparency *KCPunch autoholes
+*UIConstraints: *MediaType Labels *KCPunch autoholes
+*UIConstraints: *MediaType Vellum *KCPunch autoholes
+*UIConstraints: *MediaType Envelope *KCPunch autoholes
+*UIConstraints: *MediaType Cardstock *KCPunch autoholes
+*UIConstraints: *MediaType Thick *KCPunch autoholes
+
+*UIConstraints: *OutputBin Facedown *KMStapleMode Front1
+*UIConstraints: *OutputBin Facedown *KMStapleMode Front2
+*UIConstraints: *OutputBin Facedown *KMStapleMode Rear1
+*UIConstraints: *OutputBin Facedown *KMStapleMode Center1
+*UIConstraints: *OutputBin Facedown *Fold ON
+*UIConstraints: *OutputBin Facedown *KCPunch 2holesUS
+*UIConstraints: *OutputBin Facedown *KCPunch 2holesEUR
+*UIConstraints: *OutputBin Facedown *KCPunch 3holes
+*UIConstraints: *OutputBin Facedown *KCPunch 4holes
+*UIConstraints: *OutputBin Facedown *KCPunch autoholes
+*UIConstraints: *OutputBin Sub *KMStapleMode Front1
+*UIConstraints: *OutputBin Sub *KMStapleMode Front2
+*UIConstraints: *OutputBin Sub *KMStapleMode Rear1
+*UIConstraints: *OutputBin Sub *KMStapleMode Center1
+*UIConstraints: *OutputBin Sub *Fold ON
+*UIConstraints: *OutputBin Stacker *KMStapleMode Front1
+*UIConstraints: *OutputBin Stacker *KMStapleMode Front2
+*UIConstraints: *OutputBin Stacker *KMStapleMode Rear1
+*UIConstraints: *OutputBin Stacker *KMStapleMode Center1
+*UIConstraints: *OutputBin Stacker *Fold ON
+*UIConstraints: *OutputBin Stacker *KCPunch 2holesUS
+*UIConstraints: *OutputBin Stacker *KCPunch 2holesEUR
+*UIConstraints: *OutputBin Stacker *KCPunch 3holes
+*UIConstraints: *OutputBin Stacker *KCPunch 4holes
+*UIConstraints: *OutputBin Stacker *KCPunch autoholes
+*UIConstraints: *OutputBin MB1Dn *KMStapleMode Front1
+*UIConstraints: *OutputBin MB1Dn *KMStapleMode Front2
+*UIConstraints: *OutputBin MB1Dn *KMStapleMode Rear1
+*UIConstraints: *OutputBin MB1Dn *KMStapleMode Center1
+*UIConstraints: *OutputBin MB1Dn *Fold ON
+*UIConstraints: *OutputBin MB1Dn *KCPunch 2holesUS
+*UIConstraints: *OutputBin MB1Dn *KCPunch 2holesEUR
+*UIConstraints: *OutputBin MB1Dn *KCPunch 3holes
+*UIConstraints: *OutputBin MB1Dn *KCPunch 4holes
+*UIConstraints: *OutputBin MB2Dn *KMStapleMode Front1
+*UIConstraints: *OutputBin MB2Dn *KMStapleMode Front2
+*UIConstraints: *OutputBin MB2Dn *KMStapleMode Rear1
+*UIConstraints: *OutputBin MB2Dn *KMStapleMode Center1
+*UIConstraints: *OutputBin MB2Dn *Fold ON
+*UIConstraints: *OutputBin MB2Dn *KCPunch 2holesUS
+*UIConstraints: *OutputBin MB2Dn *KCPunch 2holesEUR
+*UIConstraints: *OutputBin MB2Dn *KCPunch 3holes
+*UIConstraints: *OutputBin MB2Dn *KCPunch 4holes
+*UIConstraints: *OutputBin MB3Dn *KMStapleMode Front1
+*UIConstraints: *OutputBin MB3Dn *KMStapleMode Front2
+*UIConstraints: *OutputBin MB3Dn *KMStapleMode Rear1
+*UIConstraints: *OutputBin MB3Dn *KMStapleMode Center1
+*UIConstraints: *OutputBin MB3Dn *Fold ON
+*UIConstraints: *OutputBin MB3Dn *KCPunch 2holesUS
+*UIConstraints: *OutputBin MB3Dn *KCPunch 2holesEUR
+*UIConstraints: *OutputBin MB3Dn *KCPunch 3holes
+*UIConstraints: *OutputBin MB3Dn *KCPunch 4holes
+*UIConstraints: *OutputBin MB4Dn *KMStapleMode Front1
+*UIConstraints: *OutputBin MB4Dn *KMStapleMode Front2
+*UIConstraints: *OutputBin MB4Dn *KMStapleMode Rear1
+*UIConstraints: *OutputBin MB4Dn *KMStapleMode Center1
+*UIConstraints: *OutputBin MB4Dn *Fold ON
+*UIConstraints: *OutputBin MB4Dn *KCPunch 2holesUS
+*UIConstraints: *OutputBin MB4Dn *KCPunch 2holesEUR
+*UIConstraints: *OutputBin MB4Dn *KCPunch 3holes
+*UIConstraints: *OutputBin MB4Dn *KCPunch 4holes
+*UIConstraints: *OutputBin MB5Dn *KMStapleMode Front1
+*UIConstraints: *OutputBin MB5Dn *KMStapleMode Front2
+*UIConstraints: *OutputBin MB5Dn *KMStapleMode Rear1
+*UIConstraints: *OutputBin MB5Dn *KMStapleMode Center1
+*UIConstraints: *OutputBin MB5Dn *Fold ON
+*UIConstraints: *OutputBin MB5Dn *KCPunch 2holesUS
+*UIConstraints: *OutputBin MB5Dn *KCPunch 2holesEUR
+*UIConstraints: *OutputBin MB5Dn *KCPunch 3holes
+*UIConstraints: *OutputBin MB5Dn *KCPunch 4holes
+*UIConstraints: *OutputBin MB6Dn *KMStapleMode Front1
+*UIConstraints: *OutputBin MB6Dn *KMStapleMode Front2
+*UIConstraints: *OutputBin MB6Dn *KMStapleMode Rear1
+*UIConstraints: *OutputBin MB6Dn *KMStapleMode Center1
+*UIConstraints: *OutputBin MB6Dn *Fold ON
+*UIConstraints: *OutputBin MB6Dn *KCPunch 2holesUS
+*UIConstraints: *OutputBin MB6Dn *KCPunch 2holesEUR
+*UIConstraints: *OutputBin MB6Dn *KCPunch 3holes
+*UIConstraints: *OutputBin MB6Dn *KCPunch 4holes
+*UIConstraints: *OutputBin MB7Dn *KMStapleMode Front1
+*UIConstraints: *OutputBin MB7Dn *KMStapleMode Front2
+*UIConstraints: *OutputBin MB7Dn *KMStapleMode Rear1
+*UIConstraints: *OutputBin MB7Dn *KMStapleMode Center1
+*UIConstraints: *OutputBin MB7Dn *Fold ON
+*UIConstraints: *OutputBin MB7Dn *KCPunch 2holesUS
+*UIConstraints: *OutputBin MB7Dn *KCPunch 2holesEUR
+*UIConstraints: *OutputBin MB7Dn *KCPunch 3holes
+*UIConstraints: *OutputBin MB7Dn *KCPunch 4holes
+*UIConstraints: *OutputBin MB1Up *KMStapleMode Front1
+*UIConstraints: *OutputBin MB1Up *KMStapleMode Front2
+*UIConstraints: *OutputBin MB1Up *KMStapleMode Rear1
+*UIConstraints: *OutputBin MB1Up *KMStapleMode Center1
+*UIConstraints: *OutputBin MB1Up *Fold ON
+*UIConstraints: *OutputBin MB1Up *KCPunch 2holesUS
+*UIConstraints: *OutputBin MB1Up *KCPunch 2holesEUR
+*UIConstraints: *OutputBin MB1Up *KCPunch 3holes
+*UIConstraints: *OutputBin MB1Up *KCPunch 4holes
+*UIConstraints: *OutputBin MB2Up *KMStapleMode Front1
+*UIConstraints: *OutputBin MB2Up *KMStapleMode Front2
+*UIConstraints: *OutputBin MB2Up *KMStapleMode Rear1
+*UIConstraints: *OutputBin MB2Up *KMStapleMode Center1
+*UIConstraints: *OutputBin MB2Up *Fold ON
+*UIConstraints: *OutputBin MB2Up *KCPunch 2holesUS
+*UIConstraints: *OutputBin MB2Up *KCPunch 2holesEUR
+*UIConstraints: *OutputBin MB2Up *KCPunch 3holes
+*UIConstraints: *OutputBin MB2Up *KCPunch 4holes
+*UIConstraints: *OutputBin MB3Up *KMStapleMode Front1
+*UIConstraints: *OutputBin MB3Up *KMStapleMode Front2
+*UIConstraints: *OutputBin MB3Up *KMStapleMode Rear1
+*UIConstraints: *OutputBin MB3Up *KMStapleMode Center1
+*UIConstraints: *OutputBin MB3Up *Fold ON
+*UIConstraints: *OutputBin MB3Up *KCPunch 2holesUS
+*UIConstraints: *OutputBin MB3Up *KCPunch 2holesEUR
+*UIConstraints: *OutputBin MB3Up *KCPunch 3holes
+*UIConstraints: *OutputBin MB3Up *KCPunch 4holes
+*UIConstraints: *OutputBin MB4Up *KMStapleMode Front1
+*UIConstraints: *OutputBin MB4Up *KMStapleMode Front2
+*UIConstraints: *OutputBin MB4Up *KMStapleMode Rear1
+*UIConstraints: *OutputBin MB4Up *KMStapleMode Center1
+*UIConstraints: *OutputBin MB4Up *Fold ON
+*UIConstraints: *OutputBin MB4Up *KCPunch 2holesUS
+*UIConstraints: *OutputBin MB4Up *KCPunch 2holesEUR
+*UIConstraints: *OutputBin MB4Up *KCPunch 3holes
+*UIConstraints: *OutputBin MB4Up *KCPunch 4holes
+*UIConstraints: *OutputBin MB5Up *KMStapleMode Front1
+*UIConstraints: *OutputBin MB5Up *KMStapleMode Front2
+*UIConstraints: *OutputBin MB5Up *KMStapleMode Rear1
+*UIConstraints: *OutputBin MB5Up *KMStapleMode Center1
+*UIConstraints: *OutputBin MB5Up *Fold ON
+*UIConstraints: *OutputBin MB5Up *KCPunch 2holesUS
+*UIConstraints: *OutputBin MB5Up *KCPunch 2holesEUR
+*UIConstraints: *OutputBin MB5Up *KCPunch 3holes
+*UIConstraints: *OutputBin MB5Up *KCPunch 4holes
+*UIConstraints: *OutputBin MB6Up *KMStapleMode Front1
+*UIConstraints: *OutputBin MB6Up *KMStapleMode Front2
+*UIConstraints: *OutputBin MB6Up *KMStapleMode Rear1
+*UIConstraints: *OutputBin MB6Up *KMStapleMode Center1
+*UIConstraints: *OutputBin MB6Up *Fold ON
+*UIConstraints: *OutputBin MB6Up *KCPunch 2holesUS
+*UIConstraints: *OutputBin MB6Up *KCPunch 2holesEUR
+*UIConstraints: *OutputBin MB6Up *KCPunch 3holes
+*UIConstraints: *OutputBin MB6Up *KCPunch 4holes
+*UIConstraints: *OutputBin MB7Up *KMStapleMode Front1
+*UIConstraints: *OutputBin MB7Up *KMStapleMode Front2
+*UIConstraints: *OutputBin MB7Up *KMStapleMode Rear1
+*UIConstraints: *OutputBin MB7Up *KMStapleMode Center1
+*UIConstraints: *OutputBin MB7Up *Fold ON
+*UIConstraints: *OutputBin MB7Up *KCPunch 2holesUS
+*UIConstraints: *OutputBin MB7Up *KCPunch 2holesEUR
+*UIConstraints: *OutputBin MB7Up *KCPunch 3holes
+*UIConstraints: *OutputBin MB7Up *KCPunch 4holes
+*UIConstraints: *KMStapleMode Front1 *OutputBin Facedown
+*UIConstraints: *KMStapleMode Front2 *OutputBin Facedown
+*UIConstraints: *KMStapleMode Rear1 *OutputBin Facedown
+*UIConstraints: *KMStapleMode Center1 *OutputBin Facedown
+*UIConstraints: *Fold ON *OutputBin Facedown
+*UIConstraints: *KCPunch 2holesUS *OutputBin Facedown
+*UIConstraints: *KCPunch 2holesEUR *OutputBin Facedown
+*UIConstraints: *KCPunch 3holes *OutputBin Facedown
+*UIConstraints: *KCPunch 4holes *OutputBin Facedown
+*UIConstraints: *KCPunch autoholes *OutputBin Facedown
+*UIConstraints: *KMStapleMode Front1 *OutputBin Sub
+*UIConstraints: *KMStapleMode Front2 *OutputBin Sub
+*UIConstraints: *KMStapleMode Rear1 *OutputBin Sub
+*UIConstraints: *KMStapleMode Center1 *OutputBin Sub
+*UIConstraints: *Fold ON *OutputBin Sub
+*UIConstraints: *KMStapleMode Front1 *OutputBin Stacker
+*UIConstraints: *KMStapleMode Front2 *OutputBin Stacker
+*UIConstraints: *KMStapleMode Rear1 *OutputBin Stacker
+*UIConstraints: *KMStapleMode Center1 *OutputBin Stacker
+*UIConstraints: *Fold ON *OutputBin Stacker
+*UIConstraints: *KCPunch 2holesUS *OutputBin Stacker
+*UIConstraints: *KCPunch 2holesEUR *OutputBin Stacker
+*UIConstraints: *KCPunch 3holes *OutputBin Stacker
+*UIConstraints: *KCPunch 4holes *OutputBin Stacker
+*UIConstraints: *KCPunch autoholes *OutputBin Stacker
+*UIConstraints: *KMStapleMode Front1 *OutputBin MB1Dn
+*UIConstraints: *KMStapleMode Front2 *OutputBin MB1Dn
+*UIConstraints: *KMStapleMode Rear1 *OutputBin MB1Dn
+*UIConstraints: *KMStapleMode Center1 *OutputBin MB1Dn
+*UIConstraints: *Fold ON *OutputBin MB1Dn
+*UIConstraints: *KCPunch 2holesUS *OutputBin MB1Dn
+*UIConstraints: *KCPunch 2holesEUR *OutputBin MB1Dn
+*UIConstraints: *KCPunch 3holes *OutputBin MB1Dn
+*UIConstraints: *KCPunch 4holes *OutputBin MB1Dn
+*UIConstraints: *KMStapleMode Front1 *OutputBin MB2Dn
+*UIConstraints: *KMStapleMode Front2 *OutputBin MB2Dn
+*UIConstraints: *KMStapleMode Rear1 *OutputBin MB2Dn
+*UIConstraints: *KMStapleMode Center1 *OutputBin MB2Dn
+*UIConstraints: *Fold ON *OutputBin MB2Dn
+*UIConstraints: *KCPunch 2holesUS *OutputBin MB2Dn
+*UIConstraints: *KCPunch 2holesEUR *OutputBin MB2Dn
+*UIConstraints: *KCPunch 3holes *OutputBin MB2Dn
+*UIConstraints: *KCPunch 4holes *OutputBin MB2Dn
+*UIConstraints: *KMStapleMode Front1 *OutputBin MB3Dn
+*UIConstraints: *KMStapleMode Front2 *OutputBin MB3Dn
+*UIConstraints: *KMStapleMode Rear1 *OutputBin MB3Dn
+*UIConstraints: *KMStapleMode Center1 *OutputBin MB3Dn
+*UIConstraints: *Fold ON *OutputBin MB3Dn
+*UIConstraints: *KCPunch 2holesUS *OutputBin MB3Dn
+*UIConstraints: *KCPunch 2holesEUR *OutputBin MB3Dn
+*UIConstraints: *KCPunch 3holes *OutputBin MB3Dn
+*UIConstraints: *KCPunch 4holes *OutputBin MB3Dn
+*UIConstraints: *KMStapleMode Front1 *OutputBin MB4Dn
+*UIConstraints: *KMStapleMode Front2 *OutputBin MB4Dn
+*UIConstraints: *KMStapleMode Rear1 *OutputBin MB4Dn
+*UIConstraints: *KMStapleMode Center1 *OutputBin MB4Dn
+*UIConstraints: *Fold ON *OutputBin MB4Dn
+*UIConstraints: *KCPunch 2holesUS *OutputBin MB4Dn
+*UIConstraints: *KCPunch 2holesEUR *OutputBin MB4Dn
+*UIConstraints: *KCPunch 3holes *OutputBin MB4Dn
+*UIConstraints: *KCPunch 4holes *OutputBin MB4Dn
+*UIConstraints: *KMStapleMode Front1 *OutputBin MB5Dn
+*UIConstraints: *KMStapleMode Front2 *OutputBin MB5Dn
+*UIConstraints: *KMStapleMode Rear1 *OutputBin MB5Dn
+*UIConstraints: *KMStapleMode Center1 *OutputBin MB5Dn
+*UIConstraints: *Fold ON *OutputBin MB5Dn
+*UIConstraints: *KCPunch 2holesUS *OutputBin MB5Dn
+*UIConstraints: *KCPunch 2holesEUR *OutputBin MB5Dn
+*UIConstraints: *KCPunch 3holes *OutputBin MB5Dn
+*UIConstraints: *KCPunch 4holes *OutputBin MB5Dn
+*UIConstraints: *KMStapleMode Front1 *OutputBin MB6Dn
+*UIConstraints: *KMStapleMode Front2 *OutputBin MB6Dn
+*UIConstraints: *KMStapleMode Rear1 *OutputBin MB6Dn
+*UIConstraints: *KMStapleMode Center1 *OutputBin MB6Dn
+*UIConstraints: *Fold ON *OutputBin MB6Dn
+*UIConstraints: *KCPunch 2holesUS *OutputBin MB6Dn
+*UIConstraints: *KCPunch 2holesEUR *OutputBin MB6Dn
+*UIConstraints: *KCPunch 3holes *OutputBin MB6Dn
+*UIConstraints: *OutputBin MB6Dn *KCPunch 4holes
+*UIConstraints: *KMStapleMode Front1 *OutputBin MB7Dn
+*UIConstraints: *KMStapleMode Front2 *OutputBin MB7Dn
+*UIConstraints: *KMStapleMode Rear1 *OutputBin MB7Dn
+*UIConstraints: *KMStapleMode Center1 *OutputBin MB7Dn
+*UIConstraints: *Fold ON *OutputBin MB7Dn
+*UIConstraints: *KCPunch 2holesUS *OutputBin MB7Dn
+*UIConstraints: *KCPunch 2holesEUR *OutputBin MB7Dn
+*UIConstraints: *KCPunch 3holes *OutputBin MB7Dn
+*UIConstraints: *KCPunch 4holes *OutputBin MB7Dn
+*UIConstraints: *KMStapleMode Front1 *OutputBin MB1Up
+*UIConstraints: *KMStapleMode Front2 *OutputBin MB1Up
+*UIConstraints: *KMStapleMode Rear1 *OutputBin MB1Up
+*UIConstraints: *KMStapleMode Center1 *OutputBin MB1Up
+*UIConstraints: *Fold ON *OutputBin MB1Up
+*UIConstraints: *KCPunch 2holesUS *OutputBin MB1Up
+*UIConstraints: *KCPunch 2holesEUR *OutputBin MB1Up
+*UIConstraints: *KCPunch 3holes *OutputBin MB1Up
+*UIConstraints: *KCPunch 4holes *OutputBin MB1Up
+*UIConstraints: *KMStapleMode Front1 *OutputBin MB2Up
+*UIConstraints: *KMStapleMode Front2 *OutputBin MB2Up
+*UIConstraints: *KMStapleMode Rear1 *OutputBin MB2Up
+*UIConstraints: *KMStapleMode Center1 *OutputBin MB2Up
+*UIConstraints: *Fold ON *OutputBin MB2Up
+*UIConstraints: *KCPunch 2holesUS *OutputBin MB2Up
+*UIConstraints: *KCPunch 2holesEUR *OutputBin MB2Up
+*UIConstraints: *KCPunch 3holes *OutputBin MB2Up
+*UIConstraints: *KCPunch 4holes *OutputBin MB2Up
+*UIConstraints: *KMStapleMode Front1 *OutputBin MB3Up
+*UIConstraints: *KMStapleMode Front2 *OutputBin MB3Up
+*UIConstraints: *KMStapleMode Rear1 *OutputBin MB3Up
+*UIConstraints: *KMStapleMode Center1 *OutputBin MB3Up
+*UIConstraints: *Fold ON *OutputBin MB3Up
+*UIConstraints: *KCPunch 2holesUS *OutputBin MB3Up
+*UIConstraints: *KCPunch 2holesEUR *OutputBin MB3Up
+*UIConstraints: *KCPunch 3holes *OutputBin MB3Up
+*UIConstraints: *KCPunch 4holes *OutputBin MB3Up
+*UIConstraints: *KMStapleMode Front1 *OutputBin MB4Up
+*UIConstraints: *KMStapleMode Front2 *OutputBin MB4Up
+*UIConstraints: *KMStapleMode Rear1 *OutputBin MB4Up
+*UIConstraints: *KMStapleMode Center1 *OutputBin MB4Up
+*UIConstraints: *Fold ON *OutputBin MB4Up
+*UIConstraints: *KCPunch 2holesUS *OutputBin MB4Up
+*UIConstraints: *KCPunch 2holesEUR *OutputBin MB4Up
+*UIConstraints: *KCPunch 3holes *OutputBin MB4Up
+*UIConstraints: *KCPunch 4holes *OutputBin MB4Up
+*UIConstraints: *KMStapleMode Front1 *OutputBin MB5Up
+*UIConstraints: *KMStapleMode Front2 *OutputBin MB5Up
+*UIConstraints: *KMStapleMode Rear1 *OutputBin MB5Up
+*UIConstraints: *KMStapleMode Center1 *OutputBin MB5Up
+*UIConstraints: *Fold ON *OutputBin MB5Up
+*UIConstraints: *KCPunch 2holesUS *OutputBin MB5Up
+*UIConstraints: *KCPunch 2holesEUR *OutputBin MB5Up
+*UIConstraints: *KCPunch 3holes *OutputBin MB5Up
+*UIConstraints: *KCPunch 4holes *OutputBin MB5Up
+*UIConstraints: *KMStapleMode Front1 *OutputBin MB6Up
+*UIConstraints: *KMStapleMode Front2 *OutputBin MB6Up
+*UIConstraints: *KMStapleMode Rear1 *OutputBin MB6Up
+*UIConstraints: *KMStapleMode Center1 *OutputBin MB6Up
+*UIConstraints: *Fold ON *OutputBin MB6Up
+*UIConstraints: *KCPunch 2holesUS *OutputBin MB6Up
+*UIConstraints: *KCPunch 2holesEUR *OutputBin MB6Up
+*UIConstraints: *KCPunch 3holes *OutputBin MB6Up
+*UIConstraints: *KCPunch 4holes *OutputBin MB6Up
+*UIConstraints: *KMStapleMode Front1 *OutputBin MB7Up
+*UIConstraints: *KMStapleMode Front2 *OutputBin MB7Up
+*UIConstraints: *KMStapleMode Rear1 *OutputBin MB7Up
+*UIConstraints: *KMStapleMode Center1 *OutputBin MB7Up
+*UIConstraints: *Fold ON *OutputBin MB7Up
+*UIConstraints: *KCPunch 2holesUS *OutputBin MB7Up
+*UIConstraints: *KCPunch 2holesEUR *OutputBin MB7Up
+*UIConstraints: *KCPunch 3holes *OutputBin MB7Up
+*UIConstraints: *KCPunch 4holes *OutputBin MB7Up
+
+*UIConstraints: *KCCollate None *KMStapleMode Front1
+*UIConstraints: *KCCollate None *KMStapleMode Front2
+*UIConstraints: *KCCollate None *KMStapleMode Rear1
+*UIConstraints: *KCCollate None *KMStapleMode Center1
+*UIConstraints: *KCCollate None *Fold ON
+*UIConstraints: *KMStapleMode Front1 *KCCollate None
+*UIConstraints: *KMStapleMode Front2 *KCCollate None
+*UIConstraints: *KMStapleMode Rear1 *KCCollate None
+*UIConstraints: *KMStapleMode Center1 *KCCollate None
+*UIConstraints: *Fold ON *KCCollate None
+
+*%Booklet Constraints==
+*UIConstraints: *KCBooklet OFF *Fold ON
+*UIConstraints: *Fold ON *KCBooklet OFF 
+
+*UIConstraints: *Fold ON *KCPunch autoholes
+*UIConstraints: *Fold ON *KMStapleMode Front1
+*UIConstraints: *Fold ON *KMStapleMode Rear1
+*UIConstraints: *Fold ON *KMStapleMode Center1
+*UIConstraints: *KCPunch autoholes *Fold ON
+*UIConstraints: *KMStapleMode Front1 *Fold ON
+*UIConstraints: *KMStapleMode Rear1 *Fold ON
+*UIConstraints: *KMStapleMode Center1 *Fold ON
+
+*% Transparency Separate Mode - Staple/Fold 
+
+*% Job spooling - Barcode print constraints
+*%============================================== 
+*% Resolution 
+*%============================================== 
+*OpenUI *Resolution/Aufl<F6>sung: PickOne
+*OrderDependency: 10 AnySetup *Resolution
+*DefaultResolution: 600dpi
+*Resolution 600dpi/600 dpi: "<< /HWResolution [600 600] /PreRenderingEnhance false >> setpagedevice"
+*Resolution 300dpi/300 dpi: "<< /HWResolution [300 300] /PreRenderingEnhance false >> setpagedevice"
+*Resolution 1200dpi/Fast 1200: "<< /HWResolution [600 600] /PreRenderingEnhance true >> setpagedevice"
+*?Resolution: "
+  save
+    currentpagedevice /HWResolution get
+    0 get (      ) cvs print (dpi) = flush
+  restore
+  "
+*End
+*CloseUI: *Resolution
+
+*%==============================================
+*% Eco Print Mode 
+*%==============================================
+*OpenUI *EcoPrint/EcoPrint (Entwurfmodus): PickOne
+*OrderDependency: 10 AnySetup *EcoPrint
+*DefaultEcoPrint: false
+*EcoPrint false/Aus: "<< /EconoMode false >> setpagedevice"
+*EcoPrint true/Ein: "<< /EconoMode true >> setpagedevice"
+*CloseUI: *EcoPrint
+
+*%==============================================
+*% Image Refinement 
+*%==============================================
+*OpenUI *Smoothing/Kantengl<E4>ttung: PickOne
+*OrderDependency: 50 AnySetup *Smoothing
+*DefaultSmoothing: False
+*Smoothing True/Aus: "1 statusdict /setdoret get exec"
+*Smoothing False/Ein: "0 statusdict /setdoret get exec"
+*?Smoothing: "
+  save
+  [(False)(True)(True)(True)]
+  statusdict /doret get exec {get} stopped
+  {pop pop (Unknown)} if
+  = flush restore"
+*End
+*CloseUI: *Smoothing
+
+*%==============================================
+*% Halftone Information 
+*%==============================================
+*DefaultHalftoneType: 1
+*ScreenFreq: "60.0"
+*ScreenAngle: "45.0"
+*ResScreenFreq 600dpi: "60.0"
+*ResScreenAngle 600dpi: "45.0"
+*ResScreenFreq 300dpi: "53.0"
+*ResScreenAngle 300dpi: "45.0"
+
+*DefaultScreenProc: Ellipse
+*ScreenProc Dot: "
+  {abs exch abs 2 copy add 1 gt
+  {1 sub dup mul exch 1 sub dup mul add 1 sub}
+  {dup mul exch dup mul add 1 exch sub} ifelse}"
+*End
+*ScreenProc Line: "{pop}"
+*ScreenProc Ellipse: "{dup 5 mul 8 div mul exch dup mul exch add sqrt 1 exch sub}"
+*DefaultTransfer: Null
+*Transfer Null: "{}"
+*Transfer Null.Inverse: "{1 exch sub}"
+
+*%==============================================
+*% Page Policy Definitions 
+*%==============================================
+*OpenUI *PagePolicy/Papierquelle ausw<E4>hlen: PickOne
+*OrderDependency: 11 AnySetup *PagePolicy
+*DefaultPagePolicy: On
+*PagePolicy On/Autoformat Auswahl: "<< /DeferredMediaSelection true >> setpagedevice"
+*CloseUI: *PagePolicy
+
+*% Paper Handling 
+*%==============================================
+*% Page Size Definitions
+*%==============================================
+*OpenUI *PageSize: PickOne
+*OrderDependency: 20 AnySetup *PageSize
+*DefaultPageSize: A4
+*PageSize A3/A3: "
+  << /Policies << /PageSize 2 >> /PageSize [842 1191] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize A4/A4: "
+  << /Policies << /PageSize 2 >> /PageSize [595 842] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize A5/A5: "
+  << /Policies << /PageSize 2 >> /PageSize [420 595] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize A6/A6: "
+  << /Policies << /PageSize 2 >> /PageSize [297 420] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize B4/B4: "
+  << /Policies << /PageSize 2 >> /PageSize [729 1032] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize B5/B5 (JIS): "
+  << /Policies << /PageSize 2 >> /PageSize [516 729] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize ISOB5/B5 (ISO): "
+  << /Policies << /PageSize 2 >> /PageSize [499 709] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize B6/B6: "
+  << /Policies << /PageSize 2 >> /PageSize [363 516] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize OficioII/Oficio II: "
+  << /Policies << /PageSize 2 >> /PageSize [612 936] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize Folio/Folio (210 x 330mm): "
+  << /Policies << /PageSize 2 >> /PageSize [595 935] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize Statement/Statement: "
+  << /Policies << /PageSize 2 >> /PageSize [396 612] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize P8K/8K: "
+  << /Policies << /PageSize 2 >> /PageSize [774 1116] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize P16K/16K: "
+  << /Policies << /PageSize 2 >> /PageSize [558 774] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize Letter/Letter: "
+  << /Policies << /PageSize 2 >> /PageSize [612 792] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize Legal/Legal: "
+  << /Policies << /PageSize 2 >> /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize Executive/Executive: "
+  << /Policies << /PageSize 2 >> /PageSize [522 756] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize Tabloid/Tabloid: "
+  << /Policies << /PageSize 2 >> /PageSize [792 1224] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize EnvPersonal/Envelope #6: "
+  << /Policies << /PageSize 2 >> /PageSize [261 468] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize Env9/Envelope #9: "
+  << /Policies << /PageSize 2 >> /PageSize [279 639] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize Env10/Envelope #10: "
+  << /Policies << /PageSize 2 >> /PageSize [297 684] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize EnvMonarch/Monarch: "
+  << /Policies << /PageSize 2 >> /PageSize [279 540] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize EnvDL/Envelope DL: "
+  << /Policies << /PageSize 2 >> /PageSize [312 624] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize EnvC5/Envelope C5: "
+  << /Policies << /PageSize 2 >> /PageSize [459 649] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize EnvC4/Envelope C4: "
+  << /Policies << /PageSize 2 >> /PageSize [649 919] /ImagingBBox null >> setpagedevice"
+*End
+*?PageSize: "
+  save
+  currentpagedevice /PageSize get aload pop
+  2 copy gt {exch} if
+  (Unknown)
+  24 dict
+  dup [842 1191] (A3) put
+  dup [595 842] (A4) put
+  dup [420 595] (A5) put
+  dup [297 420] (A6) put
+  dup [729 1032] (B4) put
+  dup [516 729] (B5) put
+  dup [499 709] (ISOB5) put
+  dup [363 516] (B6) put
+  dup [612 936] (OficioII) put
+  dup [595 935] (Folio) put
+  dup [396 612] (Statement) put
+  dup [774 1116] (P8K) put
+  dup [558 774] (P16K) put
+  dup [612 792] (Letter) put
+  dup [612 1008] (Legal) put
+  dup [522 756] (Executive) put
+  dup [792 1224] (Tabloid) put
+  dup [261 468] (EnvPersonal) put
+  dup [279 639] (Env9) put
+  dup [297 684] (Env10) put
+  dup [279 540] (EnvMonarch) put
+  dup [312 624] (EnvDL) put
+  dup [459 649] (EnvC5) put
+  dup [649 919] (EnvC4) put
+  {exch aload pop 4 index sub abs 5 le exch
+    5 index sub abs 5 le and
+    {exch pop exit}{pop} ifelse
+  } bind forall
+  = flush pop pop restore "
+*End
+*CloseUI: *PageSize
+
+*% Page Region Definitions for Frame Buffer
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 20 AnySetup *PageRegion
+*DefaultPageRegion: A4
+*PageRegion A3/A3: "  << /Policies << /PageSize 7 >> /PageSize [842 1191] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion A4/A4: "  << /Policies << /PageSize 7 >> /PageSize [595 842] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion A5/A5: "  << /Policies << /PageSize 7 >> /PageSize [420 595] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion A6/A6: "  << /Policies << /PageSize 7 >> /PageSize [297 420] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion B4/B4: "  << /Policies << /PageSize 7 >> /PageSize [729 1032] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion B5/B5 (JIS): "  << /Policies << /PageSize 7 >> /PageSize [516 729] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion ISOB5/B5 (ISO): "  << /Policies << /PageSize 7 >> /PageSize [499 709] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion B6/B6: "  << /Policies << /PageSize 7 >> /PageSize [363 516] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion Letter/Letter: "
+  << /Policies << /PageSize 7 >> /PageSize [612 792] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion Legal/Legal: "
+  << /Policies << /PageSize 7 >> /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion Executive/Executive: "
+  << /Policies << /PageSize 7 >> /PageSize [522 756] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion Tabloid/Tabloid: "
+  << /Policies << /PageSize 7 >> /PageSize [792 1224] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion EnvPersonal/Envelope #6: "
+  << /Policies << /PageSize 7 >> /PageSize [261 468] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion Env9/Envelope #9: "
+  << /Policies << /PageSize 7 >> /PageSize [279 639] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion Env10/Envelope #10: "
+  << /Policies << /PageSize 7 >> /PageSize [297 684] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion EnvMonarch/Monarch: "
+  << /Policies << /PageSize 7 >> /PageSize [279 540] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion EnvDL/Envelope DL: "
+  << /Policies << /PageSize 7 >> /PageSize [312 624] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion EnvC5/Envelope C5: "
+  << /Policies << /PageSize 7 >> /PageSize [459 649] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion OficioII/Oficio II: "
+  << /Policies << /PageSize 7 >> /PageSize [612 936] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion Folio/Folio (210 x 330mm): "
+  << /Policies << /PageSize 7 >> /PageSize [595 935] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion EnvC4/Envelope C4: "
+  << /Policies << /PageSize 7 >> /PageSize [649 919] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion Statement/Statement: "
+  << /Policies << /PageSize 7 >> /PageSize [396 612] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion P8K/8K: "
+  << /Policies << /PageSize 7 >> /PageSize [774 1116] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion P16K/16K: "
+  << /Policies << /PageSize 7 >> /PageSize [558 774] /ImagingBBox null >> setpagedevice"
+*End
+*CloseUI: *PageRegion
+
+*% Imageable Area Definitions
+*DefaultImageableArea: A4
+*ImageableArea A3/A3: "12 10 830 1181"
+*ImageableArea A4/A4: "12 10 583 832"
+*ImageableArea A5/A5: "12 12 409 585"
+*ImageableArea A6/A6: "12 10 285 411"
+*ImageableArea B4/B4: "12 10 716 1022"
+*ImageableArea B5/B5 (JIS): "21 10 495 719"
+*ImageableArea ISOB5/B5 (ISO): "12 12 487 696"
+*ImageableArea B6/B6: "12 10 352 506"
+*ImageableArea OficioII/Oficio II: "12 12 600 924"
+*ImageableArea Folio/Folio (210 x 330mm): "12 12 571 911"
+*ImageableArea Statement/Statement: "12 12 384 600"
+*ImageableArea P8K/8K: "12 12 762 1104"
+*ImageableArea P16K/16K: "12 12 546 762"
+*ImageableArea Letter/Letter: "12 08 600 784"
+*ImageableArea Legal/Legal: "12 08 600 1000"
+*ImageableArea Executive/Executive: "12 08 510 748"
+*ImageableArea Tabloid/Tabloid: "12 08 780 1216"
+*ImageableArea EnvPersonal/Envelope #6: "12 08 237 452"
+*ImageableArea Env9/Envelope #9: "12 08 255 623"
+*ImageableArea Env10/Envelope #10: "12 08 273 668"
+*ImageableArea EnvMonarch/Monarch: "12 08 255 524"
+*ImageableArea EnvDL/Envelope DL: "12 10 288 604"
+*ImageableArea EnvC5/Envelope C5: "12 10 435 629"
+*ImageableArea EnvC4/Envelope C4: "12 10 625 898"
+*?ImageableArea: "
+  save
+  /cvp {cvi (                   ) cvs
+  print ( ) print} bind def
+  newpath clippath pathbbox
+  4 -2 roll exch 2 {ceiling cvp} repeat
+  exch 2 {floor cvp} repeat ( )
+  = flush restore"
+*End
+
+*% Physical Dimensions of Media
+*DefaultPaperDimension: A4
+*PaperDimension A3/A3: "842 1191"
+*PaperDimension A4/A4: "595 842"
+*PaperDimension A5/A5: "420 595"
+*PaperDimension A6/A6: "297 420"
+*PaperDimension B4/B4: "729 1032"
+*PaperDimension B5/B5 (JIS): "516 729"
+*PaperDimension ISOB5/B5 (ISO): "499 709"
+*PaperDimension B6/B6: "363 516"
+*PaperDimension OficioII/Oficio II: "612 936"
+*PaperDimension Folio/Folio (210 x 330mm): "595 935"
+*PaperDimension Statement/Statement: "396 612"
+*PaperDimension P8K/8K: "774 1116"
+*PaperDimension P16K/16K: "558 774"
+*PaperDimension Letter/Letter: "612 792"
+*PaperDimension Legal/Legal: "612 1008"
+*PaperDimension Executive/Executive: "522 756"
+*PaperDimension Tabloid/Tabloid: "792 1224"
+*PaperDimension EnvPersonal/Envelope #6: "261 468"
+*PaperDimension Env9/Envelope #9: "279 639"
+*PaperDimension Env10/Envelope #10: "297 684"
+*PaperDimension EnvMonarch/Monarch: "279 540"
+*PaperDimension EnvDL/Envelope DL: "312 624"
+*PaperDimension EnvC5/Envelope C5: "459 649"
+*PaperDimension EnvC4/Envelope C4: "649 919"
+
+*% Custom Page Size Definitions
+*% Smallest = A6, Largest = WideLetter
+
+*VariablePaperSize: True
+*LeadingEdge Short: ""
+*DefaultLeadingEdge: Short
+*HWMargins: 12 12 12 12
+*MaxMediaWidth: "872"
+*MaxMediaHeight: "1247"
+*NonUIOrderDependency: 20 AnySetup *CustomPageSize
+*CustomPageSize True: "
+  pop pop pop
+  << /PageSize [ 5 -2 roll ] /ImagingBBox null
+     /DeferredMediaSelection true
+  >> setpagedevice"
+*End
+*ParamCustomPageSize Width: 1 points 227 872
+*ParamCustomPageSize Height: 2 points 420 1247
+*ParamCustomPageSize WidthOffset: 3 points 0 0
+*ParamCustomPageSize HeightOffset: 4 points 0 0
+*ParamCustomPageSize Orientation: 5 int 0 0
+
+*%==============================================
+*% Input Slot Definitions
+*%==============================================
+*OpenUI *InputSlot: PickOne
+*OrderDependency: 15 AnySetup *InputSlot
+*DefaultInputSlot: Tray1
+*InputSlot Tray1/Kassette 1: "
+    << /ManualFeed false /DeferredMediaSelection  false >> setpagedevice
+    statusdict begin 0 setpapertray end"
+*End
+*InputSlot Tray2/Kassette 2: "
+    << /ManualFeed false /DeferredMediaSelection  false >> setpagedevice
+    statusdict begin 1 setpapertray end"
+*End
+*InputSlot Tray3/Kassette 3: "
+    << /ManualFeed false /DeferredMediaSelection  false >> setpagedevice
+    statusdict begin 4 setpapertray end"
+*End
+*InputSlot Tray4/Kassette 4: "
+    << /ManualFeed false /DeferredMediaSelection  false >> setpagedevice
+    statusdict begin 5 setpapertray end"
+*End
+*InputSlot LCD/Gro<CF>raumkassette: "
+    << /ManualFeed false /DeferredMediaSelection  false >> setpagedevice
+    statusdict begin 4 setpapertray end"
+*End
+*InputSlot MF1/Bypass Tisch: "
+    << /ManualFeed false /DeferredMediaSelection  false >> setpagedevice
+  statusdict begin 3 setpapertray end"
+*End
+*?InputSlot: ""
+*CloseUI: *InputSlot
+
+*%==============================================
+*% MediaType Definitions
+*%==============================================
+*OpenUI *MediaType/Materialart: PickOne
+*OrderDependency: 20 AnySetup *MediaType
+*DefaultMediaType: PrnDef
+*MediaType PrnDef/Druckergrundeinstellung: ""
+*MediaType Plain/Normalpapier: "
+  << /ManualFeed false /MediaType (Plain) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType Transparency/Folien: "
+  << /ManualFeed false /MediaType (Transparency) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType Preprinted/Vordrucke: "
+  << /ManualFeed false /MediaType (Preprinted) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType Labels/Etiketten: "
+  << /ManualFeed false /MediaType (Labels) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType Bond/Feinpapier: "
+  << /ManualFeed false /MediaType (Bond) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType Recycled/Recyclingpapier: "
+  << /ManualFeed false /MediaType (Recycled) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType Vellum/Transparent: "
+  << /ManualFeed false /MediaType (Vellum) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType Rough/Grobespapier: "
+  << /ManualFeed false /MediaType (Rough) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType Letterhead/Briefpapier: "
+  << /ManualFeed false /MediaType (Letterhead) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType Color/Farbigespapier: "
+  << /ManualFeed false /MediaType (Color) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType Prepunched/Gelocht: "
+  << /ManualFeed false /MediaType (Prepunched) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType Envelope/Briefumschlag: "
+  << /ManualFeed false /MediaType (Envelope) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType Cardstock/Karteikarte: "
+  << /ManualFeed false /MediaType (Card Stock) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType Thick/Starkespapier: "
+  << /ManualFeed false /MediaType (Thick) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType FinePaper/Hohe Qualit<E4>t: "
+  << /ManualFeed false /MediaType (Fine) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType User1/Spezial 1: "
+  << /ManualFeed false /MediaType (Custom Type1) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType User2/Spezial 2: "
+  << /ManualFeed false /MediaType (Custom Type2) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType User3/Spezial 3: "
+  << /ManualFeed false /MediaType (Custom Type3) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType User4/Spezial 4: "
+  << /ManualFeed false /MediaType (Custom Type4) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType User5/Spezial 5: "
+  << /ManualFeed false /MediaType (Custom Type5) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType User6/Spezial 6: "
+  << /ManualFeed false /MediaType (Custom Type6) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType User7/Spezial 7: "
+  << /ManualFeed false /MediaType (Custom Type7) /DeferredMediaSelection true >> setpagedevice"
+*End
+*MediaType User8/Spezial 8: "
+  << /ManualFeed false /MediaType (Custom Type8) /DeferredMediaSelection true >> setpagedevice"
+*End
+*?MediaType: "
+  save
+    currentpagedevice /MediaType {get} stopped
+    {pop pop (Unknown)} {dup null eq {pop (Unknown)} if} ifelse = flush
+  restore"
+*End
+*CloseUI: *MediaType
+
+*RequiresPageRegion All: True
+
+*%==============================================
+*% Output Bin Definitions
+*%==============================================
+*OpenUI *OutputBin/Papierablage w<E4>hlen: PickOne
+*OrderDependency: 25 AnySetup *OutputBin
+*DefaultOutputBin:Facedown
+*OutputBin Facedown/Oberer ablage: "0 statusdict /setoutputtray get exec
+  << /OutputFaceUp false >> setpagedevice"
+*End
+*OutputBin Main/Finisher (Druckbild nach unten):  "2 statusdict /setoutputtray get exec
+  << /OutputFaceUp false >> setpagedevice"
+*End
+*OutputBin Sub/Finisher (Druckbild nach oben):  "1 statusdict /setoutputtray get exec
+  << /OutputFaceUp true >> setpagedevice"
+*End
+*OutputBin MB1Dn/Mailbox 1 (Druckbild nach unten): "4 statusdict /setoutputtray get exec
+ << /OutputFaceUp false >> setpagedevice"
+*End
+*OutputBin MB2Dn/Mailbox 2 (Druckbild nach unten): "5 statusdict /setoutputtray get exec
+ << /OutputFaceUp false >> setpagedevice"
+*End
+*OutputBin MB3Dn/Mailbox 3 (Druckbild nach unten): "6 statusdict /setoutputtray get exec
+ << /OutputFaceUp false >> setpagedevice"
+*End
+*OutputBin MB4Dn/Mailbox 4 (Druckbild nach unten): "7 statusdict /setoutputtray get exec
+ << /OutputFaceUp false >> setpagedevice"
+*End
+*OutputBin MB5Dn/Mailbox 5 (Druckbild nach unten): "8 statusdict /setoutputtray get exec
+ << /OutputFaceUp false >> setpagedevice"
+*End
+*OutputBin MB6Dn/Mailbox 6 (Druckbild nach unten): "9 statusdict /setoutputtray get exec
+ << /OutputFaceUp false >> setpagedevice"
+*End
+*OutputBin MB7Dn/Mailbox 7 (Druckbild nach unten): "10 statusdict /setoutputtray get exec
+ << /OutputFaceUp false >> setpagedevice"
+*End
+*OutputBin MB1Up/Mailbox 1 (Druckbild nach oben): "4 statusdict /setoutputtray get exec
+ << /OutputFaceUp true >> setpagedevice"
+*End
+*OutputBin MB2Up/Mailbox 2 (Druckbild nach oben): "5 statusdict /setoutputtray get exec
+ << /OutputFaceUp true >> setpagedevice"
+*End
+*OutputBin MB3Up/Mailbox 3 (Druckbild nach oben): "6 statusdict /setoutputtray get exec
+ << /OutputFaceUp true >> setpagedevice"
+*End
+*OutputBin MB4Up/Mailbox 4 (Druckbild nach oben): "7 statusdict /setoutputtray get exec
+ << /OutputFaceUp true >> setpagedevice"
+*End
+*OutputBin MB5Up/Mailbox 5 (Druckbild nach oben): "8 statusdict /setoutputtray get exec
+ << /OutputFaceUp true >> setpagedevice"
+*End
+*OutputBin MB6Up/Mailbox 6 (Druckbild nach oben): "9 statusdict /setoutputtray get exec
+ << /OutputFaceUp true >> setpagedevice"
+*End
+*OutputBin MB7Up/Mailbox 7 (Druckbild nach oben): "10 statusdict /setoutputtray get exec
+ << /OutputFaceUp true >> setpagedevice"
+*End
+*?OutputBin: ""
+*CloseUI: *OutputBin
+
+*% Page Stack Order
+
+*%==============================================
+*% Staple Mode Definitions
+*%==============================================
+*OpenUI *KMStapleMode/Heften: PickOne
+*OrderDependency: 30 AnySetup *KMStapleMode
+*DefaultKMStapleMode: None
+*KMStapleMode None/Aus: "<< /Staple 0 >> setpagedevice"
+*KMStapleMode Front1/Vorne:"
+  userdict /UIStapleDetails known not { userdict /UIStapleDetails 10 dict put } if
+  userdict /UIStapleDetails get /StaplePosition 1 put
+  << /Staple 3 /StapleDetails UIStapleDetails >> setpagedevice"
+*End
+*KMStapleMode Rear1/Zur<FC>ck:"
+  userdict /UIStapleDetails known not { userdict /UIStapleDetails 10 dict put } if
+  userdict /UIStapleDetails get /StaplePosition 2 put
+  << /Staple 3 /StapleDetails UIStapleDetails >> setpagedevice"
+*End
+*KMStapleMode Center1/Zentrieren:"
+  userdict /UIStapleDetails known not { userdict /UIStapleDetails 10 dict put } if
+  userdict /UIStapleDetails get /StaplePosition 3 put
+  << /Staple 3 /StapleDetails UIStapleDetails >> setpagedevice"
+*End
+*?KMStapleMode: "
+  save
+  currentpagedevice /Staple known
+  dup {currentpagedevice /Staple get 0 ne and} if
+  {currentpagedevice /StapleDetails get
+  /StaplePosition get [(Front)(Center)(Rear)] exch get }
+  { (None) } ifelse = flush restore"
+*End
+*CloseUI: *KMStapleMode
+
+*%==============================================
+*% 1 Staple Method Definitions
+*%==============================================
+*OpenUI *StapleCount/Heftmethode: PickOne
+*OrderDependency: 30 AnySetup *StapleCount
+*DefaultStapleCount: Auto
+*StapleCount Auto/Keine: ""
+*StapleCount Each50/Je 50 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 50 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each49/Je 49 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 49 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each48/Je 48 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 48 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each47/Je 47 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 47 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each46/Je 46 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 46 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each45/Je 45 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 45 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each44/Je 44 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 44 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each43/Je 43 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 43 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each42/Je 42 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 42 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each41/Je 41 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 41 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each40/Je 40 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 40 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each39/Je 39 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 39 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each38/Je 38 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 38 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each37/Je 37 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 37 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each36/Je 36 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 36 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each35/Je 35 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 35 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each34/Je 34 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 34 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each33/Je 33 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 33 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each32/Je 32 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 32 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each31/Je 31 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 31 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each30/Je 30 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 30 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each29/Je 29 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 29 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each28/Je 28 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 28 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each27/Je 27 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 27 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each26/Je 26 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 26 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each25/Je 25 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 25 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each24/Je 24 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 24 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each23/Je 23 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 23 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each22/Je 22 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 22 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each21/Je 21 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 21 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each20/Je 20 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 20 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each19/Je 19 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 19 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each18/Je 18 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 18 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each17/Je 17 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 17 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each16/Je 16 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 16 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each15/Je 15 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 15 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each14/Je 14 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 14 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each13/Je 13 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 13 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each12/Je 12 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 12 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each11/Je 11 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 11 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each10/Je 10 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 10 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each9/Je 9 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 9 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each8/Je 8 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 8 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each7/Je 7 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 7 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each6/Je 6 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 6 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each5/Je 5 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 5 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each4/Je 4 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 4 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each3/Je 3 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 3 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*StapleCount Each2/Je 2 Blatt Heften: "
+  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
+  userdict /UIStapleDetails get /Count 2 put <</StapleDetails UIStapleDetails>> setpagedevice"
+*End
+*?StapleCount: "save (Auto) = flush restore"
+*CloseUI: *StapleCount
+
+*%==============================================
+*% Punch Method Definitions
+*%==============================================
+*OpenUI *KCPunch/Lochen: PickOne
+*OrderDependency: 30 AnySetup *KCPunch
+*DefaultKCPunch: None
+*KCPunch None/Aus: "<< /Punch 0 >> setpagedevice"
+*KCPunch autoholes/Lochen (Brosch.Hefter): "
+  << /Punch 3 /PunchDetails << /PunchMode 1 >> >> setpagedevice"
+*End
+*KCPunch 2holesUS/2 L<F6>cher(US): "
+  << /Punch 3 /PunchDetails << /PunchMode 2 >> >> setpagedevice"
+*End
+*KCPunch 2holesEUR/2 L<F6>cher(EUR): "
+  << /Punch 3 /PunchDetails << /PunchMode 1 >> >> setpagedevice"
+*End
+*KCPunch 3holes/3 L<F6>cher: "
+  << /Punch 3 /PunchDetails << /PunchMode 1 >> >> setpagedevice"
+*End
+*KCPunch 4holes/4 L<F6>cher: "
+  << /Punch 3 /PunchDetails << /PunchMode 2 >> >> setpagedevice"
+*End
+*?KCPunch: "
+  save
+  currentpagedevice /Punch known 
+  dup { currentpagedevice /Punch get 0 ne and } if
+  { currentpagedevice /Mode get
+  /Mode get [(2or3holes)(4or2holes)] exch get }
+  { (None) } ifelse = flush restore"
+*End
+*CloseUI: *KCPunch
+
+*%==============================================
+*% Booklet Definitions
+*%==============================================
+*OpenUI *KCBooklet/Brosch<FC>re: PickOne
+*OrderDependency: 40 AnySetup *KCBooklet
+*DefaultKCBooklet: OFF
+*KCBooklet OFF/Aus: "0 statusdict /setkcbooklet get exec"
+*KCBooklet LeftOpen/Links binden: "statusdict begin true setduplexmode true settumble end 1 statusdict /setkcbooklet get exec"
+*KCBooklet RightOpen/Rechts binden: "statusdict begin true setduplexmode true settumble end 2 statusdict /setkcbooklet get exec"
+*CloseUI: *KCBooklet
+
+*%==============================================
+*% Booklet Fold Definision
+*%==============================================
+*OpenUI *Fold/Brosch. Heftung: PickOne
+*DefaultFold: OFF
+*OrderDependency: 40 AnySetup *Fold
+*Fold OFF/Aus: "<< /Fold 0 >> setpagedevice"
+*Fold ON/Ein: "<< /Fold 3 /FoldDetails << /FoldMode 1 >> >> setpagedevice"
+*CloseUI: *Fold
+
+*%==============================================
+*% Job Offset Definitions
+*%==============================================
+*OpenUI *Jog/Versatz: PickOne
+*OrderDependency: 50 AnySetup *Jog
+*DefaultJog: None
+*Jog EndOfSet/Ein: "<< /Jog 3 >> setpagedevice"
+*Jog None/Aus: "<< /Jog 0 >> setpagedevice"
+*?Jog: "
+  save
+  currentpagedevice dup /Jog known {
+    /Jog get dup 0 gt
+    {(False)}{(True)} ifelse
+  }{(Unknown)} ifelse
+  exch pop
+  = flush restore"
+*End
+*CloseUI: *Jog
+
+*%==============================================
+*% Duplex Definitions
+*%==============================================
+*OpenUI *Duplex/Duplex Druck: PickOne
+*OrderDependency: 35 AnySetup *Duplex
+*DefaultDuplex: None
+*Duplex None/Keine: "statusdict begin false setduplexmode false settumble end"
+*Duplex DuplexTumble/Quer drehen: "statusdict begin true setduplexmode true settumble end"
+*Duplex DuplexNoTumble/L<E4>ngs drehen: "statusdict begin true setduplexmode false settumble end"
+*?Duplex: "
+  save
+  statusdict begin
+  duplexmode
+  {tumble {(DuplexTumble)}{(DuplexNoTumble)} ifelse}
+  {(None)} ifelse
+  = flush end restore"
+*End
+*CloseUI: *Duplex
+
+*%==============================================
+*% Job Spooling Definitions
+*%==============================================
+*OpenUI *KCCollate/Job speichern: PickOne
+*OrderDependency: 50 AnySetup *KCCollate
+*DefaultKCCollate: Def
+*KCCollate Def/Printer Default: ""
+*KCCollate None/None: "<< /Collate false >> setpagedevice"
+*KCCollate Temp/Tempor<E4>r (Festplatte): "
+  userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
+  userdict /UICollateDetails get /Mode 1 put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
+*End
+*KCCollate Perm/Permanent (Festplatte): "
+  userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
+  userdict /UICollateDetails get /Mode 2 put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
+*End
+*KCCollate VMBAdmin/Virtuelle Mailbox (Verwalter): "
+  userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
+  userdict /UICollateDetails get dup /Mode 8 put /Destination [(Administrator)] put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
+*End
+*KCCollate VMBUser01/Virtuelle Mailbox (Benutzer 1): "
+  userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
+  userdict /UICollateDetails get dup /Mode 8 put /Destination [(User 1)] put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
+*End
+*KCCollate VMBUser02/Virtuelle Mailbox (Benutzer 2): "
+  userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
+  userdict /UICollateDetails get dup /Mode 8 put /Destination [(User 2)] put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
+*End
+*KCCollate VMBUser03/Virtuelle Mailbox (Benutzer 3): "
+  userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
+  userdict /UICollateDetails get dup /Mode 8 put /Destination [(User 3)] put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
+*End
+*KCCollate VMBUser04/Virtuelle Mailbox (Benutzer 4): "
+  userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
+  userdict /UICollateDetails get dup /Mode 8 put /Destination [(User 4)] put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
+*End
+*KCCollate VMBUser05/Virtuelle Mailbox (Benutzer 5): "
+  userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
+  userdict /UICollateDetails get dup /Mode 8 put /Destination [(User 5)] put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
+*End
+*KCCollate VMBUser06/Virtuelle Mailbox (Benutzer 6): "
+  userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
+  userdict /UICollateDetails get dup /Mode 8 put /Destination [(User 6)] put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
+*End
+*KCCollate VMBUser07/Virtuelle Mailbox (Benutzer 7): "
+  userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
+  userdict /UICollateDetails get dup /Mode 8 put /Destination [(User 7)] put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
+*End
+*KCCollate VMBUser08/Virtuelle Mailbox (Benutzer 8): "
+  userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
+  userdict /UICollateDetails get dup /Mode 8 put /Destination [(User 8)] put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
+*End
+*KCCollate VMBUser09/Virtuelle Mailbox (Benutzer 9): "
+  userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
+  userdict /UICollateDetails get dup /Mode 8 put /Destination [(User 9)] put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
+*End
+*KCCollate VMBUser10/Virtuelle Mailbox (Benutzer 10): "
+  userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
+  userdict /UICollateDetails get dup /Mode 8 put /Destination [(User 10)] put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
+*End
+*KCCollate QuickCopy/Schnellkopie: "
+  userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
+  userdict /UICollateDetails get dup /Mode 0 put dup /Type 8 put /Hold 1 put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
+*End
+*KCCollate ProofHold/Pr<FC>fen und aufbewahren: "
+  userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
+  userdict /UICollateDetails get dup /Mode 0 put dup /Type 8 put /Hold 3 put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
+*End
+*KCCollate JobStorage/Auftragsspeicher: "
+  userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
+  userdict /UICollateDetails get dup /Mode 0 put dup /Type 8 put /Hold 2 put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
+*End
+*?KCCollate: "
+  save
+  currentpagedevice dup /Collate known {
+    dup /CollateDetails known {
+      /CollateDetails get
+      dup /Mode known {
+        /Mode get
+        1 {
+          dup 1 eq {pop (Temp) exit} if
+          dup 2 eq {pop (Perm) exit} if
+          dup 8 eq {pop (VMB) exit} if
+          pop (Unknown)
+        } repeat
+      }{pop (Unknown)} ifelse
+    }{pop (Unknown)} ifelse
+  }{pop (Unknown)} ifelse
+  = flush restore"
+*End
+*CloseUI: *KCCollate
+
+*%==============================================
+*% Management Code Definitions
+*%==============================================
+*OpenUI *KmManagement/Management Code: PickOne
+*OrderDependency: 60 AnySetup *KmManagement
+*DefaultKmManagement: Default
+*KmManagement Default/Aus: ""
+*KmManagement MG0000/0000: "(0000) statusdict /setmanagementnumber get exec"
+*KmManagement MG0001/0001: "(0001) statusdict /setmanagementnumber get exec"
+*KmManagement MG0002/0002: "(0002) statusdict /setmanagementnumber get exec"
+*KmManagement MG0003/0003: "(0003) statusdict /setmanagementnumber get exec"
+*KmManagement MG0004/0004: "(0004) statusdict /setmanagementnumber get exec"
+*KmManagement MG0005/0005: "(0005) statusdict /setmanagementnumber get exec"
+*KmManagement MG0006/0006: "(0006) statusdict /setmanagementnumber get exec"
+*KmManagement MG0007/0007: "(0007) statusdict /setmanagementnumber get exec"
+*KmManagement MG0008/0008: "(0008) statusdict /setmanagementnumber get exec"
+*KmManagement MG0009/0009: "(0009) statusdict /setmanagementnumber get exec"
+*KmManagement MG0010/0010: "(0010) statusdict /setmanagementnumber get exec"
+*KmManagement MG0011/0011: "(0011) statusdict /setmanagementnumber get exec"
+*KmManagement MG0012/0012: "(0012) statusdict /setmanagementnumber get exec"
+*KmManagement MG0013/0013: "(0013) statusdict /setmanagementnumber get exec"
+*KmManagement MG0014/0014: "(0014) statusdict /setmanagementnumber get exec"
+*KmManagement MG0015/0015: "(0015) statusdict /setmanagementnumber get exec"
+*KmManagement MG0016/0016: "(0016) statusdict /setmanagementnumber get exec"
+*KmManagement MG0017/0017: "(0017) statusdict /setmanagementnumber get exec"
+*KmManagement MG0018/0018: "(0018) statusdict /setmanagementnumber get exec"
+*KmManagement MG0019/0019: "(0019) statusdict /setmanagementnumber get exec"
+*KmManagement MG0020/0020: "(0020) statusdict /setmanagementnumber get exec"
+*KmManagement MG0021/0021: "(0021) statusdict /setmanagementnumber get exec"
+*KmManagement MG0022/0022: "(0022) statusdict /setmanagementnumber get exec"
+*KmManagement MG0023/0023: "(0023) statusdict /setmanagementnumber get exec"
+*KmManagement MG0024/0024: "(0024) statusdict /setmanagementnumber get exec"
+*KmManagement MG0025/0025: "(0025) statusdict /setmanagementnumber get exec"
+*KmManagement MG0026/0026: "(0026) statusdict /setmanagementnumber get exec"
+*KmManagement MG0027/0027: "(0027) statusdict /setmanagementnumber get exec"
+*KmManagement MG0028/0028: "(0028) statusdict /setmanagementnumber get exec"
+*KmManagement MG0029/0029: "(0029) statusdict /setmanagementnumber get exec"
+*KmManagement MG0030/0030: "(0030) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000000/0000000: "(0000000) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000001/0000001: "(0000001) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000002/0000002: "(0000002) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000003/0000003: "(0000003) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000004/0000004: "(0000004) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000005/0000005: "(0000005) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000006/0000006: "(0000006) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000007/0000007: "(0000007) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000008/0000008: "(0000008) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000009/0000009: "(0000009) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000010/0000010: "(0000010) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000011/0000011: "(0000011) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000012/0000012: "(0000012) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000013/0000013: "(0000013) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000014/0000014: "(0000014) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000015/0000015: "(0000015) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000016/0000016: "(0000016) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000017/0000017: "(0000017) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000018/0000018: "(0000018) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000019/0000019: "(0000019) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000020/0000020: "(0000020) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000021/0000021: "(0000021) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000022/0000022: "(0000022) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000023/0000023: "(0000023) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000024/0000024: "(0000024) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000025/0000025: "(0000025) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000026/0000026: "(0000026) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000027/0000027: "(0000027) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000028/0000028: "(0000028) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000029/0000029: "(0000029) statusdict /setmanagementnumber get exec"
+*KmManagement MG0000030/0000030: "(0000030) statusdict /setmanagementnumber get exec"
+*?KmManagement: ""
+*End
+*CloseUI: *KmManagement
+
+*%==============================================
+*%       180 Rotate Setting
+*%==============================================
+*OpenUI *Rotate/180 rotiert: Boolean
+*OrderDependency: 20 AnySetup *Rotate
+*DefaultRotate: False
+*Rotate True/Ein:"userdict /180rotdetail known not 
+{
+userdict /180rotdetail true put
+1 dict begin currentpagedevice /Install get aload
+  /aaa exch def { currentpagedevice /PageSize get aload pop translate 180 rotate } bind aload
+  length /aaa load length add array astore cvx /Install exch def currentdict end setpagedevice
+} if"
+*Rotate False/Aus: ""
+*?Rotate: "
+  (False) ="
+*End
+*CloseUI: *Rotate
+
+*%==============================================
+*% KCSuperWatermark
+*%==============================================
+*OpenUI *KCSuperWatermark/Super Watermark: PickOne
+*OrderDependency: 10 AnySetup *KCSuperWatermark
+*DefaultKCSuperWatermark: None
+*KCSuperWatermark None/Keine: ""
+*KCSuperWatermark UFA/Use Form-A: "<</BeginPage {pop  mark {(%disk0%Form-A) kcloadpageimage} stopped cleartomark}>> setpagedevice"
+*KCSuperWatermark UFB/Use Form-B: "<</BeginPage {pop  mark {(%disk0%Form-B) kcloadpageimage} stopped cleartomark}>> setpagedevice"
+*KCSuperWatermark UFC/Use Form-C: "<</BeginPage {pop  mark {(%disk0%Form-C) kcloadpageimage} stopped cleartomark}>> setpagedevice"
+*KCSuperWatermark SFA/Save Form-A: "<</EndPage {exch pop 2 ne dup  mark exch {{(%disk0%Form-A) kcsavepageimage} stopped} if cleartomark}>> setpagedevice"
+*KCSuperWatermark SFB/Save Form-B: "<</EndPage {exch pop 2 ne dup  mark exch {{(%disk0%Form-B) kcsavepageimage} stopped} if cleartomark}>> setpagedevice"
+*KCSuperWatermark SFC/Save Form-C: "<</EndPage {exch pop 2 ne dup  mark exch {{(%disk0%Form-C) kcsavepageimage} stopped} if cleartomark}>> setpagedevice"
+*CloseUI: *KCSuperWatermark
+
+*%==============================================
+*% Tray Switch Definitions
+*%==============================================
+*OpenUI *KCTraySwitch/Auto Zufuhrwechsel: PickOne
+*OrderDependency: 25 AnySetup *KCTraySwitch
+*DefaultKCTraySwitch: PrnDef
+*KCTraySwitch PrnDef/Druckergrundeinstellung: ""
+*KCTraySwitch True/Ein: "<< /TraySwitch true >> setpagedevice"
+*KCTraySwitch False/Aus: "<< /TraySwitch false >> setpagedevice"
+*?KCTraySwitch: "
+  save
+  currentpagedevice /TraySwitch get
+  { (True) }{ (False) } ifelse
+  = flush restore"
+*End
+*CloseUI: *KCTraySwitch
+
+*%==============================================
+*% PPD Version Info 
+*%==============================================
+*OpenUI *KMVersion/PPD Version: PickOne
+*OrderDependency: 70 AnySetup *KMVersion
+*DefaultKMVersion: Default
+*KMVersion Default/8.2.0111 [01-11-2005]: ""
+*CloseUI: *KMVersion
+
+*% Font Information
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Special ROM
+*?FontQuery: "
+  save
+  /str 100 string dup 0 (fonts/) putinterval def
+  {count 1 gt
+    { exch dup str 6 94 getinterval cvs
+      (/) print print (:) print
+      FontDirectory exch known
+      {(Yes)}{(No)} ifelse =
+    }{exit} ifelse
+  } bind loop (*)
+  = flush restore"
+*End
+*?FontList: "save FontDirectory { pop == } bind forall flush (*) = flush restore"
+*% Printer Messages
+*Message: "%%[ exitserver: permanent state may be changed ]%%"
+*Message: "%%[ Flushing: rest of job (to end-of-file) will be ignored ]%%"
+*Message: "\FontName\ not found, using Courier"
+
+*% Status (format: %%[ status: <one of these> ]%% )
+*Status: "warming up"/warming up
+*Status: "idle"/idle
+*Status: "busy"/busy
+*Status: "waiting"/waiting
+*Status: "printing"/printing
+*Status: "initializing"/initializing
+*Status: "printing test page"/printing test page
+*% Printer Error (format: %%[ PrinterError: <one of these> ]%% )
+*PrinterError: "paper entry misfeed"
+*PrinterError: "cover open"
+*PrinterError: "no paper tray"
+*PrinterError: "out of paper"
+*PrinterError: "toner low (halt)"
+*PrinterError: "warming up"
+*PrinterError: "other reason"
+*PrinterError: "video interface mode"
+*PrinterError: "offline"
+*PrinterError: "toner low (warning)"
+
+*% Input Sources (format: %%[ status: <stat>;source:<one of these> ]%% )
+*Source: "Serial"
+*Source: "parallel"
+*Source: "LocalTalk"
+*Source: "option"
+
+*%  End of PPD file for Kyocera Mita FS_9520DN (German)
