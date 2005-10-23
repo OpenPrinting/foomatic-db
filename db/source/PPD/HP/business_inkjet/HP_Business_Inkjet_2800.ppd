@@ -1,0 +1,1503 @@
+*PPD-Adobe: "4.3"
+*% =================================
+*% Adobe Systems PostScript(R) Printer Description File
+*% Copyright 1992-2005 Hewlett-Packard Company
+*%
+*% Permission is hereby granted, free of charge, to any person obtaining
+*% a copy of this software and associated documentation files (the
+*% "Software"), to deal in the Software without restriction, including
+*% without limitation the rights to use, copy, modify, merge, publish,
+*% distribute, sublicense, and/or sell copies of the Software, and to
+*% permit persons to whom the Software is furnished to do so, subject to
+*% the following conditions:
+*% 
+*% The above copyright notice and this permission notice shall be
+*% included in all copies or substantial portions of the Software.
+*% 
+*% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+*% EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+*% MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+*% NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+*% LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+*% OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+*% WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*% 
+*% [this is the MIT open source license -- please see www.opensource.org]
+*%
+
+*% Date Code: 20040704
+*% =================================
+*% Product/PPD Version Information
+*% =================================
+*% PPD File Version Information
+*FormatVersion: "4.3"
+*FileVersion: "043.3100"
+*LanguageVersion: English
+*LanguageEncoding: MacStandard
+*PCFileName: "HPW28006.PPD"
+*% Product Name and Version Information
+*Manufacturer: "HP"
+*Product:      "(HP Business Inkjet 2800)"
+*ModelName:     "HP Business Inkjet 2800 PS"
+*ShortNickName: "HP Business Inkjet 2800 PS"
+*NickName:      "HP Business Inkjet 2800 PS v3010.107 Postscript (recommended)"
+*PSVersion:	"(3010.107) 0"
+*% ====================================== 
+*% For Mac OS 10.3 and higher 
+*% ====================================== 
+*APDialogExtension: "/Library/Printers/hp/PDEs/hpColorOptions.plugin" 
+*APDialogExtension: "/Library/Printers/hp/PDEs/hpEdgeToEdge.plugin" 
+*APDialogExtension: "/Library/Printers/hp/PDEs/hpFinishing.plugin" 
+*APDialogExtension: "/Library/Printers/hp/PDEs/hpImageQuality.plugin" 
+*APDialogExtension: "/Library/Printers/hp/PDEs/hpProofAndPrint.plugin" 
+*cupsICCProfile ../sRGB Matching Profile: "/Library/Printers/hp/Profiles/sRGB_A.icc" 
+*APPrinterIconPath: "/Library/Printers/hp/Icons/HP Business Inkjet 2800.icns"
+*% =================================
+*% Basic Device Capabilities
+*% =================================
+*LanguageLevel: "3"
+*FileSystem: False
+*ColorDevice: True
+*DefaultColorSpace: CMYK
+*TTRasterizer: Type42
+
+*1284Modes Parallel: Compat Nibble ECP
+*1284DeviceId: "MFG:HP;MODEL:hp2300;COMMAND SET: POSTSCRIPT,PJL,PCL"
+
+*% =================================
+*% Emulations and Protocols
+*% =================================
+*Protocols: TBCP
+*%=== JCL Features ==========================
+
+*%=========================================================================
+*%  HPPJLEncoding
+*%  This feature is used for specifying the encoding supported by the printer
+*%  Possible values are UTF8, 7 Bit ASCII Encoding, 8 Bit ASCII Encoding and No Encoding
+*%  Using this, various PJL strings (Job Storage User Names, Job Names etc) can be encoded and sent to the printer
+*%=========================================================================
+
+*%==========================================================
+*% Printer Specific Custom Data - HPDryTime
+*%==========================================================
+
+*%=======================================================================
+*% JCLHPInkVolume
+*%=======================================================================
+
+*%=======================================================================
+*% JCLHPPrintInGrayScale
+*%=======================================================================
+
+*% =================================
+*% Installable Options
+*% =================================
+*OpenGroup: InstallableOptions/Installed Options
+
+*% =================================
+*% Tray2
+*% =================================
+*OpenUI *HPOption_Tray2/Tray 2: Boolean
+*DefaultHPOption_Tray2: True
+*HPOption_Tray2 True/Installed: ""
+*HPOption_Tray2 False/Not Installed: ""
+*?HPOption_Tray2: "
+  save
+    currentpagedevice /InputAttributes get dup 1 known
+    {1 get null ne {(True)}{(False)} ifelse} {pop (False)} ifelse = flush
+  restore
+"
+*End
+*CloseUI: *HPOption_Tray2
+
+*% =================================
+*% Memory
+*% =================================
+*OpenUI *InstalledMemory/Printer Memory: PickOne
+*DefaultInstalledMemory: 96MB
+*InstalledMemory 96MB/96 MB: ""
+*InstalledMemory 160MB/160 MB: ""
+*InstalledMemory 224MB/224 MB: ""
+*InstalledMemory 288MB/288 MB: ""
+*InstalledMemory 352MB/352 MB: ""
+*InstalledMemory 416MB/416 MB: ""
+*InstalledMemory 480MB/480 MB: ""
+*InstalledMemory 608MB/608 MB: ""
+
+*CloseUI: *InstalledMemory
+
+*OpenUI *HPPaperPolicy/Fit to Page: PickOne
+*OrderDependency: 10 AnySetup *HPPaperPolicy
+*DefaultHPPaperPolicy: PromptUser
+*HPPaperPolicy PromptUser/Prompt User: "
+   <</DeferredMediaSelection true>> setpagedevice"
+*End
+*HPPaperPolicy NearestSizeAdjust/Nearest Size & Scale: "
+   <</DeferredMediaSelection false>> setpagedevice
+   <</Policies << /PageSize 3 >> >> setpagedevice"
+*End
+*HPPaperPolicy NearestSizeNoAdjust/Nearest Size & Crop: "
+   <</DeferredMediaSelection false>> setpagedevice
+   <</Policies << /PageSize 5 >> >> setpagedevice"
+*End
+*HPPaperPolicy Letter/Letter: "
+userdict begin
+  /HPppX1 0 def
+  /HPppY1 0 def
+  /HPppScale 1 def
+
+  <</DeferredMediaSelection true
+    /BeginPage {pop userdict begin HPppX1 HPppY1 translate HPppScale HPppScale scale end} bind>> setpagedevice
+
+  /HPwmSPD {setpagedevice} bind def
+  /setpagedevice {userdict begin dup /PageSize known {/HPwmPgWidth exch /PageSize get aload pop /HPwmPgHeight exch def def
+      /HPppScale 612 HPwmPgWidth div dup 792 HPwmPgHeight div dup 3 1 roll lt {pop} {exch pop} ifelse def
+      HPppScale 1 gt {/HPppScale 1 def}if
+      /HPppX1 612 HPwmPgWidth HPppScale mul sub 2 div def
+      /HPppY1 792 HPwmPgHeight HPppScale mul sub 2 div def
+      <</PageSize [612 792] /ImagingBBox null>> setpagedevice}{setpagedevice}ifelse end} bind def
+end"
+*End
+*HPPaperPolicy A4/A4: "
+userdict begin
+  /HPppX1 0 def
+  /HPppY1 0 def
+  /HPppScale 1 def
+
+  <</DeferredMediaSelection true
+    /BeginPage {pop userdict begin HPppX1 HPppY1 translate HPppScale HPppScale scale end} bind>> setpagedevice
+
+  /HPwmSPD {setpagedevice} bind def
+  /setpagedevice {userdict begin dup /PageSize known {/HPwmPgWidth exch /PageSize get aload pop /HPwmPgHeight exch def def
+      /HPppScale 595 HPwmPgWidth div dup 842 HPwmPgHeight div dup 3 1 roll lt {pop} {exch pop} ifelse def
+      HPppScale 1 gt {/HPppScale 1 def}if
+      /HPppX1 595 HPwmPgWidth HPppScale mul sub 2 div def
+      /HPppY1 842 HPwmPgHeight HPppScale mul sub 2 div def
+      <</PageSize [595 842] /ImagingBBox null>> setpagedevice}{setpagedevice}ifelse end} bind def
+end"
+*End
+*?HPPaperPolicy: "
+currentpagedevice /Policies get /PageSize get 5 eq {(Crop)}{(Prompt)} ifelse = flush
+"
+*End
+*CloseUI: *HPPaperPolicy
+
+*% =================================
+*% Duplexing Unit
+*% =================================
+
+*OpenUI *HPOption_Duplexer/Duplex Unit (for 2-Sided Printing): Boolean
+*DefaultHPOption_Duplexer: True
+*HPOption_Duplexer True/Installed: ""
+*HPOption_Duplexer False/Not Installed: ""
+*?HPOption_Duplexer: "
+  save
+   currentpagedevice /Duplex known
+   {(True)}{(False)}ifelse = flush
+  restore
+"
+*End
+*CloseUI: *HPOption_Duplexer
+
+*CloseGroup: InstallableOptions
+
+*% =================================
+*%  CMYK Ink Space
+*% =================================
+*OpenUI *HPCMYKInks/CMYK Inks:  PickOne
+*OrderDependency: 60 AnySetup *HPCMYKInks
+*DefaultHPCMYKInks: Fastdefault
+*HPCMYKInks Fastdefault/Default:"<< /CMYKInkSet 0 >> setpagedevice"
+*End
+*HPCMYKInks SWOP/SWOP:"<< /CMYKInkSet 1 >> setpagedevice"
+*End
+*HPCMYKInks EURO/Euroscale:"<< /CMYKInkSet 2 >> setpagedevice"
+*End
+*HPCMYKInks TOYO/Toyo:"<< /CMYKInkSet 3 >> setpagedevice"
+*End
+*CloseUI: *HPCMYKInks
+
+*%======================================================================
+*% PageSize
+*%======================================================================
+*LandscapeOrientation: Plus90
+*OpenUI *PageSize: PickOne
+*OrderDependency: 40 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize SUPERB/Super B (13x19 in.): "
+  <</DeferredMediaSelection true /PageSize [936 1368] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize A3NOBI/A3 Nobi: "
+  <</DeferredMediaSelection true /PageSize [930 1362] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize A3/A3: "
+  <</DeferredMediaSelection true /PageSize [842 1191] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize A4/A4: "
+  <</DeferredMediaSelection true /PageSize [595 842] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize A5/A5: "
+  <</DeferredMediaSelection true /PageSize [420 595] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize A6/A6: "
+    <</DeferredMediaSelection true /PageSize [298 420] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize B4/B4 (JIS): "
+  <</DeferredMediaSelection true /PageSize [729 1032] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize B5/B5 (JIS): "
+  <</DeferredMediaSelection true /PageSize [516 729] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize EXECUTIVE/Executive: "
+  <</DeferredMediaSelection true /PageSize [522 756] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize LEGAL/Legal: "
+  <</DeferredMediaSelection true /PageSize [612 1008] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize Letter/Letter: "
+  <</DeferredMediaSelection true /PageSize [612 792] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize STATEMENT/Statement: "
+    <</DeferredMediaSelection true /PageSize [396 612] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize 11X17/11x17: "
+  <</DeferredMediaSelection true /PageSize [792 1224] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize ENV_10/Envelope #10: "
+  <</DeferredMediaSelection true /PageSize [297 684] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize ENV_A2/Envelope A2: "
+    <</DeferredMediaSelection true /PageSize [315 414] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize ENV_C5/Envelope C5: "
+  <</DeferredMediaSelection true /PageSize [459 649] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize ENV_C6/Envelope C6: "
+    <</DeferredMediaSelection true /PageSize [324 460] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize ENV_DL/Envelope DL: "
+  <</DeferredMediaSelection true /PageSize [312 624] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize ENV_MONARCH/Envelope Monarch: "
+  <</DeferredMediaSelection true /PageSize [279 540] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize JENV_KAKU2/Japanese Envelope Kaku #2: "
+    <</DeferredMediaSelection true /PageSize [680 941] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize JENV_CHOU3/Japanese Envelope Chou #3: "
+    <</DeferredMediaSelection true /PageSize [340 666] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize JENV_CHOU4/Japanese Envelope Chou #4: "
+    <</DeferredMediaSelection true /PageSize [256 582] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize HP_GREETING_CARD_ENV/HP Greeting Card Envelope: "
+    <</DeferredMediaSelection true /PageSize [315 432] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize PHOTO_4X6_IN_WT/4x6 in. with tab: "
+    <</DeferredMediaSelection true /PageSize [282 426] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize INDEX_CARD_4X6/Index Card 4x6: "
+    <</DeferredMediaSelection true /PageSize [288 432] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize INDEX_CARD_5X8/Index Card 5x8: "
+    <</DeferredMediaSelection true /PageSize [360 576] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize OFUKU_HAGAKI/Ofuku Hagaki: "
+    <</DeferredMediaSelection true /PageSize [420 566] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageSize JAPANESE_POSTCARD/Hagaki Card: "
+    <</DeferredMediaSelection true /PageSize [284 420] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*?PageSize: "
+   save
+   currentpagedevice /PageSize get aload pop
+   2 copy gt {exch} if
+   (Unknown)
+   19 dict
+   dup [612 792]    (Letter) put
+   dup [612 1008]   (LEGAL) put
+   dup [522 756]    (EXECUTIVE) put
+   dup [595 842]    (A4) put
+   dup [297 684]    (ENV_10) put
+   dup [312 624]    (ENV_DL) put
+   dup [279 540]    (ENV_MONARCH) put
+   dup [420 595]    (A5) put
+   dup [516 729]    (B5) put
+   dup [459 649]    (ENV_C5) put
+   dup [298 420]    (A6) put
+   dup [842 1191]   (A3) put
+   dup [729 1032]   (B4) put
+   dup [792 1224]   (11X17) put
+   dup [936 1368]   (SUPERB) put
+   dup [930 1362]   (A3NOBI) put
+   dup [396 612]    (STATEMENT) put
+   dup [315 414]    (ENV_A2) put
+   dup [324 460]    (ENV_C6) put
+   dup [340 666]    (JENV_CHOU3) put
+   dup [256 582]    (JENV_CHOU4) put
+   dup [680 941]    (JENV_KAKU2) put
+   dup [315 432]    (HP_GREETING_CARD_ENV) put
+   dup [282 426]    (PHOTO_4X6_IN_WT) put
+   dup [288 432]    (INDEX_CARD_4X6) put
+   dup [360 576]    (INDEX_CARD_5X8) put
+   dup [420 566]    (OFUKU_HAGAKI) put
+   dup [284 420]    (JAPANESE_POSTCARD) put
+   { exch aload pop 4 index sub abs 5 le exch
+      5 index sub abs 5 le and
+      {exch pop exit} {pop} ifelse
+   } bind forall
+   = flush pop pop
+   restore
+"
+*End
+*CloseUI: *PageSize
+
+*% ===================================
+*% Page Region
+*% ===================================
+*OpenUI *PageRegion:  PickOne
+*OrderDependency: 30 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion SUPERB/Super B (13x19 in.): "
+  <</DeferredMediaSelection true /PageSize [936 1368] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion A3NOBI/A3 Nobi: "
+  <</DeferredMediaSelection true /PageSize [930 1362] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion A3/A3: "
+  <</DeferredMediaSelection true /PageSize [842 1191] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion A4/A4: "
+  <</DeferredMediaSelection true /PageSize [595 842] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion A5/A5: "
+  <</DeferredMediaSelection true /PageSize [420 595] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion A6/A6: "
+    <</DeferredMediaSelection true /PageSize [298 420] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion B4/B4 (JIS): "
+  <</DeferredMediaSelection true /PageSize [729 1032] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion B5/B5 (JIS): "
+  <</DeferredMediaSelection true /PageSize [516 729] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion EXECUTIVE/Executive: "
+  <</DeferredMediaSelection true /PageSize [522 756] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion LEGAL/Legal: "
+  <</DeferredMediaSelection true /PageSize [612 1008] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion Letter/Letter: "
+  <</DeferredMediaSelection true /PageSize [612 792] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion STATEMENT/Statement: "
+    <</DeferredMediaSelection true /PageSize [396 612] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion 11X17/11x17: "
+  <</DeferredMediaSelection true /PageSize [792 1224] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion ENV_10/Envelope #10: "
+  <</DeferredMediaSelection true /PageSize [297 684] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion ENV_A2/Envelope A2: "
+    <</DeferredMediaSelection true /PageSize [315 414] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion ENV_C5/Envelope C5: "
+  <</DeferredMediaSelection true /PageSize [459 649] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion ENV_C6/Envelope C6: "
+    <</DeferredMediaSelection true /PageSize [324 460] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion ENV_DL/Envelope DL: "
+  <</DeferredMediaSelection true /PageSize [312 624] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion ENV_MONARCH/Envelope Monarch: "
+  <</DeferredMediaSelection true /PageSize [279 540] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion JENV_KAKU2/Japanese Envelope Kaku #2: "
+    <</DeferredMediaSelection true /PageSize [680 941] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion JENV_CHOU3/Japanese Envelope Chou #3: "
+    <</DeferredMediaSelection true /PageSize [340 666] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion JENV_CHOU4/Japanese Envelope Chou #4: "
+    <</DeferredMediaSelection true /PageSize [256 582] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion HP_GREETING_CARD_ENV/HP Greeting Card Envelope: "
+    <</DeferredMediaSelection true /PageSize [315 432] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion PHOTO_4X6_IN_WT/4x6 in. with tab: "
+    <</DeferredMediaSelection true /PageSize [282 426] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion INDEX_CARD_4X6/Index Card 4x6: "
+    <</DeferredMediaSelection true /PageSize [288 432] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion INDEX_CARD_5X8/Index Card 5x8: "
+    <</DeferredMediaSelection true /PageSize [360 576] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion OFUKU_HAGAKI/Ofuku Hagaki: "
+    <</DeferredMediaSelection true /PageSize [420 566] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*PageRegion JAPANESE_POSTCARD/Hagaki Card: "
+    <</DeferredMediaSelection true /PageSize [284 420] /ImagingBBox null /MediaClass null>> setpagedevice"
+*End
+*CloseUI: *PageRegion
+
+*% ===================================
+*% Imageable Area
+*% ===================================
+*% The following entries provide information about specific paper keywords.
+*% see media specs LM BM X1(=W-LM) Z1(=L-TM)
+*DefaultImageableArea: Letter
+*ImageableArea Letter/Letter:                                              "9.36 33.12 602.64 783.36"
+*ImageableArea LEGAL/Legal:                                                "14.4 33.12 597.6 999.36"
+*ImageableArea EXECUTIVE/Executive:                                        "9.36 33.12    512.64 747.36"
+*ImageableArea A4/A4:                                                     "9.36 33.12 586.08 833.04"
+*ImageableArea ENV_10/Envelope #10:                                          "9.36 33.12    287.64    650.88"
+*ImageableArea ENV_DL/Envelope DL:                                          "9.36 33.12    302.4 590.4"
+*ImageableArea ENV_MONARCH/Envelope Monarch:                                "9.36 33.12    269.64 506.88"
+*ImageableArea A5/A5:                                                       "9.36 33.12    410.4 586.296"
+*ImageableArea B5/B5 (JIS):                                                   "9.36 33.12    506.16 720.36"
+*ImageableArea ENV_C5/Envelope C5:                                          "9.36 33.12    449.856 616.32"
+*ImageableArea A6/A6:                                                      "9.36 33.12    288.288    410.904"
+*ImageableArea A3/A3:                                                       "14.4 33.12    827.28 1182.24"
+*ImageableArea B4/B4 (JIS):                                                   "9.36 33.12    719.28 1023.12"
+*ImageableArea 11X17/11x17:                                                "14.4 33.12    777.6 1215.36"
+*ImageableArea SUPERB/Super B (13x19 in.):                                               "14.4 33.12 921.6 1359.36"
+*ImageableArea A3NOBI/A3 Nobi:                                                           "14.4	33.12 915.12 1352.88"
+*ImageableArea STATEMENT/Statement:                                       "9.36 33.12    386.64 603.36"
+*ImageableArea ENV_A2/Envelope A2:                                         "9.36 33.12    306    380.88"
+*ImageableArea ENV_C6/Envelope C6:                                         "9.36 33.12    314.64 427.68"
+*ImageableArea JENV_CHOU3/Japanese Envelope Chou #3:                        "9.36 33.12    330.48 632.88"
+*ImageableArea JENV_CHOU4/Japanese Envelope Chou #4:                        "9.36 33.12    245.52 547.92"
+*ImageableArea JENV_KAKU2/Japanese Envelope Kaku #2:                             "14.4 33.12 666 907.92"
+*ImageableArea HP_GREETING_CARD_ENV/HP Greeting Card Envelope:             "9.36 33.12    305.64 398.88"
+*ImageableArea PHOTO_4X6_IN_WT/4x6 in. with tab:                       "8.64	8.64 272.88	416.88"
+*ImageableArea INDEX_CARD_4X6/Index Card 4x6:                  "8.64 33.12    279.36 423.36"
+*ImageableArea INDEX_CARD_5X8/Index Card 5x8:                 "9.36 33.12    350.64 567.36"
+*ImageableArea OFUKU_HAGAKI/Ofuku Hagaki:                                 "9.36 33.12    410.184 558.288"
+*ImageableArea JAPANESE_POSTCARD/Hagaki Card:                             "9.36 33.12    274.104    410.904"
+*?ImageableArea: "
+ save
+   /cvp { (                ) cvs print ( ) print } bind def
+   /upperright {10000 mul floor 10000 div} bind def
+   /lowerleft {10000 mul ceiling 10000 div} bind def
+   newpath clippath pathbbox
+   4 -2 roll exch 2 {lowerleft cvp} repeat
+   exch 2 {upperright cvp} repeat flush
+ restore
+"
+*End
+
+*% ===================================
+*% Paper Dimensions
+*% ===================================
+*% These provide the physical dimensions of the paper (by keyword)
+*DefaultPaperDimension: Letter
+*PaperDimension Letter/Letter:                                             "612 792"
+*PaperDimension LEGAL/Legal:                                               "612 1008"
+*PaperDimension EXECUTIVE/Executive:                                       "522 756"
+*PaperDimension A4/A4:                                                     "595 842"
+*PaperDimension ENV_10/Envelope #10:                                        "297 684"
+*PaperDimension ENV_DL/Envelope DL:                                        "312 624"
+*PaperDimension ENV_MONARCH/Envelope Monarch:                              "279 540"
+*PaperDimension A5/A5:                                                     "420 595"
+*PaperDimension B5/B5 (JIS):                                                 "516 729"
+*PaperDimension ENV_C5/Envelope C5:                                        "459 649"
+*PaperDimension A6/A6:                                                     "298 420"
+*PaperDimension A3/A3:                                                     "842 1191"
+*PaperDimension B4/B4 (JIS):                                                 "729 1032"
+*PaperDimension 11X17/11x17:                                               "792 1224"
+*PaperDimension SUPERB/Super B (13x19 in.):                                              "936 1368"
+*PaperDimension A3NOBI/A3 Nobi:                                                          "930 1362"
+*PaperDimension STATEMENT/Statement:                                       "396 612"
+*PaperDimension ENV_A2/Envelope A2:                                        "315 414"
+*PaperDimension ENV_C6/Envelope C6:                                        "324 460"
+*PaperDimension JENV_CHOU3/Japanese Envelope Chou #3:                       "340 666"
+*PaperDimension JENV_CHOU4/Japanese Envelope Chou #4:                       "256 582"
+*PaperDimension JENV_KAKU2/Japanese Envelope Kaku #2:                       "680 941"
+*PaperDimension HP_GREETING_CARD_ENV/HP Greeting Card Envelope:            "315 432"
+*PaperDimension PHOTO_4X6_IN_WT/4x6 in. with tab:                  "282 426"
+*PaperDimension INDEX_CARD_4X6/Index Card 4x6:                  "288 432"
+*PaperDimension INDEX_CARD_5X8/Index Card 5x8:                "360 576"
+*PaperDimension OFUKU_HAGAKI/Ofuku Hagaki:                                 "420 566"
+*PaperDimension JAPANESE_POSTCARD/Hagaki Card:                             "284 420"
+*RequiresPageRegion All: True
+
+*% ===================================
+*% Gray Levels and Halftoning
+*% ===================================
+*ScreenAngle: "45.0"
+*ScreenFreq: "60.0"
+*DefaultScreenProc: Dot
+*ScreenProc Dot: "
+{abs exch abs 2 copy add 1 gt {1 sub dup mul exch 1 sub dup mul add 1
+sub }{dup mul exch dup mul add 1 exch sub }ifelse }
+"
+*End
+*ScreenProc Line: "{ pop }"
+*ScreenProc Ellipse: "{ dup 5 mul 8 div mul exch dup mul exch add sqrt 1 exch sub }"
+*DefaultTransfer: Null
+*Transfer Null: "{ }"
+*Transfer Null.Inverse: "{ 1 exch sub }"
+
+*%==================================
+*% === Enable/Disable Collate via PostScript ==========
+*%==================================
+
+*%==================================
+*%  Fit to Page
+*%==================================
+
+*%=====================================================================
+*% Custom Paper Support
+*% Orientation and Margin (offsets) values are not utilized
+*% Smallest = 3.54 x 5.75, Largest = 13 x 19
+*%=====================================================================
+*LeadingEdge Short:     ""
+*DefaultLeadingEdge:    Short
+*MaxMediaWidth:         "936"
+*MaxMediaHeight:        "1368"
+*CenterRegistered:      False
+*HWMargins:             18 33.12 18 8.64
+*CustomPageSize True: "
+    pop pop pop
+        <</DeferredMediaSelection true /PageSize [ 7 -2 roll ] /ImagingBBox null >> setpagedevice"
+*End
+*ParamCustomPageSize Width:             1 points 255 936
+*ParamCustomPageSize Height:            2 points 414 1368
+*ParamCustomPageSize WidthOffset:       3 points 0 0
+*ParamCustomPageSize HeightOffset:      4 points 0 0
+*ParamCustomPageSize Orientation:       5 int 1 1
+
+*%================================
+*% Two-sided Printing (Duplex)
+*%================================
+*OpenUI *Duplex/Duplex Unit (for 2-Sided Printing): PickOne
+*OrderDependency: 50 AnySetup *Duplex
+*DefaultDuplex: None
+*Duplex None/Off: "
+	<</Duplex false /Tumble false>> setpagedevice"
+*End
+*Duplex DuplexNoTumble/Flip on Long Edge (Standard): "
+	<</Duplex true /Tumble false>> setpagedevice"
+*End
+*Duplex DuplexTumble/Flip on Short Edge: "
+	<</Duplex true /Tumble true>> setpagedevice"
+*End
+*?Duplex: "save
+   currentpagedevice dup /Duplex known
+     {dup /Duplex get
+       {/Tumble get{(DuplexTumble)}{(DuplexNoTumble)}ifelse}
+	   {pop (None)} ifelse
+	 }
+     {(None)} ifelse = flush
+restore
+"
+*End
+*CloseUI: *Duplex
+
+*% =================================
+*% Print Color as Gray
+*% =================================
+*OpenUI *HPColorAsGray/Print Color as Gray:  Boolean
+*OrderDependency: 20 DocumentSetup *HPColorAsGray
+*DefaultHPColorAsGray: False
+*HPColorAsGray True/On: "<</ProcessColorModel /DeviceGray>> setpagedevice"
+*HPColorAsGray False/Off: "<</ProcessColorModel /DeviceCMY>> setpagedevice"
+*?HPColorAsGray: "
+  save
+    currentpagedevice /ProcessColorModel get
+	/DeviceGray eq {(True)}{(False)}ifelse = flush
+  restore
+"
+*End
+*CloseUI: *HPColorAsGray
+
+*% ===================================
+*% Print Quality
+*% ===================================
+*OpenUI *OutputMode/Print Quality: PickOne
+*OrderDependency: 30.0 AnySetup *OutputMode
+*DefaultOutputMode: Normal
+*OutputMode Best/Best:"
+<<
+/PrintQuality 1
+>> setpagedevice
+"
+*End
+*OutputMode Normal/Normal:"
+<<
+/PrintQuality 0
+>> setpagedevice
+"
+*End
+*OutputMode FastNormal/Fast Normal:"
+<<
+/PrintQuality -1
+>> setpagedevice
+"
+*End
+*OutputMode Fast/Fast:"
+<<
+/PrintQuality -2
+>> setpagedevice
+"
+*End
+*?OutputMode: "
+  save
+  3 dict
+  dup 1 (Fast) put
+  dup 2 (FastNormal) put
+  dup 3 (Normal) put
+  dup 4 (Best) put
+  currentpagedevice /PostRenderingEnhanceDetails get
+  /PrintQuality get get = flush
+  restore"
+*End
+*CloseUI: *OutputMode
+*% ===================================
+*% Print Quality
+*% ===================================
+
+*%======================================================================
+*% Resolution
+*%======================================================================
+*OpenUI *Resolution/HP Resolution: PickOne
+*OrderDependency: 10 DocumentSetup *Resolution
+*DefaultResolution: 300dpi
+*Resolution 300dpi: "
+        <</HWResolution [300 300] >> setpagedevice"
+*End
+*Resolution 600dpi: "
+        <</HWResolution [600 600] >> setpagedevice"
+*End
+*Resolution 1200dpi/1200dpi: " 
+        <</HWResolution [1200 1200] >> setpagedevice" 
+*End
+*?Resolution: "
+  save
+    currentpagedevice /HWResolution get
+    0 get
+    (          ) cvs print
+    (dpi)
+    = flush
+  restore
+"
+*End
+*CloseUI: *Resolution
+*OpenUI *NupStaple180Rotate/Rotate by 180 degrees: Boolean
+*OrderDependency: 100 AnySetup *NupStaple180Rotate
+*DefaultNupStaple180Rotate: Off
+*NupStaple180Rotate Off/Off:  ""
+*NupStaple180Rotate On/On: "
+<<	/BeginPage
+	{ userdict begin
+		currentpagedevice /PageSize get dup 0 get exch 1 get translate
+		0 0 moveto
+		180 rotate
+	end } bind
+>> setpagedevice
+userdict /HPwmAngle known {userdict /HPwmAngle userdict /HPwmAngle get 180 add def} if"
+*End
+*CloseUI: *NupStaple180Rotate
+
+*%=====================================================================
+*% InputSlot
+*%=====================================================================
+*OpenUI *InputSlot/Paper Source: PickOne
+*OrderDependency: 20 AnySetup *InputSlot
+*DefaultInputSlot: Auto
+*InputSlot Tray1/Tray 1: "
+	<</ManualFeed false /MediaPosition 0>> setpagedevice"
+*End
+*InputSlot Tray2/Tray 2: "
+	<</ManualFeed false /MediaPosition 1>> setpagedevice"
+*End
+*InputSlot ManualFeed/Manual Feed: "
+	<</ManualFeed true /MediaPosition 2>> setpagedevice"
+*End
+*?InputSlot: "
+save
+	currentpagedevice /InputAttributes get
+	/Priority get
+	aload pop pop
+	/theTray exch def
+	/theTray 3 eq {(Tray1)} {/theTray 0 eq {(Tray2)} {/theTray 1 eq {Tray3}{(ManualFeed)} ifelse} ifelse} ifelse
+	= flush
+restore
+"
+*End
+*CloseUI: *InputSlot
+
+*% ===================================
+*% Media Type
+*% ===================================
+
+*OpenUI *HPMediaType/Media Type: PickOne
+*OrderDependency: 50 AnySetup *HPMediaType
+*DefaultHPMediaType: PLAIN
+*HPMediaType PLAIN/Plain paper:  "
+    <</ManualFeed false /MediaType (Plain)>> setpagedevice"
+*End
+*HPMediaType LETTERHEAD/Letterhead:  "
+    <</ManualFeed false /MediaType (Letterhead)>> setpagedevice"
+*End
+*HPMediaType THICK_PLAIN_PAPER/Thick plain paper:  "
+    <</ManualFeed false /MediaType (ThickPlain)>> setpagedevice"
+*End
+*HPMediaType HP_PREMIUM_INKJET_PAPER/HP Premium Paper:  "
+    <</ManualFeed false /MediaType (PremIJPaper)>> setpagedevice"
+*End
+*HPMediaType HP_PREM_INKJET_HEAVY_WEIGHT_PAPER/HP Premium Inkjet Heavyweight Paper:  "
+    <</ManualFeed false /MediaType (PremIJHeavy)>> setpagedevice"
+*End
+*HPMediaType HP_PREMIUM_PRESENTATION_PAPER/HP Premium Presentation Paper:  "
+    <</ManualFeed false /MediaType (PremPrePaper)>> setpagedevice"
+*End
+*HPMediaType HP_PHOTO_PROJECT_PAPER/HP Photo and Project Paper:  "
+    <</ManualFeed false /MediaType (PhotoProjPaper)>> setpagedevice"
+*End
+*HPMediaType HP_PREMIUM_PLUS_PHOTO_PAPER_GLOSSY/HP Premium Plus Photo Paper:  "
+    <</ManualFeed false /MediaType (PPLPhotGlos)>> setpagedevice"
+*End
+*HPMediaType HP_COLORFAST_PHOTO_PAPER_GLOSSY/HP Colorfast Photo Paper, Glossy:  "
+    <</ManualFeed false /MediaType (ClrFastPhotoGloss)>> setpagedevice"
+*End
+*HPMediaType HP_PREMIUM_PHOTO/HP Premium Photo Paper:  "
+    <</ManualFeed false /MediaType (PremPhotoGloss)>> setpagedevice"
+*End
+*HPMediaType HP_PHOTO_PAPER_GLOSSY/HP Photo Paper, Glossy:  "
+    <</ManualFeed false /MediaType (PhotoGloss)>> setpagedevice"
+*End
+*HPMediaType HP_THICK_PHOTO_PAPER/Thick photo paper:  "
+    <</ManualFeed false /MediaType (ThickPhoto)>> setpagedevice"
+*End
+*HPMediaType HP_EVERYDAY_PHOTO_PAPER_SEMI_GLOSS/HP Everyday Photo Paper, Semi-gloss:  "
+    <</ManualFeed false /MediaType (EDPhotoSemiGloss)>> setpagedevice"
+*End
+*HPMediaType HP_EVERYDAY_PHOTO_PAPER_MATTE_FINISH/HP Everyday Photo Paper, Matte:  "
+    <</ManualFeed false /MediaType (EDPhotoMatte)>> setpagedevice"
+*End
+*HPMediaType HP_PREM_PLUS_TRANSPARENCY/HP Premium Plus Inkjet Transparency Film:  "
+    <</ManualFeed false /MediaType (PremPLTrans)>> setpagedevice"
+*End
+*HPMediaType HP_LABELS_MATTE/HP Labels, Matte:  "
+    <</ManualFeed false /MediaType (LabelsMatte)>> setpagedevice"
+*End
+*HPMediaType HP_LABELS_GLOSSY/HP Labels, Glossy:  "
+    <</ManualFeed false /MediaType (LabelsGlossy)>> setpagedevice"
+*End
+*HPMediaType HP_PROFESSIONAL_BROCHURE_GLOSSY/HP Brochure & Flyer, Glossy:  "
+    <</ManualFeed false /MediaType (BrochGloss)>> setpagedevice"
+*End
+*HPMediaType HP_PROFESSIONAL_BROCHURE_MATTE/HP Brochure & Flyer, Matte:  "
+    <</ManualFeed false /MediaType (BrochMatte)>> setpagedevice"
+*End
+*HPMediaType OTHER_TRANSPARENCY_FILMS/Other transparency film:  "
+    <</ManualFeed false /MediaType (Transparency)>> setpagedevice"
+*End
+*HPMediaType OTHER_INKJET_PAPER_DISPLAY/Other inkjet paper:  "
+    <</ManualFeed false /MediaType (InkjetPaper)>> setpagedevice"
+*End
+*HPMediaType OTHER_PHOTO_PAPER/Other photo paper:  "
+    <</ManualFeed false /MediaType (PhotoPaper)>> setpagedevice"
+*End
+*HPMediaType OTHER_BROCHURE_PAPER/Other brochure paper:  "
+    <</ManualFeed false /MediaType (BrochPaper)>> setpagedevice"
+*End
+*?HPMediaType: "
+ save
+    currentpagedevice /MediaType get
+    dup null eq {pop (Unknown)} if
+    = flush
+ restore
+"
+*End
+*CloseUI: *HPMediaType
+
+*% =================================
+*% Font Information
+*% =================================
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Special ROM
+
+*% Extra PS fonts
+*Font Albertus-ExtraBold: Standard "(001.008S)" Standard ROM
+*Font Albertus-Medium: Standard "(001.008S)" Standard ROM
+*Font AntiqueOlive: Standard "(001.008S)" Standard ROM
+*Font AntiqueOlive-Bold: Standard "(001.008S)" Standard ROM
+*Font AntiqueOlive-Italic: Standard "(001.008S)" Standard ROM
+*Font Arial: Standard "(001.008S)" Standard ROM
+*Font Arial-Bold: Standard "(001.008S)" Standard ROM
+*Font Arial-BoldItalic: Standard "(001.008S)" Standard ROM
+*Font Arial-Italic: Standard "(001.008S)" Standard ROM
+*Font CGOmega: Standard "(001.008S)" Standard ROM
+*Font CGOmega-Bold: Standard "(001.008S)" Standard ROM
+*Font CGOmega-BoldItalic: Standard "(001.008S)" Standard ROM
+*Font CGOmega-Italic: Standard "(001.008S)" Standard ROM
+*Font CGTimes: Standard "(001.008S)" Standard ROM
+*Font CGTimes-Bold: Standard "(001.008S)" Standard ROM
+*Font CGTimes-BoldItalic: Standard "(001.008S)" Standard ROM
+*Font CGTimes-Italic: Standard "(001.008S)" Standard ROM
+*Font Clarendon-Condensed-Bold: Standard "(001.008S)" Standard ROM
+*Font Coronet: Standard "(001.008S)" Standard ROM
+*Font CourierHP: Standard "(001.008S)" Standard ROM
+*Font CourierHP-Bold: Standard "(001.008S)" Standard ROM
+*Font CourierHP-BoldItalic: Standard "(001.008S)" Standard ROM
+*Font CourierHP-Italic: Standard "(001.008S)" Standard ROM
+*Font Garamond-Antiqua: Standard "(001.008S)" Standard ROM
+*Font Garamond-Halbfett: Standard "(001.008S)" Standard ROM
+*Font Garamond-Kursiv: Standard "(001.008S)" Standard ROM
+*Font Garamond-KursivHalbfett: Standard "(001.008S)" Standard ROM
+*Font LetterGothic: Standard "(001.008S)" Standard ROM
+*Font LetterGothic-Bold: Standard "(001.008S)" Standard ROM
+*Font LetterGothic-Italic: Standard "(001.008S)" Standard ROM
+*Font Marigold: Standard "(001.008S)" Standard ROM
+*Font SymbolMT: Standard "(001.008S)" Standard ROM
+*Font TimesNewRoman: Standard "(001.008S)" Standard ROM
+*Font TimesNewRoman-Bold: Standard "(001.008S)" Standard ROM
+*Font TimesNewRoman-BoldItalic: Standard "(001.008S)" Standard ROM
+*Font TimesNewRoman-Italic: Standard "(001.008S)" Standard ROM
+*Font Univers-Bold: Standard "(001.008S)" Standard ROM
+*Font Univers-BoldItalic: Standard "(001.008S)" Standard ROM
+*Font Univers-Condensed-Bold: Standard "(001.008S)" Standard ROM
+*Font Univers-Condensed-BoldItalic: Standard "(001.008S)" Standard ROM
+*Font Univers-Condensed-Medium: Standard "(001.008S)" Standard ROM
+*Font Univers-Condensed-MediumItalic: Standard "(001.008S)" Standard ROM
+*Font Univers-Medium: Standard "(001.008S)" Standard ROM
+*Font Univers-MediumItalic: Standard "(001.008S)" Standard ROM
+*Font Wingdings-Regular: Standard "(001.008S)" Standard ROM
+*?FontList: "
+save
+  (*) {cvn ==} 128 string /Font resourceforall
+  (*) = flush
+restore
+"
+*End
+*?FontQuery: "
+ save
+   { count 1 gt
+      { exch dup 127 string cvs (/) print print (:) print
+        /Font resourcestatus {pop pop (Yes)} {(No)} ifelse =
+      } { exit } ifelse
+   } bind loop
+   (*) = flush
+ restore
+"
+*End
+
+*% ===================================
+*% Printer Messages
+*% ===================================
+*% Printer Messages (verbatim from printer):
+*Message: "%%[exitserver: permanent state may be changed]%%"
+*Message: "%%[ Flushing: rest of job (to end-of-file) will be ignored ]%%"
+*Message: "\FontName\ not found, using Courier"
+
+*% Status (format: %%[ status: <one of these> ] %%)
+*Status: "warming up"/warming up
+*Status: "initializing"/initializing
+*Status: "idle"/idle
+*Status: "waiting"/waiting
+*Status: "busy"/busy
+*Status: "printing"/printing
+*Status: "printing test page"/printing test page
+*Status: "PrinterError: Out of Memory"/PrinterError<3A> out of memory
+*Status: "PrinterError: Offline"/PrinterError<3A> Offline
+*Status: "PrinterError: Printhead Access Cover Open"/PrinterError<3A> Printhead Access Cover Open
+*Status: "PrinterError: Printhead Latch Not Properly Closed"/PrinterError<3A> Printhead Latch Not Properly Closed
+*Status: "PrinterError: Printhead Faulty"/PrinterError<3A> Printhead Faulty
+*Status: "PrinterError: Printhead Missing"/PrinterError<3A> Printhead Missing
+*Status: "PrinterError: Printhead Should Be Replaced Soon"/PrinterError<3A> Printhead Should Be Replaced Soon
+*Status: "PrinterError: Ink Cartridge Missing"/PrinterError<3A> Ink Cartridge Missing
+*Status: "PrinterError: Ink Cartridge Faulty"/PrinterError<3A> Ink Cartridge Faulty
+*Status: "PrinterError: Ink Cartridge Empty"/PrinterError<3A> Ink Cartridge Empty
+*Status: "PrinterError: Ink Cartridge Will Expire Soon"/PrinterError<3A> Ink Cartridge Will Expire Soon
+*Status: "PrinterError: Ink Cartridge Expired"/PrinterError<3A> Ink Cartridge Expired
+*Status: "PrinterError: Ink Cartridge Incompatible"/PrinterError<3A> Ink Cartridge Incompatible
+*Status: "PrinterError: Ink Low"/PrinterError<3A> Ink Low
+*Status: "PrinterError: Ink Buildup May Be Occurring"/PrinterError<3A> Ink Buildup May Be Occurring
+*Status: "PrinterError: Carriage Jam"/PrinterError<3A> Carriage Jam
+*Status: "PrinterError: Manual Feed"/PrinterError<3A> Manual Feed
+*Status: "PrinterError: Load Media in Tray 1"/PrinterError<3A> Load Media in Tray 1
+*Status: "PrinterError: Load Media in Tray 2"/PrinterError<3A> Load Media in Tray 2
+*Status: "PrinterError: Load Media in Manual Feed Tray"/PrinterError<3A> Load Media in Manual Feed Tray
+*Status: "PrinterError: Printer Ready for Manual Paper Fee"/PrinterError<3A> Printer Ready for Manual Paper Feed
+*Status: "PrinterError: Media Not Available"/PrinterError<3A> Media Not Available
+*Status: "PrinterError: Out of Paper"/PrinterError<3A> Out of Paper
+*Status: "PrinterError: Paper Jam"/PrinterError<3A> Paper Jam
+*Status: "PrinterError: Printer Paused"/PrinterError<3A> Printer Paused
+
+*% Input Sources (format: %%[ status: <stat>; source: <one of these> ]%% )
+
+*Source: "Serial"
+*Source: "LocalTalk"
+*Source: "Parallel"
+*Source: "OptionalIO"
+
+*% PrinterError (format: %%[ PrinterError: <one of these> ]%%)
+*PrinterError: "Out of Memory"/Out of Memory
+*PrinterError: "Offline"/Offline
+*PrinterError: "Printhead Access Cover Open"/Printhead Access Cover Open
+*PrinterError: "Printhead Latch Not Properly Closed"/Printhead Latch Not Properly Closed
+*PrinterError: "Printhead Faulty"/Printhead Faulty
+*PrinterError: "Printhead Missing"/Printhead Missing
+*PrinterError: "Printhead Should Be Replaced Soon"/Printhead Should Be Replaced Soon
+*PrinterError: "Ink Cartridge Missing"/Ink Cartridge Missing
+*PrinterError: "Ink Cartridge Faulty"/Ink Cartridge Faulty
+*PrinterError: "Ink Cartridge Empty"/Ink Cartridge Empty
+*PrinterError: "Ink Cartridge Will Expire Soon"/Ink Cartridge Will Expire Soon
+*PrinterError: "Ink Cartridge Expired"/Ink Cartridge Expired
+*PrinterError: "Ink Cartridge Incompatible"/Ink Cartridge Incompatible
+*PrinterError: "Ink Low"/Ink Low
+*PrinterError: "Ink Buildup May Be Occurring"/Ink Buildup May Be Occurring
+*PrinterError: "Carriage Jam"/Carriage Jam
+*PrinterError: "Manual Feed"/manual feed
+*PrinterError: "Load Media in Tray 1"/Load Media in Tray 1
+*PrinterError: "Load Media in Tray 2"/Load Media in Tray 2
+*PrinterError: "Load Media in Manual Feed Tray"/Load Media in Manual Feed Tray
+*PrinterError: "Printer Ready for Manual Paper Feed"/Printer Ready for Manual Paper Feed
+*PrinterError: "Media Not Available"/Media Not Available
+*PrinterError: "Out of Paper"/Out of Paper
+*PrinterError: "Paper Jam"/Paper Jam
+*PrinterError: "Printer Paused"/Printer Paused
+
+*% =================================
+*% Color Separation Information
+*% =================================
+
+*DefaultColorSep: ProcessBlack.106lpi.600dpi/106 lpi / 600 dpi
+
+*InkName: ProcessBlack/Process Black
+*InkName: CustomColor/Custom Color
+*InkName: ProcessCyan/Process Cyan
+*InkName: ProcessMagenta/Process Magenta
+*InkName: ProcessYellow/Process Yellow
+
+*%  For 60 lpi / 300 dpi  =========================
+*ColorSepScreenAngle ProcessBlack.60lpi.300dpi/60 lpi / 300 dpi: "45"
+*ColorSepScreenAngle CustomColor.60lpi.300dpi/60 lpi / 300 dpi: "45"
+*ColorSepScreenAngle ProcessCyan.60lpi.300dpi/60 lpi / 300 dpi: "15"
+*ColorSepScreenAngle ProcessMagenta.60lpi.300dpi/60 lpi / 300 dpi: "75"
+*ColorSepScreenAngle ProcessYellow.60lpi.300dpi/60 lpi / 300 dpi: "0"
+
+*ColorSepScreenFreq ProcessBlack.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq CustomColor.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq ProcessCyan.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq ProcessMagenta.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq ProcessYellow.60lpi.300dpi/60 lpi / 300 dpi: "60"
+
+*%  For 85 lpi / 600 dpi  (5,5,2,6,6,2,20/3,0) ====
+*ColorSepScreenAngle ProcessBlack.85lpi.600dpi/85 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.85lpi.600dpi/85 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.85lpi.600dpi/85 lpi / 600 dpi: "71.5651"
+*ColorSepScreenAngle ProcessMagenta.85lpi.600dpi/85 lpi / 600 dpi: "18.4349"
+*ColorSepScreenAngle ProcessYellow.85lpi.600dpi/85 lpi / 600 dpi: "0.0"
+
+*ColorSepScreenFreq ProcessBlack.85lpi.600dpi/85 lpi / 600 dpi: "84.8528"
+*ColorSepScreenFreq CustomColor.85lpi.600dpi/85 lpi / 600 dpi: "84.8528"
+*ColorSepScreenFreq ProcessCyan.85lpi.600dpi/85 lpi / 600 dpi: "94.8683"
+*ColorSepScreenFreq ProcessMagenta.85lpi.600dpi/85 lpi / 600 dpi: "94.8683"
+*ColorSepScreenFreq ProcessYellow.85lpi.600dpi/85 lpi / 600 dpi: "30.0"
+*ColorSepScreenProc ProcessYellow.85lpi.600dpi/85 lpi / 600 dpi: "
+{1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch
+1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch
+abs exch abs 2 copy add 1 gt {1 sub dup mul exch 1 sub dup mul add 1
+sub }{dup mul exch dup mul add 1 exch sub }ifelse }"
+*End
+
+*%  For 106 lpi / 300 dpi  =========================
+*ColorSepScreenAngle ProcessBlack.106lpi.300dpi/106 lpi / 300 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.106lpi.300dpi/106 lpi / 300 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.106lpi.300dpi/106 lpi / 300 dpi: "71.5651"
+*ColorSepScreenAngle ProcessMagenta.106lpi.300dpi/106 lpi / 300 dpi: "18.4349"
+*ColorSepScreenAngle ProcessYellow.106lpi.300dpi/106 lpi / 300 dpi: "0.0"
+
+*ColorSepScreenFreq ProcessBlack.106lpi.300dpi/106 lpi / 300 dpi: "106.066"
+*ColorSepScreenFreq CustomColor.106lpi.300dpi/106 lpi / 300 dpi: "106.066"
+*ColorSepScreenFreq ProcessCyan.106lpi.300dpi/106 lpi / 300 dpi: "94.8683"
+*ColorSepScreenFreq ProcessMagenta.106lpi.300dpi/106 lpi / 300 dpi: "94.8683"
+*ColorSepScreenFreq ProcessYellow.106lpi.300dpi/106 lpi / 300 dpi: "100.0"
+
+*%  For 106 lpi / 600 dpi  =========================
+*ColorSepScreenAngle ProcessBlack.106lpi.600dpi/106 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.106lpi.600dpi/106 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.106lpi.600dpi/106 lpi / 600 dpi: "71.5651"
+*ColorSepScreenAngle ProcessMagenta.106lpi.600dpi/106 lpi / 600 dpi: "18.4349"
+*ColorSepScreenAngle ProcessYellow.106lpi.600dpi/106 lpi / 600 dpi: "0.0"
+
+*ColorSepScreenFreq ProcessBlack.106lpi.600dpi/106 lpi / 600 dpi: "106.066"
+*ColorSepScreenFreq CustomColor.106lpi.600dpi/106 lpi / 600 dpi: "106.066"
+*ColorSepScreenFreq ProcessCyan.106lpi.600dpi/106 lpi / 600 dpi: "94.8683"
+*ColorSepScreenFreq ProcessMagenta.106lpi.600dpi/106 lpi / 600 dpi: "94.8683"
+*ColorSepScreenFreq ProcessYellow.106lpi.600dpi/106 lpi / 600 dpi: "100.0"
+
+*%==========================================================
+*% VMOption
+*%==========================================================
+*FreeVM: "100663296"
+*VMOption 96MB/96 MB: "100663296"
+*VMOption 160MB/160 MB: "167772160"
+*VMOption 224MB/224 MB: "233832448"
+*VMOption 288MB/288 MB: "300941312"
+*VMOption 352MB/352 MB: "368050176"
+*VMOption 416MB/416 MB: "435159040"
+*VMOption 480MB/480 MB: "502267904"
+*VMOption 608MB/608 MB: "636485632"
+
+*%SuggestedJobTimeout: "0"
+*%SuggestedWaitTimeout: "300"
+
+*% =================================
+*% User Interface Constraints
+*% =================================
+
+*% =================================
+*% Installable tray options
+*% =================================
+
+*% If optional trays are not installed, disable access to Trays.
+*UIConstraints: *HPOption_Tray2 False        *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2    *HPOption_Tray2 False
+
+*% =================================
+*% If optional Duplexer is not installed, disable access to Duplex
+*% =================================
+
+*UIConstraints: *HPOption_Duplexer False *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *HPOption_Duplexer False
+
+*UIConstraints: *HPOption_Duplexer False *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *HPOption_Duplexer False
+
+*%======================================================================
+*% Don't allow following paper sizes to be duplexed
+*%======================================================================
+*UIConstraints: *PageSize A5                 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize A6                 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize STATEMENT          *Duplex DuplexNoTumble
+*UIConstraints: *PageSize ENV_10             *Duplex DuplexNoTumble
+*UIConstraints: *PageSize ENV_A2             *Duplex DuplexNoTumble
+*UIConstraints: *PageSize ENV_C5             *Duplex DuplexNoTumble
+*UIConstraints: *PageSize ENV_C6             *Duplex DuplexNoTumble
+*UIConstraints: *PageSize ENV_DL             *Duplex DuplexNoTumble
+*UIConstraints: *PageSize JENV_KAKU2         *Duplex DuplexNoTumble
+*UIConstraints: *PageSize ENV_MONARCH        *Duplex DuplexNoTumble
+*UIConstraints: *PageSize JENV_CHOU3         *Duplex DuplexNoTumble
+*UIConstraints: *PageSize JENV_CHOU4         *Duplex DuplexNoTumble
+*UIConstraints: *PageSize HP_GREETING_CARD_ENV        *Duplex DuplexNoTumble
+*UIConstraints: *PageSize PHOTO_4X6_IN_WT        *Duplex DuplexNoTumble
+*UIConstraints: *PageSize INDEX_CARD_4X6         *Duplex DuplexNoTumble
+*UIConstraints: *PageSize INDEX_CARD_5X8         *Duplex DuplexNoTumble
+*UIConstraints: *PageSize OFUKU_HAGAKI         *Duplex DuplexNoTumble
+*UIConstraints: *PageSize JAPANESE_POSTCARD        *Duplex DuplexNoTumble
+
+*UIConstraints: *Duplex DuplexNoTumble          *PageSize A5
+*UIConstraints: *Duplex DuplexNoTumble          *PageSize A6
+*UIConstraints: *Duplex DuplexNoTumble          *PageSize STATEMENT
+*UIConstraints: *Duplex DuplexNoTumble          *PageSize ENV_10
+*UIConstraints: *Duplex DuplexNoTumble          *PageSize ENV_A2
+*UIConstraints: *Duplex DuplexNoTumble          *PageSize ENV_C5
+*UIConstraints: *Duplex DuplexNoTumble          *PageSize ENV_C6
+*UIConstraints: *Duplex DuplexNoTumble          *PageSize ENV_DL
+*UIConstraints: *Duplex DuplexNoTumble          *PageSize JENV_KAKU2
+*UIConstraints: *Duplex DuplexNoTumble          *PageSize ENV_MONARCH
+*UIConstraints: *Duplex DuplexNoTumble          *PageSize JENV_CHOU3
+*UIConstraints: *Duplex DuplexNoTumble          *PageSize JENV_CHOU4
+*UIConstraints: *Duplex DuplexNoTumble          *PageSize HP_GREETING_CARD_ENV
+*UIConstraints: *Duplex DuplexNoTumble          *PageSize PHOTO_4X6_IN_WT
+*UIConstraints: *Duplex DuplexNoTumble          *PageSize INDEX_CARD_4X6
+*UIConstraints: *Duplex DuplexNoTumble          *PageSize INDEX_CARD_5X8
+*UIConstraints: *Duplex DuplexNoTumble          *PageSize OFUKU_HAGAKI
+*UIConstraints: *Duplex DuplexNoTumble          *PageSize JAPANESE_POSTCARD
+
+*UIConstraints: *PageRegion A5                 *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion A6                 *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion STATEMENT          *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion ENV_10             *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion ENV_A2             *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion ENV_C5             *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion ENV_C6             *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion ENV_DL             *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion JENV_KAKU2         *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion ENV_MONARCH        *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion JENV_CHOU3         *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion JENV_CHOU4         *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion HP_GREETING_CARD_ENV        *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion PHOTO_4X6_IN_WT        *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion INDEX_CARD_4X6         *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion INDEX_CARD_5X8         *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion OFUKU_HAGAKI         *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion JAPANESE_POSTCARD        *Duplex DuplexNoTumble
+
+*UIConstraints: *Duplex DuplexNoTumble          *PageRegion A5
+*UIConstraints: *Duplex DuplexNoTumble          *PageRegion A6
+*UIConstraints: *Duplex DuplexNoTumble          *PageRegion STATEMENT
+*UIConstraints: *Duplex DuplexNoTumble          *PageRegion ENV_10
+*UIConstraints: *Duplex DuplexNoTumble          *PageRegion ENV_A2
+*UIConstraints: *Duplex DuplexNoTumble          *PageRegion ENV_C5
+*UIConstraints: *Duplex DuplexNoTumble          *PageRegion ENV_C6
+*UIConstraints: *Duplex DuplexNoTumble          *PageRegion ENV_DL
+*UIConstraints: *Duplex DuplexNoTumble          *PageRegion JENV_KAKU2
+*UIConstraints: *Duplex DuplexNoTumble          *PageRegion ENV_MONARCH
+*UIConstraints: *Duplex DuplexNoTumble          *PageRegion JENV_CHOU3
+*UIConstraints: *Duplex DuplexNoTumble          *PageRegion JENV_CHOU4
+*UIConstraints: *Duplex DuplexNoTumble          *PageRegion HP_GREETING_CARD_ENV
+*UIConstraints: *Duplex DuplexNoTumble          *PageRegion PHOTO_4X6_IN_WT
+*UIConstraints: *Duplex DuplexNoTumble          *PageRegion INDEX_CARD_4X6
+*UIConstraints: *Duplex DuplexNoTumble          *PageRegion INDEX_CARD_5X8
+*UIConstraints: *Duplex DuplexNoTumble          *PageRegion OFUKU_HAGAKI
+*UIConstraints: *Duplex DuplexNoTumble          *PageRegion JAPANESE_POSTCARD
+
+*UIConstraints: *PageSize A5                 *Duplex DuplexTumble
+*UIConstraints: *PageSize A6                 *Duplex DuplexTumble
+*UIConstraints: *PageSize STATEMENT          *Duplex DuplexTumble
+*UIConstraints: *PageSize ENV_10             *Duplex DuplexTumble
+*UIConstraints: *PageSize ENV_A2             *Duplex DuplexTumble
+*UIConstraints: *PageSize ENV_C5             *Duplex DuplexTumble
+*UIConstraints: *PageSize ENV_C6             *Duplex DuplexTumble
+*UIConstraints: *PageSize ENV_DL             *Duplex DuplexTumble
+*UIConstraints: *PageSize JENV_KAKU2         *Duplex DuplexTumble
+*UIConstraints: *PageSize ENV_MONARCH        *Duplex DuplexTumble
+*UIConstraints: *PageSize JENV_CHOU3         *Duplex DuplexTumble
+*UIConstraints: *PageSize JENV_CHOU4         *Duplex DuplexTumble
+*UIConstraints: *PageSize HP_GREETING_CARD_ENV        *Duplex DuplexTumble
+*UIConstraints: *PageSize PHOTO_4X6_IN_WT        *Duplex DuplexTumble
+*UIConstraints: *PageSize INDEX_CARD_4X6         *Duplex DuplexTumble
+*UIConstraints: *PageSize INDEX_CARD_5X8         *Duplex DuplexTumble
+*UIConstraints: *PageSize OFUKU_HAGAKI         *Duplex DuplexTumble
+*UIConstraints: *PageSize JAPANESE_POSTCARD        *Duplex DuplexTumble
+
+*UIConstraints: *Duplex DuplexTumble          *PageSize A5
+*UIConstraints: *Duplex DuplexTumble          *PageSize A6
+*UIConstraints: *Duplex DuplexTumble          *PageSize STATEMENT
+*UIConstraints: *Duplex DuplexTumble          *PageSize ENV_10
+*UIConstraints: *Duplex DuplexTumble          *PageSize ENV_A2
+*UIConstraints: *Duplex DuplexTumble          *PageSize ENV_C5
+*UIConstraints: *Duplex DuplexTumble          *PageSize ENV_C6
+*UIConstraints: *Duplex DuplexTumble          *PageSize ENV_DL
+*UIConstraints: *Duplex DuplexTumble          *PageSize JENV_KAKU2
+*UIConstraints: *Duplex DuplexTumble          *PageSize ENV_MONARCH
+*UIConstraints: *Duplex DuplexTumble          *PageSize JENV_CHOU3
+*UIConstraints: *Duplex DuplexTumble          *PageSize JENV_CHOU4
+*UIConstraints: *Duplex DuplexTumble          *PageSize HP_GREETING_CARD_ENV
+*UIConstraints: *Duplex DuplexTumble          *PageSize PHOTO_4X6_IN_WT
+*UIConstraints: *Duplex DuplexTumble          *PageSize INDEX_CARD_4X6
+*UIConstraints: *Duplex DuplexTumble          *PageSize INDEX_CARD_5X8
+*UIConstraints: *Duplex DuplexTumble          *PageSize OFUKU_HAGAKI
+*UIConstraints: *Duplex DuplexTumble          *PageSize JAPANESE_POSTCARD
+
+*UIConstraints: *PageRegion A5                 *Duplex DuplexTumble
+*UIConstraints: *PageRegion A6                 *Duplex DuplexTumble
+*UIConstraints: *PageRegion STATEMENT          *Duplex DuplexTumble
+*UIConstraints: *PageRegion ENV_10             *Duplex DuplexTumble
+*UIConstraints: *PageRegion ENV_A2             *Duplex DuplexTumble
+*UIConstraints: *PageRegion ENV_C5             *Duplex DuplexTumble
+*UIConstraints: *PageRegion ENV_C6             *Duplex DuplexTumble
+*UIConstraints: *PageRegion ENV_DL             *Duplex DuplexTumble
+*UIConstraints: *PageRegion JENV_KAKU2         *Duplex DuplexTumble
+*UIConstraints: *PageRegion ENV_MONARCH        *Duplex DuplexTumble
+*UIConstraints: *PageRegion JENV_CHOU3         *Duplex DuplexTumble
+*UIConstraints: *PageRegion JENV_CHOU4         *Duplex DuplexTumble
+*UIConstraints: *PageRegion HP_GREETING_CARD_ENV        *Duplex DuplexTumble
+*UIConstraints: *PageRegion PHOTO_4X6_IN_WT        *Duplex DuplexTumble
+*UIConstraints: *PageRegion INDEX_CARD_4X6         *Duplex DuplexTumble
+*UIConstraints: *PageRegion INDEX_CARD_5X8         *Duplex DuplexTumble
+*UIConstraints: *PageRegion OFUKU_HAGAKI         *Duplex DuplexTumble
+*UIConstraints: *PageRegion JAPANESE_POSTCARD        *Duplex DuplexTumble
+
+*UIConstraints: *Duplex DuplexTumble          *PageRegion A5
+*UIConstraints: *Duplex DuplexTumble          *PageRegion A6
+*UIConstraints: *Duplex DuplexTumble          *PageRegion STATEMENT
+*UIConstraints: *Duplex DuplexTumble          *PageRegion ENV_10
+*UIConstraints: *Duplex DuplexTumble          *PageRegion ENV_A2
+*UIConstraints: *Duplex DuplexTumble          *PageRegion ENV_C5
+*UIConstraints: *Duplex DuplexTumble          *PageRegion ENV_C6
+*UIConstraints: *Duplex DuplexTumble          *PageRegion ENV_DL
+*UIConstraints: *Duplex DuplexTumble          *PageRegion JENV_KAKU2
+*UIConstraints: *Duplex DuplexTumble          *PageRegion ENV_MONARCH
+*UIConstraints: *Duplex DuplexTumble          *PageRegion JENV_CHOU3
+*UIConstraints: *Duplex DuplexTumble          *PageRegion JENV_CHOU4
+*UIConstraints: *Duplex DuplexTumble          *PageRegion HP_GREETING_CARD_ENV
+*UIConstraints: *Duplex DuplexTumble          *PageRegion PHOTO_4X6_IN_WT
+*UIConstraints: *Duplex DuplexTumble          *PageRegion INDEX_CARD_4X6
+*UIConstraints: *Duplex DuplexTumble          *PageRegion INDEX_CARD_5X8
+*UIConstraints: *Duplex DuplexTumble          *PageRegion OFUKU_HAGAKI
+*UIConstraints: *Duplex DuplexTumble          *PageRegion JAPANESE_POSTCARD
+
+*%======================================================================
+*% Don't allow following Media types to be duplexed
+*%======================================================================
+*UIConstraints: *HPMediaType THICK_PLAIN_PAPER                    *Duplex DuplexNoTumble
+*UIConstraints: *HPMediaType HP_PHOTO_PROJECT_PAPER               *Duplex DuplexNoTumble
+*UIConstraints: *HPMediaType HP_PREMIUM_PLUS_PHOTO_PAPER_GLOSSY   *Duplex DuplexNoTumble
+*UIConstraints: *HPMediaType HP_COLORFAST_PHOTO_PAPER_GLOSSY      *Duplex DuplexNoTumble
+*UIConstraints: *HPMediaType HP_PREMIUM_PHOTO                     *Duplex DuplexNoTumble
+*UIConstraints: *HPMediaType HP_PHOTO_PAPER_GLOSSY                *Duplex DuplexNoTumble
+*UIConstraints: *HPMediaType HP_THICK_PHOTO_PAPER                 *Duplex DuplexNoTumble
+*UIConstraints: *HPMediaType HP_PREM_PLUS_TRANSPARENCY            *Duplex DuplexNoTumble
+*UIConstraints: *HPMediaType HP_LABELS_MATTE                      *Duplex DuplexNoTumble
+*UIConstraints: *HPMediaType HP_LABELS_GLOSSY                     *Duplex DuplexNoTumble
+*UIConstraints: *HPMediaType OTHER_TRANSPARENCY_FILMS             *Duplex DuplexNoTumble
+*UIConstraints: *HPMediaType OTHER_PHOTO_PAPER                    *Duplex DuplexNoTumble
+
+*UIConstraints: *Duplex DuplexNoTumble                *HPMediaType THICK_PLAIN_PAPER
+*UIConstraints: *Duplex DuplexNoTumble                *HPMediaType HP_PHOTO_PROJECT_PAPER
+*UIConstraints: *Duplex DuplexNoTumble                *HPMediaType HP_PREMIUM_PLUS_PHOTO_PAPER_GLOSSY
+*UIConstraints: *Duplex DuplexNoTumble                *HPMediaType HP_COLORFAST_PHOTO_PAPER_GLOSSY
+*UIConstraints: *Duplex DuplexNoTumble                *HPMediaType HP_PREMIUM_PHOTO
+*UIConstraints: *Duplex DuplexNoTumble                *HPMediaType HP_PHOTO_PAPER_GLOSSY
+*UIConstraints: *Duplex DuplexNoTumble                *HPMediaType HP_THICK_PHOTO_PAPER
+*UIConstraints: *Duplex DuplexNoTumble                *HPMediaType HP_PREM_PLUS_TRANSPARENCY
+*UIConstraints: *Duplex DuplexNoTumble                *HPMediaType HP_LABELS_MATTE
+*UIConstraints: *Duplex DuplexNoTumble                *HPMediaType HP_LABELS_GLOSSY
+*UIConstraints: *Duplex DuplexNoTumble                *HPMediaType OTHER_TRANSPARENCY_FILMS
+*UIConstraints: *Duplex DuplexNoTumble                *HPMediaType OTHER_PHOTO_PAPER
+
+*UIConstraints: *HPMediaType THICK_PLAIN_PAPER                    *Duplex DuplexTumble
+*UIConstraints: *HPMediaType HP_PHOTO_PROJECT_PAPER               *Duplex DuplexTumble
+*UIConstraints: *HPMediaType HP_PREMIUM_PLUS_PHOTO_PAPER_GLOSSY   *Duplex DuplexTumble
+*UIConstraints: *HPMediaType HP_COLORFAST_PHOTO_PAPER_GLOSSY      *Duplex DuplexTumble
+*UIConstraints: *HPMediaType HP_PREMIUM_PHOTO                     *Duplex DuplexTumble
+*UIConstraints: *HPMediaType HP_PHOTO_PAPER_GLOSSY                *Duplex DuplexTumble
+*UIConstraints: *HPMediaType HP_THICK_PHOTO_PAPER                 *Duplex DuplexTumble
+*UIConstraints: *HPMediaType HP_PREM_PLUS_TRANSPARENCY            *Duplex DuplexTumble
+*UIConstraints: *HPMediaType HP_LABELS_MATTE                      *Duplex DuplexTumble
+*UIConstraints: *HPMediaType HP_LABELS_GLOSSY                     *Duplex DuplexTumble
+*UIConstraints: *HPMediaType OTHER_TRANSPARENCY_FILMS             *Duplex DuplexTumble
+*UIConstraints: *HPMediaType OTHER_PHOTO_PAPER                    *Duplex DuplexTumble
+
+*UIConstraints: *Duplex DuplexTumble                *HPMediaType THICK_PLAIN_PAPER
+*UIConstraints: *Duplex DuplexTumble                *HPMediaType HP_PHOTO_PROJECT_PAPER
+*UIConstraints: *Duplex DuplexTumble                *HPMediaType HP_PREMIUM_PLUS_PHOTO_PAPER_GLOSSY
+*UIConstraints: *Duplex DuplexTumble                *HPMediaType HP_COLORFAST_PHOTO_PAPER_GLOSSY
+*UIConstraints: *Duplex DuplexTumble                *HPMediaType HP_PREMIUM_PHOTO
+*UIConstraints: *Duplex DuplexTumble                *HPMediaType HP_PHOTO_PAPER_GLOSSY
+*UIConstraints: *Duplex DuplexTumble                *HPMediaType HP_THICK_PHOTO_PAPER
+*UIConstraints: *Duplex DuplexTumble                *HPMediaType HP_PREM_PLUS_TRANSPARENCY
+*UIConstraints: *Duplex DuplexTumble                *HPMediaType HP_LABELS_MATTE
+*UIConstraints: *Duplex DuplexTumble                *HPMediaType HP_LABELS_GLOSSY
+*UIConstraints: *Duplex DuplexTumble                *HPMediaType OTHER_TRANSPARENCY_FILMS
+*UIConstraints: *Duplex DuplexTumble                *HPMediaType OTHER_PHOTO_PAPER
+
+*%======================================================================
+*% Cannot duplex custom page sizes - Not sure!! - Need to revisit
+*%======================================================================
+*%NonUIConstraints: *CustomPageSize True         *Duplex DuplexNoTumble
+*%NonUIConstraints: *CustomPageSize True         *Duplex DuplexTumble
+*%NonUIConstraints: *Duplex DuplexNoTumble       *CustomPageSize True
+*%NonUIConstraints: *Duplex DuplexTumble         *CustomPageSize True
+
+*%======================================================================
+*% Do not allow following Paper Sizes in Tray2
+*%======================================================================
+*UIConstraints: *PageSize A5                   *InputSlot Tray2
+*UIConstraints: *PageSize A6                   *InputSlot Tray2
+*UIConstraints: *PageSize STATEMENT            *InputSlot Tray2
+*UIConstraints: *PageSize ENV_10               *InputSlot Tray2
+*UIConstraints: *PageSize ENV_A2               *InputSlot Tray2
+*UIConstraints: *PageSize ENV_C5               *InputSlot Tray2
+*UIConstraints: *PageSize ENV_C6               *InputSlot Tray2
+*UIConstraints: *PageSize ENV_DL               *InputSlot Tray2
+*UIConstraints: *PageSize JENV_KAKU2           *InputSlot Tray2
+*UIConstraints: *PageSize ENV_MONARCH          *InputSlot Tray2
+*UIConstraints: *PageSize JENV_CHOU3           *InputSlot Tray2
+*UIConstraints: *PageSize JENV_CHOU4           *InputSlot Tray2
+*UIConstraints: *PageSize HP_GREETING_CARD_ENV  *InputSlot Tray2
+*UIConstraints: *PageSize PHOTO_4X6_IN_WT      *InputSlot Tray2
+*UIConstraints: *PageSize INDEX_CARD_4X6       *InputSlot Tray2
+*UIConstraints: *PageSize INDEX_CARD_5X8       *InputSlot Tray2
+*UIConstraints: *PageSize OFUKU_HAGAKI		   *InputSlot Tray2
+*UIConstraints: *PageSize JAPANESE_POSTCARD	   *InputSlot Tray2
+
+*UIConstraints: *InputSlot Tray2                  *PageSize A5
+*UIConstraints: *InputSlot Tray2                  *PageSize A6
+*UIConstraints: *InputSlot Tray2                  *PageSize STATEMENT
+*UIConstraints: *InputSlot Tray2                  *PageSize ENV_10
+*UIConstraints: *InputSlot Tray2                  *PageSize ENV_A2
+*UIConstraints: *InputSlot Tray2                  *PageSize ENV_C5
+*UIConstraints: *InputSlot Tray2                  *PageSize ENV_C6
+*UIConstraints: *InputSlot Tray2                  *PageSize ENV_DL
+*UIConstraints: *InputSlot Tray2                  *PageSize JENV_KAKU2
+*UIConstraints: *InputSlot Tray2                  *PageSize ENV_MONARCH
+*UIConstraints: *InputSlot Tray2                  *PageSize JENV_CHOU3
+*UIConstraints: *InputSlot Tray2                  *PageSize JENV_CHOU4
+*UIConstraints: *InputSlot Tray2                  *PageSize HP_GREETING_CARD_ENV
+*UIConstraints: *InputSlot Tray2                  *PageSize PHOTO_4X6_IN_WT
+*UIConstraints: *InputSlot Tray2                  *PageSize INDEX_CARD_4X6
+*UIConstraints: *InputSlot Tray2                  *PageSize INDEX_CARD_5X8
+*UIConstraints: *InputSlot Tray2                  *PageSize OFUKU_HAGAKI
+*UIConstraints: *InputSlot Tray2                  *PageSize JAPANESE_POSTCARD
+
+*UIConstraints: *PageRegion A5                   *InputSlot Tray2
+*UIConstraints: *PageRegion A6                   *InputSlot Tray2
+*UIConstraints: *PageRegion STATEMENT            *InputSlot Tray2
+*UIConstraints: *PageRegion ENV_10               *InputSlot Tray2
+*UIConstraints: *PageRegion ENV_A2               *InputSlot Tray2
+*UIConstraints: *PageRegion ENV_C5               *InputSlot Tray2
+*UIConstraints: *PageRegion ENV_C6               *InputSlot Tray2
+*UIConstraints: *PageRegion ENV_DL               *InputSlot Tray2
+*UIConstraints: *PageRegion JENV_KAKU2           *InputSlot Tray2
+*UIConstraints: *PageRegion ENV_MONARCH          *InputSlot Tray2
+*UIConstraints: *PageRegion JENV_CHOU3           *InputSlot Tray2
+*UIConstraints: *PageRegion JENV_CHOU4           *InputSlot Tray2
+*UIConstraints: *PageRegion HP_GREETING_CARD_ENV  *InputSlot Tray2
+*UIConstraints: *PageRegion PHOTO_4X6_IN_WT      *InputSlot Tray2
+*UIConstraints: *PageRegion INDEX_CARD_4X6       *InputSlot Tray2
+*UIConstraints: *PageRegion INDEX_CARD_5X8       *InputSlot Tray2
+*UIConstraints: *PageRegion OFUKU_HAGAKI		   *InputSlot Tray2
+*UIConstraints: *PageRegion JAPANESE_POSTCARD	   *InputSlot Tray2
+
+*UIConstraints: *InputSlot Tray2                  *PageRegion A5
+*UIConstraints: *InputSlot Tray2                  *PageRegion A6
+*UIConstraints: *InputSlot Tray2                  *PageRegion STATEMENT
+*UIConstraints: *InputSlot Tray2                  *PageRegion ENV_10
+*UIConstraints: *InputSlot Tray2                  *PageRegion ENV_A2
+*UIConstraints: *InputSlot Tray2                  *PageRegion ENV_C5
+*UIConstraints: *InputSlot Tray2                  *PageRegion ENV_C6
+*UIConstraints: *InputSlot Tray2                  *PageRegion ENV_DL
+*UIConstraints: *InputSlot Tray2                  *PageRegion JENV_KAKU2
+*UIConstraints: *InputSlot Tray2                  *PageRegion ENV_MONARCH
+*UIConstraints: *InputSlot Tray2                  *PageRegion JENV_CHOU3
+*UIConstraints: *InputSlot Tray2                  *PageRegion JENV_CHOU4
+*UIConstraints: *InputSlot Tray2                  *PageRegion HP_GREETING_CARD_ENV
+*UIConstraints: *InputSlot Tray2                  *PageRegion PHOTO_4X6_IN_WT
+*UIConstraints: *InputSlot Tray2                  *PageRegion INDEX_CARD_4X6
+*UIConstraints: *InputSlot Tray2                  *PageRegion INDEX_CARD_5X8
+*UIConstraints: *InputSlot Tray2                  *PageRegion OFUKU_HAGAKI
+*UIConstraints: *InputSlot Tray2                  *PageRegion JAPANESE_POSTCARD
+
+*%======================================================================
+*% Do not allow following Media Types in Tray2
+*%======================================================================
+
+*UIConstraints: *InputSlot Tray2                  *HPMediaType HP_PREMIUM_INKJET_PAPER
+*UIConstraints: *InputSlot Tray2                  *HPMediaType HP_PREM_INKJET_HEAVY_WEIGHT_PAPER
+*UIConstraints: *InputSlot Tray2                  *HPMediaType HP_PREMIUM_PRESENTATION_PAPER
+*UIConstraints: *InputSlot Tray2                  *HPMediaType HP_PHOTO_PROJECT_PAPER
+*UIConstraints: *InputSlot Tray2                  *HPMediaType HP_PREMIUM_PLUS_PHOTO_PAPER_GLOSSY
+*UIConstraints: *InputSlot Tray2                  *HPMediaType HP_COLORFAST_PHOTO_PAPER_GLOSSY
+*UIConstraints: *InputSlot Tray2                  *HPMediaType HP_PREMIUM_PHOTO
+*UIConstraints: *InputSlot Tray2                  *HPMediaType HP_PHOTO_PAPER_GLOSSY
+*UIConstraints: *InputSlot Tray2                  *HPMediaType HP_THICK_PHOTO_PAPER
+*UIConstraints: *InputSlot Tray2                  *HPMediaType HP_EVERYDAY_PHOTO_PAPER_SEMI_GLOSS
+*UIConstraints: *InputSlot Tray2                  *HPMediaType HP_EVERYDAY_PHOTO_PAPER_MATTE_FINISH
+*UIConstraints: *InputSlot Tray2                  *HPMediaType HP_PREM_PLUS_TRANSPARENCY
+*UIConstraints: *InputSlot Tray2                  *HPMediaType HP_LABELS_MATTE
+*UIConstraints: *InputSlot Tray2                  *HPMediaType HP_LABELS_GLOSSY
+*UIConstraints: *InputSlot Tray2                  *HPMediaType HP_PROFESSIONAL_BROCHURE_GLOSSY
+*UIConstraints: *InputSlot Tray2                  *HPMediaType HP_PROFESSIONAL_BROCHURE_MATTE
+*UIConstraints: *InputSlot Tray2                  *HPMediaType OTHER_TRANSPARENCY_FILMS
+*UIConstraints: *InputSlot Tray2                  *HPMediaType OTHER_INKJET_PAPER_DISPLAY
+*UIConstraints: *InputSlot Tray2                  *HPMediaType OTHER_PHOTO_PAPER
+*UIConstraints: *InputSlot Tray2                  *HPMediaType OTHER_BROCHURE_PAPER
+
+*UIConstraints: *HPMediaType HP_PREMIUM_INKJET_PAPER              *InputSlot Tray2
+*UIConstraints: *HPMediaType HP_PREM_INKJET_HEAVY_WEIGHT_PAPER    *InputSlot Tray2
+*UIConstraints: *HPMediaType HP_PREMIUM_PRESENTATION_PAPER        *InputSlot Tray2
+*UIConstraints: *HPMediaType HP_PHOTO_PROJECT_PAPER               *InputSlot Tray2
+*UIConstraints: *HPMediaType HP_PREMIUM_PLUS_PHOTO_PAPER_GLOSSY   *InputSlot Tray2
+*UIConstraints: *HPMediaType HP_COLORFAST_PHOTO_PAPER_GLOSSY      *InputSlot Tray2
+*UIConstraints: *HPMediaType HP_PREMIUM_PHOTO                     *InputSlot Tray2
+*UIConstraints: *HPMediaType HP_PHOTO_PAPER_GLOSSY                *InputSlot Tray2
+*UIConstraints: *HPMediaType HP_THICK_PHOTO_PAPER                 *InputSlot Tray2
+*UIConstraints: *HPMediaType HP_EVERYDAY_PHOTO_PAPER_SEMI_GLOSS   *InputSlot Tray2
+*UIConstraints: *HPMediaType HP_EVERYDAY_PHOTO_PAPER_MATTE_FINISH   *InputSlot Tray2
+*UIConstraints: *HPMediaType HP_PREM_PLUS_TRANSPARENCY            *InputSlot Tray2
+*UIConstraints: *HPMediaType HP_LABELS_MATTE                      *InputSlot Tray2
+*UIConstraints: *HPMediaType HP_LABELS_GLOSSY                     *InputSlot Tray2
+*UIConstraints: *HPMediaType HP_PROFESSIONAL_BROCHURE_GLOSSY      *InputSlot Tray2
+*UIConstraints: *HPMediaType HP_PROFESSIONAL_BROCHURE_MATTE       *InputSlot Tray2
+*UIConstraints: *HPMediaType OTHER_TRANSPARENCY_FILMS             *InputSlot Tray2
+*UIConstraints: *HPMediaType OTHER_INKJET_PAPER_DISPLAY           *InputSlot Tray2
+*UIConstraints: *HPMediaType OTHER_PHOTO_PAPER                    *InputSlot Tray2
+*UIConstraints: *HPMediaType OTHER_BROCHURE_PAPER                 *InputSlot Tray2
+
+*%======================================= 
+*%Constraining all media except photo media with 4800dpi 
+*UIConstraints: *Resolution 1200dpi                  *HPMediaType PLAIN 
+*UIConstraints: *Resolution 1200dpi                  *HPMediaType LETTERHEAD 
+*UIConstraints: *Resolution 1200dpi                  *HPMediaType THICK_PLAIN_PAPER 
+*UIConstraints: *Resolution 1200dpi                  *HPMediaType HP_PREMIUM_INKJET_PAPER 
+*UIConstraints: *Resolution 1200dpi                  *HPMediaType HP_PREM_INKJET_HEAVY_WEIGHT_PAPER 
+*UIConstraints: *Resolution 1200dpi                  *HPMediaType HP_PREMIUM_PRESENTATION_PAPER 
+*UIConstraints: *Resolution 1200dpi                  *HPMediaType HP_PHOTO_PROJECT_PAPER 
+*UIConstraints: *Resolution 1200dpi                  *HPMediaType HP_EVERYDAY_PHOTO_PAPER_SEMI_GLOSS 
+*UIConstraints: *Resolution 1200dpi                  *HPMediaType HP_EVERYDAY_PHOTO_PAPER_MATTE_FINISH 
+*UIConstraints: *Resolution 1200dpi                  *HPMediaType HP_PREM_PLUS_TRANSPARENCY 
+*UIConstraints: *Resolution 1200dpi                  *HPMediaType HP_LABELS_MATTE 
+*UIConstraints: *Resolution 1200dpi                  *HPMediaType HP_LABELS_GLOSSY 
+*UIConstraints: *Resolution 1200dpi                  *HPMediaType HP_PROFESSIONAL_BROCHURE_GLOSSY 
+*UIConstraints: *Resolution 1200dpi                  *HPMediaType HP_PROFESSIONAL_BROCHURE_MATTE 
+*UIConstraints: *Resolution 1200dpi                  *HPMediaType OTHER_TRANSPARENCY_FILMS 
+*UIConstraints: *Resolution 1200dpi                  *HPMediaType OTHER_INKJET_PAPER_DISPLAY 
+*UIConstraints: *Resolution 1200dpi                  *HPMediaType OTHER_PHOTO_PAPER 
+*UIConstraints: *Resolution 1200dpi                  *HPMediaType OTHER_BROCHURE_PAPER 
+*UIConstraints: *HPMediaType PLAIN     *Resolution 1200dpi 
+*UIConstraints: *HPMediaType LETTERHEAD    *Resolution 1200dpi 
+*UIConstraints: *HPMediaType THICK_PLAIN_PAPER    *Resolution 1200dpi 
+*UIConstraints: *HPMediaType HP_PREMIUM_INKJET_PAPER   *Resolution 1200dpi 
+*UIConstraints: *HPMediaType HP_PREM_INKJET_HEAVY_WEIGHT_PAPER  *Resolution 1200dpi 
+*UIConstraints: *HPMediaType HP_PREMIUM_PRESENTATION_PAPER  *Resolution 1200dpi  
+*UIConstraints: *HPMediaType HP_PHOTO_PROJECT_PAPER   *Resolution 1200dpi 
+*UIConstraints: *HPMediaType HP_EVERYDAY_PHOTO_PAPER_SEMI_GLOSS *Resolution 1200dpi 
+*UIConstraints: *HPMediaType HP_EVERYDAY_PHOTO_PAPER_MATTE_FINISH *Resolution 1200dpi 
+*UIConstraints: *HPMediaType HP_PREM_PLUS_TRANSPARENCY   *Resolution 1200dpi 
+*UIConstraints: *HPMediaType HP_LABELS_MATTE    *Resolution 1200dpi 
+*UIConstraints: *HPMediaType HP_LABELS_GLOSSY    *Resolution 1200dpi 
+*UIConstraints: *HPMediaType HP_PROFESSIONAL_BROCHURE_GLOSSY  *Resolution 1200dpi 
+*UIConstraints: *HPMediaType HP_PROFESSIONAL_BROCHURE_MATTE  *Resolution 1200dpi 
+*UIConstraints: *HPMediaType OTHER_TRANSPARENCY_FILMS   *Resolution 1200dpi  
+*UIConstraints: *HPMediaType OTHER_INKJET_PAPER_DISPLAY  *Resolution 1200dpi 
+*UIConstraints: *HPMediaType OTHER_PHOTO_PAPER    *Resolution 1200dpi 
+*UIConstraints: *HPMediaType OTHER_BROCHURE_PAPER   *Resolution 1200dpi 
+*UIConstraints: *OutputMode Fast *Resolution 1200dpi 
+*UIConstraints: *Resolution 1200dpi *OutputMode Fast 
+*UIConstraints: *OutputMode FastNormal *Resolution 1200dpi 
+*UIConstraints: *Resolution 1200dpi *OutputMode FastNormal 
+*UIConstraints: *OutputMode Normal *Resolution 1200dpi 
+*UIConstraints: *Resolution 1200dpi *OutputMode Normal
+*% =================================
+*%constraints for color mode and Print in grayscale.
+*% =================================
+
+*% =================================
+*% End of PPD file
+*% For "HP Business Inkjet 2800 PS"
+*% =================================

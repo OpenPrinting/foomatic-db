@@ -1,0 +1,1537 @@
+*PPD-Adobe: "4.3"
+*% Adobe Systems PostScript(R) Printer Description File
+*% Copyright 1992-2003 Hewlett-Packard Company
+*%
+*% Permission is hereby granted, free of charge, to any person obtaining
+*% a copy of this software and associated documentation files (the
+*% "Software"), to deal in the Software without restriction, including
+*% without limitation the rights to use, copy, modify, merge, publish,
+*% distribute, sublicense, and/or sell copies of the Software, and to
+*% permit persons to whom the Software is furnished to do so, subject to
+*% the following conditions:
+*% 
+*% The above copyright notice and this permission notice shall be
+*% included in all copies or substantial portions of the Software.
+*% 
+*% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+*% EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+*% MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+*% NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+*% LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+*% OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+*% WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*% 
+*% [this is the MIT open source license -- please see www.opensource.org]
+*%
+
+*% All Rights Reserved.
+*% Fri Oct 23 14:50:16 METDST 1998 BY ignacior
+*% Mon Apr 25 1999 modified by Laixin
+*% Tue Mar 05 2002 modified by Agarcia
+*% Permission is granted for redistribution of this file as
+*% long as this copyright notice is intact and the contents
+*% of the file is not altered in any way from its original form.
+*% End of Copyright statement
+*FormatVersion: "4.3"
+*FileVersion: "2.0"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+*PCFileName: "HP5500C1.PPD"
+*PSVersion: "(3011.106) 1"
+*Product: "(designjet 5500ps)"
+*Product: "(designjet 5500ps (Q1252A))"
+*Product: "(designjet 5500ps (Q1254A))"
+*Product: "(designjet 5500ps (Q1252V))"
+*Product: "(designjet 5500ps (Q1254V))"
+*ModelName: "designjet 5500ps"
+*ShortNickName: "designjet 5500ps"
+*NickName: "designjet 5500ps (recommended)"
+*Manufacturer: "HP"
+*APDialogExtension: "/Library/Printers/hp/PDEs/hpColorOptions.plugin"
+*APDialogExtension: "/Library/Printers/hp/PDEs/hpEdgeToEdge.plugin"
+*APDialogExtension: "/Library/Printers/hp/PDEs/hpFinishing.plugin"
+*APDialogExtension: "/Library/Printers/hp/PDEs/hpImageQuality.plugin"
+*APDialogExtension: "/Library/Printers/hp/PDEs/hpProofAndPrint.plugin"
+*APDialogExtension: "/Library/Printers/hp/PDEs/hpWebAccess.plugin"
+*cupsICCProfile RGB../sRGB Matching Profile: "/Library/Printers/hp/Profiles/sRGB_A.icc"
+*APPrinterIconPath: "/Library/Printers/hp/Icons/HP Designjet 5500 PS3.icns"
+
+*%=============== Device Capabilities ===============
+*LanguageLevel: "3"
+*Protocols:TBCP
+
+*FreeVM: "10304752"
+
+*VMOption standard/Standard: "10304752"
+*VMOption 192MB: "53951880"
+*VMOption 256MB: "115768712"
+
+*FCacheSize standard/Standard: 0
+*FCacheSize 192MB: 0
+*FCacheSize 256MB: 0
+
+*OpenGroup: InstallableOptions
+*OpenUI *InstalledMemory/Installed Memory: PickOne
+*DefaultInstalledMemory: standard
+*InstalledMemory standard/Standard: " "
+*InstalledMemory 192MB/192 MB Total Memory: " "
+*InstalledMemory 256MB/256 MB Total Memory: " "
+*?InstalledMemory: "
+  save
+  currentsystemparams /RamSize get
+  524288 div ceiling cvi 2 div
+  /size exch def
+  size 110 ge
+    {(256MB)}
+    {
+    size 50 ge
+    {(192MB)}
+    {
+        size 10 ge
+              {(standard)}
+              {(Unknown)} ifelse
+            } ifelse
+          } ifelse
+  = flush
+  restore"
+*End
+
+*CloseUI: *InstalledMemory
+
+
+*%=============== Page Size Control ================
+*OpenUI *HPPageISO/ISO (A4,A3,...): Boolean
+*OrderDependency: 30.0 AnySetup *HPPageISO
+*DefaultHPPageISO: True
+*HPPageISO True/Enable: " "
+*HPPageISO False/Disable: " "
+*CloseUI: *HPPageISO
+
+*OpenUI *HPPageANSI/ANSI (A,B,...): Boolean
+*OrderDependency: 30.0 AnySetup *HPPageANSI
+*DefaultHPPageANSI: True
+*HPPageANSI True/Enable: " "
+*HPPageANSI False/Disable: " "
+*CloseUI: *HPPageANSI
+
+*OpenUI *HPPageDIN/DIN (C4,C3,...): Boolean
+*OrderDependency: 30.0 AnySetup *HPPageDIN
+*DefaultHPPageDIN: True
+*HPPageDIN True/Enable: " "
+*HPPageDIN False/Disable: " "
+*CloseUI: *HPPageDIN
+
+*OpenUI *HPPageJIS/JIS (B4,B3,...): Boolean
+*OrderDependency: 30.0 AnySetup *HPPageJIS
+*DefaultHPPageJIS: True
+*HPPageJIS True/Enable: " "
+*HPPageJIS False/Disable: " "
+*CloseUI: *HPPageJIS
+
+*OpenUI *HPPageARCH/Architectural: Boolean
+*OrderDependency: 30.0 AnySetup *HPPageARCH
+*DefaultHPPageARCH: True
+*HPPageARCH True/Enable: " "
+*HPPageARCH False/Disable: " "
+*CloseUI: *HPPageARCH
+
+*CloseGroup: InstallableOptions
+*UIConstraints:	*HPPageISO False *PageSize A4
+*UIConstraints:	*HPPageISO False *PageSize A3
+*UIConstraints:	*HPPageISO False *PageSize A2
+*UIConstraints:	*HPPageISO False *PageSize A1
+*UIConstraints:	*HPPageISO False *PageSize A0
+
+*UIConstraints:	*HPPageISO False *PageRegion A4
+*UIConstraints:	*HPPageISO False *PageRegion A3
+*UIConstraints:	*HPPageISO False *PageRegion A2
+*UIConstraints:	*HPPageISO False *PageRegion A1
+*UIConstraints:	*HPPageISO False *PageRegion A0
+
+*UIConstraints:	*HPPageANSI False *PageSize AnsiC
+*UIConstraints:	*HPPageANSI False *PageSize AnsiD
+*UIConstraints:	*HPPageANSI False *PageSize AnsiE
+
+*UIConstraints:	*HPPageANSI False *PageRegion AnsiC
+*UIConstraints:	*HPPageANSI False *PageRegion AnsiD
+*UIConstraints:	*HPPageANSI False *PageRegion AnsiE
+
+*UIConstraints:	*HPPageDIN False *PageSize Letter
+*UIConstraints:	*HPPageDIN False *PageSize Tabloid
+
+*UIConstraints:	*HPPageDIN False *PageRegion Letter
+*UIConstraints:	*HPPageDIN False *PageRegion Tabloid
+
+*UIConstraints:	*HPPageJIS False *PageSize B4
+*UIConstraints:	*HPPageJIS False *PageSize B3
+*UIConstraints:	*HPPageJIS False *PageSize B2
+*UIConstraints:	*HPPageJIS False *PageSize B1
+
+*UIConstraints:	*HPPageJIS False *PageRegion B4
+*UIConstraints:	*HPPageJIS False *PageRegion B3
+*UIConstraints:	*HPPageJIS False *PageRegion B2
+*UIConstraints:	*HPPageJIS False *PageRegion B1
+
+*UIConstraints:	*HPPageARCH False *PageSize ARCHA
+*UIConstraints:	*HPPageARCH False *PageSize ARCHB
+*UIConstraints:	*HPPageARCH False *PageSize ARCHC
+*UIConstraints:	*HPPageARCH False *PageSize ARCHD
+*UIConstraints:	*HPPageARCH False *PageSize ARCHE
+
+*UIConstraints:	*HPPageARCH False *PageRegion ARCHA
+*UIConstraints:	*HPPageARCH False *PageRegion ARCHB
+*UIConstraints:	*HPPageARCH False *PageRegion ARCHC
+*UIConstraints:	*HPPageARCH False *PageRegion ARCHD
+*UIConstraints:	*HPPageARCH False *PageRegion ARCHE
+
+*ColorDevice: True
+*DefaultColorSpace: CMYK
+*VariablePaperSize: True
+*TTRasterizer: Type42
+*?TTRasterizer: "
+  save
+  42 /FontType resourcestatus
+  { pop pop (Type42)} {pop pop (None)} ifelse = flush
+  restore"
+*End
+*Throughput: "1"
+*Password: "()"
+*ExitServer: "
+  count 0 eq
+  { false } { true exch startjob } ifelse
+  not {
+    (WARNING: Cannot modify initial VM.) =
+    (Missing or invalid password.) =
+    (Please contact the author of this software.) = flush quit
+    } if"
+*End
+*Reset: "
+  count 0 eq
+  { false } { true exch startjob } ifelse
+  not {
+    (WARNING: Cannot reset printer.) =
+    (Missing or invalid password.) =
+    (Please contact the author of this software.) = flush quit
+    } if
+  systemdict /quit get exec
+  (WARNING : Printer Reset Failed.) = flush"
+*End
+
+*DefaultResolution: 600dpi
+
+
+*%=============== Halftone Information ===============
+*ScreenFreq: "60.0"
+*ScreenAngle: "0.0"
+*DefaultScreenProc: Dot
+*ScreenProc Dot: "
+  {abs   exch   abs   2 copy   add   1 gt   {1 sub   dup   mul   exch
+  1 sub   dup   mul   add   1 sub  } {dup   mul   exch   dup   mul
+  add   1 exch   sub  } ifelse  }"
+*End
+*ScreenProc Line: "{ pop }"
+*ScreenProc Ellipse: "{ dup 5 mul 8 div mul exch dup mul exch add sqrt 1
+  exch sub }"
+*End
+
+*DefaultTransfer: Null
+*Transfer Null: "{ }"
+*Transfer Null.Inverse: "{ 1 exch sub }"
+
+*DefaultHalftoneType: 100
+
+
+
+*%=============== Print Quality ===============
+
+*OpenUI *OutputMode/Print Quality: PickOne
+*OrderDependency: 50.0 AnySetup *OutputMode
+*DefaultOutputMode: Normal
+
+*OutputMode Fast/Max Speed: "
+  << /PostRenderingEnhance true
+     /PostRenderingEnhanceDetails
+     << /PrintQuality 1
+    /MaxQualityResolution false
+     /Type 36 >>
+  >> systemdict /setpagedevice get exec"
+*End
+
+*OutputMode FastQuality/Production: "
+  << /PostRenderingEnhance true
+     /PostRenderingEnhanceDetails
+     << /PrintQuality 1
+    /MaxQualityResolution true
+     /Type 36 >>
+  >> systemdict /setpagedevice get exec"
+*End
+
+*OutputMode Normal/Productivity: "
+  << /PostRenderingEnhance true
+     /PostRenderingEnhanceDetails
+     << /PrintQuality 2
+     /MaxQualityResolution false
+     /Type 36 >>
+  >> systemdict /setpagedevice get exec"
+*End
+
+*OutputMode NormalEnhanced/Productivity + Enhanced IQ: "
+  << /PostRenderingEnhance true
+     /PostRenderingEnhanceDetails
+     << /PrintQuality 2
+     /MaxQualityResolution true
+     /Type 36 >>
+  >> systemdict /setpagedevice get exec"
+*End
+
+*OutputMode Best/Max Quality: "
+  << /PostRenderingEnhance true
+     /PostRenderingEnhanceDetails
+     << /PrintQuality 3
+     /MaxQualityResolution false	
+     /Type 36 >>
+  >> systemdict /setpagedevice get exec"
+*End
+
+*OutputMode BestEnhanced/Max. Quality + Enhanced IQ: "
+  << /PostRenderingEnhance true
+     /PostRenderingEnhanceDetails
+     << /PrintQuality 3
+     /MaxQualityResolution true	
+     /Type 36 >>
+  >> systemdict /setpagedevice get exec"
+*End
+
+
+*?OutputMode: "
+  save
+  6 dict
+  dup 1 (Fast) put
+  dup 2 (FastQuality) put
+  dup 3 (Normal) put
+  dup 4 (NormalEnhanced) put
+  dup 5 (Best) put
+  dup 6 (BestEnhanced) put
+
+  currentpagedevice /PostRenderingEnhanceDetails get
+  /PrintQuality get get = flush
+  restore"
+*End
+*CloseUI: *OutputMode
+
+*%=============== Mirror Print ===============
+*OpenUI *MirrorPrint/Mirror Print:  Boolean
+*OrderDependency: 50.0 AnySetup *MirrorPrint
+*DefaultMirrorPrint: False
+*MirrorPrint True/On: "<</MirrorPrint true>>setpagedevice"
+*MirrorPrint False/Off: "<</MirrorPrint false>>setpagedevice"
+*?MirrorPrint: "
+  save
+  currentpagedevice /MirrorPrint get
+  {(True)}{(False)}ifelse = flush
+  restore"
+*End
+*CloseUI: *MirrorPrint
+
+
+*%===============  Transverse ===============
+
+*OpenUI *HPTransverse/Rotate:  Boolean
+*OrderDependency: 50.0 AnySetup *HPTransverse
+*DefaultHPTransverse: False
+*HPTransverse True/On: "
+   <</Orientation 1>> setpagedevice
+   "
+*End
+*HPTransverse False/Off: "
+   <</Orientation 0>> setpagedevice
+   "
+*End
+*?HPTransverse: "
+  save
+  currentpagedevice /Orientation get 0 eq
+  { (False) }
+  {
+    currentpagedevice /Orientation get 1 eq
+    { (True) }
+    { (Unknown) } ifelse
+  } ifelse = flush
+  restore"
+*End
+*CloseUI: *HPTransverse
+
+
+*%=============== Print Color as Gray ===============
+
+*OpenUI *HPColorAsGray/Print Color as Gray: PickOne
+*OrderDependency: 5.0 AnySetup *HPColorAsGray
+*DefaultHPColorAsGray: No
+*HPColorAsGray Yes/On: "<< /ProcessColorModel /DeviceGray >> setpagedevice"
+*HPColorAsGray No/Off: "<< /ProcessColorModel /DeviceCMYK >> setpagedevice"
+*?HPColorAsGray: "
+  save
+  currentpagedevice /ProcessColorModel get /DeviceGray eq
+  {(Yes)}{(No)} ifelse
+  = flush
+  restore"
+*End
+*CloseUI: *HPColorAsGray
+
+*%=============== Pantone Color As Spot ========
+*OpenUI *HPPantone/Automatic PANTONE(R) Calibration: Boolean
+*OrderDependency: 50.0 AnySetup *HPPantone
+*DefaultHPPantone: True
+*HPPantone False/Off: "
+/SpotColorMatching where {
+pop
+false SpotColorMatching
+} if"
+*End
+*HPPantone True/On: "
+/SpotColorMatching where {
+pop
+true SpotColorMatching
+} if"
+*End
+*CloseUI: *HPPantone
+
+
+*%=============== HP Color Management ===============
+
+*OpenUI *HPColorMan/Color Management: PickOne
+*OrderDependency: 60.0 AnySetup *HPColorMan
+*DefaultHPColorMan: Native
+
+*HPColorMan Native/Native:"
+      /CMYKColorManagement where {
+      pop
+      /Native CMYKColorManagement
+      /sRGB RGBColorManagement
+      } if"
+*End
+
+*HPColorMan Emulation/Standard Emulation:""
+
+*HPColorMan NoEmulation/Native without Black Replacement:"
+      /CMYKColorManagement where {
+      pop
+     /None CMYKColorManagement
+     /None RGBColorManagement
+     } if"
+*End
+*CloseUI: *HPColorMan
+
+
+*OpenUI *HPCMYKEmulation/HP CMYK Emulation: PickOne
+*OrderDependency: 60.0 AnySetup *HPCMYKEmulation
+*DefaultHPCMYKEmulation: None
+
+*HPCMYKEmulation None/No CMYK Emulation:""
+
+*HPCMYKEmulation SWOP/SWOP:"
+     /CMYKColorManagement where {
+     pop
+     /SWOP CMYKColorManagement
+     } if"
+*End
+
+*HPCMYKEmulation JapanOffset/Japan Offset:"
+     /CMYKColorManagement where {
+     pop
+     /JapanOffset CMYKColorManagement
+     } if"
+*End
+
+*HPCMYKEmulation EuroOffset/Euro Offset:"
+     /CMYKColorManagement where {
+     pop
+     /EuroOffset CMYKColorManagement
+     } if"
+*End
+
+*HPCMYKEmulation DIC/DIC:"
+     /CMYKColorManagement where {
+      pop
+      /DIC CMYKColorManagement
+      } if"
+*End
+
+*HPCMYKEmulation JMPA/JMPA:"
+     /CMYKColorManagement where {
+      pop
+      /JMPA CMYKColorManagement
+      } if"
+*End
+
+*CloseUI: *HPCMYKEmulation
+
+*OpenUI *HPRGBEmulation/HP RGB Emulation: PickOne
+*OrderDependency: 60.0 AnySetup *HPRGBEmulation
+*DefaultHPRGBEmulation: None
+
+*HPRGBEmulation None/No RGB Emulation:""
+
+*HPRGBEmulation sRGB/sRGB:"
+      /RGBColorManagement where {
+      pop
+      /sRGB RGBColorManagement
+      } if"
+*End
+
+*HPRGBEmulation AdobeRGB/Adobe RGB:"
+      /RGBColorManagement where {
+      pop
+      /AdobeRGB RGBColorManagement
+      } if"
+*End
+
+*HPRGBEmulation AppleRGB/Apple RGB:"
+     /RGBColorManagement where {
+     pop
+     /AppleRGB RGBColorManagement
+     } if"
+*End
+
+*HPRGBEmulation ColorMatchRGB/ColorMatch RGB:"
+    /RGBColorManagement where {
+    pop
+    /ColorMatchRGB RGBColorManagement
+    } if"
+*End
+
+*CloseUI: *HPRGBEmulation
+
+*UIConstraints: *HPColorMan Native *HPCMYKEmulation
+*UIConstraints: *HPColorMan NoEmulation *HPCMYKEmulation
+*UIConstraints: *HPColorMan Native *HPRGBEmulation
+*UIConstraints: *HPColorMan NoEmulation *HPRGBEmulation
+
+*UIConstraints: *HPCMYKEmulation *HPColorMan Native
+*UIConstraints: *HPCMYKEmulation *HPColorMan NoEmulation
+*UIConstraints: *HPRGBEmulation *HPColorMan Native
+*UIConstraints: *HPRGBEmulation *HPColorMan NoEmulation
+
+*%=============== Rendering Intent ======================
+
+*OpenUI *HPIntent/Rendering Intent:  PickOne
+*OrderDependency: 15.0 AnySetup *HPIntent
+*DefaultHPIntent: Perceptual
+*HPIntent Perceptual/Perceptual(Images): "
+  userdict /UserRenderIntent (Perceptual) put
+  <<>> setpagedevice"
+*End
+*HPIntent Colorimetric/Colorimetric: "
+  userdict /UserRenderIntent (RelativeColorimetric) put
+  <<>> setpagedevice"
+*End
+*HPIntent Saturation/Saturation(Graphics): "
+  userdict /UserRenderIntent (Saturation) put
+  <<>> setpagedevice"
+*End
+*?HPIntent: "
+  % UserRenderIntent should be Perceptual, RelativeColorimetric or Saturation
+  save
+  userdict /UserRenderIntent known {
+    userdict /UserRenderIntent get
+  } {
+    (None)
+  } ifelse
+  = flush
+  restore"
+*End
+*CloseUI: *HPIntent
+
+*%=============== Hold Job for Preview ===============
+*OpenUI *HPHoldJob/HPHoldJob: Boolean
+*OrderDependency: 50 AnySetup * HPHoldJob
+*DefaultHPHoldJob: True
+*HPHoldJob True/True: ""
+*HPHoldJob False/False: ""
+*CloseUI: *HPHoldJob
+
+*%=============== Brightness Control ===============
+
+*OpenUI *HPCyanBrightness/Cyan Lightness: PickOne
+*OrderDependency: 70.0 AnySetup *HPCyanBrightness
+*DefaultHPCyanBrightness: leveleven
+
+*HPCyanBrightness levelm25/ -25% Lighter:"
+        /HPBrightness where {
+        pop /Cyan  -25 HPBrightness
+        }if "
+*End
+
+*HPCyanBrightness levelm20/ -20%:"
+        /HPBrightness where {
+        pop /Cyan  -20 HPBrightness
+        }if "
+*End
+
+*HPCyanBrightness levelm15/ -15%:"
+        /HPBrightness where {
+        pop /Cyan  -15 HPBrightness
+        }if "
+*End
+
+*HPCyanBrightness levelm10/ -10%:"
+        /HPBrightness where {
+        pop /Cyan  -10 HPBrightness
+        }if "
+*End
+
+*HPCyanBrightness levelm5/ -5%:"
+        /HPBrightness where {
+        pop /Cyan  -5 HPBrightness
+        }if "
+*End
+
+*HPCyanBrightness leveleven/ 0% No Change:" "
+
+*HPCyanBrightness levelp5/ +5%:"
+        /HPBrightness where {
+        pop /Cyan 5 HPBrightness
+        }if "
+*End
+
+*HPCyanBrightness levelp10/ +10%:"
+        /HPBrightness where {
+        pop /Cyan  10 HPBrightness
+        }if "
+*End
+
+*HPCyanBrightness levelp15/ +15%:"
+        /HPBrightness where {
+        pop /Cyan  15 HPBrightness
+        }if "
+*End
+
+*HPCyanBrightness levelp20/ +20%:"
+        /HPBrightness where {
+        pop /Cyan  20 HPBrightness
+        }if "
+*End
+
+*HPCyanBrightness levelp25/ +25% Darker:"
+        /HPBrightness where {
+        pop /Cyan  25 HPBrightness
+        }if "
+*End
+*CloseUI: *HPCyanBrightness
+
+*OpenUI *HPMagentaBrightness/Magenta Lightness: PickOne
+*OrderDependency: 70.0 AnySetup *HPMagentaBrightness
+*DefaultHPMagentaBrightness: leveleven
+
+*HPMagentaBrightness levelm25/ -25% Lighter:"
+        /HPBrightness where {
+        pop /Magenta  -25 HPBrightness
+        }if "
+*End
+
+*HPMagentaBrightness levelm20/ -20%:"
+        /HPBrightness where {
+        pop /Magenta  -20 HPBrightness
+        }if "
+*End
+
+*HPMagentaBrightness levelm15/ -15%:"
+        /HPBrightness where {
+        pop /Magenta  -15 HPBrightness
+        }if "
+*End
+
+*HPMagentaBrightness levelm10/ -10%:"
+        /HPBrightness where {
+        pop /Magenta  -10 HPBrightness
+        }if "
+*End
+
+*HPMagentaBrightness levelm5/ -5%:"
+        /HPBrightness where {
+        pop /Magenta  -5 HPBrightness
+        }if "
+*End
+
+*HPMagentaBrightness leveleven/ 0% No Change:" "
+
+*HPMagentaBrightness levelp5/ +5%:"
+        /HPBrightness where {
+        pop /Magenta  5 HPBrightness
+        }if "
+*End
+
+*HPMagentaBrightness levelp10/ +10%:"
+        /HPBrightness where {
+        pop /Magenta  10 HPBrightness
+        }if "
+*End
+
+*HPMagentaBrightness levelp15/ +15%:"
+        /HPBrightness where {
+        pop /Magenta  15 HPBrightness
+        }if "
+*End
+
+*HPMagentaBrightness levelp20/ +20%:"
+        /HPBrightness where {
+        pop /Magenta  20 HPBrightness
+        }if "
+*End
+
+*HPMagentaBrightness levelp25/ +25% Darker:"
+        /HPBrightness where {
+        pop /Magenta  25 HPBrightness
+        }if "
+*End
+*CloseUI: *HPMagentaBrightness
+
+*OpenUI *HPYellowBrightness/Yellow Lightness: PickOne
+*OrderDependency: 70.0 AnySetup *HPYellowBrightness
+*DefaultHPYellowBrightness: leveleven
+
+*HPYellowBrightness levelm25/ -25% Lighter:"
+        /HPBrightness where {
+        pop /Yellow  -25 HPBrightness
+        }if "
+*End
+
+*HPYellowBrightness levelm20/ -20%:"
+        /HPBrightness where {
+        pop /Yellow  -20 HPBrightness
+        }if "
+*End
+
+*HPYellowBrightness levelm15/ -15%:"
+        /HPBrightness where {
+        pop /Yellow  -15 HPBrightness
+        }if "
+*End
+
+*HPYellowBrightness levelm10/ -10%:"
+        /HPBrightness where {
+        pop /Yellow  -10 HPBrightness
+        }if "
+*End
+
+*HPYellowBrightness levelm5/ -5%:"
+        /HPBrightness where {
+        pop /Yellow  -5 HPBrightness
+        }if "
+*End
+
+*HPYellowBrightness leveleven/ 0% No Change:" "
+
+*HPYellowBrightness levelp5/ +5%:"
+        /HPBrightness where {
+        pop /Yellow  5 HPBrightness
+        }if "
+*End
+
+*HPYellowBrightness levelp10/ +10%:"
+        /HPBrightness where {
+        pop /Yellow  10 HPBrightness
+        }if "
+*End
+
+*HPYellowBrightness levelp15/ +15%:"
+        /HPBrightness where {
+        pop /Yellow  15 HPBrightness
+        }if "
+*End
+
+*HPYellowBrightness levelp20/ +20%:"
+        /HPBrightness where {
+        pop /Yellow  20 HPBrightness
+        }if "
+*End
+
+*HPYellowBrightness levelp25/ +25% Darker:"
+        /HPBrightness where {
+        pop /Yellow  25 HPBrightness
+        }if "
+*End
+*CloseUI: *HPYellowBrightness
+
+*OpenUI *HPBlackBrightness/Black Lightness: PickOne
+*OrderDependency: 70.0 AnySetup *HPBlackBrightness
+*DefaultHPBlackBrightness: leveleven
+
+*HPBlackBrightness levelm25/ -25% Lighter:"
+        /HPBrightness where {
+        pop /Black  -25 HPBrightness
+        }if "
+*End
+
+*HPBlackBrightness levelm20/ -20%:"
+        /HPBrightness where {
+        pop /Black  -20 HPBrightness
+        }if "
+*End
+
+*HPBlackBrightness levelm15/ -15%:"
+        /HPBrightness where {
+        pop /Black  -15 HPBrightness
+        }if "
+*End
+
+*HPBlackBrightness levelm10/ -10%:"
+        /HPBrightness where {
+        pop /Black  -10 HPBrightness
+        }if "
+*End
+
+*HPBlackBrightness levelm5/ -5%:"
+        /HPBrightness where {
+        pop /Black  -5 HPBrightness
+        }if "
+*End
+
+*HPBlackBrightness leveleven/ 0% No Change:" "
+
+*HPBlackBrightness levelp5/ +5%:"
+        /HPBrightness where {
+        pop /Black  5 HPBrightness
+        }if "
+*End
+
+*HPBlackBrightness levelp10/ +10%:"
+        /HPBrightness where {
+        pop /Black  10 HPBrightness
+        }if "
+*End
+
+*HPBlackBrightness levelp15/ +15%:"
+        /HPBrightness where {
+        pop /Black  15 HPBrightness
+        }if "
+*End
+
+*HPBlackBrightness levelp20/ +20%:"
+        /HPBrightness where {
+        pop /Black  20 HPBrightness
+        }if "
+*End
+
+*HPBlackBrightness levelp25/ +25% Darker:"
+        /HPBrightness where {
+        pop /Black  25 HPBrightness
+        }if "
+*End
+*CloseUI: *HPBlackBrightness
+
+*%=============== Paper Handling ===============
+
+*OpenUI *PageSize: PickOne
+*OrderDependency: 30.0 AnySetup *PageSize
+*DefaultPageSize: Unknown
+*PageSize Letter/US Letter: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[612 792]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize Tabloid/Tabloid: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[792 1224]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize AnsiC/ANSI C: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[1224 1584]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize AnsiD/ANSI D: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[1584 2448]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize AnsiE/ANSI E: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[2448 3168]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize ARCHA/ARCH A: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[648 864]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize ARCHB/ARCH B: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[864 1296]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize ARCHC/ARCH C: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[1296 1728]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize ARCHD/ARCH D: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[1728 2592]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize ARCHE/ARCH E: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[2592 3456]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize A4/ISO A4: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[595 842]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize A3/ISO A3: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[842 1191]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize A2/ISO A2: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[1191 1684]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize A1/ISO A1: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[1684 2384]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize A0/ISO A0: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[2384 3370]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize B4/JIS B4: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[729 1032]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize B3/JIS B3: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[1032 1460]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize B2/JIS B2: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[1460 2064]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize B1/JIS B1: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[2064 2920]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize P24x48/24" x 48": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[1728 3456]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize P24x60/24" x 60": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[1728 4320]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize P36x60/36" x 60": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[2592 4320]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize P36x72/36" x 72": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[2592 5184]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize P42x60/42" x 60": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[3024 4320]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize P42x72/42" x 72": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[3024 5184]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize P42x84/42" x 84": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[3024 6048]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize P54x72/54" x 72": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[3888 5184]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize P54x84/54" x 84": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[3888 6048]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize P54x96/54" x 96": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[3888 6912]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize P60x72/60" x 72": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[4320 5184]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize P60x84/60" x 84": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[4320 6048]/ImagingBBox null>>setpagedevice"
+*End
+*PageSize P60x96/60" x 96": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[4320 6912]/ImagingBBox null>>setpagedevice"
+*End
+*?PageSize: "
+  save
+  currentpagedevice /PageSize get aload pop
+  2 copy gt {exch} if
+  (Unknown)
+  42 dict
+    dup [612 792]    (Letter) put
+    dup [792 1224]   (Tabloid) put
+    dup [1224 1584]  (AnsiC) put
+    dup [1584 2448]  (AnsiD) put
+    dup [2448 3168]  (AnsiE) put
+    dup [648 864]    (ARCHA) put
+    dup [864 1296]   (ARCHB) put
+    dup [1296 1728]  (ARCHC) put
+    dup [1728 2592]  (ARCHD) put
+    dup [2592 3456]  (ARCHE) put
+    dup [595 842]    (A4) put
+    dup [842 1191]   (A3) put
+    dup [1191 1684]  (A2) put
+    dup [1684 2384]  (A1) put
+    dup [2384 3370]  (A0) put
+    dup [729 1032]   (B4) put
+    dup [1032 1460]  (B3) put
+    dup [1460 2064]  (B2) put
+    dup [2064 2920]  (B1) put
+    dup [1728 3456]  (P24x48) put
+    dup [1728 4320]  (P24x60) put
+    dup [2592 4320]  (P36x60) put
+    dup [2592 5184]  (P36x72) put
+    dup [3024 4320]  (P42x60) put
+    dup [3024 5184]  (P42x72) put
+    dup [3024 6048]  (P42x84) put
+    dup [3888 5184]  (P54x72) put
+    dup [3888 6048]  (P54x84) put
+    dup [3888 6912]  (P54x96) put
+    dup [4320 5184]  (P60x72) put
+    dup [4320 6048]  (P60x84) put
+    dup [4320 6912]  (P60x96) put
+  { exch aload pop 4 index sub abs 5 le exch
+    5 index sub abs 5 le and
+    {exch pop exit} {pop} ifelse
+  } bind forall
+  = flush pop pop
+  restore"
+*End
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 40.0 AnySetup *PageRegion
+*DefaultPageRegion: Unknown
+*PageRegion Letter/US Letter: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[612 792]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion Tabloid/Tabloid: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[792 1224]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion AnsiC/ANSI C: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[1224 1584]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion AnsiD/ANSI D: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[1584 2448]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion AnsiE/ANSI E: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[2448 3168]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion ARCHA/ARCH A: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[648 864]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion ARCHB/ARCH B: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[864 1296]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion ARCHC/ARCH C: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[1296 1728]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion ARCHD/ARCH D: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[1728 2592]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion ARCHE/ARCH E: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[2592 3456]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion A4/ISO A4: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[595 842]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion A3/ISO A3: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[842 1191]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion A2/ISO A2: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[1191 1684]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion A1/ISO A1: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[1684 2384]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion A0/ISO A0: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[2384 3370]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion B4/JIS B4: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[729 1032]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion B3/JIS B3: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[1032 1460]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion B2/JIS B2: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[1460 2064]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion B1/JIS B1: "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[2064 2920]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion P24x48/24" x 48": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[1728 3456]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion P24x60/24" x 60": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[1728 4320]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion P36x60/36" x 60": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[2592 4320]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion P36x72/36" x 72": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[2592 5184]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion P42x60/42" x 60": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[3024 4320]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion P42x72/42" x 72": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[3024 5184]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion P42x84/42" x 84": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[3024 6048]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion P54x72/54" x 72": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[3888 5184]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion P54x84/54" x 84": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[3888 6048]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion P54x96/54" x 96": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[3888 6912]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion P60x72/60" x 72": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[4320 5184]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion P60x84/60" x 84": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[4320 6048]/ImagingBBox null>>setpagedevice"
+*End
+*PageRegion P60x96/60" x 96": "/HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+ <</PageSize[4320 6912]/ImagingBBox null>>setpagedevice"
+*End
+*CloseUI: *PageRegion
+
+*% The following entries provide information about specific paper keywords.
+*DefaultImageableArea: Unknown
+
+*ImageableArea Letter/US Letter: "0 0 612 792"
+*ImageableArea Tabloid/Tabloid: "0 0 792 1224"
+*ImageableArea AnsiC/ANSI C: "0 0 1224 1584"
+*ImageableArea AnsiD/ANSI D: "0 0 1584 2448"
+*ImageableArea AnsiE/ANSI E: "0 0 2448 3168"
+*ImageableArea ARCHA/ARCH A: "0 0 648 864"
+*ImageableArea ARCHB/ARCH B: "0 0 864 1296"
+*ImageableArea ARCHC/ARCH C: "0 0 1296 1728"
+*ImageableArea ARCHD/ARCH D: "0 0 1728 2592"
+*ImageableArea ARCHE/ARCH E: "0 0 2592 3456"
+*ImageableArea A4/ISO A4: "0 0 595 842"
+*ImageableArea A3/ISO A3: "0 0 842 1191"
+*ImageableArea A2/ISO A2: "0 0 1191 1684"
+*ImageableArea A1/ISO A1: "0 0 1684 2384"
+*ImageableArea A0/ISO A0: "0 0 2384 3370"
+*ImageableArea B4/JIS B4: "0 0 729 1032"
+*ImageableArea B3/JIS B3: "0 0 1032 1460"
+*ImageableArea B2/JIS B2: "0 0 1460 2064"
+*ImageableArea B1/JIS B1: "0 0 2064 2920"
+*ImageableArea P24x48/24" x 48": "0 0 1728 3456"
+*ImageableArea P24x60/24" x 60": "0 0 1728 4320"
+*ImageableArea P36x60/36" x 60": "0 0 2592 4320"
+*ImageableArea P36x72/36" x 72": "0 0 2592 5184"
+*ImageableArea P42x60/42" x 60": "0 0 3024 4320"
+*ImageableArea P42x72/42" x 72": "0 0 3024 5184"
+*ImageableArea P42x84/42" x 84": "0 0 3024 6048"
+*ImageableArea P54x72/54" x 72": "0 0 3888 5184"
+*ImageableArea P54x84/54" x 84": "0 0 3888 6048"
+*ImageableArea P54x96/54" x 96": "0 0 3888 6912"
+*ImageableArea P60x72/60" x 72": "0 0 4320 5184"
+*ImageableArea P60x84/60" x 84": "0 0 4320 6048"
+*ImageableArea P60x96/60" x 96": "0 0 4320 6912"
+*?ImageableArea: "
+  save
+  /cvp {cvi (     ) cvs
+  print ( ) print} bind def
+  newpath clippath pathbbox
+  4 -2 roll exch 2 {ceiling cvp} repeat
+  exch 2 {floor cvp} repeat flush
+  restore"
+*End
+
+*% These provide the physical dimensions of the paper (by keyword)
+*DefaultPaperDimension:Unknown
+*PaperDimension Letter/US Letter: "612 792"
+*PaperDimension Tabloid/Tabloid: "792 1224"
+*PaperDimension AnsiC/ANSI C: "1224 1584"
+*PaperDimension AnsiD/ANSI D: "1584 2448"
+*PaperDimension AnsiE/ANSI E: "2448 3168"
+*PaperDimension ARCHA/ARCH A: "648 864"
+*PaperDimension ARCHB/ARCH B: "864 1296"
+*PaperDimension ARCHC/ARCH C: "1296 1728"
+*PaperDimension ARCHD/ARCH D: "1728 2592"
+*PaperDimension ARCHE/ARCH E: "2592 3456"
+*PaperDimension A4/ISO A4: "595 842"
+*PaperDimension A3/ISO A3: "842 1191"
+*PaperDimension A2/ISO A2: "1191 1684"
+*PaperDimension A1/ISO A1: "1684 2384"
+*PaperDimension A0/ISO A0: "2384 3370"
+*PaperDimension B4/JIS B4: "729 1032"
+*PaperDimension B3/JIS B3: "1032 1460"
+*PaperDimension B2/JIS B2: "1460 2064"
+*PaperDimension B1/JIS B1: "2064 2920"
+*PaperDimension P24x48/24" x 48": "1728 3456"
+*PaperDimension P24x60/24" x 60": "1728 4320"
+*PaperDimension P36x60/36" x 60": "2592 4320"
+*PaperDimension P36x72/36" x 72": "2592 5184"
+*PaperDimension P42x60/42" x 60": "3024 4320"
+*PaperDimension P42x72/42" x 72": "3024 5184"
+*PaperDimension P42x84/42" x 84": "3024 6048"
+*PaperDimension P54x72/54" x 72": "3888 5184"
+*PaperDimension P54x84/54" x 84": "3888 6048"
+*PaperDimension P54x96/54" x 96": "3888 6912"
+*PaperDimension P60x72/60" x 72": "4320 5184"
+*PaperDimension P60x84/60" x 84": "4320 6048"
+*PaperDimension P60x96/60" x 96": "4320 6912"
+*%=============== Input Tray ===================
+
+*RequiresPageRegion All: True
+
+*%=============== Custom Page Sizes ===============
+*MaxMediaWidth: "4320"
+*MaxMediaHeight: "129600"
+*HWMargins: 0 0 0 0
+*ADUseHWMargins: True
+*ParamCustomPageSize Width/Width: 1 points 200 4320
+*ParamCustomPageSize Height/Height: 2 points 200 129600
+*ParamCustomPageSize WidthOffset/WidthOffset: 3 points 0 0
+*ParamCustomPageSize HeightOffset/HeightOffset: 4 points 0 0
+*ParamCustomPageSize Orientation/Orientation: 5 int 0 3
+*NonUIOrderDependency: 30.0 AnySetup *CustomPageSize
+*CustomPageSize True: "
+  pop pop pop   % discard offsets
+    3 dict begin
+    /PageSize [ 4 -2 roll ] def
+    /ImagingBBox null def
+    currentdict end setpagedevice
+  /HPDict /ProcSet findresource /SetMargins get [ 0 0 0 0 ] exch exec
+  <<>> setpagedevice"
+*End
+
+
+*%=============== Font Information ===============
+
+*DefaultFont: Courier
+
+*Font AlbertusMT-Italic: Standard "(001.000)" Standard ROM
+*Font AlbertusMT-Light: Standard "(001.000)" Standard ROM
+*Font AlbertusMT: Standard "(001.000)" Standard ROM
+*Font AntiqueOlive-Bold: Standard "(501.009)" ExtendedRoman ROM
+*Font AntiqueOlive-Compact: Standard "(501.008)" ExtendedRoman ROM
+*Font AntiqueOlive-Italic: Standard "(501.010)" ExtendedRoman ROM
+*Font AntiqueOlive-Roman: Standard "(501.008)" ExtendedRoman ROM
+*Font AntiqueOliveCE-Bold: Win1250 "(501.009)" ExtendedRoman ROM
+*Font AntiqueOliveCE-Compact: Win1250 "(501.008)" ExtendedRoman ROM
+*Font AntiqueOliveCE-Italic: Win1250 "(501.010)" ExtendedRoman ROM
+*Font AntiqueOliveCE-Roman: Win1250 "(501.008)" ExtendedRoman ROM
+*Font Apple-Chancery: Standard "(001.001)" ExtendedRoman ROM
+*Font Apple-ChanceryCE: Win1250 "(001.001)" ExtendedRoman ROM
+*Font Arial-BoldItalicMT: Standard "(501.009)" ExtendedRoman ROM
+*Font Arial-BoldMT: Standard "(501.009)" ExtendedRoman ROM
+*Font Arial-ItalicMT: Standard "(501.012)" ExtendedRoman ROM
+*Font ArialCE-Bold: Win1250 "(501.009)" ExtendedRoman ROM
+*Font ArialCE-BoldItalic: Win1250 "(501.009)" ExtendedRoman ROM
+*Font ArialCE-Italic: Win1250 "(501.012)" ExtendedRoman ROM
+*Font ArialCE: Win1250 "(501.009)" ExtendedRoman ROM
+*Font ArialMT: Standard "(501.009)" ExtendedRoman ROM
+*Font AvantGarde-Book: Standard "(501.009)" ExtendedRoman ROM
+*Font AvantGarde-BookOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font AvantGarde-Demi: Standard "(501.010)" ExtendedRoman ROM
+*Font AvantGarde-DemiOblique: Standard "(501.010)" ExtendedRoman ROM
+*Font AvantGardeCE-Book: Win1250 "(501.009)" ExtendedRoman ROM
+*Font AvantGardeCE-BookOblique: Win1250 "(501.009)" ExtendedRoman ROM
+*Font AvantGardeCE-Demi: Win1250 "(501.010)" ExtendedRoman ROM
+*Font AvantGardeCE-DemiOblique: Win1250 "(501.010)" ExtendedRoman ROM
+*Font Bodoni-Bold: Standard "(501.006)" ExtendedRoman ROM
+*Font Bodoni-BoldItalic: Standard "(501.007)" ExtendedRoman ROM
+*Font Bodoni-Italic: Standard "(501.007)" ExtendedRoman ROM
+*Font Bodoni-Poster: Standard "(501.009)" ExtendedRoman ROM
+*Font Bodoni-PosterCompressed: Standard "(501.007)" ExtendedRoman ROM
+*Font Bodoni: Standard "(501.008)" ExtendedRoman ROM
+*Font BodoniCE-Bold: Win1250 "(501.006)" ExtendedRoman ROM
+*Font BodoniCE-BoldItalic: Win1250 "(501.007)" ExtendedRoman ROM
+*Font BodoniCE-Italic: Win1250 "(501.007)" ExtendedRoman ROM
+*Font BodoniCE-Poster: Win1250 "(501.009)" ExtendedRoman ROM
+*Font BodoniCE-PosterCompressed: Win1250 "(501.007)" ExtendedRoman ROM
+*Font BodoniCE: Win1250 "(501.008)" ExtendedRoman ROM
+*Font Bookman-Demi: Standard "(501.007)" ExtendedRoman ROM
+*Font Bookman-DemiItalic: Standard "(501.008)" ExtendedRoman ROM
+*Font Bookman-Light: Standard "(501.006)" ExtendedRoman ROM
+*Font Bookman-LightItalic: Standard "(501.007)" ExtendedRoman ROM
+*Font BookmanCE-Demi: Win1250 "(501.007)" ExtendedRoman ROM
+*Font BookmanCE-DemiItalic: Win1250 "(501.008)" ExtendedRoman ROM
+*Font BookmanCE-Light: Win1250 "(501.006)" ExtendedRoman ROM
+*Font BookmanCE-LightItalic: Win1250 "(501.007)" ExtendedRoman ROM
+*Font Carta: Special "(001.001)" Special ROM
+*Font Chicago: Standard "(501.011)" ExtendedRoman ROM
+*Font ChicagoCE: Win1250 "(501.011)" ExtendedRoman ROM
+*Font Clarendon-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Clarendon-Light: Standard "(501.009)" ExtendedRoman ROM
+*Font Clarendon: Standard "(501.009)" ExtendedRoman ROM
+*Font ClarendonCE-Bold: Win1250 "(501.008)" ExtendedRoman ROM
+*Font ClarendonCE-Light: Win1250 "(501.009)" ExtendedRoman ROM
+*Font ClarendonCE: Win1250 "(501.009)" ExtendedRoman ROM
+*Font CooperBlack-Italic: Standard "(001.003)" Standard ROM
+*Font CooperBlack: Standard "(001.003)" Standard ROM
+*Font Copperplate-ThirtyThreeBC: Standard "(001.002)" Standard ROM
+*Font Copperplate-ThirtyTwoBC: Standard "(001.002)" Standard ROM
+*Font Coronet-Regular: Standard "(001.000)" ExtendedRoman ROM
+*Font CoronetCE-Regular: Win1250 "(001.000)" ExtendedRoman ROM
+*Font Courier-Bold: Standard "(501.010)" ExtendedRoman ROM
+*Font Courier-BoldOblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Courier-Oblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Courier: Standard "(501.010)" ExtendedRoman ROM
+*Font CourierCE-Bold: Win1250 "(501.010)" ExtendedRoman ROM
+*Font CourierCE-BoldOblique: Win1250 "(501.010)" ExtendedRoman ROM
+*Font CourierCE-Oblique: Win1250 "(501.010)" ExtendedRoman ROM
+*Font CourierCE: Win1250 "(501.010)" ExtendedRoman ROM
+*Font Eurostile-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Eurostile-BoldExtendedTwo: Standard "(501.008)" ExtendedRoman ROM
+*Font Eurostile-ExtendedTwo: Standard "(501.010)" ExtendedRoman ROM
+*Font Eurostile: Standard "(501.008)" ExtendedRoman ROM
+*Font EurostileCE-Bold: Win1250 "(501.008)" ExtendedRoman ROM
+*Font EurostileCE-BoldExtendedTwo: Win1250 "(501.008)" ExtendedRoman ROM
+*Font EurostileCE-ExtendedTwo: Win1250 "(501.010)" ExtendedRoman ROM
+*Font EurostileCE: Win1250 "(501.008)" ExtendedRoman ROM
+*Font Geneva: Standard "(501.007)" ExtendedRoman ROM
+*Font GenevaCE: Win1250 "(501.007)" ExtendedRoman ROM
+*Font GillSans-Bold: Standard "(501.007)" ExtendedRoman ROM
+*Font GillSans-BoldCondensed: Standard "(501.006)" ExtendedRoman ROM
+*Font GillSans-BoldItalic: Standard "(501.008)" ExtendedRoman ROM
+*Font GillSans-Condensed: Standard "(501.007)" ExtendedRoman ROM
+*Font GillSans-ExtraBold: Standard "(501.008)" ExtendedRoman ROM
+*Font GillSans-Italic: Standard "(501.008)" ExtendedRoman ROM
+*Font GillSans-Light: Standard "(501.009)" ExtendedRoman ROM
+*Font GillSans-LightItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font GillSans: Standard "(501.009)" ExtendedRoman ROM
+*Font GillSansCE-Bold: Win1250 "(501.007)" ExtendedRoman ROM
+*Font GillSansCE-BoldCondensed: Win1250 "(501.006)" ExtendedRoman ROM
+*Font GillSansCE-BoldItalic: Win1250 "(501.008)" ExtendedRoman ROM
+*Font GillSansCE-Condensed: Win1250 "(501.007)" ExtendedRoman ROM
+*Font GillSansCE-ExtraBold: Win1250 "(501.008)" ExtendedRoman ROM
+*Font GillSansCE-Italic: Win1250 "(501.008)" ExtendedRoman ROM
+*Font GillSansCE-Light: Win1250 "(501.009)" ExtendedRoman ROM
+*Font GillSansCE-LightItalic: Win1250 "(501.009)" ExtendedRoman ROM
+*Font GillSansCE-Roman: Win1250 "(501.009)" ExtendedRoman ROM
+*Font Goudy-Bold: Standard "(001.002)" Standard ROM
+*Font Goudy-BoldItalic: Standard "(001.002)" Standard ROM
+*Font Goudy-ExtraBold: Standard "(001.001)" Standard ROM
+*Font Goudy-Italic: Standard "(001.002)" Standard ROM
+*Font Goudy: Standard "(001.003)" Standard ROM
+*Font Helvetica-Bold: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-BoldOblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Condensed-Bold: Standard "(501.009)" ExtendedRoman ROM
+*Font Helvetica-Condensed-BoldObl: Standard "(501.009)" ExtendedRoman ROM
+*Font Helvetica-Condensed-Oblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Condensed: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Narrow-Bold: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Narrow-Oblique: Standard "(501.008)" ExtendedRoman ROM
+*Font Helvetica-Narrow: Standard "(501.008)" ExtendedRoman ROM
+*Font Helvetica-Oblique: Standard "(501.008)" ExtendedRoman ROM
+*Font Helvetica: Standard "(501.008)" ExtendedRoman ROM
+*Font HelveticaCE-Bold: Win1250 "(501.010)" ExtendedRoman ROM
+*Font HelveticaCE-BoldOblique: Win1250 "(501.010)" ExtendedRoman ROM
+*Font HelveticaCE-Cond: Win1250 "(501.010)" ExtendedRoman ROM
+*Font HelveticaCE-CondBold: Win1250 "(501.009)" ExtendedRoman ROM
+*Font HelveticaCE-CondBoldObl: Win1250 "(501.009)" ExtendedRoman ROM
+*Font HelveticaCE-CondObl: Win1250 "(501.010)" ExtendedRoman ROM
+*Font HelveticaCE-Narrow: Win1250 "(501.008)" ExtendedRoman ROM
+*Font HelveticaCE-NarrowBold: Win1250 "(501.010)" ExtendedRoman ROM
+*Font HelveticaCE-NarrowBoldOblique: Win1250 "(501.010)" ExtendedRoman ROM
+*Font HelveticaCE-NarrowOblique: Win1250 "(501.008)" ExtendedRoman ROM
+*Font HelveticaCE-Oblique: Win1250 "(501.008)" ExtendedRoman ROM
+*Font HelveticaCE: Win1250 "(501.008)" ExtendedRoman ROM
+*Font HoeflerText-Black: Standard "(501.008)" ExtendedRoman ROM
+*Font HoeflerText-BlackItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font HoeflerText-Italic: Standard "(501.010)" ExtendedRoman ROM
+*Font HoeflerText-Ornaments: Special "(001.001)" Special ROM
+*Font HoeflerText-Regular: Standard "(501.009)" ExtendedRoman ROM
+*Font HoeflerTextCE-Black: Win1250 "(501.008)" ExtendedRoman ROM
+*Font HoeflerTextCE-BlackItalic: Win1250 "(501.009)" ExtendedRoman ROM
+*Font HoeflerTextCE-Italic: Win1250 "(501.010)" ExtendedRoman ROM
+*Font HoeflerTextCE-Regular: Win1250 "(501.009)" ExtendedRoman ROM
+*Font JoannaMT-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font JoannaMT-BoldItalic: Standard "(501.008)" ExtendedRoman ROM
+*Font JoannaMT-Italic: Standard "(501.008)" ExtendedRoman ROM
+*Font JoannaMT: Standard "(501.009)" ExtendedRoman ROM
+*Font JoannaMTCE-Bold: Win1250 "(501.008)" ExtendedRoman ROM
+*Font JoannaMTCE-BoldItalic: Win1250 "(501.008)" ExtendedRoman ROM
+*Font JoannaMTCE-Italic: Win1250 "(501.008)" ExtendedRoman ROM
+*Font JoannaMTCE: Win1250 "(501.009)" ExtendedRoman ROM
+*Font LetterGothic-Bold: Standard "(501.010)" ExtendedRoman ROM
+*Font LetterGothic-BoldSlanted: Standard "(501.010)" ExtendedRoman ROM
+*Font LetterGothic-Slanted: Standard "(501.010)" ExtendedRoman ROM
+*Font LetterGothic: Standard "(501.009)" ExtendedRoman ROM
+*Font LetterGothicCE-Bold: Win1250 "(501.010)" ExtendedRoman ROM
+*Font LetterGothicCE-BoldSlanted: Win1250 "(501.010)" ExtendedRoman ROM
+*Font LetterGothicCE-Slanted: Win1250 "(501.010)" ExtendedRoman ROM
+*Font LetterGothicCE: Win1250 "(501.009)" ExtendedRoman ROM
+*Font LubalinGraph-Book: Standard "(501.009)" ExtendedRoman ROM
+*Font LubalinGraph-BookOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font LubalinGraph-Demi: Standard "(501.009)" ExtendedRoman ROM
+*Font LubalinGraph-DemiOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font LubalinGraphCE-Book: Win1250 "(501.009)" ExtendedRoman ROM
+*Font LubalinGraphCE-BookOblique: Win1250 "(501.009)" ExtendedRoman ROM
+*Font LubalinGraphCE-Demi: Win1250 "(501.009)" ExtendedRoman ROM
+*Font LubalinGraphCE-DemiOblique: Win1250 "(501.009)" ExtendedRoman ROM
+*Font Marigold: Standard "(001.000)" Standard ROM
+*Font MonaLisa-Recut: Standard "(001.000)" Standard ROM
+*Font Monaco: Standard "(501.012)" ExtendedRoman ROM
+*Font MonacoCE: Win1250 "(501.012)" ExtendedRoman ROM
+*Font NewCenturySchlbk-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font NewCenturySchlbk-Italic: Standard "(501.011)" ExtendedRoman ROM
+*Font NewCenturySchlbk-Roman: Standard "(501.008)" ExtendedRoman ROM
+*Font NewCenturySchlbkCE-Bold: Win1250 "(501.008)" ExtendedRoman ROM
+*Font NewCenturySchlbkCE-BoldItalic: Win1250 "(501.009)" ExtendedRoman ROM
+*Font NewCenturySchlbkCE-Italic: Win1250 "(501.011)" ExtendedRoman ROM
+*Font NewCenturySchlbkCE-Roman: Win1250 "(501.008)" ExtendedRoman ROM
+*Font NewYork: Standard "(501.013)" ExtendedRoman ROM
+*Font NewYorkCE: Win1250 "(501.013)" ExtendedRoman ROM
+*Font Optima-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Optima-BoldItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font Optima-Italic: Standard "(501.010)" ExtendedRoman ROM
+*Font Optima: Standard "(501.010)" ExtendedRoman ROM
+*Font OptimaCE-Bold: Win1250 "(501.008)" ExtendedRoman ROM
+*Font OptimaCE-BoldItalic: Win1250 "(501.009)" ExtendedRoman ROM
+*Font OptimaCE-Italic: Win1250 "(501.010)" ExtendedRoman ROM
+*Font OptimaCE-Roman: Win1250 "(501.010)" ExtendedRoman ROM
+*Font Oxford: Standard "(001.000)" Standard ROM
+*Font Palatino-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Palatino-BoldItalic: Standard "(501.007)" ExtendedRoman ROM
+*Font Palatino-Italic: Standard "(501.008)" ExtendedRoman ROM
+*Font Palatino-Roman: Standard "(501.006)" ExtendedRoman ROM
+*Font PalatinoCE-Bold: Win1250 "(501.008)" ExtendedRoman ROM
+*Font PalatinoCE-BoldItalic: Win1250 "(501.007)" ExtendedRoman ROM
+*Font PalatinoCE-Italic: Win1250 "(501.008)" ExtendedRoman ROM
+*Font PalatinoCE-Roman: Win1250 "(501.006)" ExtendedRoman ROM
+*Font StempelGaramond-Bold: Standard "(501.007)" ExtendedRoman ROM
+*Font StempelGaramond-BoldItalic: Standard "(501.012)" ExtendedRoman ROM
+*Font StempelGaramond-Italic: Standard "(501.009)" ExtendedRoman ROM
+*Font StempelGaramond-Roman: Standard "(501.011)" ExtendedRoman ROM
+*Font StempelGaramondCE-Bold: Win1250 "(501.007)" ExtendedRoman ROM
+*Font StempelGaramondCE-BoldItalic: Win1250 "(501.012)" ExtendedRoman ROM
+*Font StempelGaramondCE-Italic: Win1250 "(501.009)" ExtendedRoman ROM
+*Font StempelGaramondCE-Roman: Win1250 "(501.011)" ExtendedRoman ROM
+*Font Symbol: Special "(001.008)" Special ROM
+*Font Tekton: Standard "(001.001)" Standard ROM
+*Font Times-Bold: Standard "(501.009)" ExtendedRoman ROM
+*Font Times-BoldItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font Times-Italic: Standard "(501.010)" ExtendedRoman ROM
+*Font Times-Roman: Standard "(501.010)" ExtendedRoman ROM
+*Font TimesCE-Bold: Win1250 "(501.009)" ExtendedRoman ROM
+*Font TimesCE-BoldItalic: Win1250 "(501.009)" ExtendedRoman ROM
+*Font TimesCE-Italic: Win1250 "(501.010)" ExtendedRoman ROM
+*Font TimesCE-Roman: Win1250 "(501.010)" ExtendedRoman ROM
+*Font TimesNewRomanCE-Bold: Win1250 "(501.009)" ExtendedRoman ROM
+*Font TimesNewRomanCE-BoldItalic: Win1250 "(501.011)" ExtendedRoman ROM
+*Font TimesNewRomanCE-Italic: Win1250 "(501.011)" ExtendedRoman ROM
+*Font TimesNewRomanCE: Win1250 "(501.010)" ExtendedRoman ROM
+*Font TimesNewRomanPS-BoldItalicMT: Standard "(501.011)" ExtendedRoman ROM
+*Font TimesNewRomanPS-BoldMT: Standard "(501.009)" ExtendedRoman ROM
+*Font TimesNewRomanPS-ItalicMT: Standard "(501.011)" ExtendedRoman ROM
+*Font TimesNewRomanPSMT: Standard "(501.010)" ExtendedRoman ROM
+*Font Univers-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Univers-BoldExt: Standard "(501.010)" ExtendedRoman ROM
+*Font Univers-BoldExtObl: Standard "(501.010)" ExtendedRoman ROM
+*Font Univers-BoldOblique: Standard "(501.008)" ExtendedRoman ROM
+*Font Univers-Condensed: Standard "(501.011)" ExtendedRoman ROM
+*Font Univers-CondensedBold: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-CondensedBoldOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-CondensedOblique: Standard "(501.011)" ExtendedRoman ROM
+*Font Univers-Extended: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-ExtendedObl: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-Light: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-LightOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-Oblique: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers: Standard "(501.009)" ExtendedRoman ROM
+*Font UniversCE-Bold: Win1250 "(501.008)" ExtendedRoman ROM
+*Font UniversCE-BoldExt: Win1250 "(501.010)" ExtendedRoman ROM
+*Font UniversCE-BoldExtObl: Win1250 "(501.010)" ExtendedRoman ROM
+*Font UniversCE-BoldOblique: Win1250 "(501.008)" ExtendedRoman ROM
+*Font UniversCE-Condensed: Win1250 "(501.011)" ExtendedRoman ROM
+*Font UniversCE-CondensedBold: Win1250 "(501.009)" ExtendedRoman ROM
+*Font UniversCE-CondensedBoldOblique: Win1250 "(501.009)" ExtendedRoman ROM
+*Font UniversCE-CondensedOblique: Win1250 "(501.011)" ExtendedRoman ROM
+*Font UniversCE-Extended: Win1250 "(501.009)" ExtendedRoman ROM
+*Font UniversCE-ExtendedObl: Win1250 "(501.009)" ExtendedRoman ROM
+*Font UniversCE-Light: Win1250 "(501.009)" ExtendedRoman ROM
+*Font UniversCE-LightOblique: Win1250 "(501.009)" ExtendedRoman ROM
+*Font UniversCE-Medium: Win1250 "(501.009)" ExtendedRoman ROM
+*Font UniversCE-Oblique: Win1250 "(501.009)" ExtendedRoman ROM
+*Font Wingdings-Regular: Special "(001.001)" Special ROM
+*Font ZapfChancery-MediumItalic: Standard "(002.000)" ExtendedRoman ROM
+*Font ZapfChanceryCE-MediumItalic: Win1250 "(002.000)" ExtendedRoman ROM
+*Font ZapfDingbats: Special "(001.005S)" Special ROM
+
+*?FontQuery: "
+  save
+  {count 1 gt
+    { exch dup 127 string cvs (/) print print (:) print
+      /Font resourcestatus {pop pop (Yes)} {(No)} ifelse =
+    } { exit } ifelse
+  } bind loop
+  (*) = flush
+  restore"
+*End
+
+*?FontList: "
+  save
+  (*) {cvn ==} 128 string /Font resourceforall
+  (*) = flush
+  restore"
+*End
+
+*% Printer Messages (verbatim from printer):
+*Message: "%%[ exitserver: permanent state may be changed ]%%"
+*Message: "%%[ Flushing: rest of job (to end-of-file) will be ignored ]%%"
+*Message: "\FontName\ not found, using Courier"
+
+*% Status (format: %%[ status: <one of these> ] %%)
+*Status: "idle"
+*Status: "busy"
+*Status: "waiting"
+*Status: "printing"
+*Status: "initializing"
+*Status: "printing test page"
+*Status: "PrinterError: needs attention"
+*Status: "PrinterError: cover open"
+*Status: "PrinterError: warming up"
+*Status: "PrinterError: resetting printer"
+*Status: "PrinterError: output bin full"
+*Status: "PrinterError: Paper Jam"
+*Status: "PrinterError: no toner cartridge"
+*Status: "PrinterError: manual feed"
+*Status: "PrinterError: out of paper"
+*Status: "PrinterError: page protect needed"
+*Status: "PrinterError: out of memory"
+*Status: "PrinterError: off line"
+
+*% Input Sources (format: %%[ status: <stat>; source: <one of these> ]%% )
+*Source: "Parallel"
+*Source: "OptionalIO"
+
+*% Printer Error (format: %%[ PrinterError: <one of these> ]%%)
+*PrinterError: "needs attention"
+*PrinterError: "cover open"
+*PrinterError: "warming up"
+*PrinterError: "resetting printer"
+*PrinterError: "output bin full"
+*PrinterError: "Paper Jam"
+*PrinterError: "no toner cartridge"
+*PrinterError: "manual feed"
+*PrinterError: "out of paper"
+*PrinterError: "page protect needed"
+*PrinterError: "out of memory"
+*PrinterError: "off line"
+
+*%DeviceAdjustMatrix: "[1 0 0 1 0 0]"
+
+*%=============== Color Separation Information ===============
+
+*DefaultColorSep: ProcessBlack.60lpi.600dpi/60 lpi / 600 dpi
+
+
+*InkName: ProcessBlack/Process Black
+*InkName: CustomColor/Custom Color
+*InkName: ProcessCyan/Process Cyan
+*InkName: ProcessMagenta/Process Magenta
+*InkName: ProcessYellow/Process Yellow
+
+*% =============== For 60 lpi / 600 dpi ===============
+
+*ColorSepScreenAngle ProcessBlack.60lpi.600dpi/60 lpi / 600 dpi: "45"
+*ColorSepScreenAngle CustomColor.60lpi.600dpi/60 lpi / 600 dpi: "45"
+*ColorSepScreenAngle ProcessCyan.60lpi.600dpi/60 lpi / 600 dpi: "15"
+*ColorSepScreenAngle ProcessMagenta.60lpi.600dpi/60 lpi / 600 dpi: "75"
+*ColorSepScreenAngle ProcessYellow.60lpi.600dpi/60 lpi / 600 dpi: "0"
+
+*ColorSepScreenFreq ProcessBlack.60lpi.600dpi/60 lpi / 600 dpi: "60"
+*ColorSepScreenFreq CustomColor.60lpi.600dpi/60 lpi / 600 dpi: "60"
+*ColorSepScreenFreq ProcessCyan.60lpi.600dpi/60 lpi / 600 dpi: "60"
+*ColorSepScreenFreq ProcessMagenta.60lpi.600dpi/60 lpi / 600 dpi: "60"
+*ColorSepScreenFreq ProcessYellow.60lpi.600dpi/60 lpi / 600 dpi: "60"
+
+*% =============== For 53 lpi / 600 dpi ===============
+
+*ColorSepScreenAngle ProcessBlack.53lpi.600dpi/53 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.53lpi.600dpi/53 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.53lpi.600dpi/53 lpi / 600 dpi: "71.5651"
+*ColorSepScreenAngle ProcessMagenta.53lpi.600dpi/53 lpi / 600 dpi: "18.4349"
+*ColorSepScreenAngle ProcessYellow.53lpi.600dpi/53 lpi / 600 dpi: "0.0"
+
+*ColorSepScreenFreq ProcessBlack.53lpi.600dpi/53 lpi / 600 dpi: "53.033"
+*ColorSepScreenFreq CustomColor.53lpi.600dpi/53 lpi / 600 dpi: "53.033"
+*ColorSepScreenFreq ProcessCyan.53lpi.600dpi/53 lpi / 600 dpi: "47.4342"
+*ColorSepScreenFreq ProcessMagenta.53lpi.600dpi/53 lpi / 600 dpi: "47.4342"
+*ColorSepScreenFreq ProcessYellow.53lpi.600dpi/53 lpi / 600 dpi: "50.0"
+
+
+*% Last Edit Date:  Mar/05/2002, 5:27pm
+*% Last localization Date: Mar/05/2002, 5:27pm
+*% End of PPD file for HP Designjet 5500 PS3 Printers

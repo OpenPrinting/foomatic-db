@@ -1,0 +1,964 @@
+*PPD-Adobe: "4.3"
+*% =================================
+*% Adobe Systems PostScript(R) Printer Description File
+*% Copyright 1992-2003 Hewlett-Packard Company
+*%
+*% Permission is hereby granted, free of charge, to any person obtaining
+*% a copy of this software and associated documentation files (the
+*% "Software"), to deal in the Software without restriction, including
+*% without limitation the rights to use, copy, modify, merge, publish,
+*% distribute, sublicense, and/or sell copies of the Software, and to
+*% permit persons to whom the Software is furnished to do so, subject to
+*% the following conditions:
+*% 
+*% The above copyright notice and this permission notice shall be
+*% included in all copies or substantial portions of the Software.
+*% 
+*% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+*% EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+*% MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+*% NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+*% LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+*% OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+*% WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*% 
+*% [this is the MIT open source license -- please see www.opensource.org]
+*%
+
+
+*% PPD Version For Apple Macintosh
+
+*% Date Code: 19990917
+*%
+*% =================================
+*% Product/PPD Version Information
+*% =================================
+*% PPD File Version Information
+*FormatVersion: "4.3"
+*FileVersion: "1.0"
+*LanguageVersion: English
+*LanguageEncoding: MacStandard
+*PCFileName: "HP2250.PPD"
+*APDialogExtension: "/Library/Printers/hp/PDEs/hpColorOptions.plugin"
+*APDialogExtension: "/Library/Printers/hp/PDEs/hpEdgeToEdge.plugin"
+*APDialogExtension: "/Library/Printers/hp/PDEs/hpFinishing.plugin"
+*APDialogExtension: "/Library/Printers/hp/PDEs/hpImageQuality.plugin"
+*APDialogExtension: "/Library/Printers/hp/PDEs/hpProofAndPrint.plugin"
+*cupsICCProfile RGB../sRGB Matching Profile: "/Library/Printers/hp/Profiles/sRGB_A.icc"
+*APPrinterIconPath: "/Library/Printers/hp/Icons/HP Business Inkjet 2250.icns"
+
+*% Product Name and Version Information
+*Manufacturer: "HP"
+*Product:      "(HP Business Inkjet 2250)"
+*ModelName:     "HP Business Inkjet 2250 PS"
+*ShortNickName: "HP Business Inkjet 2250 PS"
+*NickName:      "HP Business Inkjet 2250 PS - Ver 1.6 (recommended)"
+*PSVersion:	"(2014.200) 0"
+
+*% =================================
+*% Basic Device Capabilities
+*% =================================
+*LanguageLevel: "2"
+*ColorDevice: True
+*DefaultColorSpace: RGB
+*TTRasterizer: Type42
+*FileSystem: False
+*Throughput: "12"
+*1284Modes Parallel: Compat Nibble ECP
+*1284DeviceId: "MFG:HP;MODEL:HP2250;COMMAND SET: POSTSCRIPT,PJL,PCL"
+
+*% =================================
+*% Emulations and Protocols
+*% =================================
+*Protocols: PJL
+*JCLBegin: "<1B>%-12345X@PJL JOB<0A>"
+*JCLToPSInterpreter: "@PJL ENTER LANGUAGE = PostScript <0A>"
+*JCLEnd: "<1B>%-12345X@PJL EOJ <0A><1B>%-12345X"
+*Password: "()"
+*ExitServer: "
+      count 0 eq
+      { false } { true exch startjob } ifelse
+      not {
+      (WARNING: Cannot modify initial VM.) =
+      (Missing or invalid password.) =
+      (Please contact the author of this software.) = flush quit
+      } if "
+*End
+*Reset: "
+      count 0 eq
+      { false } { true exch startjob } ifelse
+      not {
+      (WARNING: Cannot reset printer.) =
+      (Missing or invalid password.) =
+      (Please contact the author of this software.) = flush quit
+      } if
+      systemdict /quit get exec
+      (WARNING : Printer Reset Failed.) = flush "
+*End
+
+*% =================================
+*% Installable Options
+*% =================================
+*%OpenGroup: InstallableOptions/Options Installed
+*%OpenUI *Lower/Tray 2 Paper Tray: Boolean
+*%DefaultLower: False
+*%Lower True/Installed: ""
+*%Lower False/Not Installed: ""
+*%?Lower: "
+*%       save
+*%           currentpagedevice /InputAttributes get
+*%           1 get
+*%            null eq
+*%           {(False)}{(True)}ifelse = flush
+*%       restore
+*%"
+*%End
+*%CloseUI: *Lower
+*OpenUI *InstalledMemory/Installed Memory: PickOne
+*DefaultInstalledMemory: 16Meg
+*InstalledMemory 16Meg/Standard 16MB: ""
+*InstalledMemory 80Meg/80 MB: ""
+*?InstalledMemory: "
+  save
+	currentsystemparams /RamSize get
+	524288 div ceiling cvi 2 div
+	/size exch def
+	size 80 ge
+		{(80Meg)}
+		{
+		    size 16 ge
+			{(16Meg)}
+			{(Unknown)} ifelse
+		} ifelse
+	= flush
+  restore
+"
+*End
+*CloseUI: *InstalledMemory
+
+*%CloseGroup: InstallableOptions
+
+*% =================================
+*% User Interface Constraints
+*% =================================
+
+*% Installable tray options
+*UIConstraints: *Lower       False *InputSlot Lower
+
+*% Do not allow envelopes or transparencies in lower tray
+*%
+*UIConstraints: *PageSize Env10 *InputSlot Lower
+*UIConstraints: *PageSize EnvMonarch *InputSlot Lower
+*UIConstraints: *PageSize EnvDL *InputSlot Lower
+*UIConstraints: *PageSize EnvC5 *InputSlot Lower
+*UIConstraints: *PageSize EnvC6 *InputSlot Lower
+*UIConstraints: *PageSize A6 *InputSlot Lower
+*UIConstraints: *PageSize EnvA2 *InputSlot Lower
+*UIConstraints: *PageSize 4x6 *InputSlot Lower
+*UIConstraints: *PageSize 5x8 *InputSlot Lower
+*UIConstraints: *MediaType PremiumInkjet *InputSlot Lower
+*UIConstraints: *MediaType PremiumInkjetHeavy *InputSlot Lower
+*UIConstraints: *MediaType Photo *InputSlot Lower
+*UIConstraints: *MediaType PremiumPhoto *InputSlot Lower
+*UIConstraints: *MediaType BrochureGloss *InputSlot Lower
+*UIConstraints: *MediaType BrochureMatte *InputSlot Lower
+*UIConstraints: *MediaType PremiumTransparency *InputSlot Lower
+*UIConstraints: *InputSlot Lower *PageSize Env10
+*UIConstraints: *InputSlot Lower *PageSize EnvMonarch
+*UIConstraints: *InputSlot Lower *PageSize EnvDL
+*UIConstraints: *InputSlot Lower *PageSize EnvC5
+*UIConstraints: *InputSlot Lower *PageSize EnvC6
+*UIConstraints: *InputSlot Lower *PageSize A6
+*UIConstraints: *InputSlot Lower *PageSize EnvA2
+*UIConstraints: *InputSlot Lower *PageSize 4x6
+*UIConstraints: *InputSlot Lower *PageSize 5x8
+*UIConstraints: *InputSlot Lower *MediaType PremiumInkjet
+*UIConstraints: *InputSlot Lower *MediaType PremiumInkjetHeavy
+*UIConstraints: *InputSlot Lower *MediaType Photo
+*UIConstraints: *InputSlot Lower *MediaType PremiumPhoto
+*UIConstraints: *InputSlot Lower *MediaType BrochureGloss
+*UIConstraints: *InputSlot Lower *MediaType BrochureMatte
+*UIConstraints: *InputSlot Lower *MediaType PremiumTransparency
+*UIConstraints: *PageRegion Env10 *InputSlot Lower
+*UIConstraints: *PageRegion EnvMonarch *InputSlot Lower
+*UIConstraints: *PageRegion EnvDL *InputSlot Lower
+*UIConstraints: *PageRegion EnvC5 *InputSlot Lower
+*UIConstraints: *PageRegion EnvC6 *InputSlot Lower
+*UIConstraints: *PageRegion A6 *InputSlot Lower
+*UIConstraints: *PageRegion EnvA2 *InputSlot Lower
+*UIConstraints: *PageRegion 4x6 *InputSlot Lower
+*UIConstraints: *PageRegion 5x8 *InputSlot Lower
+*UIConstraints: *InputSlot Lower *PageRegion Env10
+*UIConstraints: *InputSlot Lower *PageRegion EnvMonarch
+*UIConstraints: *InputSlot Lower *PageRegion EnvDL
+*UIConstraints: *InputSlot Lower *PageRegion EnvC5
+*UIConstraints: *InputSlot Lower *PageRegion EnvC6
+*UIConstraints: *InputSlot Lower *PageRegion A6
+*UIConstraints: *InputSlot Lower *PageRegion EnvA2
+*UIConstraints: *InputSlot Lower *PageRegion 4x6
+*UIConstraints: *InputSlot Lower *PageRegion 5x8
+
+*% *NonUIConstraints: *InputSlot Upper *CustomPageSize True
+*NonUIConstraints: *InputSlot Lower *CustomPageSize True
+*% *NonUIConstraints: *CustomPageSize True  *InputSlot Upper
+*NonUIConstraints: *CustomPageSize True  *InputSlot Lower
+
+*% *UIConstraints: *InputSlot Upper *CustomPageSize True
+*UIConstraints: *InputSlot Lower *CustomPageSize True
+*% *UIConstraints: *CustomPageSize True  *InputSlot Upper
+*UIConstraints: *CustomPageSize True  *InputSlot Lower
+
+*% Ignore ColorSmart manual settings in automatic mode
+
+*%UIConstraints: *ColorSmart Automatic *CSGraphics MatchScreen
+*UIConstraints: *ColorSmart Automatic *CSGraphics Vivid
+*UIConstraints: *ColorSmart Automatic *CSText Vivid
+*%UIConstraints: *ColorSmart Automatic *CSText MatchScreen
+
+*%UIConstraints: *ColorSmart Automatic *CSImage MatchScreen
+*UIConstraints: *ColorSmart Automatic *CSImage Vivid
+
+*% ==============Paper Handling ===================
+
+*% =================================
+*% Media Selection/Paper Handling
+*% =================================
+*LandscapeOrientation: Plus90
+*OpenUI *PageSize: PickOne
+*OrderDependency: 30 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize Letter/Letter: "
+	<</PageSize [612 792] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize Legal/Legal: "
+	<</PageSize [612 1008] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize Executive/Executive: "
+	<</PageSize [522 756] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize A4/A4: "
+	<</PageSize [595 842] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize A5/A5: "
+	<</PageSize [420 595] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize B5/B5 (JIS): "
+      <</PageSize [516 729] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize Env10/Envelope 10: "
+	<</PageSize [297 684] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize EnvDL/Envelope DL: "
+	<</PageSize [312 624] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize EnvC5/Envelope C5: "
+	<</PageSize [459 649] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize EnvC6/Envelope C6: "
+	<</PageSize [323 459] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize EnvMonarch/Envelope Monarch: "
+	<</PageSize [279 540] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize EnvA2/Envelope A2: "
+	<</PageSize [314 414] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize 4x6/4x6 Index Card: "
+	<</PageSize [288 432] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize 5x8/5x8 Index Card: "
+	<</PageSize [360 576] /ImagingBBox null>> setpagedevice"
+*End
+*PageSize A6/A6 Card: "
+	<</PageSize [297 420] /ImagingBBox null>> setpagedevice"
+*End
+*?PageSize: "
+ save
+   currentpagedevice /PageSize get aload pop
+   2 copy gt {exch} if
+   (Unknown)
+  6 dict
+   dup [612 792] (Letter) put
+   dup [612 1008] (Legal) put
+   dup [522 756] (Executive) put
+   dup [595 842] (A4) put
+   dup [420 595] (A5) put
+   dup [516 729] (B5) put
+   dup [297 684] (Env10) put
+   dup [312 624] (EnvDL) put
+   dup [459 649] (EnvC5) put
+   dup [323 459] (EnvC6) put
+   dup [279 540] (EnvMonarch) put
+   dup [314 414] (EnvA2) put
+   dup [288 432] (4x6) put
+   dup [360 576] (5x8) put
+   dup [297 420] (A6) put
+ { exch aload pop 4 index sub abs 5 le exch
+   5 index sub abs 5 le and
+      {exch pop exit} {pop} ifelse
+   } bind forall
+   = flush pop pop
+restore
+"
+*End
+*CloseUI: *PageSize
+*OpenUI *PageRegion:  PickOne
+*OrderDependency: 30 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion Letter/Letter: "
+      <</PageSize [612 792] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion Legal/Legal: "
+      <</PageSize [612 1008] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion Executive/Executive: "
+      <</PageSize [522 756] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion A4/A4: "
+      <</PageSize [595 842] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion A5/A5: "
+      <</PageSize [420 595] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion B5/B5 (JIS): "
+      <</PageSize [516 729] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion Env10/Envelope 10: "
+      <</PageSize [297 684] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion EnvDL/Envelope DL: "
+      <</PageSize [312 624] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion EnvC5/Envelope C5: "
+      <</PageSize [459 649] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion EnvC6/Envelope C6: "
+      <</PageSize [323 459] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion EnvMonarch/Envelope Monarch: "
+      <</PageSize [279 540] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion EnvA2/Envelope A2: "
+      <</PageSize [314 414] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion 4x6/4x6 Index Card: "
+      <</PageSize [288 432] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion 5x8/5x8 Index Card: "
+      <</PageSize [360 576] /ImagingBBox null>> setpagedevice"
+*End
+*PageRegion A6/A6 Card: "
+      <</PageSize [297 420] /ImagingBBox null>> setpagedevice"
+*End
+*CloseUI: *PageRegion
+
+*% The following entries provide information about specific paper keywords.
+*DefaultImageableArea: Letter
+*ImageableArea Letter/Letter:                            "18 33.12 594 789"
+*ImageableArea Legal/Legal:                              "18 33.12 594 1005"
+*ImageableArea Executive/Executive:                         "18 33.12 503.76 753"
+*ImageableArea A4/A4:                                       "9.6 33.12 585.6 838.9"
+*ImageableArea A5/A5:                                       "9.6 33.12 409.92 592"
+*ImageableArea B5/B5 (JIS):                                   "9.6 33.12 505.92 725.9"
+*ImageableArea Env10/Envelope 10:                                "9.36 33.12 287.76 681"
+*ImageableArea EnvDL/Envelope DL:                                 "9.36 33.12 302.16 621"
+*ImageableArea EnvC5/Envelope C5:                                 "9.36 33.12 450 646"
+*ImageableArea EnvC6/Envelope C6:                          	      "9.36 33.12 313.68 455.9"
+*ImageableArea EnvMonarch/Envelope Monarch:                 "9.36 33.12 269.52 537"
+*ImageableArea EnvA2/Envelope A2:                          "9.36 33.12 306 411"
+*ImageableArea 4x6/4x6 Index Card:                                     "9.6 33.12 278.4 429"
+*ImageableArea 5x8/5x8 Index Card:                                     "9.6 33.12 350.4 573"
+*ImageableArea A6/A6 Card:                                       "9.6 33.12 288 417"
+*?ImageableArea: "
+ save
+   /cvp { (                ) cvs print ( ) print } bind def
+   /upperright {10000 mul floor 10000 div} bind def
+   /lowerleft {10000 mul ceiling 10000 div} bind def
+   newpath clippath pathbbox
+   4 -2 roll exch 2 {lowerleft cvp} repeat
+   exch 2 {upperright cvp} repeat flush
+ restore
+"
+*End
+
+*% These provide the physical dimensions of the paper (by keyword)
+*DefaultPaperDimension: Letter
+*PaperDimension Letter/Letter:                           "612 792"
+*PaperDimension Legal/Legal:                             "612 1008"
+*PaperDimension Executive/Executive:                        "522 756"
+*PaperDimension A4/A4:                                      "595 842"
+*PaperDimension A5/A5:                                      "420 595"
+*PaperDimension B5/B5 (JIS):                                  "516 729"
+*PaperDimension Env10/Envelope 10:                               "297 684"
+*PaperDimension EnvDL/Envelope DL:                                   "312 624"
+*PaperDimension EnvC5/Envelope C5:                                   "459 649"
+*PaperDimension EnvC6/Envelope C6:                     	            "323 459"
+*PaperDimension EnvMonarch/Envelope Monarch:                         "279 540"
+*PaperDimension EnvA2/Envelope A2:                         "314 414"
+*PaperDimension 4x6/4x6 Index Card:                                    "288 432"
+*PaperDimension 5x8/5x8 Index Card:                                    "360 576"
+*PaperDimension A6/A6 Card:                                      "297 420"
+*RequiresPageRegion All: True
+
+*% ===================================
+*% Gray Levels and Halftoning
+*% ===================================
+*ScreenAngle: "45.0"
+*ScreenFreq: "60.0"
+*DefaultScreenProc: Dot
+*ScreenProc Dot: "
+{abs exch abs 2 copy add 1 gt {1 sub dup mul exch 1 sub dup mul add 1
+sub }{dup mul exch dup mul add 1 exch sub }ifelse }
+"
+*End
+*ScreenProc Line: "{ pop }"
+*ScreenProc Ellipse: "{ dup 5 mul 8 div mul exch dup mul exch add sqrt 1 exch sub }"
+*DefaultTransfer: Null
+*Transfer Null: "{ }"
+*Transfer Null.Inverse: "{ 1 exch sub }"
+
+*% =================================
+*% Print Color as Gray
+*% =================================
+*OpenUI *HPColorAsGray/Print Color as Gray:  Boolean
+*OrderDependency: 20 DocumentSetup *HPColorAsGray
+*DefaultHPColorAsGray: False
+*HPColorAsGray True/On: "<</ProcessColorModel /DeviceGray>> setpagedevice"
+*HPColorAsGray False/Off: "<</ProcessColorModel /DeviceCMY>> setpagedevice"
+*?HPColorAsGray: "
+  save
+    currentpagedevice /ProcessColorModel get
+	/DeviceGray eq {(True)}{(False)}ifelse = flush
+  restore
+"
+*End
+*CloseUI: *HPColorAsGray
+
+*% =================================
+*% Media Handling Features
+*% =================================
+*%=================Media Type============================
+*OpenUI *MediaType/Media Type: PickOne
+*OrderDependency: 50 AnySetup *MediaType
+*DefaultMediaType: Plain
+*MediaType Plain/Plain Paper:  "
+    <</MediaType (Plain)>> setpagedevice"
+*End
+*MediaType PremiumInkjet/HP Premium Inkjet Paper:  "
+    <</MediaType (PremiumInkjet)>> setpagedevice"
+*End
+*MediaType PremiumInkjetHeavy/HP Premium Inkjet Heavyweight Paper:  "
+    <</MediaType (PremiumInkjetHeavy)>> setpagedevice"
+*End
+*MediaType PremiumTransparency/HP Premium Transparency:  "
+    <</MediaType (PremiumTransparency)>> setpagedevice"
+*End
+*MediaType PremiumPhoto/HP Premium Photo Paper:  "
+    <</MediaType (PremiumPhoto)>> setpagedevice"
+*End
+*MediaType Photo/HP Photo Paper:  "
+    <</MediaType (Photo)>> setpagedevice"
+*End
+*MediaType BrochureGloss/HP Professional Brochure Paper, Glossy:  "
+    <</MediaType (BrochureGloss)>> setpagedevice"
+*End
+*MediaType BrochureMatte/HP Professional Brochure Paper, Matte:  "
+    <</MediaType (BrochureMatte)>> setpagedevice"
+*End
+*?MediaType: "
+ save
+    currentpagedevice /MediaType get
+    dup null eq {pop (Unknown)} if
+    = flush
+ restore
+"
+*End
+*CloseUI: *MediaType
+
+*%=== Custom Paper Support =================
+*%
+*% Support for Newman and Gossimer [sic] media
+*% will probably go here.  I believe there should
+*% be a NonUIOrderDependency statement here, too,
+*% but Monarch did not have one.
+*%
+*%Orientation and Margin (offsets) values are not utilized
+*MaxMediaWidth: "612"
+*MaxMediaHeight: "1008"
+*HWMargins: 18 33.12 18 3
+*CustomPageSize True: "
+        pop pop pop
+        <</DeferredMediaSelection true /PageSize [ 7 -2 roll ]
+        /ImagingBBox null >>
+        setpagedevice
+"
+*End
+*ParamCustomPageSize Width: 1 points 279 612
+*ParamCustomPageSize Height: 2 points 414 1008
+*ParamCustomPageSize WidthOffset: 3 points 0 0
+*ParamCustomPageSize HeightOffset: 4 points 0 0
+*ParamCustomPageSize Orientation: 5 int 0 0
+
+*% =================================
+*% Media Input Source
+*%==================================
+*OpenUI *InputSlot/Paper Source: PickOne
+*OrderDependency: 20 AnySetup *InputSlot
+*DefaultInputSlot: Upper
+*InputSlot Upper/Tray 1: "
+	<</MediaPosition 1>> setpagedevice"
+*End
+*InputSlot Lower/Tray 2: "
+	<</MediaPosition 4>> setpagedevice"
+*End
+*InputSlot Manual/Manual Feed: "
+	<</MediaPosition 2>> setpagedevice"
+*End
+*?InputSlot: "
+save
+	currentpagedevice /InputAttributes get
+	/Priority get
+	aload pop pop
+	/theTray exch def
+	/theTray 1 eq {(Upper)} {/theTray 4 eq {(Lower)} {(Manual)} ifelse} ifelse
+	= flush
+restore
+"
+*End
+*CloseUI: *InputSlot
+
+*% ===================================
+*% ColorSmart
+*% ===================================
+*OpenUI *HPColorSmart/HP ColorSmart: PickOne
+*OrderDependency: 55 DocumentSetup *HPColorSmart
+*DefaultHPColorSmart: Automatic
+*HPColorSmart Automatic/Automatic: "
+globaldict /ColorSmartColorMatching known {
+	true ColorSmartColorMatching
+	MatchScreen ColorSmartTextAdjustment
+	MatchScreen ColorSmartGraphicsAdjustment
+	MatchScreen ColorSmartImageAdjustment
+	true ColorSmartColorMatching
+} if
+/setscreen { pop pop pop} def
+/setcolorscreen { pop pop pop pop pop pop pop pop pop pop pop pop } def
+/sethalftone { pop } def
+"
+*End
+*HPColorSmart Manual/Manual: "
+globaldict /ColorSmartColorMatching known {
+	true ColorSmartColorMatching
+} if
+/setscreen { pop pop pop} def
+/setcolorscreen { pop pop pop pop pop pop pop pop pop pop pop pop } def
+/sethalftone { pop } def
+"
+*End
+*CloseUI: *HPColorSmart
+*% ==================================
+*%  ColorSmart Manual Settings
+*% ==================================
+*OpenUI *HPCSText/Text:  PickOne
+*OrderDependency: 57 AnySetup *HPCSText
+*DefaultHPCSText: MatchScreen
+*HPCSText MatchScreen/ScreenMatch(sRGB): "
+globaldict /ColorSmartColorMatching known {
+	true ColorSmartColorMatching
+	MatchScreen ColorSmartTextAdjustment
+} if
+"
+*End
+*HPCSText Vivid/Vivid: "
+globaldict /ColorSmartColorMatching known {
+	true ColorSmartColorMatching
+	Vivid ColorSmartTextAdjustment
+} if
+"
+*End
+*CloseUI: *HPCSText
+
+*OpenUI *HPCSGraphics/Graphics:  PickOne
+*OrderDependency: 57 AnySetup *HPCSGraphics
+*DefaultHPCSGraphics: MatchScreen
+*HPCSGraphics MatchScreen/ScreenMatch(sRGB): "
+globaldict /ColorSmartColorMatching known {
+	true ColorSmartColorMatching
+	MatchScreen ColorSmartGraphicsAdjustment
+} if
+"
+*End
+*HPCSGraphics Vivid/Vivid: "
+globaldict /ColorSmartColorMatching known {
+	true ColorSmartColorMatching
+	Vivid ColorSmartGraphicsAdjustment
+} if
+"
+*End
+*CloseUI: *HPCSGraphics
+
+*OpenUI *HPCSImages/Image:  PickOne
+*OrderDependency: 57 AnySetup *HPCSImages
+*DefaultHPCSImages: MatchScreen
+*HPCSImages MatchScreen/ScreenMatch(sRGB): "
+globaldict /ColorSmartColorMatching known {
+	true ColorSmartColorMatching
+	MatchScreen ColorSmartImageAdjustment
+} if
+"
+*End
+*HPCSImages Vivid/Vivid: "
+globaldict /ColorSmartColorMatching known {
+	true ColorSmartColorMatching
+	Vivid ColorSmartImageAdjustment
+} if
+"
+*End
+*CloseUI: *HPCSImages
+
+*% ===================================
+*% Print Quality
+*% ===================================
+*OpenUI *OutputMode/Print Quality: PickOne
+*OrderDependency: 30.0 AnySetup *OutputMode
+*DefaultOutputMode: Normal
+*OutputMode Best/Best:"
+<<
+/PrintQuality 1
+>> setpagedevice
+"
+*End
+*OutputMode Normal/Normal:"
+<<
+/PrintQuality 0
+>> setpagedevice
+"
+*End
+*OutputMode Fast/Fast:"
+<<
+/PrintQuality -1
+>> setpagedevice
+"
+*End
+*?OutputMode: "
+  save
+  3 dict
+  dup 1 (Fast) put
+  dup 2 (Normal) put
+  dup 3 (Best) put
+  currentpagedevice /PostRenderingEnhanceDetails get
+  /PrintQuality get get = flush
+  restore"
+*End
+*CloseUI: *OutputMode
+
+*% =================================
+*%  Color Ink Space
+*% =================================
+*OpenUI *HPCMYKInks/CMYK Inks:  PickOne
+*OrderDependency: 90 AnySetup *HPCMYKInks
+*DefaultHPCMYKInks: FAST
+*HPCMYKInks FAST/FAST:"
+<< /CMYKInkSet 0 >> setpagedevice
+"
+*End
+*HPCMYKInks SWOP/SWOP Emulation:"
+<< /CMYKInkSet 1 >> setpagedevice
+"
+*End
+*HPCMYKInks EURO/Eurostandard:"
+<< /CMYKInkSet 2 >> setpagedevice
+"
+*End
+*HPCMYKInks TOYO/TOYO:"
+<< /CMYKInkSet 3 >> setpagedevice
+"
+*End
+*CloseUI: *HPCMYKInks
+
+*% =================================
+*%  Resolution
+*% =================================
+
+*% Select Printer Resolution
+*OrderDependency: 10 DocumentSetup *Resolution
+*DefaultResolution: 300dpi
+*Resolution 300dpi: "
+        <</HWResolution [300 300] >> setpagedevice"
+*End
+*Resolution 600dpi: "
+        <</HWResolution [600 600] >> setpagedevice"
+*End
+*?Resolution: "
+  save
+    currentpagedevice /HWResolution get
+    0 get
+    (          ) cvs print
+    (dpi)
+    = flush
+  restore
+"
+*End
+
+*% =================================
+*% Font Information
+*% =================================
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Special ROM
+
+*% Extra PS fonts
+*Font Albertus-ExtraBold: Standard "(001.008S)" Standard ROM
+*Font Albertus-Medium: Standard "(001.008S)" Standard ROM
+*Font AntiqueOlive: Standard "(001.008S)" Standard ROM
+*Font AntiqueOlive-Bold: Standard "(001.008S)" Standard ROM
+*Font AntiqueOlive-Italic: Standard "(001.008S)" Standard ROM
+*Font Arial: Standard "(001.008S)" Standard ROM
+*Font Arial-Bold: Standard "(001.008S)" Standard ROM
+*Font Arial-BoldItalic: Standard "(001.008S)" Standard ROM
+*Font Arial-Italic: Standard "(001.008S)" Standard ROM
+*Font CGOmega: Standard "(001.008S)" Standard ROM
+*Font CGOmega-Bold: Standard "(001.008S)" Standard ROM
+*Font CGOmega-BoldItalic: Standard "(001.008S)" Standard ROM
+*Font CGOmega-Italic: Standard "(001.008S)" Standard ROM
+*Font CGTimes: Standard "(001.008S)" Standard ROM
+*Font CGTimes-Bold: Standard "(001.008S)" Standard ROM
+*Font CGTimes-BoldItalic: Standard "(001.008S)" Standard ROM
+*Font CGTimes-Italic: Standard "(001.008S)" Standard ROM
+*Font Clarendon-Condensed-Bold: Standard "(001.008S)" Standard ROM
+*Font Coronet: Standard "(001.008S)" Standard ROM
+*Font CourierHP: Standard "(001.008S)" Standard ROM
+*Font CourierHP-Bold: Standard "(001.008S)" Standard ROM
+*Font CourierHP-BoldItalic: Standard "(001.008S)" Standard ROM
+*Font CourierHP-Italic: Standard "(001.008S)" Standard ROM
+*Font Garamond-Antiqua: Standard "(001.008S)" Standard ROM
+*Font Garamond-Halbfett: Standard "(001.008S)" Standard ROM
+*Font Garamond-Kursiv: Standard "(001.008S)" Standard ROM
+*Font Garamond-KursivHalbfett: Standard "(001.008S)" Standard ROM
+*Font LetterGothic: Standard "(001.008S)" Standard ROM
+*Font LetterGothic-Bold: Standard "(001.008S)" Standard ROM
+*Font LetterGothic-Italic: Standard "(001.008S)" Standard ROM
+*Font Marigold: Standard "(001.008S)" Standard ROM
+*Font SymbolMT: Standard "(001.008S)" Standard ROM
+*Font TimesNewRoman: Standard "(001.008S)" Standard ROM
+*Font TimesNewRoman-Bold: Standard "(001.008S)" Standard ROM
+*Font TimesNewRoman-BoldItalic: Standard "(001.008S)" Standard ROM
+*Font TimesNewRoman-Italic: Standard "(001.008S)" Standard ROM
+*Font Univers-Bold: Standard "(001.008S)" Standard ROM
+*Font Univers-BoldItalic: Standard "(001.008S)" Standard ROM
+*Font Univers-Condensed-Bold: Standard "(001.008S)" Standard ROM
+*Font Univers-Condensed-BoldItalic: Standard "(001.008S)" Standard ROM
+*Font Univers-Condensed-Medium: Standard "(001.008S)" Standard ROM
+*Font Univers-Condensed-MediumItalic: Standard "(001.008S)" Standard ROM
+*Font Univers-Medium: Standard "(001.008S)" Standard ROM
+*Font Univers-MediumItalic: Standard "(001.008S)" Standard ROM
+*Font Wingdings-Regular: Standard "(001.008S)" Standard ROM
+*?FontList: "
+save
+  (*) {cvn ==} 128 string /Font resourceforall
+  (*) = flush
+restore
+"
+*End
+*?FontQuery: "
+ save
+   { count 1 gt
+      { exch dup 127 string cvs (/) print print (:) print
+        /Font resourcestatus {pop pop (Yes)} {(No)} ifelse =
+      } { exit } ifelse
+   } bind loop
+   (*) = flush
+ restore
+"
+*End
+
+*% ===================================
+*% Printer Messages
+*% ===================================
+*% Printer Messages (verbatim from printer):
+*Message: "%%[exitserver: permanent state may be changed]%%"
+*Message: "%%[ Flushing: rest of job (to end-of-file) will be ignored ]%%"
+*Message: "\FontName\ not found, using Courier"
+
+*% Status (format: %%[ status: <one of these> ] %%)
+*Status: "warming up"/warming up
+*Status: "initializing"/initializing
+*Status: "idle"/idle
+*Status: "waiting"/waiting
+*Status: "busy"/busy
+*Status: "printing"/printing
+*Status: "printing test page"/printing test page
+*Status: "PrinterError: Out of Memory"/PrinterError: Out of Memory
+*Status: "PrinterError: Offline"/PrinterError: Offline
+*Status: "PrinterError: Printhead Access Cover Open"/PrinterError: Printhead Access Cover Open
+*Status: "PrinterError: Printhead Latch Not Properly Closed"/PrinterError: Printhead Latch Not Properly Closed
+*Status: "PrinterError: Printhead Faulty"/PrinterError: Printhead Faulty
+*Status: "PrinterError: Printhead Missing"/PrinterError: Printhead Missing
+*Status: "PrinterError: Printhead Should Be Replaced Soon"/PrinterError: Printhead Should Be Replaced Soon
+*Status: "PrinterError: Ink Cartridge Missing"/PrinterError: Ink Cartridge Missing
+*Status: "PrinterError: Ink Cartridge Faulty"/PrinterError: Ink Cartridge Faulty
+*Status: "PrinterError: Ink Cartridge Empty"/PrinterError: Ink Cartridge Empty
+*Status: "PrinterError: Ink Cartridge Will Expire Soon"/PrinterError: Ink Cartridge Will Expire Soon
+*Status: "PrinterError: Ink Cartridge Expired"/PrinterError: Ink Cartridge Expired
+*Status: "PrinterError: Ink Cartridge Incompatible"/PrinterError: Ink Cartridge Incompatible
+*Status: "PrinterError: Ink Low"/PrinterError: Ink Low
+*Status: "PrinterError: Ink Buildup May Be Occurring"/PrinterError: Ink Buildup May Be Occurring
+*Status: "PrinterError: Carriage Jam"/PrinterError: Carriage Jam
+*Status: "PrinterError: Manual Feed"/PrinterError: Manual Feed
+*Status: "PrinterError: Load Media in Tray 1"/PrinterError: Load Media in Tray 1
+*Status: "PrinterError: Load Media in Tray 2"/PrinterError: Load Media in Tray 2
+*Status: "PrinterError: Load Media in Manual Feed Tray"/PrinterError: Load Media in Manual Feed Tray
+*Status: "PrinterError: Printer Ready for Manual Paper Fee"/PrinterError: Printer Ready for Manual Paper Feed
+*Status: "PrinterError: Media Not Available"/PrinterError: Media Not Available
+*Status: "PrinterError: Out of Paper"/PrinterError: Out of Paper
+*Status: "PrinterError: Paper Jam"/PrinterError: Paper Jam
+*Status: "PrinterError: Printer Paused"/PrinterError: Printer Paused
+
+*% Input Sources (format: %%[ status: <stat>; source: <one of these> ]%% )
+*Source: "Serial"
+*Source: "LocalTalk"
+*Source: "Parallel"
+*Source: "OptionalIO"
+
+*% PrinterError (format: %%[ PrinterError: <one of these> ]%%)
+*PrinterError: "Out of Memory"/Out of Memory
+*PrinterError: "Offline"/Offline
+*PrinterError: "Printhead Access Cover Open"/Printhead Access Cover Open
+*PrinterError: "Printhead Latch Not Properly Closed"/Printhead Latch Not Properly Closed
+*PrinterError: "Printhead Faulty"/Printhead Faulty
+*PrinterError: "Printhead Missing"/Printhead Missing
+*PrinterError: "Printhead Should Be Replaced Soon"/Printhead Should Be Replaced Soon
+*PrinterError: "Ink Cartridge Missing"/Ink Cartridge Missing
+*PrinterError: "Ink Cartridge Faulty"/Ink Cartridge Faulty
+*PrinterError: "Ink Cartridge Empty"/Ink Cartridge Empty
+*PrinterError: "Ink Cartridge Will Expire Soon"/Ink Cartridge Will Expire Soon
+*PrinterError: "Ink Cartridge Expired"/Ink Cartridge Expired
+*PrinterError: "Ink Cartridge Incompatible"/Ink Cartridge Incompatible
+*PrinterError: "Ink Low"/Ink Low
+*PrinterError: "Ink Buildup May Be Occurring"/Ink Buildup May Be Occurring
+*PrinterError: "Carriage Jam"/Carriage Jam
+*PrinterError: "Manual Feed"/Manual Feed
+*PrinterError: "Load Media in Tray 1"/Load Media in Tray 1
+*PrinterError: "Load Media in Tray 2"/Load Media in Tray 2
+*PrinterError: "Load Media in Manual Feed Tray"/Load Media in Manual Feed Tray
+*PrinterError: "Printer Ready for Manual Paper Feed"/Printer Ready for Manual Paper Feed
+*PrinterError: "Media Not Available"/Media Not Available
+*PrinterError: "Out of Paper"/Out of Paper
+*PrinterError: "Paper Jam"/Paper Jam
+*PrinterError: "Printer Paused"/Printer Paused
+
+*% =================================
+*% Color Separation Information
+*% =================================
+*DefaultColorSep: ProcessBlack.106lpi.600dpi/106 lpi / 600 dpi
+*InkName: ProcessBlack/Process Black
+*InkName: CustomColor/Custom Color
+*InkName: ProcessCyan/Process Cyan
+*InkName: ProcessMagenta/Process Magenta
+*InkName: ProcessYellow/Process Yellow
+
+*%  For 60 lpi / 300 dpi  =========================
+*ColorSepScreenAngle ProcessBlack.60lpi.300dpi/60 lpi / 300 dpi: "45"
+*ColorSepScreenAngle CustomColor.60lpi.300dpi/60 lpi / 300 dpi: "45"
+*ColorSepScreenAngle ProcessCyan.60lpi.300dpi/60 lpi / 300 dpi: "15"
+*ColorSepScreenAngle ProcessMagenta.60lpi.300dpi/60 lpi / 300 dpi: "75"
+*ColorSepScreenAngle ProcessYellow.60lpi.300dpi/60 lpi / 300 dpi: "0"
+*ColorSepScreenFreq ProcessBlack.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq CustomColor.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq ProcessCyan.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq ProcessMagenta.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq ProcessYellow.60lpi.300dpi/60 lpi / 300 dpi: "60"
+
+*%  For 85 lpi / 600 dpi  (5,5,2,6,6,2,20/3,0) ====
+*ColorSepScreenAngle ProcessBlack.85lpi.600dpi/85 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.85lpi.600dpi/85 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.85lpi.600dpi/85 lpi / 600 dpi: "71.5651"
+*ColorSepScreenAngle ProcessMagenta.85lpi.600dpi/85 lpi / 600 dpi: "18.4349"
+*ColorSepScreenAngle ProcessYellow.85lpi.600dpi/85 lpi / 600 dpi: "0.0"
+*ColorSepScreenFreq ProcessBlack.85lpi.600dpi/85 lpi / 600 dpi: "84.8528"
+*ColorSepScreenFreq CustomColor.85lpi.600dpi/85 lpi / 600 dpi: "84.8528"
+*ColorSepScreenFreq ProcessCyan.85lpi.600dpi/85 lpi / 600 dpi: "94.8683"
+*ColorSepScreenFreq ProcessMagenta.85lpi.600dpi/85 lpi / 600 dpi: "94.8683"
+*ColorSepScreenFreq ProcessYellow.85lpi.600dpi/85 lpi / 600 dpi: "30.0"
+*ColorSepScreenProc ProcessYellow.85lpi.600dpi/85 lpi / 600 dpi: "
+{1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch
+1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch
+abs exch abs 2 copy add 1 gt {1 sub dup mul exch 1 sub dup mul add 1
+sub }{dup mul exch dup mul add 1 exch sub }ifelse }"
+*End
+
+*%  For 106 lpi / 300 dpi  =========================
+*ColorSepScreenAngle ProcessBlack.106lpi.300dpi/106 lpi / 300 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.106lpi.300dpi/106 lpi / 300 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.106lpi.300dpi/106 lpi / 300 dpi: "71.5651"
+*ColorSepScreenAngle ProcessMagenta.106lpi.300dpi/106 lpi / 300 dpi: "18.4349"
+*ColorSepScreenAngle ProcessYellow.106lpi.300dpi/106 lpi / 300 dpi: "0.0"
+*ColorSepScreenFreq ProcessBlack.106lpi.300dpi/106 lpi / 300 dpi: "106.066"
+*ColorSepScreenFreq CustomColor.106lpi.300dpi/106 lpi / 300 dpi: "106.066"
+*ColorSepScreenFreq ProcessCyan.106lpi.300dpi/106 lpi / 300 dpi: "94.8683"
+*ColorSepScreenFreq ProcessMagenta.106lpi.300dpi/106 lpi / 300 dpi: "94.8683"
+*ColorSepScreenFreq ProcessYellow.106lpi.300dpi/106 lpi / 300 dpi: "100.0"
+
+*%  For 106 lpi / 600 dpi  =========================
+*ColorSepScreenAngle ProcessBlack.106lpi.600dpi/106 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.106lpi.600dpi/106 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.106lpi.600dpi/106 lpi / 600 dpi: "71.5651"
+*ColorSepScreenAngle ProcessMagenta.106lpi.600dpi/106 lpi / 600 dpi: "18.4349"
+*ColorSepScreenAngle ProcessYellow.106lpi.600dpi/106 lpi / 600 dpi: "0.0"
+*ColorSepScreenFreq ProcessBlack.106lpi.600dpi/106 lpi / 600 dpi: "106.066"
+*ColorSepScreenFreq CustomColor.106lpi.600dpi/106 lpi / 600 dpi: "106.066"
+*ColorSepScreenFreq ProcessCyan.106lpi.600dpi/106 lpi / 600 dpi: "94.8683"
+*ColorSepScreenFreq ProcessMagenta.106lpi.600dpi/106 lpi / 600 dpi: "94.8683"
+*ColorSepScreenFreq ProcessYellow.106lpi.600dpi/106 lpi / 600 dpi: "100.0"
+
+*% =================================
+*% System Management
+*% =================================
+*FreeVM: "8388608"
+*VMOption 16Meg/Standard 16MB: "8388608"
+*VMOption 80Meg/80 MB: "75497472"
+
+*% Font Cache
+*FCacheSize 16Meg/Standard 16MB: 30416
+*FCacheSize 80Meg/80 MB: 30416
+*SuggestedJobTimeout: "0"
+*SuggestedWaitTimeout: "300"
+
+*%DeviceAdjustMatrix: "[1 0 0 1 0 0]"
+
+*% =================================
+*% For "HP Business Inkjet 2250 PS"
+*% =================================
