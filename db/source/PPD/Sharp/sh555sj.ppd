@@ -1,0 +1,1198 @@
+*PPD-Adobe: "4.3"
+*% PPD file for SHARP AR-555S PS with CUPS.
+*% Created by the CUPS PPD Compiler v1.0rc1.
+*% Modified by TT 2004/12/15.
+*% Copyright 1999-2004 Sharp Corporation
+*% 
+*% This software is free software; you can redistribute it and/or
+*% modify it under the terms of the GNU General Public License as
+*% published by the Free Software Foundation; either version 2 of
+*% the License, or (at your option) any later version.
+*% 
+*% This software is distributed in the hope that it will be useful,
+*% but WITHOUT ANY WARRANTY; without even the implied warranty of
+*% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*% GNU General Public License for more details.
+*% 
+*% You should have received a copy of the GNU General Public
+*% License along with this software; if not, write to the Free
+*% Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+*% MA 02111 USA
+*% 
+*FormatVersion: "4.3"
+*FileVersion: "1.2"
+*LanguageVersion: English
+*LanguageEncoding: ISOLatin1
+*PCFileName: "SH555SJ.PPD"
+*Product: "(Sharp AR-P19)"
+*Manufacturer: "Sharp"
+*ModelName: "Sharp AR-555S PS"
+*ShortNickName: "Sharp AR-555S PS"
+*NickName: "Sharp AR-555S PS, 1.2"
+*PSVersion: "(3010.106) 0"
+*LanguageLevel: "3"
+*ColorDevice: False
+*DefaultColorSpace: Gray
+*FileSystem: False
+*Throughput: "55"
+*LandscapeOrientation: Plus90
+*TTRasterizer: Type42
+*% Driver-defined attributes...
+*1284Modes Parallel: Compat Nibble
+*AccurateScreensSupport: False
+*CenterRegistered: False
+*DefaultHalftoneType: 9
+*DefaultScreenProc: Dot
+*DefaultTransfer: Null
+*ExitServer: "
+	count 0 eq
+	{ false } { true exch startjob } ifelse
+	not
+	{ (WARNING: Cannot modify initial VM.) =
+	(Missing or invalid password.) =
+	(Please contact the author of this software.) = flush quit
+	} if"
+*End
+*FreeVM: "32767000"
+*HWMargins: "12 12 12 12"
+*JCLBegin: "<1B>%-12345X@PJL JOB<0A>"
+*JCLEnd: "<1B>%-12345X@PJL EOJ<0A><1B>%-12345X"
+*JCLToPSInterpreter: "@PJL ENTER LANGUAGE = POSTSCRIPT <0A>"
+*JobPatchFile 1: "<</DeferredMediaSelection true /MediaPosition 9 /ManualFeed false>> setpagedevice"
+*Password: "(0)"
+*Product: "(Sharp AR-P19)"
+*Protocols: PJL
+*RequiresPageRegion All: True
+*Reset: "
+	count 0 eq
+	{ false } { true exch startjob } ifelse
+	not
+	{ (WARNING: Cannot reset printer.) =
+	(Missing or invalid password.) =
+	(Please contact the author of this software.) = flush quit
+	} if
+	systemdict /quit get exec
+	(WARNING : Printer Reset Failed.) = flush"
+*End
+*%*ResScreenAngle 1200dpi: "45.0"
+*ResScreenAngle 600dpi: "45.0"
+*%*ResScreenFreq 1200dpi: "170.0"
+*ResScreenFreq 600dpi: "106.0"
+*ScreenAngle: "45.0"
+*ScreenFreq: "106.0"
+*ScreenProc Dot: "{180 mul cos exch 180 mul cos add 2 div} bind"
+*SuggestedJobTimeout: "0"
+*SuggestedManualFeedTimeout: "60"
+*SuggestedWaitTimeout: "300"
+*Transfer Null: "{ }"
+*Transfer Null.Inverse: "{ 1 exch sub } bind"
+*%*VMOption 128MB/Standard 128MB RAM: "32767000"
+*%*VMOption 192MB/192MB RAM: "32767000"
+*%*VMOption 256MB/256MB RAM: "32767000"
+*%*VMOption 384MB/384MB RAM: "32767000"
+
+*% === Constraints for Dragon ==================================================
+
+*% **** InstallableOption <---> InstallableOption ******************************
+*UIConstraints: *Option1 NotInstalled		*Option9 True
+
+*% **** InstallableOption <---> Option *****************************************
+*% ---- Output Tray Options
+*UIConstraints: *Option1 NotInstalled		*OutputBin Output1
+*UIConstraints: *Option1 NotInstalled		*OutputBin Output2
+*UIConstraints: *Option1 NotInstalled		*OutputBin Output3
+*UIConstraints: *Option1 Finisher		*OutputBin Output3
+*% ---- Large Capacity Tray
+*UIConstraints: *Option2 NotInstalled 		*InputSlot LCT
+*% ---- Punch Unit
+*UIConstraints: *Option9 False			*ARPunch True
+*% ---- Inserter
+
+*% **** Option <---> Option ****************************************************
+*% ---- Duplex <---> PageSize(Custom) ------------------------------------------
+*UIConstraints: *PageSize Executive		*ARDuplex DuplexTumble
+*UIConstraints: *PageSize Postcard		*ARDuplex DuplexTumble
+*NonUIConstraints: *CustomPageSize True		*ARDuplex DuplexTumble
+
+*UIConstraints: *PageSize Executive		*ARDuplex DuplexNoTumble
+*UIConstraints: *PageSize Postcard		*ARDuplex DuplexNoTumble
+*NonUIConstraints: *CustomPageSize True		*ARDuplex DuplexNoTumble
+
+*UIConstraints: *ARDuplex DuplexTumble		*PageSize Executive
+*UIConstraints: *ARDuplex DuplexTumble		*PageSize Postcard
+*NonUIConstraints: *ARDuplex DuplexTumble	*CustomPageSize True
+
+*UIConstraints: *ARDuplex DuplexNoTumble	*PageSize Executive
+*UIConstraints: *ARDuplex DuplexNoTumble	*PageSize Postcard
+*NonUIConstraints: *ARDuplex DuplexNoTumble	*CustomPageSize True
+
+*% ---- Duplex <---> MediaType -------------------------------------------------
+*UIConstraints: *MediaType LetterHead		*ARDuplex DuplexTumble
+*UIConstraints: *MediaType Label		*ARDuplex DuplexTumble
+*UIConstraints: *MediaType Transparency		*ARDuplex DuplexTumble
+*UIConstraints: *MediaType Tab			*ARDuplex DuplexTumble
+
+*UIConstraints: *MediaType LetterHead		*ARDuplex DuplexNoTumble
+*UIConstraints: *MediaType Label		*ARDuplex DuplexNoTumble
+*UIConstraints: *MediaType Transparency		*ARDuplex DuplexNoTumble
+*UIConstraints: *MediaType Tab			*ARDuplex DuplexNoTumble
+
+*UIConstraints: *ARDuplex DuplexTumble		*MediaType LetterHead
+*UIConstraints: *ARDuplex DuplexTumble		*MediaType Label
+*UIConstraints: *ARDuplex DuplexTumble		*MediaType Transparency
+*UIConstraints: *ARDuplex DuplexTumble		*MediaType Tab
+
+*UIConstraints: *ARDuplex DuplexNoTumble	*MediaType LetterHead
+*UIConstraints: *ARDuplex DuplexNoTumble	*MediaType Label
+*UIConstraints: *ARDuplex DuplexNoTumble	*MediaType Transparency
+*UIConstraints: *ARDuplex DuplexNoTumble	*MediaType Tab
+
+*% ---- Booklet <---> OutputBin ------------------------------------------------
+
+*% ---- Booklet <---> PageSize(Custom) -----------------------------------------
+*UIConstraints: *PageSize A3			*ARDuplex DuplexPamphletLeft
+*UIConstraints: *PageSize B4			*ARDuplex DuplexPamphletLeft
+*UIConstraints: *PageSize Ledger		*ARDuplex DuplexPamphletLeft
+*UIConstraints: *PageSize Legal			*ARDuplex DuplexPamphletLeft
+*UIConstraints: *PageSize Executive		*ARDuplex DuplexPamphletLeft
+*UIConstraints: *PageSize Foolscap		*ARDuplex DuplexPamphletLeft
+*UIConstraints: *PageSize 8K			*ARDuplex DuplexPamphletLeft
+*UIConstraints: *PageSize Postcard		*ARDuplex DuplexPamphletLeft
+*NonUIConstraints: *CustomPageSize True		*ARDuplex DuplexPamphletLeft
+
+*UIConstraints: *PageSize A3			*ARDuplex DuplexPamphletRight
+*UIConstraints: *PageSize B4			*ARDuplex DuplexPamphletRight
+*UIConstraints: *PageSize Ledger		*ARDuplex DuplexPamphletRight
+*UIConstraints: *PageSize Legal			*ARDuplex DuplexPamphletRight
+*UIConstraints: *PageSize Executive		*ARDuplex DuplexPamphletRight
+*UIConstraints: *PageSize Foolscap		*ARDuplex DuplexPamphletRight
+*UIConstraints: *PageSize 8K			*ARDuplex DuplexPamphletRight
+*UIConstraints: *PageSize Postcard		*ARDuplex DuplexPamphletRight
+*NonUIConstraints: *CustomPageSize True		*ARDuplex DuplexPamphletRight
+
+*UIConstraints: *ARDuplex DuplexPamphletLeft	*PageSize A3
+*UIConstraints: *ARDuplex DuplexPamphletLeft	*PageSize B4
+*UIConstraints: *ARDuplex DuplexPamphletLeft	*PageSize Ledger
+*UIConstraints: *ARDuplex DuplexPamphletLeft	*PageSize Legal
+*UIConstraints: *ARDuplex DuplexPamphletLeft	*PageSize Executive
+*UIConstraints: *ARDuplex DuplexPamphletLeft	*PageSize Foolscap
+*UIConstraints: *ARDuplex DuplexPamphletLeft	*PageSize 8K
+*UIConstraints: *ARDuplex DuplexPamphletLeft	*PageSize Postcard
+*NonUIConstraints: *ARDuplex DuplexPamphletLeft	*CustomPageSize True
+
+*UIConstraints: *ARDuplex DuplexPamphletRight	*PageSize A3
+*UIConstraints: *ARDuplex DuplexPamphletRight	*PageSize B4
+*UIConstraints: *ARDuplex DuplexPamphletRight	*PageSize Ledger
+*UIConstraints: *ARDuplex DuplexPamphletRight	*PageSize Legal
+*UIConstraints: *ARDuplex DuplexPamphletRight	*PageSize Executive
+*UIConstraints: *ARDuplex DuplexPamphletRight	*PageSize Foolscap
+*UIConstraints: *ARDuplex DuplexPamphletRight	*PageSize 8K
+*UIConstraints: *ARDuplex DuplexPamphletRight	*PageSize Postcard
+*NonUIConstraints: *ARDuplex DuplexPamphletRight	*CustomPageSize True
+
+*% ---- Booklet <---> MediaType ------------------------------------------------
+*UIConstraints: *MediaType LetterHead		*ARDuplex DuplexPamphletLeft
+*UIConstraints: *MediaType Label		*ARDuplex DuplexPamphletLeft
+*UIConstraints: *MediaType Transparency		*ARDuplex DuplexPamphletLeft
+*UIConstraints: *MediaType Tab			*ARDuplex DuplexPamphletLeft
+
+*UIConstraints: *MediaType LetterHead		*ARDuplex DuplexPamphletRight
+*UIConstraints: *MediaType Label		*ARDuplex DuplexPamphletRight
+*UIConstraints: *MediaType Transparency		*ARDuplex DuplexPamphletRight
+*UIConstraints: *MediaType Tab			*ARDuplex DuplexPamphletRight
+
+*UIConstraints: *ARDuplex DuplexPamphletLeft	*MediaType LetterHead
+*UIConstraints: *ARDuplex DuplexPamphletLeft	*MediaType Label
+*UIConstraints: *ARDuplex DuplexPamphletLeft	*MediaType Transparency
+*UIConstraints: *ARDuplex DuplexPamphletLeft	*MediaType Tab
+
+*UIConstraints: *ARDuplex DuplexPamphletRight	*MediaType LetterHead
+*UIConstraints: *ARDuplex DuplexPamphletRight	*MediaType Label
+*UIConstraints: *ARDuplex DuplexPamphletRight	*MediaType Transparency
+*UIConstraints: *ARDuplex DuplexPamphletRight	*MediaType Tab
+
+*% ---- InputSlot <---> PageSize -----------------------------------------------
+*% -------- Auto -> All
+*% -------- Bypass Tray -> All
+*% -------- Tray 1
+*UIConstraints: *PageSize A3			*InputSlot Tray1
+*UIConstraints: *PageSize A5			*InputSlot Tray1
+*UIConstraints: *PageSize B4			*InputSlot Tray1
+*UIConstraints: *PageSize B5			*InputSlot Tray1
+*UIConstraints: *PageSize Ledger		*InputSlot Tray1
+*UIConstraints: *PageSize Legal			*InputSlot Tray1
+*UIConstraints: *PageSize Executive		*InputSlot Tray1
+*UIConstraints: *PageSize Statement		*InputSlot Tray1
+*UIConstraints: *PageSize Foolscap		*InputSlot Tray1
+*UIConstraints: *PageSize 8K			*InputSlot Tray1
+*UIConstraints: *PageSize 16K			*InputSlot Tray1
+*UIConstraints: *PageSize Postcard		*InputSlot Tray1
+*NonUIConstraints: *CustomPageSize True		*InputSlot Tray1
+
+*UIConstraints: *InputSlot Tray1		*PageSize A3
+*UIConstraints: *InputSlot Tray1		*PageSize A5
+*UIConstraints: *InputSlot Tray1		*PageSize B4
+*UIConstraints: *InputSlot Tray1		*PageSize B5
+*UIConstraints: *InputSlot Tray1		*PageSize Ledger
+*UIConstraints: *InputSlot Tray1		*PageSize Legal
+*UIConstraints: *InputSlot Tray1		*PageSize Executive
+*UIConstraints: *InputSlot Tray1		*PageSize Statement
+*UIConstraints: *InputSlot Tray1		*PageSize Foolscap
+*UIConstraints: *InputSlot Tray1		*PageSize 8K
+*UIConstraints: *InputSlot Tray1		*PageSize 16K
+*UIConstraints: *InputSlot Tray1		*PageSize Postcard
+*NonUIConstraints: *InputSlot Tray1		*CustomPageSize True
+
+*% -------- Tray 2
+*UIConstraints: *PageSize A3			*InputSlot Tray2
+*UIConstraints: *PageSize A5			*InputSlot Tray2
+*UIConstraints: *PageSize B4			*InputSlot Tray2
+*UIConstraints: *PageSize Ledger		*InputSlot Tray2
+*UIConstraints: *PageSize Legal			*InputSlot Tray2
+*UIConstraints: *PageSize Executive		*InputSlot Tray2
+*UIConstraints: *PageSize Statement		*InputSlot Tray2
+*UIConstraints: *PageSize Foolscap		*InputSlot Tray2
+*UIConstraints: *PageSize 8K			*InputSlot Tray2
+*UIConstraints: *PageSize 16K			*InputSlot Tray2
+*UIConstraints: *PageSize Postcard		*InputSlot Tray2
+*NonUIConstraints: *CustomPageSize True		*InputSlot Tray2
+
+*UIConstraints: *InputSlot Tray2		*PageSize A3
+*UIConstraints: *InputSlot Tray2		*PageSize A5
+*UIConstraints: *InputSlot Tray2		*PageSize B4
+*UIConstraints: *InputSlot Tray2		*PageSize Ledger
+*UIConstraints: *InputSlot Tray2		*PageSize Legal
+*UIConstraints: *InputSlot Tray2		*PageSize Executive
+*UIConstraints: *InputSlot Tray2		*PageSize Statement
+*UIConstraints: *InputSlot Tray2		*PageSize Foolscap
+*UIConstraints: *InputSlot Tray2		*PageSize 8K
+*UIConstraints: *InputSlot Tray2		*PageSize 16K
+*UIConstraints: *InputSlot Tray2		*PageSize Postcard
+*NonUIConstraints: *InputSlot Tray2		*CustomPageSize True
+
+*% -------- Tray 3
+*UIConstraints: *PageSize Postcard		*InputSlot Tray3
+
+*UIConstraints: *InputSlot Tray3		*PageSize Postcard
+
+*% -------- Tray 4
+*UIConstraints: *PageSize A5			*InputSlot Tray4
+*UIConstraints: *PageSize Statement		*InputSlot Tray4
+*UIConstraints: *PageSize Postcard		*InputSlot Tray4
+*NonUIConstraints: *CustomPageSize True		*InputSlot Tray4
+
+*UIConstraints: *InputSlot Tray4		*PageSize A5
+*UIConstraints: *InputSlot Tray4		*PageSize Statement
+*UIConstraints: *InputSlot Tray4		*PageSize Postcard
+*NonUIConstraints: *InputSlot Tray4		*CustomPageSize True
+
+*% -------- LCT
+*%*UIConstraints: *PageSize A3			*InputSlot LCT
+*UIConstraints: *PageSize A5			*InputSlot LCT
+*%*UIConstraints: *PageSize B4			*InputSlot LCT
+*%*UIConstraints: *PageSize Ledger		*InputSlot LCT
+*%*UIConstraints: *PageSize Legal		*InputSlot LCT
+*UIConstraints: *PageSize Executive		*InputSlot LCT
+*UIConstraints: *PageSize Statement		*InputSlot LCT
+*UIConstraints: *PageSize Foolscap		*InputSlot LCT
+*UIConstraints: *PageSize 8K			*InputSlot LCT
+*UIConstraints: *PageSize 16K			*InputSlot LCT
+*UIConstraints: *PageSize Postcard		*InputSlot LCT
+*NonUIConstraints: *CustomPageSize True		*InputSlot LCT
+
+*%*UIConstraints: *InputSlot LCT		*PageSize A3
+*UIConstraints: *InputSlot LCT			*PageSize A5
+*%*UIConstraints: *InputSlot LCT		*PageSize B4
+*%*UIConstraints: *InputSlot LCT		*PageSize Ledger
+*%*UIConstraints: *InputSlot LCT		*PageSize Legal
+*UIConstraints: *InputSlot LCT			*PageSize Executive
+*UIConstraints: *InputSlot LCT			*PageSize Statement
+*UIConstraints: *InputSlot LCT			*PageSize Foolscap
+*UIConstraints: *InputSlot LCT			*PageSize 8K
+*UIConstraints: *InputSlot LCT			*PageSize 16K
+*UIConstraints: *InputSlot LCT			*PageSize Postcard
+*NonUIConstraints: *InputSlot LCT		*CustomPageSize True
+
+*% ---- InputSlot <---> MediaType ----------------------------------------------
+*% -------- Auto -> All
+*% -------- Bypass Tray -> All
+*% -------- Tray 1
+*UIConstraints: *MediaType Label		*InputSlot Tray1
+*UIConstraints: *MediaType Bond			*InputSlot Tray1
+*UIConstraints: *MediaType Transparency		*InputSlot Tray1
+*UIConstraints: *MediaType Tab			*InputSlot Tray1
+
+*UIConstraints: *InputSlot Tray1		*MediaType Label
+*UIConstraints: *InputSlot Tray1		*MediaType Bond
+*UIConstraints: *InputSlot Tray1		*MediaType Transparency
+*UIConstraints: *InputSlot Tray1		*MediaType Tab
+
+*% -------- Tray 2
+*UIConstraints: *MediaType Label		*InputSlot Tray2
+*UIConstraints: *MediaType Bond			*InputSlot Tray2
+*UIConstraints: *MediaType Transparency		*InputSlot Tray2
+*UIConstraints: *MediaType Tab			*InputSlot Tray2
+
+*UIConstraints: *InputSlot Tray2		*MediaType Label
+*UIConstraints: *InputSlot Tray2		*MediaType Bond
+*UIConstraints: *InputSlot Tray2		*MediaType Transparency
+*UIConstraints: *InputSlot Tray2		*MediaType Tab
+
+*% -------- Tray 3
+*% -------- Tray 4
+*UIConstraints: *MediaType Label		*InputSlot Tray4
+*UIConstraints: *MediaType Bond			*InputSlot Tray4
+*UIConstraints: *MediaType Transparency		*InputSlot Tray4
+*UIConstraints: *MediaType Tab			*InputSlot Tray4
+
+*UIConstraints: *InputSlot Tray4		*MediaType Label
+*UIConstraints: *InputSlot Tray4		*MediaType Bond
+*UIConstraints: *InputSlot Tray4		*MediaType Transparency
+*UIConstraints: *InputSlot Tray4		*MediaType Tab
+
+*% -------- LCT
+*UIConstraints: *MediaType Label		*InputSlot LCT
+*UIConstraints: *MediaType Bond			*InputSlot LCT
+*UIConstraints: *MediaType Transparency		*InputSlot LCT
+*UIConstraints: *MediaType Tab			*InputSlot LCT
+
+*UIConstraints: *InputSlot LCT			*MediaType Label
+*UIConstraints: *InputSlot LCT			*MediaType Bond
+*UIConstraints: *InputSlot LCT			*MediaType Transparency
+*UIConstraints: *InputSlot LCT			*MediaType Tab
+
+*% ---- PageSize <---> MediaType -----------------------------------------------
+
+*% ---- OutputBin <---> PageSize(Custom) (R)------------------------------------
+*% -------- Output0 -> All
+*% -------- Output1
+*UIConstraints: *OutputBin Output1		*PageSize Postcard
+*NonUIConstraints: *OutputBin Output1		*CustomPageSize True
+
+*UIConstraints: *PageSize Postcard		*OutputBin Output1
+*NonUIConstraints: *CustomPageSize True		*OutputBin Output1
+*% -------- Output2
+*UIConstraints: *OutputBin Output2		*PageSize Postcard
+*NonUIConstraints: *OutputBin Output2		*CustomPageSize True
+
+*UIConstraints: *PageSize Postcard		*OutputBin Output2
+*NonUIConstraints: *CustomPageSize True		*OutputBin Output2
+*% -------- Output3
+*UIConstraints: *OutputBin Output3		*PageSize Legal
+*UIConstraints: *OutputBin Output3		*PageSize Executive
+*UIConstraints: *OutputBin Output3		*PageSize Foolscap
+*UIConstraints: *OutputBin Output3		*PageSize Postcard
+*NonUIConstraints: *OutputBin Output3		*CustomPageSize True
+
+*UIConstraints: *PageSize Legal			*OutputBin Output3
+*UIConstraints: *PageSize Executive		*OutputBin Output3
+*UIConstraints: *PageSize Foolscap		*OutputBin Output3
+*UIConstraints: *PageSize Postcard		*OutputBin Output3
+*NonUIConstraints: *CustomPageSize True		*OutputBin Output3
+
+*% ---- OutputBin <---> MediaType ----------------------------------------------
+*% -------- Output0 -> All
+*% -------- Output1
+*UIConstraints: *OutputBin Output1		*MediaType Label
+
+*UIConstraints: *MediaType Label		*OutputBin Output1
+*% -------- Output2
+*UIConstraints: *OutputBin Output2		*MediaType Label
+
+*UIConstraints: *MediaType Label		*OutputBin Output2
+*% -------- Output3
+*UIConstraints: *OutputBin Output3		*MediaType Label
+*UIConstraints: *OutputBin Output3		*MediaType Transparency
+*UIConstraints: *OutputBin Output3		*MediaType Tab
+
+*UIConstraints: *MediaType Label		*OutputBin Output3
+*UIConstraints: *MediaType Transparency		*OutputBin Output3
+*UIConstraints: *MediaType Tab			*OutputBin Output3
+
+*% ---- Staple <---> OutputBin -------------------------------------------------
+*% -------- Output0
+*UIConstraints: *OutputBin Output0		*ARStaple Staple5
+*UIConstraints: *OutputBin Output0		*ARStaple Staple6
+*UIConstraints: *OutputBin Output0		*ARStaple Staple7
+
+*UIConstraints: *ARStaple Staple5		*OutputBin Output0
+*UIConstraints: *ARStaple Staple6		*OutputBin Output0
+*UIConstraints: *ARStaple Staple7		*OutputBin Output0
+*% -------- Output1
+*UIConstraints: *OutputBin Output1		*ARStaple Staple7
+*UIConstraints: *ARStaple Staple7		*OutputBin Output1
+*% -------- Output2
+*UIConstraints: *OutputBin Output2		*ARStaple Staple7
+*UIConstraints: *ARStaple Staple7		*OutputBin Output2
+*% -------- Output3
+*UIConstraints: *OutputBin Output3		*ARStaple Staple0
+*UIConstraints: *OutputBin Output3		*ARStaple Staple5
+*UIConstraints: *OutputBin Output3		*ARStaple Staple6
+
+*UIConstraints: *ARStaple Staple0		*OutputBin Output3
+*UIConstraints: *ARStaple Staple5		*OutputBin Output3
+*UIConstraints: *ARStaple Staple6		*OutputBin Output3
+
+*% ---- Staple <---> PageSize(Custom) ------------------------------------------
+*%*UIConstraints: *PageSize A5			*ARStaple Staple5
+*%*UIConstraints: *PageSize A5			*ARStaple Staple6
+*%*UIConstraints: *PageSize Executive		*ARStaple Staple5
+*%*UIConstraints: *PageSize Executive		*ARStaple Staple6
+*%*UIConstraints: *PageSize Statement		*ARStaple Staple5
+*%*UIConstraints: *PageSize Statement		*ARStaple Staple6
+*%*UIConstraints: *PageSize Postcard		*ARStaple Staple5
+*%*UIConstraints: *PageSize Postcard		*ARStaple Staple6
+*%*NonUIConstraints: *CustomPageSize True	*ARStaple Staple5
+*%*NonUIConstraints: *CustomPageSize True	*ARStaple Staple6
+
+*%*UIConstraints: *ARStaple Staple5		*PageSize A5
+*%*UIConstraints: *ARStaple Staple6		*PageSize A5
+*%*UIConstraints: *ARStaple Staple5		*PageSize Executive
+*%*UIConstraints: *ARStaple Staple6		*PageSize Executive
+*%*UIConstraints: *ARStaple Staple5		*PageSize Statement
+*%*UIConstraints: *ARStaple Staple6		*PageSize Statement
+*%*UIConstraints: *ARStaple Staple5		*PageSize Postcard
+*%*UIConstraints: *ARStaple Staple6		*PageSize Postcard
+*%*NonUIConstraints: *ARStaple Staple5		*CustomPageSize True
+*%*NonUIConstraints: *ARStaple Staple6		*CustomPageSize True
+
+*% ---- Staple <---> MediaType -------------------------------------------------
+*%*UIConstraints: *ARStaple Staple5		*MediaType Label
+*%*UIConstraints: *ARStaple Staple6		*MediaType Label
+*%*UIConstraints: *ARStaple Staple7		*MediaType Label
+*%*UIConstraints: *ARStaple Staple5		*MediaType Transparency
+*%*UIConstraints: *ARStaple Staple6		*MediaType Transparency
+*%*UIConstraints: *ARStaple Staple7		*MediaType Transparency
+
+*%*UIConstraints: *MediaType Label		*ARStaple Staple5
+*%*UIConstraints: *MediaType Label		*ARStaple Staple6
+*%*UIConstraints: *MediaType Label		*ARStaple Staple7
+*%*UIConstraints: *MediaType Transparency	*ARStaple Staple5
+*%*UIConstraints: *MediaType Transparency	*ARStaple Staple6
+*%*UIConstraints: *MediaType Transparency	*ARStaple Staple7
+
+*% ---- Staple <---> Booklet ---------------------------------------------------
+*%None because same UI
+
+*% ---- Punch <---> OutputBin --------------------------------------------------
+*% -------- Output0
+*UIConstraints: *OutputBin Output0		*ARPunch True
+*UIConstraints: *ARPunch True			*OutputBin Output0
+*% -------- Output1
+*% -------- Output2
+*% -------- Output3
+*UIConstraints: *OutputBin Output3		*ARPunch True
+*UIConstraints: *ARPunch True			*OutputBin Output3
+
+*% ---- Punch <---> PageSize ---------------------------------------------------
+*%*UIConstraints: *PageSize A5			*ARPunch True
+*%*UIConstraints: *PageSize Executive		*ARPunch True
+*%*UIConstraints: *PageSize Statement		*ARPunch True
+*%*UIConstraints: *PageSize Postcard		*ARPunch True
+*%*NonUIConstraints: *CustomPageSize True	*ARPunch True
+
+*%*UIConstraints: *ARPunch True			*PageSize A5
+*%*UIConstraints: *ARPunch True			*PageSize Executive
+*%*UIConstraints: *ARPunch True			*PageSize Statement
+*%*UIConstraints: *ARPunch True			*PageSize Postcard
+*%*NonUIConstraints: *ARPunch True		*CustomPageSize True
+
+*% ---- Punch <---> MediaType --------------------------------------------------
+*%*UIConstraints: *ARPunch True			*MediaType Label
+*%*UIConstraints: *ARPunch True			*MediaType Transparency
+
+*%*UIConstraints: *MediaType Label		*ARPunch True
+*%*UIConstraints: *MediaType Transparency	*ARPunch True
+
+*% ---- Punch <---> Booklet ----------------------------------------------------
+*UIConstraints: *ARPunch True			*ARDuplex DuplexPamphletLeft
+*UIConstraints: *ARPunch True			*ARDuplex DuplexPamphletRight
+
+*UIConstraints: *ARDuplex DuplexPamphletLeft	*ARPunch True
+*UIConstraints: *ARDuplex DuplexPamphletRight	*ARPunch True
+
+*% ---- Duplex <---> Booklet ---------------------------------------------------
+*UIConstraints: *ARDuplex None			*ARStaple Staple7
+*UIConstraints: *ARDuplex DuplexNoTumble	*ARStaple Staple7
+*UIConstraints: *ARDuplex DuplexTumble		*ARStaple Staple7
+
+*UIConstraints: *ARStaple Staple7		*ARDuplex None
+*UIConstraints: *ARStaple Staple7		*ARDuplex DuplexNoTumble
+*UIConstraints: *ARStaple Staple7		*ARDuplex DuplexTumble
+
+*UIConstraints: *ARDuplex DuplexPamphletLeft	*ARStaple Staple5
+*UIConstraints: *ARDuplex DuplexPamphletLeft	*ARStaple Staple6
+*UIConstraints: *ARDuplex DuplexPamphletRight	*ARStaple Staple5
+*UIConstraints: *ARDuplex DuplexPamphletRight	*ARStaple Staple6
+
+*UIConstraints: *ARStaple Staple5		*ARDuplex DuplexPamphletLeft
+*UIConstraints: *ARStaple Staple6		*ARDuplex DuplexPamphletLeft
+*UIConstraints: *ARStaple Staple5		*ARDuplex DuplexPamphletRight
+*UIConstraints: *ARStaple Staple6		*ARDuplex DuplexPamphletRight
+
+*% ---- Margin Shift <---> Staple ----------------------------------------------
+*UIConstraints: *MarginShift Small		*ARStaple Staple7
+*UIConstraints: *MarginShift Medium		*ARStaple Staple7
+*UIConstraints: *MarginShift Large		*ARStaple Staple7
+
+*UIConstraints: *ARStaple Staple7		*MarginShift Small
+*UIConstraints: *ARStaple Staple7		*MarginShift Medium
+*UIConstraints: *ARStaple Staple7		*MarginShift Large
+
+*% ---- Photo Enhancement <---> Toner Save -------------------------------------
+*UIConstraints: *ARPhotoEnhance True		*ARSaveToner True
+*UIConstraints: *ARSaveToner True		*ARPhotoEnhance True
+
+*% =============================================================================
+
+*OpenUI *PageSize: PickOne
+*OrderDependency: 10 AnySetup *PageSize
+*DefaultPageSize: A4
+*PageSize Letter/Letter: "
+	3 dict
+	dup /PageSize [612 792] put 
+	dup /ImagingBBox null put 
+	dup /InputAttributes 1 dict dup  /Priority [0 1 2 3] put put setpagedevice"
+*End
+*PageSize Legal/Legal: "
+	3 dict
+	dup /PageSize [612 1008] put 
+	dup /ImagingBBox null put 
+	dup /InputAttributes 1 dict dup  /Priority [0 1 2 3] put put setpagedevice"
+*End
+*PageSize Ledger/Ledger: "
+	3 dict
+	dup /PageSize [792 1224] put 
+	dup /ImagingBBox null put 
+	dup /InputAttributes 1 dict dup  /Priority [0 1 2 3] put put setpagedevice"
+*End
+*PageSize Executive/Executive: "
+	3 dict
+	dup /PageSize [522 756] put 
+	dup /ImagingBBox null put 
+	dup /InputAttributes 1 dict dup  /Priority [0 1 2 3] put put setpagedevice"
+*End
+*PageSize Statement/Invoice: "
+	3 dict
+	dup /PageSize [396 612] put 
+	dup /ImagingBBox null put 
+	dup /InputAttributes 1 dict dup  /Priority [0 1 2 3] put put setpagedevice"
+*End
+*PageSize A3/A3: "
+	3 dict
+	dup /PageSize [842 1191] put 
+	dup /ImagingBBox null put 
+	dup /InputAttributes 1 dict dup  /Priority [0 1 2 3] put put setpagedevice"
+*End
+*PageSize A4/A4: "
+	3 dict
+	dup /PageSize [595 842] put 
+	dup /ImagingBBox null put 
+	dup /InputAttributes 1 dict dup  /Priority [0 1 2 3] put put setpagedevice"
+*End
+*PageSize A5/A5: "
+	3 dict
+	dup /PageSize [420 595] put 
+	dup /ImagingBBox null put 
+	dup /InputAttributes 1 dict dup  /Priority [0 1 2 3] put put setpagedevice"
+*End
+*PageSize B4/B4: "
+	3 dict
+	dup /PageSize [729 1032] put 
+	dup /ImagingBBox null put 
+	dup /InputAttributes 1 dict dup  /Priority [0 1 2 3] put put setpagedevice"
+*End
+*PageSize B5/B5: "
+	3 dict
+	dup /PageSize [516 729] put 
+	dup /ImagingBBox null put 
+	dup /InputAttributes 1 dict dup  /Priority [0 1 2 3] put put setpagedevice"
+*End
+*PageSize Foolscap/Foolscap: "
+	3 dict
+	dup /PageSize [612 936] put 
+	dup /ImagingBBox null put 
+	dup /InputAttributes 1 dict dup  /Priority [0 1 2 3] put put setpagedevice"
+*End
+*PageSize 8K/8K: "
+	3 dict
+	dup /PageSize [765 1105] put 
+	dup /ImagingBBox null put 
+	dup /InputAttributes 1 dict dup  /Priority [0 1 2 3] put put setpagedevice"
+*End
+*PageSize 16K/16K: "
+	3 dict
+	dup /PageSize [552 765] put 
+	dup /ImagingBBox null put 
+	dup /InputAttributes 1 dict dup  /Priority [0 1 2 3] put put setpagedevice"
+*End
+*PageSize Postcard/Japanese Post Card: "
+	3 dict
+	dup /PageSize [284 420] put 
+	dup /ImagingBBox null put 
+	dup /InputAttributes 1 dict dup  /Priority [0 1 2 3] put put setpagedevice"
+*End
+*?PageSize: "
+	save
+	currentpagedevice /PageSize get aload pop
+	2 copy gt {exch} if (Unknown)
+	14 dict
+		dup [612 792] (Letter) put
+		dup [612 1008] (Legal) put
+		dup [792 1224] (Ledger) put
+		dup [522 756] (Executive) put
+		dup [396 612] (Statement) put
+		dup [842 1191] (A3) put
+		dup [595 842] (A4) put
+		dup [420 595] (A5) put
+		dup [729 1032] (B4) put
+		dup [516 729] (B5) put
+		dup [612 936] (Foolscap) put
+		dup [765 1105] (8K) put 
+		dup [552 765] (16K) put 
+		dup [284 420] (Postcard) put 
+	{exch aload pop 4 index sub abs 5 le exch 
+	5 index sub abs 5 le and
+	{exch pop exit} {pop} ifelse
+	} bind forall = flush pop pop
+	restore"
+*End
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 10 AnySetup *PageRegion
+*DefaultPageRegion: A4
+*PageRegion Letter/Letter: "<</PageSize [612 792] /ImagingBBox null>> setpagedevice"
+*PageRegion Legal/Legal: "<</PageSize [612 1008] /ImagingBBox null>> setpagedevice"
+*PageRegion Ledger/Ledger: "<</PageSize [792 1224] /ImagingBBox null>> setpagedevice"
+*PageRegion Executive/Executive: "<</PageSize [522 756] /ImagingBBox null>> setpagedevice"
+*PageRegion Statement/Invoice: "<</PageSize [396 612] /ImagingBBox null>> setpagedevice"
+*PageRegion A3/A3: "<</PageSize [842 1191] /ImagingBBox null>> setpagedevice"
+*PageRegion A4/A4: "<</PageSize [595 842] /ImagingBBox null>> setpagedevice"
+*PageRegion A5/A5: "<</PageSize [420 595] /ImagingBBox null>> setpagedevice"
+*PageRegion B4/B4: "<</PageSize [729 1032] /ImagingBBox null>> setpagedevice"
+*PageRegion B5/B5: "<</PageSize [516 729] /ImagingBBox null>> setpagedevice"
+*PageRegion Foolscap/Foolscap: "<</PageSize [612 936] /ImagingBBox null>> setpagedevice"
+*PageRegion 8K/8K: "<</PageSize [765 1105] /ImagingBBox null>> setpagedevice"
+*PageRegion 16K/16K: "<</PageSize [552 765] /ImagingBBox null>> setpagedevice"
+*PageRegion Postcard/Japanese Post Card: "<</PageSize [284 420] /ImagingBBox null>> setpagedevice"
+*CloseUI: *PageRegion
+
+*DefaultImageableArea: A4
+*ImageableArea Letter/Letter: "12.00 12.00 600.00 780.00"
+*ImageableArea Legal/Legal: "12.00 12.00 600.00 996.00"
+*ImageableArea Ledger/Ledger: "12.00 12.00 780.00 1212.00"
+*ImageableArea Executive/Executive: "12.00 12.00 510.00 744.00"
+*ImageableArea Statement/Invoice: "12.00 12.00 384.00 600.00"
+*ImageableArea A3/A3: "12.00 12.00 830.00 1179.00"
+*ImageableArea A4/A4: "12.00 12.00 583.00 830.00"
+*ImageableArea A5/A5: "12.00 12.00 408.00 583.00"
+*ImageableArea B4/B4: "12.00 12.00 717.00 1020.00"
+*ImageableArea B5/B5: "12.00 12.00 504.00 717.00"
+*ImageableArea Foolscap/Foolscap: "12.00 12.00 600.00 924.00"
+*ImageableArea 8K/8K: "12.00 12.00 753.00 1093.00"
+*ImageableArea 16K/16K: "12.00 12.00 540.00 753.00"
+*ImageableArea Postcard/Japanese Post Card: "12.00 12.00 272.00 408.00"
+*?ImageableArea: "
+	save
+	/cvp { (                ) cvs print ( ) print } bind def
+	/upperright {10000 mul floor 10000 div} bind def
+	/lowerleft {10000 mul ceiling 10000 div} bind def
+	newpath clippath pathbbox
+	4 -2 roll exch 2 {lowerleft cvp} repeat
+	exch 2 {upperright cvp} repeat flush
+	restore"
+*End
+
+*DefaultPaperDimension: A4
+*PaperDimension Letter/Letter: "612.00 792.00"
+*PaperDimension Legal/Legal: "612.00 1008.00"
+*PaperDimension Ledger/Ledger: "792.00 1224.00"
+*PaperDimension Executive/Executive: "522.00 756.00"
+*PaperDimension Statement/Invoice: "396.00 612.00"
+*PaperDimension A3/A3: "842.00 1191.00"
+*PaperDimension A4/A4: "595.00 842.00"
+*PaperDimension A5/A5: "420.00 595.00"
+*PaperDimension B4/B4: "729.00 1032.00"
+*PaperDimension B5/B5: "516.00 729.00"
+*PaperDimension Foolscap/Foolscap: "612.00 936.00"
+*PaperDimension 8K/8K: "765.00 1105.00"
+*PaperDimension 16K/16K: "552.00 765.00"
+*PaperDimension Postcard/Japanese Post Card: "284.00 420.00"
+
+*OpenUI *InputSlot: PickOne
+*OrderDependency: 70.0 AnySetup *InputSlot
+*DefaultInputSlot: Auto
+*InputSlot Auto/Auto Select: "(null)"
+*InputSlot Bypass/Bypass Tray: "<</DeferredMediaSelection true /MediaPosition 3 /ManualFeed false>> setpagedevice"
+*InputSlot Tray1/Tray 1: "<</DeferredMediaSelection true /MediaPosition 0 /ManualFeed false>> setpagedevice"
+*InputSlot Tray2/Tray 2: "<</DeferredMediaSelection true /MediaPosition 1 /ManualFeed false>> setpagedevice"
+*InputSlot Tray3/Tray 3: "<</DeferredMediaSelection true /MediaPosition 4 /ManualFeed false>> setpagedevice"
+*InputSlot Tray4/Tray 4: "<</DeferredMediaSelection true /MediaPosition 5 /ManualFeed false>> setpagedevice"
+*InputSlot LCT/Tray 5: "<</DeferredMediaSelection true /MediaPosition 7 /ManualFeed false>> setpagedevice"
+*CloseUI: *InputSlot
+
+*OpenUI *MediaType: PickOne
+*OrderDependency: 70.0 AnySetup *MediaType
+*DefaultMediaType: Auto
+*MediaType Auto/Auto Select: "(null)"
+*MediaType Plain/Plain: "<</ManualFeed false /MediaType (Plain)>> setpagedevice"
+*MediaType LetterHead/Letter Head: "<</ManualFeed false /MediaType (Letterhead)>> setpagedevice"
+*MediaType PrePrint/Pre-Printed: "<</ManualFeed false /MediaType (Preprinted)>> setpagedevice"
+*MediaType PrePunch/Pre-Punched: "<</ManualFeed false /MediaType (Prepunched)>> setpagedevice"
+*MediaType Recycle/Recycled: "<</ManualFeed false /MediaType (Recycled)>> setpagedevice"
+*MediaType Color/Color: "<</ManualFeed false /MediaType (Color)>> setpagedevice"
+*MediaType Label/Labels: "<</ManualFeed false /MediaType (Labels)>> setpagedevice"
+*MediaType Bond/Heavy Paper: "<</ManualFeed false /MediaType (Bond)>> setpagedevice"
+*MediaType Transparency/Transparency: "<</ManualFeed false /MediaType (Transparency)>> setpagedevice"
+*MediaType Tab/Tab Paper: "<</ManualFeed false /MediaType (Tab)>> setpagedevice"
+*CloseUI: *MediaType
+
+*OpenGroup: InstallableOptions/Installable Options
+
+*OpenUI *Option1/Output Tray Options: PickOne
+*OrderDependency: 0.0 AnySetup *Option1
+*DefaultOption1: NotInstalled
+*Option1 NotInstalled/Not Installed: ""
+*Option1 Finisher/Finisher: ""
+*Option1 SSFinisher/Saddle Stitch Finisher: ""
+*?Option1: "
+	save
+	currentpagedevice
+	/OutputAttributes get 3 known {(SSFinisher)}
+	{
+		currentpagedevice
+		/OutputAttributes get 1 known {(Finisher)}{(NotInstalled)} ifelse
+	} ifelse = flush
+	restore"
+*End
+*CloseUI: *Option1
+
+*OpenUI *Option2/Large Capacity Tray: PickOne
+*OrderDependency: 0.0 AnySetup *Option2
+*DefaultOption2: NotInstalled
+*Option2 NotInstalled/Not Installed: ""
+*Option2 ARLC6/AR-LC6: ""
+*Option2 ARLC7/AR-LC7: ""
+*?Option2: "
+	save
+		currentpagedevice
+		/InputAttributes get 7 known {(ARLC6)}{(NotInstalled)} ifelse = flush
+	restore"
+*End
+*CloseUI: *Option2
+
+*OpenUI *Option9/Punch Module: Boolean
+*OrderDependency: 0.0 AnySetup *Option9
+*DefaultOption9: False
+*Option9 False/Not Installed: ""
+*Option9 True/Installed: ""
+*?Option9: "
+	save
+		currentpagedevice
+		/Punch known {(True)}{(False)} ifelse = flush
+  	restore"
+*End
+*CloseUI: *Option9
+
+*CloseGroup: InstallableOptions
+
+*OpenGroup: Advanced/Advanced
+
+*%*OpenUI *Resolution/Resolution: PickOne
+*%*OrderDependency: 10.0 AnySetup *Resolution
+*DefaultResolution: 600dpi
+*%*Resolution 600dpi/600 dpi: "<</HWResolution [600 600]>> setpagedevice"
+*%*Resolution 1200dpi/1200 dpi: "<</HWResolution [1200 1200]>> setpagedevice"
+*%*CloseUI: *Resolution
+
+*OpenUI *ARSaveToner/Toner Save: Boolean
+*OrderDependency: 50.0 AnySetup *ARSaveToner
+*DefaultARSaveToner: False
+*ARSaveToner False/Off: "<</PostRenderingEnhance true /TonerSave 0>> setpagedevice"
+*ARSaveToner True/On: "<</PostRenderingEnhance true /TonerSave 1>> setpagedevice"
+*CloseUI: *ARSaveToner
+
+*OpenUI *Smoothing/Smoothing: Boolean
+*OrderDependency: 60.0 AnySetup *Smoothing
+*DefaultSmoothing: False
+*Smoothing False/Off: "<</PostRenderingEnhance true /REValue 0>> setpagedevice"
+*Smoothing True/On: "<</PostRenderingEnhance true /REValue 1>> setpagedevice"
+*CloseUI: *Smoothing
+
+*OpenUI *ARPhotoEnhance/Photo Enhancement: Boolean
+*OrderDependency: 60.0 AnySetup *ARPhotoEnhance
+*DefaultARPhotoEnhance: False
+*ARPhotoEnhance False/Off: "<</PostRenderingEnhance true /HalftoneEnhance 0>> setpagedevice"
+*ARPhotoEnhance True/On: "<</PostRenderingEnhance true /HalftoneEnhance 1>> setpagedevice"
+*CloseUI: *ARPhotoEnhance
+
+*OpenUI *ARRotate/Rotate 180 degrees: Boolean
+*OrderDependency: 10.0 AnySetup *ARRotate
+*DefaultARRotate: False
+*ARRotate False/Off: "<</ReverseImage 0>> setpagedevice"
+*ARRotate True/On: "<</ReverseImage 1>> setpagedevice"
+*CloseUI: *ARRotate
+
+*OpenUI *MarginShift/Margin Shift: PickOne
+*OrderDependency: 10.0 AnySetup *MarginShift
+*DefaultMarginShift: None
+*MarginShift None/None: "<</MarginShift 0>> setpagedevice"
+*MarginShift Small/0.4 in.: "<</MarginShift 240>> setpagedevice"
+*MarginShift Medium/0.8 in.: "<</MarginShift 472>> setpagedevice"
+*MarginShift Large/1.2 in.: "<</MarginShift 708>> setpagedevice"
+*CloseUI: *MarginShift
+
+*OpenUI *ARJobOffset/No Offset: Boolean
+*OrderDependency: 20.0 AnySetup *ARJobOffset
+*DefaultARJobOffset: False
+*ARJobOffset False/Off: "<</JobOffset 1>> setpagedevice"
+*ARJobOffset True/On: "<</JobOffset 0>> setpagedevice"
+*CloseUI: *ARJobOffset
+
+*OpenUI *JCLARTandem/Tandem Print: Boolean
+*OrderDependency: 10.0 JCLSetup *JCLARTandem
+*DefaultJCLARTandem: False
+*JCLARTandem False/Off: "@PJL SET TANDEM=OFF
+"
+*End
+*JCLARTandem True/On: "@PJL SET TANDEM=ON
+"
+*End
+*CloseUI: *JCLARTandem
+
+*OpenUI *Collate/Collate: Boolean
+*OrderDependency: 20.0 AnySetup *Collate
+*DefaultCollate: True
+*Collate False/Off: "<</Collate false>> setpagedevice"
+*Collate True/On (turn off in application): "<</Collate true>> setpagedevice"
+*CloseUI: *Collate
+
+*CloseGroup: Advanced
+
+*OpenGroup: OutputControl/Output
+
+*OpenUI *OutputBin/Output: PickOne
+*OrderDependency: 80.0 AnySetup *OutputBin
+*DefaultOutputBin: Output0
+*OutputBin Output0/Center Tray: "<</OutputType (exit bin 1)>> setpagedevice"
+*OutputBin Output1/Finisher Upper Tray: "<</OutputType (finisher bin1)>> setpagedevice"
+*OutputBin Output2/Finisher Lower Tray: "<</OutputType (finisher bin2)>> setpagedevice"
+*OutputBin Output3/Saddle Stitch Tray: "<</OutputType (finisher bin3)>> setpagedevice"
+*CloseUI: *OutputBin
+
+*OpenUI *ARDuplex/2-Side Printing: PickOne
+*OrderDependency: 70.0 AnySetup *ARDuplex
+*DefaultARDuplex: None
+*ARDuplex None/Off: "<</Duplex false>> setpagedevice"
+*ARDuplex DuplexNoTumble/Flip on long edge: "<</Duplex true /Tumble false>> setpagedevice"
+*ARDuplex DuplexTumble/Flip on short edge: "<</Duplex true /Tumble true>> setpagedevice"
+*ARDuplex DuplexPamphletLeft/Pamphlet(Left): "<</Duplex true /Tumble false /BookletMode (left)>> setpagedevice"
+*ARDuplex DuplexPamphletRight/Pamphlet(Right): "<</Duplex true /Tumble false /BookletMode (right)>> setpagedevice"
+*CloseUI: *ARDuplex
+
+*OpenUI *ARBinding/Binding Edge: PickOne
+*OrderDependency: 10.0 DocumentSetup *ARBinding
+*DefaultARBinding: BindLeft
+*ARBinding BindLeft/Left: "<</StapleLocation 3>> setpagedevice"
+*ARBinding BindRight/Right: "<</StapleLocation 1>> setpagedevice"
+*ARBinding BindTop/Top: "<</StapleLocation 2>> setpagedevice"
+*CloseUI: *ARBinding
+
+*OpenUI *ARStaple/Staple: PickOne
+*OrderDependency: 30.0 AnySetup *ARStaple
+*DefaultARStaple: Staple0
+*ARStaple Staple0/None: "<</Staple 0>> setpagedevice"
+*ARStaple Staple5/1 Staple: "<</Staple 1>> setpagedevice"
+*ARStaple Staple6/2 Staples: "<</Staple 2>> setpagedevice"
+*ARStaple Staple7/2 Staples(Pamphlet): "<</Staple 3>> setpagedevice"
+*CloseUI: *ARStaple
+
+*OpenUI *ARPunch/Punch: Boolean
+*OrderDependency: 60.0 AnySetup *ARPunch
+*DefaultARPunch: False
+*ARPunch False/Off: "<</Punch 0>> setpagedevice"
+*ARPunch True/On: "<</Punch 1>> setpagedevice"
+*CloseUI: *ARPunch
+
+*CloseGroup: OutputControl
+
+*OpenGroup: Watermark/Watermarks
+
+*OpenUI *ARwmText/Watermark: PickOne
+*OrderDependency: 500.0 AnySetup *ARwmText
+*DefaultARwmText: None
+*ARwmText None: ""
+*ARwmText WMText1/TOP SECRET: "userdict /ARwmText (TOP SECRET) put"
+*ARwmText WMText2/CONFIDENTIAL: "userdict /ARwmText (CONFIDENTIAL) put"
+*ARwmText WMText3/DRAFT: "userdict /ARwmText (DRAFT) put"
+*ARwmText WMText4/ORIGINAL: "userdict /ARwmText (ORIGINAL) put"
+*ARwmText WMText5/COPY: "userdict /ARwmText (COPY) put"
+*CloseUI: *ARwmText
+
+*OpenUI *ARwmSize/Watermark Size: PickOne
+*OrderDependency: 520.0 AnySetup *ARwmSize
+*DefaultARwmSize: pt48
+*ARwmSize pt24/24 Points: "userdict /ARwmSize 24 put"
+*ARwmSize pt30/30 Points: "userdict /ARwmSize 30 put"
+*ARwmSize pt36/36 Points: "userdict /ARwmSize 36 put"
+*ARwmSize pt42/42 Points: "userdict /ARwmSize 42 put"
+*ARwmSize pt48/48 Points: "userdict /ARwmSize 48 put"
+*ARwmSize pt54/54 Points: "userdict /ARwmSize 54 put"
+*ARwmSize pt60/60 Points: "userdict /ARwmSize 60 put"
+*ARwmSize pt66/66 Points: "userdict /ARwmSize 66 put"
+*ARwmSize pt72/72 Points: "userdict /ARwmSize 72 put"
+*ARwmSize pt78/78 Points: "userdict /ARwmSize 78 put"
+*ARwmSize pt84/84 Points: "userdict /ARwmSize 84 put"
+*ARwmSize pt90/90 Points: "userdict /ARwmSize 90 put"
+*CloseUI: *ARwmSize
+
+*OpenUI *ARwmAngle/Watermark Angle: PickOne
+*OrderDependency: 530.0 AnySetup *ARwmAngle
+*DefaultARwmAngle: Deg45
+*ARwmAngle Deg180/180: "userdict /ARwmAngle 180 put"
+*ARwmAngle Deg165/165: "userdict /ARwmAngle 165 put"
+*ARwmAngle Deg150/150: "userdict /ARwmAngle 150 put"
+*ARwmAngle Deg135/135: "userdict /ARwmAngle 135 put"
+*ARwmAngle Deg120/120: "userdict /ARwmAngle 120 put"
+*ARwmAngle Deg105/105: "userdict /ARwmAngle 105 put"
+*ARwmAngle Deg90/90: "userdict /ARwmAngle 90 put"
+*ARwmAngle Deg75/75: "userdict /ARwmAngle 75 put"
+*ARwmAngle Deg60/60: "userdict /ARwmAngle 60 put"
+*ARwmAngle Deg45/45: "userdict /ARwmAngle 45 put"
+*ARwmAngle Deg30/30: "userdict /ARwmAngle 30 put"
+*ARwmAngle Deg15/15: "userdict /ARwmAngle 15 put"
+*ARwmAngle Deg0/0: "userdict /ARwmAngle 0 put"
+*ARwmAngle DegN15/-15: "userdict /ARwmAngle -15 put"
+*ARwmAngle DegN30/-30: "userdict /ARwmAngle -30 put"
+*ARwmAngle DegN45/-45: "userdict /ARwmAngle -45 put"
+*ARwmAngle DegN60/-60: "userdict /ARwmAngle -60 put"
+*ARwmAngle DegN75/-75: "userdict /ARwmAngle -75 put"
+*ARwmAngle DegN90/-90: "userdict /ARwmAngle -90 put"
+*ARwmAngle DegN105/-105: "userdict /ARwmAngle -105 put"
+*ARwmAngle DegN120/-120: "userdict /ARwmAngle -120 put"
+*ARwmAngle DegN135/-135: "userdict /ARwmAngle -135 put"
+*ARwmAngle DegN150/-150: "userdict /ARwmAngle -150 put"
+*ARwmAngle DegN165/-165: "userdict /ARwmAngle -165 put"
+*CloseUI: *ARwmAngle
+
+*OpenUI *ARwmLocation/Watermark Pages: Boolean
+*OrderDependency: 540.0 AnySetup *ARwmLocation
+*DefaultARwmLocation: True
+*ARwmLocation True/All Pages: "
+  userdict begin
+  true setglobal /ARwm 4 dict dup begin /ARwmOn true def /ARwmOdd true def end def false setglobal
+
+  userdict /ARwmAngle known not {/ARwmAngle 45 def} if
+  userdict /ARwmSize known not {/ARwmSize 48 def} if
+  userdict /ARwmLocation known not {/ARwmLocation true def} if
+  userdict /ARwmDuplex known not {/ARwmDuplex 0 def} if
+  /ARwmFont /Helvetica-Bold findfont dup length dict copy
+  dup /FID undef dup /Encoding ISOLatin1Encoding put
+  definefont pop
+
+  /ARwmEOP {ARwmDuplex 0 eq {true}{ARwmDuplex 1 eq ARwmOdd eq dup not {erasepage}if
+    true setglobal /ARwmOdd ARwmOdd not def false setglobal}ifelse} bind def
+  end
+
+  <<
+  /EndPage {
+  2 eq { pop false }{
+  userdict begin
+  userdict /ARwmText known ARwm /ARwmOn get and
+    {gsave
+     initmatrix
+     0 setgray 1 setlinewidth true setstrokeadjust 0 setlinejoin 0 setlinecap [] 0 setdash
+     currentpagedevice /PageSize get aload pop 2 div exch 2 div exch translate
+     ARwmAngle rotate /ARwmFont userdict /ARppScale known {ARwmSize ARppScale mul}{ARwmSize}ifelse selectfont
+     ARwmText stringwidth 2 div neg exch 2 div neg exch
+       userdict /ARppScale known {ARwmSize ARppScale mul}{ARwmSize}ifelse .25 mul sub moveto
+     ARwmText false charpath .48 setlinewidth stroke
+     ARwmLocation not {true setglobal ARwm /ARwmOn false put false setglobal} if
+     grestore
+    } if
+    pop ARwm begin ARwmEOP end
+    end } ifelse } bind
+  >> setpagedevice
+  userdict /ARwmLocation true put"
+*End
+*ARwmLocation False/On First Page Only: "
+  userdict begin
+  true setglobal /ARwm 4 dict dup begin /ARwmOn true def /ARwmOdd true def end def false setglobal
+
+  userdict /ARwmAngle known not {/ARwmAngle 45 def} if
+  userdict /ARwmSize known not {/ARwmSize 48 def} if
+  userdict /ARwmLocation known not {/ARwmLocation true def} if
+  userdict /ARwmDuplex known not {/ARwmDuplex 0 def} if
+  /ARwmFont /Helvetica-Bold findfont dup length dict copy
+  dup /FID undef dup /Encoding ISOLatin1Encoding put
+  definefont pop
+
+  /ARwmEOP {ARwmDuplex 0 eq {true}{ARwmDuplex 1 eq ARwmOdd eq dup not {erasepage}if
+    true setglobal /ARwmOdd ARwmOdd not def false setglobal}ifelse} bind def
+  end
+
+  <<
+  /EndPage {
+  2 eq { pop false }{
+  userdict begin
+  userdict /ARwmText known ARwm /ARwmOn get and
+    {gsave
+     initmatrix
+     0 setgray 1 setlinewidth true setstrokeadjust 0 setlinejoin 0 setlinecap [] 0 setdash
+     currentpagedevice /PageSize get aload pop 2 div exch 2 div exch translate
+     ARwmAngle rotate /ARwmFont userdict /ARppScale known {ARwmSize ARppScale mul}{ARwmSize}ifelse selectfont
+     ARwmText stringwidth 2 div neg exch 2 div neg exch
+       userdict /ARppScale known {ARwmSize ARppScale mul}{ARwmSize}ifelse .25 mul sub moveto
+     ARwmText false charpath .48 setlinewidth stroke
+     ARwmLocation not {true setglobal ARwm /ARwmOn false put false setglobal} if
+     grestore
+    } if
+    pop ARwm begin ARwmEOP end
+    end } ifelse } bind
+  >> setpagedevice
+  userdict /ARwmLocation false put"
+*End
+*CloseUI: *ARwmLocation
+
+*CloseGroup: Watermark
+
+*DefaultFont: Courier
+*Font AlbertusMT: Standard "(002.003)" Standard ROM
+*Font AlbertusMT-Italic: Standard "(002.003)" Standard ROM
+*Font AlbertusMT-Light: Standard "(002.003)" Standard ROM
+*Font AntiqueOlive-Bold: Standard "(002.003)" Standard ROM
+*Font AntiqueOlive-Compact: Standard "(002.003)" Standard ROM
+*Font AntiqueOlive-Italic: Standard "(002.003)" Standard ROM
+*Font AntiqueOlive-Roman: Standard "(002.003)" Standard ROM
+*Font Apple-Chancery: Standard "(002.003)" Standard ROM
+*Font Arial-BoldItalicMT: Standard "(000.000)" Standard Disk
+*Font Arial-BoldMT: Standard "(000.000)" Standard Disk
+*Font Arial-ItalicMT: Standard "(000.000)" Standard Disk
+*Font ArialMT: Standard "(000.000)" Standard Disk
+*Font AvantGarde-Book: Standard "(002.003)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(002.003)" Standard ROM
+*Font AvantGarde-Demi: Standard "(002.003)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(002.003)" Standard ROM
+*Font Bodoni: Standard "(002.003)" Standard ROM
+*Font Bodoni-Bold: Standard "(002.003)" Standard ROM
+*Font Bodoni-BoldItalic: Standard "(002.003)" Standard ROM
+*Font Bodoni-Italic: Standard "(002.003)" Standard ROM
+*Font Bodoni-Poster: Standard "(002.003)" Standard ROM
+*Font Bodoni-PosterCompressed: Standard "(002.003)" Standard ROM
+*Font Bookman-Demi: Standard "(002.003)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(002.003)" Standard ROM
+*Font Bookman-Light: Standard "(002.003)" Standard ROM
+*Font Bookman-LightItalic: Standard "(002.003)" Standard ROM
+*Font Carta: Special "(002.003)" Standard ROM
+*Font Chicago: Standard "(002.003)" Standard ROM
+*Font Clarendon: Standard "(002.003)" Standard ROM
+*Font Clarendon-Bold: Standard "(002.003)" Standard ROM
+*Font Clarendon-Light: Standard "(002.003)" Standard ROM
+*Font CooperBlack: Standard "(002.003)" Standard ROM
+*Font CooperBlack-Italic: Standard "(002.003)" Standard ROM
+*Font Copperplate-ThirtyThreeBC: Standard "(002.003)" Standard ROM
+*Font Copperplate-ThirtyTwoBC: Standard "(002.003)" Standard ROM
+*Font Coronet-Regular: Standard "(002.003)" Standard ROM
+*Font Courier: Standard "(002.003)" Standard ROM
+*Font Courier-Bold: Standard "(002.003)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.003)" Standard ROM
+*Font Courier-Oblique: Standard "(002.003)" Standard ROM
+*Font Eurostile: Standard "(002.003)" Standard ROM
+*Font Eurostile-Bold: Standard "(002.003)" Standard ROM
+*Font Eurostile-BoldExtendedTwo: Standard "(002.003)" Standard ROM
+*Font Eurostile-ExtendedTwo: Standard "(002.003)" Standard ROM
+*Font Geneva: Standard "(002.003)" Standard ROM
+*Font GillSans: Standard "(002.003)" Standard ROM
+*Font GillSans-Bold: Standard "(002.003)" Standard ROM
+*Font GillSans-BoldCondensed: Standard "(002.003)" Standard ROM
+*Font GillSans-BoldItalic: Standard "(002.003)" Standard ROM
+*Font GillSans-Condensed: Standard "(002.003)" Standard ROM
+*Font GillSans-ExtraBold: Standard "(002.003)" Standard ROM
+*Font GillSans-Italic: Standard "(002.003)" Standard ROM
+*Font GillSans-Light: Standard "(002.003)" Standard ROM
+*Font GillSans-LightItalic: Standard "(002.003)" Standard ROM
+*Font Goudy: Standard "(002.003)" Standard ROM
+*Font Goudy-Bold: Standard "(002.003)" Standard ROM
+*Font Goudy-BoldItalic: Standard "(002.003)" Standard ROM
+*Font Goudy-ExtraBold: Standard "(002.003)" Standard ROM
+*Font Goudy-Italic: Standard "(002.003)" Standard ROM
+*Font Helvetica: Standard "(002.003)" Standard ROM
+*Font Helvetica-Bold: Standard "(002.003)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(002.003)" Standard ROM
+*Font Helvetica-Condensed: Standard "(002.003)" Standard ROM
+*Font Helvetica-Condensed-Bold: Standard "(002.003)" Standard ROM
+*Font Helvetica-Condensed-BoldObl: Standard "(002.003)" Standard ROM
+*Font Helvetica-Condensed-Oblique: Standard "(002.003)" Standard ROM
+*Font Helvetica-Narrow: Standard "(002.003)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(002.003)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(002.003)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(002.003)" Standard ROM
+*Font Helvetica-Oblique: Standard "(002.003)" Standard ROM
+*Font HoeflerText-Black: Standard "(002.003)" Standard ROM
+*Font HoeflerText-BlackItalic: Standard "(002.003)" Standard ROM
+*Font HoeflerText-Italic: Standard "(002.003)" Standard ROM
+*Font HoeflerText-Ornaments: Special "(002.003)" Standard ROM
+*Font HoeflerText-Regular: Standard "(002.003)" Standard ROM
+*Font JoannaMT: Standard "(002.003)" Standard ROM
+*Font JoannaMT-Bold: Standard "(002.003)" Standard ROM
+*Font JoannaMT-BoldItalic: Standard "(002.003)" Standard ROM
+*Font JoannaMT-Italic: Standard "(002.003)" Standard ROM
+*Font LetterGothic: Standard "(002.003)" Standard ROM
+*Font LetterGothic-Bold: Standard "(002.003)" Standard ROM
+*Font LetterGothic-BoldSlanted: Standard "(002.003)" Standard ROM
+*Font LetterGothic-Slanted: Standard "(002.003)" Standard ROM
+*Font LubalinGraph-Book: Standard "(002.003)" Standard ROM
+*Font LubalinGraph-BookOblique: Standard "(002.003)" Standard ROM
+*Font LubalinGraph-Demi: Standard "(002.003)" Standard ROM
+*Font LubalinGraph-DemiOblique: Standard "(002.003)" Standard ROM
+*Font Marigold: Standard "(002.003)" Standard ROM
+*Font Monaco: Standard "(002.003)" Standard ROM
+*Font MonaLisa-Recut: Standard "(002.003)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(002.003)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(002.003)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(002.003)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(002.003)" Standard ROM
+*Font NewYork: Standard "(002.003)" Standard ROM
+*Font Optima: Standard "(002.003)" Standard ROM
+*Font Optima-Bold: Standard "(002.003)" Standard ROM
+*Font Optima-BoldItalic: Standard "(002.003)" Standard ROM
+*Font Optima-Italic: Standard "(002.003)" Standard ROM
+*Font Oxford: Standard "(002.003)" Standard ROM
+*Font Palatino-Bold: Standard "(002.003)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(002.003)" Standard ROM
+*Font Palatino-Italic: Standard "(002.003)" Standard ROM
+*Font Palatino-Roman: Standard "(002.003)" Standard ROM
+*Font StempelGaramond-Bold: Standard "(002.003)" Standard ROM
+*Font StempelGaramond-BoldItalic: Standard "(002.003)" Standard ROM
+*Font StempelGaramond-Italic: Standard "(002.003)" Standard ROM
+*Font StempelGaramond-Roman: Standard "(002.003)" Standard ROM
+*Font Symbol: Special "(002.003)" Standard ROM
+*Font Tekton: Standard "(002.003)" Standard ROM
+*Font Times-Bold: Standard "(002.003)" Standard ROM
+*Font Times-BoldItalic: Standard "(002.003)" Standard ROM
+*Font Times-Italic: Standard "(002.003)" Standard ROM
+*Font Times-Roman: Standard "(002.003)" Standard ROM
+*Font TimesNewRomanPS-BoldItalicMT: Standard "(000.000)" Standard Disk
+*Font TimesNewRomanPS-BoldMT: Standard "(000.000)" Standard Disk
+*Font TimesNewRomanPS-ItalicMT: Standard "(000.000)" Standard Disk
+*Font TimesNewRomanPSMT: Standard "(000.000)" Standard Disk
+*Font Univers: Standard "(002.003)" Standard ROM
+*Font Univers-Bold: Standard "(002.003)" Standard ROM
+*Font Univers-BoldExt: Standard "(002.003)" Standard ROM
+*Font Univers-BoldExtObl: Standard "(002.003)" Standard ROM
+*Font Univers-BoldOblique: Standard "(002.003)" Standard ROM
+*Font Univers-Condensed: Standard "(002.003)" Standard ROM
+*Font Univers-CondensedBold: Standard "(002.003)" Standard ROM
+*Font Univers-CondensedBoldOblique: Standard "(002.003)" Standard ROM
+*Font Univers-CondensedOblique: Standard "(002.003)" Standard ROM
+*Font Univers-Extended: Standard "(002.003)" Standard ROM
+*Font Univers-ExtendedObl: Standard "(002.003)" Standard ROM
+*Font Univers-Light: Standard "(002.003)" Standard ROM
+*Font Univers-LightOblique: Standard "(002.003)" Standard ROM
+*Font Univers-Oblique: Standard "(002.003)" Standard ROM
+*Font Wingdings-Regular: Special "(000.000)" Standard Disk
+*Font ZapfChancery-MediumItalic: Standard "(002.003)" Standard ROM
+*Font ZapfDingbats: Special "(002.003)" Standard ROM
+
+*% End of SH555SJ.PPD.

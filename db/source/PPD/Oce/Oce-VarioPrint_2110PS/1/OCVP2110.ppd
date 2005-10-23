@@ -1,0 +1,929 @@
+*PPD-Adobe: "4.3"
+*% 
+*% =============================
+*% Adobe Systems PostScript(R) Printer Description File
+*% Copyright 2004 Oce-Technologies B.V.
+*% =============================
+*%
+*% Permission is hereby granted, free of charge, to any person obtaining
+*% a copy of this software and associated documentation files (the
+*% "Software"), to deal in the Software without restriction, including
+*% without limitation the rights to use, copy, modify, merge, publish,
+*% distribute, sublicense, and/or sell copies of the Software, and to
+*% permit persons to whom the Software is furnished to do so, subject to
+*% the following conditions:
+*%
+*% The above copyright notice and this permission notice shall be
+*% included in all copies or substantial portions of the Software.
+*%
+*% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+*% EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+*% MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+*% NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+*% LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+*% OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+*% WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*%
+*% [this is the MIT open source license -- see www.opensource.org]
+*%
+*% Oce identification: name=OCVP2110.PPD version=2.7 date=2005-05-31
+*%
+
+*FileVersion: "2.7"
+*FormatVersion: "4.3"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+*Manufacturer: "Oce"
+*ModelName: "Oce VarioPrint 2110 PS3"
+*PCFileName: "OCVP2110.PPD"
+*Product: "(Oce VarioPrint 2110 PS3)"
+*PSVersion: "(3015.106) 12345"
+*ShortNickName: "Océ VarioPrint 2110 PS3"
+*NickName: "Océ VarioPrint 2110 PS3"
+
+
+*% ========== 5.4 Installable Options, and Constraints ======================================
+
+*OpenGroup: InstallableOptions/Options Installed
+
+*OpenUI *OCFinisher/Finisher option : PickOne
+*DefaultOCFinisher: False
+*OCFinisher False/Without External finisher: ""
+*OCFinisher True/With External finisher: ""
+*CloseUI: *OCFinisher
+
+*OpenUI *OCBLM/Bookletmaker option : PickOne
+*DefaultOCBLM: False
+*OCBLM False/Without Bookletmaker: ""
+*OCBLM True/With Bookletmaker: ""
+*CloseUI: *OCBLM
+
+*OpenUI *OCHCS/Stacker option : PickOne
+*DefaultOCHCS: False
+*OCHCS False/Without Stacker: ""
+*OCHCS True/With Stacker: ""
+*CloseUI: *OCHCS
+
+*CloseGroup: InstallableOptions
+
+*% External finisher exit can only be selected if installed
+*UIConstraints: *OCFinisher False *OutputBin External
+*UIConstraints: *OutputBin External *OCFinisher False
+
+*% Bookletmaker can only be selected if installed
+*UIConstraints: *OCBLM False *OutputBin External
+*UIConstraints: *OutputBin External *OCBLM False
+
+*% Stacker can only be selected if installed
+*UIConstraints: *OCHCS False *OutputBin External
+*UIConstraints: *OutputBin External *OCHCS False
+
+*% Stapling is only possible when the Finisher bin or bookletmaker are selected
+*UIConstraints: *OCStaple CornerPortrait *OutputBin UOB
+*UIConstraints: *OCStaple CornerLandscape *OutputBin UOB
+*UIConstraints: *OCStaple Double *OutputBin UOB
+*UIConstraints: *OCStaple Double *OutputBin External
+*UIConstraints: *OCStaple CornerPortrait *OutputBin External
+*UIConstraints: *OCStaple CornerLandscape *OutputBin External
+*UIConstraints: *OCStaple Double *OutputBin HCS
+*UIConstraints: *OCStaple CornerPortrait *OutputBin HCS
+*UIConstraints: *OCStaple CornerLandscape *OutputBin HCS
+*UIConstraints: *OutputBin UOB *OCStaple CornerPortrait
+*UIConstraints: *OutputBin UOB *OCStaple CornerLandscape
+*UIConstraints: *OutputBin UOB *OCStaple Double
+*UIConstraints: *OutputBin External *OCStaple Double
+*UIConstraints: *OutputBin External *OCStaple CornerPortrait
+*UIConstraints: *OutputBin External *OCStaple CornerLandscape
+*UIConstraints: *OutputBin HCS *OCStaple Double
+*UIConstraints: *OutputBin HCS *OCStaple CornerPortrait
+*UIConstraints: *OutputBin HCS *OCStaple CornerLandscape
+
+*% Using the bookletmaker is only possible when 2 staples are selected
+*UIConstraints: *OutputBin Bookletmaker *OCStaple None
+*UIConstraints: *OutputBin Bookletmaker *OCStaple CornerPortrait
+*UIConstraints: *OutputBin Bookletmaker *OCStaple CornerLandscape
+*UIConstraints: *OCStaple None *OutputBin Bookletmaker
+*UIConstraints: *OCStaple CornerPortrait *OutputBin Bookletmaker
+*UIConstraints: *OCStaple CornerLandscape *OutputBin Bookletmaker
+
+*% Jogging is only possible for the Finisher and Stacker
+*UIConstraints: *Jog EndOfSet *OutputBin UOB
+*UIConstraints: *Jog EndOfSet *OutputBin External
+*UIConstraints: *Jog EndOfSet *OutputBin Bookletmaker
+*UIConstraints: *OutputBin UOB *Jog EndOfSet 
+*UIConstraints: *OutputBin External *Jog EndOfSet 
+*UIConstraints: *OutputBin Bookletmaker *Jog EndOfSet 
+
+*% ========== 5.5 Basic Device Capabilities =================================================
+
+*ColorDevice: True
+*DefaultColorSpace: CMYK
+*FileSystem: True
+*?FileSystem: "
+false
+(*) {
+   /DevDict exch currentdevparams def
+   DevDict /Writeable known {DevDict /Writeable get} {false} ifelse
+   DevDict /Mounted   known {DevDict /Mounted   get} {false} ifelse
+   DevDict /HasNames  known {DevDict /HasNames  get} {false} ifelse
+   and and {pop true} if
+} 128 string /IODevice resourceforall
+{(True)} {(False)} ifelse ="
+*End
+*LanguageLevel: "3"
+*Throughput: "105"
+*TTRasterizer: Type42
+*?TTRasterizer: "(Type42) ="
+
+
+*% ========== 5.6 System Management =========================================================
+
+*% *PatchFile  would go here for bugs found subsequent to release of this PPD
+*% *?PatchFile would go here for bugs found subsequent to release of this PPD
+*% *JobPatchFile would go here for bugs found subsequent to release of this PPD
+*FreeVM: "32768000"
+*VMOption None: "32768000"
+
+*Password: "()" 
+
+*% *OpenUI *ExitJamRecovery: Boolean
+*% *OrderDependency: 50 AnySetup *ExitJamRecovery
+*% *DefaultExitJamRecovery: True
+*% *ExitJamRecovery True:  "<</ExitJamRecovery  true>> setpagedevice"
+*% *ExitJamRecovery False: "<</ExitJamRecovery false>> setpagedevice"
+*% *?ExitJamRecovery: "currentpagedevice /ExitJamRecovery get {(True)} {(False)} ifelse ="
+*% *CloseUI: *ExitJamRecovery
+
+*ExitServer: "
+count 1 ge {true exc startjob} {false} ifelse
+not {
+   (ERROR: *ExitServer cannot start unencapsulated job.) =
+   (       Password is probably invalid.) =
+} if"
+*End
+
+*SuggestedJobTimeout: "0"
+*SuggestedManualFeedTimeout: "60"
+*SuggestedWaitTimeout: "0"
+*PrintPSErrors: False
+*% *DeviceAdjustMatrix should not be used for new PPDs with new products
+
+
+*% ========== 5.7 Emulations and Protocols ==================================================
+
+
+*Protocols: PJL
+*JCLBegin: 	"%!*OceJobBegin%!<0D><0A>%!*Oce<09>BeginTicket 2.1<0D><0A>"
+*JCLToPSInterpreter: "%!*Oce<09><09><09>emulation postscript<0D><0A>%!*Oce<09><09>EndBlock
+%!*Oce<09><09>BeginOutput<0D><0A>%!*Oce<09><09><09>includeblock 1<0D><0A>%!*Oce<09><09>EndOutput
+%!*Oce<09>EndTicket<0D><0A>%!*OceJobData%!<0D><0A>"
+*End
+*JCLEnd:	"" 
+
+
+*% 5.8 ========== Features Accessible Only Through Job Control Language =====================
+
+
+*OpenGroup: JobHandling/Job Handling
+
+*JCLOpenUI *JCLOCMailBox/Mailbox: PickOne
+*DefaultJCLOCMailBox: None
+*OrderDependency: 9 JCLSetup *JCLOCMailBox
+*JCLOCMailBox None/Printer's Default:	""
+*JCLOCMailBox Interactive/Interactive (to mailbox):	"%!*Oce<09><09>jobtype interactive<0D><0A>"
+*JCLOCMailBox Automatic/Automatic (to queue):		"%!*Oce<09><09>jobtype automatic<0D><0A>"
+*JCLCloseUI: *JCLOCMailBox
+
+*JCLOpenUI *JCLOCCovers/Covers: PickOne
+*DefaultJCLOCCovers: None
+*OrderDependency: 10 JCLSetup *JCLOCCovers
+*JCLOCCovers None/None: 			"%!*Oce<09><09>covers off<0D><0A>%!*Oce<09><09>BeginBlock 1<0D><0A>%!*Oce<09><09><09>segment 1<0D><0A>"
+*JCLOCCovers Front/Front: 			"%!*Oce<09><09>covers front<0D><0A>%!*Oce<09><09>BeginBlock 1<0D><0A>%!*Oce<09><09><09>segment 1<0D><0A>"
+*JCLOCCovers Back/Back: 			"%!*Oce<09><09>covers back<0D><0A>%!*Oce<09><09>BeginBlock 1<0D><0A>%!*Oce<09><09><09>segment 1<0D><0A>"
+*JCLOCCovers Both/Front and Back: 		"%!*Oce<09><09>covers front back<0D><0A>%!*Oce<09><09>BeginBlock 1<0D><0A>%!*Oce<09><09><09>segment 1<0D><0A>"
+*JCLCloseUI: *JCLOCCovers
+
+*JCLOpenUI *JCLOCTabInJob/Tab used in printjob: PickOne
+*DefaultJCLOCTabInJob: None
+*OrderDependency: 11 JCLSetup *JCLOCTabInJob
+*JCLOCTabInJob None/No: ""
+*JCLOCTabInJob Yes/Yes: "%!*Oce<09><09><09>information mediatype tab tabany<0D><0A>"
+*JCLCloseUI: *JCLOCTabInJob
+
+*CloseGroup: JobHandling
+
+
+*% ========== 5.9 Resolution and Appearance Control =========================================
+
+*DefaultResolution: 600dpi
+
+
+*% ========== 5.10 Gray Levels and Halftoning ===============================================
+
+*DefaultHalftoneType: 3
+*DefaultTransfer: Null
+
+*OpenUI *OCHalftone/Halftoning: PickOne
+*OrderDependency: 12 DocumentSetup *OCHalftone
+*DefaultOCHalftone: 106lpi_4
+*OCHalftone 85lpi_4/85 lpi 196 grayvalues: "
+   /Halftone85lpi_4 /Halftone resourcestatus
+   {
+       pop pop
+       /DefaultBWHalftone600
+       /Halftone85lpi_4 /Halftone findresource /Halftone defineresource
+       <<>> setpagedevice
+       userdict /PDFVars known
+       {
+          userdict /PDFVars get dup /_defaulthalftone known
+          {
+             /_defaulthalftone /Halftone85lpi_4 /Halftone findresource put
+          } { pop } ifelse
+       } if
+   } if"
+*End
+*OCHalftone 106lpi_4/106 lpi 124 grayvalues: "
+   /Halftone106lpi_4 /Halftone resourcestatus
+   {
+       pop pop
+       /DefaultBWHalftone600
+       /Halftone106lpi_4 /Halftone findresource /Halftone defineresource
+       <<>> setpagedevice
+       userdict /PDFVars known
+       {
+          userdict /PDFVars get dup /_defaulthalftone known
+          {
+             /_defaulthalftone /Halftone106lpi_4 /Halftone findresource put
+          } { pop } ifelse
+       } if
+   } if"
+*End
+*OCHalftone 125lpi_4/125 lpi 92 grayvalues: "
+   /Halftone125lpi_4 /Halftone resourcestatus
+   {
+       pop pop
+       /DefaultBWHalftone600
+       /Halftone125lpi_4 /Halftone findresource /Halftone defineresource
+       <<>> setpagedevice
+       userdict /PDFVars known
+       {
+          userdict /PDFVars get dup /_defaulthalftone known
+          {
+             /_defaulthalftone /Halftone125lpi_4 /Halftone findresource put
+          } { pop } ifelse
+       } if
+   } if"
+*End
+*CloseUI: *OCHalftone
+
+*% ========== 5.11 Color Adjustment =========================================================
+
+
+
+*% ========== 5.14 Media Selection ==========================================================
+
+*OpenUI *MediaType/Media type: PickOne
+*OrderDependency: 50 AnySetup *MediaType
+*DefaultMediaType: Default
+*MediaType Default/Printer's default: ""
+*MediaType PlainA4/Plain A4: "
+	<</MediaType (Plain A4)>> setpagedevice"
+*End
+*MediaType PlainA3/Plain A3: "
+	<</MediaType (Plain A3)>> setpagedevice"
+*End
+*MediaType TabA4/Tab A4: "
+	<</MediaType (Tab A4)>> setpagedevice"
+*End
+*MediaType TabPrintedA4/Tab Printed A4: "
+	<</MediaType (Tab Printed A4)>> setpagedevice"
+*End
+*MediaType TabInsertA4/Tab Insert A4: "
+	<</MediaType (Tab Insert A4)>> setpagedevice"
+*End
+*MediaType Pre-punchedA4/Pre-punched A4: "
+	<</MediaType (Pre-punched A4)>> setpagedevice"
+*End
+*MediaType CoverFrontA4/Cover Front A4: "
+	<</MediaType (Cover Front A4)>> setpagedevice"
+*End
+*MediaType CoverRearA4/Cover Rear A4: "
+	<</MediaType (Cover Rear A4)>> setpagedevice"
+*End
+*MediaType InsertA4/Insert material A4: "
+	<</MediaType (Insert material A4)>> setpagedevice"
+*End
+*MediaType PlainLetter/Plain Letter: "
+	<</MediaType (Plain Letter)>> setpagedevice"
+*End
+*MediaType PlainTabloid/Plain Tabloid: "
+	<</MediaType (Plain Tabloid)>> setpagedevice"
+*End
+*MediaType PlainLegal/Plain Legal: "
+	<</MediaType (Plain Legal)>> setpagedevice"
+*End
+*MediaType TabLetter/Tab Letter: "
+	<</MediaType (Tab Letter)>> setpagedevice"
+*End
+*MediaType TabPrintedLetter/Tab printed Letter: "
+	<</MediaType (Tab printed Letter)>> setpagedevice"
+*End
+*MediaType TabInsertLetter/Tab insert Letter: "
+	<</MediaType (Tab insert Letter)>> setpagedevice"
+*End
+*MediaType PrePunchedLetter/Pre-punched Letter: "
+	<</MediaType (Pre-punched Letter)>> setpagedevice"
+*End
+*MediaType CoverFrontLetter/Cover Front Letter: "
+	<</MediaType (Cover Front Letter)>> setpagedevice"
+*End
+*MediaType CoverRearLetter/Cover Rear Letter: "
+	<</MediaType (Cover Rear Letter)>> setpagedevice"
+*End
+*MediaType InsertLetter/Insert material Letter: "
+	<</MediaType (Insert material Letter)>> setpagedevice"
+*End
+*MediaType PlainB4/Plain B4: "
+	<</MediaType (Plain B4)>> setpagedevice"
+*End
+*CloseUI: *MediaType
+
+
+*OpenUI *InputSlot: PickOne
+*OrderDependency: 50 AnySetup *InputSlot
+*DefaultInputSlot: Unknown
+*InputSlot PlainA4/Plain A4: "
+	<</MediaType (Plain A4)>> setpagedevice"
+*End
+*InputSlot PlainA3/Plain A3: "
+	<</MediaType (Plain A3)>> setpagedevice"
+*End
+*InputSlot TabA4/Tab A4: "
+	<</MediaType (Tab A4)>> setpagedevice"
+*End
+*InputSlot TabPrintedA4/Tab Printed A4: "
+	<</MediaType (Tab Printed A4)>> setpagedevice"
+*End
+*InputSlot TabInsertA4/Tab Insert A4: "
+	<</MediaType (Tab Insert A4)>> setpagedevice"
+*End
+*InputSlot Pre-punchedA4/Pre-punched A4: "
+	<</MediaType (Pre-punched A4)>> setpagedevice"
+*End
+*InputSlot CoverFrontA4/Cover Front A4: "
+	<</MediaType (Cover Front A4)>> setpagedevice"
+*End
+*InputSlot CoverRearA4/Cover Rear A4: "
+	<</MediaType (Cover Rear A4)>> setpagedevice"
+*End
+*InputSlot InsertA4/Insert material A4: "
+	<</MediaType (Insert material A4)>> setpagedevice"
+*End
+*InputSlot PlainLetter/Plain Letter: "
+	<</MediaType (Plain Letter)>> setpagedevice"
+*End
+*InputSlot PlainTabloid/Plain Tabloid: "
+	<</MediaType (Plain Tabloid)>> setpagedevice"
+*End
+*InputSlot PlainLegal/Plain Legal: "
+	<</MediaType (Plain Legal)>> setpagedevice"
+*End
+*InputSlot TabLetter/Tab Letter: "
+	<</MediaType (Tab Letter)>> setpagedevice"
+*End
+*InputSlot TabPrintedLetter/Tab printed Letter: "
+	<</MediaType (Tab printed Letter)>> setpagedevice"
+*End
+*InputSlot TabInsertLetter/Tab insert Letter: "
+	<</MediaType (Tab insert Letter)>> setpagedevice"
+*End
+*InputSlot Pre-punchedLetter/Pre-punched Letter: "
+	<</MediaType (Pre-punched Letter)>> setpagedevice"
+*End
+*InputSlot CoverFrontLetter/Cover Front Letter: "
+	<</MediaType (Cover Front Letter)>> setpagedevice"
+*End
+*InputSlot CoverRearLetter/Cover Rear Letter: "
+	<</MediaType (Cover Rear Letter)>> setpagedevice"
+*End
+*InputSlot InsertLetter/Insert material Letter: "
+	<</MediaType (Insert material Letter)>> setpagedevice"
+*End
+*InputSlot PlainB4/Plain B4: "
+	<</MediaType (Plain B4)>> setpagedevice"
+*End
+*CloseUI: *InputSlot
+
+*OpenUI *PageSize: PickOne
+*OrderDependency: 50 AnySetup *PageSize
+*DefaultPageSize: A4
+*PageSize A4: "<</PageSize [595 842]>> setpagedevice"
+*PageSize A3: "<</PageSize [842 1191]>> setpagedevice"
+*PageSize B4: "<</PageSize [729 1032]>> setpagedevice"
+*PageSize Tabloid/Tabloid 11x17: "<</PageSize [792 1224]>> setpagedevice"
+*PageSize Legal/Legal 8.5x14: "<</PageSize [612 1008]>> setpagedevice"
+*PageSize Letter/Letter 8.5x11: "<</PageSize [612 792]>> setpagedevice"
+*?PageSize: "
+ currentpagedevice /PageSize get aload aload pop gt {exch} if
+ (Unknown) <<
+   /A4 [595 842]
+   /A3 [842 1191]
+   /B4 [729 1032]
+   /Tabloid [792 1224]
+   /Legal [612 1008]
+   /Letter [612 792]
+ >>
+ { aload aload pop gt {exch} if 4
+   index sub abs 5 le exch 5 index sub abs 5 le and {exch} if pop
+ } bind forall = pop pop"
+*End
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 50 AnySetup *PageRegion
+*DefaultPageRegion: A4
+*PageRegion A4: "<</PageSize [595 842]>> setpagedevice"
+*PageRegion A3: "<</PageSize [842 1191]>> setpagedevice"
+*PageRegion B4: "<</PageSize [729 1032]>> setpagedevice"
+*PageRegion Tabloid/Tabloid 11x17: "<</PageSize [792 1224]>> setpagedevice"
+*PageRegion Legal/Legal 8.5x14: "<</PageSize [612 1008]>> setpagedevice"
+*PageRegion Letter/Letter 8.5x11: "<</PageSize [612 792]>> setpagedevice"
+*CloseUI: *PageRegion
+
+
+*% ========== 5.15 Information About Media Sizes ============================================
+
+*DefaultImageableArea: A4
+*ImageableArea A4: "5.7 5.7 589.6 836.2 "
+*ImageableArea A3: "5.7 5.7 836.2 1184.9 "
+*ImageableArea B4: "5.7 5.7 723.3 1026.3 "
+*ImageableArea Tabloid/Tabloid 11x17: "5.7 5.7 786.3 1218.0 "
+*ImageableArea Legal/Legal 8.5x14: "5.7 5.7 606.3 1002.3 "
+*ImageableArea Letter/Letter 8.5x11: "5.7 5.7 606.3 786.3 "
+*?ImageableArea: "
+  newpath clippath pathbbox 4 -2 roll
+  exch 2 {10000 mul ceiling 10000 div dup 0 lt {pop 0.0} if 128 string cvs print ( ) print} repeat
+  exch 2 {10000 mul floor   10000 div dup 0 lt {pop 0.0} if 128 string cvs print ( ) print} repeat
+  (\n) print"
+*End
+
+*DefaultPaperDimension: A4
+*PaperDimension A4: "595 842"
+*PaperDimension A3: "842 1191"
+*PaperDimension B4: "729 1032"
+*PaperDimension Tabloid/Tabloid 11x17: "792 1224"
+*PaperDimension Legal/Legal 8.5x14: "612 1008"
+*PaperDimension Letter/Letter 8.5x11: "612 792"
+
+*% ========== 5.16 CustomPageSizes ==========================================================
+
+*HWMargins: 6 6 6 6
+*LeadingEdge Short: ""
+*LeadingEdge Long: ""
+*DefaultLeadingEdge: Short
+*MaxMediaWidth: "865"
+*MaxMediaHeight: "1296"
+*CustomPageSize True: "
+  pop pop
+  2 mod 0 eq {exch} if
+  (<<) cvx exec
+  /PageSize [ 5 -2 roll ]
+  /ImagingBBox null
+  (>>) cvx exec setpagedevice
+"
+*End
+*ParamCustomPageSize Width: 1 points 1 865
+*ParamCustomPageSize Height: 2 points 1 1296
+*ParamCustomPageSize Orientation: 3 int 1 2
+*ParamCustomPageSize WidthOffset: 4 points 0 0
+*ParamCustomPageSize HeightOffset: 5 points 0 0
+
+*% ========== 5.17 Media Handling Features ==================================================
+
+*% Single copy and Collate false gives stapling side effects
+*% In that case we force Collate to true
+*OpenUI *Collate/Collate: Boolean
+*OrderDependency: 50 DocumentSetup *Collate
+*DefaultCollate: True
+*Collate True: "
+	<</Collate true>> setpagedevice"
+*End	
+*Collate False: "
+	currentpagedevice /NumCopies get 1 gt 
+	{<< /Collate false >> setpagedevice}
+	{<< /Collate true >> setpagedevice}
+	ifelse"
+*End
+*CloseUI: *Collate
+
+*OpenUI *Duplex: PickOne
+*OrderDependency: 50 AnySetup *Duplex
+*DefaultDuplex: DuplexNoTumble
+*Duplex None/Simplex: "<</Duplex false /Tumble false >> setpagedevice"
+*Duplex DuplexNoTumble/Duplex long-edge binding: "<</Duplex true /Tumble false>> setpagedevice"
+*Duplex DuplexTumble/Duplex short-edge binding: "<</Duplex true /Tumble true>> setpagedevice"
+*?Duplex: "
+	currentpagedevice dup /Duplex get {
+  	/Tumble get {(DuplexTumble)} {(DuplexNoTumble)} ifelse
+	}{/Tumble get {(SimplexTumble)} {(None)} ifelse
+	} if ="
+*End
+*CloseUI: *Duplex
+
+*% ========== 5.18 Finishing Features =======================================================
+
+*OpenUI *StapleWhen: PickOne
+*OrderDependency: 50 DocumentSetup *StapleWhen
+*DefaultStapleWhen: EndOfSet
+*StapleWhen EndOfSet: ""
+*CloseUI: *StapleWhen
+
+*OpenUI *OCStaple/Staple: PickOne
+*OrderDependency: 50 AnySetup *OCStaple
+*DefaultOCStaple: CornerPortrait
+*OCStaple None/No staple: "
+	<</Staple 0 /StapleDetails << /Type 16 /StapleLocation 0>> >> setpagedevice"
+*End
+*OCStaple CornerPortrait/Corner staple portrait: "
+	<</Staple 2 /StapleDetails << /Type 16 /StapleLocation 1>> >> setpagedevice"
+*End
+*OCStaple CornerLandscape/Corner staple landscape: "
+	<</Staple 2  /StapleDetails << /Type 16 /StapleLocation 2>> >> setpagedevice"
+*End
+*OCStaple Double/Double staple: "
+	<</Staple 2  /StapleDetails << /Type 16 /StapleLocation 3>> >> setpagedevice"
+*End
+*CloseUI: *OCStaple
+
+*OpenUI *OutputBin/Output destination: PickOne
+*OrderDependency: 25 DocumentSetup *OutputBin
+*DefaultOutputBin: Finisher
+*OutputBin Finisher/Output trays: "
+	<</OutputType (Finisher)>> setpagedevice"
+*End	
+*OutputBin UOB/Upper tray: "
+	<</OutputType (Upper bin)>> setpagedevice"
+*End	
+*OutputBin External/External finisher: "
+	<</OutputType (OEM Finisher)>> setpagedevice"
+*End
+*OutputBin Bookletmaker: "
+	<</OutputType (bookletmaker)>> setpagedevice"
+*End
+*OutputBin HCS/Stacker: "
+	<</OutputType (highcapacitystacker)>> setpagedevice"
+*End	
+*CloseUI: *OutputBin
+
+*OpenUI *Jog/Offset stacked: PickOne
+*OrderDependency: 50 DocumentSetup *Jog
+*DefaultJog: None
+*Jog None/No: "<</Jog 0>> setpagedevice"
+*Jog EndOfSet/Yes: "<</Jog 2>> setpagedevice"
+*CloseUI: *Jog
+
+*OpenUI *OCPurge/DocWorks tab purging: PickOne
+*OrderDependency: 55 AnySetup *OCPurge
+*DefaultOCPurge: Automatic
+*OCPurge Automatic/Automatic: ""
+*OCPurge Finisher/Output trays: "
+	<</OutputType (Finisher)>> setpagedevice"
+*End	
+*OCPurge UOB/Upper tray: "
+	<</OutputType (Upper bin)>> setpagedevice"
+*End	
+*OCPurge External/External finisher: "
+	<</OutputType (OEM Finisher)>> setpagedevice"
+*End
+*OCPurge Bookletmaker: "
+	<</OutputType (bookletmaker)>> setpagedevice"
+*End
+*OCPurge HCS/Stacker: "
+	<</OutputType (highcapacitystacker)>> setpagedevice"
+*End	
+*CloseUI: *OCPurge
+
+*% ========== 5.19 Imagesetter Features =====================================================
+
+*% ========== 5.20 Font Related Keywords ====================================================
+
+*FCacheSize None: 1126400
+
+*Font AdobeSansMM: Standard "(001.002)" Standard ROM
+*Font AdobeSerifMM: Standard "(001.003)" Standard ROM
+*Font AlbertusMT-Italic: Standard "(001.001)" Standard ROM
+*Font AlbertusMT-Light: Standard "(001.001)" Standard ROM
+*Font AlbertusMT: Standard "(001.001)" Standard ROM
+*Font AntiqueOlive-Bold: Standard "(001.002)" Standard ROM
+*Font AntiqueOlive-Compact: Standard "(001.002)" Standard ROM
+*Font AntiqueOlive-Italic: Standard "(001.002)" Standard ROM
+*Font AntiqueOlive-Roman: Standard "(001.002)" Standard ROM
+*Font Apple-Chancery: Standard "(3.0)" Standard ROM
+*Font Arial-BoldItalicMT: Standard "(001.003)" Standard ROM
+*Font Arial-BoldMT: Standard "(001.003)" Standard ROM
+*Font Arial-ItalicMT: Standard "(001.003)" Standard ROM
+*Font ArialMT: Standard "(001.003)" Standard ROM
+*Font AvantGarde-Book: Standard "(003.000)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(003.000)" Standard ROM
+*Font AvantGarde-Demi: Standard "(003.000)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(003.000)" Standard ROM
+*Font Bodoni-Bold: Standard "(001.003)" Standard ROM
+*Font Bodoni-BoldItalic: Standard "(001.003)" Standard ROM
+*Font Bodoni-Italic: Standard "(001.003)" Standard ROM
+*Font Bodoni-Poster: Standard "(001.003)" Standard ROM
+*Font Bodoni-PosterCompressed: Standard "(001.002)" Standard ROM
+*Font Bodoni: Standard "(001.003)" Standard ROM
+*Font Bookman-Demi: Standard "(003.000)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(003.000)" Standard ROM
+*Font Bookman-Light: Standard "(003.000)" Standard ROM
+*Font Bookman-LightItalic: Standard "(003.000)" Standard ROM
+*Font Carta: Special "(001.001)" Special ROM
+*Font Chicago: Standard "(3.0)" Standard ROM
+*Font Clarendon-Bold: Standard "(001.002)" Standard ROM
+*Font Clarendon-Light: Standard "(001.002)" Standard ROM
+*Font Clarendon: Standard "(001.002)" Standard ROM
+*Font CooperBlack-Italic: Standard "(001.004)" Standard ROM
+*Font CooperBlack: Standard "(001.004)" Standard ROM
+*Font Copperplate-ThirtyThreeBC: Standard "(001.003)" Standard ROM
+*Font Copperplate-ThirtyTwoBC: Standard "(001.003)" Standard ROM
+*Font Coronet-Regular: Standard "(001.002)" Standard ROM
+*Font Courier-Bold: Standard "(004.000)" Standard ROM
+*Font Courier-BoldOblique: Standard "(004.000)" Standard ROM
+*Font Courier-Oblique: Standard "(004.000)" Standard ROM
+*Font Courier: Standard "(004.000)" Standard ROM
+*Font Eurostile-Bold: Standard "(001.002)" Standard ROM
+*Font Eurostile-BoldExtendedTwo: Standard "(001.003)" Standard ROM
+*Font Eurostile-ExtendedTwo: Standard "(001.003)" Standard ROM
+*Font Eurostile: Standard "(001.003)" Standard ROM
+*Font Geneva: Standard "(3.0)" Standard ROM
+*Font GillSans-Bold: Standard "(001.002)" Standard ROM
+*Font GillSans-BoldCondensed: Standard "(001.002)" Standard ROM
+*Font GillSans-BoldItalic: Standard "(001.003)" Standard ROM
+*Font GillSans-Condensed: Standard "(001.002)" Standard ROM
+*Font GillSans-ExtraBold: Standard "(001.002)" Standard ROM
+*Font GillSans-Italic: Standard "(001.003)" Standard ROM
+*Font GillSans-Light: Standard "(001.002)" Standard ROM
+*Font GillSans-LightItalic: Standard "(001.003)" Standard ROM
+*Font GillSans: Standard "(001.003)" Standard ROM
+*Font Goudy-Bold: Standard "(001.003)" Standard ROM
+*Font Goudy-BoldItalic: Standard "(001.003)" Standard ROM
+*Font Goudy-ExtraBold: Standard "(001.002)" Standard ROM
+*Font Goudy-Italic: Standard "(001.003)" Standard ROM
+*Font Goudy: Standard "(001.004)" Standard ROM
+*Font Helvetica-Bold: Standard "(003.000)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(003.000)" Standard ROM
+*Font Helvetica-Condensed-Bold: Standard "(003.000)" Standard ROM
+*Font Helvetica-Condensed-BoldObl: Standard "(003.000)" Standard ROM
+*Font Helvetica-Condensed-Oblique: Standard "(003.000)" Standard ROM
+*Font Helvetica-Condensed: Standard "(003.000)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(003.000)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(003.000)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(003.000)" Standard ROM
+*Font Helvetica-Narrow: Standard "(003.000)" Standard ROM
+*Font Helvetica-Oblique: Standard "(003.000)" Standard ROM
+*Font Helvetica: Standard "(003.000)" Standard ROM
+*Font HoeflerText-Black: Standard "(1.0)" Unknown ROM
+*Font HoeflerText-BlackItalic: Standard "(1.0)" Unknown ROM
+*Font HoeflerText-Italic: Standard "(1.0)" Unknown ROM
+*Font HoeflerText-Ornaments: Special "(001.001)" Standard ROM
+*Font HoeflerText-Regular: Standard "(1.0)" Unknown ROM
+*Font JoannaMT-Bold: Standard "(001.001)" Standard ROM
+*Font JoannaMT-BoldItalic: Standard "(001.001)" Standard ROM
+*Font JoannaMT-Italic: Standard "(001.001)" Standard ROM
+*Font JoannaMT: Standard "(001.001)" Standard ROM
+*Font LetterGothic-Bold: Standard "(001.007)" Standard ROM
+*Font LetterGothic-BoldSlanted: Standard "(001.006)" Standard ROM
+*Font LetterGothic-Slanted: Standard "(001.005)" Standard ROM
+*Font LetterGothic: Standard "(001.005)" Standard ROM
+*Font LubalinGraph-Book: Standard "(001.004)" Standard ROM
+*Font LubalinGraph-BookOblique: Standard "(001.004)" Standard ROM
+*Font LubalinGraph-Demi: Standard "(001.004)" Standard ROM
+*Font LubalinGraph-DemiOblique: Standard "(001.004)" Standard ROM
+*Font Marigold: Standard "(001.001)" Standard ROM
+*Font MonaLisa-Recut: Standard "(001.001)" Standard ROM
+*Font Monaco: Standard "(3.0)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(003.000)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(003.000)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(003.000)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(003.000)" Standard ROM
+*Font NewYork: Standard "(001.000)" ExtendedRoman ROM
+*Font Optima-Bold: Standard "(001.007)" Standard ROM
+*Font Optima-BoldItalic: Standard "(001.001)" Standard ROM
+*Font Optima-Italic: Standard "(001.001)" Standard ROM
+*Font Optima: Standard "(001.006)" Standard ROM
+*Font Oxford: Standard "(001.001)" Standard ROM
+*Font Palatino-Bold: Standard "(003.000)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(003.000)" Standard ROM
+*Font Palatino-Italic: Standard "(003.000)" Standard ROM
+*Font Palatino-Roman: Standard "(003.000)" Standard ROM
+*Font StempelGaramond-Bold: Standard "(001.003)" Standard ROM
+*Font StempelGaramond-BoldItalic: Standard "(001.003)" Standard ROM
+*Font StempelGaramond-Italic: Standard "(001.003)" Standard ROM
+*Font StempelGaramond-Roman: Standard "(001.003)" Standard ROM
+*Font Symbol: Special "(001.008)" Special ROM
+*Font Tekton: Standard "(001.002)" Standard ROM
+*Font Times-Bold: Standard "(003.000)" Standard ROM
+*Font Times-BoldItalic: Standard "(003.000)" Standard ROM
+*Font Times-Italic: Standard "(003.000)" Standard ROM
+*Font Times-Roman: Standard "(003.000)" Standard ROM
+*Font TimesNewRomanPS-BoldItalicMT: Standard "(001.003)" Standard ROM
+*Font TimesNewRomanPS-BoldMT: Standard "(001.004)" Standard ROM
+*Font TimesNewRomanPS-ItalicMT: Standard "(001.003)" Standard ROM
+*Font TimesNewRomanPSMT: Standard "(001.003)" Standard ROM
+*Font Univers-Bold: Standard "(001.004)" Standard ROM
+*Font Univers-BoldExt: Standard "(001.001)" Standard ROM
+*Font Univers-BoldExtObl: Standard "(001.001)" Standard ROM
+*Font Univers-BoldOblique: Standard "(001.004)" Standard ROM
+*Font Univers-Condensed: Standard "(001.003)" Standard ROM
+*Font Univers-CondensedBold: Standard "(001.002)" Standard ROM
+*Font Univers-CondensedBoldOblique: Standard "(001.002)" Standard ROM
+*Font Univers-CondensedOblique: Standard "(001.003)" Standard ROM
+*Font Univers-Extended: Standard "(001.001)" Standard ROM
+*Font Univers-ExtendedObl: Standard "(001.001)" Standard ROM
+*Font Univers-Light: Standard "(001.004)" Standard ROM
+*Font Univers-LightOblique: Standard "(001.004)" Standard ROM
+*Font Univers-Oblique: Standard "(001.004)" Standard ROM
+*Font Univers: Standard "(001.004)" Standard ROM
+*Font Wingdings-Regular: Special "(Version 2.00)" Special ROM
+*Font Wingdings: Unknown "(001.001)" Unknown ROM
+*Font ZapfChancery-MediumItalic: Standard "(003.000)" Standard ROM
+*Font ZapfDingbats: Special "(002.000)" Special ROM
+
+*DefaultFont: Courier
+
+*?FontQuery: "
+ save
+   { count 1 gt
+      { exch dup 127 string cvs (/) print print (:) print
+        /Font resourcestatus {pop pop (Yes)} {(No)} ifelse =
+      } { exit } ifelse 
+   } bind loop
+   (*) = flush
+ restore"
+*End
+
+*?FontList: "
+save
+  (*) {cvn ==} 128 string /Font resourceforall
+  (*) = flush
+restore
+"
+*End
+
+
+*% ========== 5.21 Printer Messages =========================================================
+
+*% Printer Messages (verbatim from printer):
+*%
+*Message: "%%[ exitserver: permanent state may be changed ]%%"
+*Message: "%%[ Flushing: rest of job (to end-of-file) will be ignored ]%%"
+*Message: "\FontName\ not found, using Courier"
+
+*% Status (format: %%[ status: <one of these> ]%% )
+*%
+*Status: "idle"
+*Status: "busy"
+*Status: "waiting"
+
+*% Status (format: %%[ status: <one of these> 
+*% Source: <one of these> ]%% )
+*%
+*Source: "LPR"
+*Source: "RemoteServer"
+*Source: "other"
+
+*% Printer Error (format: %%[ PrinterError: <one of these> ]%%)
+*%
+
+*% ========== 5.22 Color Separation Keywords ================================================
+
+*DefaultGuaranteedMaxSeparations: 1
+*GuaranteedMaxSeparations 1: ""
+
+
+*%  For 60 lpi / 300 dpi  ===============================
+
+*ColorSepScreenAngle ProcessBlack.60lpi.300dpi/60 lpi / 300 dpi: "45"
+*ColorSepScreenAngle CustomColor.60lpi.300dpi/60 lpi / 300 dpi: "45"
+*ColorSepScreenAngle ProcessCyan.60lpi.300dpi/60 lpi / 300 dpi: "15"
+*ColorSepScreenAngle ProcessMagenta.60lpi.300dpi/60 lpi / 300 dpi: "75"
+*ColorSepScreenAngle ProcessYellow.60lpi.300dpi/60 lpi / 300 dpi: "0"
+
+*ColorSepScreenFreq ProcessBlack.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq CustomColor.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq ProcessCyan.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq ProcessMagenta.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq ProcessYellow.60lpi.300dpi/60 lpi / 300 dpi: "60"
+
+*%  For 53 lpi / 300 dpi  ===============================
+
+*ColorSepScreenAngle ProcessBlack.53lpi.300dpi/53 lpi / 300 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.53lpi.300dpi/53 lpi / 300 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.53lpi.300dpi/53 lpi / 300 dpi: "71.5651"
+*ColorSepScreenAngle ProcessMagenta.53lpi.300dpi/53 lpi / 300 dpi: "18.4349"
+*ColorSepScreenAngle ProcessYellow.53lpi.300dpi/53 lpi / 300 dpi: "0.0"
+
+*ColorSepScreenFreq ProcessBlack.53lpi.300dpi/53 lpi / 300 dpi: "53.033"
+*ColorSepScreenFreq CustomColor.53lpi.300dpi/53 lpi / 300 dpi: "53.033"
+*ColorSepScreenFreq ProcessCyan.53lpi.300dpi/53 lpi / 300 dpi: "47.4342"
+*ColorSepScreenFreq ProcessMagenta.53lpi.300dpi/53 lpi / 300 dpi: "47.4342"
+*ColorSepScreenFreq ProcessYellow.53lpi.300dpi/53 lpi / 300 dpi: "50.0"
+
+
+*%  For 71 lpi / 400 dpi  ===============================
+
+*ColorSepScreenAngle ProcessBlack.71lpi.400dpi/71 lpi / 400 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.71lpi.400dpi/71 lpi / 400 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.71lpi.400dpi/71 lpi / 400 dpi: "71.5651"
+*ColorSepScreenAngle ProcessMagenta.71lpi.400dpi/71 lpi / 400 dpi: "18.4349"
+*ColorSepScreenAngle ProcessYellow.71lpi.400dpi/71 lpi / 400 dpi: "0.0"
+
+*ColorSepScreenFreq ProcessBlack.71lpi.400dpi/71 lpi / 400 dpi: "70.7107"
+*ColorSepScreenFreq CustomColor.71lpi.400dpi/71 lpi / 400 dpi: "70.7107"
+*ColorSepScreenFreq ProcessCyan.71lpi.400dpi/71 lpi / 400 dpi: "63.2456"
+*ColorSepScreenFreq ProcessMagenta.71lpi.400dpi/71 lpi / 400 dpi: "63.2456"
+*ColorSepScreenFreq ProcessYellow.71lpi.400dpi/71 lpi / 400 dpi: "66.6667"
+
+*%  For 47 lpi / 400 dpi  ===============================
+
+*ColorSepScreenAngle ProcessBlack.47lpi.400dpi/47 lpi / 400 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.47lpi.400dpi/47 lpi / 400 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.47lpi.400dpi/47 lpi / 400 dpi: "71.5651"
+*ColorSepScreenAngle ProcessMagenta.47lpi.400dpi/47 lpi / 400 dpi: "18.4349"
+*ColorSepScreenAngle ProcessYellow.47lpi.400dpi/47 lpi / 400 dpi: "0.0"
+
+*ColorSepScreenFreq ProcessBlack.47lpi.400dpi/47 lpi / 400 dpi: "47.1405"
+*ColorSepScreenFreq CustomColor.47lpi.400dpi/47 lpi / 400 dpi: "47.1405"
+*ColorSepScreenFreq ProcessCyan.47lpi.400dpi/47 lpi / 400 dpi: "42.1637"
+*ColorSepScreenFreq ProcessMagenta.47lpi.400dpi/47 lpi / 400 dpi: "42.1637"
+*ColorSepScreenFreq ProcessYellow.47lpi.400dpi/47 lpi / 400 dpi: "44.4444"
+
+
+*%  For 85 lpi / 600 dpi  =====================
+
+*ColorSepScreenAngle ProcessBlack.85lpi.600dpi/85 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.85lpi.600dpi/85 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.85lpi.600dpi/85 lpi / 600 dpi: "71.5651"
+*ColorSepScreenAngle ProcessMagenta.85lpi.600dpi/85 lpi / 600 dpi: "18.4349"
+*ColorSepScreenAngle ProcessYellow.85lpi.600dpi/85 lpi / 600 dpi: "0.0"
+
+*ColorSepScreenFreq ProcessBlack.85lpi.600dpi/85 lpi / 600 dpi: "84.8528"
+*ColorSepScreenFreq CustomColor.85lpi.600dpi/85 lpi / 600 dpi: "84.8528"
+*ColorSepScreenFreq ProcessCyan.85lpi.600dpi/85 lpi / 600 dpi: "94.8683"
+*ColorSepScreenFreq ProcessMagenta.85lpi.600dpi/85 lpi / 600 dpi: "94.8683"
+*ColorSepScreenFreq ProcessYellow.85lpi.600dpi/85 lpi / 600 dpi: "30.0"
+
+*ColorSepScreenProc ProcessYellow.85lpi.600dpi/85 lpi / 600 dpi: "
+{1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch 
+1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch 
+abs exch abs 2 copy add 1 gt {1 sub dup mul exch 1 sub dup mul add 1 
+sub }{dup mul exch dup mul add 1 exch sub }ifelse }"
+*End
+
+
+*% For 90 lpi / 635 dpi =====================
+
+*ColorSepScreenAngle ProcessBlack.90lpi.635dpi/90 lpi / 635 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.90lpi.635dpi/90 lpi / 635 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.90lpi.635dpi/90 lpi / 635 dpi: "71.5651"
+*ColorSepScreenAngle ProcessMagenta.90lpi.635dpi/90 lpi / 635 dpi: "18.4349"
+*ColorSepScreenAngle ProcessYellow.90lpi.635dpi/90 lpi / 635 dpi: "0.0"
+
+*ColorSepScreenFreq ProcessBlack.90lpi.635dpi/90 lpi / 635 dpi: "89.8026"
+*ColorSepScreenFreq CustomColor.90lpi.635dpi/90 lpi / 635 dpi: "89.8026"
+*ColorSepScreenFreq ProcessCyan.90lpi.635dpi/90 lpi / 635 dpi: "100.402"
+*ColorSepScreenFreq ProcessMagenta.90lpi.635dpi/90 lpi / 635 dpi: "100.402"
+*ColorSepScreenFreq ProcessYellow.90lpi.635dpi/90 lpi / 635 dpi: "31.75"
+
+*ColorSepScreenProc ProcessYellow.90lpi.635dpi/90 lpi / 635 dpi: "
+{1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch 
+1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch 
+abs exch abs 2 copy add 1 gt {1 sub dup mul exch 1 sub dup mul add 1 
+sub }{dup mul exch dup mul add 1 exch sub }ifelse }"
+*End
+
+*%  For 75 lpi / 635 dpi  ===============================
+
+*ColorSepScreenAngle ProcessBlack.75lpi.635dpi/75 lpi / 635 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.75lpi.635dpi/75 lpi / 635 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.75lpi.635dpi/75 lpi / 635 dpi: "71.5651"
+*ColorSepScreenAngle ProcessMagenta.75lpi.635dpi/75 lpi / 635 dpi: "18.4349"
+*ColorSepScreenAngle ProcessYellow.75lpi.635dpi/75 lpi / 635 dpi: "0.0"
+
+*ColorSepScreenFreq ProcessBlack.75lpi.635dpi/75 lpi / 635 dpi: "74.8355"
+*ColorSepScreenFreq CustomColor.75lpi.635dpi/75 lpi / 635 dpi: "74.8355"
+*ColorSepScreenFreq ProcessCyan.75lpi.635dpi/75 lpi / 635 dpi: "66.9349"
+*ColorSepScreenFreq ProcessMagenta.75lpi.635dpi/75 lpi / 635 dpi: "66.9349"
+*ColorSepScreenFreq ProcessYellow.75lpi.635dpi/75 lpi / 635 dpi: "70.5556"
+
+*% *OpenUI *Separations: Boolean
+*% *OrderDependency: 50 AnySetup *Separations
+*% *DefaultSeparations: False
+*% *Separations True:  "<</Separations true>> setpagedevice"
+*% *% *Separations False: "<</Separations false>>setpagedevice"
+*% *?Separations: "currentpagedevice /Separations get {(True)} {(False)} ifelse ="
+*% *CloseUI: *Separations
+
+*% End of PPD file for Oce VarioPrint 2110 PS3
+
+

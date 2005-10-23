@@ -1,0 +1,1128 @@
+*PPD-Adobe: "4.3"
+*% ============================================================
+*% Printer Description File for OKIPAGE 14i
+*% Copyright 2000 Oki Data Corporation
+*%    Date: Oct 30, 2000  Edt: 15
+*% ----------------------------------------------------
+*% Id: okop14u1.ppd,v 1.1 2003/10/27 13:43:28 enacoste Exp 
+*% Source: /usr/cvs/esp/src/v4.4/ppd/en/o/okop14u1.ppd,v 
+*% ----------------------------------------------------
+*% ==========================================================
+*% GPL $Revision$ $RCSfile$
+*%
+*% Note)
+*% This PostScript Printer Description(PPD) file is free software; you
+*% can redistribute it and/or modify it under the terms of the GNU
+*% General Public License version 2 or later as published by the Free
+*% Software Foundation.
+*%
+*% In addition to the permissions in the GNU General Public License,
+*% Oki Data Corporation gives you unlimited permission to link the
+*% PostScript code fragments herein into your PostScript documents to
+*% form an excutable for enabling printer-specific features, and
+*% distribute those combinations without any restrictions from the use
+*% of this PPD file. (The General Public License restrictions do apply
+*% in other respects; for example, they cover modification of the
+*% file, and distribution when not merged into a PostScript document.)
+*%
+*% This PPD is distributed in the hope that it will be useful, but
+*% WITHOUT ANY WARRANTY; without even the implied warranty of
+*% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+*% General Public License for more details.
+*%
+*% You should have received a copy of the GNU General Public License
+*% along with this PPD; see the file COPYING.
+*%
+*% ============================================================
+*FormatVersion: "4.3"
+*FileVersion: "1.1"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+*PCFileName: "OKOP14U1.PPD"
+*Product: "(OKIPAGE 14i)"
+*PSVersion: "(2017.103) 20"
+*Manufacturer: "Oki"
+*ModelName: "OKIPAGE 14i"
+*ShortNickName: "OKIPAGE 14i"
+*NickName: "OKIPAGE 14i"
+
+*% _____ Options and Constraints __________________________________
+*OpenGroup: InstallableOptions/Options Installed
+*OpenUI *Option1/Optional Lower Tray: Boolean
+*DefaultOption1: False
+*Option1 True/Installed: ""
+*Option1 False/Not Installed: ""
+*?Option1: "
+	save
+		currentpagedevice /InputAttributes get begin
+		1 where {pop (True)} {(False)} ifelse
+		= flush
+		end
+	restore
+"
+*End
+*CloseUI: *Option1
+*OpenUI *Option2/Optional Multi-Feeder: Boolean
+*DefaultOption2: False
+*Option2 True/Installed: ""
+*Option2 False/Not Installed: ""
+*?Option2: "
+	save
+		currentpagedevice /InputAttributes get begin
+		4 where {pop (True)} {(False)} ifelse
+		= flush
+		end
+	restore
+"
+*End
+*CloseUI: *Option2
+*% ________________________________________________________________
+*OpenUI *InstalledMemory/Memory Configuration: PickOne
+*DefaultInstalledMemory: 8MB
+*InstalledMemory 8MB/8 MB : ""
+*InstalledMemory 16MB/16 MB : ""
+*InstalledMemory 24MB/24 MB : ""
+*InstalledMemory 40MB/40 MB : ""
+*?InstalledMemory : "
+	save
+		currentsystemparams /InstalledRam get
+		1024 idiv 1024 idiv (          ) cvs print (MB) = flush
+	restore
+"
+*End
+*CloseUI: *InstalledMemory
+*CloseGroup: InstallableOptions
+*% ________________________________________________________________
+*UIConstraints: *Option1 False *InputSlot Lower
+*UIConstraints: *Option2 False *InputSlot Multi-Feeder
+
+*%MultiFeeder UI Constraints Start
+
+*UIConstraints: *PageSize Legal *InputSlot Multi-Feeder 
+*UIConstraints: *PageSize Legal13 *InputSlot Multi-Feeder
+*UIConstraints: *InputSlot Multi-Feeder *PageSize Legal
+*UIConstraints: *InputSlot Multi-Feeder *PageSize Legal13
+
+
+*UIConstraints: *PageRegion Legal *InputSlot Multi-Feeder
+*UIConstraints: *PageRegion Legal *InputSlot Multi-Feeder
+*UIConstraints: *InputSlot Multi-Feeder *PageRegion Legal
+*UIConstraints: *InputSlot Multi-Feeder *PageRegion Legal13
+
+*%MultiFeeder UI Constraints End
+
+*UIConstraints: *InputSlot Lower *Option1 False
+*UIConstraints: *InputSlot Multi-Feeder *Option2 False
+*UIConstraints: *PageSize Env10 *InputSlot Upper
+*UIConstraints: *PageSize Env9 *InputSlot Upper
+*UIConstraints: *PageSize EnvDL *InputSlot Upper
+*UIConstraints: *PageSize EnvC5 *InputSlot Upper
+*UIConstraints: *PageSize EnvMonarch *InputSlot Upper
+*UIConstraints: *PageRegion Env10 *InputSlot Upper
+*UIConstraints: *PageRegion Env9 *InputSlot Upper
+*UIConstraints: *PageRegion EnvDL *InputSlot Upper
+*UIConstraints: *PageRegion EnvC5 *InputSlot Upper
+*UIConstraints: *PageRegion EnvMonarch *InputSlot Upper
+*UIConstraints: *InputSlot Upper *PageSize Env10
+*UIConstraints: *InputSlot Upper *PageSize Env9
+*UIConstraints: *InputSlot Upper *PageSize EnvDL
+*UIConstraints: *InputSlot Upper *PageSize EnvC5
+*UIConstraints: *InputSlot Upper *PageSize EnvMonarch
+*UIConstraints: *InputSlot Upper *PageRegion Env10
+*UIConstraints: *InputSlot Upper *PageRegion Env9
+*UIConstraints: *InputSlot Upper *PageRegion EnvDL
+*UIConstraints: *InputSlot Upper *PageRegion EnvC5
+*UIConstraints: *InputSlot Upper *PageRegion EnvMonarch
+*% Below line MUST be commented out for Win3.1 driver 
+*UIConstraints: *PageSize Env10 *InputSlot Lower
+*UIConstraints: *PageSize Env9 *InputSlot Lower
+*UIConstraints: *PageSize EnvDL *InputSlot Lower
+*UIConstraints: *PageSize EnvC5 *InputSlot Lower
+*UIConstraints: *PageSize EnvMonarch *InputSlot Lower
+*UIConstraints: *PageRegion Env10 *InputSlot Lower
+*UIConstraints: *PageRegion Env9 *InputSlot Lower
+*UIConstraints: *PageRegion EnvDL *InputSlot Lower
+*UIConstraints: *PageRegion EnvC5 *InputSlot Lower
+*UIConstraints: *PageRegion EnvMonarch *InputSlot Lower
+*UIConstraints: *InputSlot Lower *PageSize Env10
+*UIConstraints: *InputSlot Lower *PageSize Env9
+*UIConstraints: *InputSlot Lower *PageSize EnvDL
+*UIConstraints: *InputSlot Lower *PageSize EnvC5
+*UIConstraints: *InputSlot Lower *PageSize EnvMonarch
+*UIConstraints: *InputSlot Lower *PageRegion Env10
+*UIConstraints: *InputSlot Lower *PageRegion Env9
+*UIConstraints: *InputSlot Lower *PageRegion EnvDL
+*UIConstraints: *InputSlot Lower *PageRegion EnvC5
+*UIConstraints: *InputSlot Lower *PageRegion EnvMonarch
+*% Below line MUST be commented out for Win3.1 driver 
+*%UIConstraints: *InputSlot Upper *MediaType Transparency
+*UIConstraints: *MediaType Transparency *InputSlot Upper
+*%UIConstraints: *InputSlot Lower *MediaType Transparency
+*UIConstraints: *MediaType Transparency *InputSlot Lower
+*UIConstraints: *PageSize A6 *InputSlot Lower
+*UIConstraints: *PageRegion A6 *InputSlot Lower
+*UIConstraints: *InputSlot Lower *PageSize A6
+*UIConstraints: *InputSlot Lower *PageRegion A6
+*UIConstraints: *MediaType LIGHT *InputSlot ManualFeed
+*UIConstraints: *MediaType MEDIUMLIGHT *InputSlot ManualFeed
+*UIConstraints: *MediaType MEDIUM *InputSlot ManualFeed
+*UIConstraints: *MediaType MEDIUMHEAVY *InputSlot ManualFeed
+*UIConstraints: *MediaType HEAVY *InputSlot ManualFeed
+*UIConstraints: *InputSlot ManualFeed  *MediaType LIGHT 
+*UIConstraints: *InputSlot ManualFeed  *MediaType MEDIUMLIGHT 
+*UIConstraints: *InputSlot ManualFeed  *MediaType MEDIUM 
+*UIConstraints: *InputSlot ManualFeed  *MediaType MEDIUMHEAVY
+*UIConstraints: *InputSlot ManualFeed  *MediaType HEAVY
+
+*% _____ Device Capabilities ______________________________________
+*LanguageLevel: "2"
+*Protocols: TBCP PJL
+*JCLBegin: "<1B>%-12345X"
+*JCLToPSInterpreter: "@PJL ENTER LANGUAGE=POSTSCRIPT<0A>"
+*JCLEnd: "<1B>%-12345X"
+*Emulators: hplj
+*StartEmulator_hplj: "<1B>%-12345X@PJL ENTER LANGUAGE=PCL<0A>"
+*StopEmulator_hplj: "<1B>%-12345X"
+*% __________________
+*FreeVM: "1898416"
+*VMOption 8MB/Total RAM 8MB: "1898416"
+*VMOption 16MB/Total RAM 16MB: "4388784"
+*VMOption 24MB/Total RAM 24MB: "6928304"
+*VMOption 40MB/Total RAM 40MB: "14571440"
+*% _______________________________
+*FCacheSize 8MB: 657662
+*FCacheSize 16MB: 1404363
+*FCacheSize 24MB: 2161304
+*FCacheSize 40MB: 3675185
+*% ________________________________________________________________
+*ColorDevice: False
+*DefaultColorSpace: Gray
+*% __________________________
+*TTRasterizer: Type42
+*?TTRasterizer: "
+	save
+	42 /FontType resourcestatus
+	{pop pop (Type42)} {(No Type42)} ifelse = flush
+	restore
+	"
+*End
+*% __________________________
+*Throughput: "14"
+*Password: "()" 
+*ExitServer: "
+ count 0 eq
+ { false } { true exch startjob } ifelse
+ not { 
+     (WARNING: Cannot modify initial VM.) =
+     (Missing or invalid password.) =
+     (Please contact the author of this software.) = flush quit
+     } if
+"
+*End
+*Reset: "
+ count 0 eq
+ { false } { true exch startjob } ifelse
+ not { 
+    (WARNING: Cannot reset printer.) =
+    (Missing or invalid password.) =
+    (Please contact the author of this software.) = flush quit
+    } if
+ systemdict /quit get exec
+ (WARNING : Printer Reset Failed.) = flush
+"
+*End
+*% The following entries provide information about specific paper keywords.
+*DefaultImageableArea: A4
+*ImageableArea Letter: "14.16 12.1201 597.84 780.12 "
+*ImageableArea Legal: "14.16 12.12 597.84 996.12 "
+*ImageableArea Legal13: "14.16 12.12 597.84 924.12 "
+*ImageableArea A4: "13.4401 12.1201 581.76 829.56 "
+*ImageableArea A5: "13.0801 12.12 405.44 583.32 "
+*ImageableArea A6: "14.56 12.12 282.04 407.64 "
+*ImageableArea B5: "12.24 12.0 503.76 716.4 "
+*ImageableArea Executive: "15.12 12.0601 506.64 744.06 "
+*ImageableArea Env10: "13.00 12.1201 281.00 672.12 "
+*ImageableArea Env9: "12.00 12.12 266.99 627.48 "
+*ImageableArea EnvDL: "13.00 12.12 297.00 611.64 "
+*ImageableArea EnvC5: "14.7201 12.12 444.16 637.08 "
+*ImageableArea EnvMonarch: "12.0001 12.1201 266.76 528.12 "
+*?ImageableArea: "
+ save
+   /cvp { (                ) cvs print ( ) print } bind def
+   /upperright {10000 mul floor 10000 div} bind def
+   /lowerleft {10000 mul ceiling 10000 div} bind def
+   newpath clippath pathbbox
+   4 -2 roll exch 2 {lowerleft cvp} repeat
+   exch 2 {upperright cvp} repeat () = flush
+ restore
+"
+*End
+*% These provide the physical dimensions of the paper (by keyword)
+*DefaultPaperDimension: A4
+*PaperDimension Letter: "612 792"
+*PaperDimension Legal13: "612 936"
+*PaperDimension Legal: "612 1008"
+*PaperDimension A4: "595 842"
+*PaperDimension A5: "420 595"
+*PaperDimension A6: "297 420"
+*PaperDimension B5: "516 729"
+*PaperDimension Executive: "522 756"
+*PaperDimension Env10: "297 684"
+*PaperDimension Env9: "279 639"
+*PaperDimension EnvDL: "312 624"
+*PaperDimension EnvC5: "459 649"
+*PaperDimension EnvMonarch: "279 540"
+*% ________________________________________________________________
+*RequiresPageRegion All: True
+*% _______________________
+*OpenUI *InputSlot: PickOne
+*OrderDependency: 20.0 AnySetup *InputSlot
+*DefaultInputSlot: Upper
+*InputSlot Upper/Tray 1: "
+	1 dict dup /ManualFeed false put setpagedevice
+	0 statusdict /setpapertray 2 copy known
+	{ get {exec} stopped {pop} if } 
+	{pop pop pop} ifelse
+"
+*End
+*InputSlot Lower/Tray 2: "
+	1 dict dup /ManualFeed false put setpagedevice
+	1 statusdict /setpapertray 2 copy known
+	{ get {exec} stopped {pop} if } 
+	{pop pop pop} ifelse
+"
+*End
+*InputSlot Multi-Feeder/Multi Feeder: "
+	1 dict dup /ManualFeed false put setpagedevice
+	4 statusdict /setpapertray 2 copy known
+	{ get {exec} stopped {pop} if } 
+	{pop pop pop} ifelse
+"
+*End
+*InputSlot ManualFeed/Manual Feed: "
+    1 dict dup /ManualFeed true put setpagedevice"
+*End
+*?InputSlot: "
+  save
+  currentpagedevice /ManualFeed get
+  { (ManualFeed)}
+  {
+  	3 dict
+  	dup /0 (Upper) put
+  	dup /1 (Lower) put
+  	dup /4 (Multi-Feeder) put
+  
+    	currentpagedevice /InputAttributes get
+  		dup /Priority known
+  		{ /Priority get 0 get (      ) cvs cvn get }
+  		{
+    		dup length 1 eq
+    		{ {pop} forall (       ) cvs cvn get }
+    		{ pop pop (Unknown) } ifelse
+  	} ifelse
+  } ifelse
+  = flush
+restore
+"
+*End
+*CloseUI: *InputSlot
+*% _____ Paper Handling __________________________________________
+*LandscapeOrientation: Any
+*% Code in this section both selects a tray and sets up a frame buffer.
+*OpenUI *PageSize: PickOne
+*OrderDependency: 40.0 AnySetup *PageSize
+*DefaultPageSize: A4
+*PageSize Letter: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [612 792] >> setpagedevice } stopped 
+{  3 dict dup /PageSize [612 792] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if "
+*End
+*PageSize Legal: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [612 1008] >> setpagedevice } stopped 
+{  3 dict dup /PageSize [612 1008] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if "
+*End
+*PageSize Legal13: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [612 936] >> setpagedevice } stopped 
+{  3 dict dup /PageSize [612 936] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if "
+*End
+*PageSize A4: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [595 842] >> setpagedevice } stopped
+{  3 dict dup /PageSize [595 842] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End
+*PageSize A5: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [420 595] >> setpagedevice } stopped
+{  3 dict dup /PageSize [420 595] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End
+*PageSize A6: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [297 420] >> setpagedevice } stopped
+{  3 dict dup /PageSize [297 420] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End
+*PageSize B5: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [516 729] >> setpagedevice } stopped
+{  3 dict dup /PageSize [516 729] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End
+*PageSize Executive: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [522 756] >> setpagedevice } stopped
+{  3 dict dup /PageSize [522 756] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End
+*PageSize Env10: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [297 684] >> setpagedevice } stopped
+{  3 dict dup /PageSize [297 684] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End
+*PageSize Env9: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [279 639] >> setpagedevice } stopped
+{  3 dict dup /PageSize [279 639] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End
+*PageSize EnvDL: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [312 624] >> setpagedevice } stopped
+{  3 dict dup /PageSize [312 624] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End
+*PageSize EnvC5: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [459 649] >> setpagedevice } stopped
+{  3 dict dup /PageSize [459 649] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End
+*PageSize EnvMonarch: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [279 540] >> setpagedevice } stopped
+{  3 dict dup /PageSize [279 540] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End
+*?PageSize: "
+ save
+   currentpagedevice /PageSize get aload pop
+   2 copy gt {exch} if 
+   (Unknown) 
+  13 dict
+   dup [612 792] (Letter) put
+   dup [612 1008] (Legal) put
+   dup [612 936] (Legal13) put
+   dup [595 842] (A4) put
+   dup [420 595] (A5) put
+   dup [297 420] (A6) put
+   dup [516 729] (B5) put
+   dup [522 756] (Executive) put
+   dup [297 684] (Env10) put
+   dup [279 639] (Env9) put
+   dup [312 624] (EnvDL) put
+   dup [459 649] (EnvC5) put
+   dup [279 540] (EnvMonarch) put
+ { exch aload pop 4 index sub abs 5 le exch 
+   5 index sub abs 5 le and 
+      {exch pop exit} {pop} ifelse
+   } bind forall
+   = flush pop pop
+restore 
+"
+*End
+*CloseUI: *PageSize
+*% _______________________________________________
+*OpenUI *PageRegion:  PickOne
+*OrderDependency: 50.0 AnySetup *PageRegion
+*DefaultPageRegion: A4
+*PageRegion Letter: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [612 792] >> setpagedevice } stopped
+{   3 dict dup /PageSize [612 792] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End
+*PageRegion Legal: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [612 1008] >> setpagedevice } stopped 
+{  3 dict dup /PageSize [612 1008] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if "
+*End
+*PageRegion Legal13: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [612 936] >> setpagedevice } stopped 
+{  3 dict dup /PageSize [612 936] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if "
+*End
+*PageRegion A4: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [595 842] >> setpagedevice } stopped
+{  3 dict dup /PageSize [595 842] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End
+*PageRegion A5: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [420 595] >> setpagedevice } stopped
+{  3 dict dup /PageSize [420 595] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End
+*PageRegion A6: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [297 420] >> setpagedevice } stopped
+{  3 dict dup /PageSize [297 420] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End
+*PageRegion B5: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [516 729] >> setpagedevice } stopped
+{  3 dict dup /PageSize [516 729] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End
+*PageRegion Executive: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [522 756] >> setpagedevice } stopped
+{  3 dict dup /PageSize [522 756] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End
+*PageRegion Env10: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [297 684] >> setpagedevice } stopped
+{  3 dict dup /PageSize [297 684] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End
+*PageRegion Env9: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [279 639] >> setpagedevice } stopped
+{  3 dict dup /PageSize [279 639] put dup /ImagingBBox null put
+    dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End
+*PageRegion EnvDL: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [312 624] >> setpagedevice } stopped
+{  3 dict dup /PageSize [312 624] put dup /ImagingBBox null put
+   dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End
+*PageRegion EnvC5: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [459 649] >> setpagedevice } stopped
+{  3 dict dup /PageSize [459 649] put dup /ImagingBBox null put
+   dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End
+*PageRegion EnvMonarch: "
+statusdict /papertray 2 copy known{
+get exec statusdict /setpapertray 2 copy known
+	{1 dict begin currentpagedevice /ManualFeed get /OK_MAN exch def get exec  
+	 OK_MAN { 1 dict dup /ManualFeed true put setpagedevice} if end
+	} {pop pop} ifelse
+} { pop pop} ifelse
+{ << /PageSize [279 540] >> setpagedevice } stopped
+{  3 dict dup /PageSize [279 540] put dup /ImagingBBox null put
+   dup /Policies 1 dict dup /PageSize 7 put put setpagedevice } if"
+*End  
+*CloseUI: *PageRegion
+*% _____ Media Type _____
+*% This selection must be later than manual feed selection
+*OpenUI *MediaType/Paper Type: PickOne
+*OrderDependency: 60.0 AnySetup *MediaType
+*DefaultMediaType: PrSetting
+*MediaType PrSetting/Printer Setting: "
+"
+*End
+*MediaType LIGHT/Light: "
+currentpagedevice /ManualFeed get false eq {
+	2 dict begin
+	statusdict /papertray 2 copy known
+	{
+    	get {exec}stopped{pop}{
+     		/OK_TRAY exch def
+   	  		currentpagedevice 
+    		/InputAttributes get OK_TRAY get /PageSize get /OK_IASZ exch def
+   			3 dict dup /InputAttributes 1 dict dup OK_TRAY 3 dict dup
+   			/PageSize OK_IASZ put dup /MediaType (Plain) put dup
+   			/MediaWeight 60 put put put dup /PageSize currentpagedevice 
+   			/PageSize get dup == put dup /MediaType (Plain) put
+   			dup /MediaWeight 60 put setpagedevice
+	 	} ifelse
+	}{pop pop}ifelse
+	end
+} if"
+*End
+*MediaType MEDIUMLIGHT/Medium-Light: "
+currentpagedevice /ManualFeed get false eq {
+	2 dict begin
+	statusdict /papertray 2 copy known
+	{
+    	get {exec}stopped{pop}{
+     		/OK_TRAY exch def
+   	  		currentpagedevice 
+    		/InputAttributes get OK_TRAY get /PageSize get /OK_IASZ exch def
+   			3 dict dup /InputAttributes 1 dict dup OK_TRAY 3 dict dup
+   			/PageSize OK_IASZ put dup /MediaType (Plain) put dup
+   			/MediaWeight 68 put put put dup /PageSize currentpagedevice 
+   			/PageSize get dup == put dup /MediaType (Plain) put
+   			dup /MediaWeight 68 put setpagedevice
+	 	} ifelse
+	}{pop pop}ifelse
+	end
+} if"
+*End
+*MediaType MEDIUM/Medium: "
+currentpagedevice /ManualFeed get false eq {
+	2 dict begin
+	statusdict /papertray 2 copy known
+	{
+    	get {exec}stopped{pop}{
+     		/OK_TRAY exch def
+   	  		currentpagedevice 
+    		/InputAttributes get OK_TRAY get /PageSize get /OK_IASZ exch def
+   			3 dict dup /InputAttributes 1 dict dup OK_TRAY 3 dict dup
+   			/PageSize OK_IASZ put dup /MediaType (Plain) put dup
+   			/MediaWeight 75 put put put dup /PageSize currentpagedevice 
+   			/PageSize get dup == put dup /MediaType (Plain) put
+   			dup /MediaWeight 75 put setpagedevice
+	 	} ifelse
+	}{pop pop}ifelse
+	end
+} if"
+*End
+*MediaType MEDIUMHEAVY/Medium-Heavy: "
+currentpagedevice /ManualFeed get false eq {
+	2 dict begin
+	statusdict /papertray 2 copy known
+	{
+    	get {exec}stopped{pop}{
+     		/OK_TRAY exch def
+   	  		currentpagedevice 
+    		/InputAttributes get OK_TRAY get /PageSize get /OK_IASZ exch def
+   			3 dict dup /InputAttributes 1 dict dup OK_TRAY 3 dict dup
+   			/PageSize OK_IASZ put dup /MediaType (Plain) put dup
+   			/MediaWeight 90 put put put dup /PageSize currentpagedevice 
+   			/PageSize get dup == put dup /MediaType (Plain) put
+   			dup /MediaWeight 90 put setpagedevice
+	 	} ifelse
+	}{pop pop}ifelse
+	end
+} if"
+*End
+*MediaType HEAVY/Heavy: "
+currentpagedevice /ManualFeed get false eq {
+	2 dict begin
+	statusdict /papertray 2 copy known
+	{
+    	get {exec}stopped{pop}{
+     		/OK_TRAY exch def
+   	  		currentpagedevice 
+    		/InputAttributes get OK_TRAY get /PageSize get /OK_IASZ exch def
+   			3 dict dup /InputAttributes 1 dict dup OK_TRAY 3 dict dup
+   			/PageSize OK_IASZ put dup /MediaType (Plain) put dup
+   			/MediaWeight 105 put put put dup /PageSize currentpagedevice 
+   			/PageSize get dup == put dup /MediaType (Plain) put
+   			dup /MediaWeight 105 put setpagedevice
+	 	} ifelse
+	}{pop pop}ifelse
+	end
+} if"
+*End
+*MediaType Transparency/Transparency: "
+	currentpagedevice /InputAttributes get /Priority get 0 get dup
+	3 eq 2 -1 roll 4 eq  xor currentpagedevice /ManualFeed get or
+	{
+		2 dict
+			dup /MediaType (Transparency) put
+			dup /InputAttributes mark
+				currentpagedevice /InputAttributes get
+				{
+					dup type /dicttype eq {
+						dup length 1 add dict begin {def} forall
+						/MediaType (Transparency) def
+						currentdict end
+					} if
+				} forall
+				counttomark 2 idiv dup dict begin {def} repeat
+				pop currentdict end
+			put
+		setpagedevice
+	}
+	{
+		2 dict
+			dup /MediaType null put
+			dup /InputAttributes mark
+				currentpagedevice /InputAttributes get
+				{
+					dup type /dicttype eq {
+						dup length 1 add dict begin {def} forall
+						/MediaType (Plain) def
+						currentdict end
+					} if
+				} forall
+				counttomark 2 idiv dup dict begin {def} repeat
+				pop currentdict end
+			put
+		setpagedevice
+	} ifelse
+" 
+*End
+*CloseUI: *MediaType
+*% ________________________________________________________________
+*OpenUI *Resolution:  PickOne
+*OrderDependency: 70.0 AnySetup *Resolution
+*DefaultResolution: 600dpi
+*Resolution 300dpi/300dpi: "
+1 dict dup /HWResolution [300 300] put setpagedevice
+1 dict dup /Policies 1 dict dup /HWResolution 2 put put setpagedevice"
+*End
+*Resolution 600dpi/600dpi: "
+1 dict dup /HWResolution [600 600] put setpagedevice
+1 dict dup /Policies 1 dict dup /HWResolution 2 put put setpagedevice"
+*End
+*Resolution 1200dpi/1200dpi: "
+1 dict dup /HWResolution [600 1200] put setpagedevice
+1 dict dup /Policies 1 dict dup /HWResolution 2 put put setpagedevice"
+*End
+*?Resolution: "
+  save
+    currentpagedevice /HWResolution get
+    1 get (       ) cvs print
+    (dpi)
+    = flush
+  restore
+"
+*End
+*CloseUI: *Resolution
+*% ________________________________________________________________
+*OpenUI *TraySwitch:  Boolean
+*OrderDependency: 80.0 AnySetup *TraySwitch
+*DefaultTraySwitch: False
+*TraySwitch True: "1 dict dup /TraySwitch true put setpagedevice"
+*TraySwitch False: "1 dict dup /TraySwitch false put setpagedevice"
+*?TraySwitch: "
+save
+  currentpagedevice /TraySwitch get
+  {(True)}{(False)}ifelse = flush
+restore
+"
+*End
+*CloseUI: *TraySwitch
+*% _______________________________________
+*OpenUI *OutputMode/TonerSaveMode:  PickOne
+*OrderDependency: 90.0 AnySetup *OutputMode
+*DefaultOutputMode: None
+*OutputMode None/Disable: "
+    2 dict
+    dup /PostRenderingEnhance false put
+    dup /PostRenderingEnhanceDetails
+    2 dict
+    	dup /Type 28 put
+    	dup /TonerSaver 0 put
+    put setpagedevice"
+*End
+*OutputMode Medium/Medium: "
+    2 dict
+    dup /PostRenderingEnhance true put
+    dup /PostRenderingEnhanceDetails
+    2 dict
+    	dup /Type 28 put
+    	dup /TonerSaver 1 put
+    put setpagedevice"
+*End
+*OutputMode Light/Light: "
+    2 dict
+    dup /PostRenderingEnhance true put
+    dup /PostRenderingEnhanceDetails
+    2 dict
+    	dup /Type 28 put
+    	dup /TonerSaver 2 put
+    put setpagedevice"
+*End
+*?OutputMode: "save
+ currentpagedevice dup /PostRenderingEnhance known
+ {dup /PostRenderingEnhance get
+  	{ /PostRenderingEnhanceDetails get
+    	  dup /Type get 28 eq
+   		{ dup /TonerSaver get 2 gt 
+    			{ pop (None)}
+    			{ dup /TonerSaver get 0 eq
+    				{pop (None)}
+    				{dup /TonerSaver get 1 eq 
+					{pop (Medium)} {pop  (Light)} ifelse
+				} ifelse
+    			} ifelse
+  		}
+   		{pop (None)} ifelse
+  	}
+  	{pop (None)} ifelse
+ }
+ {pop (None)} ifelse
+ = flush
+restore"
+*End
+*CloseUI: *OutputMode
+*% _____ Halftone Information ____________________________________
+*DefaultHalftoneType: 3
+*ScreenFreq: "85.0"
+*ScreenAngle: "45.0"
+*DefaultScreenProc: Dot
+*ScreenProc Dot: "
+  {abs exch abs 2 copy add 1 gt {1 sub dup mul exch  
+  1 sub dup mul add 1 sub} {dup mul exch dup mul  
+  add 1 exch sub} ifelse}
+ "
+*End
+*ScreenProc Line: "{ pop }"
+*ScreenProc Ellipse: "{ dup 5 mul 8 div mul exch dup mul exch add sqrt 1 exch sub }"
+*DefaultTransfer: Null
+*Transfer Null: "{ }"
+*Transfer Null.Inverse: "{ 1 exch sub }"
+*% _____ Halftone Mode _____________________________________
+*OpenUI *OKHalftoneMode/Gray Scale: PickOne
+*OrderDependency: 100.0 PageSetup *OKHalftoneMode
+*DefaultOKHalftoneMode: Photo
+*OKHalftoneMode Regular/Regular: "
+	currentpagedevice /HWResolution get
+	 1 get dup 600 eq
+		{pop /DefaultBW600 /Halftone findresource sethalftone} 
+		{1200 eq
+			{/DefaultBW1200 /Halftone findresource sethalftone} 
+			{/DefaultBW300 /Halftone findresource sethalftone} 
+ifelse
+		} ifelse
+"
+*End
+*OKHalftoneMode Photo/Photo: "
+	currentpagedevice /HWResolution get
+	1 get dup 600 eq
+		{pop /Oki16x16aBW600t /Halftone findresource sethalftone}
+		{1200 eq
+			{/Oki16x16aBW1200t /Halftone findresource 
+	sethalftone}
+			{/Oki12x12aBW300t /Halftone findresource 
+	sethalftone} ifelse
+		   } ifelse
+	"
+*End
+*?OKHalftoneMode: "
+   save
+   currenthalftone /HalftoneType get
+   1 eq {(Regular)}{(Photo)} ifelse
+   = flush
+   restore
+   "
+*End
+*CloseUI: *OKHalftoneMode
+*% _____ Font Information _________________________________________
+*DefaultFont: Courier
+*Font AdobeSansMM: Standard "(001.000)" Standard ROM
+*Font AdobeSerifMM: Standard "(001.001)" Standard ROM
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Special ROM
+*?FontQuery: "
+ save
+   { count 1 gt
+      { exch dup 127 string cvs (/) print print (:) print
+        /Font resourcestatus {pop pop (Yes)} {(No)} ifelse =
+      } { exit } ifelse 
+   } bind loop
+   (*) = flush
+ restore
+"
+*End
+*?FontList: "
+save
+  (*) {cvn ==} 128 string /Font resourceforall
+  (*) = flush
+restore
+"
+*End
+*%  Printer Messages (verbatim from printer): ________________
+*Message: "%%[ exitserver: permanent state may be changed ]%%"
+*Message: "%%[ Flushing: rest of job (to end-of-file) will be ignored ]%%"
+*Message: "\FontName\ not found, using Courier"
+*% Status (format: %%[ status: <Message from the list below> ] %%)
+*Status: "idle"
+*Status: "busy"
+*Status: "waiting"
+*Status: "PrinterError:Complex page, image approximated"  
+*Status: "PrinterError:toner low"
+*Status: "PrinterError:change drum"
+*Status: "PrinterError:waiting for manual feed"
+*Status: "PrinterError:either paper empty, or no tray installed"
+*Status: "PrinterError:paper change request"
+*Status: "PrinterError:memory overflow"
+*Status: "PrinterError:Complex page, imaging incomplete"  
+*Status: "PrinterError:toner empty"
+*Status: "PrinterError:paper size error"
+*Status: "PrinterError:hopping error"
+*Status: "PrinterError:paper feed jam"
+*Status: "PrinterError:paper exit jam"
+*Status: "PrinterError:cover open"
+*Status: "PrinterError:front panel i/o timeout"
+*Status: "PrinterError:engine i/o timeout"
+*Status: "PrinterError:option unit i/o timeout"
+*Status: "PrinterError:option unit i/o error"
+*Status: "PrinterError:fan motor error"
+*Status: "PrinterError:toner sensor error"
+*Status: "PrinterError:front cover open"
+*Status: "PrinterError:ejecting"
+*Status: "PrinterError:engine ssio error"
+*Status: "PrinterError:thermister open"
+*Status: "PrinterError:thermister short"
+*Status: "PrinterError:engine timer 1 error"
+*Status: "PrinterError:engine timer 2 error"
+*Status: "PrinterError:engine interval timer error"
+*Status: "PrinterError:fuser error"
+*Status: "PrinterError:fuser can not turn off"
+*Status: "PrinterError:thermistor ng"
+*Status: "PrinterError:memory error"
+*Status: "PrinterError:led head error"
+
+*% Input Sources (format: %%[ status: <stat>; source: <one of these> ]%% )
+*Source: "Parallel"
+*Source: "Serial"
+*Source: "Usb"
+*Source: "EtherTalk"
+*Source: "NetworkInterface"
+*PrinterError: "Complex page, image approximated"  
+*PrinterError: "toner low"
+*PrinterError: "change drum"
+*PrinterError: "waiting for manual feed"
+*PrinterError: "either paper empty, or no tray installed"
+*PrinterError: "paper change request"
+*PrinterError: "memory overflow"
+*PrinterError: "Complex page, imaging incomplete"  
+*PrinterError: "toner empty"
+*PrinterError: "paper size error"
+*PrinterError: "hopping error"
+*PrinterError: "paper feed jam"
+*PrinterError: "paper exit jam"
+*PrinterError: "cover open"
+*PrinterError: "front panel i/o timeout"
+*PrinterError: "engine i/o timeout"
+*PrinterError: "option unit i/o timeout"
+*PrinterError: "option unit i/o error"
+*PrinterError: "fan motor error"
+*PrinterError: "toner sensor error"
+*PrinterError: "front cover open"
+*PrinterError: "ejecting"
+*PrinterError: "engine ssio error"
+*PrinterError: "thermister open"
+*PrinterError: "thermister short"
+*PrinterError: "engine timer 1 error"
+*PrinterError: "engine timer 2 error"
+*PrinterError: "engine interval timer error"
+*PrinterError: "fuser error" 
+*PrinterError: "fuser can not turn off" 
+*PrinterError: "thermistor ng"
+*PrinterError: "memory error"
+*PrinterError: "led head error"
+*% _____ Color Separation Information _____________________________
+*DefaultColorSep: ProcessBlack.85lpi.600dpi/85 lpi / 600 dpi
+*%  For 85 lpi / 600 dpi  ===============================
+*ColorSepScreenAngle ProcessBlack.85lpi.600dpi/85 lpi / 600 dpi: "45"
+*ColorSepScreenAngle CustomColor.85lpi.600dpi/85 lpi / 600 dpi: "45"
+*ColorSepScreenAngle ProcessCyan.85lpi.600dpi/85 lpi / 600 dpi: "15"
+*ColorSepScreenAngle ProcessMagenta.85lpi.600dpi/85 lpi / 600 dpi: "75"
+*ColorSepScreenAngle ProcessYellow.85lpi.600dpi/85 lpi / 600 dpi: "0"
+*ColorSepScreenFreq ProcessBlack.85lpi.600dpi/85 lpi / 600 dpi: "85"
+*ColorSepScreenFreq CustomColor.85lpi.600dpi/85 lpi / 600 dpi: "85"
+*ColorSepScreenFreq ProcessCyan.85lpi.600dpi/85 lpi / 600 dpi: "85"
+*ColorSepScreenFreq ProcessMagenta.85lpi.600dpi/85 lpi / 600 dpi: "85"
+*ColorSepScreenFreq ProcessYellow.85lpi.600dpi/85 lpi / 600 dpi: "85"
+*%  For 71 lpi / 600 dpi  ===============================
+*ColorSepScreenAngle ProcessBlack.71lpi.600dpi/71 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.71lpi.600dpi/71 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.71lpi.600dpi/71 lpi / 600 dpi: "71.5651"
+*ColorSepScreenAngle ProcessMagenta.71lpi.600dpi/71 lpi / 600 dpi: "18.4349"
+*ColorSepScreenAngle ProcessYellow.71lpi.600dpi/71 lpi / 600 dpi: "0.0"
+*ColorSepScreenFreq ProcessBlack.71lpi.600dpi/71 lpi / 600 dpi: "71"
+*ColorSepScreenFreq CustomColor.71lpi.600dpi/71 lpi / 600 dpi: "71"
+*ColorSepScreenFreq ProcessCyan.71lpi.600dpi/71 lpi / 600 dpi: "71"
+*ColorSepScreenFreq ProcessMagenta.71lpi.600dpi/71 lpi / 600 dpi: "71"
+*ColorSepScreenFreq ProcessYellow.71lpi.600dpi/71 lpi / 600 dpi: "71"
+*%  For 60 lpi / 300 dpi  ===============================
+*ColorSepScreenAngle ProcessBlack.60lpi.300dpi/60 lpi / 300 dpi: "45"
+*ColorSepScreenAngle CustomColor.60lpi.300dpi/60 lpi / 300 dpi: "45"
+*ColorSepScreenAngle ProcessCyan.60lpi.300dpi/60 lpi / 300 dpi: "15"
+*ColorSepScreenAngle ProcessMagenta.60lpi.300dpi/60 lpi / 300 dpi: "75"
+*ColorSepScreenAngle ProcessYellow.60lpi.300dpi/60 lpi / 300 dpi: "0"
+*ColorSepScreenFreq ProcessBlack.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq CustomColor.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq ProcessCyan.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq ProcessMagenta.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq ProcessYellow.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*%  For 53 lpi / 300 dpi  ===============================
+*ColorSepScreenAngle ProcessBlack.53lpi.300dpi/53 lpi / 300 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.53lpi.300dpi/53 lpi / 300 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.53lpi.300dpi/53 lpi / 300 dpi: "71.5651"
+*ColorSepScreenAngle ProcessMagenta.53lpi.300dpi/53 lpi / 300 dpi: "18.4349"
+*ColorSepScreenAngle ProcessYellow.53lpi.300dpi/53 lpi / 300 dpi: "0.0"
+*ColorSepScreenFreq ProcessBlack.53lpi.300dpi/53 lpi / 300 dpi: "53.033"
+*ColorSepScreenFreq CustomColor.53lpi.300dpi/53 lpi / 300 dpi: "53.033"
+*ColorSepScreenFreq ProcessCyan.53lpi.300dpi/53 lpi / 300 dpi: "47.4342"
+*ColorSepScreenFreq ProcessMagenta.53lpi.300dpi/53 lpi / 300 dpi: "47.4342"
+*ColorSepScreenFreq ProcessYellow.53lpi.300dpi/53 lpi / 300 dpi: "50.0"
+
+*% End of PPD file for Okipge14i
