@@ -32,6 +32,10 @@ PREFIX=$(prefix)
 # The location where to install the database
 LIBDIR=$(datadir)/foomatic
 
+# Variables for CUPS
+CUPS_PPDS=@CUPS_PPDS@
+PPDS_TO_CUPS=@PPDS_TO_CUPS@
+
 # Variables for gzipping the custom PPD files
 GZIP=@GZIP@
 GZIP_PPDS=@GZIP_PPDS@
@@ -57,6 +61,10 @@ install-db:
 	tar cf - --exclude=CVS db | ( cd $(DESTDIR)$(LIBDIR) && tar xf -)
 	if test $(GZIP) != GZIP_NOT_FOUND -a $(GZIP_PPDS) != no ; then \
 	  GZIP='' find $(DESTDIR)$(LIBDIR)/db/source/PPD -name "*.ppd" -exec $(GZIP) "{}" \; ; \
+	fi
+	if test $(CUPS_PPDS) != CUPS_PPDS_NOT_FOUND -a $(PPDS_TO_CUPS) != no ; then \
+	  install -d $(DESTDIR)$(CUPS_PPDS); \
+	  ln -sf $(LIBDIR)/db/source/PPD $(DESTDIR)$(CUPS_PPDS)/foomatic-db-ppds; \
 	fi
 
 build:
