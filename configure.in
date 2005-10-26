@@ -11,6 +11,33 @@ dnl Checks for programs.
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 
+SBINSEARCHPATH=/usr/sbin:/sbin:/usr/local/sbin:/etc/sbin
+BINSEARCHPATH=/usr/bin:/bin:/usr/local/bin
+BSB=$BINSEARCHPATH:$SBINSEARCHPATH
+AC_PATH_PROG(GZIP,gzip,GZIP_NOT_FOUND,$BSB)
+
+dnl disable PPD file compression
+AC_MSG_CHECKING(PPD file gzip compression)
+AC_ARG_ENABLE( gzip-ppds,
+[  --disable-gzip-ppds     disable gzipping of custom PPD files],
+[
+if test "$enableval" = "yes" ; then
+	GZIP_PPDS=yes;
+else
+	GZIP_PPDS=no;
+fi
+],
+[
+if test "$GZIP" != "GZIP_NOT_FOUND" ; then
+	GZIP_PPDS=yes;
+else
+	GZIP_PPDS=no;
+fi
+],
+)
+AC_MSG_RESULT($GZIP_PPDS)
+AC_SUBST(GZIP_PPDS)
+
 dnl AC_OUTPUT(Makefile src/Makefile)
 AC_OUTPUT(Makefile)
 

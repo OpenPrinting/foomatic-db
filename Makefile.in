@@ -32,6 +32,10 @@ PREFIX=$(prefix)
 # The location where to install the database
 LIBDIR=$(datadir)/foomatic
 
+# Variables for gzipping the custom PPD files
+GZIP=@GZIP@
+GZIP_PPDS=@GZIP_PPDS@
+
 # This is mainly useful for building a binary foomatic package
 DESTDIR=/
 
@@ -51,6 +55,9 @@ install: install-db
 install-db:
 	install -d $(DESTDIR)$(LIBDIR)
 	tar cf - --exclude=CVS db | ( cd $(DESTDIR)$(LIBDIR) && tar xf -)
+	if test $(GZIP) != GZIP_NOT_FOUND -a $(GZIP_PPDS) != no ; then \
+	  GZIP='' find $(DESTDIR)$(LIBDIR)/db/source/PPD -name "*.ppd" -exec $(GZIP) "{}" \; ; \
+	fi
 
 build:
 	@echo "Nothing to compile/build, use \"make install\" to install the database."
