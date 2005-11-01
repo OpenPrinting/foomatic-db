@@ -1,0 +1,1122 @@
+*PPD-Adobe: "4.3"
+*%
+*%  Printer Description file
+*%    for "Ricoh Aficio 3260C PXL"
+*%
+*%    CreationDate: 2004/03/18
+*%    Modified:     2005/10/31
+*%
+*%    COPYRIGHT (C) 2004-2005 RICOH COMPANY, LTD.
+*%    
+*%    Permission is hereby granted, free of charge, to any person obtaining
+*%    a copy of this software and associated documentation files (the
+*%    "Software"), to deal in the Software without restriction, including
+*%    without limitation the rights to use, copy, modify, merge, publish,
+*%    distribute, sublicense, and/or sell copies of the Software, and to
+*%    permit persons to whom the Software is furnished to do so, subject to
+*%    the following conditions:
+*%    
+*%    The above copyright notice and this permission notice shall be
+*%    included in all copies or substantial portions of the Software.
+*%    
+*%    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+*%    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+*%    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+*%    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+*%    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+*%    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+*%    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*%    
+*%    [this is the MIT open source license -- please see www.opensource.org]
+*%
+
+
+*FileVersion: "1.1"
+*FormatVersion: "4.3"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+*ModelName: "Ricoh Aficio 3260C"
+*PCFileName: "RI3260C3.PPD"
+*Manufacturer: "Ricoh"
+*Product: "(RICOH Aficio 3260C PS3)"
+*PSVersion: "(3015.102) 2"
+*ShortNickName: "Ricoh Aficio 3260C PXL"
+*NickName: "Ricoh Aficio 3260C PXL"
+
+*cupsVersion:      1.0
+*cupsManualCopies: True
+*cupsModelNumber:  2
+*cupsFilter:       "application/vnd.cups-postscript 0 foomatic-rip"
+
+*%========== Basic Device Capabilities ==========
+
+*LanguageLevel: "3"
+*ColorDevice: True
+*DefaultColorSpace: CMYK
+*TTRasterizer: Type42
+*FileSystem: True
+*Throughput: "60"
+*LandscapeOrientation: Minus90
+
+*%========== Installable Options ==========
+*%========== & System Management ==========
+
+*OpenGroup: InstallableOptions/Installable Options
+
+*OpenUI *Option2LargeCapacityTray/Large Capacity Tray: PickOne
+*DefaultOption2LargeCapacityTray: False
+*Option2LargeCapacityTray False/Not Installed: ""
+*Option2LargeCapacityTray True/Installed: ""
+*CloseUI *Option2LargeCapacityTray
+
+*OpenUI *Option40Mailbox/Mailbox: PickOne
+*DefaultOption40Mailbox: False
+*Option40Mailbox False/Not Installed: ""
+*Option40Mailbox True/Installed: ""
+*CloseUI *Option40Mailbox
+
+*OpenUI *Option30Finisher/Finisher: PickOne
+*DefaultOption30Finisher: None
+*Option30Finisher None/Not Installed: ""
+*Option30Finisher FinEUPHPOS/Finisher MEC BK: ""
+*Option30Finisher FinEUPHIMPOS/Finisher MEC: ""
+*Option30Finisher FinVICTORIAC/Finisher 3000B: ""
+*CloseUI *Option30Finisher
+
+
+*CloseGroup: InstallableOptions
+
+*%========== Ghostscript Command line ==========
+
+*FoomaticIDs: Ricoh-Aficio_3260C pxlmono
+*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE%B%A%C -sOutputFile=- - %D%E"
+
+*OpenGroup: General
+*OpenUI *ColorModel/Color Mode: PickOne
+*FoomaticRIPOption ColorModel: enum Composite B
+*OrderDependency: 10 AnySetup *ColorModel
+*DefaultColorModel: Color
+*ColorModel Color/Color: "%% FoomaticRIPOptionSetting: ColorModel=Color"
+*FoomaticRIPOptionSetting ColorModel=Color: "JCLDatamode=Color GSCmdLine=Color"
+*ColorModel Grayscale/Grayscale: "%% FoomaticRIPOptionSetting: ColorModel=Grayscale"
+*FoomaticRIPOptionSetting ColorModel=Grayscale: "JCLDatamode=Grayscale GSCmdLine=Grayscale"
+*CloseUI: *ColorModel
+
+*FoomaticRIPOption GSCmdLine: enum CmdLine B 10
+*FoomaticRIPOptionSetting GSCmdLine=FromColorModel: ""
+*FoomaticRIPOptionSetting GSCmdLine=Color: " -sDEVICE=pxlcolor"
+*End
+*FoomaticRIPOptionSetting GSCmdLine=Grayscale: " -sDEVICE=pxlmono"
+*End
+
+*FoomaticRIPOption JCLDatamode: enum JCL B 10
+*FoomaticRIPOptionSetting JCLDatamode=FromColorModel: ""
+*FoomaticRIPOptionSetting JCLDatamode=Color: "SET DATAMODE=COLOR"
+*FoomaticRIPOptionSetting JCLDatamode=Grayscale: "SET DATAMODE=GRAYSCALE"
+
+*OpenUI *Resolution/Resolution: PickOne
+*FoomaticRIPOption Resolution: enum Composite A
+*OrderDependency: 15 AnySetup *Resolution
+*DefaultResolution: 600dpi
+*Resolution 600dpi:  "%% FoomaticRIPOptionSetting: Resolution=600dpi"
+*FoomaticRIPOptionSetting Resolution=600dpi: "JCLResolution=600dpi GSResolution=600dpi"
+*CloseUI: *Resolution
+
+*FoomaticRIPOption GSResolution: enum CmdLine A 15
+*FoomaticRIPOptionSetting GSResolution=FromResolution: ""
+*FoomaticRIPOptionSetting GSResolution=600dpi: " -r600x600"
+
+*FoomaticRIPOption JCLResolution: enum JCL A 15
+*FoomaticRIPOptionSetting JCLResolution=FromResolution: ""
+*FoomaticRIPOptionSetting JCLResolution=600dpi: "SET RESOLUTION=600"
+
+
+*%========== Media Selection ==========
+
+*HWMargins:      12 12 12 12
+*OpenUI *PageSize/PageSize: PickOne
+*FoomaticRIPOption PageSize: enum CmdLine C
+*OrderDependency: 20 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
+*FoomaticRIPOptionSetting PageSize=A3: " -sPAPERSIZE=a3"
+*PageSize A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
+*FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4"
+*PageSize 11x17/11x17: "%% FoomaticRIPOptionSetting: PageSize=11x17"
+*FoomaticRIPOptionSetting PageSize=11x17: " -sPAPERSIZE=11x17"
+*PageSize Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
+*FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter"
+*PageSize Executive/Executive: "%% FoomaticRIPOptionSetting: PageSize=Executive"
+*FoomaticRIPOptionSetting PageSize=Executive: " -sPAPERSIZE=exe"
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 25 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
+*PageRegion A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
+*PageRegion 11x17/11x17: "%% FoomaticRIPOptionSetting: PageSize=11x17"
+*PageRegion Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
+*PageRegion Executive/Executive: "%% FoomaticRIPOptionSetting: PageSize=Executive"
+*CloseUI: *PageRegion
+
+*%========== Information About Media Sizes ==========
+
+*DefaultImageableArea: Letter
+*ImageableArea A3/A3: "12 12 830 1179"
+*ImageableArea A4/A4: "12 12 583 830"
+*ImageableArea 11x17/11x17: "12 12 780 1212"
+*ImageableArea Letter/Letter: "12 12 600 780"
+*ImageableArea Executive/Executive: "12 12 510 744"
+
+*DefaultPaperDimension: Letter
+*PaperDimension A3/A3: "842 1191"
+*PaperDimension A4/A4: "595 842"
+*PaperDimension 11x17/11x17: "792 1224"
+*PaperDimension Letter/Letter: "612 792"
+*PaperDimension Executive/Executive: "522 756"
+
+*%========== Media Handling Features ==========
+
+*OpenUI *InputSlot/InputSlot: PickOne
+*FoomaticRIPOption InputSlot: enum CmdLine E
+*OrderDependency: 30 AnySetup *InputSlot
+*DefaultInputSlot: Auto
+*InputSlot MultiTray/Bypass Tray: "%% FoomaticRIPOptionSetting: InputSlot=MultiTray"
+*FoomaticRIPOptionSetting InputSlot=MultiTray: "&&
+ | perl -p -e &quot;s/\xc0\x00\xf8\x26/\xc0\x02\xf8\x26/g&quot;"
+*End
+*InputSlot 1Tray/Tray 1: "%% FoomaticRIPOptionSetting: InputSlot=1Tray"
+*FoomaticRIPOptionSetting InputSlot=1Tray: "&&
+ | perl -p -e &quot;s/\xc0\x00\xf8\x26/\xc0\x04\xf8\x26/g&quot;"
+*End
+*InputSlot 2Tray/Tray 2: "%% FoomaticRIPOptionSetting: InputSlot=2Tray"
+*FoomaticRIPOptionSetting InputSlot=2Tray: "&&
+ | perl -p -e &quot;s/\xc0\x00\xf8\x26/\xc0\x05\xf8\x26/g&quot;"
+*End
+*InputSlot 3Tray/Tray 3: "%% FoomaticRIPOptionSetting: InputSlot=3Tray"
+*FoomaticRIPOptionSetting InputSlot=3Tray: "&&
+ | perl -p -e &quot;s/\xc0\x00\xf8\x26/\xc0\x07\xf8\x26/g&quot;"
+*End
+*InputSlot 4Tray/Large Capacity Tray: "%% FoomaticRIPOptionSetting: InputSlot=4Tray"
+*FoomaticRIPOptionSetting InputSlot=4Tray: "&&
+ | perl -p -e &quot;s/\xc0\x00\xf8\x26/\xc0\x09\xf8\x26/g&quot;"
+*End
+*InputSlot Auto/Auto Select: "%% FoomaticRIPOptionSetting: InputSlot=Auto"
+*FoomaticRIPOptionSetting InputSlot=Auto: ""
+*CloseUI: *InputSlot
+
+*OpenUI *Duplex/Duplex: PickOne
+*FoomaticRIPOption Duplex: enum Composite D
+*OrderDependency: 50 AnySetup *Duplex
+*DefaultDuplex: None
+*Duplex None/Off:  "%% FoomaticRIPOptionSetting: Duplex=None"
+*FoomaticRIPOptionSetting Duplex=NOne: "JCLDuplex=None GSDuplex=None"
+*Duplex DuplexNoTumble/Long Edge:  "%% FoomaticRIPOptionSetting: Duplex=DuplexNoTumble"
+*FoomaticRIPOptionSetting Duplex=DuplexNoTumble: "JCLDuplex=DuplexNoTumble GSDuplex=DuplexNoTumble"
+*Duplex DuplexTumble/Short Edge:  "%% FoomaticRIPOptionSetting: Duplex=DuplexTumble"
+*FoomaticRIPOptionSetting Duplex=DuplexTumble: "JCLDuplex=DuplexTumble GSDuplex=DuplexTumble"
+*CloseUI: *Duplex
+
+*FoomaticRIPOption GSDuplex: enum CmdLine D 50
+*FoomaticRIPOptionSetting GSDuplex=FromDuplex: ""
+*FoomaticRIPOptionSetting GSDuplex=None: ""
+*FoomaticRIPOptionSetting GSDuplex=DuplexNoTumble: "&&
+ | perl -p -e &quot;s/\xc0\x00\xf8\x34/\xc0\x01\xf8\x35/g&quot;"
+*FoomaticRIPOptionSetting GSDuplex=DuplexTumble: "&&
+ | perl -p -e &quot;s/\xc0\x00\xf8\x34/\xc0\x00\xf8\x35/g&quot;"
+
+*FoomaticRIPOption JCLDuplex: enum JCL D 50
+*FoomaticRIPOptionSetting JCLDuplex=FromDuplex: ""
+*FoomaticRIPOptionSetting JCLDuplex=None: "SET DUPLEX=OFF"
+*FoomaticRIPOptionSetting JCLDuplex=DuplexNoTumble: "SET DUPLEX=ON
+@PJL SET BINDING=LONGEDGE"
+*FoomaticRIPOptionSetting JCLDuplex=DuplexTumble: "SET DUPLEX=ON
+@PJL SET BINDING=SHORTEDGE"
+
+
+*OpenUI *MediaType/Paper Type: PickOne
+*FoomaticRIPOption MediaType: enum JCL A
+*OrderDependency: 205 AnySetup *MediaType
+*DefaultMediaType: Plain
+*MediaType Plain/Plain: "%% FoomaticRIPOptionSetting: MediaType=Plain"
+*FoomaticRIPOptionSetting MediaType=Plain: "SET MEDIATYPE=PLAIN"
+*MediaType Recycled/Recycled: "%% FoomaticRIPOptionSetting: MediaType=Recycled"
+*FoomaticRIPOptionSetting MediaType=Recycled: "SET MEDIATYPE=RECYCLED"
+*MediaType Special/Special: "%% FoomaticRIPOptionSetting: MediaType=Special"
+*FoomaticRIPOptionSetting MediaType=Special: "SET MEDIATYPE=SPECIAL"
+*MediaType Colored1/Color 1: "%% FoomaticRIPOptionSetting: MediaType=Colored1"
+*FoomaticRIPOptionSetting MediaType=Colored1: "SET MEDIATYPE=USERCOLOR1"
+*MediaType Colored2/Color 2: "%% FoomaticRIPOptionSetting: MediaType=Colored2"
+*FoomaticRIPOptionSetting MediaType=Colored2: "SET MEDIATYPE=USERCOLOR2"
+*MediaType Letterhead/Letterhead: "%% FoomaticRIPOptionSetting: MediaType=Letterhead"
+*FoomaticRIPOptionSetting MediaType=Letterhead: "SET MEDIATYPE=LETTERHEAD"
+*MediaType Labels/Labels: "%% FoomaticRIPOptionSetting: MediaType=Labels"
+*FoomaticRIPOptionSetting MediaType=Labels: "SET MEDIATYPE=LABELS"
+*MediaType Bond/Bond: "%% FoomaticRIPOptionSetting: MediaType=Bond"
+*FoomaticRIPOptionSetting MediaType=Bond: "SET MEDIATYPE=BOND"
+*MediaType Cardstock/Cardstock: "%% FoomaticRIPOptionSetting: MediaType=Cardstock"
+*FoomaticRIPOptionSetting MediaType=Cardstock: "SET MEDIATYPE=CARDSTOCK"
+*MediaType Preprinted/Preprinted: "%% FoomaticRIPOptionSetting: MediaType=Preprinted"
+*FoomaticRIPOptionSetting MediaType=Preprinted: "SET MEDIATYPE=PREPRINTED"
+*MediaType Prepunched/Prepunched: "%% FoomaticRIPOptionSetting: MediaType=Prepunched"
+*FoomaticRIPOptionSetting MediaType=Prepunched: "SET MEDIATYPE=PREPUNCHED"
+*MediaType OHP/Transparency: "%% FoomaticRIPOptionSetting: MediaType=OHP"
+*FoomaticRIPOptionSetting MediaType=OHP: "SET MEDIATYPE=TRANSPARENCY"
+*MediaType Thick/Thick1: "%% FoomaticRIPOptionSetting: MediaType=Thick"
+*FoomaticRIPOptionSetting MediaType=Thick: "SET MEDIATYPE=THICK"
+*MediaType Thick2/Thick2: "%% FoomaticRIPOptionSetting: MediaType=Thick2"
+*FoomaticRIPOptionSetting MediaType=Thick2: "SET MEDIATYPE=THICK2"
+*MediaType Thin/Thin: "%% FoomaticRIPOptionSetting: MediaType=Thin"
+*FoomaticRIPOptionSetting MediaType=Thin: "SET MEDIATYPE=THIN"
+*MediaType Index/Tab Stock: "%% FoomaticRIPOptionSetting: MediaType=Index"
+*FoomaticRIPOptionSetting MediaType=Index: "SET MEDIATYPE=TABSTOCK"
+*MediaType Translucent/Translucent: "%% FoomaticRIPOptionSetting: MediaType=Translucent"
+*FoomaticRIPOptionSetting MediaType=Translucent: "SET MEDIATYPE=TRANSLUCENT"
+*CloseUI: *MediaType
+
+*OpenUI *OutputBin/Destination: PickOne
+*FoomaticRIPOption OutputBin: enum JCL A
+*OrderDependency: 210 AnySetup *OutputBin
+*DefaultOutputBin: Default
+*OutputBin Default/Printer Default: "%% FoomaticRIPOptionSetting: OutputBin=Default"
+*FoomaticRIPOptionSetting OutputBin=Default: "SET OUTBIN=SYSDEFAULT"
+*OutputBin Standard/Copy Tray: "%% FoomaticRIPOptionSetting: OutputBin=Standard"
+*FoomaticRIPOptionSetting OutputBin=Standard: "SET OUTBIN=UPPER"
+*OutputBin FinisherUpper/Finisher MEC Upper Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinisherUpper"
+*FoomaticRIPOptionSetting OutputBin=FinisherUpper: "SET OUTBIN=FINISHERPROOF"
+*OutputBin FinisherMiddle/Finisher MEC Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinisherMiddle"
+*FoomaticRIPOptionSetting OutputBin=FinisherMiddle: "SET OUTBIN=FINISHERSHIFT"
+*OutputBin FinisherLower/Finisher Booklet Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinisherLower"
+*FoomaticRIPOptionSetting OutputBin=FinisherLower: "SET OUTBIN=FINISHERBOOKLET"
+*OutputBin FinisherUpper100/Finisher Upper Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinisherUpper100"
+*FoomaticRIPOptionSetting OutputBin=FinisherUpper100: "SET OUTBIN=FINISHERPROOF"
+*OutputBin FinisherMiddle100/Finisher Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinisherMiddle100"
+*FoomaticRIPOptionSetting OutputBin=FinisherMiddle100: "SET OUTBIN=FINISHERSHIFT"
+*OutputBin MailBoxBin1/Mailbox Tray 1: "%% FoomaticRIPOptionSetting: OutputBin=MailBoxBin1"
+*FoomaticRIPOptionSetting OutputBin=MailBoxBin1: "SET OUTBIN=OPTIONALOUTPUTBIN2"
+*OutputBin MailBoxBin2/Mailbox Tray 2: "%% FoomaticRIPOptionSetting: OutputBin=MailBoxBin2"
+*FoomaticRIPOptionSetting OutputBin=MailBoxBin2: "SET OUTBIN=OPTIONALOUTPUTBIN3"
+*OutputBin MailBoxBin3/Mailbox Tray 3: "%% FoomaticRIPOptionSetting: OutputBin=MailBoxBin3"
+*FoomaticRIPOptionSetting OutputBin=MailBoxBin3: "SET OUTBIN=OPTIONALOUTPUTBIN4"
+*OutputBin MailBoxBin4/Mailbox Tray 4: "%% FoomaticRIPOptionSetting: OutputBin=MailBoxBin4"
+*FoomaticRIPOptionSetting OutputBin=MailBoxBin4: "SET OUTBIN=OPTIONALOUTPUTBIN5"
+*OutputBin MailBoxBin5/Mailbox Tray 5: "%% FoomaticRIPOptionSetting: OutputBin=MailBoxBin5"
+*FoomaticRIPOptionSetting OutputBin=MailBoxBin5: "SET OUTBIN=OPTIONALOUTPUTBIN6"
+*OutputBin MailBoxBin6/Mailbox Tray 6: "%% FoomaticRIPOptionSetting: OutputBin=MailBoxBin6"
+*FoomaticRIPOptionSetting OutputBin=MailBoxBin6: "SET OUTBIN=OPTIONALOUTPUTBIN7"
+*OutputBin MailBoxBin7/Mailbox Tray 7: "%% FoomaticRIPOptionSetting: OutputBin=MailBoxBin7"
+*FoomaticRIPOptionSetting OutputBin=MailBoxBin7: "SET OUTBIN=OPTIONALOUTPUTBIN8"
+*OutputBin MailBoxBin8/Mailbox Tray 8: "%% FoomaticRIPOptionSetting: OutputBin=MailBoxBin8"
+*FoomaticRIPOptionSetting OutputBin=MailBoxBin8: "SET OUTBIN=OPTIONALOUTPUTBIN9"
+*OutputBin MailBoxBin9/Mailbox Tray 9: "%% FoomaticRIPOptionSetting: OutputBin=MailBoxBin9"
+*FoomaticRIPOptionSetting OutputBin=MailBoxBin9: "SET OUTBIN=OPTIONALOUTPUTBIN10"
+*CloseUI: *OutputBin
+
+*OpenUI *StapleLocation/Staple: PickOne
+*FoomaticRIPOption StapleLocation: enum JCL A
+*OrderDependency: 220 AnySetup *StapleLocation
+*DefaultStapleLocation: None
+*StapleLocation None/Off: "%% FoomaticRIPOptionSetting: StapleLocation=None"
+*FoomaticRIPOptionSetting StapleLocation=None: "SET STAPLE=OFF"
+*StapleLocation UpperLeft/Top left: "%% FoomaticRIPOptionSetting: StapleLocation=UpperLeft"
+*FoomaticRIPOptionSetting StapleLocation=UpperLeft: "SET STAPLE=LEFTTOP"
+*StapleLocation UpperRight/Top right: "%% FoomaticRIPOptionSetting: StapleLocation=UpperRight"
+*FoomaticRIPOptionSetting StapleLocation=UpperRight: "SET STAPLE=RIGHTTOP"
+*StapleLocation LeftW/2 at left: "%% FoomaticRIPOptionSetting: StapleLocation=LeftW"
+*FoomaticRIPOptionSetting StapleLocation=LeftW: "SET STAPLE=LEFT2PORT"
+*StapleLocation RightW/2 at right: "%% FoomaticRIPOptionSetting: StapleLocation=RightW"
+*FoomaticRIPOptionSetting StapleLocation=RightW: "SET STAPLE=RIGHT2PORT"
+*StapleLocation UpperW/2 at top: "%% FoomaticRIPOptionSetting: StapleLocation=UpperW"
+*FoomaticRIPOptionSetting StapleLocation=UpperW: "SET STAPLE=TOP2PORT"
+*StapleLocation CenterW/2 at center: "%% FoomaticRIPOptionSetting: StapleLocation=CenterW"
+*FoomaticRIPOptionSetting StapleLocation=CenterW: "SET STAPLE=BOOKLET"
+*CloseUI: *StapleLocation
+
+*OpenUI *RIPunch/Punch: PickOne
+*FoomaticRIPOption RIPunch: enum JCL A
+*OrderDependency: 230 AnySetup *RIPunch
+*DefaultRIPunch: None
+*RIPunch None/Off: ""
+*RIPunch LeftJP2/2 at left (Japan/Europe): "%% FoomaticRIPOptionSetting: RIPunch=LeftJP2"
+*FoomaticRIPOptionSetting RIPunch=LeftJP2: "SET PUNCH=LEFTPORT
+@PJL SET PUNCHHOLE=JP2"
+*End
+*RIPunch LeftUS2/2 at left (North America): "%% FoomaticRIPOptionSetting: RIPunch=LeftUS2"
+*FoomaticRIPOptionSetting RIPunch=LeftUS2: "SET PUNCH=LEFTPORT
+@PJL SET PUNCHHOLE=US2"
+*End
+*RIPunch LeftUS3/3 at left (North America): "%% FoomaticRIPOptionSetting: RIPunch=LeftUS3"
+*FoomaticRIPOptionSetting RIPunch=LeftUS3: "SET PUNCH=LEFTPORT
+@PJL SET PUNCHHOLE=US3"
+*End
+*RIPunch LeftEU4/4 at left (Europe): "%% FoomaticRIPOptionSetting: RIPunch=LeftEU4"
+*FoomaticRIPOptionSetting RIPunch=LeftEU4: "SET PUNCH=LEFTPORT
+@PJL SET PUNCHHOLE=EU4"
+*End
+*RIPunch LeftNEU4/4 at left (Northern Europe): "%% FoomaticRIPOptionSetting: RIPunch=LeftNEU4"
+*FoomaticRIPOptionSetting RIPunch=LeftNEU4: "SET PUNCH=LEFTPORT
+@PJL SET PUNCHHOLE=NEU4"
+*End
+*RIPunch RightJP2/2 at right (Japan/Europe): "%% FoomaticRIPOptionSetting: RIPunch=RightJP2"
+*FoomaticRIPOptionSetting RIPunch=RightJP2: "SET PUNCH=RIGHTPORT
+@PJL SET PUNCHHOLE=JP2"
+*End
+*RIPunch RightUS2/2 at right (North America): "%% FoomaticRIPOptionSetting: RIPunch=RightUS2"
+*FoomaticRIPOptionSetting RIPunch=RightUS2: "SET PUNCH=RIGHTPORT
+@PJL SET PUNCHHOLE=US2"
+*End
+*RIPunch RightUS3/3 at right (North America): "%% FoomaticRIPOptionSetting: RIPunch=RightUS3"
+*FoomaticRIPOptionSetting RIPunch=RightUS3: "SET PUNCH=RIGHTPORT
+@PJL SET PUNCHHOLE=US3"
+*End
+*RIPunch RightEU4/4 at right (Europe): "%% FoomaticRIPOptionSetting: RIPunch=RightEU4"
+*FoomaticRIPOptionSetting RIPunch=RightEU4: "SET PUNCH=RIGHTPORT
+@PJL SET PUNCHHOLE=EU4"
+*End
+*RIPunch RightNEU4/4 at right (Northern Europe): "%% FoomaticRIPOptionSetting: RIPunch=RightNEU4"
+*FoomaticRIPOptionSetting RIPunch=RightNEU4: "SET PUNCH=RIGHTPORT
+@PJL SET PUNCHHOLE=NEU4"
+*End
+*RIPunch UpperJP2/2 at top (Japan/Europe): "%% FoomaticRIPOptionSetting: RIPunch=UpperJP2"
+*FoomaticRIPOptionSetting RIPunch=UpperJP2: "SET PUNCH=TOPPORT
+@PJL SET PUNCHHOLE=JP2"
+*End
+*RIPunch UpperUS2/2 at top (North America): "%% FoomaticRIPOptionSetting: RIPunch=UpperUS2"
+*FoomaticRIPOptionSetting RIPunch=UpperUS2: "SET PUNCH=TOPPORT
+@PJL SET PUNCHHOLE=US2"
+*End
+*RIPunch UpperUS3/3 at top (North America): "%% FoomaticRIPOptionSetting: RIPunch=UpperUS3"
+*FoomaticRIPOptionSetting RIPunch=UpperUS3: "SET PUNCH=TOPPORT
+@PJL SET PUNCHHOLE=US3"
+*End
+*RIPunch UpperEU4/4 at top (Europe): "%% FoomaticRIPOptionSetting: RIPunch=UpperEU4"
+*FoomaticRIPOptionSetting RIPunch=UpperEU4: "SET PUNCH=TOPPORT
+@PJL SET PUNCHHOLE=EU4"
+*End
+*RIPunch UpperNEU4/4 at top (Northern Europe): "%% FoomaticRIPOptionSetting: RIPunch=UpperNEU4"
+*FoomaticRIPOptionSetting RIPunch=UpperNEU4: "SET PUNCH=TOPPORT
+@PJL SET PUNCHHOLE=NEU4"
+*End
+*CloseUI: *RIPunch
+
+*OpenUI *RIPrintMode/Toner Saving: PickOne
+*FoomaticRIPOption RIPrintMode: enum JCL A
+*OrderDependency: 45 AnySetup *RIPrintMode
+*DefaultRIPrintMode: 0rhit
+*RIPrintMode 0rhit/Off: "%% FoomaticRIPOptionSetting: RIPrintMode=0rhit"
+*FoomaticRIPOptionSetting RIPrintMode=0rhit: "SET ECONOMODE=OFF"
+*RIPrintMode 5rhit/On: "%% FoomaticRIPOptionSetting: RIPrintMode=5rhit"
+*FoomaticRIPOptionSetting RIPrintMode=5rhit: "SET ECONOMODE=ON"
+*CloseUI: *RIPrintMode
+
+*OpenUI *RPSBitsPerPixel/Gradation: PickOne
+*FoomaticRIPOption RPSBitsPerPixel: enum JCL A
+*OrderDependency: 41 AnySetup *RPSBitsPerPixel
+*DefaultRPSBitsPerPixel: 2BitsPerPixel
+*RPSBitsPerPixel 2BitsPerPixel/Standard: "%% FoomaticRIPOptionSetting: RPSBitsPerPixel=2BitsPerPixel"
+*FoomaticRIPOptionSetting RPSBitsPerPixel=2BitsPerPixel: "SET BITSPERPIXEL=2"
+*RPSBitsPerPixel 1BitsPerPixel/Fast: "%% FoomaticRIPOptionSetting: RPSBitsPerPixel=1BitsPerPixel"
+*FoomaticRIPOptionSetting RPSBitsPerPixel=1BitsPerPixel: "SET BITSPERPIXEL=1"
+*CloseUI: *RPSBitsPerPixel
+
+
+*CloseGroup: General
+
+
+*UIConstraints: *Option2LargeCapacityTray False *InputSlot 4Tray
+*UIConstraints: *InputSlot 4Tray *Option2LargeCapacityTray False
+*UIConstraints: *Option30Finisher None *Option40Mailbox True
+*UIConstraints: *Option40Mailbox True *Option30Finisher None
+*UIConstraints: *Option30Finisher FinVICTORIAC *Option40Mailbox True
+*UIConstraints: *Option40Mailbox True *Option30Finisher FinVICTORIAC
+*UIConstraints: *Option30Finisher FinEUPHPOS *OutputBin Standard
+*UIConstraints: *Option30Finisher FinEUPHIMPOS *OutputBin Standard
+*UIConstraints: *Option30Finisher FinVICTORIAC *OutputBin Standard
+*UIConstraints: *OutputBin Standard *Option30Finisher FinEUPHPOS
+*UIConstraints: *OutputBin Standard *Option30Finisher FinEUPHIMPOS
+*UIConstraints: *OutputBin Standard *Option30Finisher FinVICTORIAC
+*UIConstraints: *Option30Finisher None *OutputBin FinisherUpper
+*UIConstraints: *Option30Finisher None *OutputBin FinisherMiddle
+*UIConstraints: *Option30Finisher None *OutputBin FinisherLower
+*UIConstraints: *Option30Finisher None *OutputBin FinisherUpper100
+*UIConstraints: *Option30Finisher None *OutputBin FinisherMiddle100
+*UIConstraints: *Option30Finisher FinEUPHPOS *OutputBin FinisherUpper100
+*UIConstraints: *Option30Finisher FinEUPHPOS *OutputBin FinisherMiddle100
+*UIConstraints: *Option30Finisher FinEUPHIMPOS *OutputBin FinisherUpper100
+*UIConstraints: *Option30Finisher FinEUPHIMPOS *OutputBin FinisherMiddle100
+*UIConstraints: *Option30Finisher FinEUPHIMPOS *OutputBin FinisherLower
+*UIConstraints: *Option30Finisher FinVICTORIAC *OutputBin FinisherUpper
+*UIConstraints: *Option30Finisher FinVICTORIAC *OutputBin FinisherMiddle
+*UIConstraints: *Option30Finisher FinVICTORIAC *OutputBin FinisherLower
+*UIConstraints: *OutputBin FinisherUpper *Option30Finisher None
+*UIConstraints: *OutputBin FinisherMiddle *Option30Finisher None
+*UIConstraints: *OutputBin FinisherLower *Option30Finisher None
+*UIConstraints: *OutputBin FinisherUpper100 *Option30Finisher None
+*UIConstraints: *OutputBin FinisherMiddle100 *Option30Finisher None
+*UIConstraints: *OutputBin FinisherUpper100 *Option30Finisher FinEUPHPOS
+*UIConstraints: *OutputBin FinisherMiddle100 *Option30Finisher FinEUPHPOS
+*UIConstraints: *OutputBin FinisherUpper100 *Option30Finisher FinEUPHIMPOS
+*UIConstraints: *OutputBin FinisherMiddle100 *Option30Finisher FinEUPHIMPOS
+*UIConstraints: *OutputBin FinisherLower *Option30Finisher FinEUPHIMPOS
+*UIConstraints: *OutputBin FinisherUpper *Option30Finisher FinVICTORIAC
+*UIConstraints: *OutputBin FinisherMiddle *Option30Finisher FinVICTORIAC
+*UIConstraints: *OutputBin FinisherLower *Option30Finisher FinVICTORIAC
+*UIConstraints: *Option40Mailbox False *OutputBin MailBoxBin1
+*UIConstraints: *Option40Mailbox False *OutputBin MailBoxBin2
+*UIConstraints: *Option40Mailbox False *OutputBin MailBoxBin3
+*UIConstraints: *Option40Mailbox False *OutputBin MailBoxBin4
+*UIConstraints: *Option40Mailbox False *OutputBin MailBoxBin5
+*UIConstraints: *Option40Mailbox False *OutputBin MailBoxBin6
+*UIConstraints: *Option40Mailbox False *OutputBin MailBoxBin7
+*UIConstraints: *Option40Mailbox False *OutputBin MailBoxBin8
+*UIConstraints: *Option40Mailbox False *OutputBin MailBoxBin9
+*UIConstraints: *OutputBin MailBoxBin1 *Option40Mailbox False
+*UIConstraints: *OutputBin MailBoxBin2 *Option40Mailbox False
+*UIConstraints: *OutputBin MailBoxBin3 *Option40Mailbox False
+*UIConstraints: *OutputBin MailBoxBin4 *Option40Mailbox False
+*UIConstraints: *OutputBin MailBoxBin5 *Option40Mailbox False
+*UIConstraints: *OutputBin MailBoxBin6 *Option40Mailbox False
+*UIConstraints: *OutputBin MailBoxBin7 *Option40Mailbox False
+*UIConstraints: *OutputBin MailBoxBin8 *Option40Mailbox False
+*UIConstraints: *OutputBin MailBoxBin9 *Option40Mailbox False
+*UIConstraints: *Option30Finisher None *StapleLocation UpperLeft
+*UIConstraints: *Option30Finisher None *StapleLocation UpperRight
+*UIConstraints: *Option30Finisher None *StapleLocation LeftW
+*UIConstraints: *Option30Finisher None *StapleLocation RightW
+*UIConstraints: *Option30Finisher None *StapleLocation UpperW
+*UIConstraints: *Option30Finisher None *StapleLocation CenterW
+*UIConstraints: *Option30Finisher FinEUPHIMPOS *StapleLocation CenterW
+*UIConstraints: *Option30Finisher FinVICTORIAC *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *Option30Finisher None
+*UIConstraints: *StapleLocation UpperRight *Option30Finisher None
+*UIConstraints: *StapleLocation LeftW *Option30Finisher None
+*UIConstraints: *StapleLocation RightW *Option30Finisher None
+*UIConstraints: *StapleLocation UpperW *Option30Finisher None
+*UIConstraints: *StapleLocation CenterW *Option30Finisher None
+*UIConstraints: *StapleLocation CenterW *Option30Finisher FinEUPHIMPOS
+*UIConstraints: *StapleLocation CenterW *Option30Finisher FinVICTORIAC
+*UIConstraints: *OutputBin Standard *StapleLocation UpperLeft
+*UIConstraints: *OutputBin Standard *StapleLocation UpperRight
+*UIConstraints: *OutputBin Standard *StapleLocation LeftW
+*UIConstraints: *OutputBin Standard *StapleLocation RightW
+*UIConstraints: *OutputBin Standard *StapleLocation UpperW
+*UIConstraints: *OutputBin Standard *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin Standard
+*UIConstraints: *StapleLocation UpperRight *OutputBin Standard
+*UIConstraints: *StapleLocation LeftW *OutputBin Standard
+*UIConstraints: *StapleLocation RightW *OutputBin Standard
+*UIConstraints: *StapleLocation UpperW *OutputBin Standard
+*UIConstraints: *StapleLocation CenterW *OutputBin Standard
+*UIConstraints: *OutputBin FinisherUpper *StapleLocation UpperLeft
+*UIConstraints: *OutputBin FinisherUpper *StapleLocation UpperRight
+*UIConstraints: *OutputBin FinisherUpper *StapleLocation LeftW
+*UIConstraints: *OutputBin FinisherUpper *StapleLocation RightW
+*UIConstraints: *OutputBin FinisherUpper *StapleLocation UpperW
+*UIConstraints: *OutputBin FinisherUpper *StapleLocation CenterW
+*UIConstraints: *OutputBin FinisherUpper100 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin FinisherUpper100 *StapleLocation UpperRight
+*UIConstraints: *OutputBin FinisherUpper100 *StapleLocation LeftW
+*UIConstraints: *OutputBin FinisherUpper100 *StapleLocation RightW
+*UIConstraints: *OutputBin FinisherUpper100 *StapleLocation UpperW
+*UIConstraints: *OutputBin FinisherUpper100 *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinisherUpper
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinisherUpper
+*UIConstraints: *StapleLocation LeftW *OutputBin FinisherUpper
+*UIConstraints: *StapleLocation RightW *OutputBin FinisherUpper
+*UIConstraints: *StapleLocation UpperW *OutputBin FinisherUpper
+*UIConstraints: *StapleLocation CenterW *OutputBin FinisherUpper
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinisherUpper100
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinisherUpper100
+*UIConstraints: *StapleLocation LeftW *OutputBin FinisherUpper100
+*UIConstraints: *StapleLocation RightW *OutputBin FinisherUpper100
+*UIConstraints: *StapleLocation UpperW *OutputBin FinisherUpper100
+*UIConstraints: *StapleLocation CenterW *OutputBin FinisherUpper100
+*UIConstraints: *OutputBin FinisherMiddle *StapleLocation CenterW
+*UIConstraints: *OutputBin FinisherMiddle100 *StapleLocation CenterW
+*UIConstraints: *StapleLocation CenterW *OutputBin FinisherMiddle
+*UIConstraints: *StapleLocation CenterW *OutputBin FinisherMiddle100
+*UIConstraints: *OutputBin FinisherLower *StapleLocation UpperLeft
+*UIConstraints: *OutputBin FinisherLower *StapleLocation UpperRight
+*UIConstraints: *OutputBin FinisherLower *StapleLocation LeftW
+*UIConstraints: *OutputBin FinisherLower *StapleLocation RightW
+*UIConstraints: *OutputBin FinisherLower *StapleLocation UpperW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinisherLower
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinisherLower
+*UIConstraints: *StapleLocation LeftW *OutputBin FinisherLower
+*UIConstraints: *StapleLocation RightW *OutputBin FinisherLower
+*UIConstraints: *StapleLocation UpperW *OutputBin FinisherLower
+*UIConstraints: *OutputBin MailBoxBin1 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin1 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin1 *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin1 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin1 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin1 *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin1
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin1
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin1
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin1
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin1
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin1
+*UIConstraints: *OutputBin MailBoxBin2 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin2 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin2 *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin2 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin2 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin2 *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin2
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin2
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin2
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin2
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin2
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin2
+*UIConstraints: *OutputBin MailBoxBin3 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin3 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin3 *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin3 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin3 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin3 *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin3
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin3
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin3
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin3
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin3
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin3
+*UIConstraints: *OutputBin MailBoxBin4 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin4 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin4 *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin4 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin4 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin4 *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin4
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin4
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin4
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin4
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin4
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin4
+*UIConstraints: *OutputBin MailBoxBin5 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin5 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin5 *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin5 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin5 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin5 *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin5
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin5
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin5
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin5
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin5
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin5
+*UIConstraints: *OutputBin MailBoxBin6 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin6 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin6 *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin6 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin6 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin6 *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin6
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin6
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin6
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin6
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin6
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin6
+*UIConstraints: *OutputBin MailBoxBin7 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin7 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin7 *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin7 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin7 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin7 *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin7
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin7
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin7
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin7
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin7
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin7
+*UIConstraints: *OutputBin MailBoxBin8 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin8 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin8 *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin8 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin8 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin8 *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin8
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin8
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin8
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin8
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin8
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin8
+*UIConstraints: *OutputBin MailBoxBin9 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin9 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin9 *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin9 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin9 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin9 *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin9
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin9
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin9
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin9
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin9
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin9
+*UIConstraints: *InputSlot MultiTray *StapleLocation UpperLeft
+*UIConstraints: *InputSlot MultiTray *StapleLocation UpperRight
+*UIConstraints: *InputSlot MultiTray *StapleLocation LeftW
+*UIConstraints: *InputSlot MultiTray *StapleLocation RightW
+*UIConstraints: *InputSlot MultiTray *StapleLocation UpperW
+*UIConstraints: *InputSlot MultiTray *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *InputSlot MultiTray
+*UIConstraints: *StapleLocation UpperRight *InputSlot MultiTray
+*UIConstraints: *StapleLocation LeftW *InputSlot MultiTray
+*UIConstraints: *StapleLocation RightW *InputSlot MultiTray
+*UIConstraints: *StapleLocation UpperW *InputSlot MultiTray
+*UIConstraints: *StapleLocation CenterW *InputSlot MultiTray
+*UIConstraints: *PageSize Executive *InputSlot 1Tray
+*UIConstraints: *PageSize A3 *InputSlot 4Tray
+*UIConstraints: *PageSize 11x17 *InputSlot 4Tray
+*UIConstraints: *PageSize Executive *InputSlot 4Tray
+*UIConstraints: *InputSlot 1Tray *PageSize Executive
+*UIConstraints: *InputSlot 4Tray *PageSize A3
+*UIConstraints: *InputSlot 4Tray *PageSize 11x17
+*UIConstraints: *InputSlot 4Tray *PageSize Executive
+*UIConstraints: *MediaType Labels *InputSlot 1Tray
+*UIConstraints: *MediaType OHP *InputSlot 1Tray
+*UIConstraints: *MediaType Thick2 *InputSlot 1Tray
+*UIConstraints: *MediaType Index *InputSlot 1Tray
+*UIConstraints: *MediaType Translucent *InputSlot 1Tray
+*UIConstraints: *MediaType Labels *InputSlot 2Tray
+*UIConstraints: *MediaType OHP *InputSlot 2Tray
+*UIConstraints: *MediaType Thick2 *InputSlot 2Tray
+*UIConstraints: *MediaType Translucent *InputSlot 2Tray
+*UIConstraints: *MediaType Labels *InputSlot 3Tray
+*UIConstraints: *MediaType OHP *InputSlot 3Tray
+*UIConstraints: *MediaType Thick2 *InputSlot 3Tray
+*UIConstraints: *MediaType Translucent *InputSlot 3Tray
+*UIConstraints: *MediaType Labels *InputSlot 4Tray
+*UIConstraints: *MediaType OHP *InputSlot 4Tray
+*UIConstraints: *MediaType Thick2 *InputSlot 4Tray
+*UIConstraints: *MediaType Index *InputSlot 4Tray
+*UIConstraints: *MediaType Cardstock *InputSlot 4Tray
+*UIConstraints: *MediaType Translucent *InputSlot 4Tray
+*UIConstraints: *MediaType Preprinted *InputSlot 4Tray
+*UIConstraints: *MediaType Prepunched *InputSlot 4Tray
+*UIConstraints: *MediaType Bond *InputSlot 4Tray
+*UIConstraints: *InputSlot 1Tray *MediaType Labels
+*UIConstraints: *InputSlot 1Tray *MediaType OHP
+*UIConstraints: *InputSlot 1Tray *MediaType Thick2
+*UIConstraints: *InputSlot 1Tray *MediaType Index
+*UIConstraints: *InputSlot 1Tray *MediaType Translucent
+*UIConstraints: *InputSlot 2Tray *MediaType Labels
+*UIConstraints: *InputSlot 2Tray *MediaType OHP
+*UIConstraints: *InputSlot 2Tray *MediaType Thick2
+*UIConstraints: *InputSlot 2Tray *MediaType Translucent
+*UIConstraints: *InputSlot 3Tray *MediaType Labels
+*UIConstraints: *InputSlot 3Tray *MediaType OHP
+*UIConstraints: *InputSlot 3Tray *MediaType Thick2
+*UIConstraints: *InputSlot 3Tray *MediaType Translucent
+*UIConstraints: *InputSlot 4Tray *MediaType Labels
+*UIConstraints: *InputSlot 4Tray *MediaType OHP
+*UIConstraints: *InputSlot 4Tray *MediaType Thick2
+*UIConstraints: *InputSlot 4Tray *MediaType Index
+*UIConstraints: *InputSlot 4Tray *MediaType Cardstock
+*UIConstraints: *InputSlot 4Tray *MediaType Translucent
+*UIConstraints: *InputSlot 4Tray *MediaType Preprinted
+*UIConstraints: *InputSlot 4Tray *MediaType Prepunched
+*UIConstraints: *InputSlot 4Tray *MediaType Bond
+*UIConstraints: *Duplex DuplexTumble *InputSlot MultiTray
+*UIConstraints: *Duplex DuplexNoTumble *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *Duplex DuplexTumble
+*UIConstraints: *InputSlot MultiTray *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexTumble *MediaType Labels
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Labels
+*UIConstraints: *Duplex DuplexTumble *MediaType OHP
+*UIConstraints: *Duplex DuplexNoTumble *MediaType OHP
+*UIConstraints: *Duplex DuplexTumble *MediaType Thick2
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Thick2
+*UIConstraints: *Duplex DuplexTumble *MediaType Index
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Index
+*UIConstraints: *Duplex DuplexTumble *MediaType Translucent
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Translucent
+*UIConstraints: *MediaType Labels *Duplex DuplexTumble
+*UIConstraints: *MediaType Labels *Duplex DuplexNoTumble
+*UIConstraints: *MediaType OHP *Duplex DuplexTumble
+*UIConstraints: *MediaType OHP *Duplex DuplexNoTumble
+*UIConstraints: *MediaType Thick2 *Duplex DuplexTumble
+*UIConstraints: *MediaType Thick2 *Duplex DuplexNoTumble
+*UIConstraints: *MediaType Index *Duplex DuplexTumble
+*UIConstraints: *MediaType Index *Duplex DuplexNoTumble
+*UIConstraints: *MediaType Translucent *Duplex DuplexTumble
+*UIConstraints: *MediaType Translucent *Duplex DuplexNoTumble
+*UIConstraints: *OutputBin MailBoxBin1 *MediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin2 *MediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin3 *MediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin4 *MediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin5 *MediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin6 *MediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin7 *MediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin8 *MediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin9 *MediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin1 *MediaType OHP
+*UIConstraints: *OutputBin MailBoxBin2 *MediaType OHP
+*UIConstraints: *OutputBin MailBoxBin3 *MediaType OHP
+*UIConstraints: *OutputBin MailBoxBin4 *MediaType OHP
+*UIConstraints: *OutputBin MailBoxBin5 *MediaType OHP
+*UIConstraints: *OutputBin MailBoxBin6 *MediaType OHP
+*UIConstraints: *OutputBin MailBoxBin7 *MediaType OHP
+*UIConstraints: *OutputBin MailBoxBin8 *MediaType OHP
+*UIConstraints: *OutputBin MailBoxBin9 *MediaType OHP
+*UIConstraints: *OutputBin MailBoxBin1 *MediaType Index
+*UIConstraints: *OutputBin MailBoxBin2 *MediaType Index
+*UIConstraints: *OutputBin MailBoxBin3 *MediaType Index
+*UIConstraints: *OutputBin MailBoxBin4 *MediaType Index
+*UIConstraints: *OutputBin MailBoxBin5 *MediaType Index
+*UIConstraints: *OutputBin MailBoxBin6 *MediaType Index
+*UIConstraints: *OutputBin MailBoxBin7 *MediaType Index
+*UIConstraints: *OutputBin MailBoxBin8 *MediaType Index
+*UIConstraints: *OutputBin MailBoxBin9 *MediaType Index
+*UIConstraints: *OutputBin MailBoxBin1 *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin2 *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin3 *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin4 *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin5 *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin6 *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin7 *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin8 *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin9 *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin1 *MediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin2 *MediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin3 *MediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin4 *MediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin5 *MediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin6 *MediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin7 *MediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin8 *MediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin9 *MediaType Translucent
+*UIConstraints: *MediaType Thick2 *OutputBin MailBoxBin1
+*UIConstraints: *MediaType Thick2 *OutputBin MailBoxBin2
+*UIConstraints: *MediaType Thick2 *OutputBin MailBoxBin3
+*UIConstraints: *MediaType Thick2 *OutputBin MailBoxBin4
+*UIConstraints: *MediaType Thick2 *OutputBin MailBoxBin5
+*UIConstraints: *MediaType Thick2 *OutputBin MailBoxBin6
+*UIConstraints: *MediaType Thick2 *OutputBin MailBoxBin7
+*UIConstraints: *MediaType Thick2 *OutputBin MailBoxBin8
+*UIConstraints: *MediaType Thick2 *OutputBin MailBoxBin9
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin1
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin2
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin3
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin4
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin5
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin6
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin7
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin8
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin9
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin1
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin2
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin3
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin4
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin5
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin6
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin7
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin8
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin9
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin1
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin2
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin3
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin4
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin5
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin6
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin7
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin8
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin9
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin1
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin2
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin3
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin4
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin5
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin6
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin7
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin8
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin9
+*UIConstraints: *OutputBin FinisherUpper100 *MediaType OHP
+*UIConstraints: *OutputBin FinisherUpper *MediaType OHP
+*UIConstraints: *OutputBin FinisherUpper *MediaType Thick2
+*UIConstraints: *MediaType OHP *OutputBin FinisherUpper100
+*UIConstraints: *MediaType OHP *OutputBin FinisherUpper
+*UIConstraints: *MediaType Thick2 *OutputBin FinisherUpper
+
+*UIConstraints: *Option30Finisher None *RIPunch LeftJP2
+*UIConstraints: *RIPunch LeftJP2 *Option30Finisher None
+*UIConstraints: *Option30Finisher None *RIPunch LeftUS2
+*UIConstraints: *RIPunch LeftUS2 *Option30Finisher None
+*UIConstraints: *Option30Finisher None *RIPunch LeftUS3
+*UIConstraints: *RIPunch LeftUS3 *Option30Finisher None
+*UIConstraints: *Option30Finisher None *RIPunch LeftEU4
+*UIConstraints: *RIPunch LeftEU4 *Option30Finisher None
+*UIConstraints: *Option30Finisher None *RIPunch LeftNEU4
+*UIConstraints: *RIPunch LeftNEU4 *Option30Finisher None
+*UIConstraints: *Option30Finisher None *RIPunch RightJP2
+*UIConstraints: *RIPunch RightJP2 *Option30Finisher None
+*UIConstraints: *Option30Finisher None *RIPunch RightUS2
+*UIConstraints: *RIPunch RightUS2 *Option30Finisher None
+*UIConstraints: *Option30Finisher None *RIPunch RightUS3
+*UIConstraints: *RIPunch RightUS3 *Option30Finisher None
+*UIConstraints: *Option30Finisher None *RIPunch RightEU4
+*UIConstraints: *RIPunch RightEU4 *Option30Finisher None
+*UIConstraints: *Option30Finisher None *RIPunch RightNEU4
+*UIConstraints: *RIPunch RightNEU4 *Option30Finisher None
+*UIConstraints: *Option30Finisher None *RIPunch UpperJP2
+*UIConstraints: *RIPunch UpperJP2 *Option30Finisher None
+*UIConstraints: *Option30Finisher None *RIPunch UpperUS2
+*UIConstraints: *RIPunch UpperUS2 *Option30Finisher None
+*UIConstraints: *Option30Finisher None *RIPunch UpperUS3
+*UIConstraints: *RIPunch UpperUS3 *Option30Finisher None
+*UIConstraints: *Option30Finisher None *RIPunch UpperEU4
+*UIConstraints: *RIPunch UpperEU4 *Option30Finisher None
+*UIConstraints: *Option30Finisher None *RIPunch UpperNEU4
+*UIConstraints: *RIPunch UpperNEU4 *Option30Finisher None
+*UIConstraints: *OutputBin Standard *RIPunch LeftJP2
+*UIConstraints: *RIPunch LeftJP2 *OutputBin Standard
+*UIConstraints: *OutputBin Standard *RIPunch LeftUS2
+*UIConstraints: *RIPunch LeftUS2 *OutputBin Standard
+*UIConstraints: *OutputBin Standard *RIPunch LeftUS3
+*UIConstraints: *RIPunch LeftUS3 *OutputBin Standard
+*UIConstraints: *OutputBin Standard *RIPunch LeftEU4
+*UIConstraints: *RIPunch LeftEU4 *OutputBin Standard
+*UIConstraints: *OutputBin Standard *RIPunch LeftNEU4
+*UIConstraints: *RIPunch LeftNEU4 *OutputBin Standard
+*UIConstraints: *OutputBin Standard *RIPunch RightJP2
+*UIConstraints: *RIPunch RightJP2 *OutputBin Standard
+*UIConstraints: *OutputBin Standard *RIPunch RightUS2
+*UIConstraints: *RIPunch RightUS2 *OutputBin Standard
+*UIConstraints: *OutputBin Standard *RIPunch RightUS3
+*UIConstraints: *RIPunch RightUS3 *OutputBin Standard
+*UIConstraints: *OutputBin Standard *RIPunch RightEU4
+*UIConstraints: *RIPunch RightEU4 *OutputBin Standard
+*UIConstraints: *OutputBin Standard *RIPunch RightNEU4
+*UIConstraints: *RIPunch RightNEU4 *OutputBin Standard
+*UIConstraints: *OutputBin Standard *RIPunch UpperJP2
+*UIConstraints: *RIPunch UpperJP2 *OutputBin Standard
+*UIConstraints: *OutputBin Standard *RIPunch UpperUS2
+*UIConstraints: *RIPunch UpperUS2 *OutputBin Standard
+*UIConstraints: *OutputBin Standard *RIPunch UpperUS3
+*UIConstraints: *RIPunch UpperUS3 *OutputBin Standard
+*UIConstraints: *OutputBin Standard *RIPunch UpperEU4
+*UIConstraints: *RIPunch UpperEU4 *OutputBin Standard
+*UIConstraints: *OutputBin Standard *RIPunch UpperNEU4
+*UIConstraints: *RIPunch UpperNEU4 *OutputBin Standard
+*UIConstraints: *OutputBin FinisherLower *RIPunch LeftJP2
+*UIConstraints: *RIPunch LeftJP2 *OutputBin FinisherLower
+*UIConstraints: *OutputBin FinisherLower *RIPunch LeftUS2
+*UIConstraints: *RIPunch LeftUS2 *OutputBin FinisherLower
+*UIConstraints: *OutputBin FinisherLower *RIPunch LeftUS3
+*UIConstraints: *RIPunch LeftUS3 *OutputBin FinisherLower
+*UIConstraints: *OutputBin FinisherLower *RIPunch LeftEU4
+*UIConstraints: *RIPunch LeftEU4 *OutputBin FinisherLower
+*UIConstraints: *OutputBin FinisherLower *RIPunch LeftNEU4
+*UIConstraints: *RIPunch LeftNEU4 *OutputBin FinisherLower
+*UIConstraints: *OutputBin FinisherLower *RIPunch RightJP2
+*UIConstraints: *RIPunch RightJP2 *OutputBin FinisherLower
+*UIConstraints: *OutputBin FinisherLower *RIPunch RightUS2
+*UIConstraints: *RIPunch RightUS2 *OutputBin FinisherLower
+*UIConstraints: *OutputBin FinisherLower *RIPunch RightUS3
+*UIConstraints: *RIPunch RightUS3 *OutputBin FinisherLower
+*UIConstraints: *OutputBin FinisherLower *RIPunch RightEU4
+*UIConstraints: *RIPunch RightEU4 *OutputBin FinisherLower
+*UIConstraints: *OutputBin FinisherLower *RIPunch RightNEU4
+*UIConstraints: *RIPunch RightNEU4 *OutputBin FinisherLower
+*UIConstraints: *OutputBin FinisherLower *RIPunch UpperJP2
+*UIConstraints: *RIPunch UpperJP2 *OutputBin FinisherLower
+*UIConstraints: *OutputBin FinisherLower *RIPunch UpperUS2
+*UIConstraints: *RIPunch UpperUS2 *OutputBin FinisherLower
+*UIConstraints: *OutputBin FinisherLower *RIPunch UpperUS3
+*UIConstraints: *RIPunch UpperUS3 *OutputBin FinisherLower
+*UIConstraints: *OutputBin FinisherLower *RIPunch UpperEU4
+*UIConstraints: *RIPunch UpperEU4 *OutputBin FinisherLower
+*UIConstraints: *OutputBin FinisherLower *RIPunch UpperNEU4
+*UIConstraints: *RIPunch UpperNEU4 *OutputBin FinisherLower
+*UIConstraints: *MediaType Labels *RIPunch LeftJP2
+*UIConstraints: *RIPunch LeftJP2 *MediaType Labels
+*UIConstraints: *MediaType Labels *RIPunch LeftUS2
+*UIConstraints: *RIPunch LeftUS2 *MediaType Labels
+*UIConstraints: *MediaType Labels *RIPunch LeftUS3
+*UIConstraints: *RIPunch LeftUS3 *MediaType Labels
+*UIConstraints: *MediaType Labels *RIPunch LeftEU4
+*UIConstraints: *RIPunch LeftEU4 *MediaType Labels
+*UIConstraints: *MediaType Labels *RIPunch LeftNEU4
+*UIConstraints: *RIPunch LeftNEU4 *MediaType Labels
+*UIConstraints: *MediaType Labels *RIPunch RightJP2
+*UIConstraints: *RIPunch RightJP2 *MediaType Labels
+*UIConstraints: *MediaType Labels *RIPunch RightUS2
+*UIConstraints: *RIPunch RightUS2 *MediaType Labels
+*UIConstraints: *MediaType Labels *RIPunch RightUS3
+*UIConstraints: *RIPunch RightUS3 *MediaType Labels
+*UIConstraints: *MediaType Labels *RIPunch RightEU4
+*UIConstraints: *RIPunch RightEU4 *MediaType Labels
+*UIConstraints: *MediaType Labels *RIPunch RightNEU4
+*UIConstraints: *RIPunch RightNEU4 *MediaType Labels
+*UIConstraints: *MediaType Labels *RIPunch UpperJP2
+*UIConstraints: *RIPunch UpperJP2 *MediaType Labels
+*UIConstraints: *MediaType Labels *RIPunch UpperUS2
+*UIConstraints: *RIPunch UpperUS2 *MediaType Labels
+*UIConstraints: *MediaType Labels *RIPunch UpperUS3
+*UIConstraints: *RIPunch UpperUS3 *MediaType Labels
+*UIConstraints: *MediaType Labels *RIPunch UpperEU4
+*UIConstraints: *RIPunch UpperEU4 *MediaType Labels
+*UIConstraints: *MediaType Labels *RIPunch UpperNEU4
+*UIConstraints: *RIPunch UpperNEU4 *MediaType Labels
+*UIConstraints: *MediaType OHP *RIPunch LeftJP2
+*UIConstraints: *RIPunch LeftJP2 *MediaType OHP
+*UIConstraints: *MediaType OHP *RIPunch LeftUS2
+*UIConstraints: *RIPunch LeftUS2 *MediaType OHP
+*UIConstraints: *MediaType OHP *RIPunch LeftUS3
+*UIConstraints: *RIPunch LeftUS3 *MediaType OHP
+*UIConstraints: *MediaType OHP *RIPunch LeftEU4
+*UIConstraints: *RIPunch LeftEU4 *MediaType OHP
+*UIConstraints: *MediaType OHP *RIPunch LeftNEU4
+*UIConstraints: *RIPunch LeftNEU4 *MediaType OHP
+*UIConstraints: *MediaType OHP *RIPunch RightJP2
+*UIConstraints: *RIPunch RightJP2 *MediaType OHP
+*UIConstraints: *MediaType OHP *RIPunch RightUS2
+*UIConstraints: *RIPunch RightUS2 *MediaType OHP
+*UIConstraints: *MediaType OHP *RIPunch RightUS3
+*UIConstraints: *RIPunch RightUS3 *MediaType OHP
+*UIConstraints: *MediaType OHP *RIPunch RightEU4
+*UIConstraints: *RIPunch RightEU4 *MediaType OHP
+*UIConstraints: *MediaType OHP *RIPunch RightNEU4
+*UIConstraints: *RIPunch RightNEU4 *MediaType OHP
+*UIConstraints: *MediaType OHP *RIPunch UpperJP2
+*UIConstraints: *RIPunch UpperJP2 *MediaType OHP
+*UIConstraints: *MediaType OHP *RIPunch UpperUS2
+*UIConstraints: *RIPunch UpperUS2 *MediaType OHP
+*UIConstraints: *MediaType OHP *RIPunch UpperUS3
+*UIConstraints: *RIPunch UpperUS3 *MediaType OHP
+*UIConstraints: *MediaType OHP *RIPunch UpperEU4
+*UIConstraints: *RIPunch UpperEU4 *MediaType OHP
+*UIConstraints: *MediaType OHP *RIPunch UpperNEU4
+*UIConstraints: *RIPunch UpperNEU4 *MediaType OHP
+*UIConstraints: *MediaType Thick2 *RIPunch LeftJP2
+*UIConstraints: *RIPunch LeftJP2 *MediaType Thick2
+*UIConstraints: *MediaType Thick2 *RIPunch LeftUS2
+*UIConstraints: *RIPunch LeftUS2 *MediaType Thick2
+*UIConstraints: *MediaType Thick2 *RIPunch LeftUS3
+*UIConstraints: *RIPunch LeftUS3 *MediaType Thick2
+*UIConstraints: *MediaType Thick2 *RIPunch LeftEU4
+*UIConstraints: *RIPunch LeftEU4 *MediaType Thick2
+*UIConstraints: *MediaType Thick2 *RIPunch LeftNEU4
+*UIConstraints: *RIPunch LeftNEU4 *MediaType Thick2
+*UIConstraints: *MediaType Thick2 *RIPunch RightJP2
+*UIConstraints: *RIPunch RightJP2 *MediaType Thick2
+*UIConstraints: *MediaType Thick2 *RIPunch RightUS2
+*UIConstraints: *RIPunch RightUS2 *MediaType Thick2
+*UIConstraints: *MediaType Thick2 *RIPunch RightUS3
+*UIConstraints: *RIPunch RightUS3 *MediaType Thick2
+*UIConstraints: *MediaType Thick2 *RIPunch RightEU4
+*UIConstraints: *RIPunch RightEU4 *MediaType Thick2
+*UIConstraints: *MediaType Thick2 *RIPunch RightNEU4
+*UIConstraints: *RIPunch RightNEU4 *MediaType Thick2
+*UIConstraints: *MediaType Thick2 *RIPunch UpperJP2
+*UIConstraints: *RIPunch UpperJP2 *MediaType Thick2
+*UIConstraints: *MediaType Thick2 *RIPunch UpperUS2
+*UIConstraints: *RIPunch UpperUS2 *MediaType Thick2
+*UIConstraints: *MediaType Thick2 *RIPunch UpperUS3
+*UIConstraints: *RIPunch UpperUS3 *MediaType Thick2
+*UIConstraints: *MediaType Thick2 *RIPunch UpperEU4
+*UIConstraints: *RIPunch UpperEU4 *MediaType Thick2
+*UIConstraints: *MediaType Thick2 *RIPunch UpperNEU4
+*UIConstraints: *RIPunch UpperNEU4 *MediaType Thick2
+*UIConstraints: *MediaType Prepunched *RIPunch LeftJP2
+*UIConstraints: *RIPunch LeftJP2 *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *RIPunch LeftUS2
+*UIConstraints: *RIPunch LeftUS2 *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *RIPunch LeftUS3
+*UIConstraints: *RIPunch LeftUS3 *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *RIPunch LeftEU4
+*UIConstraints: *RIPunch LeftEU4 *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *RIPunch LeftNEU4
+*UIConstraints: *RIPunch LeftNEU4 *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *RIPunch RightJP2
+*UIConstraints: *RIPunch RightJP2 *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *RIPunch RightUS2
+*UIConstraints: *RIPunch RightUS2 *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *RIPunch RightUS3
+*UIConstraints: *RIPunch RightUS3 *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *RIPunch RightEU4
+*UIConstraints: *RIPunch RightEU4 *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *RIPunch RightNEU4
+*UIConstraints: *RIPunch RightNEU4 *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *RIPunch UpperJP2
+*UIConstraints: *RIPunch UpperJP2 *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *RIPunch UpperUS2
+*UIConstraints: *RIPunch UpperUS2 *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *RIPunch UpperUS3
+*UIConstraints: *RIPunch UpperUS3 *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *RIPunch UpperEU4
+*UIConstraints: *RIPunch UpperEU4 *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *RIPunch UpperNEU4
+*UIConstraints: *RIPunch UpperNEU4 *MediaType Prepunched
+*UIConstraints: *InputSlot MultiTray *RIPunch LeftJP2
+*UIConstraints: *RIPunch LeftJP2 *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *RIPunch LeftUS2
+*UIConstraints: *RIPunch LeftUS2 *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *RIPunch LeftUS3
+*UIConstraints: *RIPunch LeftUS3 *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *RIPunch LeftEU4
+*UIConstraints: *RIPunch LeftEU4 *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *RIPunch LeftNEU4
+*UIConstraints: *RIPunch LeftNEU4 *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *RIPunch RightJP2
+*UIConstraints: *RIPunch RightJP2 *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *RIPunch RightUS2
+*UIConstraints: *RIPunch RightUS2 *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *RIPunch RightUS3
+*UIConstraints: *RIPunch RightUS3 *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *RIPunch RightEU4
+*UIConstraints: *RIPunch RightEU4 *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *RIPunch RightNEU4
+*UIConstraints: *RIPunch RightNEU4 *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *RIPunch UpperJP2
+*UIConstraints: *RIPunch UpperJP2 *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *RIPunch UpperUS2
+*UIConstraints: *RIPunch UpperUS2 *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *RIPunch UpperUS3
+*UIConstraints: *RIPunch UpperUS3 *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *RIPunch UpperEU4
+*UIConstraints: *RIPunch UpperEU4 *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *RIPunch UpperNEU4
+*UIConstraints: *RIPunch UpperNEU4 *InputSlot MultiTray
+
+
+*% Generic boilerplate PPD stuff as standard PostScript fonts and so on
+
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Standard ROM
+*% end of Printer Description file
