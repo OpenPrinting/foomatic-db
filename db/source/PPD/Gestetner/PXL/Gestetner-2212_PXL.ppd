@@ -4,7 +4,7 @@
 *%    for "Gestetner 2212 PXL"
 *%
 *%    CreationDate: 2001/02/08
-*%    Modified:     2005/08/29
+*%    Modified:     2005/10/31
 *%
 *%    COPYRIGHT (C) 2001-2005 RICOH COMPANY, LTD.
 *%    
@@ -110,6 +110,36 @@
 *FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE%B%A%C -sOutputFile=- - %D%E"
 
 *OpenGroup: General
+*OpenUI *ColorModel/Color Mode: PickOne
+*FoomaticRIPOption ColorModel: enum Composite B
+*OrderDependency: 10 AnySetup *ColorModel
+*DefaultColorModel: Grayscale
+*ColorModel Grayscale/Grayscale: "%% FoomaticRIPOptionSetting: ColorModel=Grayscale"
+*FoomaticRIPOptionSetting ColorModel=Grayscale: "GSCmdLine=Grayscale"
+*CloseUI: *ColorModel
+
+*FoomaticRIPOption GSCmdLine: enum CmdLine B 10
+*FoomaticRIPOptionSetting GSCmdLine=FromColorModel: ""
+*FoomaticRIPOptionSetting GSCmdLine=Grayscale: " -sDEVICE=pxlmono"
+*End
+
+*OpenUI *Resolution/Resolution: PickOne
+*FoomaticRIPOption Resolution: enum Composite A
+*OrderDependency: 15 AnySetup *Resolution
+*DefaultResolution: 600dpi
+*Resolution 600dpi:  "%% FoomaticRIPOptionSetting: Resolution=600dpi"
+*FoomaticRIPOptionSetting Resolution=600dpi: "JCLResolution=600dpi GSResolution=600dpi"
+*CloseUI: *Resolution
+
+*FoomaticRIPOption GSResolution: enum CmdLine A 15
+*FoomaticRIPOptionSetting GSResolution=FromResolution: ""
+*FoomaticRIPOptionSetting GSResolution=600dpi: " -r600x600"
+
+*FoomaticRIPOption JCLResolution: enum JCL A 15
+*FoomaticRIPOptionSetting JCLResolution=FromResolution: ""
+*FoomaticRIPOptionSetting JCLResolution=600dpi: "SET RESOLUTION=600"
+
+
 *%========== Media Selection ==========
 
 *HWMargins:      12 12 12 12
@@ -190,6 +220,35 @@
 *FoomaticRIPOptionSetting InputSlot=Auto: ""
 *CloseUI: *InputSlot
 
+*OpenUI *Duplex/Duplex: PickOne
+*FoomaticRIPOption Duplex: enum Composite D
+*OrderDependency: 50 AnySetup *Duplex
+*DefaultDuplex: None
+*Duplex None/Off:  "%% FoomaticRIPOptionSetting: Duplex=None"
+*FoomaticRIPOptionSetting Duplex=NOne: "JCLDuplex=None GSDuplex=None"
+*Duplex DuplexNoTumble/Long Edge:  "%% FoomaticRIPOptionSetting: Duplex=DuplexNoTumble"
+*FoomaticRIPOptionSetting Duplex=DuplexNoTumble: "JCLDuplex=DuplexNoTumble GSDuplex=DuplexNoTumble"
+*Duplex DuplexTumble/Short Edge:  "%% FoomaticRIPOptionSetting: Duplex=DuplexTumble"
+*FoomaticRIPOptionSetting Duplex=DuplexTumble: "JCLDuplex=DuplexTumble GSDuplex=DuplexTumble"
+*CloseUI: *Duplex
+
+*FoomaticRIPOption GSDuplex: enum CmdLine D 50
+*FoomaticRIPOptionSetting GSDuplex=FromDuplex: ""
+*FoomaticRIPOptionSetting GSDuplex=None: ""
+*FoomaticRIPOptionSetting GSDuplex=DuplexNoTumble: "&&
+ | perl -p -e &quot;s/\xc0\x00\xf8\x34/\xc0\x01\xf8\x35/g&quot;"
+*FoomaticRIPOptionSetting GSDuplex=DuplexTumble: "&&
+ | perl -p -e &quot;s/\xc0\x00\xf8\x34/\xc0\x00\xf8\x35/g&quot;"
+
+*FoomaticRIPOption JCLDuplex: enum JCL D 50
+*FoomaticRIPOptionSetting JCLDuplex=FromDuplex: ""
+*FoomaticRIPOptionSetting JCLDuplex=None: "SET DUPLEX=OFF"
+*FoomaticRIPOptionSetting JCLDuplex=DuplexNoTumble: "SET DUPLEX=ON
+@PJL SET BINDING=LONGEDGE"
+*FoomaticRIPOptionSetting JCLDuplex=DuplexTumble: "SET DUPLEX=ON
+@PJL SET BINDING=SHORTEDGE"
+
+
 *OpenUI *TraySwitch/Auto Tray Switch: PickOne
 *FoomaticRIPOption TraySwitch: enum JCL A
 *OrderDependency: 35 AnySetup *TraySwitch
@@ -199,56 +258,6 @@
 *TraySwitch False/Off: "%% FoomaticRIPOptionSetting: TraySwitch=False"
 *FoomaticRIPOptionSetting TraySwitch=False: "SET AUTOTRAYCHANGE=OFF"
 *CloseUI: *TraySwitch
-
-*OpenUI *Duplex/Duplex: PickOne
-*FoomaticRIPOption Duplex: enum CmdLine D
-*OrderDependency: 50 AnySetup *Duplex
-*DefaultDuplex: None
-*Duplex None/Off: "%% FoomaticRIPOptionSetting: Duplex=None"
-*FoomaticRIPOptionSetting Duplex=None: ""
-*Duplex DuplexNoTumble/Long Edge: "%% FoomaticRIPOptionSetting: Duplex=DuplexNoTumble"
-*FoomaticRIPOptionSetting Duplex=DuplexNoTumble: "&&
- | perl -p -e &quot;s/\xc0\x00\xf8\x34/\xc0\x01\xf8\x35/g&quot;"
-*End
-*Duplex DuplexTumble/Short Edge: "%% FoomaticRIPOptionSetting: Duplex=DuplexTumble"
-*FoomaticRIPOptionSetting Duplex=DuplexTumble: "&&
- | perl -p -e &quot;s/\xc0\x00\xf8\x34/\xc0\x00\xf8\x35/g&quot;"
-*End
-*CloseUI: *Duplex
-
-*OpenUI *ColorModel/Color Mode: PickOne
-*FoomaticRIPOption ColorModel: enum Composite B
-*OrderDependency: 10 AnySetup *ColorModel
-*DefaultColorModel: Grayscale
-*ColorModel Grayscale/Grayscale: "%% FoomaticRIPOptionSetting: ColorModel=Grayscale"
-*FoomaticRIPOptionSetting ColorModel=Grayscale: "GSCmdLine=Grayscale"
-*CloseUI: *ColorModel
-
-*FoomaticRIPOption GSCmdLine: enum CmdLine B 10
-*FoomaticRIPOptionSetting GSCmdLine=FromColorModel: ""
-*FoomaticRIPOptionSetting GSCmdLine=Grayscale: " -sDEVICE=pxlmono"
-*End
-
-*OpenUI *Resolution/Resolution: PickOne
-*FoomaticRIPOption Resolution: enum Composite A
-*OrderDependency: 40 AnySetup *Resolution
-*DefaultResolution: 600dpi
-*Resolution 300dpi:  "%% FoomaticRIPOptionSetting: Resolution=300x300dpi"
-*FoomaticRIPOptionSetting Resolution=300x300dpi: "JCLResolution=300x300dpi GSResolution=300x300dpi"
-*Resolution 600dpi:  "%% FoomaticRIPOptionSetting: Resolution=600x600dpi"
-*FoomaticRIPOptionSetting Resolution=600x600dpi: "JCLResolution=600x600dpi GSResolution=600x600dpi"
-*CloseUI: *Resolution
-
-*FoomaticRIPOption GSResolution: enum CmdLine A 100
-*FoomaticRIPOptionSetting GSResolution=FromResolution: ""
-*FoomaticRIPOptionSetting GSResolution=300x300dpi: " -r300x300"
-*FoomaticRIPOptionSetting GSResolution=600x600dpi: " -r600x600"
-
-*FoomaticRIPOption JCLResolution: enum JCL A 100
-*FoomaticRIPOptionSetting JCLResolution=FromResolution: ""
-*FoomaticRIPOptionSetting JCLResolution=300x300dpi: "SET RESOLUTION=300"
-*FoomaticRIPOptionSetting JCLResolution=600x600dpi: "SET RESOLUTION=600"
-
 
 *OpenUI *MediaType/Paper Type: PickOne
 *FoomaticRIPOption MediaType: enum JCL A
