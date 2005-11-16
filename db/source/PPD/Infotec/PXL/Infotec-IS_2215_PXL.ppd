@@ -4,7 +4,7 @@
 *%    for "Infotec  IS 2215 PXL"
 *%
 *%    CreationDate: 2001/06/22
-*%    Modified:     2005/10/31
+*%    Modified:     2005/11/15
 *%
 *%    COPYRIGHT (C) 2001-2005 RICOH COMPANY, LTD.
 *%    
@@ -119,10 +119,6 @@
 *FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4"
 *PageSize Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
 *FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter"
-*PageSize Executive/Executive: "%% FoomaticRIPOptionSetting: PageSize=Executive"
-*FoomaticRIPOptionSetting PageSize=Executive: " -sPAPERSIZE=exe"
-*PageSize Env10/Com10 Env.: "%% FoomaticRIPOptionSetting: PageSize=Env10"
-*FoomaticRIPOptionSetting PageSize=Env10: " -sPAPERSIZE=c10"
 *CloseUI: *PageSize
 
 *OpenUI *PageRegion: PickOne
@@ -130,8 +126,6 @@
 *DefaultPageRegion: Letter
 *PageRegion A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
 *PageRegion Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
-*PageRegion Executive/Executive: "%% FoomaticRIPOptionSetting: PageSize=Executive"
-*PageRegion Env10/Com10 Env.: "%% FoomaticRIPOptionSetting: PageSize=Env10"
 *CloseUI: *PageRegion
 
 *%========== Information About Media Sizes ==========
@@ -139,14 +133,10 @@
 *DefaultImageableArea: Letter
 *ImageableArea A4/A4: "12 12 583 830"
 *ImageableArea Letter/Letter: "12 12 600 780"
-*ImageableArea Executive/Executive: "12 12 510 744"
-*ImageableArea Env10/Com10 Env.: "12 12 285 672"
 
 *DefaultPaperDimension: Letter
 *PaperDimension A4/A4: "595 842"
 *PaperDimension Letter/Letter: "612 792"
-*PaperDimension Executive/Executive: "522 756"
-*PaperDimension Env10/Com10 Env.: "297 684"
 
 *%========== Media Handling Features ==========
 
@@ -156,15 +146,15 @@
 *DefaultInputSlot: Auto
 *InputSlot MultiTray/Bypass Tray: "%% FoomaticRIPOptionSetting: InputSlot=MultiTray"
 *FoomaticRIPOptionSetting InputSlot=MultiTray: "&&
- | perl -p -e &quot;s/\xc0\x00\xf8\x26/\xc0\x02\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x02\xf8\x26/g&quot;"
 *End
 *InputSlot 1Tray/Tray 1: "%% FoomaticRIPOptionSetting: InputSlot=1Tray"
 *FoomaticRIPOptionSetting InputSlot=1Tray: "&&
- | perl -p -e &quot;s/\xc0\x00\xf8\x26/\xc0\x04\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x04\xf8\x26/g&quot;"
 *End
 *InputSlot 2Tray/Tray 2: "%% FoomaticRIPOptionSetting: InputSlot=2Tray"
 *FoomaticRIPOptionSetting InputSlot=2Tray: "&&
- | perl -p -e &quot;s/\xc0\x00\xf8\x26/\xc0\x05\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x05\xf8\x26/g&quot;"
 *End
 *InputSlot Auto/Auto Select: "%% FoomaticRIPOptionSetting: InputSlot=Auto"
 *FoomaticRIPOptionSetting InputSlot=Auto: ""
@@ -175,7 +165,7 @@
 *OrderDependency: 50 AnySetup *Duplex
 *DefaultDuplex: None
 *Duplex None/Off:  "%% FoomaticRIPOptionSetting: Duplex=None"
-*FoomaticRIPOptionSetting Duplex=NOne: "JCLDuplex=None GSDuplex=None"
+*FoomaticRIPOptionSetting Duplex=None: "JCLDuplex=None GSDuplex=None"
 *Duplex DuplexNoTumble/Long Edge:  "%% FoomaticRIPOptionSetting: Duplex=DuplexNoTumble"
 *FoomaticRIPOptionSetting Duplex=DuplexNoTumble: "JCLDuplex=DuplexNoTumble GSDuplex=DuplexNoTumble"
 *Duplex DuplexTumble/Short Edge:  "%% FoomaticRIPOptionSetting: Duplex=DuplexTumble"
@@ -244,6 +234,41 @@
 *CloseGroup: General
 
 
+*OpenGroup: JobLog/Job Log
+
+*OpenUI *JobType/JobType: PickOne
+*FoomaticRIPOption JobType: enum JCL A
+*OrderDependency: 255 AnySetup *JobType
+*DefaultJobType: Normal
+*JobType Normal/Normal: ""
+*JobType DetailedLogging/Normal with Detailed Logging: "%% FoomaticRIPOptionSetting: JobType=DetailedLogging"
+*FoomaticRIPOptionSetting JobType=DetailedLogging: "SET USERID=&quot;&user;&quot;
+@PJL SET HOSTLOGINNAME=&quot;&user;&quot;
+@PJL SET DATE=&quot;&year;/&month;/&date;&quot;
+@PJL SET TIME=&quot;&hour;:&min;:&sec;&quot;
+@PJL SET JOBNAME=&quot;&title;&quot;"
+*End
+*CloseUI: *JobType
+
+
+*OpenUI *UserCode/User Code (up to 8 digits): PickOne
+*FoomaticRIPOption UserCode: string JCL A
+*FoomaticRIPOptionMaxLength UserCode:8
+*FoomaticRIPOptionAllowedChars UserCode: "0-9"
+*OrderDependency: 255 AnySetup *UserCode
+*FoomaticRIPOptionPrototype UserCode: "SET USERCODE=&quot;%s&quot;"
+*DefaultUserCode: None
+*UserCode None/None: ""
+*UserCode 1/1: "%% FoomaticRIPOptionSetting: UserCode=1"
+*FoomaticRIPOptionSetting UserCode=1: "SET USERCODE=&quot;1&quot;"
+*UserCode 2/2: "%% FoomaticRIPOptionSetting: UserCode=2"
+*FoomaticRIPOptionSetting UserCode=2: "SET USERCODE=&quot;2&quot;"
+*UserCode 3/3: "%% FoomaticRIPOptionSetting: UserCode=3"
+*FoomaticRIPOptionSetting UserCode=3: "SET USERCODE=&quot;3&quot;"
+*CloseUI: *UserCode
+
+*CloseGroup: JobLog/Job Log
+
 *UIConstraints: *Option1OptionTray None *InputSlot 2Tray
 *UIConstraints: *InputSlot 2Tray *Option1OptionTray None
 *UIConstraints: *MediaType Labels *InputSlot 1Tray
@@ -258,22 +283,6 @@
 *UIConstraints: *InputSlot 2Tray *MediaType OHP
 *UIConstraints: *InputSlot 1Tray *MediaType Thick
 *UIConstraints: *InputSlot 2Tray *MediaType Thick
-*UIConstraints: *PageSize Executive *InputSlot 1Tray
-*UIConstraints: *PageSize Executive *InputSlot 2Tray
-*UIConstraints: *PageSize Env10 *InputSlot 1Tray
-*UIConstraints: *PageSize Env10 *InputSlot 2Tray
-*UIConstraints: *InputSlot 1Tray *PageSize Executive
-*UIConstraints: *InputSlot 2Tray *PageSize Executive
-*UIConstraints: *InputSlot 1Tray *PageSize Env10
-*UIConstraints: *InputSlot 2Tray *PageSize Env10
-*UIConstraints: *PageSize Executive *Duplex DuplexTumble
-*UIConstraints: *PageSize Executive *Duplex DuplexNoTumble
-*UIConstraints: *PageSize Env10 *Duplex DuplexTumble
-*UIConstraints: *PageSize Env10 *Duplex DuplexNoTumble
-*UIConstraints: *Duplex DuplexTumble *PageSize Executive
-*UIConstraints: *Duplex DuplexNoTumble *PageSize Executive
-*UIConstraints: *Duplex DuplexTumble *PageSize Env10
-*UIConstraints: *Duplex DuplexNoTumble *PageSize Env10
 *UIConstraints: *MediaType Labels *Duplex DuplexTumble
 *UIConstraints: *MediaType Labels *Duplex DuplexNoTumble
 *UIConstraints: *MediaType OHP *Duplex DuplexTumble
