@@ -1,0 +1,617 @@
+*PPD-Adobe: "4.3"
+*% This program is free software; you can redistribute it and/or modify it
+*% under the terms of the GNU General Public License as published by the Free
+*% Software Foundation; either version 2 of the License, or (at your option)
+*% any later version.
+*%
+*% This program is distributed in the hope that it will be useful, but WITHOUT
+*% ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+*% FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+*% more details.
+*%
+*% You should have received a copy of the GNU General Public License along with
+*% this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+*% Place, Suite 330, Boston, MA  02111-1307  USA
+*%
+
+
+*%================================================
+*%	Copyright(C) 2003-2004 Brother Industries, Ltd.
+*%	"Brother HL-5070DN BR-Script3J"
+*%================================================
+
+*%==== General Information Keywords ========================
+*FormatVersion: "4.3"
+*FileVersion: "1.01"
+*LanguageEncoding: JIS83-RKSJ
+*LanguageVersion: Japanese
+*Manufacturer: "Brother"
+*PCFileName: "BR5070DN.PPD"
+*Product: "(Brother HL-5070DN series)"
+*PSVersion: "(3010.106) 3"
+*ShortNickName: "Brother HL-5070DN BR-Script3J"
+*ModelName: "Brother HL-5070DN BR-Script3J"
+*NickName: "Brother HL-5070DN BR-Script3J"
+
+*%==== Basic Device Capabilities =============
+*LanguageLevel: "3"
+*TTRasterizer: Type42
+*ColorDevice: False
+*DefaultColorSpace: Gray
+*FileSystem: True
+*?FileSystem:"
+save 
+	/devname (%disk0%) def 
+	/ret false def 
+	0 1 7{ 
+		devname exch 48 add 5 exch put 
+		devname devstatus { 
+			0 ne {/ret true def}if 
+			pop pop pop pop pop pop pop 
+		}if 
+	}for 
+	ret {(True)}{(False)} ifelse = flush 
+restore 
+" 
+*End
+
+*Throughput: "18"
+*FreeVM: "1701000"
+
+*%==== Emulations and Protocols ==========
+*Protocols: PJL TBCP
+
+*SuggestedJobTimeout: "0"
+*SuggestedWaitTimeout: "300"
+*PrintPSErrors: True
+
+*%==== PostScript Patches ==========
+*%*JobPatchFile 1: "statusdict/setusbbinary known{statusdict begin true setusbbinary end}if"
+
+*%==== JCL Features ==========================
+*JCLBegin:           "<1B>%-12345X@PJL JOB<0A>"
+*JCLToPSInterpreter: "@PJL ENTER LANGUAGE = POSTSCRIPT <0A>"
+*JCLEnd:             "<1B>%-12345X@PJL EOJ <0A><1B>%-12345X"
+
+*%==== Installable Options ===================
+
+*OpenGroup: InstallableOptions/Options Installed
+
+*OpenUI *OptionTrays/給紙トレイの数: PickOne
+*DefaultOptionTrays: 2Trays
+*OptionTrays 1Trays/ 1: ""
+*OptionTrays 2Trays/ 2: ""
+*?OptionTrays:"
+save
+	<</BRFeeder 1>>setpagedevice currentpagedevice/BRFeeder get
+	1 eq{(2Trays)}{(1Trays)}ifelse
+	= flush 
+restore 
+"
+*End
+*CloseUI: *OptionTrays
+
+*CloseGroup: InstallableOptions
+
+*UIConstraints: *OptionTrays 1Trays *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *OptionTrays 1Trays
+
+*UIConstraints: *Resolution 1200dpi *TonerSaveMode On
+*UIConstraints: *TonerSaveMode On *Resolution 1200dpi
+*UIConstraints: *Resolution 1200dpi *Smoothing Light
+*UIConstraints: *Smoothing Light *Resolution 1200dpi
+*UIConstraints: *Resolution 1200dpi *Smoothing Medium
+*UIConstraints: *Smoothing Medium *Resolution 1200dpi
+*UIConstraints: *Resolution 1200dpi *Smoothing Dark
+*UIConstraints: *Smoothing Dark *Resolution 1200dpi
+
+*%==== Media Selection ======================
+
+*OpenUI *PageSize: PickOne
+*OrderDependency: 30 AnySetup *PageSize
+*DefaultPageSize: A4
+*PageSize A4/A4: "<< /PageSize [595 842] /ImagingBBox null >> setpagedevice"
+*PageSize B5/B5: "<< /PageSize [516 729] /ImagingBBox null >> setpagedevice"
+*PageSize A5/A5: "<< /PageSize [420 595] /ImagingBBox null >> setpagedevice"
+*PageSize Postcard/ﾊｶﾞｷ: "<</BRDensity true /PageSize [284 419] /ImagingBBox null >> setpagedevice"
+*PageSize EnvYou4/洋形４号封筒: "<</PageSize [298 666] /ImagingBBox null>> setpagedevice"
+*PageSize EnvChou3/洋形定形最大封筒: "<< /PageSize [340 666] /ImagingBBox null >> setpagedevice"
+*PageSize Bible/ﾊﾞｲﾌﾞﾙｻｲｽﾞ: "<</PageSize [270 486] /ImagingBBox null>> setpagedevice"
+*PageSize Letter/ﾚﾀｰ : "<< /PageSize [612 792] /ImagingBBox null >> setpagedevice"
+*PageSize Legal/ﾘｰｶﾞﾙ : "<< /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 40 AnySetup *PageRegion
+*DefaultPageRegion: A4
+*PageRegion A4/A4: "<< /PageSize [595 842] /ImagingBBox null >> setpagedevice"
+*PageRegion B5/B5: "<< /PageSize [516 729] /ImagingBBox null >> setpagedevice"
+*PageRegion A5/A5: "<< /PageSize [420 595] /ImagingBBox null >> setpagedevice"
+*PageRegion Postcard/ﾊｶﾞｷ: "<</BRDensity true /PageSize [284 419] /ImagingBBox null >> setpagedevice"
+*PageRegion EnvYou4/洋形４号封筒: "<</PageSize [298 666] /ImagingBBox null>> setpagedevice"
+*PageRegion EnvChou3/洋形定形最大封筒: "<< /PageSize [340 666] /ImagingBBox null >> setpagedevice"
+*PageRegion Bible/ﾊﾞｲﾌﾞﾙｻｲｽﾞ: "<</PageSize [270 486] /ImagingBBox null>> setpagedevice"
+*PageRegion Letter/ﾚﾀｰ : "<< /PageSize [612 792] /ImagingBBox null >> setpagedevice"
+*PageRegion Legal/ﾘｰｶﾞﾙ : "<< /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
+*CloseUI: *PageRegion
+
+*DefaultImageableArea: A4
+*ImageableArea A4/A4: "12.0 12.24 583.08 829.92"
+*ImageableArea B5/B5: "12.0 14.52 502.92 717.0"
+*ImageableArea A5/A5: "12.0 11.88 407.4 582.96"
+*ImageableArea Postcard/ﾊｶﾞｷ: "15.12 12.0 270.88 406.92"
+*ImageableArea EnvYou4/洋形４号封筒: "14.0 12.0 285.88 654.0"
+*ImageableArea EnvChou3/洋形定形最大封筒: "12.0 12.0 328.0 654.0"
+*ImageableArea Bible/ﾊﾞｲﾌﾞﾙｻｲｽﾞ: "12.0 12.24 258.0 474.0"
+*ImageableArea Letter/ﾚﾀｰ : "12.0 12.12 599.88 780.0"
+*ImageableArea Legal/ﾘｰｶﾞﾙ : "12.0 12.12 599.88 996.0"
+
+*%==== Information About Media Sizes ========
+
+*DefaultPaperDimension: A4
+*PaperDimension A4/A4: "595 842"
+*PaperDimension B5/B5: "516 729"
+*PaperDimension A5/A5: "420 595"
+*PaperDimension Postcard/ﾊｶﾞｷ: "284 419"
+*PaperDimension EnvYou4/洋形４号封筒: "298 666"
+*PaperDimension EnvChou3/洋形定形最大封筒: "340 666"
+*PaperDimension Bible/ﾊﾞｲﾌﾞﾙｻｲｽﾞ: "270 486"
+*PaperDimension Letter/ﾚﾀｰ : "612 792"
+*PaperDimension Legal/ﾘｰｶﾞﾙ : "612 1008"
+
+*%==== Custom Page Sizes ====================
+*NonUIOrderDependency: 40 AnySetup *CustomPageSize
+*VariablePaperSize: True
+*LeadingEdge Short: ""
+*DefaultLeadingEdge: Short
+*MaxMediaWidth: "612"
+*MaxMediaHeight: "1008"
+*HWMargins: 13 13 13 13
+*CustomPageSize True: "
+	<</BRTraysw false /BRFeeder 4>>setpagedevice
+	<</BRCustomPageSize true>> setpagedevice 
+	pop pop pop 
+	<< /PageSize [ 5 -2 roll ] /ImagingBBox null >> 
+	setpagedevice 
+"
+*End
+*ParamCustomPageSize Width: 1 points 198 612
+*ParamCustomPageSize Height: 2 points 328 1008
+*ParamCustomPageSize WidthOffset: 3 points 0 0
+*ParamCustomPageSize HeightOffset: 4 points 0 0
+*ParamCustomPageSize Orientation: 5 int 0 3
+
+*%==== 5.13 Media Handling Features ============================
+*OpenUI *BRMediaType/用紙媒体: PickOne
+*OrderDependency: 28 AnySetup *BRMediaType
+*DefaultBRMediaType: Thin
+*BRMediaType Thin/普通紙: "statusdict begin 4 setmediatype end"
+*BRMediaType Plain/普通紙(厚め): "statusdict begin 0 setmediatype end"
+*BRMediaType Thick/厚紙(ハガキ): "statusdict begin 1 setmediatype end"
+*BRMediaType ThickPaper2/超厚紙: "statusdict begin 2 setmediatype end"
+*BRMediaType BOND/ボンド紙: "statusdict begin 5 setmediatype end"
+*BRMediaType Transparency/OHP: "statusdict begin 3 setmediatype end"
+*BRMediaType Env/封筒: "statusdict begin 6 setmediatype end"
+*BRMediaType EnvThick/封筒(厚め): "statusdict begin 7 setmediatype end"
+*BRMediaType EnvThin/封筒(薄め): "statusdict begin 8 setmediatype end"
+*CloseUI: *BRMediaType
+
+*OpenUI *InputSlot: PickOne
+*OrderDependency: 29 AnySetup *InputSlot
+*DefaultInputSlot: AutoSelect
+*InputSlot AutoSelect/自動選択: "<</ManualFeed false /BRTraysw true >> setpagedevice"
+*InputSlot Tray1/トレイ１: "<</ManualFeed false /BRTraysw false /BRFeeder 0>> setpagedevice"
+*InputSlot Tray2/トレイ２: "<</ManualFeed false /BRTraysw false /BRFeeder 1>> setpagedevice"
+*InputSlot MPTray/MP トレイ: "<</ManualFeed false /BRTraysw false /BRFeeder 4>> setpagedevice"
+*CloseUI: *InputSlot
+
+*RequiresPageRegion All:True
+
+*OpenUI *ManualFeed/手差し: Boolean
+*OrderDependency: 40 AnySetup *ManualFeed
+*DefaultManualFeed: False
+*ManualFeed True:  "<</ManualFeed true>> setpagedevice"
+*ManualFeed False: "<</ManualFeed false>> setpagedevice"
+*CloseUI: *ManualFeed
+
+*%=== Duplex ================================
+*OpenUI *Duplex: PickOne
+*OrderDependency: 25 AnySetup *Duplex
+*DefaultDuplex: None
+*Duplex DuplexTumble/短辺とじ: "<</Duplex true /Tumble true>>setpagedevice"
+*Duplex DuplexNoTumble/長辺とじ: "<</Duplex true /Tumble false>>setpagedevice"
+*Duplex None/しない: "<</Duplex false /Tumble false>>setpagedevice"
+*CloseUI: *Duplex
+
+*%=== Output Bin =============================
+*DefaultOutputBin: OnlyOne
+
+*% === Collate ==========
+*%==== 5.14 Finishing Features =================================
+*%%%%% Resolution and Appearance Control %%%%%
+*OpenUI *Resolution/解像度: PickOne
+*OrderDependency: 11 AnySetup *Resolution
+*DefaultResolution: 600dpi
+*Resolution	300dpi: "<</HWResolution [300 300] >> setpagedevice"
+*Resolution	600dpi: "<</HWResolution [600 600] >> setpagedevice"
+*Resolution	1200dpi/HQ1200dpi: "<</HWResolution [1200 1200] >> setpagedevice"
+*CloseUI: *Resolution
+
+*OpenUI *Smoothing/HRC: PickOne
+*OrderDependency: 14 AnySetup *Smoothing
+*DefaultSmoothing: PrinterDefault
+*Smoothing PrinterDefault/プリンタ設定値: ""
+*Smoothing Off/オフ: "<</BRHrc 0>> setpagedevice"
+*Smoothing Light/弱: "<</BRHrc 1>> setpagedevice"
+*Smoothing Medium/中: "<</BRHrc 2>> setpagedevice"
+*Smoothing Dark/強: "<</BRHrc 3>> setpagedevice"
+*CloseUI: *Smoothing
+
+*%=== JobHold ================================
+*%==== BR-Script Color Original UI  ==================================
+
+*OpenUI *TonerSaveMode/トナー節約: PickOne
+*DefaultTonerSaveMode: Off
+*OrderDependency: 10 AnySetup  *TonerSaveMode
+*TonerSaveMode Off/オフ: "
+	statusdict/tonersave known{statusdict begin false tonersave end}if
+"
+*End
+*TonerSaveMode On/オン: "
+	statusdict/tonersave known{statusdict begin true tonersave end}if
+"
+*End
+*CloseUI: *TonerSaveMode
+
+*OpenUI *Sleep/スリープまでの時間 [分]: PickOne
+*DefaultSleep: PrinterDefault
+*OrderDependency: 10 AnySetup  *Sleep
+*Sleep PrinterDefault/プリンタ設定値: ""
+*Sleep 2minutes/2: "statusdict begin 2 powersavetime end"
+*Sleep 10minutes/10: "statusdict begin 10 powersavetime end"
+*Sleep 30minutes/30: "statusdict begin 30 powersavetime end"
+*CloseUI: *Sleep
+
+*OpenUI *BRLanguageLevel/BR-Script レベル: PickOne
+*OrderDependency: 15 AnySetup *BRLanguageLevel
+*DefaultBRLanguageLevel: L3
+*BRLanguageLevel L1/1: "userdict begin /languagelevel 1 def end"
+*BRLanguageLevel L2/2: "userdict begin /languagelevel 2 def end"
+*BRLanguageLevel L3/3: ""
+*CloseUI: *BRLanguageLevel
+
+*%==== 5.17 Gray Levels and Halftoninig ========================
+*AccurateScreenSupport: False
+*ScreenFreq:  "60.0"
+*ScreenAngle: "45.0"
+*DefaultScreenProc: Dot
+*ScreenProc Dot: "{1.0 add 180 mul 1 add sin 0.001 add exch 1.0 add 180 mul 2 add sin mul}"
+
+*DefaultTransfer: Null
+*Transfer Null:		"{}"
+*Transfer Null.Inverse:	"{1 exch sub}"
+
+*%==== 5.18 Color Issues =======================================
+*% BlackSubstitution -> Original UI
+
+*%==== 5.19 Color Separation Keywords ==========================
+*DefaultColorSep: ProcessBlack
+*ColorSepScreenFreq ProcessBlack.71lpi.600dpi/71 lpi / 600 dpi: "70.7107"
+*ColorSepScreenFreq CustomColor.71lpi.600dpi/71 lpi / 600 dpi: "70.7107"
+*ColorSepScreenFreq ProcessCyan.71lpi.600dpi/71 lpi / 600 dpi: "63.2456"
+*ColorSepScreenFreq ProcessMagenta.71lpi.600dpi/71 lpi / 600 dpi: "63.2456"
+*ColorSepScreenFreq ProcessYellow.71lpi.600dpi/71 lpi / 600 dpi: "66.6667"
+*ColorSepScreenFreq ProcessBlack.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq CustomColor.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq ProcessCyan.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq ProcessMagenta.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq ProcessYellow.60lpi.300dpi/60 lpi / 300 dpi: "60"
+*ColorSepScreenFreq ProcessBlack.53lpi.300dpi/53 lpi / 300 dpi: "53.033"
+*ColorSepScreenFreq CustomColor.53lpi.300dpi/53 lpi / 300 dpi: "53.033"
+*ColorSepScreenFreq ProcessCyan.53lpi.300dpi/53 lpi / 300 dpi: "47.4342"
+*ColorSepScreenFreq ProcessMagenta.53lpi.300dpi/53 lpi / 300 dpi:"47.4342"
+*ColorSepScreenFreq ProcessYellow.53lpi.300dpi/53 lpi / 300 dpi: "50.0"
+*ColorSepScreenAngle ProcessBlack.71lpi.600dpi/71 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.71lpi.600dpi/71 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.71lpi.600dpi/71 lpi / 600 dpi: "71.5651"
+*ColorSepScreenAngle ProcessMagenta.71lpi.600dpi/71 lpi / 600 dpi: "18.4349"
+*ColorSepScreenAngle ProcessYellow.71lpi.600dpi/71 lpi / 600 dpi: "0.0"
+*ColorSepScreenAngle ProcessBlack.60lpi.300dpi/60 lpi / 300 dpi: "45"
+*ColorSepScreenAngle CustomColor.60lpi.300dpi/60 lpi / 300 dpi: "45"
+*ColorSepScreenAngle ProcessCyan.60lpi.300dpi/60 lpi / 300 dpi: "15"
+*ColorSepScreenAngle ProcessMagenta.60lpi.300dpi/60 lpi / 300 dpi: "75"
+*ColorSepScreenAngle ProcessYellow.60lpi.300dpi/60 lpi / 300 dpi: "0"
+*ColorSepScreenAngle ProcessBlack.53lpi.300dpi/53 lpi / 300 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.53lpi.300dpi/53 lpi / 300 dpi:  "45.0"
+*ColorSepScreenAngle ProcessCyan.53lpi.300dpi/53 lpi / 300 dpi:  "71.5651"
+*ColorSepScreenAngle ProcessMagenta.53lpi.300dpi/53 lpi / 300 dpi: "18.4349"
+*ColorSepScreenAngle ProcessYellow.53lpi.300dpi/53 lpi / 300 dpi: "0.0"
+*End
+
+*InkName: ProcessBlack/Process Black
+*InkName: CustomColor/Custom Color
+*InkName: ProcessCyan/Process Cyan
+*InkName: ProcessMagenta/Process Magenta
+*InkName: ProcessYellow/Process Yellow
+
+*%==== 5.20 Font Related Keywords ==============================
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Special ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Alaska: Standard "(001.005)" Standard ROM
+*Font AlaskaExtrabold: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland-Bold: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland-Oblique: Standard "(001.005)" Standard ROM
+*Font ClevelandCondensed: Standard "(001.005)" Standard ROM
+*Font Connecticut: Standard "(001.005)" Standard ROM
+*Font Guatemala-Antique: Standard "(001.005)" Standard ROM
+*Font Guatemala-Bold: Standard "(001.005)" Standard ROM
+*Font Guatemala-Italic: Standard "(001.005)" Standard ROM
+*Font Guatemala-BoldItalic: Standard "(001.005)" Standard ROM
+*Font LetterGothic: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Bold: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Oblique: Standard "(001.005)" Standard ROM
+*Font Maryland: Standard "(001.005)" Standard ROM
+*Font Oklahoma: Standard "(001.005)" Standard ROM
+*Font Oklahoma-Bold: Standard "(001.005)" Standard ROM
+*Font Oklahoma-Oblique: Standard "(001.005)" Standard ROM
+*Font Oklahoma-BoldOblique: Standard "(001.005)" Standard ROM
+*Font Utah: Standard "(001.005)" Standard ROM
+*Font Utah-Bold: Standard "(001.005)" Standard ROM
+*Font Utah-Oblique: Standard "(001.005)" Standard ROM
+*Font Utah-BoldOblique: Standard "(001.005)" Standard ROM
+*Font UtahCondensed: Standard "(001.005)" Standard ROM
+*Font UtahCondensed-Bold: Standard "(001.005)" Standard ROM
+*Font UtahCondensed-Oblique: Standard "(001.004)" Standard ROM
+*Font UtahCondensed-BoldOblique: Standard "(001.005)" Standard ROM
+*Font BermudaScript: Standard "(001.005)" Standard ROM
+*Font Germany: Standard "(001.005)" Standard ROM
+*Font SanDiego: Standard "(001.005)" Standard ROM
+*Font US-Roman: Standard "(001.005)" Standard ROM
+*Font MisugiGothic-Medium-78-EUC-H: EUC "(000.000)" JIS-83 ROM
+*Font MisugiGothic-Medium-78-EUC-V: EUC "(000.000)" JIS-83 ROM
+*Font MisugiGothic-Medium-78-H: JIS "(000.000)" JIS-83 ROM
+*Font MisugiGothic-Medium-78-RKSJ-H: RKSJ "(000.000)" JIS-83 ROM
+*Font MisugiGothic-Medium-78-RKSJ-V: RKSJ "(000.000)" JIS-83 ROM
+*Font MisugiGothic-Medium-78-SJ-H: JIS "(000.000)" JIS-83 ROM
+*Font MisugiGothic-Medium-78-SJ-V: JIS "(000.000)" JIS-83 ROM
+*Font MisugiGothic-Medium-78-V: JIS "(000.000)" JIS-83 ROM
+*Font MisugiGothic-Medium-83pv-RKSJ-H: RKSJ "(000.000)" 83pv ROM
+*Font MisugiGothic-Medium-90pv-RKSJ-H: RKSJ "(000.000)" 90pv ROM
+*Font MisugiGothic-Medium-90pv-RKSJ-V: RKSJ "(000.000)" 90pv ROM
+*Font MisugiGothic-Medium-90ms-RKSJ-H: RKSJ "(000.000)" 90ms ROM
+*Font MisugiGothic-Medium-90ms-RKSJ-V: RKSJ "(000.000)" 90ms ROM
+*Font MisugiGothic-Medium-EUC-H: EUC "(000.000)" JIS-83 ROM
+*Font MisugiGothic-Medium-EUC-V: EUC "(000.000)" JIS-83 ROM
+*Font MisugiGothic-Medium-Ext-EUC-H: EUC "(000.000)" JIS-83 ROM
+*Font MisugiGothic-Medium-Ext-EUC-V: EUC "(000.000)" JIS-83 ROM
+*Font MisugiGothic-Medium-Ext-H: JIS "(000.000)" Ext ROM
+*Font MisugiGothic-Medium-Ext-RKSJ-H: RKSJ "(000.000)" Ext ROM
+*Font MisugiGothic-Medium-Ext-RKSJ-V: RKSJ "(000.000)" Ext ROM
+*Font MisugiGothic-Medium-Ext-SJ-H: JIS "(000.000)" Ext ROM
+*Font MisugiGothic-Medium-Ext-SJ-V: JIS "(000.000)" Ext ROM
+*Font MisugiGothic-Medium-Ext-V: JIS "(000.000)" Ext ROM
+*Font MisugiGothic-Medium-H: JIS "(000.000)" JIS-83 ROM
+*Font MisugiGothic-Medium-NWP-H: JIS "(000.000)" NWP ROM
+*Font MisugiGothic-Medium-NWP-V: JIS "(000.000)" NWP ROM
+*Font MisugiGothic-Medium-RKSJ-H: RKSJ "(000.000)" JIS-83 ROM
+*Font MisugiGothic-Medium-RKSJ-V: RKSJ "(000.000)" JIS-83 ROM
+*Font MisugiGothic-Medium-SJ-H: JIS "(000.000)" JIS-83 ROM
+*Font MisugiGothic-Medium-SJ-V: JIS "(000.000)" JIS-83 ROM
+*Font MisugiGothic-Medium-V: JIS "(000.000)" JIS-83 ROM
+*Font MisugiGothic-Medium.Roman: Special "(000.000)" Special ROM
+*Font MisugiGothic-Medium.WP-Symbol: Special "(000.000)" Special ROM
+*Font WazakuraMincho-Medium-78-EUC-H: EUC "(000.000)" JIS-83 ROM
+*Font WazakuraMincho-Medium-78-EUC-V: EUC "(000.000)" JIS-83 ROM
+*Font WazakuraMincho-Medium-78-H: JIS "(000.000)" JIS-83 ROM
+*Font WazakuraMincho-Medium-78-RKSJ-H: RKSJ "(000.000)" JIS-83 ROM
+*Font WazakuraMincho-Medium-78-RKSJ-V: RKSJ "(000.000)" JIS-83 ROM
+*Font WazakuraMincho-Medium-78-SJ-H: JIS "(000.000)" JIS-83 ROM
+*Font WazakuraMincho-Medium-78-SJ-V: JIS "(000.000)" JIS-83 ROM
+*Font WazakuraMincho-Medium-78-V: JIS "(000.000)" JIS-83 ROM
+*Font WazakuraMincho-Medium-83pv-RKSJ-H: RKSJ "(000.000)" 83pv ROM
+*Font WazakuraMincho-Medium-90pv-RKSJ-H: RKSJ "(000.000)" 90pv ROM
+*Font WazakuraMincho-Medium-90pv-RKSJ-V: RKSJ "(000.000)" 90pv ROM
+*Font WazakuraMincho-Medium-90ms-RKSJ-H: RKSJ "(000.000)" 90ms ROM
+*Font WazakuraMincho-Medium-90ms-RKSJ-V: RKSJ "(000.000)" 90ms ROM
+*Font WazakuraMincho-Medium-EUC-H: EUC "(000.000)" JIS-83 ROM
+*Font WazakuraMincho-Medium-EUC-V: EUC "(000.000)" JIS-83 ROM
+*Font WazakuraMincho-Medium-Ext-EUC-H: EUC "(000.000)" JIS-83 ROM
+*Font WazakuraMincho-Medium-Ext-EUC-V: EUC "(000.000)" JIS-83 ROM
+*Font WazakuraMincho-Medium-Ext-H: JIS "(000.000)" Ext ROM
+*Font WazakuraMincho-Medium-Ext-RKSJ-H: RKSJ "(000.000)" Ext ROM
+*Font WazakuraMincho-Medium-Ext-RKSJ-V: RKSJ "(000.000)" Ext ROM
+*Font WazakuraMincho-Medium-Ext-SJ-H: JIS "(000.000)" Ext ROM
+*Font WazakuraMincho-Medium-Ext-SJ-V: JIS "(000.000)" Ext ROM
+*Font WazakuraMincho-Medium-Ext-V: JIS "(000.000)" Ext ROM
+*Font WazakuraMincho-Medium-H: JIS "(000.000)" JIS-83 ROM
+*Font WazakuraMincho-Medium-NWP-H: JIS "(000.000)" NWP ROM
+*Font WazakuraMincho-Medium-NWP-V: JIS "(000.000)" NWP ROM
+*Font WazakuraMincho-Medium-RKSJ-H: RKSJ "(000.000)" JIS-83 ROM
+*Font WazakuraMincho-Medium-RKSJ-V: RKSJ "(000.000)" JIS-83 ROM
+*Font WazakuraMincho-Medium-SJ-H: JIS "(000.000)" JIS-83 ROM
+*Font WazakuraMincho-Medium-SJ-V: JIS "(000.000)" JIS-83 ROM
+*Font WazakuraMincho-Medium-V: JIS "(000.000)" JIS-83 ROM
+*Font WazakuraMincho-Medium.Roman: Special "(000.000)" Special ROM
+*Font WazakuraMincho-Medium.WP-Symbol: Special "(000.000)" Special ROM
+*Font GothicBBB-Medium-78-EUC-H: EUC "(000.000)" JIS-83 ROM
+*Font GothicBBB-Medium-78-EUC-V: EUC "(000.000)" JIS-83 ROM
+*Font GothicBBB-Medium-78-H: JIS "(000.000)" JIS-83 ROM
+*Font GothicBBB-Medium-78-RKSJ-H: RKSJ "(000.000)" JIS-83 ROM
+*Font GothicBBB-Medium-78-RKSJ-V: RKSJ "(000.000)" JIS-83 ROM
+*Font GothicBBB-Medium-78-SJ-H: JIS "(000.000)" JIS-83 ROM
+*Font GothicBBB-Medium-78-SJ-V: JIS "(000.000)" JIS-83 ROM
+*Font GothicBBB-Medium-78-V: JIS "(000.000)" JIS-83 ROM
+*Font GothicBBB-Medium-83pv-RKSJ-H: RKSJ "(000.000)" 83pv ROM
+*Font GothicBBB-Medium-EUC-H: EUC "(000.000)" JIS-83 ROM
+*Font GothicBBB-Medium-EUC-V: EUC "(000.000)" JIS-83 ROM
+*Font GothicBBB-Medium-Ext-EUC-H: EUC "(000.000)" JIS-83 ROM
+*Font GothicBBB-Medium-Ext-EUC-V: EUC "(000.000)" JIS-83 ROM
+*Font GothicBBB-Medium-Ext-H: JIS "(000.000)" Ext ROM
+*Font GothicBBB-Medium-Ext-RKSJ-H: RKSJ "(000.000)" Ext ROM
+*Font GothicBBB-Medium-Ext-RKSJ-V: RKSJ "(000.000)" Ext ROM
+*Font GothicBBB-Medium-Ext-SJ-H: JIS "(000.000)" Ext ROM
+*Font GothicBBB-Medium-Ext-SJ-V: JIS "(000.000)" Ext ROM
+*Font GothicBBB-Medium-Ext-V: JIS "(000.000)" Ext ROM
+*Font GothicBBB-Medium-H: JIS "(000.000)" JIS-83 ROM
+*Font GothicBBB-Medium-NWP-H: JIS "(000.000)" NWP ROM
+*Font GothicBBB-Medium-NWP-V: JIS "(000.000)" NWP ROM
+*Font GothicBBB-Medium-RKSJ-H: RKSJ "(000.000)" JIS-83 ROM
+*Font GothicBBB-Medium-RKSJ-V: RKSJ "(000.000)" JIS-83 ROM
+*Font GothicBBB-Medium-SJ-H: JIS "(000.000)" JIS-83 ROM
+*Font GothicBBB-Medium-SJ-V: JIS "(000.000)" JIS-83 ROM
+*Font GothicBBB-Medium-V: JIS "(000.000)" JIS-83 ROM
+*Font GothicBBB-Medium.Roman: Special "(000.000)" Special ROM
+*Font GothicBBB-Medium.WP-Symbol: Special "(000.000)" Special ROM
+*Font Ryumin-Light-78-EUC-H: EUC "(000.000)" JIS-83 ROM
+*Font Ryumin-Light-78-EUC-V: EUC "(000.000)" JIS-83 ROM
+*Font Ryumin-Light-78-H: JIS "(000.000)" JIS-83 ROM
+*Font Ryumin-Light-78-RKSJ-H: RKSJ "(000.000)" JIS-83 ROM
+*Font Ryumin-Light-78-RKSJ-V: RKSJ "(000.000)" JIS-83 ROM
+*Font Ryumin-Light-78-SJ-H: JIS "(000.000)" JIS-83 ROM
+*Font Ryumin-Light-78-SJ-V: JIS "(000.000)" JIS-83 ROM
+*Font Ryumin-Light-78-V: JIS "(000.000)" JIS-83 ROM
+*Font Ryumin-Light-83pv-RKSJ-H: RKSJ "(000.000)" 83pv ROM
+*Font Ryumin-Light-EUC-H: EUC "(000.000)" JIS-83 ROM
+*Font Ryumin-Light-EUC-V: EUC "(000.000)" JIS-83 ROM
+*Font Ryumin-Light-Ext-EUC-H: EUC "(000.000)" JIS-83 ROM
+*Font Ryumin-Light-Ext-EUC-V: EUC "(000.000)" JIS-83 ROM
+*Font Ryumin-Light-Ext-H: JIS "(000.000)" Ext ROM
+*Font Ryumin-Light-Ext-RKSJ-H: RKSJ "(000.000)" Ext ROM
+*Font Ryumin-Light-Ext-RKSJ-V: RKSJ "(000.000)" Ext ROM
+*Font Ryumin-Light-Ext-SJ-H: JIS "(000.000)" Ext ROM
+*Font Ryumin-Light-Ext-SJ-V: JIS "(000.000)" Ext ROM
+*Font Ryumin-Light-Ext-V: JIS "(000.000)" Ext ROM
+*Font Ryumin-Light-H: JIS "(000.000)" JIS-83 ROM
+*Font Ryumin-Light-NWP-H: JIS "(000.000)" NWP ROM
+*Font Ryumin-Light-NWP-V: JIS "(000.000)" NWP ROM
+*Font Ryumin-Light-RKSJ-H: RKSJ "(000.000)" JIS-83 ROM
+*Font Ryumin-Light-RKSJ-V: RKSJ "(000.000)" JIS-83 ROM
+*Font Ryumin-Light-SJ-H: JIS "(000.000)" JIS-83 ROM
+*Font Ryumin-Light-SJ-V: JIS "(000.000)" JIS-83 ROM
+*Font Ryumin-Light-V: JIS "(000.000)" JIS-83 ROM
+*Font Ryumin-Light.Roman: Special "(000.000)" Special ROM
+*Font Ryumin-Light.WP-Symbol: Special "(000.000)" Special ROM
+*?FontQuery: "
+save
+count 1 gt
+  {exch dup dup
+   =string cvs (/) print print (:) print
+   FontDirectory exch known
+     {pop(Yes)}
+     {(fonts/)AppendName exch pop mark exch
+      {}=string filenameforall counttomark
+      0 gt
+        {cleartomark(Yes)}
+        {cleartomark(No)}ifelse
+     }ifelse
+   =
+  }if
+  (*) = flush
+restore
+"
+*End
+*?FontList: "
+save
+  FontDirectory{pop ==}forall
+  (fonts/*)
+  {dup length 6 sub 6 exch getinterval cvn ==
+  }=string filenameforall
+  (*) = flush
+restore
+"
+*End
+
+
+*%==== 5.21 Printer Messages ===================================
+*% 
+*% Printer Message 
+*%
+*PrinterError: "service call"
+*PrinterError: "cover open"
+*PrinterError: "end of ink"
+*PrinterError: "out of maintenance paper"
+*PrinterError: "out of paper"
+*PrinterError: "paper jam"
+*PrinterError: "manual feed time out"
+*PrinterError: "load paper letter size"
+*PrinterError: "load paper legal size"
+*PrinterError: "load paper B5 size"
+*PrinterError: "load paper A4 size"
+*PrinterError: "offline"
+
+*Status: "idle"
+*Status: "busy"
+*Status: "waiting"
+*Status: "printing"
+*Status: "warming up"
+*Status: "PrinterError: service call"
+*Status: "PrinterError: cover open"
+*Status: "PrinterError: end of ink"
+*Status: "PrinterError: out of paper"
+*Status: "PrinterError: paper jam"
+*Status: "PrinterError: manual feed time out"
+*Status: "PrinterError: load paper letter size"
+*Status: "PrinterError: load paper legal size"
+*Status: "PrinterError: load paper B5 size"
+*Status: "PrinterError: load paper A4 size"
+*Status: "PrinterError: offline"
+
+*% Input Sources (format: %%[ status: <stat>; source: <one of these> ]%% )
+*Source: "Serial"
+*Source: "Parallel"
+*Source: "EtherTalk"
+*Source: "LPR"
+*Source: "PrintServer"
+*Source: "Internal"
+
+*Message: "%%[ exitserver: permanent state may be changed ]%%"
+*Message: "%%[ Flushing: rest of job (to end-of-file) will be ignored ]%%"
+*Message: "\FontName\ not found, using BR-03B."
+*%==== 5.22 System Management ==================================
+*Password: "0"
+*ExitServer: "
+	serverdict begin 0 exitserver
+"
+*End
+*Reset: "
+	clear cleardictstack
+	serverdict begin 0 exitserver
+	systemdict /quit get exec
+ "
+*End
+
