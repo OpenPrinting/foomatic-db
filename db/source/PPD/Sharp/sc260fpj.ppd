@@ -1,8 +1,8 @@
 *PPD-Adobe: "4.3"
 *% PPD file for SHARP AR-C260FP PS with CUPS.
 *% Created by the CUPS PPD Compiler v1.0rc1.
-*% Modified by TT 2004/12/15.
-*% Copyright 1999-2004 Sharp Corporation
+*% Modified by TT 2006/02/13.
+*% Copyright 1999-2006 Sharp Corporation
 *% 
 *% This software is free software; you can redistribute it and/or
 *% modify it under the terms of the GNU General Public License as
@@ -20,7 +20,7 @@
 *% MA 02111 USA
 *% 
 *FormatVersion: "4.3"
-*FileVersion: "1.1"
+*FileVersion: "1.2"
 *LanguageVersion: English
 *LanguageEncoding: ISOLatin1
 *PCFileName: "SC260FPJ.PPD"
@@ -28,7 +28,7 @@
 *Manufacturer: "Sharp"
 *ModelName: "Sharp AR-C260FP PS"
 *ShortNickName: "Sharp AR-C260FP PS"
-*NickName: "Sharp AR-C260FP PS, 1.1"
+*NickName: "Sharp AR-C260FP PS, 1.2"
 *PSVersion: "(3010) 1"
 *LanguageLevel: "3"
 *ColorDevice: True
@@ -61,20 +61,20 @@
 
 *% MacOS10.2 CIEBased color space #3651,3816
 *JobPatchFile 5: "
-	statusdict/systemsetcolor/setcolor load put
-	/setcolor
+	systemdict begin statusdict/systemsetcolor/setcolor load put
+	userdict/setcolor
 	{currentcolorspace 0 get
 	 dup/CIEBasedABC eq
 	 {pop 3 copy 1 eq exch 1 eq 3 -1 roll 1 eq and and
-	  {/DeviceRGB setcolorspace} if
+	  {{/DeviceRGB setcolorspace}stopped{pop}if} if
 	 }{
 	  dup/CIEBasedA eq
 	  {pop dup 1 eq
-	   {/DeviceGray setcolorspace}if
+	   {{/DeviceGray setcolorspace}stopped{pop}if}if
 	  }{pop}ifelse
 	 }ifelse
 	 statusdict begin systemsetcolor end
-	}bind def"
+	}bind put end"
 *End
 
 *% MacOSX10.2 CIEBased color space(image) #3934
@@ -91,86 +91,17 @@
 
 *% MacOSX PureBlackText
 *JobPatchFile 9: "
-	/show
-	{statusdict /HQPureBlackText 2 copy known
-	 currentcolorspace 0 get/CIEBasedABC eq and
-	 {get 1 eq}{pop pop false}ifelse
-	 {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
-	  {gsave /DeviceRGB setcolorspace show currentpoint grestore moveto}{show}ifelse
-	 }{show}ifelse
-	}bind def
-	/ashow
-	{statusdict /HQPureBlackText 2 copy known
-	 currentcolorspace 0 get/CIEBasedABC eq and
-	 {get 1 eq}{pop pop false}ifelse
-	 {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
-	  {gsave /DeviceRGB setcolorspace ashow currentpoint grestore moveto}{ashow}ifelse
-	 }{ashow}ifelse
-	}bind def
-	/widthshow
-	{statusdict /HQPureBlackText 2 copy known
-	 currentcolorspace 0 get/CIEBasedABC eq and
-	 {get 1 eq}{pop pop false}ifelse
-	 {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
-	  {gsave /DeviceRGB setcolorspace widthshow currentpoint grestore moveto}{widthshow}ifelse
-	 }{widthshow}ifelse
-	}bind def
-	/awidthshow
-	{statusdict /HQPureBlackText 2 copy known
-	 currentcolorspace 0 get/CIEBasedABC eq and
-	 {get 1 eq}{pop pop false}ifelse
-	 {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
-	  {gsave /DeviceRGB setcolorspace awidthshow currentpoint grestore moveto}{awidthshow}ifelse
-	 }{awidthshow}ifelse
-	}bind def
-	/xshow
-	{statusdict /HQPureBlackText 2 copy known
-	 currentcolorspace 0 get/CIEBasedABC eq and
-	 {get 1 eq}{pop pop false}ifelse
-	 {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
-	  {gsave /DeviceRGB setcolorspace xshow currentpoint grestore moveto}{xshow}ifelse
-	 }{xshow}ifelse
-	}bind def
-	/xyshow
-	{statusdict /HQPureBlackText 2 copy known
-	 currentcolorspace 0 get/CIEBasedABC eq and
-	 {get 1 eq}{pop pop false}ifelse
-	 {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
-	  {gsave /DeviceRGB setcolorspace xyshow currentpoint grestore moveto}{xyshow}ifelse
-	 }{xyshow}ifelse
-	}bind def
-	/yshow
-	{statusdict /HQPureBlackText 2 copy known
-	 currentcolorspace 0 get/CIEBasedABC eq and
-	 {get 1 eq}{pop pop false}ifelse
-	 {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
-	  {gsave /DeviceRGB setcolorspace yshow currentpoint grestore moveto}{yshow}ifelse
-	 }{yshow}ifelse
-	}bind def
-	/glyphshow
-	{statusdict /HQPureBlackText 2 copy known
-	 currentcolorspace 0 get/CIEBasedABC eq and
-	 {get 1 eq}{pop pop false}ifelse
-	 {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
-	  {gsave /DeviceRGB setcolorspace glyphshow currentpoint grestore moveto}{glyphshow}ifelse
-	 }{glyphshow}ifelse
-	}bind def
-	/cshow
-	{statusdict /HQPureBlackText 2 copy known
-	 currentcolorspace 0 get/CIEBasedABC eq and
-	 {get 1 eq}{pop pop false}ifelse
-	 {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
-	  {gsave /DeviceRGB setcolorspace cshow currentpoint grestore moveto}{cshow}ifelse
-	 }{cshow}ifelse
-	}bind def
-	/kshow
-	{statusdict /HQPureBlackText 2 copy known
-	 currentcolorspace 0 get/CIEBasedABC eq and
-	 {get 1 eq}{pop pop false}ifelse
-	 {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
-	  {gsave /DeviceRGB setcolorspace kshow currentpoint grestore moveto}{kshow}ifelse
-	 }{kshow}ifelse
-	}bind def"
+	[/show/ashow/widthshow/awidthshow/xshow/xyshow/yshow/glyphshow/cshow/kshow]
+	{userdict/showop 3 -1 roll put
+	  (//showop{statusdict /HQPureBlackText 2 copy known
+	  currentcolorspace 0 get/CIEBasedABC eq and
+	  {get 1 eq}{pop pop false}ifelse
+	  {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
+	   {gsave {/DeviceRGB setcolorspace}stopped{pop}if systemdict //showop get exec
+	    currentpoint grestore moveto}{systemdict //showop get exec}ifelse
+	  }{systemdict //showop get exec}ifelse
+	 }bind def)cvx exec
+	}forall"
 *End
 
 *% MacOS9/10.1/10.2 WinNT/2000 PrintPriority
@@ -204,54 +135,24 @@
 
 *% MacOSX, Acrobat(All OS) PureBlackGraphics
 *JobPatchFile 11: "
-	/fill
-	{currentcolorspace 0 get/CIEBasedABC eq
-	 {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
-	  {gsave /DeviceRGB setcolorspace fill grestore newpath}{fill}ifelse
-	 }{fill}ifelse
-	}bind def
-	/eofill
-	{currentcolorspace 0 get/CIEBasedABC eq
-	 {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
-	  {gsave /DeviceRGB setcolorspace eofill grestore newpath}{eofill}ifelse
-	 }{eofill}ifelse
-	}bind def
-	/stroke
-	{currentcolorspace 0 get/CIEBasedABC eq
-	 {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
-	  {gsave /DeviceRGB setcolorspace stroke grestore newpath}{stroke}ifelse
-	 }{stroke}ifelse
-	}bind def
-	/rectfill
-	{currentcolorspace 0 get/CIEBasedABC eq
-	 {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
-	  {gsave /DeviceRGB setcolorspace rectfill grestore}{rectfill}ifelse
-	 }{rectfill}ifelse
-	}bind def
-	/rectstroke
-	{currentcolorspace 0 get/CIEBasedABC eq
-	 {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
-	  {gsave /DeviceRGB setcolorspace rectstroke grestore}{rectstroke}ifelse
-	 }{rectstroke}ifelse
-	}bind def
-	/ufill
-	{currentcolorspace 0 get/CIEBasedABC eq
-	 {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
-	  {gsave /DeviceRGB setcolorspace ufill grestore}{ufill}ifelse
-	 }{ufill}ifelse
-	}bind def
-	/ueofill
-	{currentcolorspace 0 get/CIEBasedABC eq
-	 {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
-	  {gsave /DeviceRGB setcolorspace ueofill grestore}{ueofill}ifelse
-	 }{ueofill}ifelse
-	}bind def
-	/ustroke
-	{currentcolorspace 0 get/CIEBasedABC eq
-	 {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
-	  {gsave /DeviceRGB setcolorspace ustroke grestore}{ustroke}ifelse
-	 }{ustroke}ifelse
-	}bind def"
+	[/fill/eofill/stroke]
+	{userdict/pathop 3 -1 roll put
+	  (//pathop{currentcolorspace 0 get/CIEBasedABC eq
+	   {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
+	    {gsave {/DeviceRGB setcolorspace}stopped{pop}if systemdict //pathop get exec
+		 grestore newpath}{systemdict //pathop get exec}ifelse
+	   }{systemdict //pathop get exec}ifelse
+	  }bind def)cvx exec
+	}forall
+	[/rectfill/rectstroke/ufill/ueofill/ustroke]
+	{userdict/upathop 3 -1 roll put
+	  (//upathop{currentcolorspace 0 get/CIEBasedABC eq
+	   {currentcolor 0 eq exch 0 eq 3 -1 roll 0 eq and and
+	    {gsave {/DeviceRGB setcolorspace}stopped{pop}if systemdict //upathop get exec
+		 grestore}{systemdict //upathop get exec}ifelse
+	   }{systemdict //upathop get exec}ifelse
+	  }bind def)cvx exec
+	}forall"
 *End
 
 *Password: "(0)"
