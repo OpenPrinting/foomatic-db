@@ -1,7 +1,7 @@
 *PPD-Adobe: "4.3"
 *%=============================================================================
 *%
-*%  PPD for Kyocera FS-1714M (English)
+*%  PPD for Kyocera FS-920 (English)
 *%  Linux Version
 *%
 *%  Copyright (C) 2000 KYOCERA CORPORATION
@@ -32,18 +32,18 @@
 
 *FileVersion: "8.2"
 *FormatVersion: "4.3"
-*LanguageEncoding: ISOLatin1 
-*PCFileName: "KC1714EN.PPD"
+*LanguageEncoding: ISOLatin1
 *LanguageVersion: English
-*Product: "(FS-1714M)"
-*PSVersion: "(2014.108) 1"
+*Product: "(FS-920)"
+*PSVersion: "(3011.103) 1"
 *Manufacturer: "Kyocera"
-*ModelName: "Kyocera FS-1714M"
-*ShortNickName: "Kyocera FS-1714M"
-*NickName: "Kyocera FS-1714M"
+*ModelName: "Kyocera FS-920"
+*ShortNickName: "Kyocera FS-920"
+*NickName: "Kyocera FS-920"
+*PCFileName: "KC0920EN.PPD"
 
 *% Basic Device Capabilities
-*LanguageLevel: "2"
+*LanguageLevel: "3"
 *ColorDevice: False
 *DefaultColorSpace: Gray
 *TTRasterizer: Type42
@@ -53,8 +53,8 @@
   { pop pop (Type42) }{ (None) } ifelse
   = flush restore"
 *End
-*FreeVM: "5568000"
-*Throughput: "14"
+*FreeVM: "25728000"
+*Throughput: "18"
 
 *% System Management
 *SuggestedJobTimeout: "0"
@@ -88,94 +88,16 @@
 *Protocols: PJL TBCP
 
 *1284Modes Parallel: Compat Nibble ECP
-*1284DeviceID: "MFG:Kyocera;Model:Kyocera FS-1714M;COMMAND SET: POSTSCRIPT,PJL,PCL"
+*1284DeviceID: "MFG:Kyocera;Model:Kyocera FS-920;COMMAND SET: POSTSCRIPT,PJL,PCL"
 
 *% JCL Information 
-*JCLBegin: "<1B>%-12345X@PJL JOB<0A>"
-*JCLToPSInterpreter: "@PJL ENTER LANGUAGE=POSTSCRIPT<0A>"
-*JCLEnd: "<1B>%-12345X@PJL EOJ<0A><1B>%-12345X"
-
-*JCLOpenUI *JCLEconomode/EcoPrint: PickOne
-*DefaultJCLEconomode: Off
-*OrderDependency: 5 JCLSetup *JCLEconomode
-*JCLEconomode Off/Off: "@PJL SET ECONOMODE=OFF<0A>"
-*JCLEconomode On/On: "@PJL SET ECONOMODE=ON<0A>"
-*JCLCloseUI: *JCLEconomode
-
 *% Installable Options
 *OpenGroup: InstallableOptions/Installed Options
-
-*% Optional Feeders
-*OpenUI *Option01/Optional Feeder: PickOne
-*DefaultOption01: MF1
-*Option01 None/Not Installed: ""
-*Option01 MF1/Multi Purpose Feeder: ""
-*Option01 EF1/EF-1 Envelope Feeder: ""
-*Option01 PF7E/PF-7E Bulk Feeder: ""
-*CloseUI: *Option01
-
-*% Paper Feeders
-*OpenUI *Option10/Paper Feeders: PickOne
-*DefaultOption10: None
-*Option10 None/None: ""
-*Option10 One/One: ""
-*Option10 Two/Two: ""
-*?Option10: "
-  save
-  (None) currentpagedevice dup /InputAttributes known {
-    /InputAttributes get
-    dup 1 known {dup 1 get null ne {exch pop (One) exch} if} if
-    dup 3 known {dup 3 get null ne {exch pop (Two) exch} if} if
-    dup 4 known {dup 4 get null ne {exch pop (Two) exch} if} if
-  } if pop
-  = flush restore"
-*End
-*CloseUI: *Option10
-
-*% Duplex Unit
-*OpenUI *Option16/Duplex Unit: Boolean
-*DefaultOption16: False
-*Option16 False/Not Installed: ""
-*Option16 True/Installed: ""
-*?Option16: "
-  save
-  currentpagedevice /Duplex known {(True)}{(False)} ifelse
-  = flush restore"
-*End
-*CloseUI: *Option16
-
-*% Output Device Options
-*OpenUI *Option17/Output Device: PickOne
-*DefaultOption17: None
-*Option17 None/Not Installed: ""
-*Option17 SO6/SO-6 Sorter Stacker: ""
-*Option17 ST20/ST-20 Offset Stacker: ""
-*?Option17: "
-  save
-  currentpagedevice dup /OutputAttributes known {
-    /OutputAttributes get
-    dup 1 known {
-      1 get dup null ne {
-         /OutputType get
-        dup (SORTER) eq { (SO6) } { 
-        dup (STACKER) eq { (ST20) } {
-      (None)
-        } ifelse
-        } ifelse
-      }{(None)} ifelse
-    }{(None)} ifelse
-    exch pop
-  }{
-    pop (None)
-  } ifelse
-  = flush restore"
-*End
-*CloseUI: *Option17
 
 *% Disk Drive
 *OpenUI *Option18/Optional Disk: PickOne
 *DefaultOption18: None
-*Option18 None/None: ""
+*Option18 None/Not Installed: ""
 *Option18 RAMDisk/RAM Disk: ""
 *?Option18: "
   save
@@ -193,20 +115,13 @@
 
 *% Installed Memory
 *OpenUI *InstalledMemory/Memory: PickOne
-*DefaultInstalledMemory: 8MB
-*InstalledMemory 8MB/Standard: ""
-*InstalledMemory 12MB/4MB Upgrade: ""
-*InstalledMemory 16MB/8MB Upgrade: ""
-*InstalledMemory 20MB/12MB Upgrade: ""
-*InstalledMemory 24MB/16MB Upgrade: ""
-*InstalledMemory 28MB/20MB Upgrade: ""
-*InstalledMemory 32MB/24MB Upgrade: ""
-*InstalledMemory 40MB/32MB Upgrade: ""
-*InstalledMemory 44MB/36MB Upgrade: ""
-*InstalledMemory 48MB/40MB Upgrade: ""
-*InstalledMemory 52MB/44MB Upgrade: ""
-*InstalledMemory 56MB/48MB Upgrade: ""
-*InstalledMemory 72MB/64MB Upgrade: ""
+*DefaultInstalledMemory: 32MB
+*InstalledMemory 32MB/32MB Standard: ""
+*InstalledMemory 48MB/16MB Upgrade: ""
+*InstalledMemory 64MB/32MB Upgrade: ""
+*InstalledMemory 96MB/64MB Upgrade: ""
+*InstalledMemory 160MB/128MB Upgrade: ""
+*InstalledMemory 288MB/256MB Upgrade: ""
 *?InstalledMemory: "
   save
   currentsystemparams dup
@@ -226,103 +141,33 @@
 *CloseGroup: InstallableOptions
 
 *% Virtual Memory 
-*VMOption 8MB: "5568000"
-*VMOption 12MB: "8928000"
-*VMOption 16MB: "12288000"
-*VMOption 20MB: "15648000"
-*VMOption 24MB: "19008000"
-*VMOption 28MB: "22368000"
 *VMOption 32MB: "25728000"
-*VMOption 40MB: "32448000"
-*VMOption 44MB: "35808000"
 *VMOption 48MB: "39168000"
-*VMOption 52MB: "42528000"
-*VMOption 56MB: "45888000"
-*VMOption 72MB: "59328000"
+*VMOption 64MB: "52642000"
+*VMOption 96MB: "59328000"
+*VMOption 160MB: "59328000"
+*VMOption 288MB: "59328000"
 
 
 *% Constraints
-*UIConstraints: *Option01 None *InputSlot MF1
-*UIConstraints: *InputSlot MF1 *Option01 None
-*UIConstraints: *Option01 None *InputSlot EF1
-*UIConstraints: *InputSlot EF1 *Option01 None
-*UIConstraints: *Option01 None *InputSlot PF7E
-*UIConstraints: *InputSlot PF7E *Option01 None
-*UIConstraints: *Option01 MF1 *InputSlot EF1
-*UIConstraints: *InputSlot EF1 *Option01 MF1
-*UIConstraints: *Option01 MF1 *InputSlot PF7E
-*UIConstraints: *InputSlot PF7E *Option01 MF1
-*UIConstraints: *Option01 EF1 *InputSlot MF1
-*UIConstraints: *InputSlot MF1 *Option01 EF1
-*UIConstraints: *Option01 EF1 *InputSlot PF7E
-*UIConstraints: *InputSlot PF7E *Option01 EF1
-*UIConstraints: *Option01 PF7E *InputSlot MF1
-*UIConstraints: *InputSlot MF1 *Option01 PF7E
-*UIConstraints: *Option01 PF7E *InputSlot EF1
-*UIConstraints: *InputSlot EF1 *Option01 PF7E
-*UIConstraints: *Option10 None *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *Option10 None
-*UIConstraints: *Option10 None *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *Option10 None
-*UIConstraints: *Option10 One *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *Option10 One
-*UIConstraints: *Duplex *Option16 False
-*UIConstraints: *Option16 False *Duplex DuplexTumble
-*UIConstraints: *Option16 False *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *InputSlot MF1
-*UIConstraints: *InputSlot MF1 *Duplex DuplexTumble
-*UIConstraints: *InputSlot MF1 *Duplex DuplexNoTumble
-*UIConstraints: *InputSlot EF1 *Duplex
-*UIConstraints: *Duplex *InputSlot EF1
-*UIConstraints: *InputSlot PF7E *Duplex
-*UIConstraints: *Duplex *InputSlot PF7E
-*UIConstraints: *MediaType Transparency *Duplex
-*UIConstraints: *Duplex *MediaType Transparency
-*UIConstraints: *MediaType Labels *Duplex
-*UIConstraints: *Duplex *MediaType Labels
-*UIConstraints: *MediaType Vellum *Duplex
-*UIConstraints: *Duplex *MediaType Vellum
-*UIConstraints: *MediaType Envelope *Duplex
-*UIConstraints: *Duplex *MediaType Envelope
-*UIConstraints: *MediaType Cardstock *Duplex
-*UIConstraints: *Duplex *MediaType Cardstock
+*UIConstraints: *MediaType Transparency *InputSlot Internal
+*UIConstraints: *InputSlot Internal *MediaType Transparency
+*UIConstraints: *MediaType Labels *InputSlot Internal
+*UIConstraints: *InputSlot Internal *MediaType Labels
+*UIConstraints: *MediaType Envelope *InputSlot Internal
+*UIConstraints: *InputSlot Internal *MediaType Envelope
+*UIConstraints: *MediaType Vellum *InputSlot Internal
+*UIConstraints: *InputSlot Internal *MediaType Vellum
+*UIConstraints: *MediaType Cardstock *InputSlot Internal
+*UIConstraints: *InputSlot Internal *MediaType Cardstock
+*UIConstraints: *MediaType Thick *InputSlot Internal
+*UIConstraints: *InputSlot Internal *MediaType Thick
 *UIConstraints: *KCCollate *Option18 None
 *UIConstraints: *Option18 None *KCCollate Temp
-*UIConstraints: *Option17 None *OutputBin FDStacker
-*UIConstraints: *Option17 None *OutputBin FDSorter
-*UIConstraints: *Option17 ST20 *OutputBin FDSorter
-*UIConstraints: *Option17 None *OutputBin FDCollator
-*UIConstraints: *Option17 ST20 *OutputBin FDCollator
-*UIConstraints: *Option17 None *OutputBin FDMB01
-*UIConstraints: *Option17 None *OutputBin FDMB02
-*UIConstraints: *Option17 None *OutputBin FDMB03
-*UIConstraints: *Option17 ST20 *OutputBin FDMB01
-*UIConstraints: *Option17 ST20 *OutputBin FDMB02
-*UIConstraints: *Option17 ST20 *OutputBin FDMB03
-*UIConstraints: *Option17 None *OutputBin FDMB10
-*UIConstraints: *Option17 None *OutputBin FDMB11
-*UIConstraints: *Option17 None *OutputBin FDMB12
-*UIConstraints: *Option17 None *OutputBin FDMB13
-*UIConstraints: *Option17 None *OutputBin FDMB14
-*UIConstraints: *Option17 None *OutputBin FDMB15
-*UIConstraints: *Option17 ST20 *OutputBin FDMB10
-*UIConstraints: *Option17 ST20 *OutputBin FDMB11
-*UIConstraints: *Option17 ST20 *OutputBin FDMB12
-*UIConstraints: *Option17 ST20 *OutputBin FDMB13
-*UIConstraints: *Option17 ST20 *OutputBin FDMB14
-*UIConstraints: *Option17 ST20 *OutputBin FDMB15
-*UIConstraints: *PageSize Executive *InputSlot Internal
-*UIConstraints: *InputSlot Internal *PageSize Executive
-*UIConstraints: *PageRegion Executive *InputSlot Internal
-*UIConstraints: *InputSlot Internal *PageRegion Executive
 *UIConstraints: *PageSize A6 *InputSlot Internal
 *UIConstraints: *InputSlot Internal *PageSize A6
 *UIConstraints: *PageRegion A6 *InputSlot Internal
 *UIConstraints: *InputSlot Internal *PageRegion A6
-*UIConstraints: *PageSize ISOB5 *InputSlot Internal
-*UIConstraints: *InputSlot Internal *PageSize ISOB5
-*UIConstraints: *PageRegion ISOB5 *InputSlot Internal
-*UIConstraints: *InputSlot Internal *PageRegion ISOB5
 *UIConstraints: *PageSize B6 *InputSlot Internal
 *UIConstraints: *InputSlot Internal *PageSize B6
 *UIConstraints: *PageRegion B6 *InputSlot Internal
@@ -347,182 +192,30 @@
 *UIConstraints: *InputSlot Internal *PageSize EnvDL
 *UIConstraints: *PageRegion EnvDL *InputSlot Internal
 *UIConstraints: *InputSlot Internal *PageRegion EnvDL
-*UIConstraints: *PageSize EnvC5 *InputSlot Internal
-*UIConstraints: *InputSlot Internal *PageSize EnvC5
-*UIConstraints: *PageRegion EnvC5 *InputSlot Internal
-*UIConstraints: *InputSlot Internal *PageRegion EnvC5
-*UIConstraints: *PageSize Letter *InputSlot EF1
-*UIConstraints: *InputSlot EF1 *PageSize Letter
-*UIConstraints: *PageRegion Letter *InputSlot EF1
-*UIConstraints: *InputSlot EF1 *PageRegion Letter
-*UIConstraints: *PageSize Legal *InputSlot EF1
-*UIConstraints: *InputSlot EF1 *PageSize Legal
-*UIConstraints: *PageRegion Legal *InputSlot EF1
-*UIConstraints: *InputSlot EF1 *PageRegion Legal
-*UIConstraints: *PageSize Executive *InputSlot EF1
-*UIConstraints: *InputSlot EF1 *PageSize Executive
-*UIConstraints: *PageRegion Executive *InputSlot EF1
-*UIConstraints: *InputSlot EF1 *PageRegion Executive
-*UIConstraints: *PageSize A4 *InputSlot EF1
-*UIConstraints: *InputSlot EF1 *PageSize A4
-*UIConstraints: *PageRegion A4 *InputSlot EF1
-*UIConstraints: *InputSlot EF1 *PageRegion A4
-*UIConstraints: *PageSize B5 *InputSlot EF1
-*UIConstraints: *InputSlot EF1 *PageSize B5
-*UIConstraints: *PageRegion B5 *InputSlot EF1
-*UIConstraints: *InputSlot EF1 *PageRegion B5
-*UIConstraints: *PageSize ISOB5 *InputSlot EF1
-*UIConstraints: *InputSlot EF1 *PageSize ISOB5
-*UIConstraints: *PageRegion ISOB5 *InputSlot EF1
-*UIConstraints: *InputSlot EF1 *PageRegion ISOB5
-*UIConstraints: *PageSize Executive *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *PageSize Executive
-*UIConstraints: *PageRegion Executive *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *PageRegion Executive
-*UIConstraints: *PageSize A6 *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *PageSize A6
-*UIConstraints: *PageRegion A6 *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *PageRegion A6
-*UIConstraints: *PageSize ISOB5 *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *PageSize ISOB5
-*UIConstraints: *PageRegion ISOB5 *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *PageRegion ISOB5
-*UIConstraints: *PageSize B6 *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *PageSize B6
-*UIConstraints: *PageRegion B6 *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *PageRegion B6
-*UIConstraints: *PageSize EnvPersonal *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *PageSize EnvPersonal
-*UIConstraints: *PageRegion EnvPersonal *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *PageRegion EnvPersonal
-*UIConstraints: *PageSize Env9 *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *PageSize Env9
-*UIConstraints: *PageRegion Env9 *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *PageRegion Env9
-*UIConstraints: *PageSize Env10 *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *PageSize Env10
-*UIConstraints: *PageRegion Env10 *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *PageRegion Env10
-*UIConstraints: *PageSize EnvMonarch *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *PageSize EnvMonarch
-*UIConstraints: *PageRegion EnvMonarch *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *PageRegion EnvMonarch
-*UIConstraints: *PageSize EnvDL *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *PageSize EnvDL
-*UIConstraints: *PageRegion EnvDL *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *PageRegion EnvDL
-*UIConstraints: *PageSize EnvC5 *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *PageSize EnvC5
-*UIConstraints: *PageRegion EnvC5 *InputSlot PF21A
-*UIConstraints: *InputSlot PF21A *PageRegion EnvC5
-*UIConstraints: *PageSize Executive *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *PageSize Executive
-*UIConstraints: *PageRegion Executive *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *PageRegion Executive
-*UIConstraints: *PageSize A6 *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *PageSize A6
-*UIConstraints: *PageRegion A6 *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *PageRegion A6
-*UIConstraints: *PageSize ISOB5 *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *PageSize ISOB5
-*UIConstraints: *PageRegion ISOB5 *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *PageRegion ISOB5
-*UIConstraints: *PageSize B6 *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *PageSize B6
-*UIConstraints: *PageRegion B6 *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *PageRegion B6
-*UIConstraints: *PageSize EnvPersonal *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *PageSize EnvPersonal
-*UIConstraints: *PageRegion EnvPersonal *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *PageRegion EnvPersonal
-*UIConstraints: *PageSize Env9 *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *PageSize Env9
-*UIConstraints: *PageRegion Env9 *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *PageRegion Env9
-*UIConstraints: *PageSize Env10 *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *PageSize Env10
-*UIConstraints: *PageRegion Env10 *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *PageRegion Env10
-*UIConstraints: *PageSize EnvMonarch *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *PageSize EnvMonarch
-*UIConstraints: *PageRegion EnvMonarch *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *PageRegion EnvMonarch
-*UIConstraints: *PageSize EnvDL *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *PageSize EnvDL
-*UIConstraints: *PageRegion EnvDL *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *PageRegion EnvDL
-*UIConstraints: *PageSize EnvC5 *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *PageSize EnvC5
-*UIConstraints: *PageRegion EnvC5 *InputSlot PF21B
-*UIConstraints: *InputSlot PF21B *PageRegion EnvC5
-*UIConstraints: *Duplex *PageSize Executive
-*UIConstraints: *PageSize Executive *Duplex DuplexTumble
-*UIConstraints: *PageSize Executive *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageRegion Executive
-*UIConstraints: *PageRegion Executive *Duplex DuplexTumble
-*UIConstraints: *PageRegion Executive *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageSize A6
-*UIConstraints: *PageSize A6 *Duplex DuplexTumble
-*UIConstraints: *PageSize A6 *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageRegion A6
-*UIConstraints: *PageRegion A6 *Duplex DuplexTumble
-*UIConstraints: *PageRegion A6 *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageSize B6
-*UIConstraints: *PageSize B6 *Duplex DuplexTumble
-*UIConstraints: *PageSize B6 *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageRegion B6
-*UIConstraints: *PageRegion B6 *Duplex DuplexTumble
-*UIConstraints: *PageRegion B6 *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *Duplex DuplexTumble
-*UIConstraints: *PageSize EnvPersonal *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageRegion EnvPersonal
-*UIConstraints: *PageRegion EnvPersonal *Duplex DuplexTumble
-*UIConstraints: *PageRegion EnvPersonal *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageSize Env9
-*UIConstraints: *PageSize Env9 *Duplex DuplexTumble
-*UIConstraints: *PageSize Env9 *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageRegion Env9
-*UIConstraints: *PageRegion Env9 *Duplex DuplexTumble
-*UIConstraints: *PageRegion Env9 *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageSize Env10
-*UIConstraints: *PageSize Env10 *Duplex DuplexTumble
-*UIConstraints: *PageSize Env10 *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageRegion Env10
-*UIConstraints: *PageRegion Env10 *Duplex DuplexTumble
-*UIConstraints: *PageRegion Env10 *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageSize EnvMonarch
-*UIConstraints: *PageSize EnvMonarch *Duplex DuplexTumble
-*UIConstraints: *PageSize EnvMonarch *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageRegion EnvMonarch
-*UIConstraints: *PageRegion EnvMonarch *Duplex DuplexTumble
-*UIConstraints: *PageRegion EnvMonarch *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageSize EnvDL
-*UIConstraints: *PageSize EnvDL *Duplex DuplexTumble
-*UIConstraints: *PageSize EnvDL *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageRegion EnvDL
-*UIConstraints: *PageRegion EnvDL *Duplex DuplexTumble
-*UIConstraints: *PageRegion EnvDL *Duplex DuplexNoTumble
+*UIConstraints: *PageSize Statement *InputSlot Internal
+*UIConstraints: *InputSlot Internal *PageSize Statement
+*UIConstraints: *PageRegion Statement *InputSlot Internal
+*UIConstraints: *InputSlot Internal *PageRegion Statement
 
 *% Resolution 
 *OpenUI *Resolution/Resolution: PickOne
 *OrderDependency: 10 AnySetup *Resolution
-*DefaultResolution: 800dpi
-*Resolution 300dpi/300 dpi: "<< /HWResolution [300 300] >> setpagedevice"
-*Resolution 600dpi/600 dpi: "<< /HWResolution [600 600] >> setpagedevice"
-*Resolution 800dpi/Fast 1200 dpi: "<< /HWResolution [600 600] /PreRenderingEnhance true >> setpagedevice"
+*DefaultResolution: 600dpi
+*Resolution 300dpi/300 dpi: "<< /HWResolution [300 300] /PreRenderingEnhance false >> setpagedevice"
+*Resolution 600dpi/600 dpi: "<< /HWResolution [600 600] /PreRenderingEnhance false >> setpagedevice"
+*Resolution 1200dpi/Fast 1200: "<< /HWResolution [600 600] /PreRenderingEnhance true >> setpagedevice"
 *?Resolution: "save currentpagedevice /HWResolution get 0 get (      ) cvs print (dpi) = flush restore"
 *CloseUI: *Resolution
 
 *% Image Refinement 
 *OpenUI *Smoothing/KIR: PickOne
 *OrderDependency: 50 AnySetup *Smoothing
-*DefaultSmoothing: True
-*Smoothing True/On: "1 statusdict /setdoret get exec"
-*Smoothing False/Off: "0 statusdict /setdoret get exec"
+*DefaultSmoothing: Medium
+*Smoothing None/Off: "0 statusdict /setdoret get exec"
+*Smoothing Medium/On: "2 statusdict /setdoret get exec"
 *?Smoothing: "
   save
-  [(False)(True)(True)(True)]
+  [(None)(Medium)(Medium)(Medium)]
   statusdict /doret get exec {get} stopped
   {pop pop (Unknown)} if
   = flush restore"
@@ -561,6 +254,10 @@
 *PageSize B5/B5 (JIS): "<< /Policies << /PageSize 7 >> /PageSize [516 729] /ImagingBBox null >> setpagedevice"
 *PageSize ISOB5/B5 (ISO): "<< /Policies << /PageSize 7 >> /PageSize [499 709] /ImagingBBox null >> setpagedevice"
 *PageSize B6/B6: "<< /Policies << /PageSize 7 >> /PageSize [363 516] /ImagingBBox null >> setpagedevice"
+*PageSize OficioII/Oficio II: "<< /Policies << /PageSize 7 >> /PageSize [612 936] /ImagingBBox null >> setpagedevice"
+*PageSize Folio/Folio (210 x 330mm): "<< /Policies << /PageSize 7 >> /PageSize [595 935] /ImagingBBox null >> setpagedevice"
+*PageSize Statement/Statement: "<< /Policies << /PageSize 7 >> /PageSize [396 612] /ImagingBBox null >> setpagedevice"
+*PageSize P16K/16K: "<< /Policies << /PageSize 7 >> /PageSize [558 774] /ImagingBBox null >> setpagedevice"
 *PageSize Letter/Letter: "<< /Policies << /PageSize 7 >> /PageSize [612 792] /ImagingBBox null >> setpagedevice"
 *PageSize Legal/Legal: "<< /Policies << /PageSize 7 >> /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
 *PageSize Executive/Executive: "<< /Policies << /PageSize 7 >> /PageSize [522 756] /ImagingBBox null >> setpagedevice"
@@ -575,13 +272,17 @@
   currentpagedevice /PageSize get aload pop
   2 copy gt {exch} if
   (Unknown)
-  15 dict
+  19 dict
   dup [595 842] (A4) put
   dup [420 595] (A5) put
   dup [297 420] (A6) put
   dup [516 729] (B5) put
   dup [499 709] (ISOB5) put
   dup [363 516] (B6) put
+  dup [612 936] (OficioII) put
+  dup [595 935] (Folio) put
+  dup [396 612] (Statement) put
+  dup [558 774] (P16K) put
   dup [612 792] (Letter) put
   dup [612 1008] (Legal) put
   dup [522 756] (Executive) put
@@ -618,6 +319,10 @@
 *PageRegion EnvMonarch/Envelope Monarch: "<< /Policies << /PageSize 7 >> /PageSize [279 540] /ImagingBBox null >> setpagedevice"
 *PageRegion EnvDL/Envelope DL: "<< /Policies << /PageSize 7 >> /PageSize [312 624] /ImagingBBox null >> setpagedevice"
 *PageRegion EnvC5/Envelope C5: "<< /Policies << /PageSize 7 >> /PageSize [459 649] /ImagingBBox null >> setpagedevice"
+*PageRegion OficioII/Oficio II: "<< /Policies << /PageSize 7 >> /PageSize [612 936] /ImagingBBox null >> setpagedevice"
+*PageRegion Folio/Folio (210 x 330mm): "<< /Policies << /PageSize 7 >> /PageSize [595 935] /ImagingBBox null >> setpagedevice"
+*PageRegion Statement/Statement: "<< /Policies << /PageSize 7 >> /PageSize [396 612] /ImagingBBox null >> setpagedevice"
+*PageRegion P16K/16K: "<< /Policies << /PageSize 7 >> /PageSize [558 774] /ImagingBBox null >> setpagedevice"
 *CloseUI: *PageRegion
 
 *% Imageable Area Definitions
@@ -628,6 +333,10 @@
 *ImageableArea B5/B5 (JIS): "21 10 495 719"
 *ImageableArea ISOB5/B5 (ISO): "12 12 487 696"
 *ImageableArea B6/B6: "12 10 352 506"
+*ImageableArea OficioII/Oficio II: "12 12 600 924"
+*ImageableArea Folio/Folio (210 x 330mm): "12 12 571 911"
+*ImageableArea Statement/Statement: "12 12 384 600"
+*ImageableArea P16K/16K: "12 12 546 762"
 *ImageableArea Letter/Letter: "12 08 600 784"
 *ImageableArea Legal/Legal: "12 08 600 1000"
 *ImageableArea Executive/Executive: "12 08 510 748"
@@ -655,6 +364,10 @@
 *PaperDimension B5/B5 (JIS): "516 729"
 *PaperDimension ISOB5/B5 (ISO): "499 709"
 *PaperDimension B6/B6: "363 516"
+*PaperDimension OficioII/Oficio II: "612 936"
+*PaperDimension Folio/Folio (210 x 330mm): "595 935"
+*PaperDimension Statement/Statement: "396 612"
+*PaperDimension P16K/16K: "558 774"
 *PaperDimension Letter/Letter: "612 792"
 *PaperDimension Legal/Legal: "612 1008"
 *PaperDimension Executive/Executive: "522 756"
@@ -665,27 +378,44 @@
 *PaperDimension EnvDL/Envelope DL: "312 624"
 *PaperDimension EnvC5/Envelope C5: "459 649"
 
+*% Custom Page Size Definitions
+*% Smallest = A5, Largest = LEGAL
+
+*VariablePaperSize: True
+*LeadingEdge Short: ""
+*DefaultLeadingEdge: Short
+*HWMargins: 12 12 12 12
+*MaxMediaWidth: "612"
+*MaxMediaHeight: "1008"
+*NonUIOrderDependency: 20 AnySetup *CustomPageSize
+*CustomPageSize True: "
+  pop pop pop
+  << /PageSize [ 5 -2 roll ] /ImagingBBox null
+     /Policies << /PageSize 3 >>
+  >> setpagedevice"
+*End
+*ParamCustomPageSize Width: 1 points 421 612
+*ParamCustomPageSize Height: 2 points 595 1008
+*ParamCustomPageSize WidthOffset: 3 points 0 0
+*ParamCustomPageSize HeightOffset: 4 points 0 0
+*ParamCustomPageSize Orientation: 5 int 0 3
+
 *% Input Slot Definitions
 *OpenUI *InputSlot: PickOne
 *OrderDependency: 30 AnySetup *InputSlot
 *DefaultInputSlot: Internal
-*InputSlot Internal/Cassette 1 (Internal): "<</ManualFeed false>> setpagedevice statusdict begin 0 setpapertray end"
-*InputSlot PF7E/Bulk Feeder: "<</ManualFeed false>> setpagedevice statusdict begin 2 setpapertray end"
-*InputSlot PF21A/Cassette 2: "<</ManualFeed false>> setpagedevice statusdict begin 1 setpapertray end"
-*InputSlot PF21B/Cassette 3: "<</ManualFeed false>> setpagedevice statusdict begin 4 setpapertray end"
-*InputSlot EF1/Envelope Feeder: "<</ManualFeed false>> setpagedevice statusdict begin 2 setpapertray end"
+*InputSlot Internal/Cassette 1: "<</ManualFeed false>> setpagedevice statusdict begin 0 setpapertray end"
 *InputSlot MF1/Multi Purpose Feeder: "currentpagedevice /InputAttributes get 3 get null eq
 { <</ManualFeed true>> setpagedevice }{ statusdict begin 3 setpapertray end } ifelse"
 *End
-*InputSlot MF/Manual Feed: "<< /ManualFeed true >> setpagedevice"
 *?InputSlot: ""
 *CloseUI: *InputSlot
 
 *% MediaType Definitions
 *OpenUI *MediaType: PickOne
-*OrderDependency: 100 AnySetup *MediaType
+*OrderDependency: 95 AnySetup *MediaType
 *DefaultMediaType: PrnDef
-*MediaType PrnDef/Printer Default: ""
+*MediaType PrnDef/Printer Default: "<</ManualFeed false /DeferredMediaSelection true >> setpagedevice"
 *MediaType Plain/Plain Paper: "<</ManualFeed false /MediaType (Plain) /DeferredMediaSelection true >> setpagedevice"
 *MediaType Transparency/Transparency: "<</ManualFeed false /MediaType (Transparency) /DeferredMediaSelection true >> setpagedevice"
 *MediaType Labels/Labels: "<</ManualFeed false /MediaType (Labels) /DeferredMediaSelection true >> setpagedevice"
@@ -695,10 +425,12 @@
 *MediaType Preprinted/Preprinted: "<</ManualFeed false /MediaType (Preprinted) /DeferredMediaSelection true >> setpagedevice"
 *MediaType Prepunched/Prepunched: "<</ManualFeed false /MediaType (Prepunched) /DeferredMediaSelection true >> setpagedevice"
 *MediaType Recycled/Recycled: "<</ManualFeed false /MediaType (Recycled) /DeferredMediaSelection true >> setpagedevice"
-*MediaType Rough/Rough: "<</ManualFeed false /MediaType (Rough) /DeferredMediaSelection true >> setpagedevice"
 *MediaType Cardstock/Cardstock: "<</ManualFeed false /MediaType (Card Stock) /DeferredMediaSelection true >> setpagedevice"
 *MediaType Vellum/Vellum: "<</ManualFeed false /MediaType (Vellum) /DeferredMediaSelection true >> setpagedevice"
 *MediaType Envelope/Envelope: "<</ManualFeed false /MediaType (Envelope) /DeferredMediaSelection true >> setpagedevice"
+*MediaType Rough/Rough: "<</ManualFeed false /MediaType (Rough) /DeferredMediaSelection true >> setpagedevice"
+*MediaType Thick/Thick: "<</ManualFeed false /MediaType (Thick) /DeferredMediaSelection true >> setpagedevice"
+*MediaType Highqlty/High quality paper: "<</ManualFeed false /MediaType (Fine) /DeferredMediaSelection true >> setpagedevice"
 *MediaType User1/Custom 1: "<</ManualFeed false /MediaType (Custom Type1) /DeferredMediaSelection true >> setpagedevice"
 *MediaType User2/Custom 2: "<</ManualFeed false /MediaType (Custom Type2) /DeferredMediaSelection true >> setpagedevice"
 *MediaType User3/Custom 3: "<</ManualFeed false /MediaType (Custom Type3) /DeferredMediaSelection true >> setpagedevice"
@@ -716,77 +448,19 @@
 *CloseUI: *MediaType
 
 *RequiresPageRegion All: True
-*% Output Bin Definitions
-*OpenUI *OutputBin/Output Bin: PickOne
-*OrderDependency: 51 AnySetup *OutputBin
-*DefaultOutputBin: FDTop
-*OutputBin FDTop/Top Tray (Face-Down): "0 statusdict /setoutputtray get exec"
-*OutputBin FURear/Rear Tray (Face-Up): "1 statusdict /setoutputtray get exec"
-*OutputBin FDStacker/Bulk Tray (Face-Down): "<< /OutputFaceUp false >> setpagedevice 2 statusdict /setoutputtray get exec"
-*OutputBin FDSorter/Sorter Mode (Face-Down): "<< /OutputFaceUp false >> setpagedevice [] statusdict /setcollatorstacker get exec"
-*OutputBin FDCollator/Collator Mode (Face-Down): "<< /OutputFaceUp false >> setpagedevice [] statusdict /setsorterstacker get exec"
-*OutputBin FDMB01/Mailbox 1 (Face-Down): "0 statusdict /setoutputtray get exec [1] statusdict /setmailboxstacker get exec"
-*OutputBin FDMB02/Mailbox 2 (Face-Down): "0 statusdict /setoutputtray get exec [2] statusdict /setmailboxstacker get exec"
-*OutputBin FDMB03/Mailbox 3 (Face-Down): "0 statusdict /setoutputtray get exec [3] statusdict /setmailboxstacker get exec"
-*OutputBin FDMB04/Mailbox 4 (Face-Down): "0 statusdict /setoutputtray get exec [4] statusdict /setmailboxstacker get exec"
-*OutputBin FDMB05/Mailbox 5 (Face-Down): "0 statusdict /setoutputtray get exec [5] statusdict /setmailboxstacker get exec"
-*OutputBin FDMB06/Mailbox 6 (Face-Down): "0 statusdict /setoutputtray get exec [6] statusdict /setmailboxstacker get exec"
-*OutputBin FDMB07/Mailbox 7 (Face-Down): "0 statusdict /setoutputtray get exec [7] statusdict /setmailboxstacker get exec"
-*OutputBin FDMB08/Mailbox 8 (Face-Down): "0 statusdict /setoutputtray get exec [8] statusdict /setmailboxstacker get exec"
-*OutputBin FDMB09/Mailbox 9 (Face-Down): "0 statusdict /setoutputtray get exec [9] statusdict /setmailboxstacker get exec"
-*OutputBin FDMB10/Mailbox 10 (Face-Down): "0 statusdict /setoutputtray get exec [10] statusdict /setmailboxstacker get exec"
-*OutputBin FDMB11/Mailbox 11 (Face-Down): "0 statusdict /setoutputtray get exec [11] statusdict /setmailboxstacker get exec"
-*OutputBin FDMB12/Mailbox 12 (Face-Down): "0 statusdict /setoutputtray get exec [12] statusdict /setmailboxstacker get exec"
-*OutputBin FDMB13/Mailbox 13 (Face-Down): "0 statusdict /setoutputtray get exec [13] statusdict /setmailboxstacker get exec"
-*OutputBin FDMB14/Mailbox 14 (Face-Down): "0 statusdict /setoutputtray get exec [14] statusdict /setmailboxstacker get exec"
-*OutputBin FDMB15/Mailbox 15 (Face-Down): "0 statusdict /setoutputtray get exec [15] statusdict /setmailboxstacker get exec"
-*?OutputBin: ""
-*CloseUI: *OutputBin
-
-*% Page Stack Order
-*PageStackOrder FDTop: Normal
-*PageStackOrder FURear: Normal
-*PageStackOrder FDStacker: Normal
-*PageStackOrder FDSorter: Normal
-*PageStackOrder FDCollator: Normal
-*PageStackOrder FDMB01: Normal
-*PageStackOrder FDMB02: Normal
-*PageStackOrder FDMB03: Normal
-*PageStackOrder FDMB04: Normal
-*PageStackOrder FDMB05: Normal
-*PageStackOrder FDMB06: Normal
-*PageStackOrder FDMB07: Normal
-*PageStackOrder FDMB08: Normal
-*PageStackOrder FDMB09: Normal
-*PageStackOrder FDMB10: Normal
-*PageStackOrder FDMB11: Normal
-*PageStackOrder FDMB12: Normal
-*PageStackOrder FDMB13: Normal
-*PageStackOrder FDMB14: Normal
-*PageStackOrder FDMB15: Normal
-
-*% Duplex Definitions
-*OpenUI *Duplex/Duplexing: PickOne
-*OrderDependency: 50 AnySetup *Duplex
-*DefaultDuplex: None
-*Duplex None/None: "statusdict begin false setduplexmode false settumble end"
-*Duplex DuplexTumble/Short Edge: "statusdict begin true setduplexmode true settumble end"
-*Duplex DuplexNoTumble/Long Edge: "statusdict begin true setduplexmode false settumble end"
-*?Duplex: "
-  save
-  statusdict begin
-  duplexmode
-  {tumble {(DuplexTumble)}{(DuplexNoTumble)} ifelse}
-  {(None)} ifelse
-  = flush end restore"
-*End
-*CloseUI: *Duplex
+*% KCEcoprint
+*OpenUI *KCEcoprint/EcoPrint: PickOne
+*OrderDependency: 10 AnySetup *KCEcoprint
+*DefaultKCEcoprint: Off
+*KCEcoprint Off/Off: "<< /EconoMode false >> setpagedevice"
+*KCEcoprint On/On: "<< /EconoMode true >> setpagedevice"
+*CloseUI: *KCEcoprint
 
 *% Job Spooling Definitions
 *OpenUI *KCCollate/Job Settings: PickOne
 *OrderDependency: 20 AnySetup *KCCollate
 *DefaultKCCollate: None
-*KCCollate None/None: ""
+*KCCollate None/Printer Default: "<< /Collate false >> setpagedevice"
 *KCCollate Temp/Temporary: "
   userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
   userdict /UICollateDetails get /Mode 0 put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
@@ -809,20 +483,18 @@
 *End
 *CloseUI: *KCCollate
 
-*% Tray Switch Definitions
-*OpenUI *TraySwitch/Auto Tray Switch: PickOne
-*OrderDependency: 25 AnySetup *TraySwitch
-*DefaultTraySwitch: PrnDef
-*TraySwitch PrnDef/Printer Default: ""
-*TraySwitch True/On: "<< /TraySwitch true >> setpagedevice"
-*TraySwitch False/Off: "<< /TraySwitch false >> setpagedevice"
-*?TraySwitch: "
-  save
-  currentpagedevice /TraySwitch get
-  { (True) }{ (False) } ifelse
-  = flush restore"
-*End
-*CloseUI: *TraySwitch
+*% KCSuperWatermark
+*OpenUI *KCSuperWatermark/Super Watermark: PickOne
+*OrderDependency: 10 AnySetup *KCSuperWatermark
+*DefaultKCSuperWatermark: None
+*KCSuperWatermark None/None: ""
+*KCSuperWatermark UFA/Use Form-A: "<</BeginPage {pop  mark {(%disk0%Form-A) kcloadpageimage} stopped cleartomark}>> setpagedevice"
+*KCSuperWatermark UFB/Use Form-B: "<</BeginPage {pop  mark {(%disk0%Form-B) kcloadpageimage} stopped cleartomark}>> setpagedevice"
+*KCSuperWatermark UFC/Use Form-C: "<</BeginPage {pop  mark {(%disk0%Form-C) kcloadpageimage} stopped cleartomark}>> setpagedevice"
+*KCSuperWatermark SFA/Save Form-A: "<</EndPage {exch pop 2 ne dup  mark exch {{(%disk0%Form-A) kcsavepageimage} stopped} if cleartomark}>> setpagedevice"
+*KCSuperWatermark SFB/Save Form-B: "<</EndPage {exch pop 2 ne dup  mark exch {{(%disk0%Form-B) kcsavepageimage} stopped} if cleartomark}>> setpagedevice"
+*KCSuperWatermark SFC/Save Form-C: "<</EndPage {exch pop 2 ne dup  mark exch {{(%disk0%Form-C) kcsavepageimage} stopped} if cleartomark}>> setpagedevice"
+*CloseUI: *KCSuperWatermark
 
 *% PPD Version Info 
 *OpenUI *KMVersion/PPD Version: PickOne
@@ -972,4 +644,4 @@ put put setglobal
 *Source: "LocalTalk"
 *Source: "Option"
 
-*%  End of PPD file for Kyocera FS-1714M (English)
+*%  End of PPD file for Kyocera FS-920 (English)
