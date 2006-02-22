@@ -44,10 +44,6 @@
 
 *%========== Basic Device Capabilities ==========
 
-*Protocols: PJL TBCP
-*JCLBegin: "<1B>%-12345X@PJL JOB<0A>"
-*JCLToPSInterpreter: "@PJL ENTER LANGUAGE = POSTSCRIPT <0A>"
-*JCLEnd: "<1B>%-12345X@PJL EOJ<0A>"
 
 *LanguageLevel: "3"
 *ColorDevice: False
@@ -636,12 +632,13 @@ restore
 
 *OpenUI *InputSlot: PickOne
 *OrderDependency: 30 AnySetup *InputSlot
-*DefaultInputSlot: 1Tray
+*DefaultInputSlot: Auto
 *InputSlot MultiTray/Bypass Tray: "<</MediaPosition 0>> setpagedevice"
 *InputSlot 1Tray/Tray 1: "<</MediaPosition 1>> setpagedevice"
 *InputSlot 2Tray/Tray 2: "<</MediaPosition 2>> setpagedevice"
 *InputSlot 3Tray/Tray 3: "<</MediaPosition 3>> setpagedevice"
 *InputSlot 4Tray/Tray 4: "<</MediaPosition 4>> setpagedevice"
+*InputSlot Auto/Auto Select: ""
 *?InputSlot: "
   save
   [(MultiTray)(1Tray)(2Tray)(3Tray)(4Tray)]
@@ -1198,5 +1195,58 @@ restore
 *ColorSepScreenFreq ProcessCyan.212lpi.1200dpi/212 lpi / 1200 dpi: "212"
 *ColorSepScreenFreq ProcessMagenta.212lpi.1200dpi/212 lpi / 1200 dpi: "212"
 *ColorSepScreenFreq ProcessYellow.212lpi.1200dpi/212 lpi / 1200 dpi: "212"
+
+*%========== Enable Ricoh JobLog Feature==========
+
+*cupsFilter: "application/vnd.cups-postscript 0 foomatic-rip"
+
+*FoomaticIDs: Ricoh-Aficio_2018D Postscript
+*FoomaticRIPCommandLine: "printf &quot;%%!PS-Adobe-3.0\n%%%% %%&&
+%%\n%B%C%D%A&quot;; cat;"
+*End
+
+*OpenGroup: JobLog/Job Log
+
+*OpenUI *JobType/JobType: PickOne
+*FoomaticRIPOption JobType: enum CmdLine B
+*OrderDependency: 255 AnySetup *JobType
+*DefaultJobType: Normal
+*JobType Normal/Normal: "%% FoomaticRIPOptionSetting: JobType=Normal"
+*FoomaticRIPOptionSetting JobType=Normal: "mark\n&&
+(`id -un`) () (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+cleartomark\n"
+*End
+*CloseUI: *JobType
+
+*OpenUI *UserCode/User Code (up to 8 digits): PickOne
+*FoomaticRIPOption UserCode: string CmdLine A
+*FoomaticRIPOptionMaxLength UserCode:8
+*FoomaticRIPOptionAllowedChars UserCode: "0-9"
+*OrderDependency: 255 AnySetup *UserCode
+*FoomaticRIPOptionPrototype UserCode: "mark\n&&
+(`id -un`) (%s) (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+cleartomark\n"
+*End
+*DefaultUserCode: None
+*UserCode None/None: ""
+*UserCode 1001/1001: "%% FoomaticRIPOptionSetting: UserCode=1001"
+*FoomaticRIPOptionSetting UserCode=1001: "mark\n&&
+(`id -un`) (1001) (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+cleartomark\n"
+*End
+*UserCode 1002/1002: "%% FoomaticRIPOptionSetting: UserCode=1002"
+*FoomaticRIPOptionSetting UserCode=1002: "mark\n&&
+(`id -un`) (1002) (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+cleartomark\n"
+*End
+*UserCode 1003/1003: "%% FoomaticRIPOptionSetting: UserCode=1003"
+*FoomaticRIPOptionSetting UserCode=1003: "mark\n&&
+(`id -un`) (1003) (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+cleartomark\n"
+*End
+*CloseUI: *UserCode
+
+*CloseGroup: JobLog/Job Log
+
 
 *% end of Printer Description file
