@@ -9,6 +9,15 @@
         <y>600</y>
       </dpi>
     </resolution>
+    <margins>
+	<general>
+	    <unit>mm</unit>
+	    <top>4</top>
+	    <bottom>4</bottom>
+	    <left>4</left>
+	    <right>4</right>
+	</general>
+    </margins>
     <consumables>
       <comments>
         <en>Cartridge containing toner and imaging drum</en>
@@ -21,112 +30,30 @@
     <proprietary/>
   <!--no pjl--><!--No "text"?--></lang>
   <autodetect>
-    <general>
-      <commandset>ZJS</commandset>
-      <description>hp LaserJet 1000</description>
-      <manufacturer>Hewlett-Packard</manufacturer>
-      <model>hp LaserJet 1000</model>
-    </general>
+	<parallel>
+	    <ieee1284>MFG:Hewlett-Packard;MDL:hp LaserJet 1000;CMD:ZJS;CLS:PRINTER;DES:hp LaserJet 1000;</ieee1284>
+	    <manufacturer>Hewlett-Packard</manufacturer>
+	    <model>hp LaserJet 1000</model>
+	    <commandset>ZJS</commandset>
+	</parallel>
   </autodetect>
   <functionality>B</functionality>
   <driver>foo2zjs</driver>
   <!--no "contrib_url"-->
   <comments>
     <en>
-    Does not understand any standard language. Works with the
-    &quot;foo2zjs&quot; and &quot;pbmtozjs&quot; drivers. The
-    &quot;foo2zjs&quot; driver is derived from the
-    &quot;pbmtozjs&quot; driver and supports more paper sizes and
-    options.&lt;p&gt;
 
-    PCL is only implemented in the Windows driver, to support DOS
-    applications in the DOS box of Windows. The printer has only 1 MB
-    of RAM and 32 kb (!) of ROM and is USB only. &lt;p&gt;
+    This printer is supported by the foo2zjs free software printer driver.
+    &lt;p&gt;
 
-    HP tries to enter the super-low-cost-disposable-printer market
-    with this model. It costs only around 250 bucks.&lt;p&gt;
+    The printer has a USB
+    connection. It has only 1 MB of RAM and 32 kB of ROM.&lt;p&gt;
 
-    The firmware of the printer must be uploaded after turning
-    it on. Do not use the firmware on the CD supplied with the
-    printer, download the current Windows driver for the printer from
-    HP&apos;s web site, and extract the firmware file from it with
-    &quot;&lt;tt&gt;unzip&lt;/tt&gt;&quot;, then you can send it to
-    the printer with a simple &quot;&lt;tt&gt;cat&lt;/tt&gt;&quot;
-    command. Here are instructions which were posted on the &lt;a
-    href=&quot;http://www.linuxprinting.org/newsportal/article.php3?id=2347&amp;group=linuxprinting.hp.general&quot;&gt;HP
-    forum&lt;/a&gt; of this site:&lt;p&gt;
-
-    &lt;tt&gt;&lt;pre&gt;
-   1. Get new firmware from HP site
-   (this is bloat download ~12MB but we need only ~115kB from it)
-
-   ftp://ftp.hp.com/pub/softlib/software1/lj1488/lj-1145-2/lj1488en.exe
-
-   2. extract sihp1000.img from it.
-
-   # unzip lj1488en.exe sihp1000.img
-
-   3. power printer and ...
-
-   # cat sihp1000.img &gt; /dev/usb/lp0
-    &lt;/pre&gt;&lt;/tt&gt;
-
-    Szalai Robert (szalai at ktk dot bme dot hu), the
-    author of the "pbmtozjs" driver posted the following on the HP forum
-    of this site:&lt;p&gt;
-
-    &lt;i&gt;Just few words about the printer.  I think LaserJet 1000
-    is a very odd printer. It has a very small ROM, so after you
-    switched it on, you must download its firmware. Hopefully it can
-    be done easiliy. The firmware can be found on HP's driver CD-ROM
-    in the &lt;tt&gt;sihp1000.img&lt;/tt&gt; file and it must be sent
-    simply to the printer. (e.g.: &quot;&lt;tt&gt;lpr
-    sihp1000.img&lt;/tt&gt;&quot;). The firmware supports PJL, so you
-    can use &lt;tt&gt;foomatic-getpjloptions&lt;/tt&gt;. Unfortunately
-    after using PJL the printer behaves like
-    &lt;tt&gt;/dev/null&lt;/tt&gt;, and does not print anything. I
-    think the Windows driver uses PJL, as well, because some
-    parameters such as print density cannot be controlled through the
-    ZJ-stream.&lt;p&gt;
-
-    The printing goes through ZJS format, which was developed by
-    Zenographics Inc.  I think there are some other printers which use
-    this format, but I do not have information which they are. There
-    is a downloadable windows driver at &lt;a
-    href=&quot;http://ddk.zeno.com/&quot;&gt;http://ddk.zeno.com/&lt;/a&gt;
-    which I have used by writing the driver. The &quot;magic&quot;
-    constants in the source were obtained by analyzing the output of
-    the Windows driver.&lt;p&gt;
-
-    The capabilities of the driver are very limited, because I&apos;m
-    not able to use the printer&apos;s PJL language. Currently it
-    supports only A4 paper, but this can be improved. Unfortunalely
-    the paper size cannot be specified directly as a GhostScript
-    parameter, such as &quot;&lt;tt&gt;-sPAPERSIZE=a4&lt;/tt&gt;&quot;
-    because it will produce too large bitmaps. Instead, I recommend
-    the use of &quot;&lt;tt&gt;-g4736x6817&lt;/tt&gt;&quot; option at
-    600 dpi, at which the driver is currently working. The size of the
-    image is very importortant, because if it does not meet the
-    specified paper size, the printer will print blank pages until
-    there is paper available.&lt;p&gt;
- 
-    The printer supports two resolutions: 300dpi and 600dpi, toner
-    saving mode (ECONOMODE) and resolution enhancement technology
-    (RET) which will be soon implemented into the driver. Currently it
-    works at 600dpi, RET, no ECONOMODE.&lt;p&gt;
-
-    The speed is the same as under Windows (approx. 10 pages/min).
-    The biggest problem with the printer, that I couldn't modify the
-    print density, because of PJL&apos;s misbehaviour. Currently it is
-    unconvenient to use it through the command line, but I think
-    somebody could make it automatic by integrating it into
-    Foomatic. If you would like to update the printer database, I
-    would recommed to rate the printer as "Partilally"
-    working. Hopefully soon it will change to "Mostly".&lt;p&gt;
-
-    Until the end of September I will make the driver available on our
-    departmental home page, and than you can mirror it as you
-    want.&lt;p&gt;&lt;/i&gt;
+    The firmware of the printer must be uploaded after turning it
+    on.  You can use a hotplug/udev script which comes with foo2zjs,
+    or do it manually:
+    &quot;&lt;tt&gt;cat /usr/share/foo2zjs/firmware/sihp1000.dl >
+    /dev/usb/lp0&lt;/tt&gt;&quot;.
 
     </en>
   </comments>
