@@ -20,7 +20,7 @@
     running the command&lt;p&gt;
 
     &lt;tt&gt;perl -p -i -e 
-    &quot;s/friend Lexmark/friend class Lexmark/&quot;
+    &apos;s/friend Lexmark/friend class Lexmark/&apos;
     *.h&lt;/tt&gt;&lt;p&gt;
 
     in the source directory of the driver before you compile the
@@ -30,6 +30,17 @@
     To use gcc 3.4 or later, you need to apply &lt;a
     href=&quot;http://www.linuxprinting.org/download/printing/lm1100/lm1100.1.0.2a-fix-compile-gcc-3.4.patch.gz&quot;&gt;this
     patch&lt;/a&gt;.&lt;p&gt;
+
+    For gcc 4.1 or later, you need to run the command&lt;p&gt;
+
+    &lt;tt&gt;perl -p -i -e 
+    &apos;s/\b[^\s:]+:://&apos;
+    *.h&lt;/tt&gt;&lt;p&gt;
+
+    in the source directory of the driver before compiling. This
+    removes the now deprecated extra qualifications
+    &quot;&lt;class&gt;::&lt;member&gt;&quot; on class
+    members.&lt;p&gt;
 
   </en>
  </comments>
