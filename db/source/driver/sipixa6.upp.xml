@@ -1,0 +1,66 @@
+<driver id="driver/sipixa6.upp">
+ <name>sipixa6.upp</name>
+ <url>http://www.linuxprinting.org/download/printing/sipixa6.upp</url>
+ <execution>
+  <uniprint />
+  <prototype>psresize -w10.5cm -h14.8cm%E | gs @sipixa6.upp -q -dBATCH -dPARANOIDSAFER -dQUIET -dNOPAUSE %A%Z -sOutputFile=- - | ( cat -; echo -en '\r\n' ) </prototype>
+ </execution>
+ <comments>
+  <en>
+
+   To install the driver, simply copy sipixa6.upp into one of the
+   directories listed in the &quot;Search path&quot; which you find in
+   the output of the command &quot;&lt;tt&gt;gs
+   --help&lt;/tt&gt;&quot;.&lt;p&gt;
+
+   To set up the printer and print, proceed as follows:&lt;p&gt;
+
+   First step is to set the proper serial port parameters:&lt;p&gt;
+
+   &lt;tt&gt;stty -F /dev/ttyS1 115200 crtscts cs8 -cstopb
+   -parenb&lt;/tt&gt;&lt;p&gt;
+
+   Your serial port may be &lt;tt&gt;/dev/ttyS0&lt;/tt&gt;.&lt;p&gt;
+
+   First you have to resize the postscript document down to
+   A6:&lt;p&gt;
+
+   &lt;tt&gt;psresize -w10.5cm -h14.8cm -Pletter old.ps
+   new.ps&lt;/tt&gt;&lt;p&gt;
+
+   Then send it through GhostScript:&lt;p&gt;
+
+   &lt;tt&gt;gs @sipixa6.upp -sPAPERSIZE=a6 -sOutputFile=new.bin
+   new.ps -c quit&lt;/tt&gt;&lt;p&gt;
+
+   After that send the binary file to the printer:&lt;p&gt;
+
+   &lt;/tt&gt;cat new.bin > /dev/ttyS1&lt;/tt&gt;&lt;p&gt;
+
+   GhostScript does not always put a final cr/lf pair at the end of
+   the binary file, so make a 2 byte file with a cr/lf pair. Then
+   do:&lt;p&gt;
+
+   &lt;tt&gt;# cat new.bin fileend.bin > /dev/ttyS1&lt;/tt&gt;&lt;p&gt;
+
+   If you use the PPD file provided here together with your printing
+   system, the pages are scaled automatically to fit the A6 paper and
+   the cr/lf is also added automatically.&lt;p&gt;
+
+   As CUPS URI use:&lt;p&gt;
+
+   &lt;tt&gt;serial:/dev/ttyS0?baud=115200+size=8+parity=none+stop=1+flow=rtscts&lt;/tt&gt;&lt;p&gt;
+
+   Thanks to Mark Small (msmall at eastlink dot ca) for contributing
+   this driver. See also &lt;a
+   href="http://lists.freestandards.org/pipermail/printing-user-general/2006/008607.html"&gt;his
+   posting in our forums&lt;/a&gt;.&lt;p&gt;
+
+  </en>.
+ </comments>
+ <printers>
+  <printer>
+   <id>printer/SiPix-Pocket_Printer_A6</id>
+  </printer>
+ </printers>
+</driver>
