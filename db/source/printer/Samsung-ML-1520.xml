@@ -1,0 +1,85 @@
+<printer id="printer/Samsung-ML-1520">
+  <make>Samsung</make>
+  <model>ML-1520</model>
+  <mechanism>
+    <laser />
+    <!--not "color"-->
+    <resolution>
+      <dpi>
+        <x>600</x>
+        <y>600</y>
+      </dpi>
+    </resolution>
+    <consumables>
+      <!--no "comments"-->
+      <!--one or more "partno" elements-->
+    </consumables>
+  </mechanism>
+  <!--no "url"-->
+  <lang>
+    <proprietary />
+  </lang>
+  <autodetect>
+  </autodetect>
+  <functionality>A</functionality>
+  <driver>splix</driver>
+  <!--no "contrib_url"-->
+  <comments>
+    <en>
+
+    User comment:&lt;p&gt;
+
+    Sample of APS-Filter printcap file (ESP GhostScript must be installed, as it provides the &quot;gdi&quot;/&quot;samsunggdi&quot; driver):&lt;p&gt;
+
+&lt;pre&gt;&lt;tt&gt; 
+# APS1_BEGIN:printer1 
+# - don&apos;t delete start label for apsfilter printer1 
+# - no other printer defines between BEGIN and END LABEL 
+lp|samsunggdi;r=600x600;q=medium;c=gray;p=a4;m=auto:\ 
+    :lp=/dev/usb/lp0:\ 
+    :if=/etc/apsfilter/basedir/bin/apsfilter:\ 
+    :sd=/var/spool/lpd/lp:\ 
+    :lf=/var/spool/lpd/lp/log:\ 
+    :af=/var/spool/lpd/lp/acct:\ 
+    :mx#0:\ 
+    :sh: 
+# APS1_END - don&apos;t delete this 
+&lt;/tt&gt;&lt;/pre&gt;
+ 
+Sample of SETUP.cfg file from apsfilter:&lt;p&gt;
+
+&lt;pre&gt;&lt;tt&gt; 
+PRINTER=&apos;samsunggdi&apos; 
+RESOLUTION=&apos;600x600&apos; 
+COLOR=&apos;gray&apos; 
+PAPER=&apos;a4&apos; 
+METHOD=&apos;auto&apos; 
+QUALITY=&apos;medium&apos; 
+INTERFACE=&apos;parallel&apos; 
+DEVICE=&apos;/dev/usb/lp0&apos; 
+BAUDRATE=&apos;&apos; 
+HANDSHAKE=&apos;&apos; 
+WORDLENGTH=&apos;&apos; 
+PARITY=&apos;&apos; 
+STARTBITS=&apos;&apos; 
+STOPBITS=&apos;&apos; 
+SMB_SERVER=&apos;&apos; 
+SMB_IP=&apos;&apos; 
+SMB_PRINTER=&apos;&apos; 
+SMB_WORKGROUP=&apos;&apos; 
+SMB_USER=&apos;&apos; 
+SMB_PASSWD=&apos;&apos; 
+NCP_SERVER=&apos;&apos; 
+NCP_PRINTER=&apos;&apos; 
+NCP_USER=&apos;&apos; 
+NCP_PASSWD=&apos;&apos; 
+rm=&apos;&apos; 
+rp=&apos;&apos; 
+&lt;/tt&gt;&lt;/pre&gt;
+ 
+Main hack is to manualy seting PRINTER=&apos;samsunggdi&apos; default not exist 
+in menu from SETUP script of apsfiler.And rerun setup script to create 
+printcap file.&lt;p&gt;
+</en>
+  </comments>
+</printer>
