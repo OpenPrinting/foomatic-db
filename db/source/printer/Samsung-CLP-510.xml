@@ -1,0 +1,197 @@
+<printer id="printer/Samsung-CLP-510">
+  <make>Samsung</make>
+  <model>CLP-510</model>
+  <mechanism>
+    <laser />
+    <color />
+    <resolution>
+      <dpi>
+        <x>1200</x>
+        <y>1200</y>
+      </dpi>
+    </resolution>
+    <consumables>
+      <comments>
+        <en>B, C, M, Y, total UKP 240</en>
+      </comments>
+      <!--one or more "partno" elements-->
+    </consumables>
+  </mechanism>
+  <url>http://www.samsung.com/Products/PrinterandMultifunction/ColorLaserPrinters/CLP_510NXAA.asp</url>
+  <lang>
+    <proprietary />
+  </lang>
+  <autodetect>
+  </autodetect>
+  <functionality>D</functionality>
+  <driver>splix</driver>
+  <!--no "contrib_url"-->
+  <unverified />
+  <comments>
+    <en>
+
+    This is a cheap color laser printer with a proprietary
+    language. Samsung provides a closed-source driver on their web
+    site, the "Unified Linux Driver", a driver package containing CUPS
+    drivers and PPDs for all Samsung printers. Version 2.00.90 and
+    newer supports also this printer. Output is raster-only, and due
+    to glitches in the software, monochrome sources are output as
+    color (visible flecks of cyan, magenta, and yellow). It is also
+    not easy to install this driver in arbitrary distributions. See
+    the user reports below.&lt;p&gt;
+
+    As the first free software printer driver SpliX supports this
+    printer, but the driver still needs testing. So please try out
+    this printer with SpliX and report your results to the author of
+    the driver.&lt;p&gt;
+
+    &lt;hr&gt;
+
+    User reports:&lt;p&gt;
+
+    I have installed and de-installed the printer a few times using
+    the driver from Samsung (2.0.90).  I am using Ubuntu 6.06.  I have
+    managed to get it to print a test page in KDE and Cups, but it
+    only prints half the page and the bottom is blank.  Before that,
+    it printed a test page that was full of errors about
+    PCL.&lt;p&gt;
+
+    The printer does work with Cups Version &amp;lt; 2 and the
+    provided proprietary drivers. It will print out white pages unless
+    you specify the locale to eg. POSIX (eg. &quot;LC_ALL=POSIX lpr
+    test.ps&quot;).&lt;p&gt;
+
+    The proprietary driver does just support 600dpi.&lt;p&gt;
+
+    &lt;hr&gt;
+
+    I use Suse 10.1 and I installed the Samsung unified driver
+    2.00.90.  The printer works BUT:
+
+    &lt;ol&gt;
+      &lt;li&gt;no choice for resolution;&lt;/li&gt;
+      &lt;li&gt;duplex doesn&apos;t work.&lt;/li&gt;
+    &lt;/ol&gt;
+
+    &lt;hr&gt;
+
+    Overall, it&apos;s a cheap color laser printer and a pretty good
+    value, but the lack of support for other operating systems makes
+    it a little less than attractive.  Print quality is decent while
+    lacking options that are supported by the Windows driver, and be
+    prepared for the printer to put up a fight as you try to use it.
+    The driver seems to crash when printing certain things (mostly
+    webpages), and there is no support from Samsung for the driver and
+    no specification of the SPL-C language available.  While I
+    haven&apos;t determined the exact reason of the crash, it seems to
+    be due to the custom backend filters the Samsung driver uses.  It
+    very well could be a combination of a broken build of my system
+    (an older build of Gentoo) and using an Athlon64, but the issue
+    seems very similar to the first user&apos;s comments.  The output
+    will stop randomly in the middle of a page, and syslog will show a
+    segfault in gs, though recompiling ghostscript doesn&apos;t seem
+    to change the issue.&lt;p&gt;
+
+    I wasn&apos;t able to reproduce the &quot;prints black with
+    expensive color toner&quot; bug mentioned above.  I examined the
+    CUPS test page, printed with the proprietary Linux drivers, and
+    with Acrobat under Windows.  Neither showed flecks of color in or
+    around black areas, but the linux version was clearly 600 dpi,
+    while the windows version was at 1200.  Color matching under linux
+    is wrong; the &quot;blue&quot; pie wedge comes out purple.  The
+    drivers ship with *.cms files that look like color profiles, but I
+    don&apos;t know how to install them yet.&lt;p&gt;
+
+    Duplex can be set via the printer&apos;s front panel and LCD
+    display; the setting via cups doesn&apos;t work (although enabling
+    duplex via cups adds a blank page to the end of each odd-length
+    document...). I&apos;m using version 2.00.90 of the drivers, and
+    have seen no stability problems in the ~10 pages I&apos;ve printed
+    under linux so far.&lt;p&gt;
+
+    Be warned that the samsung driver installer attempts to install
+    older versions of standard c++ libraries into /usr/ without
+    prompting.  According to its documentation, it also replaces lpr
+    with a &quot;GUI LPR&quot; that will pop up a dialog when you
+    print.  If you download the samsung drivers, you may prefer to
+    manually install them.  The drivers include binaries for i386 and
+    x86_64.  Put the stuff from the appropriate &quot;filter&quot; and
+    &quot;ppd&quot; directories into /usr/lib/cups/filter/ and
+    /usr/share/ppd/Samsung, respectively.  (The directories should
+    already exist, and may vary between linux distributions.) Then,
+    install the printer via the CUPS web gui (&lt;a
+    href=&quot;http://localhost:631/).&quot;&gt;http://localhost:631/).&lt;/a&gt;
+    The drivers shoud show up under &quot;SAMSUNG&quot;.  Apparently,
+    you used to need to create a file called /etc/linuxprint.cfg.  I
+    didn&apos;t have to do that.&lt;p&gt;
+
+    Install Samsung CLP-510 color laser printer to Ubunutu dapper
+    i386 &amp;amp; x86_64&lt;br&gt;
+    &lt;tt&gt;sudo adduser cupsys shadow&lt;/tt&gt;&lt;br&gt;
+
+    Insert in /etc/udev/rules.d/60-symlinks.rules&lt;br&gt;
+
+    &lt;tt&gt;# Create symlink for usb printer to /dev/usb/lp*&lt;br&gt;
+    BUS==&quot;usb&quot;,
+    KERNEL==&quot;lp[0-9]*&quot;,&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+    SYMLINK+=&quot;usb/%k&quot;&lt;/tt&gt;&lt;br&gt;
+
+    restart udev:&lt;br&gt;
+
+    &lt;tt&gt;/etc/init.d/udev restart&lt;br&gt;
+    /etc/init.d/cupsys restart&lt;/tt&gt;&lt;br&gt;
+
+    download latest Samsung CLP-510 driver from
+    &lt;a href=&quot;http://downloadcenter.samsung.com/content/DR/200607/20060719124812000_UnifiedLinuxDriver.tar.gz&quot;&gt;http://downloadcenter.samsung.com/content/DR/200607/20060719124812000_UnifiedLinuxDriver.tar.gz&lt;/a&gt;&lt;br&gt;
+
+    &lt;tt&gt;tar -zxvf 20060719124812000_UnifiedLinuxDriver.tar.gz&lt;/tt&gt;&lt;br&gt;
+
+    The package will create a folder called cdroot&lt;br&gt; The package
+    offers an automatic setup, but it doen&apos;t work for me, I can
+    only print half page, therefore, I uninstalled and create it
+    manually.&lt;br&gt;
+
+    &lt;tt&gt;cd cdroot/Linux&lt;/tt&gt;&lt;br&gt;
+
+    You&apos;ll find 3 folders, i386;noarch&amp;amp;x86_64&lt;br&gt;
+
+    &lt;tt&gt;/cdroot/Linux$ cp noarch/at_root/etc/sane.d/smfp.conf /etc/sane.d/&lt;br&gt;
+    /cdroot/Linux$ cp noarch/at_opt/share/ppd/CLP-510splc.ppd
+    /usr/share/ppd/linuxprinting.org-gs-builtin/&lt;/tt&gt;&lt;br&gt;
+
+    now we have to go either i386 or x86_64 depends on your distro&lt;br&gt;
+    For x86_64 we choose x86_64 folder&lt;br&gt;
+
+    &lt;tt&gt;/cdroot/Linux$ cp x86_64/at_root/usr/lib64/libmfp.so.1.0.1 /usr/lib64/&lt;br&gt;
+    /cdroot/Linux$ cp x86_64/at_root/usr/lib64/cups/backend/mfp
+    /usr/lib64/cups/backend/&lt;br&gt;
+    /cdroot/Linux$ cp x86_64/at_root/usr/lib64/cups/filter/*
+    /usr/lib64/cups/filter/&lt;/tt&gt;&lt;br&gt;
+
+    now use CUPS&apos; web interface or your distribution&apos;s
+    printer setup tool to add the printer&lt;br&gt; when prompt for
+    userid and passwd use root and root password&lt;br&gt; hope this
+    help&lt;p&gt;
+
+    &lt;hr&gt;
+
+    rpc(at)belug.org adds:&lt;p&gt;
+
+    My distribution is Debian Etch and my installation with the above
+    mentioned &quot;Unified Driver&quot; worked. It installs below
+    /opt within Cups you make the definitive switch! You choose
+    &lt;tt&gt;/opt/Samsung/mfp/share/ppd/CLP-510spld.ppd&lt;/tt&gt; as
+    your favorite PPD - file because the CLP-510 is not listed in the
+    list of Samsung printers. The PPD - file of version 1.9 (shipped
+    with my printer in 02/2006) is errornous and therefore not
+    useable. Then you have to change the paperformat from Letter to A4
+    ( ;-) ) and switch on duplex within CUPS and then the printer
+    works perfectly. CUPS says it has 600dpi, but whether it has 600
+    or 1200dpi I won&apos;t mind: I am too old to see the
+    difference.&lt;p&gt;
+
+    HTH&lt;p&gt;
+
+    </en>
+  </comments>
+</printer>
