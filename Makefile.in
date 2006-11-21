@@ -32,6 +32,9 @@ PREFIX=$(prefix)
 # The location where to install the database
 LIBDIR=$(datadir)/foomatic
 
+# List of user-selected driver XMLs to install
+DRIVERXMLS=@DRIVERXMLS@
+
 # Variables for CUPS
 CUPS_PPDS=@CUPS_PPDS@
 PPDS_TO_CUPS=@PPDS_TO_CUPS@
@@ -58,7 +61,19 @@ install: install-db
 
 install-db:
 	install -d $(DESTDIR)$(LIBDIR)
-	tar cf - --exclude=CVS db | ( cd $(DESTDIR)$(LIBDIR) && tar xf -)
+	install -d $(DESTDIR)$(LIBDIR)/db/source/printer
+	install -d $(DESTDIR)$(LIBDIR)/db/source/driver
+	install -d $(DESTDIR)$(LIBDIR)/db/source/opt
+	install -d $(DESTDIR)$(LIBDIR)/db/source/PPD
+	cp db/oldprinterids $(DESTDIR)$(LIBDIR)/db
+	cp db/source/printer/*.xml $(DESTDIR)$(LIBDIR)/db/source/printer
+	( cd db/source/driver/; \
+	  for d in $(DRIVERXMLS); do \
+	    cp $$d $(DESTDIR)$(LIBDIR)/db/source/driver; \
+	  done )
+	cp db/source/opt/*.xml $(DESTDIR)$(LIBDIR)/db/source/opt
+	( cd db/source && tar cf - --exclude=.svn PPD ) | \
+	  ( cd $(DESTDIR)$(LIBDIR)/db/source && tar xf -)
 	if test $(GZIP) != GZIP_NOT_FOUND -a $(GZIP_PPDS) != no ; then \
 	  GZIP='' find $(DESTDIR)$(LIBDIR)/db/source/PPD -name "*.ppd" -exec $(GZIP) "{}" \; ; \
 	fi
