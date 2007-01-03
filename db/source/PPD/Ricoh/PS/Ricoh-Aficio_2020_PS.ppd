@@ -4,9 +4,9 @@
 *%    for "Ricoh Aficio 2020 PS"
 *%
 *%    CreationDate: 2001/06/22
-*%    Modified:     2005/10/31
+*%    Modified:     2006/12/21
 *%
-*%    COPYRIGHT (C) 2001-2005 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2001-2006 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -345,7 +345,7 @@ restore
 
 *OpenUI *PageSize: PickOne
 *OrderDependency: 20 AnySetup *PageSize
-*DefaultPageSize: A4
+*DefaultPageSize: Letter
 *PageSize A3/A3: "<< 
   /PageSize [842 1191] /ImagingBBox null >> setpagedevice"
 *End
@@ -441,7 +441,7 @@ restore
 
 *OpenUI *PageRegion: PickOne
 *OrderDependency: 25 AnySetup *PageRegion
-*DefaultPageRegion: A4
+*DefaultPageRegion: Letter
 *PageRegion A3/A3: "<< 
   /PageSize [842 1191] /ImagingBBox null >> setpagedevice"
 *End
@@ -609,22 +609,22 @@ restore
 *RequiresPageRegion 3Tray: True
 *RequiresPageRegion 4Tray: True
 
-*OpenUI *RICollate/Collate: PickOne
-*OrderDependency: 200 AnySetup *RICollate
-*DefaultRICollate: False
-*RICollate False/Off: "<</Collate false>>setpagedevice"
-*RICollate True/On: "<</Collate true
+*OpenUI *Collate/Collate: PickOne
+*OrderDependency: 200 AnySetup *Collate
+*DefaultCollate: False
+*Collate False/Off: "<</Collate false>>setpagedevice"
+*Collate True/On: "<</Collate true
   /CollateDetails <</Type 6 /AlignSet true>>
   >>setpagedevice"
 *End
-*?RICollate: "
+*?Collate: "
   save
   currentpagedevice /Collate get 
   {{(True)}{(False)}ifelse }stopped {(Unknown)}if = flush
   restore
 "
 *End
-*CloseUI: *RICollate
+*CloseUI: *Collate
 
 *OpenUI *RIPrintMode/Print Mode: PickOne
 *OrderDependency: 45 AnySetup *RIPrintMode
@@ -1127,7 +1127,7 @@ restore
 *DefaultJobType: Normal
 *JobType Normal/Normal: "%% FoomaticRIPOptionSetting: JobType=Normal"
 *FoomaticRIPOptionSetting JobType=Normal: "mark\n&&
-(`id -un`) () (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+() () (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
 cleartomark\n"
 *End
 *CloseUI: *JobType
@@ -1138,24 +1138,24 @@ cleartomark\n"
 *FoomaticRIPOptionAllowedChars UserCode: "0-9"
 *OrderDependency: 255 AnySetup *UserCode
 *FoomaticRIPOptionPrototype UserCode: "mark\n&&
-(`id -un`) (%s) (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+() (%s) (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
 cleartomark\n"
 *End
 *DefaultUserCode: None
 *UserCode None/None: ""
 *UserCode 1001/1001: "%% FoomaticRIPOptionSetting: UserCode=1001"
 *FoomaticRIPOptionSetting UserCode=1001: "mark\n&&
-(`id -un`) (1001) (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+() (1001) (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
 cleartomark\n"
 *End
 *UserCode 1002/1002: "%% FoomaticRIPOptionSetting: UserCode=1002"
 *FoomaticRIPOptionSetting UserCode=1002: "mark\n&&
-(`id -un`) (1002) (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+() (1002) (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
 cleartomark\n"
 *End
 *UserCode 1003/1003: "%% FoomaticRIPOptionSetting: UserCode=1003"
 *FoomaticRIPOptionSetting UserCode=1003: "mark\n&&
-(`id -un`) (1003) (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+() (1003) (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
 cleartomark\n"
 *End
 *CloseUI: *UserCode
