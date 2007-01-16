@@ -1,6 +1,7 @@
 <driver id="driver/pxl1010">
  <name>pxl1010</name>
  <url></url>
+ <obsolete replace="hpijs" />
  <execution>
   <ghostscript />
   <prototype>gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -sDEVICE=pxlmono%A%Z -sOutputFile=- - | perl -0777 -e &apos;my $d; read(STDIN, $d, 10000); $d =~ s/(ENTER LANGUAGE[^\n]*\n[^\n]*\n[^A]*A)/$1\xc2\x11\x20\x70\x68\xf8\x91\x46/s; print $d; while (read(STDIN, $d, 10000)) {print $d}&apos; | perl -p -e &apos;if (! $did) { s/\xc0.\xf8\x26/\xc0%E\xf8\x26/ &amp;&amp; $did++; }&apos;</prototype>
