@@ -10,7 +10,7 @@ Architecture: all
 Recommends: foomatic-db-engine, foomatic-filters
 Suggests: foomatic-db-hpijs, foomatic-db-gimp-print, foo2zjs, cupsys
 Conflicts: foomatic-bin (<< 2.9)
-Description: FSG OpenPrinting printer support - database
+Description: OpenPrinting printer support - database
  Foomatic is a printing system designed to make it easier to set up
  common printers for use with Debian (and other operating systems).
  It provides the "glue" between a print spooler (like CUPS or lpr) and
@@ -18,7 +18,7 @@ Description: FSG OpenPrinting printer support - database
  sent to the printer.
  .
  This package contains the printer database distributed by
- FSG OpenPrinting for most common drivers.  You will probably need
+ OpenPrinting for most common drivers.  You will probably need
  the foomatic-db-engine package for this package to be useful.
  .
  The foomatic-db-hpijs package adds additional printers supported by
@@ -36,12 +36,22 @@ Description: FSG OpenPrinting printer support - database
 
 Package: linuxprinting.org-ppds
 Architecture: all
+Depends: openprinting-ppds
+Description: OpenPrinting printer support - PostScript PPD files
+ This is a transitional package to migrate existing users of
+ linuxprinting.org-ppds to openprinting-ppds (its
+ successor).  It may be safely removed after upgrading.
+
+Package: openprinting-ppds
+Architecture: all
 Suggests: cupsys, foomatic-filters-ppds, hplip-ppds
-Conflicts: hp-ppd (<= 0.5)
-Description: FSG OpenPrinting printer support - PostScript PPD files
+Replaces: linuxprinting.org-ppds
+Provides: linuxprinting.org-ppds
+Conflicts: hp-ppd (<= 0.5), linuxprinting.org-ppds
+Description: OpenPrinting printer support - PostScript PPD files
  This package includes a collection of free PostScript Printer Description
  files for PostScript (and clone) printers from various manufacturers, as
- distributed by FSG OpenPrinting.
+ distributed by OpenPrinting.
  .
  If you have non-PostScript printers, the foomatic-filters-ppds and
  hplip-ppds packages are the ones you need; this package won't be of much
