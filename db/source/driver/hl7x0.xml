@@ -1,6 +1,33 @@
 <driver id="driver/hl7x0">
  <name>hl7x0</name>
- <url>http://www.cs.wisc.edu/~ghost/doc/printer.htm</url>
+ <url>http://www.ghostscript.com/</url>
+ <supplier>GhostScript</supplier>
+ <thirdpartysupplied />
+ <!--not "manufacturersupplied"-->
+ <license>GPL</license>
+ <freesoftware />
+ <!--not "nonfreesoftware"-->
+ <supportcontacts>
+  <supportcontact level="voluntary" url="http://forums.openprinting.org/list.php?24">OpenPrinting forum for Brother printers</supportcontact>
+  <!--not level="commercial"-->
+ </supportcontacts>
+ <shortdescription>
+  <en>
+   Driver for Brother's proprietary printer language (works also on the PCL/PS models)
+  </en>
+ </shortdescription>
+ <functionality>
+  <maxresx>2400</maxresx>
+  <maxresy>600</maxresy>
+  <monochrome />
+  <!--not "color"-->
+  <text>90</text>
+  <lineart>90</lineart>
+  <graphics>90</graphics>
+  <photo>70</photo>
+  <load></load>
+  <speed>100</speed>
+ </functionality>
  <execution>
   <ghostscript />
   <prototype>RES=%E; gs -q -dBATCH -dPARANOIDSAFER -dQUIET -dNOPAUSE -sDEVICE=hl7x0%A%Z -r$RES -sOutputFile=- - | perl -e &apos;my $u = &quot;%U&quot;; my $j = &quot;%T&quot;; my $p = &quot;%F&quot;; my $r = &quot;&apos;$RES&apos;&quot;; my $e = &quot;%G&quot;; my $m = &quot;%H&quot;; my $d = &quot;%I&quot;; my $t = &quot;%J&quot;; my $pcmd = &quot;&quot;; if ($p =~ /^\d\d\d\d$/) {$u =~ s/\%U//; $u ||= &quot;Unknown&quot;; $j =~ s/\%T//; $j ||= &quot;Unknown&quot;; $u = chr(length($u) + 1) . $u . &quot;\x00&quot;; $j = chr(length($j) + 1) . $j . &quot;\x00&quot;; $p = chr(length($p) + 1) . $p . &quot;\x00&quot;; $pcmd = &quot;\@U1$u$j$p&quot;}; my $rcode = &quot;\x00&quot;; if ($r =~ /^150(|x150)$/) {$rcode = &quot;\x0a&quot;} elsif ($r =~ /^300(|x300)$/) {$rcode = &quot;\x05&quot;} elsif ($r =~ /^600(|x600)$/) {$rcode = &quot;\x00&quot;} elsif ($r =~ /^1200(|x1200)$/) {$rcode = &quot;\x0f&quot;}; my $rcmd = &quot;\@L$rcode&quot;; my $ecmd = ($e =~ /^[0123]$/ ? &quot;\@E&quot; . chr($e) : &quot;&quot;); my $mcmd = ($m =~ /^[012345678]$/ ? &quot;\@J\x00&quot; . chr($m) : &quot;&quot;); my $dcmd = ($d =~ /^[12]$/ ? &quot;\@O$d&quot; : &quot;&quot;); my $tcmd = ($t =~ /^[12MOo]$/ ? &quot;\@S$t&quot; : &quot;&quot;); my $did = 0; while (&lt;&gt;) {if (!$did) {s/\@L./$pcmd$rcmd$ecmd$mcmd$dcmd$tcmd/s &amp;&amp; $did ++}; print}&apos;</prototype>
@@ -49,9 +76,9 @@
     by this driver). Do you get better/faster results or more
     functionality? Please report on the Brother forum.&lt;p&gt;
 
-    if you have a monchrome laser from Brother which is not listed at
-    all on OpenPrinting, start trying with this driver and report
-    on the Brother forum.&lt;p&gt;
+    If you have a monchrome laser from Brother which is not listed at
+    all on the OpenPrinting site, start trying with this driver and
+    report on the Brother forum.&lt;p&gt;
 
   </en>
  </comments>
@@ -73,6 +100,9 @@
    <comments>
     <en>Works for 300 or 600dpi; faster than PCL.</en>
    </comments>
+  </printer>
+  <printer>
+   <id>printer/Brother-DCP-8045D</id>
   </printer>
   <printer>
    <id>printer/Brother-MFC-8300</id><!-- Brother MFC-8300 -->
