@@ -77,9 +77,9 @@ AC_ARG_WITH(drivers,
 				     recommended for at least one
 				     printer
                           You can mix both variants, e.g.
-                          --with-drivers=ALL,NOOBSOLETES,gimp-print
+                          --with-drivers=ALL,NOOBSOLETES,gutenprint
 			  would include all drivers except obsoletes, but
-			  "gimp-print" is included even being obsolete
+			  "gutenprint" is included even being obsolete
 			  (list is treated from the left to the right).
                           Aliases must be uppercase (a 3rd party driver
 			  might have the same name).
