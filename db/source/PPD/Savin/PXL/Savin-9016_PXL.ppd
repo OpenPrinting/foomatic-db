@@ -4,7 +4,7 @@
 *%    for "Savin 9016 PXL"
 *%
 *%    CreationDate: 2001/06/22
-*%    Modified:     2007/04/17
+*%    Modified:     2007/12/14
 *%
 *%    COPYRIGHT (C) 2001-2007 RICOH COMPANY, LTD.
 *%    
@@ -62,12 +62,12 @@
 
 *OpenGroup: InstallableOptions/Installable Options
 
-*OpenUI *OptionTrayOptionTray/Option Tray: PickOne
-*DefaultOptionTrayOptionTray: None
-*OptionTrayOptionTray None/Not Installed: ""
-*OptionTrayOptionTray 1Cassette/Lower Paper Tray: ""
-*OptionTrayOptionTray 2Cassette/Lower Paper Trays: ""
-*CloseUI *OptionTrayOptionTray
+*OpenUI *OptionTray/Option Tray: PickOne
+*DefaultOptionTray: None
+*OptionTray None/Not Installed: ""
+*OptionTray 1Cassette/Lower Paper Tray: ""
+*OptionTray 2Cassette/Lower Paper Trays: ""
+*CloseUI *OptionTray
 
 
 *CloseGroup: InstallableOptions
@@ -156,19 +156,19 @@
 *DefaultInputSlot: Auto
 *InputSlot MultiTray/Bypass Tray: "%% FoomaticRIPOptionSetting: InputSlot=MultiTray"
 *FoomaticRIPOptionSetting InputSlot=MultiTray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x02\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x02\xf8\x26/g&quot;"
 *End
 *InputSlot 1Tray/Tray 1: "%% FoomaticRIPOptionSetting: InputSlot=1Tray"
 *FoomaticRIPOptionSetting InputSlot=1Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x04\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x04\xf8\x26/g&quot;"
 *End
 *InputSlot 2Tray/Tray 2: "%% FoomaticRIPOptionSetting: InputSlot=2Tray"
 *FoomaticRIPOptionSetting InputSlot=2Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x05\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x05\xf8\x26/g&quot;"
 *End
 *InputSlot 3Tray/Tray 3: "%% FoomaticRIPOptionSetting: InputSlot=3Tray"
 *FoomaticRIPOptionSetting InputSlot=3Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x07\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x07\xf8\x26/g&quot;"
 *End
 *InputSlot Auto/Auto Select: "%% FoomaticRIPOptionSetting: InputSlot=Auto"
 *FoomaticRIPOptionSetting InputSlot=Auto: ""
@@ -259,12 +259,12 @@
 
 *CloseGroup: JobLog/Job Log
 
-*UIConstraints: *OptionTrayOptionTray None *InputSlot 2Tray
-*UIConstraints: *OptionTrayOptionTray None *InputSlot 3Tray
-*UIConstraints: *OptionTrayOptionTray 1Cassette *InputSlot 3Tray
-*UIConstraints: *InputSlot 2Tray *OptionTrayOptionTray None
-*UIConstraints: *InputSlot 3Tray *OptionTrayOptionTray None
-*UIConstraints: *InputSlot 3Tray *OptionTrayOptionTray 1Cassette
+*UIConstraints: *OptionTray None *InputSlot 2Tray
+*UIConstraints: *OptionTray None *InputSlot 3Tray
+*UIConstraints: *OptionTray 1Cassette *InputSlot 3Tray
+*UIConstraints: *InputSlot 2Tray *OptionTray None
+*UIConstraints: *InputSlot 3Tray *OptionTray None
+*UIConstraints: *InputSlot 3Tray *OptionTray 1Cassette
 *UIConstraints: *MediaType Labels *InputSlot 1Tray
 *UIConstraints: *MediaType Labels *InputSlot 2Tray
 *UIConstraints: *MediaType Labels *InputSlot 3Tray
@@ -324,4 +324,6 @@
 *Font Times-Roman: Standard "(001.007S)" Standard ROM
 *Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
 *Font ZapfDingbats: Special "(001.004S)" Standard ROM
+
 *% end of Printer Description file
+

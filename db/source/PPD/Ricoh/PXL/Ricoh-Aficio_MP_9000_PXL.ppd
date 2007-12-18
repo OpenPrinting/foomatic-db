@@ -4,9 +4,9 @@
 *%    for "Ricoh Aficio MP 9000 PXL"
 *%
 *%    CreationDate: 2005/05/11
-*%    Modified:     2006/07/18
+*%    Modified:     2007/12/14
 *%
-*%    COPYRIGHT (C) 2005-2006 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2005-2007 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -43,20 +43,19 @@
 *ShortNickName: "Ricoh Aficio MP 9000 PXL"
 *NickName: "Ricoh Aficio MP 9000 PXL"
 
-*cupsVersion:      1.0
+*cupsVersion:      1.1
 *cupsManualCopies: True
-*cupsModelNumber:  2
 *cupsFilter:       "application/vnd.cups-postscript 0 foomatic-rip"
 
 *%========== Basic Device Capabilities ==========
 
 *LanguageLevel: "3"
 *ColorDevice: False
-*DefaultColorSpace: Gray
 *TTRasterizer: Type42
 *FileSystem: True
-*Throughput: "90"
 *LandscapeOrientation: Minus90
+*DefaultColorSpace: Gray
+*Throughput: "90"
 
 *%========== Installable Options ==========
 *%========== & System Management ==========
@@ -191,31 +190,31 @@
 *DefaultInputSlot: Auto
 *InputSlot 1Tray/Tray 1: "%% FoomaticRIPOptionSetting: InputSlot=1Tray"
 *FoomaticRIPOptionSetting InputSlot=1Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x04\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x04\xf8\x26/g&quot;"
 *End
 *InputSlot 2Tray/Tray 2: "%% FoomaticRIPOptionSetting: InputSlot=2Tray"
 *FoomaticRIPOptionSetting InputSlot=2Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x05\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x05\xf8\x26/g&quot;"
 *End
 *InputSlot 3Tray/Tray 3: "%% FoomaticRIPOptionSetting: InputSlot=3Tray"
 *FoomaticRIPOptionSetting InputSlot=3Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x07\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x07\xf8\x26/g&quot;"
 *End
 *InputSlot 4Tray/Tray 4: "%% FoomaticRIPOptionSetting: InputSlot=4Tray"
 *FoomaticRIPOptionSetting InputSlot=4Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x08\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x08\xf8\x26/g&quot;"
 *End
 *InputSlot 5Tray/Tray 5: "%% FoomaticRIPOptionSetting: InputSlot=5Tray"
 *FoomaticRIPOptionSetting InputSlot=5Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x15\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x15\xf8\x26/g&quot;"
 *End
 *InputSlot 6Tray/Tray 6: "%% FoomaticRIPOptionSetting: InputSlot=6Tray"
 *FoomaticRIPOptionSetting InputSlot=6Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x16\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x16\xf8\x26/g&quot;"
 *End
 *InputSlot 7Tray/Tray 7: "%% FoomaticRIPOptionSetting: InputSlot=7Tray"
 *FoomaticRIPOptionSetting InputSlot=7Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x17\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x17\xf8\x26/g&quot;"
 *End
 *InputSlot Auto/Auto Select: "%% FoomaticRIPOptionSetting: InputSlot=Auto"
 *FoomaticRIPOptionSetting InputSlot=Auto: ""
@@ -233,13 +232,17 @@
 *FoomaticRIPOptionSetting Duplex=DuplexTumble: "JCLDuplex=DuplexTumble GSDuplex=DuplexTumble"
 *CloseUI: *Duplex
 
+*FoomaticRIPOptionSetting Duplex=0: "JCLDuplex=None GSDuplex=None"
+*FoomaticRIPOptionSetting Duplex=LongEdge: "JCLDuplex=DuplexNoTumble GSDuplex=DuplexNoTumble"
+*FoomaticRIPOptionSetting Duplex=ShortEdge: "JCLDuplex=DuplexTumble GSDuplex=DuplexTumble"
+
 *FoomaticRIPOption GSDuplex: enum CmdLine D 50
 *FoomaticRIPOptionSetting GSDuplex=FromDuplex: ""
 *FoomaticRIPOptionSetting GSDuplex=None: ""
 *FoomaticRIPOptionSetting GSDuplex=DuplexNoTumble: "&&
- | perl -p -e &quot;s/\xc0\x00\xf8\x34/\xc0\x01\xf8\x35/g&quot;"
+ | perl -p -e &quot;s/\xf8\x26\xc0\x00\xf8\x34/\xf8\x26\xc0\x01\xf8\x35/g&quot;"
 *FoomaticRIPOptionSetting GSDuplex=DuplexTumble: "&&
- | perl -p -e &quot;s/\xc0\x00\xf8\x34/\xc0\x00\xf8\x35/g&quot;"
+ | perl -p -e &quot;s/\xf8\x26\xc0\x00\xf8\x34/\xf8\x26\xc0\x00\xf8\x35/g&quot;"
 
 *FoomaticRIPOption JCLDuplex: enum JCL D 50
 *FoomaticRIPOptionSetting JCLDuplex=FromDuplex: ""
@@ -943,66 +946,6 @@
 *UIConstraints: *RIPunch UpperEU4 *StapleLocation UpperRight
 *UIConstraints: *StapleLocation UpperRight *RIPunch UpperNEU4
 *UIConstraints: *RIPunch UpperNEU4 *StapleLocation UpperRight
-*UIConstraints: *StapleLocation LowerLeft *RIPunch LeftJP2
-*UIConstraints: *RIPunch LeftJP2 *StapleLocation LowerLeft
-*UIConstraints: *StapleLocation LowerLeft *RIPunch LeftUS2
-*UIConstraints: *RIPunch LeftUS2 *StapleLocation LowerLeft
-*UIConstraints: *StapleLocation LowerLeft *RIPunch LeftUS3
-*UIConstraints: *RIPunch LeftUS3 *StapleLocation LowerLeft
-*UIConstraints: *StapleLocation LowerLeft *RIPunch LeftEU4
-*UIConstraints: *RIPunch LeftEU4 *StapleLocation LowerLeft
-*UIConstraints: *StapleLocation LowerLeft *RIPunch LeftNEU4
-*UIConstraints: *RIPunch LeftNEU4 *StapleLocation LowerLeft
-*UIConstraints: *StapleLocation LowerLeft *RIPunch RightJP2
-*UIConstraints: *RIPunch RightJP2 *StapleLocation LowerLeft
-*UIConstraints: *StapleLocation LowerLeft *RIPunch RightUS2
-*UIConstraints: *RIPunch RightUS2 *StapleLocation LowerLeft
-*UIConstraints: *StapleLocation LowerLeft *RIPunch RightUS3
-*UIConstraints: *RIPunch RightUS3 *StapleLocation LowerLeft
-*UIConstraints: *StapleLocation LowerLeft *RIPunch RightEU4
-*UIConstraints: *RIPunch RightEU4 *StapleLocation LowerLeft
-*UIConstraints: *StapleLocation LowerLeft *RIPunch RightNEU4
-*UIConstraints: *RIPunch RightNEU4 *StapleLocation LowerLeft
-*UIConstraints: *StapleLocation LowerLeft *RIPunch UpperJP2
-*UIConstraints: *RIPunch UpperJP2 *StapleLocation LowerLeft
-*UIConstraints: *StapleLocation LowerLeft *RIPunch UpperUS2
-*UIConstraints: *RIPunch UpperUS2 *StapleLocation LowerLeft
-*UIConstraints: *StapleLocation LowerLeft *RIPunch UpperUS3
-*UIConstraints: *RIPunch UpperUS3 *StapleLocation LowerLeft
-*UIConstraints: *StapleLocation LowerLeft *RIPunch UpperEU4
-*UIConstraints: *RIPunch UpperEU4 *StapleLocation LowerLeft
-*UIConstraints: *StapleLocation LowerLeft *RIPunch UpperNEU4
-*UIConstraints: *RIPunch UpperNEU4 *StapleLocation LowerLeft
-*UIConstraints: *StapleLocation LowerRight *RIPunch LeftJP2
-*UIConstraints: *RIPunch LeftJP2 *StapleLocation LowerRight
-*UIConstraints: *StapleLocation LowerRight *RIPunch LeftUS2
-*UIConstraints: *RIPunch LeftUS2 *StapleLocation LowerRight
-*UIConstraints: *StapleLocation LowerRight *RIPunch LeftUS3
-*UIConstraints: *RIPunch LeftUS3 *StapleLocation LowerRight
-*UIConstraints: *StapleLocation LowerRight *RIPunch LeftEU4
-*UIConstraints: *RIPunch LeftEU4 *StapleLocation LowerRight
-*UIConstraints: *StapleLocation LowerRight *RIPunch LeftNEU4
-*UIConstraints: *RIPunch LeftNEU4 *StapleLocation LowerRight
-*UIConstraints: *StapleLocation LowerRight *RIPunch RightJP2
-*UIConstraints: *RIPunch RightJP2 *StapleLocation LowerRight
-*UIConstraints: *StapleLocation LowerRight *RIPunch RightUS2
-*UIConstraints: *RIPunch RightUS2 *StapleLocation LowerRight
-*UIConstraints: *StapleLocation LowerRight *RIPunch RightUS3
-*UIConstraints: *RIPunch RightUS3 *StapleLocation LowerRight
-*UIConstraints: *StapleLocation LowerRight *RIPunch RightEU4
-*UIConstraints: *RIPunch RightEU4 *StapleLocation LowerRight
-*UIConstraints: *StapleLocation LowerRight *RIPunch RightNEU4
-*UIConstraints: *RIPunch RightNEU4 *StapleLocation LowerRight
-*UIConstraints: *StapleLocation LowerRight *RIPunch UpperJP2
-*UIConstraints: *RIPunch UpperJP2 *StapleLocation LowerRight
-*UIConstraints: *StapleLocation LowerRight *RIPunch UpperUS2
-*UIConstraints: *RIPunch UpperUS2 *StapleLocation LowerRight
-*UIConstraints: *StapleLocation LowerRight *RIPunch UpperUS3
-*UIConstraints: *RIPunch UpperUS3 *StapleLocation LowerRight
-*UIConstraints: *StapleLocation LowerRight *RIPunch UpperEU4
-*UIConstraints: *RIPunch UpperEU4 *StapleLocation LowerRight
-*UIConstraints: *StapleLocation LowerRight *RIPunch UpperNEU4
-*UIConstraints: *RIPunch UpperNEU4 *StapleLocation LowerRight
 *UIConstraints: *StapleLocation LeftW *RIPunch LeftJP2
 *UIConstraints: *RIPunch LeftJP2 *StapleLocation LeftW
 *UIConstraints: *StapleLocation LeftW *RIPunch LeftUS2
@@ -1093,36 +1036,6 @@
 *UIConstraints: *RIPunch UpperEU4 *StapleLocation UpperW
 *UIConstraints: *StapleLocation UpperW *RIPunch UpperNEU4
 *UIConstraints: *RIPunch UpperNEU4 *StapleLocation UpperW
-*UIConstraints: *StapleLocation LowerW *RIPunch LeftJP2
-*UIConstraints: *RIPunch LeftJP2 *StapleLocation LowerW
-*UIConstraints: *StapleLocation LowerW *RIPunch LeftUS2
-*UIConstraints: *RIPunch LeftUS2 *StapleLocation LowerW
-*UIConstraints: *StapleLocation LowerW *RIPunch LeftUS3
-*UIConstraints: *RIPunch LeftUS3 *StapleLocation LowerW
-*UIConstraints: *StapleLocation LowerW *RIPunch LeftEU4
-*UIConstraints: *RIPunch LeftEU4 *StapleLocation LowerW
-*UIConstraints: *StapleLocation LowerW *RIPunch LeftNEU4
-*UIConstraints: *RIPunch LeftNEU4 *StapleLocation LowerW
-*UIConstraints: *StapleLocation LowerW *RIPunch RightJP2
-*UIConstraints: *RIPunch RightJP2 *StapleLocation LowerW
-*UIConstraints: *StapleLocation LowerW *RIPunch RightUS2
-*UIConstraints: *RIPunch RightUS2 *StapleLocation LowerW
-*UIConstraints: *StapleLocation LowerW *RIPunch RightUS3
-*UIConstraints: *RIPunch RightUS3 *StapleLocation LowerW
-*UIConstraints: *StapleLocation LowerW *RIPunch RightEU4
-*UIConstraints: *RIPunch RightEU4 *StapleLocation LowerW
-*UIConstraints: *StapleLocation LowerW *RIPunch RightNEU4
-*UIConstraints: *RIPunch RightNEU4 *StapleLocation LowerW
-*UIConstraints: *StapleLocation LowerW *RIPunch UpperJP2
-*UIConstraints: *RIPunch UpperJP2 *StapleLocation LowerW
-*UIConstraints: *StapleLocation LowerW *RIPunch UpperUS2
-*UIConstraints: *RIPunch UpperUS2 *StapleLocation LowerW
-*UIConstraints: *StapleLocation LowerW *RIPunch UpperUS3
-*UIConstraints: *RIPunch UpperUS3 *StapleLocation LowerW
-*UIConstraints: *StapleLocation LowerW *RIPunch UpperEU4
-*UIConstraints: *RIPunch UpperEU4 *StapleLocation LowerW
-*UIConstraints: *StapleLocation LowerW *RIPunch UpperNEU4
-*UIConstraints: *RIPunch UpperNEU4 *StapleLocation LowerW
 *UIConstraints: *RIZfold Bottom *RIPunch LeftJP2
 *UIConstraints: *RIPunch LeftJP2 *RIZfold Bottom
 *UIConstraints: *RIZfold Bottom *RIPunch LeftUS2
@@ -1253,4 +1166,6 @@
 *Font Times-Roman: Standard "(001.007S)" Standard ROM
 *Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
 *Font ZapfDingbats: Special "(001.004S)" Standard ROM
+
 *% end of Printer Description file
+

@@ -4,9 +4,9 @@
 *%    for "Ricoh Aficio 2045 PXL"
 *%
 *%    CreationDate: 2002/03/18
-*%    Modified:     2006/02/15
+*%    Modified:     2007/12/14
 *%
-*%    COPYRIGHT (C) 2002-2006 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2002-2007 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -43,20 +43,19 @@
 *ShortNickName: "Ricoh Aficio 2045 PXL"
 *NickName: "Ricoh Aficio 2045 PXL"
 
-*cupsVersion:      1.0
+*cupsVersion:      1.1
 *cupsManualCopies: True
-*cupsModelNumber:  2
 *cupsFilter:       "application/vnd.cups-postscript 0 foomatic-rip"
 
 *%========== Basic Device Capabilities ==========
 
 *LanguageLevel: "3"
 *ColorDevice: False
-*DefaultColorSpace: Gray
 *TTRasterizer: Type42
 *FileSystem: True
-*Throughput: "45"
 *LandscapeOrientation: Minus90
+*DefaultColorSpace: Gray
+*Throughput: "45"
 
 *%========== Installable Options ==========
 *%========== & System Management ==========
@@ -182,27 +181,27 @@
 *DefaultInputSlot: Auto
 *InputSlot MultiTray/Bypass Tray: "%% FoomaticRIPOptionSetting: InputSlot=MultiTray"
 *FoomaticRIPOptionSetting InputSlot=MultiTray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x02\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x02\xf8\x26/g&quot;"
 *End
 *InputSlot 1Tray/Tray 1: "%% FoomaticRIPOptionSetting: InputSlot=1Tray"
 *FoomaticRIPOptionSetting InputSlot=1Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x04\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x04\xf8\x26/g&quot;"
 *End
 *InputSlot 2Tray/Tray 2: "%% FoomaticRIPOptionSetting: InputSlot=2Tray"
 *FoomaticRIPOptionSetting InputSlot=2Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x05\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x05\xf8\x26/g&quot;"
 *End
 *InputSlot 3Tray/Tray 3: "%% FoomaticRIPOptionSetting: InputSlot=3Tray"
 *FoomaticRIPOptionSetting InputSlot=3Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x07\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x07\xf8\x26/g&quot;"
 *End
 *InputSlot 4Tray/Tray 4: "%% FoomaticRIPOptionSetting: InputSlot=4Tray"
 *FoomaticRIPOptionSetting InputSlot=4Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x08\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x08\xf8\x26/g&quot;"
 *End
 *InputSlot 5Tray/Large Capacity Tray: "%% FoomaticRIPOptionSetting: InputSlot=5Tray"
 *FoomaticRIPOptionSetting InputSlot=5Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x09\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x09\xf8\x26/g&quot;"
 *End
 *InputSlot Auto/Auto Select: "%% FoomaticRIPOptionSetting: InputSlot=Auto"
 *FoomaticRIPOptionSetting InputSlot=Auto: ""
@@ -220,13 +219,17 @@
 *FoomaticRIPOptionSetting Duplex=DuplexTumble: "JCLDuplex=DuplexTumble GSDuplex=DuplexTumble"
 *CloseUI: *Duplex
 
+*FoomaticRIPOptionSetting Duplex=0: "JCLDuplex=None GSDuplex=None"
+*FoomaticRIPOptionSetting Duplex=LongEdge: "JCLDuplex=DuplexNoTumble GSDuplex=DuplexNoTumble"
+*FoomaticRIPOptionSetting Duplex=ShortEdge: "JCLDuplex=DuplexTumble GSDuplex=DuplexTumble"
+
 *FoomaticRIPOption GSDuplex: enum CmdLine D 50
 *FoomaticRIPOptionSetting GSDuplex=FromDuplex: ""
 *FoomaticRIPOptionSetting GSDuplex=None: ""
 *FoomaticRIPOptionSetting GSDuplex=DuplexNoTumble: "&&
- | perl -p -e &quot;s/\xc0\x00\xf8\x34/\xc0\x01\xf8\x35/g&quot;"
+ | perl -p -e &quot;s/\xf8\x26\xc0\x00\xf8\x34/\xf8\x26\xc0\x01\xf8\x35/g&quot;"
 *FoomaticRIPOptionSetting GSDuplex=DuplexTumble: "&&
- | perl -p -e &quot;s/\xc0\x00\xf8\x34/\xc0\x00\xf8\x35/g&quot;"
+ | perl -p -e &quot;s/\xf8\x26\xc0\x00\xf8\x34/\xf8\x26\xc0\x00\xf8\x35/g&quot;"
 
 *FoomaticRIPOption JCLDuplex: enum JCL D 50
 *FoomaticRIPOptionSetting JCLDuplex=FromDuplex: ""
@@ -676,4 +679,6 @@
 *Font Times-Roman: Standard "(001.007S)" Standard ROM
 *Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
 *Font ZapfDingbats: Special "(001.004S)" Standard ROM
+
 *% end of Printer Description file
+

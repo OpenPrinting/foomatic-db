@@ -4,7 +4,7 @@
 *%    for "Lanier MP 2000/LD320d PXL"
 *%
 *%    CreationDate: 2001/06/22
-*%    Modified:     2007/04/17
+*%    Modified:     2007/12/14
 *%
 *%    COPYRIGHT (C) 2001-2007 RICOH COMPANY, LTD.
 *%    
@@ -68,12 +68,12 @@
 *InnerTray2 True/Installed: ""
 *CloseUI *InnerTray2
 
-*OpenUI *OptionTrayOptionTray/Option Tray: PickOne
-*DefaultOptionTrayOptionTray: None
-*OptionTrayOptionTray None/Not Installed: ""
-*OptionTrayOptionTray 1Cassette/Lower Paper Tray: ""
-*OptionTrayOptionTray 2Cassette/Lower Paper Trays: ""
-*CloseUI *OptionTrayOptionTray
+*OpenUI *OptionTray/Option Tray: PickOne
+*DefaultOptionTray: None
+*OptionTray None/Not Installed: ""
+*OptionTray 1Cassette/Lower Paper Tray: ""
+*OptionTray 2Cassette/Lower Paper Trays: ""
+*CloseUI *OptionTray
 
 
 *CloseGroup: InstallableOptions
@@ -162,23 +162,23 @@
 *DefaultInputSlot: Auto
 *InputSlot MultiTray/Bypass Tray: "%% FoomaticRIPOptionSetting: InputSlot=MultiTray"
 *FoomaticRIPOptionSetting InputSlot=MultiTray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x02\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x02\xf8\x26/g&quot;"
 *End
 *InputSlot 1Tray/Tray 1: "%% FoomaticRIPOptionSetting: InputSlot=1Tray"
 *FoomaticRIPOptionSetting InputSlot=1Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x04\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x04\xf8\x26/g&quot;"
 *End
 *InputSlot 2Tray/Tray 2: "%% FoomaticRIPOptionSetting: InputSlot=2Tray"
 *FoomaticRIPOptionSetting InputSlot=2Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x05\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x05\xf8\x26/g&quot;"
 *End
 *InputSlot 3Tray/Tray 3: "%% FoomaticRIPOptionSetting: InputSlot=3Tray"
 *FoomaticRIPOptionSetting InputSlot=3Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x07\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x07\xf8\x26/g&quot;"
 *End
 *InputSlot 4Tray/Tray 4: "%% FoomaticRIPOptionSetting: InputSlot=4Tray"
 *FoomaticRIPOptionSetting InputSlot=4Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x08\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x08\xf8\x26/g&quot;"
 *End
 *InputSlot Auto/Auto Select: "%% FoomaticRIPOptionSetting: InputSlot=Auto"
 *FoomaticRIPOptionSetting InputSlot=Auto: ""
@@ -196,13 +196,17 @@
 *FoomaticRIPOptionSetting Duplex=DuplexTumble: "JCLDuplex=DuplexTumble GSDuplex=DuplexTumble"
 *CloseUI: *Duplex
 
+*FoomaticRIPOptionSetting Duplex=0: "JCLDuplex=None GSDuplex=None"
+*FoomaticRIPOptionSetting Duplex=LongEdge: "JCLDuplex=DuplexNoTumble GSDuplex=DuplexNoTumble"
+*FoomaticRIPOptionSetting Duplex=ShortEdge: "JCLDuplex=DuplexTumble GSDuplex=DuplexTumble"
+
 *FoomaticRIPOption GSDuplex: enum CmdLine D 50
 *FoomaticRIPOptionSetting GSDuplex=FromDuplex: ""
 *FoomaticRIPOptionSetting GSDuplex=None: ""
 *FoomaticRIPOptionSetting GSDuplex=DuplexNoTumble: "&&
- | perl -p -e &quot;s/\xc0\x00\xf8\x34/\xc0\x01\xf8\x35/g&quot;"
+ | perl -p -e &quot;s/\xf8\x26\xc0\x00\xf8\x34/\xf8\x26\xc0\x01\xf8\x35/g&quot;"
 *FoomaticRIPOptionSetting GSDuplex=DuplexTumble: "&&
- | perl -p -e &quot;s/\xc0\x00\xf8\x34/\xc0\x00\xf8\x35/g&quot;"
+ | perl -p -e &quot;s/\xf8\x26\xc0\x00\xf8\x34/\xf8\x26\xc0\x00\xf8\x35/g&quot;"
 
 *FoomaticRIPOption JCLDuplex: enum JCL D 50
 *FoomaticRIPOptionSetting JCLDuplex=FromDuplex: ""
@@ -300,12 +304,12 @@
 
 *CloseGroup: JobLog/Job Log
 
-*UIConstraints: *OptionTrayOptionTray None *InputSlot 3Tray
-*UIConstraints: *OptionTrayOptionTray None *InputSlot 4Tray
-*UIConstraints: *OptionTrayOptionTray 1Cassette *InputSlot 4Tray
-*UIConstraints: *InputSlot 3Tray *OptionTrayOptionTray None
-*UIConstraints: *InputSlot 4Tray *OptionTrayOptionTray None
-*UIConstraints: *InputSlot 4Tray *OptionTrayOptionTray 1Cassette
+*UIConstraints: *OptionTray None *InputSlot 3Tray
+*UIConstraints: *OptionTray None *InputSlot 4Tray
+*UIConstraints: *OptionTray 1Cassette *InputSlot 4Tray
+*UIConstraints: *InputSlot 3Tray *OptionTray None
+*UIConstraints: *InputSlot 4Tray *OptionTray None
+*UIConstraints: *InputSlot 4Tray *OptionTray 1Cassette
 *UIConstraints: *InnerTray2 False *OutputBin Bin1
 *UIConstraints: *OutputBin Bin1 *InnerTray2 False
 *UIConstraints: *MediaType Labels *OutputBin Bin1
@@ -397,4 +401,6 @@
 *Font Times-Roman: Standard "(001.007S)" Standard ROM
 *Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
 *Font ZapfDingbats: Special "(001.004S)" Standard ROM
+
 *% end of Printer Description file
+
