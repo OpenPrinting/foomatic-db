@@ -4,7 +4,7 @@
 *%    for "Lanier MP 161/LD016 PXL"
 *%
 *%    CreationDate: 2006/02/20
-*%    Modified:     2007/04/17
+*%    Modified:     2007/12/14
 *%
 *%    COPYRIGHT (C) 2006-2007 RICOH COMPANY, LTD.
 *%    
@@ -62,11 +62,11 @@
 
 *OpenGroup: InstallableOptions/Installable Options
 
-*OpenUI *OptionTrayLowerPaperTray/Lower Paper Tray: PickOne
-*DefaultOptionTrayLowerPaperTray: False
-*OptionTrayLowerPaperTray False/Not Installed: ""
-*OptionTrayLowerPaperTray True/Installed: ""
-*CloseUI *OptionTrayLowerPaperTray
+*OpenUI *OptionTray/Lower Paper Tray: PickOne
+*DefaultOptionTray: False
+*OptionTray False/Not Installed: ""
+*OptionTray True/Installed: ""
+*CloseUI *OptionTray
 
 
 *CloseGroup: InstallableOptions
@@ -145,15 +145,15 @@
 *DefaultInputSlot: Auto
 *InputSlot MultiTray/Bypass Tray: "%% FoomaticRIPOptionSetting: InputSlot=MultiTray"
 *FoomaticRIPOptionSetting InputSlot=MultiTray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x02\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x02\xf8\x26/g&quot;"
 *End
 *InputSlot 1Tray/Tray 1: "%% FoomaticRIPOptionSetting: InputSlot=1Tray"
 *FoomaticRIPOptionSetting InputSlot=1Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x04\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x04\xf8\x26/g&quot;"
 *End
 *InputSlot 2Tray/Tray 2: "%% FoomaticRIPOptionSetting: InputSlot=2Tray"
 *FoomaticRIPOptionSetting InputSlot=2Tray: "&&
- | perl -p -e &quot;s/\xc0[\x00\x01]\xf8\x26/\xc0\x05\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x05\xf8\x26/g&quot;"
 *End
 *InputSlot Auto/Auto Select: "%% FoomaticRIPOptionSetting: InputSlot=Auto"
 *FoomaticRIPOptionSetting InputSlot=Auto: ""
@@ -171,13 +171,17 @@
 *FoomaticRIPOptionSetting Duplex=DuplexTumble: "JCLDuplex=DuplexTumble GSDuplex=DuplexTumble"
 *CloseUI: *Duplex
 
+*FoomaticRIPOptionSetting Duplex=0: "JCLDuplex=None GSDuplex=None"
+*FoomaticRIPOptionSetting Duplex=LongEdge: "JCLDuplex=DuplexNoTumble GSDuplex=DuplexNoTumble"
+*FoomaticRIPOptionSetting Duplex=ShortEdge: "JCLDuplex=DuplexTumble GSDuplex=DuplexTumble"
+
 *FoomaticRIPOption GSDuplex: enum CmdLine D 50
 *FoomaticRIPOptionSetting GSDuplex=FromDuplex: ""
 *FoomaticRIPOptionSetting GSDuplex=None: ""
 *FoomaticRIPOptionSetting GSDuplex=DuplexNoTumble: "&&
- | perl -p -e &quot;s/\xc0\x00\xf8\x34/\xc0\x01\xf8\x35/g&quot;"
+ | perl -p -e &quot;s/\xf8\x26\xc0\x00\xf8\x34/\xf8\x26\xc0\x01\xf8\x35/g&quot;"
 *FoomaticRIPOptionSetting GSDuplex=DuplexTumble: "&&
- | perl -p -e &quot;s/\xc0\x00\xf8\x34/\xc0\x00\xf8\x35/g&quot;"
+ | perl -p -e &quot;s/\xf8\x26\xc0\x00\xf8\x34/\xf8\x26\xc0\x00\xf8\x35/g&quot;"
 
 *FoomaticRIPOption JCLDuplex: enum JCL D 50
 *FoomaticRIPOptionSetting JCLDuplex=FromDuplex: ""
@@ -263,8 +267,8 @@
 
 *CloseGroup: JobLog/Job Log
 
-*UIConstraints: *OptionTrayLowerPaperTray False *InputSlot 2Tray
-*UIConstraints: *InputSlot 2Tray *OptionTrayLowerPaperTray False
+*UIConstraints: *OptionTray False *InputSlot 2Tray
+*UIConstraints: *InputSlot 2Tray *OptionTray False
 *UIConstraints: *MediaType Labels *InputSlot 1Tray
 *UIConstraints: *MediaType Labels *InputSlot 2Tray
 *UIConstraints: *MediaType OHP *InputSlot 1Tray
@@ -334,4 +338,6 @@
 *Font Times-Roman: Standard "(001.007S)" Standard ROM
 *Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
 *Font ZapfDingbats: Special "(001.004S)" Standard ROM
+
 *% end of Printer Description file
+
