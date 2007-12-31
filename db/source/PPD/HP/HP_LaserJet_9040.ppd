@@ -1,14 +1,6 @@
 *PPD-Adobe: "4.3"
-*% =======================================================
-*% Disclaimer:  The above statement indicates
-*% that this PPD was written using the Adobe PPD
-*% File Format Specification 4.3, but does not
-*% intend to imply approval and acceptance by
-*% Adobe Systems, Inc.
-*% =======================================================
-*% Printer Description File
-*% Copyright 1992-2003 Hewlett-Packard Company
-*%
+*% =================================
+*% Copyright 1992-2007 Hewlett-Packard Company
 *% Permission is hereby granted, free of charge, to any person obtaining
 *% a copy of this software and associated documentation files (the
 *% "Software"), to deal in the Software without restriction, including
@@ -30,7 +22,14 @@
 *% 
 *% [this is the MIT open source license -- please see www.opensource.org]
 *%
-
+*% Disclaimer:  The above statement indicates
+*% that this PPD was written using the Adobe PPD
+*% File Format Specification 4.3, but does not
+*% intend to imply approval and acceptance by
+*% Adobe Systems, Inc.
+*% =======================================================
+*% Printer Description File
+*% (c) Copyright 2004-2007 Hewlett-Packard Development Company, L.P.
 *%========================================================
 *% PPD for HP LaserJet 9040
 *% For Macintosh
@@ -39,17 +38,17 @@
 *%=================================================
 *% 		 PPD File Version Information
 *%=================================================
-*FileVersion: "1.0.0 X"
+*FileVersion: "PPD-VERSION-STRING"
 *HPBuildNumber: "001"
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
 *PCFileName: "HP9040_H.PPD"
-*APDialogExtension: "/Library/Printers/hp/PDEs/hpColorOptions.plugin"
+*APDialogExtension: "/Library/Printers/hp/PDEs/hpWatermarks.plugin"
 *APDialogExtension: "/Library/Printers/hp/PDEs/hpEdgeToEdge.plugin"
 *APDialogExtension: "/Library/Printers/hp/PDEs/hpFinishing.plugin"
 *APDialogExtension: "/Library/Printers/hp/PDEs/hpImageQuality.plugin"
-*APDialogExtension: "/Library/Printers/hp/PDEs/hpProofAndPrint.plugin"
+*APDialogExtension: "/Library/Printers/hp/PDEs/hpJobStorage.plugin"
 *APPrinterIconPath: "/Library/Printers/hp/Icons/HP LaserJet 9000 MFP.icns"
 
 *%=================================================
@@ -161,20 +160,23 @@
 *HPOption_Disk RAMDisk/RAM Disk: ""
 *HPOption_Disk HardDisk/Hard Disk: ""
 *?HPOption_Disk: "
-   save
-     (HardDisk)
-     (RAMDisk)
-     (None)
-     0
-     (%disk?%)
-     { currentdevparams dup /Writeable known
-        { dup /Writeable get
-        	{ /PhysicalSize get 500000 gt {2}{1}ifelse 2 copy lt { exch }if pop }
-        	{ pop } ifelse
-        } { pop } ifelse
-     } 100 string /IODevice resourceforall
-     index = flush pop pop pop
-   restore
+save
+  /FWMax 2048 def /RAMMax 500000 def
+  (HardDisk) (RAMDisk) (None)
+  0
+  (%disk?%)
+  { currentdevparams dup /Writeable known
+    { dup /Writeable get
+      { /PhysicalSize get dup FWMax gt
+        { RAMMax gt {2}{1} ifelse 2 copy lt { exch }if pop }
+        { pop } ifelse
+      }
+      { pop } ifelse
+    }
+    { pop } ifelse
+  } 100 string /IODevice resourceforall
+  index =  flush pop pop pop
+restore
 "
 *End
 *CloseUI: *HPOption_Disk
@@ -288,6 +290,8 @@ ifelse = flush"
 *CloseUI: *HPOption_PaperPolicy
 
 *CloseGroup: InstallableOptions
+*%The following are here for the Mac OS X Watermark plugin
+*HPwmSupport: True
 
 *%=================================================
 *%		 UI Constraints
@@ -367,12 +371,14 @@ ifelse = flush"
 *UIConstraints: *HPOption_MBM_Mixed MBMStacker *OutputBin UStapler
 *UIConstraints: *HPOption_MBM_Mixed MBMStacker *OutputBin HP8BinMB
 *UIConstraints: *HPOption_MBM_Mixed MBMStacker *OutputBin HPBooklet
-*UIConstraints: *HPOption_MBM_Mixed MBMStacker *OutputBin Stacker
+*UIConstraints: *HPOption_MBM_Mixed MBMStacker *OutputBin StackerFaceUp
+
 
 *UIConstraints: *OutputBin UStapler *HPOption_MBM_Mixed MBMStacker
 *UIConstraints: *OutputBin HP8BinMB *HPOption_MBM_Mixed MBMStacker
 *UIConstraints: *OutputBin HPBooklet *HPOption_MBM_Mixed MBMStacker
-*UIConstraints: *OutputBin Stacker *HPOption_MBM_Mixed MBMStacker
+*UIConstraints: *OutputBin StackerFaceUp *HPOption_MBM_Mixed MBMStacker
+
 
 *UIConstraints: *HPOption_MBM_Mixed MBMStacker *HPMailboxMode MBMode
 *UIConstraints: *HPOption_MBM_Mixed MBMStacker *HPMailboxMode StackerMode
@@ -421,13 +427,11 @@ ifelse = flush"
 *% StaplerStacker
 *UIConstraints: *HPOption_MBM_Mixed MBMStaplerStacker *OutputBin HP8BinMB
 *UIConstraints: *HPOption_MBM_Mixed MBMStaplerStacker *OutputBin HPBooklet
-*UIConstraints: *HPOption_MBM_Mixed MBMStaplerStacker *OutputBin Stacker
-*UIConstraints: *HPOption_MBM_Mixed MBMStaplerStacker *OutputBin Left
-*UIConstraints: *HPOption_MBM_Mixed MBMStacker *OutputBin Left
+*UIConstraints: *HPOption_MBM_Mixed MBMStaplerStacker *OutputBin StackerFaceUp
 
 *UIConstraints: *OutputBin HP8BinMB *HPOption_MBM_Mixed MBMStaplerStacker
 *UIConstraints: *OutputBin HPBooklet *HPOption_MBM_Mixed MBMStaplerStacker
-*UIConstraints: *OutputBin Stacker *HPOption_MBM_Mixed MBMStaplerStacker
+*UIConstraints: *OutputBin StackerFaceUp *HPOption_MBM_Mixed MBMStaplerStacker
 
 *UIConstraints: *HPOption_MBM_Mixed MBMStaplerStacker *HPMailboxMode MBMode
 *UIConstraints: *HPOption_MBM_Mixed MBMStaplerStacker *HPMailboxMode StackerMode
@@ -1346,14 +1350,21 @@ ifelse = flush"
 *% PIN is required when Job Retention is HPJobRetentionPrivate or HPJobRetentionPrivateStore
 *%###*UIConstraints: *HPJobRetentionOption HPJobRetentionPrivate *HPJobHoldKey HoldKeyNone
 *%###*UIConstraints: *HPJobHoldKey HoldKeyNone *HPJobRetentionOption HPJobRetentionPrivate
+*%Job Retention not allowed unless printer has a hard disk
+*UIConstraints: *HPOption_Disk None *HPJobRetentionOption HPJobRetentionQuickCopy
+*UIConstraints: *HPOption_Disk None *HPJobRetentionOption HPJobRetentionStore
+*UIConstraints: *HPOption_Disk RAMDisk *HPJobRetentionOption HPJobRetentionQuickCopy
+*UIConstraints: *HPOption_Disk RAMDisk *HPJobRetentionOption HPJobRetentionStore
 
-
-*%=== Proof and Hold =======================
+*% ===================================
 *OpenGroup: HPJobRetention/Job Storage
 
+*% =================================
+*% Job Retention
+*% =================================
 *% The UserName setting is obtained from the print job. This may not work on non-Mac drivers.
-*OpenUI *HPJobRetentionOption/Job Retention: PickOne
-*OrderDependency: 14 Prolog *HPJobRetentionOption
+*OpenUI *HPJobRetentionOption/Job Storage: PickOne
+*OrderDependency: 13 Prolog *HPJobRetentionOption
 *DefaultHPJobRetentionOption: HPJobRetentionOff
 *HPJobRetentionOption HPJobRetentionQuickCopy/Quick Copy: "
 	<< /Collate true /CollateDetails
@@ -1374,12 +1385,12 @@ ifelse = flush"
 "
 *End
 
-*%HPJobRetention HPJobRetentionPrivate/Private Job: "
-*%	<< /Collate true /CollateDetails
-*%		<< /Type 8 /Hold 1 /HoldType 1 >>
-*%	>> setpagedevice
-*%"
-*%End
+*HPJobRetentionOption HPJobRetentionPrivate/Private Job: "
+	<< /Collate true /CollateDetails
+		<< /Type 8 /Hold 1 /HoldType 1 >>
+	>> setpagedevice
+"
+*End
 
 *HPJobRetentionOption HPJobRetentionOff/Off: "
 	<< /CollateDetails
@@ -1388,7 +1399,31 @@ ifelse = flush"
 *End
 *CloseUI: *HPJobRetentionOption
 
+*% ================= Job Storage Descriptions ====================
+*HPJobRetentionOptionDS HPJobRetentionQuickCopy: HPJOBRETENTIONOPTION_QUICKCOPY_DS
 
+*HPJobRetentionOptionDS HPJobRetentionProof: HPJOBRETENTIONOPTION_PROOFANDPRINT_DS
+
+*HPJobRetentionOptionDS HPJobRetentionStore: HPJOBRETENTIONOPTION_STOREDJOB_DS
+
+*HPJobRetentionOptionDS HPJobRetentionPrivate: HPJOBRETENTIONOPTION_PRIVATE_DS
+
+*HPJobRetentionOptionDS HPJobRetentionOff: HPJOBRETENTIONOPTION_OFF_DS
+
+*% ===========================================================
+*OpenUI *HPDuplicateJobMode/If Job Name Exists: PickOne
+*OrderDependency: 14 Prolog *HPDuplicateJobMode
+*DefaultHPDuplicateJobMode: Unique
+
+*HPDuplicateJobMode Unique/Use Job Name + (1 - 99): "
+	<< /CollateDetails << /Type 8 /DuplicateJob 0 >> >> setpagedevice
+"
+*End
+*HPDuplicateJobMode Overwrite/Replace Existing File: "
+	<< /CollateDetails << /Type 8 /DuplicateJob 1 >> >> setpagedevice
+"
+*End
+*CloseUI: *HPDuplicateJobMode
 
 *OpenUI *HPUserName/User Name: PickOne
 *% The UserName setting is obtained from the print job. This will not work unchanged on non-Mac drivers.
@@ -1432,7 +1467,7 @@ ifelse = flush"
 	>> setpagedevice
 "
 *End
-*HPUserName Set/Custom user name: "
+*HPUserName Set/Custom User Name: "
 	<< /CollateDetails
 		<< /Type 8
 			/UserName /dscInfo where
@@ -1575,7 +1610,6 @@ ifelse = flush"
 	>> setpagedevice
 "
 *End
-
 *CloseGroup: HPJobRetention
 
 *% =================================
@@ -1588,7 +1622,7 @@ ifelse = flush"
 *DefaultHPwmSwitch: Off
 *HPwmSwitch Off/None: ""
 *HPwmSwitch Watermark/Watermark: "
-% Copyright (c) Hewlett-Packard Co 1997
+% (c) Copyright 1997-2007 Hewlett-Packard Development Company, L.P..
 /HPwm where { pop }{
   userdict begin
   true setglobal /HPwm 5 dict dup begin /HPwmOn true def end def false setglobal
@@ -1650,7 +1684,7 @@ ifelse = flush"
 } ifelse"
 *End
 *HPwmSwitch Overlay/Overlay: "
-% Copyright (c) Hewlett-Packard Co 1997
+% (c) Copyright 1997-2007 Hewlett-Packard Development Company, L.P..
 /HPwm where { pop }{
   userdict begin
   true setglobal /HPwm 5 dict dup begin /HPwmOn true def end def false setglobal
@@ -1867,12 +1901,22 @@ ifelse = flush"
 *DefaultOutputBin: PrinterDefault
 *OutputBin PrinterDefault/Printer's Current Setting: ""
 *OutputBin Upper/Top Bin: "<</Staple 0 /OutputType (TOP OUTPUT BIN)>> setpagedevice"
-*OutputBin Left/Left Bin: "
-   currentpagedevice /OutputAttributes get
-   4 known
-         {<</Staple 0 /OutputType (FACE UP BIN)>> setpagedevice}
-         {<</Staple 0 /OutputType (LEFT OUTPUT BIN)>> setpagedevice}
-       ifelse"
+*OutputBin Left/Left Output Bin (Face Up): "
+   currentpagedevice /MediaProcessingDetails known
+   {   currentpagedevice /MediaProcessingDetails get /DeviceID known
+       {   currentpagedevice /MediaProcessingDetails get /DeviceID get (multifunction) search
+           { currentpagedevice /OutputAttributes get
+                {
+                pop pop pop
+                <</MediaProcessing (FACE_UP) /MediaProcessingDetails
+                <</MediaProcessingOption (FACE_UP) /MediaProcessingBoundary 0 /Type 8>> >> setpagedevice
+           		}
+           	}
+       } <</MediaProcessing (FACE_UP) /MediaProcessingDetails
+                <</MediaProcessingOption (FACE_UP) /MediaProcessingBoundary 0 /Type 8>> >> setpagedevice 
+   }
+   {<</Staple 0 /OutputType (FACE UP BIN)>> setpagedevice} ifelse   	
+"
 *End
 *OutputBin StackerFaceUp/Stacker (Face-UP): "
 currentpagedevice /MediaProcessing known
@@ -1889,17 +1933,24 @@ currentpagedevice /MediaProcessing known
 } ifelse"
 *End
 *OutputBin Stacker/Stacker (Face-Down): "
-currentpagedevice /MediaProcessing known
-	{<< /MediaProcessing (FACE_DOWN) /MediaProcessingDetails<<
-	/MediaProcessingOption (FACE_DOWN)
-	/MedaiProcessingBoundary 0 /ImageOrientation 0 /Type 8 >> >> setpagedevice put }
-	{<</Staple 0 /OutputType (OPTIONAL OUTBIN 2)>> setpagedevice} ifelse"
+  currentpagedevice /MediaProcessingDetails known{
+	currentpagedevice /MediaProcessingDetails get /ModelID get
+	(C8088B) search {<< /MediaProcessing (FACE_DOWN) /MediaProcessingDetails
+	<</MediaProcessingOption (FACE_DOWN)/MedaiProcessingBoundary 0
+	/ImageOrientation 0 /Type 8 >> >> setpagedevice put }
+            {<</Staple 0 /OutputType (OPTIONAL OUTBIN 2)>> setpagedevice} ifelse }
+  {<</Staple 0 /OutputType (OPTIONAL OUTBIN 2)>> setpagedevice} ifelse "
 *End
-*OutputBin UStapler/Stapler: ""
-*OutputBin HPBooklet/Booklet Bin: ""
 *OutputBin HP8BinMB/8-Bin Mailbox: ""
-*?OutputBin:"
-save
+*OutputBin UStapler/Stapler: ""
+*OutputBin HPBooklet/Booklet Bin: "
+  << /MediaProcessing (BOOKLET_MAKER) /MediaProcessingDetails <<
+  /MediaProcessingOption (BOOKLET_MAKER) /MedaiProcessingBoundary 0
+  /ImageOrientation 0 /Type 8 >> >> setpagedevice
+  << /Staple 0 /OutputType (OPTIONAL OUTBIN 2) >> setpagedevice
+"
+*End
+*?OutputBin:"save
  currentpagedevice /OutputAttributes get dup
  5 known
  {/Priority get 0 get
@@ -1946,12 +1997,12 @@ restore
     /MediaProcessingOption (SIX_STAPLES) /MediaProcessingBoundary 0
     /ImageOrientation 1 /Type 8 >> >> setpagedevice"
 *End
-*HPStaplerOptions HPBooklet/Fold & Saddle Stitch: "
-  << /MediaProcessing (BOOKLET_MAKER) /MediaProcessingDetails <<
-  /MediaProcessingOption (BOOKLET_MAKER) /MedaiProcessingBoundary 0
-  /ImageOrientation 0 /Type 8 >> >> setpagedevice
-  << /Staple 0 /OutputType (OPTIONAL OUTBIN 2) >> setpagedevice"
-*End
+*%*HPStaplerOptions HPBooklet/Fold & Saddle Stitch: "
+*%  << /MediaProcessing (BOOKLET_MAKER) /MediaProcessingDetails <<
+*%  /MediaProcessingOption (BOOKLET_MAKER) /MedaiProcessingBoundary 0
+*%  /ImageOrientation 0 /Type 8 >> >> setpagedevice
+*%  << /Staple 0 /OutputType (OPTIONAL OUTBIN 2) >> setpagedevice"
+*%*End
 *CloseUI: *HPStaplerOptions
 
 *%=== 8 Bin MultiBin MailBox Options =========================
@@ -2026,7 +2077,7 @@ restore
 *%=================================================
 *OpenUI *Collate/Collate:  Boolean
 *OrderDependency: 12 AnySetup *Collate
-*DefaultCollate: True
+*DefaultCollate: False
 *Collate True/On (turn off in application): "<</Collate true>> setpagedevice"
 *Collate False/Off: "<</Collate false>> setpagedevice"
 *?Collate: "
@@ -2541,10 +2592,10 @@ restore
 *OrderDependency: 20 AnySetup *ManualFeed
 *DefaultManualFeed: False
 *ManualFeed True/True: "
-	<</ManualFeed true /MediaPosition 3>> setpagedevice"
+	<</ManualFeed true>> setpagedevice"
 *End
 *ManualFeed False/False: "
-	<</ManualFeed false /MediaPosition 3>> setpagedevice"
+	<</ManualFeed false>> setpagedevice"
 *End
 *?ManualFeed: "
 	save
