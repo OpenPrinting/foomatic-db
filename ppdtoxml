@@ -1,0 +1,683 @@
+#!/usr/bin/env python
+#PPD to XML translator/generator
+#Written by David Crosby
+version=.05
+
+import sys
+import os
+import time
+import pygtk
+pygtk.require('2.0')
+import gtk
+
+class PPDtoXML:
+    def __init__(self):
+
+        window = gtk.Window()
+        window.connect('destroy', lambda w: gtk.main_quit())
+
+        vbox = gtk.VBox()
+        vbox.show()       
+  
+        make_label = gtk.Label('Make')
+        vbox.pack_start(make_label)
+        make_label.show()
+
+        p_make = gtk.Entry()
+        p_make.set_text('Make')
+        p_make_dropdown = gtk.EntryCompletion()
+        self.makelist = gtk.ListStore(str)
+        for m in ['Alps', 'Anitech', 'Apollo', 'Apple', 'Avery', 'Benq', 'Brother', 'Cltoh', 'CalComp', 'Canon', 'Casio', 'Citizen', 'Compaq', 'DEC', 'Dell', 'Dymo', 'Dymo-CoStar', 'Epson', 'Extech', 'FenixImvico', 'FujiXerox', 'Fujifilm', 'Fujitsu', 'GCCPrinters', 'Gestetner', 'Heidelberg', 'Hitachi', 'HP', 'IBM', 'Imagen', 'Infotec', 'KONICA MINOLTA', 'Kodak', 'Kyocera', 'Lanier', 'LaserMaster', 'Lexmark', 'Minolta', 'Minolta QMS', 'Mitsubishi', 'NEC', 'NRG', 'Oce', 'Okidata', 'Olivetti', 'Olympus', 'Panasonic', 'PCPI', 'Pentax', 'Printrex', 'QMS', 'Raven', 'Ricoh', 'RisoKagaku', 'Samsung', 'Savin', 'Seiko', 'Sharp', 'Siemens', 'Sony', 'Star', 'Tally', 'Tektronix', 'TohokuRicoh', 'Toshiba', 'Xerox']:
+            self.makelist.append([m])
+        p_make_dropdown.set_model(self.makelist)
+        p_make.set_completion(p_make_dropdown)
+        p_make_dropdown.set_text_column(0)
+        vbox.pack_start(p_make)
+        window.add(vbox)
+        p_make.show()
+
+        model_label = gtk.Label('Model')
+        vbox.pack_start(model_label)
+        model_label.show()
+
+        p_model = gtk.Entry()
+        p_model.set_text('Model')
+        vbox.pack_start(p_model)
+        p_model.show()
+
+        p_mechanism_combo = gtk.combo_box_new_text()
+        p_mechanism_combo.append_text('Mechanism')
+        p_mechanism_combo.append_text('laser')
+        p_mechanism_combo.append_text('inkjet')
+        p_mechanism_combo.append_text('led')
+        p_mechanism_combo.append_text('dotmatrix')
+        p_mechanism_combo.append_text('impact')
+        p_mechanism_combo.append_text('sublimation')
+        p_mechanism_combo.append_text('transfer')
+        p_mechanism_combo.set_active(0)
+        vbox.pack_start(p_mechanism_combo)
+        p_mechanism_combo.show()
+
+        hbox_dpi = gtk.HBox()
+        vbox.add(hbox_dpi)
+        hbox_dpi.show()
+
+        p_color = gtk.CheckButton("Color")
+        hbox_dpi.pack_start(p_color)
+        p_color.show()
+
+        separator1 = gtk.HSeparator()
+        hbox_dpi.pack_start(separator1)
+        separator1.show()
+
+        x_dpi_label = gtk.Label('X:')
+        hbox_dpi.pack_start(x_dpi_label)
+        x_dpi_label.show()
+
+        p_x_dpi = gtk.Entry()
+        p_x_dpi.set_width_chars(6)
+        hbox_dpi.pack_start(p_x_dpi)
+        p_x_dpi.show()
+
+        y_dpi_label = gtk.Label('Y:')
+        hbox_dpi.pack_start(y_dpi_label)
+        y_dpi_label.show()
+
+        p_y_dpi = gtk.Entry()
+        p_y_dpi.set_width_chars(6)
+        hbox_dpi.pack_start(p_y_dpi)
+        p_y_dpi.show()
+
+        consumables_label = gtk.Label('Consumables')
+        vbox.pack_start(consumables_label)
+        consumables_label.show()
+
+        p_consumables = gtk.Entry()
+        vbox.pack_start(p_consumables)
+        p_consumables.show()
+
+        url_label = gtk.Label('Manufacturer URL')
+        vbox.pack_start(url_label)
+        url_label.show()
+
+        p_url = gtk.Entry()
+        vbox.pack_start(p_url)
+        p_url.show()
+    
+    #LANGUAGES
+        hbox_languages = gtk.HBox()
+        vbox.add(hbox_languages)
+        hbox_languages.show()
+
+        p_is_postscript = gtk.CheckButton("Postscript?")
+        hbox_languages.pack_start(p_is_postscript)
+        p_is_postscript.show()
+
+        p_postscript_level = gtk.Entry()
+        p_postscript_level.set_max_length(1)
+        p_postscript_level.set_width_chars(1)
+        hbox_languages.pack_start(p_postscript_level)
+
+        p_postscript_url = gtk.Entry()
+        hbox_languages.pack_start(p_postscript_url)
+
+        ps_ppd_location_button = gtk.Button('Find:')
+        hbox_languages.pack_start(ps_ppd_location_button)
+        ps_ppd_location_button.connect('clicked', self.find_ps_ppd, p_postscript_url)
+
+        p_is_postscript.connect("toggled", self.postscript_select, p_postscript_level, p_postscript_url, ps_ppd_location_button)
+
+        p_is_pcl = gtk.CheckButton("PCL?")
+        hbox_languages.pack_start(p_is_pcl)
+        p_is_pcl.show()
+
+        p_pcl_level = gtk.Entry()
+        p_pcl_level.set_max_length(1)
+        p_pcl_level.set_width_chars(1)
+        hbox_languages.pack_start(p_pcl_level)
+
+        p_is_pcl.connect("toggled", self.pcl_select, p_pcl_level)
+
+        p_pjl = gtk.CheckButton("PJL")
+        hbox_languages.pack_start(p_pjl)
+        p_pjl.show()
+
+        p_charset = gtk.CheckButton("US-ASCII")
+        hbox_languages.pack_start(p_charset)
+        p_charset.show()
+
+    #AUTODETECTION
+        autodetect_label = gtk.Label("Autodetection")
+        vbox.pack_start(autodetect_label)
+        autodetect_label.show()
+
+        hbox_autodetect = gtk.HBox()
+        vbox.add(hbox_autodetect)
+        hbox_autodetect.show()
+
+      #USB AUTODETECTION
+        vbox_autodetect_usb = gtk.VBox()
+        hbox_autodetect.add(vbox_autodetect_usb)
+        vbox_autodetect_usb.show()
+        p_autodetect_usb = gtk.CheckButton("USB?") 
+        vbox_autodetect_usb.pack_start(p_autodetect_usb)
+        p_autodetect_usb.show()
+        usb_ieee1284 = gtk.Entry()
+        vbox_autodetect_usb.pack_start(usb_ieee1284)
+        usb_manufacturer = gtk.Entry()
+        vbox_autodetect_usb.pack_start(usb_manufacturer)
+        usb_model = gtk.Entry()
+        vbox_autodetect_usb.pack_start(usb_model)
+        usb_description = gtk.Entry()
+        vbox_autodetect_usb.pack_start(usb_description)
+        usb_commandset = gtk.Entry()
+        vbox_autodetect_usb.pack_start(usb_commandset)
+        p_autodetect_usb.connect("toggled", self.usb_select, usb_ieee1284, usb_manufacturer, usb_model, usb_description, usb_commandset)
+
+      #PARALLEL PORT AUTODETECTION
+        vbox_autodetect_parallel = gtk.VBox()
+        hbox_autodetect.add(vbox_autodetect_parallel)
+        vbox_autodetect_parallel.show()
+        p_autodetect_parallel = gtk.CheckButton("Parallel?")
+        vbox_autodetect_parallel.pack_start(p_autodetect_parallel)
+        p_autodetect_parallel.show()
+        parallel_ieee1284 = gtk.Entry()
+        vbox_autodetect_parallel.pack_start(parallel_ieee1284)
+        parallel_manufacturer = gtk.Entry()
+        vbox_autodetect_parallel.pack_start(parallel_manufacturer)
+        parallel_model = gtk.Entry()
+        vbox_autodetect_parallel.pack_start(parallel_model)
+        parallel_commandset = gtk.Entry()
+        vbox_autodetect_parallel.pack_start(parallel_commandset)
+        p_autodetect_parallel.connect("toggled", self.parallel_select, parallel_ieee1284, parallel_manufacturer, parallel_model, parallel_commandset)
+
+      #SNMP AUTODETECTION
+        vbox_autodetect_snmp = gtk.VBox()
+        hbox_autodetect.add(vbox_autodetect_snmp)
+        vbox_autodetect_snmp.show()
+        p_autodetect_snmp = gtk.CheckButton("SNMP?")
+        vbox_autodetect_snmp.pack_start(p_autodetect_snmp)
+        p_autodetect_snmp.show()
+        snmp_description = gtk.Entry()
+        vbox_autodetect_snmp.pack_start(snmp_description)
+        p_autodetect_snmp.connect("toggled", self.snmp_select, snmp_description)
+
+        hbox_functionality = gtk.HBox()
+        vbox.add(hbox_functionality)        
+        hbox_functionality.show()
+
+        p_functionality_combo = gtk.combo_box_new_text()
+        p_functionality_combo.append_text('Functionality')
+        p_functionality_combo.append_text('A')
+        p_functionality_combo.append_text('B')
+        p_functionality_combo.append_text('D')
+        p_functionality_combo.append_text('F')
+        p_functionality_combo.set_active(0)
+        vbox.pack_start(p_functionality_combo)
+        p_functionality_combo.show()
+
+        p_recommended_driver_label = gtk.Label('Recommended Driver')
+        vbox.pack_start(p_recommended_driver_label)
+        p_recommended_driver_label.show()
+
+        p_recommended_driver = gtk.Entry()
+        vbox.pack_start(p_recommended_driver)
+        p_recommended_driver_dropdown = gtk.EntryCompletion()
+        self.driverlist = gtk.ListStore(str)
+        for s in ['ap3250', 'appledmp', 'bj10', 'bj10e', 'bj10v', 'bj10vh', 'bj200', 'bj8gc12f.upp', 'bj8hg12f.upp', 'bj8oh06n.upp', 'bj8pa06n.upp', 'bj8pp12f.upp', 'bj8ts06n.upp', 'bjc250gs', 'bjc600', 'bjc6000a1.upp', 'bjc6000b1.upp', 'bjc610a0.upp', 'bjc610a1.upp', 'bjc610a2.upp', 'bjc610a3.upp', 'bjc610a4.upp', 'bjc610a5.upp', 'bjc610a6.upp', 'bjc610a7.upp', 'bjc610a8.upp', 'bjc610b1.upp', 'bjc610b2.upp', 'bjc610b3.upp', 'bjc610b4.upp', 'bjc610b6.upp', 'bjc610b7.upp', 'bjc610b8.upp', 'bjc800', 'bjc800j', 'bjc880j', 'c2050', 'c2070', 'cZ11', 'cZ11somsom', 'capt', 'cdj1600', 'cdj500', 'cdj550', 'cdj550.upp', 'cdj670', 'cdj850', 'cdj880', 'cdj890', 'cdj970', 'chp2200', 'cjet', 'cljet5', 'cljet5c', 'cp50', 'declj250', 'deskjet', 'dj505j', 'djet500', 'dnj650c', 'drv_x125', 'drv_z42', 'eplaser', 'ep-laser', 'eps9high', 'eps9mid', 'epson', 'epsonc', 'epsonepl', 'escpage', 'fmlbp', 'fmpr', 'foo2hp', 'foo2kyo', 'foo2lava', 'foo2qpdl', 'foo2xqx', 'foo2zjs', 'gdi', 'gimp-print', 'gutenprint', 'hl1250', 'hl7x0', 'hpdj', 'hpijs', 'ibmpro', 'imagen', 'iwhi', 'iwlo', 'iwlq', 'jetp3852', 'jj100', 'la50', 'la70', 'la75', 'la75plus', 'laserjet', 'lbp310', 'lbp320', 'lbp660', 'lbp8', 'lex5700', 'lex7000', 'lips2p', 'lips3', 'lips4', 'lips4v', 'lj250', 'lj4dith', 'lj4dithp', 'lj5gray', 'lj5mono', 'ljet2p', 'ljet3', 'ljet3d', 'ljet4', 'ljet4d', 'ljetplus', 'lm1100', 'ln03', 'lp2000', 'lp2563', 'lp8000', 'lpstyl', 'lq850', 'lx5000', 'lxm3200', 'lxm3200-tweaked', 'lxm3200x', 'lxm3200m', 'lxm3200p', 'lxm5700m', 'lxx74', 'lz11-V2', 'm2300w', 'm2400w', 'm8510', 'mdx1Mono', 'md2k', 'md50Eco', 'md50Mono', 'md5k', 'min12xxw', 'mj500c', 'mj6000c', 'mj700v2c', 'mj8000c', 'ml600', 'ml85p', 'necp2x.upp', 'necp2x6.upp', 'necp6', 'npdl', 'nwp533', 'oce9050', 'oki182', 'oki4drv', 'oki4w', 'okiibm', 'omni', 'paintjet', 'pbm2l2030', 'pbm2l7k', 'pbm2lwxl', 'pbm2ppa', 'pbmtozjs', 'pcl3', 'pegg', 'pentaxpj', 'picty180', 'pj', 'pjetxl', 'pjxl', 'pjxl300', 'PM760p.upp', 'PM760pl.upp', 'PM820p.upp', 'PM820pl.upp', 'pnm2ppa', 'Postscript', 'ppmtocpva', 'ppmtomd', 'pr150', 'pr201', 'ptouch', 'pxl1010', 'pxlcolor', 'pxljr', 'pxlmono', 'r4081', 'ras1.upp', 'ras24.upp', 'ras3.upp', 'ras32.upp', 'ras4.upp', 'ras8m.upp', 'rastertokmXXXXdl', 'rpdl', 's400a1.upp', 's400b1.upp', 'sharp.upp', 'sipixa6.upp', 'slap', 'splix', 'st640ih.upp', 'st640igh.upp', 'st640p.upp', 'st640pg.upp', 'st640pl.upp', 'st640plg.upp', 'st800', 'stc.upp', 'stc1520h.upp', 'stc2.upp', 'stc2_h.upp', 'stc2s_h.upp', 'stc300.upp', 'stc300bl.upp', 'stc300bm.upp', 'stc500p.upp', 'stc500ph.upp', 'stc600ih.upp', 'stc600p.upp', 'stc600pl.upp', 'stc640p.upp', 'Stc670p.upp', 'Stc670pl.upp', 'Stc680p.upp', 'Stc680pl.upp', 'stc740ih.upp', 'stc740p.upp', 'stc740il.upp', 'Stc760p.upp', 'Stc760pl.upp', 'Stc777p.upp', 'Stc777pl.upp', 'stc800ih.upp', 'stc800p.upp', 'stc800pl.upp', 'stc_h.upp', 'stc_l.upp', 'stcany.upp', 'stcolor', 'Stp720p.upp', 'Stp720pl.upp', 'Stp870p.upp', 'Stp870pl.upp', 't4693d2', 't4693d4', 't4693d8', 'tek4696', 'xes']:
+            self.driverlist.append([s])
+        p_recommended_driver_dropdown.set_model(self.driverlist)
+        p_recommended_driver.set_completion(p_recommended_driver_dropdown)        
+        p_recommended_driver_dropdown.set_text_column(0)
+        p_recommended_driver.show()
+
+        comments_label = gtk.Label('Comments')
+        vbox.pack_start(comments_label)
+        comments_label.show()
+
+        p_comments = gtk.Entry()
+        vbox.pack_start(p_comments)
+        p_comments.show()
+
+        throughput_label = gtk.Label('Throughput')
+        vbox.pack_start(throughput_label)
+        throughput_label.show()
+
+        p_throughput = gtk.Entry()
+        vbox.pack_start(p_throughput)
+        p_throughput.show()
+
+        hbox_buttons = gtk.HBox()
+        vbox.add(hbox_buttons)
+        hbox_buttons.show()
+
+        grok_configuration_button = gtk.Button("Configuration")
+        hbox_buttons.pack_start(grok_configuration_button)
+        grok_configuration_button.connect('clicked', self.grok_configuration)
+        grok_configuration_button.show()
+
+        grok_ppd_file_button = gtk.Button("Grok PPD file")
+        hbox_buttons.pack_start(grok_ppd_file_button)  
+        grok_ppd_file_button.connect('clicked', self.grok_ppd_file_def, p_make, p_model, p_color, p_throughput)   
+        grok_ppd_file_button.show()
+ 
+        write_xml_button = gtk.Button("Write printer XML file")
+        hbox_buttons.pack_start(write_xml_button)
+        write_xml_button.connect('clicked', self.write_printer_xml_file, p_make, p_model, p_color, p_mechanism_combo, p_x_dpi, p_y_dpi, p_consumables, p_url, p_is_postscript, p_postscript_level, p_postscript_url, p_is_pcl, p_pcl_level, p_pjl, p_charset, p_autodetect_usb, usb_ieee1284, usb_manufacturer, usb_model, usb_description, usb_commandset, p_autodetect_parallel, parallel_ieee1284, parallel_manufacturer, parallel_model, parallel_commandset, snmp_description, p_functionality_combo, p_recommended_driver, p_comments, p_throughput)
+        write_xml_button.show()
+
+        window.show()
+        return
+
+    def grok_configuration(self, button):
+        config_file_drop_directory = ''
+        common_grok_directory = ''
+        if os.path.isfile("ppdtoxml.conf"):
+           for line in open("ppdtoxml.conf"):
+               if line.find('FOODIR=') != -1:
+                  line = line.replace('FOODIR=', '')
+                  line = line.replace('\n', '')
+                  config_file_drop_directory = line
+               else: 
+                  pass
+        else:
+           print "No configuration file present!"
+
+        config_window = gtk.Window()
+        config_vbox = gtk.VBox()
+        config_window.add(config_vbox)
+        config_window.show()
+        config_vbox.show()
+
+        directory_drop_label = gtk.Label("XML home directory (has drivers, opt, PPD, and printers)")
+        config_vbox.pack_start(directory_drop_label)
+        directory_drop_label.show()
+
+        ddrop_hbox = gtk.HBox()
+        config_vbox.add(ddrop_hbox)
+        ddrop_hbox.show()
+
+        directory_drop = gtk.Entry()
+        if config_file_drop_directory is not '':
+           directory_drop.set_text(config_file_drop_directory)
+        ddrop_hbox.pack_start(directory_drop)
+        directory_drop.show()
+
+        directory_drop_chooser = gtk.Button("Find folder...")
+        ddrop_hbox.pack_start(directory_drop_chooser)
+        directory_drop_chooser.show()
+        directory_drop_chooser.connect('clicked', self.choose_directory_drop, directory_drop)
+
+        save_configuration_button = gtk.Button("Save configuration")
+        config_vbox.pack_start(save_configuration_button)
+        save_configuration_button.show()
+        save_configuration_button.connect('clicked', self.save_configuration_def, directory_drop)
+
+    def choose_directory_drop(self, button, directory_drop):
+        dialog = gtk.FileChooserDialog("Select directory that has drivers, opt, PPD, and printers...",
+                               None,
+                               gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
+                               (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                                gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+        dialog.set_default_response(gtk.RESPONSE_OK)
+
+        filter = gtk.FileFilter()
+        filter.set_name("All files")
+        filter.add_pattern("*")
+        dialog.add_filter(filter)
+
+        response = dialog.run()
+        if response == gtk.RESPONSE_OK:
+           main_folder_location = dialog.get_filename()
+        elif response == gtk.RESPONSE_CANCEL:
+           main_folder_location = directory_drop.get_text()
+        dialog.destroy()
+        directory_drop.set_text(main_folder_location)
+
+    def save_configuration_def(self, button, directory_drop):
+        parent_directory = directory_drop.get_text()
+        print parent_directory
+
+        temp = sys.stdout
+        sys.stdout = open("ppdtoxml.conf", 'w')
+
+        print "This is the PPD to XML converter translator configuration file. Mess with this how you want, but otherwise just let the GUI do its thing."
+        print "FOODIR=%s" %parent_directory        
+
+        sys.stdout.close()
+        sys.stdout = temp
+
+    def grok_ppd_file_def(self, button, p_make, p_model, p_color, p_throughput):
+        print "This feature is not %100 complete, be sure to double check the XML file and hold tight"
+
+        dialog = gtk.FileChooserDialog("Open a PPD to grok...",
+                               None,
+                               gtk.FILE_CHOOSER_ACTION_OPEN,
+                               (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                                gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+        dialog.set_default_response(gtk.RESPONSE_OK)
+
+        filter = gtk.FileFilter()
+        filter.set_name("PPD Files")
+        filter.add_pattern("*.ppd")
+        dialog.add_filter(filter)
+
+        filter = gtk.FileFilter()
+        filter.set_name("All files")
+        filter.add_pattern("*")
+        dialog.add_filter(filter)
+
+        response = dialog.run()
+        if response == gtk.RESPONSE_OK:
+           ppd_file_location = dialog.get_filename()
+        elif response == gtk.RESPONSE_CANCEL:
+           ppd_file_location = ''
+        dialog.destroy()
+
+        if ppd_file_location is not '':
+           for line in open(ppd_file_location):
+              if line.find('*PPD-Adobe:') != -1:
+                 print line
+              if line.find('*Manufacturer:') != -1:
+                 line = line.replace('*Manufacturer:', '')
+                 p_make.set_text(self.line_cleaner(line))
+              if line.find('*ModelName:') != -1:
+                 line = line.replace('*ModelName:', '')
+                 line = line.replace(p_make.get_text(), '')
+                 p_model.set_text(self.line_cleaner(line))              
+              if line.find('*ColorDevice:') != -1:
+                 if line.find('True') != -1:
+                    print line
+              if line.find('*Throughput:') != -1:
+                 line = line.replace('*Throughput:', '')
+                 p_throughput.set_text(self.line_cleaner(line))
+
+    def line_cleaner(self, line):
+        line = line.replace('\"', '')
+        line = line.replace('\f', '')
+        line = line.replace('\r', '')
+        line = line.replace(' ', '')
+        line = line.replace('\n', '')
+        line = line.replace('\t', '')
+        return line
+
+    def postscript_select(self, p_is_postscript, p_postscript_level, p_postscript_url, ps_ppd_location_button):
+        if p_is_postscript.get_active():
+           p_postscript_level.show()
+           p_postscript_url.show()
+           ps_ppd_location_button.show()
+           p_postscript_url.set_text('PPD Location')
+        else:
+           p_postscript_level.hide()
+           p_postscript_level.set_text('')
+           p_postscript_url.hide()
+           ps_ppd_location_button.hide()
+           p_postscript_url.set_text('')
+
+    def find_ps_ppd(self, button, p_postscript_url):
+        ps_ppd_file_location = ''
+        dialog = gtk.FileChooserDialog("Select PostScript PPD to point to...",
+                               None,
+                               gtk.FILE_CHOOSER_ACTION_OPEN,
+                               (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                                gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+        dialog.set_default_response(gtk.RESPONSE_OK)
+
+        filter = gtk.FileFilter()
+        filter.set_name("PPD Files")
+        filter.add_pattern("*.ppd")
+        filter.add_pattern("*.Ppd")
+        filter.add_pattern("*.PPD")
+        dialog.add_filter(filter)
+
+        filter = gtk.FileFilter()
+        filter.set_name("All files")
+        filter.add_pattern("*")
+        dialog.add_filter(filter)
+
+        response = dialog.run()
+        if response == gtk.RESPONSE_OK:
+           ps_ppd_file_location = dialog.get_filename()
+        elif response == gtk.RESPONSE_CANCEL:
+           ps_ppd_file_location =  p_postscript_url.get_text()
+        dialog.destroy()
+        p_postscript_url.set_text(ps_ppd_file_location)
+
+    def pcl_select(self, p_is_pcl, p_pcl_level):
+        if p_is_pcl.get_active():
+           p_pcl_level.show()
+        else:
+           p_pcl_level.hide()
+           p_pcl_level.set_text('')
+
+    def usb_select(self, p_autodetect_usb, usb_ieee1284, usb_manufacturer, usb_model, usb_description, usb_commandset):
+        if p_autodetect_usb.get_active():
+           usb_ieee1284.show()
+           usb_ieee1284.set_text('IEEE 1284')
+           usb_manufacturer.show()
+           usb_manufacturer.set_text('Manufacturer')        
+           usb_model.show()
+           usb_model.set_text('Model')
+           usb_description.show()
+           usb_description.set_text('Description')
+           usb_commandset.show()
+           usb_commandset.set_text('Commandset')
+        else:
+           usb_ieee1284.hide()
+           usb_ieee1284.set_text('')
+           usb_manufacturer.hide()
+           usb_manufacturer.set_text('')
+           usb_model.hide()
+           usb_model.set_text('')
+           usb_description.hide()
+           usb_description.set_text('')
+           usb_commandset.hide()
+           usb_commandset.set_text('')
+
+    def parallel_select(self, p_autodetect_parallel, parallel_ieee1284, parallel_manufacturer, parallel_model, parallel_commandset):
+        if p_autodetect_parallel.get_active():
+           parallel_ieee1284.show()
+           parallel_ieee1284.set_text('IEEE 1284')
+           parallel_manufacturer.show()
+           parallel_manufacturer.set_text('Manufacturer')
+           parallel_model.show()
+           parallel_model.set_text('Model')
+           parallel_commandset.show()
+           parallel_commandset.set_text('Commandset')
+        else:
+           parallel_ieee1284.hide()
+           parallel_ieee1284.set_text('')
+           parallel_manufacturer.hide()
+           parallel_manufacturer.set_text('')
+           parallel_model.hide()
+           parallel_model.set_text('')
+           parallel_commandset.hide()
+           parallel_commandset.set_text('')
+
+    def snmp_select(self, p_autodetect_snmp, snmp_description):
+        if p_autodetect_snmp.get_active():
+           snmp_description.show()
+           snmp_description.set_text('SNMP description')
+        else:
+           snmp_description.hide()
+           snmp_description.set_text('')
+
+    def write_printer_xml_file(self, button, p_make, p_model, p_color, p_mechanism_combo, p_x_dpi, p_y_dpi, p_consumables, p_url, p_is_postscript, p_postscript_level, p_postscript_url, p_is_pcl, p_pcl_level, p_pjl, p_charset, p_autodetect_usb, usb_ieee1284, usb_manufacturer, usb_model, usb_description, usb_commandset, p_autodetect_parallel, parallel_ieee1284, parallel_manufacturer, parallel_model, parallel_commandset, snmp_description, p_functionality_combo, p_recommended_driver, p_comments, p_throughput):
+  
+        make_text = p_make.get_text()
+        filename_make = make_text.replace(' ', '_')
+        model_text = p_model.get_text()
+        filename_model = model_text.replace(' ', '_')
+
+        mechanism_model = p_mechanism_combo.get_model()
+        mechanism_active = p_mechanism_combo.get_active()
+        if mechanism_active:
+           mechanism_text = mechanism_model[mechanism_active][0]
+           mechanism_text = mechanism_text + '/'
+        else:
+           print >> sys.stderr, "You need to assign a mechanism!" 
+           mechanism_text = "!-- NO MECHANISM SET --"
+ 
+        x_dpi_text = p_x_dpi.get_text()
+        y_dpi_text = p_y_dpi.get_text()
+        consumables_text = p_consumables.get_text()
+        url_text = p_url.get_text()
+        postscript_level_text = p_postscript_level.get_text()
+        postscript_url_text = p_postscript_url.get_text()
+        pcl_level_text = p_pcl_level.get_text()
+
+     #Autodetection variables
+        usb_ieee1284_text = usb_ieee1284.get_text()
+        usb_manufacturer_text = usb_manufacturer.get_text()
+        usb_model_text = usb_model.get_text()
+        usb_description_text = usb_description.get_text()
+        usb_commandset_text = usb_commandset.get_text()
+        parallel_ieee1284_text = parallel_ieee1284.get_text()
+        parallel_manufacturer_text = parallel_manufacturer.get_text()
+        parallel_model_text = parallel_model.get_text()
+        parallel_commandset_text = parallel_commandset.get_text()
+        snmp_text = snmp_description.get_text()
+
+        functionality_model = p_functionality_combo.get_model()
+        functionality_active = p_functionality_combo.get_active()
+        if functionality_active:
+           functionality_text = functionality_model[functionality_active][0]
+        else:
+           print >> sys.stderr, "You need to assign a functionality grade!"
+           functionality_text = "!!! NO FUNCTIONALITY SET !!!"
+
+        recommended_driver_text = p_recommended_driver.get_text()
+        comments_text = p_comments.get_text()
+        throughput_text = p_throughput.get_text()
+
+        foodir = ''     
+        if os.path.isfile("ppdtoxml.conf"):
+           for line in open("ppdtoxml.conf"):
+               if line.find('FOODIR=') != -1:
+                  line = line.replace('FOODIR=', '')
+                  line = line.replace('\n', '')
+                  foodir = line
+               else: 
+                  pass
+
+        xmlfile_name = foodir + '/printer/' + filename_make + '-' + filename_model + '.xml'
+        temp = sys.stdout
+        sys.stdout = open(xmlfile_name, 'w')
+ 
+        print "<printer id=\"printer/%s-%s\">" %(filename_make, filename_model)
+        print "   <make>%s</make>" %make_text
+        print "   <model>%s</model>" %model_text
+        print "   <mechanism>"
+        if p_color.get_active():
+           print "   <color/>"
+        else:
+           print "   <!--not \"color\"-->"
+        print "      <%s>" %mechanism_text       
+        print "      <resolution>"
+        print "         <dpi>"
+    
+        if x_dpi_text is not "":
+           print "            <x>%s</x>" %x_dpi_text
+        else:
+           print "            <!--x unknown-->"
+
+        if y_dpi_text is not "":
+           print "            <y>%s</y>" %y_dpi_text   
+        else:
+           print "            <!--y unknown-->"
+
+        print "         </dpi>"
+        print "      <consumables>%s</consumables>" %consumables_text
+        print "      </resolution>"
+        print "   </mechanism>"
+        print "   <url>%s</url>" %url_text
+
+    #LANGUAGES
+        print "   <lang>"
+
+        if p_is_postscript.get_active():
+           if postscript_level_text is not "":
+              print "     <postscript level=\"%s\">" %postscript_level_text
+              if postscript_url_text is not "":
+                 print "       <url>%s</url>" %postscript_url_text
+              print "     </postscript>"
+  
+        if p_is_pcl.get_active():
+           print "   <pcl level=\"%s\">" %pcl_level_text
+
+        if p_pjl.get_active():
+           print "      <pjl/>"
+        else: 
+           print "      <!--no pjl-->"
+
+        if p_charset.get_active():
+           print "      <text>"
+           print "         <charset>us-ascii</charset>"
+           print "      </text>"
+        else:
+           print "      <!--no \"text\"-->"
+
+        print "   </lang>"
+
+    #AUTODETECT PARAMETERS
+        if (p_autodetect_usb.get_active() or p_autodetect_parallel.get_active() or snmp_text is not ""): 
+           print "   <autodetect>"
+           if p_autodetect_parallel.get_active():
+              print "     <parallel>"
+              if parallel_ieee1284_text is not '':
+                 print "       <ieee1284>%s<ieee1284>" %parallel_ieee1284_text
+              if parallel_manufacturer_text is not '':
+                 print "       <manufacturer>%s</manufacturer>" %parallel_manufacturer_text
+              if parallel_model_text is not '': 
+                 print "       <model>%s</model>" %parallel_model_text
+              if parallel_commandset_text is not '':
+                 print "       <commandset>%s</commandset>" %parallel_commandset_text
+              print "     </parallel>"
+           if p_autodetect_usb.get_active():
+              print "     <usb>"
+              if usb_ieee1284_text is not '':
+                 print "       <ieee1284>%s</ieee1284>" %usb_ieee1284_text
+              if usb_manufacturer_text is not '':
+                 print "       <manufacturer>%s</manufacturer>" %usb_manufacturer_text
+              if usb_model_text is not '':
+                 print "       <model>%s</model>" %usb_model_text
+              if usb_description_text is not '':
+                 print "       <description>%s</description>" %usb_description_text
+              if usb_commandset_text is not '':
+                 print "       <commandset>%s</commandset>" %usb_commandset_text
+              print "     </usb>"
+           if snmp_text is not '':
+              print "     <snmp>"
+              print "       <description>%s</description>" %snmp_text
+              print "     </snmp>"
+           print "   </autodetect>"
+
+        print "   <functionality>%s</functionality>" %functionality_text
+
+        if recommended_driver_text is not "":
+           print "   <driver>%s</driver>" %recommended_driver_text
+
+        print "   <comments>"
+        print "      <en>"
+        if comments_text is not "":
+           print "      %s" %comments_text
+           print ""
+        if throughput_text is not "":
+           print "      Throughput = %s" %throughput_text
+           print ""
+        print "      Foomatic entry made by PPDtoXML T/G %s" %version
+        print "      </en>"
+        print "   </comments>"
+        print "</printer>"
+
+        sys.stdout.close()
+        sys.stdout = temp
+
+def main():
+    gtk.main()
+    return
+
+if __name__ == "__main__":
+    PPDtoXML()
+    main()
+
