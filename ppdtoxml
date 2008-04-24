@@ -360,6 +360,8 @@ class PPDtoXML:
         filter = gtk.FileFilter()
         filter.set_name("PPD Files")
         filter.add_pattern("*.ppd")
+        filter.add_pattern("*.Ppd")
+        filter.add_pattern("*.PPD")
         dialog.add_filter(filter)
 
         filter = gtk.FileFilter()
@@ -599,7 +601,8 @@ class PPDtoXML:
            if postscript_level_text is not "":
               print "     <postscript level=\"%s\">" %postscript_level_text
               if postscript_url_text is not "":
-                 print "       <url>%s</url>" %postscript_url_text
+                 if postscript_url_text is not 'PPD Location':
+                    print "       <url>%s</url>" %postscript_url_text
               print "     </postscript>"
   
         if p_is_pcl.get_active():
