@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #PPD to XML translator/generator
 #Written by David Crosby
-version=.05
+version=.06
 
 import sys
 import os
@@ -550,6 +550,13 @@ class PPDtoXML:
 
         recommended_driver_text = p_recommended_driver.get_text()
         comments_text = p_comments.get_text()
+         #This part formats punctuation
+        comments_text = comments_text.replace('&', '&amp;')
+        comments_text = comments_text.replace('<', '&lt;')
+        comments_text = comments_text.replace('>', '&gt;')
+        comments_text = comments_text.replace('"', '&quot;')
+        comments_text = comments_text.replace("'", '&apos;')
+
         throughput_text = p_throughput.get_text()
 
         foodir = ''     
@@ -606,7 +613,7 @@ class PPDtoXML:
               print "     </postscript>"
   
         if p_is_pcl.get_active():
-           print "   <pcl level=\"%s\">" %pcl_level_text
+           print "      <pcl level=\"%s\">" %pcl_level_text
 
         if p_pjl.get_active():
            print "      <pjl/>"
