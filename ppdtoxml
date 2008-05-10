@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 #PPD to XML translator/generator
 #Written by David Crosby
-version=.06
+version=.07
 
 import sys
 import os
 import time
+import datetime
 import pygtk
 pygtk.require('2.0')
 import gtk
@@ -23,6 +24,7 @@ class PPDtoXML:
         vbox.pack_start(make_label)
         make_label.show()
 
+   #This is for the make and model of the printer
         p_make = gtk.Entry()
         p_make.set_text('Make')
         p_make_dropdown = gtk.EntryCompletion()
@@ -45,6 +47,7 @@ class PPDtoXML:
         vbox.pack_start(p_model)
         p_model.show()
 
+     #This is for selecting the printer mechanism
         p_mechanism_combo = gtk.combo_box_new_text()
         p_mechanism_combo.append_text('Mechanism')
         p_mechanism_combo.append_text('laser')
@@ -62,6 +65,7 @@ class PPDtoXML:
         vbox.add(hbox_dpi)
         hbox_dpi.show()
 
+    #Select whether the printer is color or not
         p_color = gtk.CheckButton("Color")
         hbox_dpi.pack_start(p_color)
         p_color.show()
@@ -70,6 +74,7 @@ class PPDtoXML:
         hbox_dpi.pack_start(separator1)
         separator1.show()
 
+    #Select the DPI of the printer
         x_dpi_label = gtk.Label('X:')
         hbox_dpi.pack_start(x_dpi_label)
         x_dpi_label.show()
@@ -88,6 +93,7 @@ class PPDtoXML:
         hbox_dpi.pack_start(p_y_dpi)
         p_y_dpi.show()
 
+    #Text box to enter what consumables are used in the printer (toner/drum/cartridge/blahblahblah)
         consumables_label = gtk.Label('Consumables')
         vbox.pack_start(consumables_label)
         consumables_label.show()
@@ -96,6 +102,7 @@ class PPDtoXML:
         vbox.pack_start(p_consumables)
         p_consumables.show()
 
+    #The manufacturer URL for the printer
         url_label = gtk.Label('Manufacturer URL')
         vbox.pack_start(url_label)
         url_label.show()
@@ -109,6 +116,7 @@ class PPDtoXML:
         vbox.add(hbox_languages)
         hbox_languages.show()
 
+    #This part is for determining the printer's PS ability
         p_is_postscript = gtk.CheckButton("Postscript?")
         hbox_languages.pack_start(p_is_postscript)
         p_is_postscript.show()
@@ -127,6 +135,7 @@ class PPDtoXML:
 
         p_is_postscript.connect("toggled", self.postscript_select, p_postscript_level, p_postscript_url, ps_ppd_location_button)
 
+     #This is for determining the printer's PCL ability
         p_is_pcl = gtk.CheckButton("PCL?")
         hbox_languages.pack_start(p_is_pcl)
         p_is_pcl.show()
@@ -138,10 +147,12 @@ class PPDtoXML:
 
         p_is_pcl.connect("toggled", self.pcl_select, p_pcl_level)
 
+      #Print Job Language support
         p_pjl = gtk.CheckButton("PJL")
         hbox_languages.pack_start(p_pjl)
         p_pjl.show()
 
+      #ASCII printing
         p_charset = gtk.CheckButton("US-ASCII")
         hbox_languages.pack_start(p_charset)
         p_charset.show()
@@ -201,7 +212,8 @@ class PPDtoXML:
         snmp_description = gtk.Entry()
         vbox_autodetect_snmp.pack_start(snmp_description)
         p_autodetect_snmp.connect("toggled", self.snmp_select, snmp_description)
-
+ 
+     #Determine the functionality level of the printer
         hbox_functionality = gtk.HBox()
         vbox.add(hbox_functionality)        
         hbox_functionality.show()
@@ -216,6 +228,7 @@ class PPDtoXML:
         vbox.pack_start(p_functionality_combo)
         p_functionality_combo.show()
 
+     #The recommended driver for the printer
         p_recommended_driver_label = gtk.Label('Recommended Driver')
         vbox.pack_start(p_recommended_driver_label)
         p_recommended_driver_label.show()
@@ -231,6 +244,7 @@ class PPDtoXML:
         p_recommended_driver_dropdown.set_text_column(0)
         p_recommended_driver.show()
 
+     #Text box to enter comments about the printer
         comments_label = gtk.Label('Comments')
         vbox.pack_start(comments_label)
         comments_label.show()
@@ -239,7 +253,8 @@ class PPDtoXML:
         vbox.pack_start(p_comments)
         p_comments.show()
 
-        throughput_label = gtk.Label('Throughput')
+     #Throughput of the printer
+        throughput_label = gtk.Label('Throughput (optional)')
         vbox.pack_start(throughput_label)
         throughput_label.show()
 
@@ -247,6 +262,7 @@ class PPDtoXML:
         vbox.pack_start(p_throughput)
         p_throughput.show()
 
+     #And now the sexy part of the program - the action buttons
         hbox_buttons = gtk.HBox()
         vbox.add(hbox_buttons)
         hbox_buttons.show()
@@ -260,6 +276,11 @@ class PPDtoXML:
         hbox_buttons.pack_start(grok_ppd_file_button)  
         grok_ppd_file_button.connect('clicked', self.grok_ppd_file_def, p_make, p_model, p_color, p_throughput)   
         grok_ppd_file_button.show()
+
+        open_printer_xml_file_button = gtk.Button("Open printer XML file")
+        hbox_buttons.pack_start(open_printer_xml_file_button)
+        open_printer_xml_file_button.connect('clicked', self.open_printer_xml_file_def, p_make, p_model, p_x_dpi, p_y_dpi, p_url, p_pjl, p_charset, p_color)
+        open_printer_xml_file_button.show()
  
         write_xml_button = gtk.Button("Write printer XML file")
         hbox_buttons.pack_start(write_xml_button)
@@ -269,7 +290,74 @@ class PPDtoXML:
         window.show()
         return
 
+    def open_printer_xml_file_def(self, button, p_make, p_model, p_x_dpi, p_y_dpi, p_url, p_pjl, p_charset, p_color):
+      #This is the mechanism to get the XML file
+        print "This feature is not %100 complete, but hold tight"
+        xml_file_location = ''
+        dialog = gtk.FileChooserDialog("Open a printer XML to grok...",
+                            None,
+                            gtk.FILE_CHOOSER_ACTION_OPEN,
+                            (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                             gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+        dialog.set_default_response(gtk.RESPONSE_OK)
+
+        filter = gtk.FileFilter()
+        filter.set_name("XML Files")
+        filter.add_pattern("*.xml")
+        filter.add_pattern("*.Xml")
+        filter.add_pattern("*.XML")
+        dialog.add_filter(filter)
+
+        filter = gtk.FileFilter()
+        filter.set_name("All files")
+        filter.add_pattern("*")
+        dialog.add_filter(filter)
+
+        response = dialog.run()
+        if response == gtk.RESPONSE_OK:
+           xml_file_location = dialog.get_filename()
+        elif response == gtk.RESPONSE_CANCEL:
+           xml_file_location = ''
+        dialog.destroy()
+
+      #This reads the XML file
+        if xml_file_location is not '':
+           for line in open(xml_file_location):
+              if line.find('<make>') != -1:
+                 line = line.strip()
+                 line = line.replace('<make>', '')
+                 line = line.replace('</make>', '')
+                 p_make.set_text(line)
+              if line.find('<model>') != -1:
+                 line = line.strip()
+                 line = line.replace('<model>', '')
+                 line = line.replace('</model>', '')
+                 p_model.set_text(line)
+              if line.find('<x>') != -1:
+                 line = line.strip()
+                 line = line.replace('<x>', '')
+                 line = line.replace('</x>', '')
+                 p_x_dpi.set_text(line)
+              if line.find('<y>') != -1:
+                 line = line.strip()
+                 line = line.replace('<y>', '')
+                 line = line.replace('</y>', '')
+                 p_y_dpi.set_text(line)
+              if line.find('<url>') != -1:
+                 line = line.strip()
+                 line = line.replace('<url>', '')
+                 line = line.replace('</url>', '')
+                 p_url.set_text(line)
+              if line.find('<pjl/>') != -1:
+                 p_pjl.set_active(True)
+              if line.find('<charset>') != -1:
+                 if line.find('us-ascii') != -1:
+                    p_charset.set_active(True)
+              if line.find('<color/>') != -1:
+                 p_color.set_active(True)
+
     def grok_configuration(self, button):
+       #This is the box that opens and allows a person to select where they want the printer settings dropped 
         config_file_drop_directory = ''
         common_grok_directory = ''
         if os.path.isfile("ppdtoxml.conf"):
@@ -335,6 +423,7 @@ class PPDtoXML:
         directory_drop.set_text(main_folder_location)
 
     def save_configuration_def(self, button, directory_drop):
+        #This is the configuration file that is saved as ppdtoxml.conf
         parent_directory = directory_drop.get_text()
         print parent_directory
 
@@ -348,6 +437,7 @@ class PPDtoXML:
         sys.stdout = temp
 
     def grok_ppd_file_def(self, button, p_make, p_model, p_color, p_throughput):
+       #This is the part which goes through the PPD and grabs the necessary bits for the XML files
         print "This feature is not %100 complete, be sure to double check the XML file and hold tight"
 
         dialog = gtk.FileChooserDialog("Open a PPD to grok...",
@@ -395,6 +485,7 @@ class PPDtoXML:
                  p_throughput.set_text(self.line_cleaner(line))
 
     def line_cleaner(self, line):
+      #line_cleaner properly formats the strings going into the XML file
         line = line.replace('\"', '')
         line = line.replace('\f', '')
         line = line.replace('\r', '')
@@ -528,6 +619,9 @@ class PPDtoXML:
         postscript_url_text = p_postscript_url.get_text()
         pcl_level_text = p_pcl_level.get_text()
 
+     #Adds today's date to the XML file
+        todaysdate = datetime.date.today()
+
      #Autodetection variables
         usb_ieee1284_text = usb_ieee1284.get_text()
         usb_manufacturer_text = usb_manufacturer.get_text()
@@ -550,7 +644,7 @@ class PPDtoXML:
 
         recommended_driver_text = p_recommended_driver.get_text()
         comments_text = p_comments.get_text()
-         #This part formats punctuation
+         #This part formats punctuation in the comments box
         comments_text = comments_text.replace('&', '&amp;')
         comments_text = comments_text.replace('<', '&lt;')
         comments_text = comments_text.replace('>', '&gt;')
@@ -613,7 +707,7 @@ class PPDtoXML:
               print "      </postscript>"
   
         if p_is_pcl.get_active():
-           print "      <pcl level=\"%s\">" %pcl_level_text
+           print "      <pcl level=\"%s\"/>" %pcl_level_text
 
         if p_pjl.get_active():
            print "      <pjl/>"
@@ -675,7 +769,7 @@ class PPDtoXML:
         if throughput_text is not "":
            print "      Throughput = %s" %throughput_text
            print ""
-        print "      Foomatic entry made by PPDtoXML T/G %s" %version
+        print "      Foomatic entry made by PPDtoXML T/G %s on %s" % (version, todaysdate)
         print "      </en>"
         print "   </comments>"
         print "</printer>"
