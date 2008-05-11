@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #PPD to XML translator/generator
 #Written by David Crosby
-version=.07
+version=.09
 
 import sys
 import os
@@ -130,10 +130,9 @@ class PPDtoXML:
         p_postscript_url = gtk.Entry()
         hbox_languages.pack_start(p_postscript_url)
 
-        ps_ppd_location_button = gtk.Button('Find:')
+        ps_ppd_location_button = gtk.Button('Find/Grok:')
         hbox_languages.pack_start(ps_ppd_location_button)
-        ps_ppd_location_button.connect('clicked', self.find_ps_ppd, p_postscript_url)
-
+        #ps_ppd_location_button.connect('clicked', self.grok_ppd_file_def, p_make, p_model, p_color, p_is_postscript, p_postscript_level, p_pjl, p_throughput)
         p_is_postscript.connect("toggled", self.postscript_select, p_postscript_level, p_postscript_url, ps_ppd_location_button)
 
      #This is for determining the printer's PCL ability
@@ -147,6 +146,11 @@ class PPDtoXML:
         hbox_languages.pack_start(p_pcl_level)
 
         p_is_pcl.connect("toggled", self.pcl_select, p_pcl_level)
+
+     #For the <proprietary> tag
+        p_proprietary = gtk.CheckButton("Proprietary")
+        hbox_languages.pack_start(p_proprietary)
+        p_proprietary.show()
 
       #Print Job Language support
         p_pjl = gtk.CheckButton("PJL")
@@ -238,7 +242,7 @@ class PPDtoXML:
         vbox.pack_start(p_recommended_driver)
         p_recommended_driver_dropdown = gtk.EntryCompletion()
         self.driverlist = gtk.ListStore(str)
-        for s in ['ap3250', 'appledmp', 'bj10', 'bj10e', 'bj10v', 'bj10vh', 'bj200', 'bj8gc12f.upp', 'bj8hg12f.upp', 'bj8oh06n.upp', 'bj8pa06n.upp', 'bj8pp12f.upp', 'bj8ts06n.upp', 'bjc250gs', 'bjc600', 'bjc6000a1.upp', 'bjc6000b1.upp', 'bjc610a0.upp', 'bjc610a1.upp', 'bjc610a2.upp', 'bjc610a3.upp', 'bjc610a4.upp', 'bjc610a5.upp', 'bjc610a6.upp', 'bjc610a7.upp', 'bjc610a8.upp', 'bjc610b1.upp', 'bjc610b2.upp', 'bjc610b3.upp', 'bjc610b4.upp', 'bjc610b6.upp', 'bjc610b7.upp', 'bjc610b8.upp', 'bjc800', 'bjc800j', 'bjc880j', 'c2050', 'c2070', 'cZ11', 'cZ11somsom', 'capt', 'cdj1600', 'cdj500', 'cdj550', 'cdj550.upp', 'cdj670', 'cdj850', 'cdj880', 'cdj890', 'cdj970', 'chp2200', 'cjet', 'cljet5', 'cljet5c', 'cp50', 'declj250', 'deskjet', 'dj505j', 'djet500', 'dnj650c', 'drv_x125', 'drv_z42', 'eplaser', 'ep-laser', 'eps9high', 'eps9mid', 'epson', 'epsonc', 'epsonepl', 'escpage', 'fmlbp', 'fmpr', 'foo2hp', 'foo2kyo', 'foo2lava', 'foo2qpdl', 'foo2xqx', 'foo2zjs', 'gdi', 'gimp-print', 'gutenprint', 'hl1250', 'hl7x0', 'hpdj', 'hpijs', 'ibmpro', 'imagen', 'iwhi', 'iwlo', 'iwlq', 'jetp3852', 'jj100', 'la50', 'la70', 'la75', 'la75plus', 'laserjet', 'lbp310', 'lbp320', 'lbp660', 'lbp8', 'lex5700', 'lex7000', 'lips2p', 'lips3', 'lips4', 'lips4v', 'lj250', 'lj4dith', 'lj4dithp', 'lj5gray', 'lj5mono', 'ljet2p', 'ljet3', 'ljet3d', 'ljet4', 'ljet4d', 'ljetplus', 'lm1100', 'ln03', 'lp2000', 'lp2563', 'lp8000', 'lpstyl', 'lq850', 'lx5000', 'lxm3200', 'lxm3200-tweaked', 'lxm3200x', 'lxm3200m', 'lxm3200p', 'lxm5700m', 'lxx74', 'lz11-V2', 'm2300w', 'm2400w', 'm8510', 'mdx1Mono', 'md2k', 'md50Eco', 'md50Mono', 'md5k', 'min12xxw', 'mj500c', 'mj6000c', 'mj700v2c', 'mj8000c', 'ml600', 'ml85p', 'necp2x.upp', 'necp2x6.upp', 'necp6', 'npdl', 'nwp533', 'oce9050', 'oki182', 'oki4drv', 'oki4w', 'okiibm', 'omni', 'paintjet', 'pbm2l2030', 'pbm2l7k', 'pbm2lwxl', 'pbm2ppa', 'pbmtozjs', 'pcl3', 'pegg', 'pentaxpj', 'picty180', 'pj', 'pjetxl', 'pjxl', 'pjxl300', 'PM760p.upp', 'PM760pl.upp', 'PM820p.upp', 'PM820pl.upp', 'pnm2ppa', 'Postscript', 'ppmtocpva', 'ppmtomd', 'pr150', 'pr201', 'ptouch', 'pxl1010', 'pxlcolor', 'pxljr', 'pxlmono', 'r4081', 'ras1.upp', 'ras24.upp', 'ras3.upp', 'ras32.upp', 'ras4.upp', 'ras8m.upp', 'rastertokmXXXXdl', 'rpdl', 's400a1.upp', 's400b1.upp', 'sharp.upp', 'sipixa6.upp', 'slap', 'splix', 'st640ih.upp', 'st640igh.upp', 'st640p.upp', 'st640pg.upp', 'st640pl.upp', 'st640plg.upp', 'st800', 'stc.upp', 'stc1520h.upp', 'stc2.upp', 'stc2_h.upp', 'stc2s_h.upp', 'stc300.upp', 'stc300bl.upp', 'stc300bm.upp', 'stc500p.upp', 'stc500ph.upp', 'stc600ih.upp', 'stc600p.upp', 'stc600pl.upp', 'stc640p.upp', 'Stc670p.upp', 'Stc670pl.upp', 'Stc680p.upp', 'Stc680pl.upp', 'stc740ih.upp', 'stc740p.upp', 'stc740il.upp', 'Stc760p.upp', 'Stc760pl.upp', 'Stc777p.upp', 'Stc777pl.upp', 'stc800ih.upp', 'stc800p.upp', 'stc800pl.upp', 'stc_h.upp', 'stc_l.upp', 'stcany.upp', 'stcolor', 'Stp720p.upp', 'Stp720pl.upp', 'Stp870p.upp', 'Stp870pl.upp', 't4693d2', 't4693d4', 't4693d8', 'tek4696', 'xes']:
+        for s in ['ap3250', 'appledmp', 'bj10', 'bj10e', 'bj10v', 'bj10vh', 'bj200', 'bj8gc12f.upp', 'bj8hg12f.upp', 'bj8oh06n.upp', 'bj8pa06n.upp', 'bj8pp12f.upp', 'bj8ts06n.upp', 'bjc250gs', 'bjc600', 'bjc6000a1.upp', 'bjc6000b1.upp', 'bjc610a0.upp', 'bjc610a1.upp', 'bjc610a2.upp', 'bjc610a3.upp', 'bjc610a4.upp', 'bjc610a5.upp', 'bjc610a6.upp', 'bjc610a7.upp', 'bjc610a8.upp', 'bjc610b1.upp', 'bjc610b2.upp', 'bjc610b3.upp', 'bjc610b4.upp', 'bjc610b6.upp', 'bjc610b7.upp', 'bjc610b8.upp', 'bjc800', 'bjc800j', 'bjc880j', 'c2050', 'c2070', 'cZ11', 'cZ11somsom', 'capt', 'cdj1600', 'cdj500', 'cdj550', 'cdj550.upp', 'cdj670', 'cdj850', 'cdj880', 'cdj890', 'cdj970', 'chp2200', 'cjet', 'cljet5', 'cljet5c', 'cp50', 'declj250', 'deskjet', 'dj505j', 'djet500', 'dnj650c', 'drv_x125', 'drv_z42', 'eplaser', 'ep-laser', 'eps9high', 'eps9mid', 'epson', 'epsonc', 'epsonepl', 'escpage', 'fmlbp', 'fmpr', 'foo2hp', 'foo2kyo', 'foo2lava', 'foo2qpdl', 'foo2xqx', 'foo2zjs', 'gdi', 'gimp-print', 'gutenprint', 'gutenprint52', 'hl1250', 'hl7x0', 'hpdj', 'hpijs', 'ibmpro', 'imagen', 'iwhi', 'iwlo', 'iwlq', 'jetp3852', 'jj100', 'la50', 'la70', 'la75', 'la75plus', 'laserjet', 'lbp310', 'lbp320', 'lbp660', 'lbp8', 'lex5700', 'lex7000', 'lips2p', 'lips3', 'lips4', 'lips4v', 'lj250', 'lj4dith', 'lj4dithp', 'lj5gray', 'lj5mono', 'ljet2p', 'ljet3', 'ljet3d', 'ljet4', 'ljet4d', 'ljetplus', 'lm1100', 'ln03', 'lp2000', 'lp2563', 'lp8000', 'lpstyl', 'lq850', 'lx5000', 'lxm3200', 'lxm3200-tweaked', 'lxm3200x', 'lxm3200m', 'lxm3200p', 'lxm5700m', 'lxx74', 'lz11-V2', 'm2300w', 'm2400w', 'm8510', 'mdx1Mono', 'md2k', 'md50Eco', 'md50Mono', 'md5k', 'min12xxw', 'mj500c', 'mj6000c', 'mj700v2c', 'mj8000c', 'ml600', 'ml85p', 'necp2x.upp', 'necp2x6.upp', 'necp6', 'npdl', 'nwp533', 'oce9050', 'oki182', 'oki4drv', 'oki4w', 'okiibm', 'omni', 'paintjet', 'pbm2l2030', 'pbm2l7k', 'pbm2lwxl', 'pbm2ppa', 'pbmtozjs', 'pcl3', 'pegg', 'pentaxpj', 'picty180', 'pj', 'pjetxl', 'pjxl', 'pjxl300', 'PM760p.upp', 'PM760pl.upp', 'PM820p.upp', 'PM820pl.upp', 'pnm2ppa', 'Postscript', 'ppmtocpva', 'ppmtomd', 'pr150', 'pr201', 'ptouch', 'pxl1010', 'pxlcolor', 'pxljr', 'pxlmono', 'r4081', 'ras1.upp', 'ras24.upp', 'ras3.upp', 'ras32.upp', 'ras4.upp', 'ras8m.upp', 'rastertokmXXXXdl', 'rpdl', 's400a1.upp', 's400b1.upp', 'sharp.upp', 'sipixa6.upp', 'slap', 'splix', 'st640ih.upp', 'st640igh.upp', 'st640p.upp', 'st640pg.upp', 'st640pl.upp', 'st640plg.upp', 'st800', 'stc.upp', 'stc1520h.upp', 'stc2.upp', 'stc2_h.upp', 'stc2s_h.upp', 'stc300.upp', 'stc300bl.upp', 'stc300bm.upp', 'stc500p.upp', 'stc500ph.upp', 'stc600ih.upp', 'stc600p.upp', 'stc600pl.upp', 'stc640p.upp', 'Stc670p.upp', 'Stc670pl.upp', 'Stc680p.upp', 'Stc680pl.upp', 'stc740ih.upp', 'stc740p.upp', 'stc740il.upp', 'Stc760p.upp', 'Stc760pl.upp', 'Stc777p.upp', 'Stc777pl.upp', 'stc800ih.upp', 'stc800p.upp', 'stc800pl.upp', 'stc_h.upp', 'stc_l.upp', 'stcany.upp', 'stcolor', 'Stp720p.upp', 'Stp720pl.upp', 'Stp870p.upp', 'Stp870pl.upp', 't4693d2', 't4693d4', 't4693d8', 'tek4696', 'xes']:
             self.driverlist.append([s])
         p_recommended_driver_dropdown.set_model(self.driverlist)
         p_recommended_driver.set_completion(p_recommended_driver_dropdown)        
@@ -263,6 +267,9 @@ class PPDtoXML:
         vbox.pack_start(p_throughput)
         p_throughput.show()
 
+        #This connect statement here so that things don't get blowed up
+        ps_ppd_location_button.connect('clicked', self.grok_ppd_file_def, p_make, p_model, p_color, p_is_postscript, p_postscript_level, p_postscript_url, p_pjl, p_throughput)
+
      #And now the sexy part of the program - the action buttons
         hbox_buttons = gtk.HBox()
         vbox.add(hbox_buttons)
@@ -273,25 +280,20 @@ class PPDtoXML:
         grok_configuration_button.connect('clicked', self.grok_configuration)
         grok_configuration_button.show()
 
-        grok_ppd_file_button = gtk.Button("Grok PPD file")
-        hbox_buttons.pack_start(grok_ppd_file_button)  
-        grok_ppd_file_button.connect('clicked', self.grok_ppd_file_def, p_make, p_model, p_color, p_throughput)   
-        grok_ppd_file_button.show()
-
         open_printer_xml_file_button = gtk.Button("Open printer XML file")
         hbox_buttons.pack_start(open_printer_xml_file_button)
-        open_printer_xml_file_button.connect('clicked', self.open_printer_xml_file_def, p_make, p_model, p_x_dpi, p_y_dpi, p_url, p_pjl, p_charset, p_color, p_mechanism_combo, p_comments)
+        open_printer_xml_file_button.connect('clicked', self.open_printer_xml_file_def, p_make, p_model, p_x_dpi, p_y_dpi, p_url, p_pjl, p_charset, p_color, p_mechanism_combo, p_comments, p_functionality_combo, p_proprietary, p_recommended_driver)
         open_printer_xml_file_button.show()
  
         write_xml_button = gtk.Button("Write printer XML file")
         hbox_buttons.pack_start(write_xml_button)
-        write_xml_button.connect('clicked', self.write_printer_xml_file, p_make, p_model, p_color, p_mechanism_combo, p_x_dpi, p_y_dpi, p_consumables, p_url, p_is_postscript, p_postscript_level, p_postscript_url, p_is_pcl, p_pcl_level, p_pjl, p_charset, p_autodetect_usb, usb_ieee1284, usb_manufacturer, usb_model, usb_description, usb_commandset, p_autodetect_parallel, parallel_ieee1284, parallel_manufacturer, parallel_model, parallel_commandset, snmp_description, p_functionality_combo, p_recommended_driver, p_comments, p_throughput)
+        write_xml_button.connect('clicked', self.write_printer_xml_file, p_make, p_model, p_color, p_mechanism_combo, p_x_dpi, p_y_dpi, p_consumables, p_url, p_is_postscript, p_postscript_level, p_postscript_url, p_is_pcl, p_pcl_level, p_proprietary, p_pjl, p_charset, p_autodetect_usb, usb_ieee1284, usb_manufacturer, usb_model, usb_description, usb_commandset, p_autodetect_parallel, parallel_ieee1284, parallel_manufacturer, parallel_model, parallel_commandset, snmp_description, p_functionality_combo, p_recommended_driver, p_comments, p_throughput)
         write_xml_button.show()
 
         window.show()
         return
 
-    def open_printer_xml_file_def(self, button, p_make, p_model, p_x_dpi, p_y_dpi, p_url, p_pjl, p_charset, p_color, p_mechanism_combo, p_comments):
+    def open_printer_xml_file_def(self, button, p_make, p_model, p_x_dpi, p_y_dpi, p_url, p_pjl, p_charset, p_color, p_mechanism_combo, p_comments, p_functionality_combo, p_proprietary, p_recommended_driver):
       #This is the mechanism to get the XML file
         print "This feature is not %100 complete, but hold tight"
         xml_file_location = ''
@@ -330,7 +332,10 @@ class PPDtoXML:
           for node in xmldoc.getElementsByTagName('model'):
              xml_model = node.firstChild.data
              p_model.set_text(xml_model)
-    #This is for <mechanism>
+          for node in xmldoc.getElementsByTagName('url'):
+             xml_url = node.firstChild.data
+             p_url.set_active(xml_url)
+      #This is for <mechanism>
           for node in xmldoc.getElementsByTagName('mechanism'):
             for node in xmldoc.getElementsByTagName('color'):
                p_color.set_active(True)
@@ -354,12 +359,29 @@ class PPDtoXML:
                p_mechanism_combo.set_active(6)
             for node in xmldoc.getElementsByTagName('transfer'):
                p_mechanism_combo.set_active(7)
-     #This is for <lang>
+       #This is for <lang>
           for node in xmldoc.getElementsByTagName('lang'):
             for node in xmldoc.getElementsByTagName('pjl'):
                p_pjl.set_active(True)
             for node in xmldoc.getElementsByTagName('charset'):
                p_charset.set_active(True)
+            for node in xmldoc.getElementsByTagName('proprietary'):
+               p_proprietary.set_active(True)            
+
+            for node in xmldoc.getElementsByTagName('driver'):
+               xml_recommended_driver = node.firstChild.data
+               p_recommended_driver.set_text(xml_recommended_driver)
+       #And now for <functionality>
+          for node in xmldoc.getElementsByTagName('functionality'):
+             xml_functionality = node.firstChild.data
+             if xml_functionality == 'A':
+               p_functionality_combo.set_active(1)
+             if xml_functionality == 'B':
+               p_functionality_combo.set_active(2)
+             if xml_functionality == 'D':
+               p_functionality_combo.set_active(3)
+             if xml_functionality == 'F':
+               p_functionality_combo.set_active(4)
 
           for node in xmldoc.getElementsByTagName('comments'):
              for node in xmldoc.getElementsByTagName('en'):
@@ -446,7 +468,7 @@ class PPDtoXML:
         sys.stdout.close()
         sys.stdout = temp
 
-    def grok_ppd_file_def(self, button, p_make, p_model, p_color, p_throughput):
+    def grok_ppd_file_def(self, button, p_make, p_model, p_color, p_is_postscript, p_postscript_level, p_postscript_url, p_pjl, p_throughput):
        #This is the part which goes through the PPD and grabs the necessary bits for the XML files
         print "This feature is not %100 complete, be sure to double check the XML file and hold tight"
 
@@ -472,6 +494,7 @@ class PPDtoXML:
         response = dialog.run()
         if response == gtk.RESPONSE_OK:
            ppd_file_location = dialog.get_filename()
+           p_postscript_url.set_text(ppd_file_location)
         elif response == gtk.RESPONSE_CANCEL:
            ppd_file_location = ''
         dialog.destroy()
@@ -487,12 +510,20 @@ class PPDtoXML:
                  line = line.replace('*ModelName:', '')
                  line = line.replace(p_make.get_text(), '')
                  p_model.set_text(self.line_cleaner(line))              
-              if line.find('*ColorDevice:') != -1:
-                 if line.find('True') != -1:
-                    print line
               if line.find('*Throughput:') != -1:
                  line = line.replace('*Throughput:', '')
                  p_throughput.set_text(self.line_cleaner(line))
+              if line.find('*Protocol:') != -1:
+                 if line.find('PJL') != -1:
+                    p_pjl.set_active(True)
+              if line.find('*ColorDevice:') != -1:
+                 if line.find('true' or 'True'):
+                    p_color.set_active(True)
+              if line.find('*LanguageLevel:') != -1:
+                 line = line.replace('*LanguageLevel:', '')
+                 line = self.line_cleaner(line)
+                 p_is_postscript.set_active(True)
+                 p_postscript_level.set_text(line)
 
     def line_cleaner(self, line):
       #line_cleaner properly formats the strings going into the XML file
@@ -509,42 +540,13 @@ class PPDtoXML:
            p_postscript_level.show()
            p_postscript_url.show()
            ps_ppd_location_button.show()
-           p_postscript_url.set_text('PPD Location')
+           p_postscript_url.set_text('')
         else:
            p_postscript_level.hide()
            p_postscript_level.set_text('')
            p_postscript_url.hide()
            ps_ppd_location_button.hide()
            p_postscript_url.set_text('')
-
-    def find_ps_ppd(self, button, p_postscript_url):
-        ps_ppd_file_location = ''
-        dialog = gtk.FileChooserDialog("Select PostScript PPD to point to...",
-                               None,
-                               gtk.FILE_CHOOSER_ACTION_OPEN,
-                               (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-                                gtk.STOCK_OPEN, gtk.RESPONSE_OK))
-        dialog.set_default_response(gtk.RESPONSE_OK)
-
-        filter = gtk.FileFilter()
-        filter.set_name("PPD Files")
-        filter.add_pattern("*.ppd")
-        filter.add_pattern("*.Ppd")
-        filter.add_pattern("*.PPD")
-        dialog.add_filter(filter)
-
-        filter = gtk.FileFilter()
-        filter.set_name("All files")
-        filter.add_pattern("*")
-        dialog.add_filter(filter)
-
-        response = dialog.run()
-        if response == gtk.RESPONSE_OK:
-           ps_ppd_file_location = dialog.get_filename()
-        elif response == gtk.RESPONSE_CANCEL:
-           ps_ppd_file_location =  p_postscript_url.get_text()
-        dialog.destroy()
-        p_postscript_url.set_text(ps_ppd_file_location)
 
     def pcl_select(self, p_is_pcl, p_pcl_level):
         if p_is_pcl.get_active():
@@ -605,7 +607,7 @@ class PPDtoXML:
            snmp_description.hide()
            snmp_description.set_text('')
 
-    def write_printer_xml_file(self, button, p_make, p_model, p_color, p_mechanism_combo, p_x_dpi, p_y_dpi, p_consumables, p_url, p_is_postscript, p_postscript_level, p_postscript_url, p_is_pcl, p_pcl_level, p_pjl, p_charset, p_autodetect_usb, usb_ieee1284, usb_manufacturer, usb_model, usb_description, usb_commandset, p_autodetect_parallel, parallel_ieee1284, parallel_manufacturer, parallel_model, parallel_commandset, snmp_description, p_functionality_combo, p_recommended_driver, p_comments, p_throughput):
+    def write_printer_xml_file(self, button, p_make, p_model, p_color, p_mechanism_combo, p_x_dpi, p_y_dpi, p_consumables, p_url, p_is_postscript, p_postscript_level, p_postscript_url, p_is_pcl, p_pcl_level, p_proprietary, p_pjl, p_charset, p_autodetect_usb, usb_ieee1284, usb_manufacturer, usb_model, usb_description, usb_commandset, p_autodetect_parallel, parallel_ieee1284, parallel_manufacturer, parallel_model, parallel_commandset, snmp_description, p_functionality_combo, p_recommended_driver, p_comments, p_throughput):
   
         make_text = p_make.get_text()
         filename_make = make_text.replace(' ', '_')
@@ -712,12 +714,14 @@ class PPDtoXML:
            if postscript_level_text is not "":
               print "      <postscript level=\"%s\">" %postscript_level_text
               if postscript_url_text is not "":
-                 if postscript_url_text is not 'PPD Location':
-                    print "       <ppd>%s</ppd>" %postscript_url_text
+                 print "       <ppd>%s</ppd>" %postscript_url_text
               print "      </postscript>"
   
         if p_is_pcl.get_active():
            print "      <pcl level=\"%s\"/>" %pcl_level_text
+
+        if p_proprietary.get_active():
+           print "      <proprietary/>"
 
         if p_pjl.get_active():
            print "      <pjl/>"
@@ -794,4 +798,3 @@ def main():
 if __name__ == "__main__":
     PPDtoXML()
     main()
-
