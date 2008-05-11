@@ -10,6 +10,7 @@ import datetime
 import pygtk
 pygtk.require('2.0')
 import gtk
+from xml.dom import minidom
 
 class PPDtoXML:
     def __init__(self):
@@ -279,7 +280,7 @@ class PPDtoXML:
 
         open_printer_xml_file_button = gtk.Button("Open printer XML file")
         hbox_buttons.pack_start(open_printer_xml_file_button)
-        open_printer_xml_file_button.connect('clicked', self.open_printer_xml_file_def, p_make, p_model, p_x_dpi, p_y_dpi, p_url, p_pjl, p_charset, p_color)
+        open_printer_xml_file_button.connect('clicked', self.open_printer_xml_file_def, p_make, p_model, p_x_dpi, p_y_dpi, p_url, p_pjl, p_charset, p_color, p_mechanism_combo, p_comments)
         open_printer_xml_file_button.show()
  
         write_xml_button = gtk.Button("Write printer XML file")
@@ -290,7 +291,7 @@ class PPDtoXML:
         window.show()
         return
 
-    def open_printer_xml_file_def(self, button, p_make, p_model, p_x_dpi, p_y_dpi, p_url, p_pjl, p_charset, p_color):
+    def open_printer_xml_file_def(self, button, p_make, p_model, p_x_dpi, p_y_dpi, p_url, p_pjl, p_charset, p_color, p_mechanism_combo, p_comments):
       #This is the mechanism to get the XML file
         print "This feature is not %100 complete, but hold tight"
         xml_file_location = ''
@@ -322,39 +323,48 @@ class PPDtoXML:
 
       #This reads the XML file
         if xml_file_location is not '':
-           for line in open(xml_file_location):
-              if line.find('<make>') != -1:
-                 line = line.strip()
-                 line = line.replace('<make>', '')
-                 line = line.replace('</make>', '')
-                 p_make.set_text(line)
-              if line.find('<model>') != -1:
-                 line = line.strip()
-                 line = line.replace('<model>', '')
-                 line = line.replace('</model>', '')
-                 p_model.set_text(line)
-              if line.find('<x>') != -1:
-                 line = line.strip()
-                 line = line.replace('<x>', '')
-                 line = line.replace('</x>', '')
-                 p_x_dpi.set_text(line)
-              if line.find('<y>') != -1:
-                 line = line.strip()
-                 line = line.replace('<y>', '')
-                 line = line.replace('</y>', '')
-                 p_y_dpi.set_text(line)
-              if line.find('<url>') != -1:
-                 line = line.strip()
-                 line = line.replace('<url>', '')
-                 line = line.replace('</url>', '')
-                 p_url.set_text(line)
-              if line.find('<pjl/>') != -1:
-                 p_pjl.set_active(True)
-              if line.find('<charset>') != -1:
-                 if line.find('us-ascii') != -1:
-                    p_charset.set_active(True)
-              if line.find('<color/>') != -1:
-                 p_color.set_active(True)
+          xmldoc = minidom.parse(xml_file_location)
+          for node in xmldoc.getElementsByTagName('make'):
+             xml_make = node.firstChild.data
+             p_make.set_text(xml_make)
+          for node in xmldoc.getElementsByTagName('model'):
+             xml_model = node.firstChild.data
+             p_model.set_text(xml_model)
+    #This is for <mechanism>
+          for node in xmldoc.getElementsByTagName('mechanism'):
+            for node in xmldoc.getElementsByTagName('color'):
+               p_color.set_active(True)
+            for node in xmldoc.getElementsByTagName('x'):
+               xml_xdpi = node.firstChild.data
+               p_x_dpi.set_text(xml_xdpi)
+            for node in xmldoc.getElementsByTagName('y'):
+               xml_ydpi = node.firstChild.data
+               p_y_dpi.set_text(xml_ydpi)
+            for node in xmldoc.getElementsByTagName('laser'):
+               p_mechanism_combo.set_active(1)
+            for node in xmldoc.getElementsByTagName('inkjet'):
+               p_mechanism_combo.set_active(2)
+            for node in xmldoc.getElementsByTagName('led'):
+               p_mechanism_combo.set_active(3)
+            for node in xmldoc.getElementsByTagName('dotmatrix'):
+               p_mechanism_combo.set_active(4)
+            for node in xmldoc.getElementsByTagName('impact'):
+               p_mechanism_combo.set_active(5)
+            for node in xmldoc.getElementsByTagName('sublimation'):
+               p_mechanism_combo.set_active(6)
+            for node in xmldoc.getElementsByTagName('transfer'):
+               p_mechanism_combo.set_active(7)
+     #This is for <lang>
+          for node in xmldoc.getElementsByTagName('lang'):
+            for node in xmldoc.getElementsByTagName('pjl'):
+               p_pjl.set_active(True)
+            for node in xmldoc.getElementsByTagName('charset'):
+               p_charset.set_active(True)
+
+          for node in xmldoc.getElementsByTagName('comments'):
+             for node in xmldoc.getElementsByTagName('en'):
+               xml_comments = node.firstChild.data
+               p_comments.set_text(xml_comments)
 
     def grok_configuration(self, button):
        #This is the box that opens and allows a person to select where they want the printer settings dropped 
@@ -703,7 +713,7 @@ class PPDtoXML:
               print "      <postscript level=\"%s\">" %postscript_level_text
               if postscript_url_text is not "":
                  if postscript_url_text is not 'PPD Location':
-                    print "       <url>%s</url>" %postscript_url_text
+                    print "       <ppd>%s</ppd>" %postscript_url_text
               print "      </postscript>"
   
         if p_is_pcl.get_active():
