@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #PPD to XML translator/generator
 #Written by David Crosby
-version=.09
+version='0.14'
 
 import sys
 import os
@@ -509,7 +509,7 @@ class PPDtoXML:
               if line.find('*ModelName:') != -1:
                  line = line.replace('*ModelName:', '')
                  line = line.replace(p_make.get_text(), '')
-                 p_model.set_text(self.line_cleaner(line))              
+                 p_model.set_text(self.line_cleaner(line))      
               if line.find('*Throughput:') != -1:
                  line = line.replace('*Throughput:', '')
                  p_throughput.set_text(self.line_cleaner(line))
@@ -519,6 +519,8 @@ class PPDtoXML:
               if line.find('*ColorDevice:') != -1:
                  if line.find('true' or 'True'):
                     p_color.set_active(True)
+                 if line.find('false' or 'False'):
+                    p_color.set_active(False)
               if line.find('*LanguageLevel:') != -1:
                  line = line.replace('*LanguageLevel:', '')
                  line = self.line_cleaner(line)
@@ -616,12 +618,14 @@ class PPDtoXML:
 
         mechanism_model = p_mechanism_combo.get_model()
         mechanism_active = p_mechanism_combo.get_active()
+        mechanism_text = ''
         if mechanism_active:
            mechanism_text = mechanism_model[mechanism_active][0]
            mechanism_text = mechanism_text + '/'
         else:
-           print >> sys.stderr, "You need to assign a mechanism!" 
-           mechanism_text = "!-- NO MECHANISM SET --"
+           mechanism_text = ''
+           #print >> sys.stderr, "Is there a mechanism?" 
+           #mechanism_text = "!-- NO MECHANISM SET --"
  
         x_dpi_text = p_x_dpi.get_text()
         y_dpi_text = p_y_dpi.get_text()
@@ -675,11 +679,12 @@ class PPDtoXML:
                else: 
                   pass
 
-        xmlfile_name = foodir + '/printer/' + filename_make + '-' + filename_model + '.xml'
+        xml_entry_id = 'printer/' + filename_make + '-' + filename_model
+        xmlfile_name = foodir + '/' + xml_entry_id + '.xml'
         temp = sys.stdout
         sys.stdout = open(xmlfile_name, 'w')
  
-        print "<printer id=\"printer/%s-%s\">" %(filename_make, filename_model)
+        print "<printer id=\"%s\">" %xml_entry_id
         print "   <make>%s</make>" %make_text
         print "   <model>%s</model>" %model_text
         print "   <mechanism>"
@@ -687,7 +692,8 @@ class PPDtoXML:
            print "   <color/>"
         else:
            print "   <!--not \"color\"-->"
-        print "      <%s>" %mechanism_text       
+        if mechanism_text is not '':
+           print "      <%s>" %mechanism_text       
         print "      <resolution>"
         print "         <dpi>"
     
@@ -702,7 +708,12 @@ class PPDtoXML:
            print "            <!--y unknown-->"
 
         print "         </dpi>"
-        print "      <consumables>%s</consumables>" %consumables_text
+        print "      <consumables>"
+        if consumables_text is not '':
+           print "         <comments>"
+           print "            <en>%s</en>" %consumables_text
+           print "         </comments>"
+        print "      </consumables>"
         print "      </resolution>"
         print "   </mechanism>"
         print "   <url>%s</url>" %url_text
@@ -790,6 +801,51 @@ class PPDtoXML:
 
         sys.stdout.close()
         sys.stdout = temp
+
+        printer_xmlmade_dialog = gtk.MessageDialog(None,
+                gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+                gtk.MESSAGE_INFO, gtk.BUTTONS_OK,
+                "Printer XML file created at %s." %xmlfile_name)
+        printer_xmlmade_dialog.run()
+        printer_xmlmade_dialog.destroy()
+
+     #Now the part where we enter the printer information into the driver XML file
+        driver_xml_location = foodir + '/driver/' + recommended_driver_text + '.xml'
+        if os.path.exists(driver_xml_location):
+           
+           parsed_driver = minidom.parse(driver_xml_location)
+           for node in parsed_driver.getElementsByTagName('printers'):
+              printertag = parsed_driver.createElement('printer')
+              node.appendChild(printertag)
+              printeridtag = parsed_driver.createElement('id')
+              printertag.appendChild(printeridtag)
+              txt = parsed_driver.createTextNode(xml_entry_id)
+              printeridtag.appendChild(txt)
+
+            #This rewrites the driver XML file
+              temp = sys.stdout
+              sys.stdout = open(driver_xml_location, 'w')
+              print parsed_driver.toxml()
+              sys.stdout.close()
+              sys.stdout = temp
+
+              driver_xml_dialog = gtk.MessageDialog(None,
+                   gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+                   gtk.MESSAGE_INFO, gtk.BUTTONS_OK,
+                   "printer ID entered into %s - please correct formatting flaws in the driver XML file until this matter has been fixed" %driver_xml_location)
+              driver_xml_dialog.run()
+              driver_xml_dialog.destroy()
+
+              #xml_entry_id  
+           
+        else:
+           driver_xml_dialog = gtk.MessageDialog(None,
+                   gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+                   gtk.MESSAGE_INFO, gtk.BUTTONS_OK,
+                   "driver XML file doesn't exist at %s - can't write information" %driver_xml_location)
+           driver_xml_dialog.run()
+           driver_xml_dialog.destroy()
+
 
 def main():
     gtk.main()
