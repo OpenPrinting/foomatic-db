@@ -1,0 +1,305 @@
+*PPD-Adobe: "4.3"
+*% =======================================================
+*% Printer Description File
+*%========================================================
+*% PPD for MFF 18-20 Serie
+*%====================================================================
+*% === PPD File Version Information ====
+*FileVersion:      "1.0"
+*FormatVersion:    "4.3"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion:  English
+*PCFileName:       "MFF1820.PPD"
+
+*% === Product Version Information ====
+*ModelName:     "Xerox Fax Center 2121 PS"
+*ShortNickName: "Xerox Fax Center 2121_PS"
+*NickName:      "Xerox Fax Center 2121_PS"
+*Product:       "(Xerox Fax Center 2121_PS)"
+*Manufacturer:  ""
+*PSVersion:     "(2014.108) 1"
+
+*%=== JCL Features =======================
+*JCLBegin: "<1B>%-12345X@PJL JOB<0A>"
+*JCLToPSInterpreter: "@PJL ENTER LANGUAGE = POSTSCRIPT <0A>"
+*JCLEnd: "<1B>%-12345X@PJL EOJ<0A><1B>%-12345X"
+
+*JCLOpenUI *JCLEconomode/TonerSave: PickOne
+*DefaultJCLEconomode: Default
+*OrderDependency: 70 JCLSetup *JCLEconomode
+*JCLEconomode Default/Printer default value: ""
+*JCLEconomode On/On: "@PJL SET ECONOMODE = ON<0A>"
+*JCLEconomode Off/Off: "@PJL SET ECONOMODE = OFF<0A>"
+*JCLCloseUI: *JCLEconomode
+
+*%=== Installable Options ==================
+*OpenGroup: InstallableOptions/Installed accessories
+
+*OpenUI *InstalledMemory/Total printer memory: PickOne
+*DefaultInstalledMemory: 64MB
+*InstalledMemory 32MB/32 MB: ""
+*InstalledMemory 64MB/64 MB: ""
+*CloseUI: *InstalledMemory
+
+*OpenUI *Option1/Lower tray: Boolean
+*DefaultOption1: True
+*Option1 False/Not installed: ""
+*Option1 True/Installed: ""
+*CloseUI: *Option1
+
+*OpenUI *Option2/Duplex module: Boolean
+*DefaultOption2: False
+*Option2 False/Not installed: ""
+*Option2 True/Installed: ""
+*CloseUI: *Option2
+
+*CloseGroup
+
+*%=== UI Constraints =============================
+
+*% Disable the lower input slot if tray 2 is not installed.
+*UIConstraints: *Option1 False *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *Option1 False
+
+*%selection of type and page size only if upper tray and manual feed
+*UIConstraints: *InputSlot Tray2 *MediaType Transparent
+*UIConstraints: *MediaType Transparent *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *MediaType Thick
+*UIConstraints: *MediaType Thick *InputSlot Tray2
+
+*UIConstraints: *InputSlot Tray2 *PageSize Letter
+*UIConstraints: *PageSize Letter *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageSize Legal
+*UIConstraints: *PageSize Legal *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageSize Executive
+*UIConstraints: *PageSize Executive *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageSize A5
+*UIConstraints: *PageSize A5 *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageSize B5
+*UIConstraints: *PageSize B5 *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageSize Env10
+*UIConstraints: *PageSize Env10 *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageSize EnvC6
+*UIConstraints: *PageSize EnvC6 *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageSize PostCard
+*UIConstraints: *PageSize PostCard *InputSlot Tray2
+
+*% Disable the duplex options if Recto/Verso Module is not installed.
+*UIConstraints: *Option2 False *Duplex DuplexTumble 
+*UIConstraints: *Duplex DuplexTumble *Option2 False
+*UIConstraints: *Option2 False *Duplex DuplexNoTumble 
+*UIConstraints: *Duplex DuplexNoTumble *Option2 False
+
+*UIConstraints: *Option1 False *Option2 True
+*UIConstraints: *Option2 True *Option1 False
+
+*%=== Device Capabilities ==================
+*ColorDevice:       False
+*DefaultColorSpace: Gray
+*FileSystem:        False
+
+*LanguageLevel: "3"
+*Protocols: PJL TBCP
+*TTRasterizer:  Type42
+
+*FreeVM: "4000000"
+*VMOption 32MB/32 MB: "4000000"
+*VMOption 64MB/64 MB: "4000000"
+
+*% ========== 5.9 Resolution and Appearance Control ============== 
+
+*DefaultResolution: 600dpi
+
+*%=== Device features ===================================
+*OpenUI *InputSlot/Feeder: PickOne
+*OrderDependency: 20 AnySetup *InputSlot
+*DefaultInputSlot: Unknown
+*InputSlot Tray1/Upper tray: "<< /MediaPosition 1 >> setpagedevice"
+*InputSlot Tray2/Lower tray: "<< /MediaPosition 2 >> setpagedevice"
+*InputSlot ManualFeed/Manual: "<< /MediaPosition 3 >> setpagedevice"
+*CloseUI: *InputSlot
+
+*%=== Paper Sizes =================
+*OpenUI *PageSize/Paper size: PickOne
+*OrderDependency: 30 AnySetup *PageSize
+*DefaultPageSize: A4
+*PageSize A4/A4: "<</PageSize [595 842] >> setpagedevice"
+*PageSize Letter/US Letter: "<</PageSize [612 792] >> setpagedevice"
+*PageSize Legal/US Legal: "<</PageSize [612 1008]>> setpagedevice"
+*PageSize Executive/US Executive: "<</PageSize [522 756] >> setpagedevice"
+*PageSize A5/A5: "<</PageSize [420 595] >> setpagedevice"
+*PageSize B5/B5: "<</PageSize [516 729] >> setpagedevice"
+*PageSize Env10/US 10 Envelope: "<</PageSize [297 684] >> setpagedevice"
+*PageSize EnvMonarch/Monarch Envelope: "<</PageSize [279 540] >> setpagedevice"
+*PageSize EnvC5/C5 Envelope: "<</PageSize [459 649] >> setpagedevice"
+*PageSize EnvDL/DL Envelope: "<</PageSize [312 624] >> setpagedevice"
+*PageSize ISOB5/B5 Envelope: "<</PageSize [499 709] >> setpagedevice"
+*PageSize EnvC6/C6 Envelope: "<</PageSize [323 459] >> setpagedevice"
+*PageSize PostCard/Postcard: "<</PageSize [284 419] >> setpagedevice"
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 40 AnySetup *PageRegion
+*DefaultPageRegion: A4
+*PageRegion A4/A4: "<</PageSize [595 842] >> setpagedevice"
+*PageRegion Letter/US Letter: "<</PageSize [612 792] >> setpagedevice"
+*PageRegion Legal/US Legal: "<</PageSize [612 1008]>> setpagedevice"
+*PageRegion Executive/US Executive: "<</PageSize [522 756] >> setpagedevice"
+*PageRegion A5/A5: "<</PageSize [420 595] >> setpagedevice"
+*PageRegion B5/B5: "<</PageSize [516 729] >> setpagedevice"
+*PageRegion Env10/US 10 Envelope: "<</PageSize [297 684] >> setpagedevice"
+*PageRegion EnvMonarch/Monarch Envelope: "<</PageSize [279 540] >> setpagedevice"
+*PageRegion EnvC5/C5 Envelope: "<</PageSize [459 649] >> setpagedevice"
+*PageRegion EnvDL/DL Envelope: "<</PageSize [312 624] >> setpagedevice"
+*PageRegion ISOB5/B5 Envelope: "<</PageSize [499 709] >> setpagedevice"
+*PageRegion EnvC6/C6 Envelope: "<</PageSize [323 459] >> setpagedevice"
+*PageRegion PostCard/Postcard: "<</PageSize [284 419] >> setpagedevice"
+*CloseUI: *PageRegion
+
+*DefaultImageableArea: A4
+*ImageableArea A4/A4: "5 15 590 834"
+*ImageableArea Letter/US Letter: "5 15 607 784"
+*ImageableArea Legal/US Legal: "5 15 607 1000"
+*ImageableArea Executive/US Executive: "5 15 517 748"
+*ImageableArea A5/A5: "5 15 415 587"
+*ImageableArea B5/B5: "5 15 511 721"
+*ImageableArea Env10/US 10 Envelope: "5 15 292 676"
+*ImageableArea EnvMonarch/Monarch Envelope: "5 15 274 532"
+*ImageableArea EnvC5/C5 Envelope: "5 15 454 641"
+*ImageableArea EnvDL/DL Envelope: "5 15 307 616"
+*ImageableArea ISOB5/B5 Envelope: "5 15 494 701"
+*ImageableArea EnvC6/C6 Envelope: "5 15 318 451"
+*ImageableArea PostCard/PostCard: "5 15 279 411"
+*?ImageableArea: "
+   save
+   /cvp { (                ) cvs print ( ) print } bind def
+   /upperright {10000 mul floor 10000 div} bind def
+   /lowerleft {10000 mul ceiling 10000 div} bind def
+   newpath clippath pathbbox
+   4 -2 roll exch 2 {lowerleft cvp} repeat
+   exch 2 {upperright cvp} repeat flush
+   restore
+"
+*End
+
+*DefaultPaperDimension: A4 
+*PaperDimension A4/A4: "595 842"
+*PaperDimension Letter/US Letter: "612 792"
+*PaperDimension Legal/US Legal: "612 1008"
+*PaperDimension Executive/US Executive: "522 756"
+*PaperDimension A5/A5: "420 595"
+*PaperDimension B5/B5: "516 729"
+*PaperDimension Env10/US 10: "297 684"
+*PaperDimension EnvMonarch/Monarch US Envelope: "279 540"
+*PaperDimension EnvC5/C5 Envelope: "459 649"
+*PaperDimension EnvDL/DL Envelope: "312 624"
+*PaperDimension ISOB5/B5 Envelope: "499 709"
+*PaperDimension EnvC6/C6 Envelope: "323 459"
+*PaperDimension PostCard/Postcard: "284 419"
+
+*RequiresPageRegion All: True
+
+*OpenUI *MediaType/Media Type: PickOne
+*OrderDependency: 50 AnySetup *MediaType
+*DefaultMediaType: Standard
+*MediaType Standard/Plain Paper: "<< /MediaType (standard)>> setpagedevice"
+*MediaType Transparent/Transparency: "<< /MediaType (transparent) >> setpagedevice"
+*MediaType Thick/Thick: "<< /MediaType (thick)>> setpagedevice"
+*CloseUI: *MediaType
+
+*PrintPSErrors: True
+
+*%=== Font Information =====================
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Special ROM
+*?FontQuery: "
+   save
+   { count 1 gt
+      { exch dup 127 string cvs (/) print print (:) print
+      /Font resourcestatus {pop pop (Yes)} {(No)} ifelse =
+      } { exit } ifelse
+   } bind loop
+   (*) = flush
+   restore
+"
+*End
+
+*?FontList: "
+   save
+     (*) {cvn ==} 128 string /Font resourceforall
+     (*) = flush
+   restore
+"
+*End
+
+*OpenUI *Duplex/Duplex printing: PickOne
+*OrderDependency: 60 AnySetup *Duplex
+*DefaultDuplex: None
+*Duplex None/None: "2 dict dup /Duplex false put dup /Tumble false put setpagedevice"
+*End
+*Duplex DuplexNoTumble/Flip on Long Edge: "2 dict dup /Duplex true put dup /Tumble false put setpagedevice"
+*End
+*Duplex DuplexTumble/Flip on Short Edge: "2 dict dup /Duplex true put dup /Tumble true put setpagedevice"
+*End
+*?Duplex: "
+  save
+    currentpagedevice /Duplex get
+    { currentpagedevice /Tumble get
+      { (DuplexTumble) }
+      { (DuplexNoTumble) }
+      ifelse
+    }
+    { 
+       (None)
+    } ifelse
+    = flush
+  restore"
+*End
+*CloseUI: *Duplex
+
+
+*% =======================================
+*% For "MFF 18-20" version 2014.108
+*% =======================================

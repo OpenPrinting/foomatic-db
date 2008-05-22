@@ -1,0 +1,449 @@
+*PPD-Adobe: "4.3"
+*% =========================================
+*% Disclaimer:  The above statement indicates
+*% that this PPD was written using the Adobe PPD
+*% File Format Specification 4.3, but does not 
+*% intend to imply approval and acceptance by
+*% Adobe Systems, Inc. 
+*% =========================================
+*% PPD for Xerox Phaser 3200MFP PS
+*% For Windows XP/2K
+*% =========================================
+*FileVersion: "1.0"
+*FormatVersion: "4.3"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+*PCFileName: "XP3200.PPD"
+*Product: "(Xerox Phaser 3200MFP)"
+*Manufacturer:  "Xerox"
+*PSVersion: "(3011    ) 0"
+*ModelName: "Xerox Phaser 3200MFP"
+*ShortNickName: "Xerox Phaser 3200MFP PS"
+*NickName: "Xerox Phaser 3200MFP PS"
+*LanguageLevel: "3"
+*Protocols: PJL TBCP
+*FreeVM: "3400000"
+*ColorDevice: False
+*DefaultColorSpace: Gray
+*TTRasterizer: Type42
+*?TTRasterizer: "
+  save
+       42 /FontType resourcestatus
+       { pop pop (Type42)} {pop pop (None)} ifelse = flush
+  restore
+"
+*End
+*Throughput: "24"
+*JCLBegin: "<1B>%-12345X@PJL JOB<0A>"
+*JCLToPSInterpreter: "@PJL ENTER LANGUAGE = POSTSCRIPT<0A>"
+*JCLEnd: "<1B>%-12345X"
+
+
+*% =========================================================
+*%  Printer Features
+*% =========================================================
+
+*OpenUI *PaperPolicy/Fit to Page: PickOne
+*OrderDependency: 10 AnySetup *PaperPolicy
+*DefaultPaperPolicy: Promptuser
+*PaperPolicy Promptuser/Prompt User: "
+   <</DeferredMediaSelection true>> setpagedevice"
+*End
+*PaperPolicy NearestSizeAdjust/Nearest Size and Scale: "
+   <</DeferredMediaSelection false /Policies << /PageSize 3 >> >> setpagedevice"
+*End
+*PaperPolicy NearestSizeNoAdjust/Nearest Size and Crop: "
+   <</DeferredMediaSelection false /Policies << /PageSize 5 >> >> setpagedevice"
+*End
+*CloseUI: *PaperPolicy
+
+
+*JCLOpenUI *JCLEconomode/Toner Save Mode: Boolean
+*OrderDependency: 10 JCLSetup *JCLEconomode
+*DefaultJCLEconomode: NONE
+*JCLEconomode NONE/Printer Setting: ""
+*JCLEconomode Off/Off: "@PJL SET ECONOMODE = OFF<0A>"
+*JCLEconomode On/On: "@PJL SET ECONOMODE = ON<0A>"
+*JCLCloseUI: *JCLEconomode
+
+
+*JCLOpenUI *JCLRET/Image Mode: PickOne
+*DefaultJCLRET: NONE
+*OrderDependency: 10 JCLSetup  *JCLRET
+*JCLRET NONE/Printer Setting: ""
+*JCLRET OFF/Normal: "@PJL SET RET = NORMAL<0A>"
+*JCLRET LIGHT/Text Enhancement: "@PJL SET RET = ENHANCE<0A>"
+*JCLCloseUI: *JCLRET
+
+*% =========================================================
+*%  Media Type
+*% =========================================================
+*JCLOpenUI *JCLMediaType/Paper Type: PickOne
+*OrderDependency: 10 JCLSetup *JCLMediaType
+*DefaultJCLMediaType: None
+*JCLMediaType None/Printer Default: "@PJL SET PAPERTYPE = OFF<0A>"
+*JCLMediaType Plain/Plain Paper: "@PJL SET PAPERTYPE = NORMAL<0A>"
+*JCLMediaType Thick/Thick Paper: "@PJL SET PAPERTYPE = THICK<0A>"
+*JCLMediaType Thin/Thin Paper: "@PJL SET PAPERTYPE = THIN<0A>"
+*JCLMediaType Bond/Bond Paper: "@PJL SET PAPERTYPE = BOND<0A>"
+*JCLMediaType Color/Color Paper: "@PJL SET PAPERTYPE = COLOR<0A>"
+*JCLMediaType Card/CardStock: "@PJL SET PAPERTYPE = CARD<0A>"
+*JCLMediaType Labels/Labels: "@PJL SET PAPERTYPE = LABEL<0A>"
+*JCLMediaType Transparency/Transparency: "@PJL SET PAPERTYPE = OHP<0A>"
+*JCLMediaType Envelope/Envelope: "@PJL SET PAPERTYPE = ENV<0A>"
+*JCLMediaType Preprint/Preprinted: "@PJL SET PAPERTYPE = USED<0A>"
+*JCLMediaType Cotton/Cotton: "@PJL SET PAPERTYPE = COTTON<0A>"
+*JCLMediaType Recycled/Recycled Paper: "@PJL SET PAPERTYPE = RECYCLED<0A>"
+*JCLMediaType Archive/Archive Paper: "@PJL SET PAPERTYPE = ARCHIVE<0A>"
+*JCLCloseUI: *JCLMediaType
+
+*% =========================================================
+*%  Resolution & Halftone Information
+*% =========================================================
+*OpenUI *Resolution/Resolution: PickOne
+*OrderDependency: 10 AnySetup *Resolution
+*DefaultResolution: 600dpi
+*Resolution 1200dpi/1200 dpi (Best): "<</HWResolution [1200 1200]>> setpagedevice"
+*Resolution 600dpi/600 dpi (Normal): "<</HWResolution [600 600]>> setpagedevice"
+*?Resolution: "
+	save
+        currentpagedevice /HWResolution get
+        0 get
+ 	(          ) cvs print (dpi) = flush
+	restore"
+*End
+*CloseUI: *Resolution
+
+*DefaultHalftoneType: 9
+*ScreenFreq:  "106.0"
+*ScreenAngle: "45.0"
+*% *ResScreenFreq 600dpi/600 dpi :  "106.0"
+*% *ResScreenAngle 600dpi/600 dpi : "45.0"
+*% *ResScreenFreq 1200dpi/1200 dpi :  "180.0"
+*% *ResScreenAngle 1200dpi/1200 dpi : "45.0"
+
+
+*% =========================================================
+*%  Paper Source
+*% =========================================================
+
+*OpenUI *InputSlot/Paper Source: PickOne
+*OrderDependency: 20 AnySetup *InputSlot
+*DefaultInputSlot: Middle
+*InputSlot Middle/Tray 1:"
+ << /ManualFeed false /MediaPosition 1 >> setpagedevice"
+*End
+*InputSlot ManualFeed/Manual Feeder:"
+ << /ManualFeed true>> setpagedevice" 
+*End
+*CloseUI: *InputSlot
+
+
+*% =========================================================
+*%  Paper Handling
+*% =========================================================
+*% Use these entries to set paper size unless there is a specific
+*% reason to use PageRegion, such as when using manual Feeder.
+*OpenUI *PageSize/PageSize: PickOne
+*OrderDependency: 30 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize Letter/Letter: "<</PageSize [612 792] /ImagingBBox null>> setpagedevice"
+*PageSize Legal/Legal: "<</PageSize [612 1008] /ImagingBBox null>> setpagedevice"
+*PageSize Executive/Executive: "<</PageSize [522 756] /ImagingBBox null>> setpagedevice"
+*PageSize A4/A4: "<</PageSize [595 842] /ImagingBBox null>> setpagedevice"
+*PageSize A5/A5: "<</PageSize [420 595] /ImagingBBox null>> setpagedevice"
+*PageSize B5-JIS/JIS B5: "<</PageSize [516 729] /ImagingBBox null>> setpagedevice"
+*PageSize US-Folio/US Folio: "<</PageSize [612 936] /ImagingBBox null>> setpagedevice"
+*PageSize Env10/No.10 Env.: "<</PageSize [297 684] /ImagingBBox null>> setpagedevice"
+*PageSize EnvDL/DL Env.: "<</PageSize [312 624] /ImagingBBox null>> setpagedevice"
+*PageSize EnvC5/C5 Env.: "<</PageSize [459 649] /ImagingBBox null>> setpagedevice"
+*PageSize EnvC6/C6 Env.: "<</PageSize [323 459] /ImagingBBox null>> setpagedevice"
+*PageSize B5-ISO/ISO B5: "<</PageSize [499 709] /ImagingBBox null>> setpagedevice"
+*PageSize EnvMonarch/Monarch Env.: "<</PageSize [279 540] /ImagingBBox null>> setpagedevice"
+*PageSize A6/A6: "<</PageSize [297 420] /ImagingBBox null>> setpagedevice"
+*PageSize Oficio_S/Oficio : "<</PageSize [612 972] /ImagingBBox null>> setpagedevice"
+*?PageSize: "
+save currentpagedevice /PageSize get aload pop
+   2 copy gt {exch} if (Unknown) 15 dict
+   dup [612 972] (Oficio_S) put
+   dup [297 420] (A6) put
+   dup [279 540] (EnvMonarch) put
+   dup [499 709] (B5-ISO) put
+   dup [323 459] (EnvC6) put
+   dup [459 649] (EnvC5) put
+   dup [312 624] (EnvDL) put
+   dup [297 684] (Env10) put
+   dup [612 936] (US-Folio) put
+   dup [516 729] (B5-JIS) put
+   dup [420 595] (A5) put
+   dup [595 842] (A4) put
+   dup [522 756] (Executive) put
+   dup [612 1008] (Legal) put   
+   dup [612 792] (Letter) put
+
+ {exch aload pop 4 index sub abs 5 le exch 5 index
+ sub abs 5 le and  {exch pop exit} {pop} ifelse}
+ bind forall  = flush pop pop restore
+"
+*End
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 40 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion Letter/Letter: "<</PageSize [612 792] /ImagingBBox null>> setpagedevice"
+*PageRegion Legal/Legal: "<</PageSize [612 1008] /ImagingBBox null>> setpagedevice"
+*PageRegion Executive/Executive: "<</PageSize [522 756] /ImagingBBox null>> setpagedevice"
+*PageRegion A4/A4: "<</PageSize [595 842] /ImagingBBox null>> setpagedevice"
+*PageRegion A5/A5: "<</PageSize [420 595] /ImagingBBox null>> setpagedevice"
+*PageRegion B5-JIS/JIS B5: "<</PageSize [516 729] /ImagingBBox null>> setpagedevice"
+*PageRegion US-Folio/US Folio: "<</PageSize [612 936] /ImagingBBox null>> setpagedevice"
+*PageRegion Env10/No.10 Env.: "<</PageSize [297 684] /ImagingBBox null>> setpagedevice"
+*PageRegion EnvDL/DL Env.: "<</PageSize [312 624] /ImagingBBox null>> setpagedevice"
+*PageRegion EnvC5/C5 Env.: "<</PageSize [459 649] /ImagingBBox null>> setpagedevice"
+*PageRegion EnvC6/C6 Env.: "<</PageSize [323 459] /ImagingBBox null>> setpagedevice"
+*PageRegion B5-ISO/ISO B5: "<</PageSize [499 709] /ImagingBBox null>> setpagedevice"
+*PageRegion EnvMonarch/Monarch Env.: "<</PageSize [279 540] /ImagingBBox null>> setpagedevice"
+*PageRegion A6/A6: "<</PageSize [297 420] /ImagingBBox null>> setpagedevice"
+*PageRegion Oficio_S/Oficio: "<</PageSize [612 972] /ImagingBBox null>> setpagedevice"
+*CloseUI: *PageRegion
+
+
+*% These entries provide the imageable areas of the media option keywords
+*DefaultImageableArea: Letter
+*ImageableArea Letter/Letter:                      "12.50 12.50 599.50 779.50"
+*ImageableArea Legal/Legal:                        "12.50 12.50 599.50 995.50"
+*ImageableArea Executive/Executive:                "12.50 11.00 509.50 744.00"
+*ImageableArea A4/A4:                              "12.50 12.50 582.50 829.50"
+*ImageableArea A5/A5:                              "12.50 12.50 407.50 582.50"
+*ImageableArea B5-JIS/JIS B5:                      "12.50 12.50 503.50 715.50"
+*ImageableArea US-Folio/US Folio:                  "12.50 12.50 599.50 923.50"
+*ImageableArea Env10/No.10 Env.:                   "12.50 12.50 284.50 670.50"
+*ImageableArea EnvDL/DL Env.:                      "12.50 12.50 299.50 610.50"
+*ImageableArea EnvC5/C5 Env.:                      "12.50 12.50 446.50 635.50"
+*ImageableArea EnvC6/C6 Env.:                      "12.50 12.50 310.50 446.50"
+*ImageableArea B5-ISO/ISO B5:                      "12.50 12.50 485.50 695.50"
+*ImageableArea EnvMonarch/Monarch Env.:            "12.50 12.50 266.50 527.50"
+*ImageableArea A6/A6:                              "12.50 12.50 284.50 407.50"
+*ImageableArea Oficio_S/Oficio:                    "12.50 12.50 599.50 959.50"
+*?ImageableArea: "
+ 	save /cvp { cvi (            ) cvs print ( ) print } bind def
+  	newpath clippath pathbbox
+  	4 -2 roll exch 2 {ceiling cvp} repeat
+ 	 exch 2 {floor cvp} repeat flush
+	 restore"
+*End
+
+
+*% These provide the physical dimensions of the media, by option keyword.
+*DefaultPaperDimension: Letter
+*PaperDimension Letter/Letter: "612 792"
+*PaperDimension Legal/Legal: "612 1008"
+*PaperDimension Executive/Executive: "522 756"
+*PaperDimension A4/A4: "595 842"
+*PaperDimension A5/A5: "420 595"
+*PaperDimension B5-JIS/JIS B5: "516 729"
+*PaperDimension US-Folio/US Folio: "612 936"
+*PaperDimension Env10/No.10 Env.: "297 684"
+*PaperDimension EnvDL/DL Env.: "312 624"
+*PaperDimension EnvC5/C5 Env.: "459 649"
+*PaperDimension EnvC6/C6 Env.: "323 459"
+*PaperDimension B5-ISO/ISO B5: "499 709"
+*PaperDimension EnvMonarch/Monarch Env.: "279 540"
+*PaperDimension A6/A6: "297 420"
+*PaperDimension Oficio_S/Oficio: "612 972"
+
+*RequiresPageRegion All: True
+
+*%=== Custom Paper Support =================
+*VariablePaperSize: True
+
+*LeadingEdge Short: ""
+*DefaultLeadingEdge: Short
+
+*MaxMediaWidth: "612"
+*MaxMediaHeight: "1008"
+*HWMargins: 16 16 16 16
+*CustomPageSize True: "
+     pop pop pop 
+   <</PageSize [ 5 -2 roll ] /Policies << /PageSize 7 >> /ImagingBBox null >> setpagedevice
+"
+*End
+
+*ParamCustomPageSize Width: 1 points 216 612
+*ParamCustomPageSize Height: 2 points 360 1008
+*ParamCustomPageSize WidthOffset: 3 points 0 0
+*ParamCustomPageSize HeightOffset: 4 points 0 0
+*ParamCustomPageSize Orientation: 5 int 1 1
+
+*RequiresPageRegion All: True
+*LandscapeOrientation: Plus90
+
+*% =========================================================
+*%  User Interface Constraints
+*% =========================================================
+*%======Resoltion 1200dpi does not allow ImageMode
+*UIConstraints: *Resolution 1200dpi *JCLRET LIGHT
+*UIConstraints: *JCLRET LIGHT *Resolution 1200dpi
+*UIConstraints: *Resolution 1200dpi *JCLRET OFF
+*UIConstraints: *JCLRET OFF *Resolution 1200dpi
+
+*% ++++++++++++++++++++++
+*%  Font Information
+*% ++++++++++++++++++++++
+*DefaultFont: Courier
+*Font AlbertusMT-Italic: Standard "(001.001)" Standard ROM
+*Font AlbertusMT-Light: Standard "(001.001)" Standard ROM
+*Font AlbertusMT: Standard "(001.001)" Standard ROM
+*Font AntiqueOlive-Bold: Standard "(001.001)" Standard ROM
+*Font AntiqueOlive-Compact: Standard "(001.001)" Standard ROM
+*Font AntiqueOlive-Italic: Standard "(001.001)" Standard ROM
+*Font AntiqueOlive-Roman: Standard "(001.001)" Standard ROM
+*Font Apple-Chancery: Standard "(001.001)" ExtendedRoman ROM
+*Font Arial-BoldItalicMT: Standard "(001.001)" Standard ROM
+*Font Arial-BoldMT: Standard "(001.001)" Standard ROM
+*Font Arial-ItalicMT: Standard "(001.001)" Standard ROM
+*Font ArialMT: Standard "(001.001)" Standard ROM
+*Font AvantGarde-Book: Standard "(001.001)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.001)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.001)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.001)" Standard ROM
+*Font Bodoni-Bold: Standard "(001.001)" Standard ROM
+*Font Bodoni-BoldItalic: Standard "(001.001)" Standard ROM
+*Font Bodoni-Italic: Standard "(001.001)" Standard ROM
+*Font Bodoni-Poster: Standard "(001.001)" Standard ROM
+*Font Bodoni-PosterCompressed: Standard "(001.001)" Standard ROM
+*Font Bodoni: Standard "(001.001)" Standard ROM
+*Font Bookman-Demi: Standard "(001.001)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.001)" Standard ROM
+*Font Bookman-Light: Standard "(001.001)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.001)" Standard ROM
+*Font Candid: Special "(001.001)" Special ROM
+*Font Chicago: Standard "(001.001)" ExtendedRoman ROM
+*Font Clarendon-Bold: Standard "(001.001)" Standard ROM
+*Font Clarendon-Light: Standard "(001.001)" Standard ROM
+*Font Clarendon: Standard "(001.001)" Standard ROM
+*Font CooperBlack-Italic: Standard "(001.001)" Standard ROM
+*Font CooperBlack: Standard "(001.001)" Standard ROM
+*Font Copperplate-ThirtyThreeBC: Standard "(001.001)" Standard ROM
+*Font Copperplate-ThirtyTwoBC: Standard "(001.001)" Standard ROM
+*Font Coronet-Regular: Standard "(001.001)" Standard ROM
+*Font Courier-Bold: Standard "(001.001)" Standard ROM
+*Font Courier-BoldOblique: Standard "(001.001)" Standard ROM
+*Font Courier-Oblique: Standard "(001.001)" Standard ROM
+*Font Courier: Standard "(001.001)" Standard ROM
+*Font Eurostile-Bold: Standard "(001.001)" Standard ROM
+*Font Eurostile-BoldExtendedTwo: Standard "(001.001)" Standard ROM
+*Font Eurostile-ExtendedTwo: Standard "(001.001)" Standard ROM
+*Font Eurostile: Standard "(001.001)" Standard ROM
+*Font Geneva: Standard "(001.001)" ExtendedRoman ROM
+*Font GillSans-Bold: Standard "(001.001)" Standard ROM
+*Font GillSans-BoldCondensed: Standard "(001.001)" Standard ROM
+*Font GillSans-BoldItalic: Standard "(001.001)" Standard ROM
+*Font GillSans-Condensed: Standard "(001.001)" Standard ROM
+*Font GillSans-ExtraBold: Standard "(001.001)" Standard ROM
+*Font GillSans-Italic: Standard "(001.001)" Standard ROM
+*Font GillSans-Light: Standard "(001.001)" Standard ROM
+*Font GillSans-LightItalic: Standard "(001.001)" Standard ROM
+*Font GillSans: Standard "(001.001)" Standard ROM
+*Font Goudy-Bold: Standard "(001.001)" Standard ROM
+*Font Goudy-BoldItalic: Standard "(001.000)" Standard ROM
+*Font Goudy-ExtraBold: Standard "(001.001)" Standard ROM
+*Font Goudy-Italic: Standard "(001.001)" Standard ROM
+*Font Goudy: Standard "(001.001)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.001)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.001)" Standard ROM
+*Font Helvetica-Condensed-Bold: Standard "(001.001)" Standard ROM
+*Font Helvetica-Condensed-BoldObl: Standard "(001.001)" Standard ROM
+*Font Helvetica-Condensed-Oblique: Standard "(001.001)" Standard ROM
+*Font Helvetica-Condensed: Standard "(001.001)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.001)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.001)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.001)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.001)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.001)" Standard ROM
+*Font Helvetica: Standard "(001.001)" Standard ROM
+*Font HoeflerText-Black: Standard "(001.001)" ExtendedRoman ROM
+*Font HoeflerText-BlackItalic: Standard "(001.001)" Standard ROM
+*Font HoeflerText-Italic: Standard "(001.001)" ExtendedRoman ROM
+*Font HoeflerText-Ornaments: Special "(001.001)" Special ROM
+*Font HoeflerText-Regular: Standard "(001.001)" Standard ROM
+*Font JoannaMT-Bold: Standard "(001.001)" Standard ROM
+*Font JoannaMT-BoldItalic: Standard "(001.001)" Standard ROM
+*Font JoannaMT-Italic: Standard "(001.001)" Standard ROM
+*Font JoannaMT: Standard "(001.001)" Standard ROM
+*Font LetterGothic-Bold: Standard "(001.001)" Standard ROM
+*Font LetterGothic-BoldSlanted: Standard "(001.001)" Standard ROM
+*Font LetterGothic-Slanted: Standard "(001.001)" Standard ROM
+*Font LetterGothic: Standard "(001.001)" Standard ROM
+*Font LubalinGraph-Book: Standard "(001.001)" Standard ROM
+*Font LubalinGraph-BookOblique: Standard "(001.001)" Standard ROM
+*Font LubalinGraph-Demi: Standard "(001.001)" Standard ROM
+*Font LubalinGraph-DemiOblique: Standard "(001.001)" Standard ROM
+*Font Marigold: Standard "(001.001)" Standard ROM
+*Font Monaco: Standard "(001.001)" ExtendedRoman ROM
+*Font MonaLisa-Recut: Standard "(001.001)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.001)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.001)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.001)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.001)" Standard ROM
+*Font NewYork: Standard "(001.001)" ExtendedRoman ROM
+*Font Optima-Bold: Standard "(001.001)" Standard ROM
+*Font Optima-BoldItalic: Standard "(001.001)" Standard ROM
+*Font Optima-Italic: Standard "(001.001)" Standard ROM
+*Font Optima: Standard "(001.001)" Standard ROM
+*Font Oxford: Standard "(001.001)" Standard ROM
+*Font Palatino-Bold: Standard "(001.001)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.001)" Standard ROM
+*Font Palatino-Italic: Standard "(001.001)" Standard ROM
+*Font Palatino-Roman: Standard "(001.001)" Standard ROM
+*Font StempelGaramond-Bold: Standard "(001.001)" Standard ROM
+*Font StempelGaramond-BoldItalic: Standard "(001.001)" Standard ROM
+*Font StempelGaramond-Italic: Standard "(001.001)" Standard ROM
+*Font StempelGaramond-Roman: Standard "(001.001)" Standard ROM
+*Font Symbol: Special "(001.001)" Special ROM
+*Font Taffy: Standard "(001.001)" Standard ROM
+*Font Times-Bold: Standard "(001.001)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.001)" Standard ROM
+*Font Times-Italic: Standard "(001.001)" Standard ROM
+*Font Times-Roman: Standard "(001.001)" Standard ROM
+*Font TimesNewRomanPS-BoldItalicMT: Standard "(001.001)" Standard ROM
+*Font TimesNewRomanPS-BoldMT: Standard "(001.001)" Standard ROM
+*Font TimesNewRomanPS-ItalicMT: Standard "(001.001)" Standard ROM
+*Font TimesNewRomanPSMT: Standard "(001.001)" Standard ROM
+*Font Univers-Bold: Standard "(001.001)" Standard ROM
+*Font Univers-BoldExt: Standard "(001.001)" Standard ROM
+*Font Univers-BoldExtObl: Standard "(001.001)" Standard ROM
+*Font Univers-BoldOblique: Standard "(001.001)" Standard ROM
+*Font Univers-Condensed: Standard "(001.001)" Standard ROM
+*Font Univers-CondensedBold: Standard "(001.001)" Standard ROM
+*Font Univers-CondensedBoldOblique: Standard "(001.001)" Standard ROM
+*Font Univers-CondensedOblique: Standard "(001.001)" Standard ROM
+*Font Univers-Extended: Standard "(001.001)" Standard ROM
+*Font Univers-ExtendedObl: Standard "(001.001)" Standard ROM
+*Font Univers-Light: Standard "(001.001)" Standard ROM
+*Font Univers-LightOblique: Standard "(001.001)" Standard ROM
+*Font Univers-Oblique: Standard "(001.001)" Standard ROM
+*Font Univers: Standard "(001.001)" Standard ROM
+*Font Wingdings-Regular: Special "(001.001)" Special ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.001)" Standard ROM
+*Font ZapfDingbats: Special "(001.001)" Special ROM
+
+*?FontQuery: "save
+{count 1 gt
+  {exch dup 127 string cvs (/)print print (:)print
+   /Font resourcestatus
+   {pop pop (Yes)} {(No)} ifelse =
+  }
+  {exit}
+  ifelse
+} bind loop
+(*) = flush
+restore"
+*End
+
+*?FontList: "save
+ (*) {cvn ==} 128 string /Font resourceforall
+ (*) = flush
+restore"
+*End

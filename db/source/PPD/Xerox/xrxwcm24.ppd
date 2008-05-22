@@ -1,0 +1,3241 @@
+*PPD-Adobe: "4.3"
+*% Adobe Systems PostScript(R) Printer Description File
+*% Copyright 1987-1996 Adobe Systems Incorporated. 
+*% All Rights Reserved. 
+*% Permission is granted for redistribution of this file as
+*% long as this copyright notice is intact and the contents
+*% of the file is not altered in any way from its original form.
+*% End of Copyright statement
+*FileVersion: "1.1"
+*FormatVersion: "4.3"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+*Manufacturer: "Xerox"
+*PCFileName: "XRCC2EE2.PPD"
+*Product: "(WorkCentre 24)"
+*PSVersion: "(3011.106) 65536"
+*ShortNickName: "Xerox WorkCentre 24 PS"
+*ModelName: "Xerox WorkCentre 24 v3011.106 PS"
+*NickName: "Xerox WorkCentre 24 v3011.106 PS"
+
+*% === Options and Constraints =========
+*OpenGroup: InstallableOptions/Options Installed
+*OpenUI *InstalledMemory/Memory : PickOne
+*DefaultInstalledMemory: 512Meg
+*InstalledMemory 512Meg/Standard 512MB: ""
+*?InstalledMemory: "
+save
+currentsystemparams /InstalledRam 2 copy known 
+    { get
+      dup 335544320 eq{(320Meg) exch} if
+      dup 402653184 eq{(384Meg) exch} if
+      dup 536870912 eq{(512Meg) exch} if
+      pop
+     }
+     {pop pop (512Meg)} ifelse
+  = flush
+restore
+"
+*End
+*CloseUI: *InstalledMemory
+
+*OpenUI *Option1/Paper Source : PickOne
+*DefaultOption1: Tandem
+*Option1 2Tray/Not Available: ""
+*Option1 4Tray/3-Tray Unit: ""
+*Option1 Tandem/3-Tray (High Capacity): ""
+*?Option1: "
+save
+    currentpagedevice
+    /InputAttributes get length 2 sub
+    [(None)(2Tray)(Unknown)(4Tray)] exch {get} stopped {pop pop (Unknown)}
+    {
+      /Custom /ProcSet resourcestatus 
+      { pop pop /Custom /ProcSet findresource
+        dup /engineoptions known {
+          /engineoptions get exec
+          /TandemTray 2 copy known {get}{pop pop false} ifelse
+        }
+        { pop false } ifelse
+        {(4Tray) eq {(Tandem)}{(Unknown)}ifelse} if
+      } if
+    } ifelse
+    = flush
+restore
+"
+*End
+*CloseUI: *Option1
+
+
+*OpenUI *Option4/Output Tray : PickOne
+*DefaultOption4: None
+*Option4 None/Not Available: ""
+*Option4 FTray/Finisher: ""
+*?Option4: "
+    save
+    currentpagedevice /OutputAttributes get 30 known {(FTray)}{(None)} ifelse
+    = flush
+    restore
+"
+*End
+*CloseUI: *Option4
+*OpenUI *Option6/Paper Detect by Tray : PickOne
+*DefaultOption6: Statement
+*Option6 Statement/Statement Paper Detection: ""
+*Option6 A5/A5 Paper Detection: ""
+*?Option6: "
+    save
+    2 dict begin
+    1 dict dup /PageSize 0 put /Policies exch def
+    /PageSize [396 612] def
+    currentdict end {setpagedevice} stopped {pop (A5)}{(Statement)} ifelse
+    = flush 
+    restore
+"
+*End
+*CloseUI: *Option6
+*CloseGroup: InstallableOptions
+
+*UIConstraints: *Option1 2Tray *InputSlot 2ndTray
+*UIConstraints: *Option1 2Tray *InputSlot 3rdTray
+*UIConstraints: *Option1 2Tray *InputSlot 4thTray
+*UIConstraints: *Option1 2Tray *InputSlot 3rdTrayTTM
+*UIConstraints: *Option1 2Tray *InputSlot 4thTrayTTM
+*UIConstraints: *InputSlot 2ndTray *Option1 2Tray
+*UIConstraints: *InputSlot 3rdTray *Option1 2Tray
+*UIConstraints: *InputSlot 4thTray *Option1 2Tray
+*UIConstraints: *InputSlot 3rdTrayTTM *Option1 2Tray
+*UIConstraints: *InputSlot 4thTrayTTM *Option1 2Tray
+*UIConstraints: *Option1 2Tray *XRSlipSheet 2ndTray
+*UIConstraints: *Option1 2Tray *XRSlipSheet 3rdTray
+*UIConstraints: *Option1 2Tray *XRSlipSheet 4thTray
+*UIConstraints: *Option1 2Tray *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *Option1 2Tray *XRSlipSheet 4thTrayTTM
+*UIConstraints: *XRSlipSheet 2ndTray *Option1 2Tray
+*UIConstraints: *XRSlipSheet 3rdTray *Option1 2Tray
+*UIConstraints: *XRSlipSheet 4thTray *Option1 2Tray
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *Option1 2Tray
+*UIConstraints: *XRSlipSheet 4thTrayTTM *Option1 2Tray
+*UIConstraints: *Option1 4Tray *InputSlot 3rdTrayTTM
+*UIConstraints: *Option1 4Tray *InputSlot 4thTrayTTM
+*UIConstraints: *Option1 Tandem *InputSlot 3rdTray
+*UIConstraints: *Option1 Tandem *InputSlot 4thTray
+ 
+*UIConstraints: *InputSlot 3rdTrayTTM *Option1 4Tray
+*UIConstraints: *InputSlot 4thTrayTTM *Option1 4Tray
+*UIConstraints: *InputSlot 3rdTray *Option1 Tandem
+*UIConstraints: *InputSlot 4thTray *Option1 Tandem
+ 
+*UIConstraints: *Option1 4Tray *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *Option1 4Tray *XRSlipSheet 4thTrayTTM
+*UIConstraints: *Option1 Tandem *XRSlipSheet 3rdTray
+*UIConstraints: *Option1 Tandem *XRSlipSheet 4thTray
+ 
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *Option1 4Tray
+*UIConstraints: *XRSlipSheet 4thTrayTTM *Option1 4Tray
+*UIConstraints: *XRSlipSheet 3rdTray *Option1 Tandem
+*UIConstraints: *XRSlipSheet 4thTray *Option1 Tandem
+*UIConstraints: *Option6 Statement *PageSize A5
+*UIConstraints: *Option6 Statement *PageRegion A5
+*UIConstraints: *PageSize A5 *Option6 Statement
+*UIConstraints: *PageRegion A5 *Option6 Statement
+*UIConstraints: *Option6 A5 *PageSize Statement
+*UIConstraints: *Option6 A5 *PageRegion Statement
+*UIConstraints: *PageSize Statement *Option6 A5
+*UIConstraints: *PageRegion Statement *Option6 A5
+*UIConstraints: *PageSize A3 *InputSlot 3rdTrayTTM
+*UIConstraints: *PageSize A3 *InputSlot 4thTrayTTM
+*UIConstraints: *PageSize A5 *InputSlot 3rdTrayTTM
+*UIConstraints: *PageSize A5 *InputSlot 4thTrayTTM
+*UIConstraints: *PageSize A6 *InputSlot 1stTray
+*UIConstraints: *PageSize A6 *InputSlot 2ndTray
+*UIConstraints: *PageSize A6 *InputSlot 3rdTray
+*UIConstraints: *PageSize A6 *InputSlot 4thTray
+*UIConstraints: *PageSize A6 *InputSlot 3rdTrayTTM
+*UIConstraints: *PageSize A6 *InputSlot 4thTrayTTM
+*UIConstraints: *PageSize B4 *InputSlot 3rdTrayTTM
+*UIConstraints: *PageSize B4 *InputSlot 4thTrayTTM
+*UIConstraints: *PageSize B6 *InputSlot 1stTray
+*UIConstraints: *PageSize B6 *InputSlot 2ndTray
+*UIConstraints: *PageSize B6 *InputSlot 3rdTray
+*UIConstraints: *PageSize B6 *InputSlot 4thTray
+*UIConstraints: *PageSize B6 *InputSlot 3rdTrayTTM
+*UIConstraints: *PageSize B6 *InputSlot 4thTrayTTM
+*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot 3rdTrayTTM
+*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot 4thTrayTTM
+*UIConstraints: *PageSize Legal *InputSlot 3rdTrayTTM
+*UIConstraints: *PageSize Legal *InputSlot 4thTrayTTM
+*UIConstraints: *PageSize Tabloid *InputSlot 3rdTrayTTM
+*UIConstraints: *PageSize Tabloid *InputSlot 4thTrayTTM
+*UIConstraints: *PageSize TabloidExtra *InputSlot 1stTray
+*UIConstraints: *PageSize TabloidExtra *InputSlot 2ndTray
+*UIConstraints: *PageSize TabloidExtra *InputSlot 3rdTray
+*UIConstraints: *PageSize TabloidExtra *InputSlot 4thTray
+*UIConstraints: *PageSize TabloidExtra *InputSlot 3rdTrayTTM
+*UIConstraints: *PageSize TabloidExtra *InputSlot 4thTrayTTM
+*UIConstraints: *PageSize Statement *InputSlot 3rdTrayTTM
+*UIConstraints: *PageSize Statement *InputSlot 4thTrayTTM
+*UIConstraints: *InputSlot 3rdTrayTTM *PageSize A3
+*UIConstraints: *InputSlot 4thTrayTTM *PageSize A3
+*UIConstraints: *InputSlot 3rdTrayTTM *PageSize A5
+*UIConstraints: *InputSlot 4thTrayTTM *PageSize A5
+*UIConstraints: *InputSlot 1stTray *PageSize A6
+*UIConstraints: *InputSlot 2ndTray *PageSize A6
+*UIConstraints: *InputSlot 3rdTray *PageSize A6
+*UIConstraints: *InputSlot 4thTray *PageSize A6
+*UIConstraints: *InputSlot 3rdTrayTTM *PageSize A6
+*UIConstraints: *InputSlot 4thTrayTTM *PageSize A6
+*UIConstraints: *InputSlot 3rdTrayTTM *PageSize B4
+*UIConstraints: *InputSlot 4thTrayTTM *PageSize B4
+*UIConstraints: *InputSlot 1stTray *PageSize B6
+*UIConstraints: *InputSlot 2ndTray *PageSize B6
+*UIConstraints: *InputSlot 3rdTray *PageSize B6
+*UIConstraints: *InputSlot 4thTray *PageSize B6
+*UIConstraints: *InputSlot 3rdTrayTTM *PageSize B6
+*UIConstraints: *InputSlot 4thTrayTTM *PageSize B6
+*UIConstraints: *InputSlot 3rdTrayTTM *PageSize FanFoldGermanLegal
+*UIConstraints: *InputSlot 4thTrayTTM *PageSize FanFoldGermanLegal
+*UIConstraints: *InputSlot 3rdTrayTTM *PageSize Legal
+*UIConstraints: *InputSlot 4thTrayTTM *PageSize Legal
+*UIConstraints: *InputSlot 3rdTrayTTM *PageSize Tabloid
+*UIConstraints: *InputSlot 4thTrayTTM *PageSize Tabloid
+*UIConstraints: *InputSlot 1stTray *PageSize TabloidExtra
+*UIConstraints: *InputSlot 2ndTray *PageSize TabloidExtra
+*UIConstraints: *InputSlot 3rdTray *PageSize TabloidExtra
+*UIConstraints: *InputSlot 4thTray *PageSize TabloidExtra
+*UIConstraints: *InputSlot 3rdTrayTTM *PageSize TabloidExtra
+*UIConstraints: *InputSlot 4thTrayTTM *PageSize TabloidExtra
+*UIConstraints: *InputSlot 3rdTrayTTM *PageSize Statement
+*UIConstraints: *InputSlot 4thTrayTTM *PageSize Statement
+*UIConstraints: *PageRegion A3 *InputSlot 3rdTrayTTM
+*UIConstraints: *PageRegion A3 *InputSlot 4thTrayTTM
+*UIConstraints: *PageRegion A5 *InputSlot 3rdTrayTTM
+*UIConstraints: *PageRegion A5 *InputSlot 4thTrayTTM
+*UIConstraints: *PageRegion A6 *InputSlot 1stTray
+*UIConstraints: *PageRegion A6 *InputSlot 2ndTray
+*UIConstraints: *PageRegion A6 *InputSlot 3rdTray
+*UIConstraints: *PageRegion A6 *InputSlot 4thTray
+*UIConstraints: *PageRegion A6 *InputSlot 3rdTrayTTM
+*UIConstraints: *PageRegion A6 *InputSlot 4thTrayTTM
+*UIConstraints: *PageRegion B4 *InputSlot 3rdTrayTTM
+*UIConstraints: *PageRegion B4 *InputSlot 4thTrayTTM
+*UIConstraints: *PageRegion B6 *InputSlot 1stTray
+*UIConstraints: *PageRegion B6 *InputSlot 2ndTray
+*UIConstraints: *PageRegion B6 *InputSlot 3rdTray
+*UIConstraints: *PageRegion B6 *InputSlot 4thTray
+*UIConstraints: *PageRegion B6 *InputSlot 3rdTrayTTM
+*UIConstraints: *PageRegion B6 *InputSlot 4thTrayTTM
+*UIConstraints: *PageRegion FanFoldGermanLegal *InputSlot 3rdTrayTTM
+*UIConstraints: *PageRegion FanFoldGermanLegal *InputSlot 4thTrayTTM
+*UIConstraints: *PageRegion Legal *InputSlot 3rdTrayTTM
+*UIConstraints: *PageRegion Legal *InputSlot 4thTrayTTM
+*UIConstraints: *PageRegion Tabloid *InputSlot 3rdTrayTTM
+*UIConstraints: *PageRegion Tabloid *InputSlot 4thTrayTTM
+*UIConstraints: *PageRegion TabloidExtra *InputSlot 1stTray
+*UIConstraints: *PageRegion TabloidExtra *InputSlot 2ndTray
+*UIConstraints: *PageRegion TabloidExtra *InputSlot 3rdTray
+*UIConstraints: *PageRegion TabloidExtra *InputSlot 4thTray
+*UIConstraints: *PageRegion TabloidExtra *InputSlot 3rdTrayTTM
+*UIConstraints: *PageRegion TabloidExtra *InputSlot 4thTrayTTM
+*UIConstraints: *PageRegion Statement *InputSlot 3rdTrayTTM
+*UIConstraints: *PageRegion Statement *InputSlot 4thTrayTTM
+*UIConstraints: *InputSlot 3rdTrayTTM *PageRegion A3
+*UIConstraints: *InputSlot 4thTrayTTM *PageRegion A3
+*UIConstraints: *InputSlot 3rdTrayTTM *PageRegion A5
+*UIConstraints: *InputSlot 4thTrayTTM *PageRegion A5
+*UIConstraints: *InputSlot 1stTray *PageRegion A6
+*UIConstraints: *InputSlot 2ndTray *PageRegion A6
+*UIConstraints: *InputSlot 3rdTray *PageRegion A6
+*UIConstraints: *InputSlot 4thTray *PageRegion A6
+*UIConstraints: *InputSlot 3rdTrayTTM *PageRegion A6
+*UIConstraints: *InputSlot 4thTrayTTM *PageRegion A6
+*UIConstraints: *InputSlot 3rdTrayTTM *PageRegion B4
+*UIConstraints: *InputSlot 4thTrayTTM *PageRegion B4
+*UIConstraints: *InputSlot 1stTray *PageRegion B6
+*UIConstraints: *InputSlot 2ndTray *PageRegion B6
+*UIConstraints: *InputSlot 3rdTray *PageRegion B6
+*UIConstraints: *InputSlot 4thTray *PageRegion B6
+*UIConstraints: *InputSlot 3rdTrayTTM *PageRegion B6
+*UIConstraints: *InputSlot 4thTrayTTM *PageRegion B6
+*UIConstraints: *InputSlot 3rdTrayTTM *PageRegion FanFoldGermanLegal
+*UIConstraints: *InputSlot 4thTrayTTM *PageRegion FanFoldGermanLegal
+*UIConstraints: *InputSlot 3rdTrayTTM *PageRegion Legal
+*UIConstraints: *InputSlot 4thTrayTTM *PageRegion Legal
+*UIConstraints: *InputSlot 3rdTrayTTM *PageRegion Tabloid
+*UIConstraints: *InputSlot 4thTrayTTM *PageRegion Tabloid
+*UIConstraints: *InputSlot 1stTray *PageRegion TabloidExtra
+*UIConstraints: *InputSlot 2ndTray *PageRegion TabloidExtra
+*UIConstraints: *InputSlot 3rdTray *PageRegion TabloidExtra
+*UIConstraints: *InputSlot 4thTray *PageRegion TabloidExtra
+*UIConstraints: *InputSlot 3rdTrayTTM *PageRegion TabloidExtra
+*UIConstraints: *InputSlot 4thTrayTTM *PageRegion TabloidExtra
+*UIConstraints: *InputSlot 3rdTrayTTM *PageRegion Statement
+*UIConstraints: *InputSlot 4thTrayTTM *PageRegion Statement
+*UIConstraints: *PageSize A6 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize A6 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageSize A6
+*UIConstraints: *Duplex DuplexTumble *PageSize A6
+*UIConstraints: *PageRegion A6 *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion A6 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion A6
+*UIConstraints: *Duplex DuplexTumble *PageRegion A6
+*UIConstraints: *PageSize B6 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize B6 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageSize B6
+*UIConstraints: *Duplex DuplexTumble *PageSize B6
+*UIConstraints: *PageRegion B6 *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion B6 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion B6
+*UIConstraints: *Duplex DuplexTumble *PageRegion B6
+*UIConstraints: *PageSize TabloidExtra *Duplex DuplexNoTumble
+*UIConstraints: *PageSize TabloidExtra *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageSize TabloidExtra
+*UIConstraints: *Duplex DuplexTumble *PageSize TabloidExtra
+*UIConstraints: *PageRegion TabloidExtra *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion TabloidExtra *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion TabloidExtra
+*UIConstraints: *Duplex DuplexTumble *PageRegion TabloidExtra
+*UIConstraints: *XRSlipSheet AutoTray *MediaType FinePaper
+*UIConstraints: *XRSlipSheet 1stTray *MediaType FinePaper
+*UIConstraints: *XRSlipSheet 2ndTray *MediaType FinePaper
+*UIConstraints: *XRSlipSheet 3rdTray *MediaType FinePaper
+*UIConstraints: *XRSlipSheet 4thTray *MediaType FinePaper
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *MediaType FinePaper
+*UIConstraints: *XRSlipSheet 4thTrayTTM *MediaType FinePaper
+*UIConstraints: *XRSlipSheet AutoTray *MediaType Stationary
+*UIConstraints: *XRSlipSheet 1stTray *MediaType Stationary
+*UIConstraints: *XRSlipSheet 2ndTray *MediaType Stationary
+*UIConstraints: *XRSlipSheet 3rdTray *MediaType Stationary
+*UIConstraints: *XRSlipSheet 4thTray *MediaType Stationary
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *MediaType Stationary
+*UIConstraints: *XRSlipSheet 4thTrayTTM *MediaType Stationary
+*UIConstraints: *XRSlipSheet AutoTray *MediaType RecyclePaper
+*UIConstraints: *XRSlipSheet 1stTray *MediaType RecyclePaper
+*UIConstraints: *XRSlipSheet 2ndTray *MediaType RecyclePaper
+*UIConstraints: *XRSlipSheet 3rdTray *MediaType RecyclePaper
+*UIConstraints: *XRSlipSheet 4thTray *MediaType RecyclePaper
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *MediaType RecyclePaper
+*UIConstraints: *XRSlipSheet 4thTrayTTM *MediaType RecyclePaper
+*UIConstraints: *XRSlipSheet AutoTray *MediaType ThinPaper
+*UIConstraints: *XRSlipSheet 1stTray *MediaType ThinPaper
+*UIConstraints: *XRSlipSheet 2ndTray *MediaType ThinPaper
+*UIConstraints: *XRSlipSheet 3rdTray *MediaType ThinPaper
+*UIConstraints: *XRSlipSheet 4thTray *MediaType ThinPaper
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *MediaType ThinPaper
+*UIConstraints: *XRSlipSheet 4thTrayTTM *MediaType ThinPaper
+*UIConstraints: *XRSlipSheet AutoTray *MediaType ThickPaper
+*UIConstraints: *XRSlipSheet 1stTray *MediaType ThickPaper
+*UIConstraints: *XRSlipSheet 2ndTray *MediaType ThickPaper
+*UIConstraints: *XRSlipSheet 3rdTray *MediaType ThickPaper
+*UIConstraints: *XRSlipSheet 4thTray *MediaType ThickPaper
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *MediaType ThickPaper
+*UIConstraints: *XRSlipSheet 4thTrayTTM *MediaType ThickPaper
+*UIConstraints: *XRSlipSheet AutoTray *MediaType ThickPaperBack
+*UIConstraints: *XRSlipSheet 1stTray *MediaType ThickPaperBack
+*UIConstraints: *XRSlipSheet 2ndTray *MediaType ThickPaperBack
+*UIConstraints: *XRSlipSheet 3rdTray *MediaType ThickPaperBack
+*UIConstraints: *XRSlipSheet 4thTray *MediaType ThickPaperBack
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *MediaType ThickPaperBack
+*UIConstraints: *XRSlipSheet 4thTrayTTM *MediaType ThickPaperBack
+*UIConstraints: *XRSlipSheet AutoTray *MediaType ThickPaper2
+*UIConstraints: *XRSlipSheet 1stTray *MediaType ThickPaper2
+*UIConstraints: *XRSlipSheet 2ndTray *MediaType ThickPaper2
+*UIConstraints: *XRSlipSheet 3rdTray *MediaType ThickPaper2
+*UIConstraints: *XRSlipSheet 4thTray *MediaType ThickPaper2
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *MediaType ThickPaper2
+*UIConstraints: *XRSlipSheet 4thTrayTTM *MediaType ThickPaper2
+*UIConstraints: *XRSlipSheet AutoTray *MediaType ThickPaper2Back
+*UIConstraints: *XRSlipSheet 1stTray *MediaType ThickPaper2Back
+*UIConstraints: *XRSlipSheet 2ndTray *MediaType ThickPaper2Back
+*UIConstraints: *XRSlipSheet 3rdTray *MediaType ThickPaper2Back
+*UIConstraints: *XRSlipSheet 4thTray *MediaType ThickPaper2Back
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *MediaType ThickPaper2Back
+*UIConstraints: *XRSlipSheet 4thTrayTTM *MediaType ThickPaper2Back
+*UIConstraints: *XRSlipSheet AutoTray *MediaType CustomSizedPaper1
+*UIConstraints: *XRSlipSheet 1stTray *MediaType CustomSizedPaper1
+*UIConstraints: *XRSlipSheet 2ndTray *MediaType CustomSizedPaper1
+*UIConstraints: *XRSlipSheet 3rdTray *MediaType CustomSizedPaper1
+*UIConstraints: *XRSlipSheet 4thTray *MediaType CustomSizedPaper1
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *MediaType CustomSizedPaper1
+*UIConstraints: *XRSlipSheet 4thTrayTTM *MediaType CustomSizedPaper1
+*UIConstraints: *XRSlipSheet AutoTray *MediaType CustomSizedPaper2
+*UIConstraints: *XRSlipSheet 1stTray *MediaType CustomSizedPaper2
+*UIConstraints: *XRSlipSheet 2ndTray *MediaType CustomSizedPaper2
+*UIConstraints: *XRSlipSheet 3rdTray *MediaType CustomSizedPaper2
+*UIConstraints: *XRSlipSheet 4thTray *MediaType CustomSizedPaper2
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *MediaType CustomSizedPaper2
+*UIConstraints: *XRSlipSheet 4thTrayTTM *MediaType CustomSizedPaper2
+*UIConstraints: *XRSlipSheet AutoTray *MediaType CustomSizedPaper3
+*UIConstraints: *XRSlipSheet 1stTray *MediaType CustomSizedPaper3
+*UIConstraints: *XRSlipSheet 2ndTray *MediaType CustomSizedPaper3
+*UIConstraints: *XRSlipSheet 3rdTray *MediaType CustomSizedPaper3
+*UIConstraints: *XRSlipSheet 4thTray *MediaType CustomSizedPaper3
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *MediaType CustomSizedPaper3
+*UIConstraints: *XRSlipSheet 4thTrayTTM *MediaType CustomSizedPaper3
+*UIConstraints: *XRSlipSheet AutoTray *MediaType CustomSizedPaper4
+*UIConstraints: *XRSlipSheet 1stTray *MediaType CustomSizedPaper4
+*UIConstraints: *XRSlipSheet 2ndTray *MediaType CustomSizedPaper4
+*UIConstraints: *XRSlipSheet 3rdTray *MediaType CustomSizedPaper4
+*UIConstraints: *XRSlipSheet 4thTray *MediaType CustomSizedPaper4
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *MediaType CustomSizedPaper4
+*UIConstraints: *XRSlipSheet 4thTrayTTM *MediaType CustomSizedPaper4
+*UIConstraints: *XRSlipSheet AutoTray *MediaType CustomSizedPaper5
+*UIConstraints: *XRSlipSheet 1stTray *MediaType CustomSizedPaper5
+*UIConstraints: *XRSlipSheet 2ndTray *MediaType CustomSizedPaper5
+*UIConstraints: *XRSlipSheet 3rdTray *MediaType CustomSizedPaper5
+*UIConstraints: *XRSlipSheet 4thTray *MediaType CustomSizedPaper5
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *MediaType CustomSizedPaper5
+*UIConstraints: *XRSlipSheet 4thTrayTTM *MediaType CustomSizedPaper5
+*UIConstraints: *XRSlipSheet AutoTray *MediaType LabelPaper
+*UIConstraints: *XRSlipSheet 1stTray *MediaType LabelPaper
+*UIConstraints: *XRSlipSheet 2ndTray *MediaType LabelPaper
+*UIConstraints: *XRSlipSheet 3rdTray *MediaType LabelPaper
+*UIConstraints: *XRSlipSheet 4thTray *MediaType LabelPaper
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *MediaType LabelPaper
+*UIConstraints: *XRSlipSheet 4thTrayTTM *MediaType LabelPaper
+*UIConstraints: *XRSlipSheet AutoTray *Duplex DuplexNoTumble
+*UIConstraints: *XRSlipSheet 1stTray *Duplex DuplexNoTumble
+*UIConstraints: *XRSlipSheet 2ndTray *Duplex DuplexNoTumble
+*UIConstraints: *XRSlipSheet 3rdTray *Duplex DuplexNoTumble
+*UIConstraints: *XRSlipSheet 4thTray *Duplex DuplexNoTumble
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *Duplex DuplexNoTumble
+*UIConstraints: *XRSlipSheet 4thTrayTTM *Duplex DuplexNoTumble
+*UIConstraints: *XRSlipSheet AutoTray *Duplex DuplexTumble
+*UIConstraints: *XRSlipSheet 1stTray *Duplex DuplexTumble
+*UIConstraints: *XRSlipSheet 2ndTray *Duplex DuplexTumble
+*UIConstraints: *XRSlipSheet 3rdTray *Duplex DuplexTumble
+*UIConstraints: *XRSlipSheet 4thTray *Duplex DuplexTumble
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *Duplex DuplexTumble
+*UIConstraints: *XRSlipSheet 4thTrayTTM *Duplex DuplexTumble
+*UIConstraints: *MediaType FinePaper *XRSlipSheet AutoTray
+*UIConstraints: *MediaType FinePaper *XRSlipSheet 1stTray
+*UIConstraints: *MediaType FinePaper *XRSlipSheet 2ndTray
+*UIConstraints: *MediaType FinePaper *XRSlipSheet 3rdTray
+*UIConstraints: *MediaType FinePaper *XRSlipSheet 4thTray
+*UIConstraints: *MediaType FinePaper *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *MediaType FinePaper *XRSlipSheet 4thTrayTTM
+*UIConstraints: *MediaType Stationary *XRSlipSheet AutoTray
+*UIConstraints: *MediaType Stationary *XRSlipSheet 1stTray
+*UIConstraints: *MediaType Stationary *XRSlipSheet 2ndTray
+*UIConstraints: *MediaType Stationary *XRSlipSheet 3rdTray
+*UIConstraints: *MediaType Stationary *XRSlipSheet 4thTray
+*UIConstraints: *MediaType Stationary *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *MediaType Stationary *XRSlipSheet 4thTrayTTM
+*UIConstraints: *MediaType RecyclePaper *XRSlipSheet AutoTray
+*UIConstraints: *MediaType RecyclePaper *XRSlipSheet 1stTray
+*UIConstraints: *MediaType RecyclePaper *XRSlipSheet 2ndTray
+*UIConstraints: *MediaType RecyclePaper *XRSlipSheet 3rdTray
+*UIConstraints: *MediaType RecyclePaper *XRSlipSheet 4thTray
+*UIConstraints: *MediaType RecyclePaper *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *MediaType RecyclePaper *XRSlipSheet 4thTrayTTM
+*UIConstraints: *MediaType ThinPaper *XRSlipSheet AutoTray
+*UIConstraints: *MediaType ThinPaper *XRSlipSheet 1stTray
+*UIConstraints: *MediaType ThinPaper *XRSlipSheet 2ndTray
+*UIConstraints: *MediaType ThinPaper *XRSlipSheet 3rdTray
+*UIConstraints: *MediaType ThinPaper *XRSlipSheet 4thTray
+*UIConstraints: *MediaType ThinPaper *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *MediaType ThinPaper *XRSlipSheet 4thTrayTTM
+*UIConstraints: *MediaType ThickPaper *XRSlipSheet AutoTray
+*UIConstraints: *MediaType ThickPaper *XRSlipSheet 1stTray
+*UIConstraints: *MediaType ThickPaper *XRSlipSheet 2ndTray
+*UIConstraints: *MediaType ThickPaper *XRSlipSheet 3rdTray
+*UIConstraints: *MediaType ThickPaper *XRSlipSheet 4thTray
+*UIConstraints: *MediaType ThickPaper *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *MediaType ThickPaper *XRSlipSheet 4thTrayTTM
+*UIConstraints: *MediaType ThickPaperBack *XRSlipSheet AutoTray
+*UIConstraints: *MediaType ThickPaperBack *XRSlipSheet 1stTray
+*UIConstraints: *MediaType ThickPaperBack *XRSlipSheet 2ndTray
+*UIConstraints: *MediaType ThickPaperBack *XRSlipSheet 3rdTray
+*UIConstraints: *MediaType ThickPaperBack *XRSlipSheet 4thTray
+*UIConstraints: *MediaType ThickPaperBack *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *MediaType ThickPaperBack *XRSlipSheet 4thTrayTTM
+*UIConstraints: *MediaType ThickPaper2 *XRSlipSheet AutoTray
+*UIConstraints: *MediaType ThickPaper2 *XRSlipSheet 1stTray
+*UIConstraints: *MediaType ThickPaper2 *XRSlipSheet 2ndTray
+*UIConstraints: *MediaType ThickPaper2 *XRSlipSheet 3rdTray
+*UIConstraints: *MediaType ThickPaper2 *XRSlipSheet 4thTray
+*UIConstraints: *MediaType ThickPaper2 *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *MediaType ThickPaper2 *XRSlipSheet 4thTrayTTM
+*UIConstraints: *MediaType ThickPaper2Back *XRSlipSheet AutoTray
+*UIConstraints: *MediaType ThickPaper2Back *XRSlipSheet 1stTray
+*UIConstraints: *MediaType ThickPaper2Back *XRSlipSheet 2ndTray
+*UIConstraints: *MediaType ThickPaper2Back *XRSlipSheet 3rdTray
+*UIConstraints: *MediaType ThickPaper2Back *XRSlipSheet 4thTray
+*UIConstraints: *MediaType ThickPaper2Back *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *MediaType ThickPaper2Back *XRSlipSheet 4thTrayTTM
+*UIConstraints: *MediaType CustomSizedPaper1 *XRSlipSheet AutoTray
+*UIConstraints: *MediaType CustomSizedPaper1 *XRSlipSheet 1stTray
+*UIConstraints: *MediaType CustomSizedPaper1 *XRSlipSheet 2ndTray
+*UIConstraints: *MediaType CustomSizedPaper1 *XRSlipSheet 3rdTray
+*UIConstraints: *MediaType CustomSizedPaper1 *XRSlipSheet 4thTray
+*UIConstraints: *MediaType CustomSizedPaper1 *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *MediaType CustomSizedPaper1 *XRSlipSheet 4thTrayTTM
+*UIConstraints: *MediaType CustomSizedPaper2 *XRSlipSheet AutoTray
+*UIConstraints: *MediaType CustomSizedPaper2 *XRSlipSheet 1stTray
+*UIConstraints: *MediaType CustomSizedPaper2 *XRSlipSheet 2ndTray
+*UIConstraints: *MediaType CustomSizedPaper2 *XRSlipSheet 3rdTray
+*UIConstraints: *MediaType CustomSizedPaper2 *XRSlipSheet 4thTray
+*UIConstraints: *MediaType CustomSizedPaper2 *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *MediaType CustomSizedPaper2 *XRSlipSheet 4thTrayTTM
+*UIConstraints: *MediaType CustomSizedPaper3 *XRSlipSheet AutoTray
+*UIConstraints: *MediaType CustomSizedPaper3 *XRSlipSheet 1stTray
+*UIConstraints: *MediaType CustomSizedPaper3 *XRSlipSheet 2ndTray
+*UIConstraints: *MediaType CustomSizedPaper3 *XRSlipSheet 3rdTray
+*UIConstraints: *MediaType CustomSizedPaper3 *XRSlipSheet 4thTray
+*UIConstraints: *MediaType CustomSizedPaper3 *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *MediaType CustomSizedPaper3 *XRSlipSheet 4thTrayTTM
+*UIConstraints: *MediaType CustomSizedPaper4 *XRSlipSheet AutoTray
+*UIConstraints: *MediaType CustomSizedPaper4 *XRSlipSheet 1stTray
+*UIConstraints: *MediaType CustomSizedPaper4 *XRSlipSheet 2ndTray
+*UIConstraints: *MediaType CustomSizedPaper4 *XRSlipSheet 3rdTray
+*UIConstraints: *MediaType CustomSizedPaper4 *XRSlipSheet 4thTray
+*UIConstraints: *MediaType CustomSizedPaper4 *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *MediaType CustomSizedPaper4 *XRSlipSheet 4thTrayTTM
+*UIConstraints: *MediaType CustomSizedPaper5 *XRSlipSheet AutoTray
+*UIConstraints: *MediaType CustomSizedPaper5 *XRSlipSheet 1stTray
+*UIConstraints: *MediaType CustomSizedPaper5 *XRSlipSheet 2ndTray
+*UIConstraints: *MediaType CustomSizedPaper5 *XRSlipSheet 3rdTray
+*UIConstraints: *MediaType CustomSizedPaper5 *XRSlipSheet 4thTray
+*UIConstraints: *MediaType CustomSizedPaper5 *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *MediaType CustomSizedPaper5 *XRSlipSheet 4thTrayTTM
+*UIConstraints: *MediaType LabelPaper *XRSlipSheet AutoTray
+*UIConstraints: *MediaType LabelPaper *XRSlipSheet 1stTray
+*UIConstraints: *MediaType LabelPaper *XRSlipSheet 2ndTray
+*UIConstraints: *MediaType LabelPaper *XRSlipSheet 3rdTray
+*UIConstraints: *MediaType LabelPaper *XRSlipSheet 4thTray
+*UIConstraints: *MediaType LabelPaper *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *MediaType LabelPaper *XRSlipSheet 4thTrayTTM
+*UIConstraints: *Duplex DuplexNoTumble *XRSlipSheet AutoTray
+*UIConstraints: *Duplex DuplexNoTumble *XRSlipSheet 1stTray
+*UIConstraints: *Duplex DuplexNoTumble *XRSlipSheet 2ndTray
+*UIConstraints: *Duplex DuplexNoTumble *XRSlipSheet 3rdTray
+*UIConstraints: *Duplex DuplexNoTumble *XRSlipSheet 4thTray
+*UIConstraints: *Duplex DuplexNoTumble *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *Duplex DuplexNoTumble *XRSlipSheet 4thTrayTTM
+*UIConstraints: *Duplex DuplexTumble *XRSlipSheet AutoTray
+*UIConstraints: *Duplex DuplexTumble *XRSlipSheet 1stTray
+*UIConstraints: *Duplex DuplexTumble *XRSlipSheet 2ndTray
+*UIConstraints: *Duplex DuplexTumble *XRSlipSheet 3rdTray
+*UIConstraints: *Duplex DuplexTumble *XRSlipSheet 4thTray
+*UIConstraints: *Duplex DuplexTumble *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *Duplex DuplexTumble *XRSlipSheet 4thTrayTTM
+
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *XRMSILeadingEdge ShortEdge
+*UIConstraints: *XRSlipSheet 4thTrayTTM *XRMSILeadingEdge ShortEdge
+*UIConstraints: *XRMSILeadingEdge ShortEdge *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *XRMSILeadingEdge ShortEdge *XRSlipSheet 4thTrayTTM
+
+*UIConstraints: *MediaType ThinPaper *Duplex DuplexTumble
+*UIConstraints: *MediaType ThinPaper *Duplex DuplexNoTumble
+*UIConstraints: *MediaType ThinPaper *InputSlot 1stTray
+*UIConstraints: *MediaType ThinPaper *InputSlot 2ndTray
+*UIConstraints: *MediaType ThinPaper *InputSlot 3rdTray
+*UIConstraints: *MediaType ThinPaper *InputSlot 4thTray
+*UIConstraints: *MediaType ThinPaper *InputSlot 3rdTrayTTM
+*UIConstraints: *MediaType ThinPaper *InputSlot 4thTrayTTM
+*UIConstraints: *MediaType ThickPaper *Duplex DuplexTumble
+*UIConstraints: *MediaType ThickPaper *Duplex DuplexNoTumble
+*UIConstraints: *MediaType ThickPaper *InputSlot 1stTray
+*UIConstraints: *MediaType ThickPaper *InputSlot 2ndTray
+*UIConstraints: *MediaType ThickPaper *InputSlot 3rdTray
+*UIConstraints: *MediaType ThickPaper *InputSlot 4thTray
+*UIConstraints: *MediaType ThickPaper *InputSlot 3rdTrayTTM
+*UIConstraints: *MediaType ThickPaper *InputSlot 4thTrayTTM
+*UIConstraints: *MediaType ThickPaperBack *Duplex DuplexTumble
+*UIConstraints: *MediaType ThickPaperBack *Duplex DuplexNoTumble
+*UIConstraints: *MediaType ThickPaperBack *InputSlot 1stTray
+*UIConstraints: *MediaType ThickPaperBack *InputSlot 2ndTray
+*UIConstraints: *MediaType ThickPaperBack *InputSlot 3rdTray
+*UIConstraints: *MediaType ThickPaperBack *InputSlot 4thTray
+*UIConstraints: *MediaType ThickPaperBack *InputSlot 3rdTrayTTM
+*UIConstraints: *MediaType ThickPaperBack *InputSlot 4thTrayTTM
+*UIConstraints: *MediaType ThickPaper2 *Duplex DuplexTumble
+*UIConstraints: *MediaType ThickPaper2 *Duplex DuplexNoTumble
+*UIConstraints: *MediaType ThickPaper2 *InputSlot 1stTray
+*UIConstraints: *MediaType ThickPaper2 *InputSlot 2ndTray
+*UIConstraints: *MediaType ThickPaper2 *InputSlot 3rdTray
+*UIConstraints: *MediaType ThickPaper2 *InputSlot 4thTray
+*UIConstraints: *MediaType ThickPaper2 *InputSlot 3rdTrayTTM
+*UIConstraints: *MediaType ThickPaper2 *InputSlot 4thTrayTTM
+*UIConstraints: *MediaType ThickPaper2Back *Duplex DuplexTumble
+*UIConstraints: *MediaType ThickPaper2Back *Duplex DuplexNoTumble
+*UIConstraints: *MediaType ThickPaper2Back *InputSlot 1stTray
+*UIConstraints: *MediaType ThickPaper2Back *InputSlot 2ndTray
+*UIConstraints: *MediaType ThickPaper2Back *InputSlot 3rdTray
+*UIConstraints: *MediaType ThickPaper2Back *InputSlot 4thTray
+*UIConstraints: *MediaType ThickPaper2Back *InputSlot 3rdTrayTTM
+*UIConstraints: *MediaType ThickPaper2Back *InputSlot 4thTrayTTM
+*UIConstraints: *MediaType Transparency *Duplex DuplexTumble
+*UIConstraints: *MediaType Transparency *Duplex DuplexNoTumble
+*UIConstraints: *MediaType Transparency *InputSlot 1stTray
+*UIConstraints: *MediaType Transparency *InputSlot 2ndTray
+*UIConstraints: *MediaType Transparency *InputSlot 3rdTray
+*UIConstraints: *MediaType Transparency *InputSlot 4thTray
+*UIConstraints: *MediaType Transparency *InputSlot 3rdTrayTTM
+*UIConstraints: *MediaType Transparency *InputSlot 4thTrayTTM
+*UIConstraints: *MediaType LabelPaper *Duplex DuplexTumble
+*UIConstraints: *MediaType LabelPaper *Duplex DuplexNoTumble
+*UIConstraints: *MediaType LabelPaper *InputSlot 1stTray
+*UIConstraints: *MediaType LabelPaper *InputSlot 2ndTray
+*UIConstraints: *MediaType LabelPaper *InputSlot 3rdTray
+*UIConstraints: *MediaType LabelPaper *InputSlot 4thTray
+*UIConstraints: *MediaType LabelPaper *InputSlot 3rdTrayTTM
+*UIConstraints: *MediaType LabelPaper *InputSlot 4thTrayTTM
+*UIConstraints: *Duplex DuplexTumble *MediaType ThinPaper
+*UIConstraints: *Duplex DuplexNoTumble *MediaType ThinPaper
+*UIConstraints: *InputSlot 1stTray *MediaType ThinPaper
+*UIConstraints: *InputSlot 2ndTray *MediaType ThinPaper
+*UIConstraints: *InputSlot 3rdTray *MediaType ThinPaper
+*UIConstraints: *InputSlot 4thTray *MediaType ThinPaper
+*UIConstraints: *InputSlot 3rdTrayTTM *MediaType ThinPaper
+*UIConstraints: *InputSlot 4thTrayTTM *MediaType ThinPaper
+*UIConstraints: *Duplex DuplexTumble *MediaType ThickPaper
+*UIConstraints: *Duplex DuplexNoTumble *MediaType ThickPaper
+*UIConstraints: *InputSlot 1stTray *MediaType ThickPaper
+*UIConstraints: *InputSlot 2ndTray *MediaType ThickPaper
+*UIConstraints: *InputSlot 3rdTray *MediaType ThickPaper
+*UIConstraints: *InputSlot 4thTray *MediaType ThickPaper
+*UIConstraints: *InputSlot 3rdTrayTTM *MediaType ThickPaper
+*UIConstraints: *InputSlot 4thTrayTTM *MediaType ThickPaper
+*UIConstraints: *Duplex DuplexTumble *MediaType ThickPaperBack
+*UIConstraints: *Duplex DuplexNoTumble *MediaType ThickPaperBack
+*UIConstraints: *InputSlot 1stTray *MediaType ThickPaperBack
+*UIConstraints: *InputSlot 2ndTray *MediaType ThickPaperBack
+*UIConstraints: *InputSlot 3rdTray *MediaType ThickPaperBack
+*UIConstraints: *InputSlot 4thTray *MediaType ThickPaperBack
+*UIConstraints: *InputSlot 3rdTrayTTM *MediaType ThickPaperBack
+*UIConstraints: *InputSlot 4thTrayTTM *MediaType ThickPaperBack
+*UIConstraints: *Duplex DuplexTumble *MediaType ThickPaper2
+*UIConstraints: *Duplex DuplexNoTumble *MediaType ThickPaper2
+*UIConstraints: *InputSlot 1stTray *MediaType ThickPaper2
+*UIConstraints: *InputSlot 2ndTray *MediaType ThickPaper2
+*UIConstraints: *InputSlot 3rdTray *MediaType ThickPaper2
+*UIConstraints: *InputSlot 4thTray *MediaType ThickPaper2
+*UIConstraints: *InputSlot 3rdTrayTTM *MediaType ThickPaper2
+*UIConstraints: *InputSlot 4thTrayTTM *MediaType ThickPaper2
+*UIConstraints: *Duplex DuplexTumble *MediaType ThickPaper2Back
+*UIConstraints: *Duplex DuplexNoTumble *MediaType ThickPaper2Back
+*UIConstraints: *InputSlot 1stTray *MediaType ThickPaper2Back
+*UIConstraints: *InputSlot 2ndTray *MediaType ThickPaper2Back
+*UIConstraints: *InputSlot 3rdTray *MediaType ThickPaper2Back
+*UIConstraints: *InputSlot 4thTray *MediaType ThickPaper2Back
+*UIConstraints: *InputSlot 3rdTrayTTM *MediaType ThickPaper2Back
+*UIConstraints: *InputSlot 4thTrayTTM *MediaType ThickPaper2Back
+*UIConstraints: *Duplex DuplexTumble *MediaType Transparency
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Transparency
+*UIConstraints: *InputSlot 1stTray *MediaType Transparency
+*UIConstraints: *InputSlot 2ndTray *MediaType Transparency
+*UIConstraints: *InputSlot 3rdTray *MediaType Transparency
+*UIConstraints: *InputSlot 4thTray *MediaType Transparency
+*UIConstraints: *InputSlot 3rdTrayTTM *MediaType Transparency
+*UIConstraints: *InputSlot 4thTrayTTM *MediaType Transparency
+*UIConstraints: *Duplex DuplexTumble *MediaType LabelPaper
+*UIConstraints: *Duplex DuplexNoTumble *MediaType LabelPaper
+*UIConstraints: *InputSlot 1stTray *MediaType LabelPaper
+*UIConstraints: *InputSlot 2ndTray *MediaType LabelPaper
+*UIConstraints: *InputSlot 3rdTray *MediaType LabelPaper
+*UIConstraints: *InputSlot 4thTray *MediaType LabelPaper
+*UIConstraints: *InputSlot 3rdTrayTTM *MediaType LabelPaper
+*UIConstraints: *InputSlot 4thTrayTTM *MediaType LabelPaper
+*UIConstraints: *InputSlot 1stTray *MediaType Stationary
+*UIConstraints: *InputSlot 2ndTray *MediaType Stationary
+*UIConstraints: *InputSlot 3rdTray *MediaType Stationary
+*UIConstraints: *InputSlot 4thTray *MediaType Stationary
+*UIConstraints: *InputSlot 3rdTrayTTM *MediaType Stationary
+*UIConstraints: *InputSlot 4thTrayTTM *MediaType Stationary
+*UIConstraints: *InputSlot 1stTray *MediaType FinePaper
+*UIConstraints: *InputSlot 2ndTray *MediaType FinePaper
+*UIConstraints: *InputSlot 3rdTray *MediaType FinePaper
+*UIConstraints: *InputSlot 4thTray *MediaType FinePaper
+*UIConstraints: *InputSlot 3rdTrayTTM *MediaType FinePaper
+*UIConstraints: *InputSlot 4thTrayTTM *MediaType FinePaper
+*UIConstraints: *InputSlot 1stTray *MediaType RecyclePaper
+*UIConstraints: *InputSlot 2ndTray *MediaType RecyclePaper
+*UIConstraints: *InputSlot 3rdTray *MediaType RecyclePaper
+*UIConstraints: *InputSlot 4thTray *MediaType RecyclePaper
+*UIConstraints: *InputSlot 3rdTrayTTM *MediaType RecyclePaper
+*UIConstraints: *InputSlot 4thTrayTTM *MediaType RecyclePaper
+*UIConstraints: *InputSlot 1stTray *MediaType CustomSizedPaper1
+*UIConstraints: *InputSlot 2ndTray *MediaType CustomSizedPaper1
+*UIConstraints: *InputSlot 3rdTray *MediaType CustomSizedPaper1
+*UIConstraints: *InputSlot 4thTray *MediaType CustomSizedPaper1
+*UIConstraints: *InputSlot 3rdTrayTTM *MediaType CustomSizedPaper1
+*UIConstraints: *InputSlot 4thTrayTTM *MediaType CustomSizedPaper1
+*UIConstraints: *InputSlot 1stTray *MediaType CustomSizedPaper2
+*UIConstraints: *InputSlot 2ndTray *MediaType CustomSizedPaper2
+*UIConstraints: *InputSlot 3rdTray *MediaType CustomSizedPaper2
+*UIConstraints: *InputSlot 4thTray *MediaType CustomSizedPaper2
+*UIConstraints: *InputSlot 3rdTrayTTM *MediaType CustomSizedPaper2
+*UIConstraints: *InputSlot 4thTrayTTM *MediaType CustomSizedPaper2
+*UIConstraints: *InputSlot 1stTray *MediaType CustomSizedPaper3
+*UIConstraints: *InputSlot 2ndTray *MediaType CustomSizedPaper3
+*UIConstraints: *InputSlot 3rdTray *MediaType CustomSizedPaper3
+*UIConstraints: *InputSlot 4thTray *MediaType CustomSizedPaper3
+*UIConstraints: *InputSlot 3rdTrayTTM *MediaType CustomSizedPaper3
+*UIConstraints: *InputSlot 4thTrayTTM *MediaType CustomSizedPaper3
+*UIConstraints: *InputSlot 1stTray *MediaType CustomSizedPaper4
+*UIConstraints: *InputSlot 2ndTray *MediaType CustomSizedPaper4
+*UIConstraints: *InputSlot 3rdTray *MediaType CustomSizedPaper4
+*UIConstraints: *InputSlot 4thTray *MediaType CustomSizedPaper4
+*UIConstraints: *InputSlot 3rdTrayTTM *MediaType CustomSizedPaper4
+*UIConstraints: *InputSlot 4thTrayTTM *MediaType CustomSizedPaper4
+*UIConstraints: *InputSlot 1stTray *MediaType CustomSizedPaper5
+*UIConstraints: *InputSlot 2ndTray *MediaType CustomSizedPaper5
+*UIConstraints: *InputSlot 3rdTray *MediaType CustomSizedPaper5
+*UIConstraints: *InputSlot 4thTray *MediaType CustomSizedPaper5
+*UIConstraints: *InputSlot 3rdTrayTTM *MediaType CustomSizedPaper5
+*UIConstraints: *InputSlot 4thTrayTTM *MediaType CustomSizedPaper5
+*UIConstraints: *MediaType Stationary *InputSlot 1stTray
+*UIConstraints: *MediaType Stationary *InputSlot 2ndTray
+*UIConstraints: *MediaType Stationary *InputSlot 3rdTray
+*UIConstraints: *MediaType Stationary *InputSlot 4thTray
+*UIConstraints: *MediaType Stationary *InputSlot 3rdTrayTTM
+*UIConstraints: *MediaType Stationary *InputSlot 4thTrayTTM
+*UIConstraints: *MediaType FinePaper *InputSlot 1stTray
+*UIConstraints: *MediaType FinePaper *InputSlot 2ndTray
+*UIConstraints: *MediaType FinePaper *InputSlot 3rdTray
+*UIConstraints: *MediaType FinePaper *InputSlot 4thTray
+*UIConstraints: *MediaType FinePaper *InputSlot 3rdTrayTTM
+*UIConstraints: *MediaType FinePaper *InputSlot 4thTrayTTM
+*UIConstraints: *MediaType RecyclePaper *InputSlot 1stTray
+*UIConstraints: *MediaType RecyclePaper *InputSlot 2ndTray
+*UIConstraints: *MediaType RecyclePaper *InputSlot 3rdTray
+*UIConstraints: *MediaType RecyclePaper *InputSlot 4thTray
+*UIConstraints: *MediaType RecyclePaper *InputSlot 3rdTrayTTM
+*UIConstraints: *MediaType RecyclePaper *InputSlot 4thTrayTTM
+*UIConstraints: *MediaType CustomSizedPaper1 *InputSlot 1stTray
+*UIConstraints: *MediaType CustomSizedPaper1 *InputSlot 2ndTray
+*UIConstraints: *MediaType CustomSizedPaper1 *InputSlot 3rdTray
+*UIConstraints: *MediaType CustomSizedPaper1 *InputSlot 4thTray
+*UIConstraints: *MediaType CustomSizedPaper1 *InputSlot 3rdTrayTTM
+*UIConstraints: *MediaType CustomSizedPaper1 *InputSlot 4thTrayTTM
+*UIConstraints: *MediaType CustomSizedPaper2 *InputSlot 1stTray
+*UIConstraints: *MediaType CustomSizedPaper2 *InputSlot 2ndTray
+*UIConstraints: *MediaType CustomSizedPaper2 *InputSlot 3rdTray
+*UIConstraints: *MediaType CustomSizedPaper2 *InputSlot 4thTray
+*UIConstraints: *MediaType CustomSizedPaper2 *InputSlot 3rdTrayTTM
+*UIConstraints: *MediaType CustomSizedPaper2 *InputSlot 4thTrayTTM
+*UIConstraints: *MediaType CustomSizedPaper3 *InputSlot 1stTray
+*UIConstraints: *MediaType CustomSizedPaper3 *InputSlot 2ndTray
+*UIConstraints: *MediaType CustomSizedPaper3 *InputSlot 3rdTray
+*UIConstraints: *MediaType CustomSizedPaper3 *InputSlot 4thTray
+*UIConstraints: *MediaType CustomSizedPaper3 *InputSlot 3rdTrayTTM
+*UIConstraints: *MediaType CustomSizedPaper3 *InputSlot 4thTrayTTM
+*UIConstraints: *MediaType CustomSizedPaper4 *InputSlot 1stTray
+*UIConstraints: *MediaType CustomSizedPaper4 *InputSlot 2ndTray
+*UIConstraints: *MediaType CustomSizedPaper4 *InputSlot 3rdTray
+*UIConstraints: *MediaType CustomSizedPaper4 *InputSlot 4thTray
+*UIConstraints: *MediaType CustomSizedPaper4 *InputSlot 3rdTrayTTM
+*UIConstraints: *MediaType CustomSizedPaper4 *InputSlot 4thTrayTTM
+*UIConstraints: *MediaType CustomSizedPaper5 *InputSlot 1stTray
+*UIConstraints: *MediaType CustomSizedPaper5 *InputSlot 2ndTray
+*UIConstraints: *MediaType CustomSizedPaper5 *InputSlot 3rdTray
+*UIConstraints: *MediaType CustomSizedPaper5 *InputSlot 4thTray
+*UIConstraints: *MediaType CustomSizedPaper5 *InputSlot 3rdTrayTTM
+*UIConstraints: *MediaType CustomSizedPaper5 *InputSlot 4thTrayTTM
+
+*UIConstraints: *MediaType Transparency *PageSize A5
+*UIConstraints: *MediaType Transparency *PageSize A6
+*UIConstraints: *MediaType Transparency *PageSize B4
+*UIConstraints: *MediaType Transparency *PageSize B6
+*UIConstraints: *MediaType Transparency *PageSize FanFoldGermanLegal
+*UIConstraints: *MediaType Transparency *PageSize Legal
+*UIConstraints: *MediaType Transparency *PageSize TabloidExtra
+*UIConstraints: *MediaType Transparency *PageSize Statement
+*UIConstraints: *MediaType Transparency *PageSize B5
+*UIConstraints: *PageSize A5 *MediaType Transparency 
+*UIConstraints: *PageSize A6 *MediaType Transparency
+*UIConstraints: *PageSize B4 *MediaType Transparency
+*UIConstraints: *PageSize B6 *MediaType Transparency
+*UIConstraints: *PageSize FanFoldGermanLegal *MediaType Transparency
+*UIConstraints: *PageSize Legal *MediaType Transparency
+*UIConstraints: *PageSize TabloidExtra *MediaType Transparency
+*UIConstraints: *PageSize Statement *MediaType Transparency
+*UIConstraints: *PageSize B5 *MediaType Transparency
+*UIConstraints: *MediaType Transparency *PageRegion A5  
+*UIConstraints: *MediaType Transparency *PageRegion A6 
+*UIConstraints: *MediaType Transparency *PageRegion B4
+*UIConstraints: *MediaType Transparency *PageRegion B6 
+*UIConstraints: *MediaType Transparency *PageRegion FanFoldGermanLegal 
+*UIConstraints: *MediaType Transparency *PageRegion Legal 
+*UIConstraints: *MediaType Transparency *PageRegion TabloidExtra 
+*UIConstraints: *MediaType Transparency *PageRegion Statement 
+*UIConstraints: *MediaType Transparency *PageRegion B5 
+*UIConstraints: *PageRegion A5 *MediaType Transparency    
+*UIConstraints: *PageRegion A6 *MediaType Transparency
+*UIConstraints: *PageRegion B4 *MediaType Transparency
+*UIConstraints: *PageRegion B6 *MediaType Transparency
+*UIConstraints: *PageRegion FanFoldGermanLegal *MediaType Transparency 
+*UIConstraints: *PageRegion Legal *MediaType Transparency
+*UIConstraints: *PageRegion TabloidExtra *MediaType Transparency
+*UIConstraints: *PageRegion Statement *MediaType Transparency
+*UIConstraints: *PageRegion B5 *MediaType Transparency
+
+*UIConstraints: *Option4 None *OutputBin FinisherTray
+*UIConstraints: *OutputBin FinisherTray  *Option4 None
+*UIConstraints: *ManualFeed False *MediaType Stationary
+*UIConstraints: *ManualFeed False *MediaType FinePaper
+*UIConstraints: *ManualFeed False *MediaType RecyclePaper
+*UIConstraints: *ManualFeed False *MediaType ThinPaper
+*UIConstraints: *ManualFeed False *MediaType ThickPaper
+*UIConstraints: *ManualFeed False *MediaType ThickPaperBack
+*UIConstraints: *ManualFeed False *MediaType ThickPaper2
+*UIConstraints: *ManualFeed False *MediaType ThickPaper2Back
+*UIConstraints: *ManualFeed False *MediaType CustomSizedPaper1
+*UIConstraints: *ManualFeed False *MediaType CustomSizedPaper2
+*UIConstraints: *ManualFeed False *MediaType CustomSizedPaper3
+*UIConstraints: *ManualFeed False *MediaType CustomSizedPaper4
+*UIConstraints: *ManualFeed False *MediaType CustomSizedPaper5
+*UIConstraints: *ManualFeed False *MediaType Transparency
+*UIConstraints: *ManualFeed False *MediaType LabelPaper
+*UIConstraints: *MediaType Stationary  *ManualFeed False
+*UIConstraints: *MediaType FinePaper *ManualFeed False
+*UIConstraints: *MediaType RecyclePaper *ManualFeed False
+*UIConstraints: *MediaType ThinPaper *ManualFeed False
+*UIConstraints: *MediaType ThickPaper *ManualFeed False
+*UIConstraints: *MediaType ThickPaperBack *ManualFeed False
+*UIConstraints: *MediaType ThickPaper2 *ManualFeed False
+*UIConstraints: *MediaType ThickPaper2Back *ManualFeed False
+*UIConstraints: *MediaType CustomSizedPaper1 *ManualFeed False
+*UIConstraints: *MediaType CustomSizedPaper2 *ManualFeed False
+*UIConstraints: *MediaType CustomSizedPaper3 *ManualFeed False
+*UIConstraints: *MediaType CustomSizedPaper4 *ManualFeed False
+*UIConstraints: *MediaType CustomSizedPaper5 *ManualFeed False
+*UIConstraints: *MediaType Transparency *ManualFeed False
+*UIConstraints: *MediaType LabelPaper *ManualFeed False
+*UIConstraints: *ManualFeed False *PageSize B6
+*UIConstraints: *ManualFeed False *PageSize A6
+*UIConstraints: *ManualFeed False *PageSize TabloidExtra
+*UIConstraints: *PageSize B6 *ManualFeed False
+*UIConstraints: *PageSize A6 *ManualFeed False
+*UIConstraints: *PageSize TabloidExtra *ManualFeed False
+*UIConstraints: *ManualFeed False *PageRegion B6
+*UIConstraints: *ManualFeed False *PageRegion A6
+*UIConstraints: *ManualFeed False *PageRegion TabloidExtra
+*UIConstraints: *PageRegion B6 *ManualFeed False
+*UIConstraints: *PageRegion A6 *ManualFeed False
+*UIConstraints: *PageRegion TabloidExtra *ManualFeed False
+*UIConstraints: *InputSlot 1stTray *XRSubPaperSelection Policy3
+*UIConstraints: *InputSlot 1stTray *XRSubPaperSelection Policy4
+*UIConstraints: *InputSlot 1stTray *XRSubPaperSelection Policy5
+*UIConstraints: *InputSlot 1stTray *XRSubPaperSelection Policy6
+*UIConstraints: *InputSlot 2ndTray *XRSubPaperSelection Policy3
+*UIConstraints: *InputSlot 2ndTray *XRSubPaperSelection Policy4
+*UIConstraints: *InputSlot 2ndTray *XRSubPaperSelection Policy5
+*UIConstraints: *InputSlot 2ndTray *XRSubPaperSelection Policy6
+*UIConstraints: *InputSlot 3rdTray *XRSubPaperSelection Policy3
+*UIConstraints: *InputSlot 3rdTray *XRSubPaperSelection Policy4
+*UIConstraints: *InputSlot 3rdTray *XRSubPaperSelection Policy5
+*UIConstraints: *InputSlot 3rdTray *XRSubPaperSelection Policy6
+*UIConstraints: *InputSlot 4thTray *XRSubPaperSelection Policy3
+*UIConstraints: *InputSlot 4thTray *XRSubPaperSelection Policy4
+*UIConstraints: *InputSlot 4thTray *XRSubPaperSelection Policy5
+*UIConstraints: *InputSlot 4thTray *XRSubPaperSelection Policy6
+*UIConstraints: *InputSlot 3rdTrayTTM *XRSubPaperSelection Policy3
+*UIConstraints: *InputSlot 3rdTrayTTM *XRSubPaperSelection Policy4
+*UIConstraints: *InputSlot 3rdTrayTTM *XRSubPaperSelection Policy5
+*UIConstraints: *InputSlot 3rdTrayTTM *XRSubPaperSelection Policy6
+*UIConstraints: *InputSlot 4thTrayTTM *XRSubPaperSelection Policy3
+*UIConstraints: *InputSlot 4thTrayTTM *XRSubPaperSelection Policy4
+*UIConstraints: *InputSlot 4thTrayTTM *XRSubPaperSelection Policy5
+*UIConstraints: *InputSlot 4thTrayTTM *XRSubPaperSelection Policy6
+*UIConstraints: *ManualFeed True *XRSubPaperSelection Policy3
+*UIConstraints: *ManualFeed True *XRSubPaperSelection Policy4
+*UIConstraints: *ManualFeed True *XRSubPaperSelection Policy5
+*UIConstraints: *ManualFeed True *XRSubPaperSelection Policy6
+*UIConstraints: *XRSubPaperSelection Policy3 *InputSlot 1stTray
+*UIConstraints: *XRSubPaperSelection Policy4 *InputSlot 1stTray
+*UIConstraints: *XRSubPaperSelection Policy5 *InputSlot 1stTray
+*UIConstraints: *XRSubPaperSelection Policy6 *InputSlot 1stTray
+*UIConstraints: *XRSubPaperSelection Policy3 *InputSlot 2ndTray
+*UIConstraints: *XRSubPaperSelection Policy4 *InputSlot 2ndTray
+*UIConstraints: *XRSubPaperSelection Policy5 *InputSlot 2ndTray
+*UIConstraints: *XRSubPaperSelection Policy6 *InputSlot 2ndTray
+*UIConstraints: *XRSubPaperSelection Policy3 *InputSlot 3rdTray
+*UIConstraints: *XRSubPaperSelection Policy4 *InputSlot 3rdTray
+*UIConstraints: *XRSubPaperSelection Policy5 *InputSlot 3rdTray
+*UIConstraints: *XRSubPaperSelection Policy6 *InputSlot 3rdTray
+*UIConstraints: *XRSubPaperSelection Policy3 *InputSlot 4thTray
+*UIConstraints: *XRSubPaperSelection Policy4 *InputSlot 4thTray
+*UIConstraints: *XRSubPaperSelection Policy5 *InputSlot 4thTray
+*UIConstraints: *XRSubPaperSelection Policy6 *InputSlot 4thTray
+*UIConstraints: *XRSubPaperSelection Policy3 *InputSlot 3rdTrayTTM
+*UIConstraints: *XRSubPaperSelection Policy4 *InputSlot 3rdTrayTTM
+*UIConstraints: *XRSubPaperSelection Policy5 *InputSlot 3rdTrayTTM
+*UIConstraints: *XRSubPaperSelection Policy6 *InputSlot 3rdTrayTTM
+*UIConstraints: *XRSubPaperSelection Policy3 *InputSlot 4thTrayTTM
+*UIConstraints: *XRSubPaperSelection Policy4 *InputSlot 4thTrayTTM
+*UIConstraints: *XRSubPaperSelection Policy5 *InputSlot 4thTrayTTM
+*UIConstraints: *XRSubPaperSelection Policy6 *InputSlot 4thTrayTTM
+*UIConstraints: *XRSubPaperSelection Policy3 *ManualFeed True
+*UIConstraints: *XRSubPaperSelection Policy4 *ManualFeed True
+*UIConstraints: *XRSubPaperSelection Policy5 *ManualFeed True
+*UIConstraints: *XRSubPaperSelection Policy6 *ManualFeed True
+*UIConstraints: *XRColorMode Black *XRGrayBalance True
+*UIConstraints: *XRGrayBalance True *XRColorMode Black
+*UIConstraints: *Smoothing True *XROutputMode 1200x600
+*UIConstraints: *Smoothing True *XROutputMode 1200x1200
+*UIConstraints: *XROutputMode 1200x600 *Smoothing True
+*UIConstraints: *XROutputMode 1200x1200 *Smoothing True
+*UIConstraints: *PageSize A3 *XRStaple LeftDual
+*UIConstraints: *PageSize A3 *XRStaple RightDual
+*UIConstraints: *XRStaple LeftDual *PageSize A3
+*UIConstraints: *XRStaple RightDual *PageSize A3
+*UIConstraints: *PageSize B4 *XRStaple LeftDual
+*UIConstraints: *PageSize B4 *XRStaple RightDual
+*UIConstraints: *XRStaple LeftDual *PageSize B4
+*UIConstraints: *XRStaple RightDual *PageSize B4
+*UIConstraints: *PageSize FanFoldGermanLegal *XRStaple LeftDual
+*UIConstraints: *PageSize FanFoldGermanLegal *XRStaple RightDual
+*UIConstraints: *PageSize FanFoldGermanLegal *XRStaple TopDual
+*UIConstraints: *PageSize FanFoldGermanLegal *XRStaple BottomDual
+*UIConstraints: *XRStaple LeftDual *PageSize FanFoldGermanLegal
+*UIConstraints: *XRStaple RightDual *PageSize FanFoldGermanLegal
+*UIConstraints: *XRStaple TopDual *PageSize FanFoldGermanLegal
+*UIConstraints: *XRStaple BottomDual *PageSize FanFoldGermanLegal
+*UIConstraints: *PageSize Legal *XRStaple LeftDual
+*UIConstraints: *PageSize Legal *XRStaple RightDual
+*UIConstraints: *PageSize Legal *XRStaple TopDual
+*UIConstraints: *PageSize Legal *XRStaple BottomDual
+*UIConstraints: *XRStaple LeftDual *PageSize Legal
+*UIConstraints: *XRStaple RightDual *PageSize Legal
+*UIConstraints: *XRStaple TopDual *PageSize Legal
+*UIConstraints: *XRStaple BottomDual *PageSize Legal
+*UIConstraints: *PageSize B5 *XRStaple TopDual
+*UIConstraints: *PageSize B5 *XRStaple BottomDual
+*UIConstraints: *XRStaple TopDual *PageSize B5
+*UIConstraints: *XRStaple BottomDual *PageSize B5
+*UIConstraints: *PageSize A4 *XRStaple TopDual
+*UIConstraints: *PageSize A4 *XRStaple BottomDual
+*UIConstraints: *XRStaple TopDual *PageSize A4
+*UIConstraints: *XRStaple BottomDual *PageSize A4
+*UIConstraints: *PageSize Letter *XRStaple TopDual
+*UIConstraints: *PageSize Letter *XRStaple BottomDual
+*UIConstraints: *XRStaple TopDual *PageSize Letter
+*UIConstraints: *XRStaple BottomDual *PageSize Letter
+*UIConstraints: *PageSize Tabloid *XRStaple LeftDual
+*UIConstraints: *PageSize Tabloid *XRStaple RightDual
+*UIConstraints: *XRStaple LeftDual *PageSize Tabloid
+*UIConstraints: *XRStaple RightDual *PageSize Tabloid
+*UIConstraints: *PageSize A5 *XRStaple UpperLeftSingle
+*UIConstraints: *PageSize A5 *XRStaple LowerLeftSingle
+*UIConstraints: *PageSize A5 *XRStaple UpperRightSingle
+*UIConstraints: *PageSize A5 *XRStaple LowerRightSingle
+*UIConstraints: *PageSize A5 *XRStaple LeftDual
+*UIConstraints: *PageSize A5 *XRStaple RightDual
+*UIConstraints: *PageSize A5 *XRStaple TopDual
+*UIConstraints: *PageSize A5 *XRStaple BottomDual
+*UIConstraints: *XRStaple UpperLeftSingle *PageSize A5
+*UIConstraints: *XRStaple LowerLeftSingle *PageSize A5
+*UIConstraints: *XRStaple UpperRightSingle *PageSize A5
+*UIConstraints: *XRStaple LowerRightSingle *PageSize A5
+*UIConstraints: *XRStaple LeftDual *PageSize A5
+*UIConstraints: *XRStaple RightDual *PageSize A5
+*UIConstraints: *XRStaple TopDual *PageSize A5
+*UIConstraints: *XRStaple BottomDual *PageSize A5
+*UIConstraints: *PageSize A5 *OutputBin FinisherTray
+*UIConstraints: *OutputBin FinisherTray *PageSize A5
+*UIConstraints: *PageSize A6 *XRStaple UpperLeftSingle
+*UIConstraints: *PageSize A6 *XRStaple LowerLeftSingle
+*UIConstraints: *PageSize A6 *XRStaple UpperRightSingle
+*UIConstraints: *PageSize A6 *XRStaple LowerRightSingle
+*UIConstraints: *PageSize A6 *XRStaple LeftDual
+*UIConstraints: *PageSize A6 *XRStaple RightDual
+*UIConstraints: *PageSize A6 *XRStaple TopDual
+*UIConstraints: *PageSize A6 *XRStaple BottomDual
+*UIConstraints: *XRStaple UpperLeftSingle *PageSize A6
+*UIConstraints: *XRStaple LowerLeftSingle *PageSize A6
+*UIConstraints: *XRStaple UpperRightSingle *PageSize A6
+*UIConstraints: *XRStaple LowerRightSingle *PageSize A6
+*UIConstraints: *XRStaple LeftDual *PageSize A6
+*UIConstraints: *XRStaple RightDual *PageSize A6
+*UIConstraints: *XRStaple TopDual *PageSize A6
+*UIConstraints: *XRStaple BottomDual *PageSize A6
+*UIConstraints: *PageSize A6 *OutputBin FinisherTray
+*UIConstraints: *OutputBin FinisherTray *PageSize A6
+*UIConstraints: *PageSize B6 *XRStaple UpperLeftSingle
+*UIConstraints: *PageSize B6 *XRStaple LowerLeftSingle
+*UIConstraints: *PageSize B6 *XRStaple UpperRightSingle
+*UIConstraints: *PageSize B6 *XRStaple LowerRightSingle
+*UIConstraints: *PageSize B6 *XRStaple LeftDual
+*UIConstraints: *PageSize B6 *XRStaple RightDual
+*UIConstraints: *PageSize B6 *XRStaple TopDual
+*UIConstraints: *PageSize B6 *XRStaple BottomDual
+*UIConstraints: *XRStaple UpperLeftSingle *PageSize B6
+*UIConstraints: *XRStaple LowerLeftSingle *PageSize B6
+*UIConstraints: *XRStaple UpperRightSingle *PageSize B6
+*UIConstraints: *XRStaple LowerRightSingle *PageSize B6
+*UIConstraints: *XRStaple LeftDual *PageSize B6
+*UIConstraints: *XRStaple RightDual *PageSize B6
+*UIConstraints: *XRStaple TopDual *PageSize B6
+*UIConstraints: *XRStaple BottomDual *PageSize B6
+*UIConstraints: *PageSize B6 *OutputBin FinisherTray
+*UIConstraints: *OutputBin FinisherTray *PageSize B6
+*UIConstraints: *PageSize TabloidExtra *XRStaple UpperLeftSingle
+*UIConstraints: *PageSize TabloidExtra *XRStaple LowerLeftSingle
+*UIConstraints: *PageSize TabloidExtra *XRStaple UpperRightSingle
+*UIConstraints: *PageSize TabloidExtra *XRStaple LowerRightSingle
+*UIConstraints: *PageSize TabloidExtra *XRStaple LeftDual
+*UIConstraints: *PageSize TabloidExtra *XRStaple RightDual
+*UIConstraints: *PageSize TabloidExtra *XRStaple TopDual
+*UIConstraints: *PageSize TabloidExtra *XRStaple BottomDual
+*UIConstraints: *XRStaple UpperLeftSingle *PageSize TabloidExtra
+*UIConstraints: *XRStaple LowerLeftSingle *PageSize TabloidExtra
+*UIConstraints: *XRStaple UpperRightSingle *PageSize TabloidExtra
+*UIConstraints: *XRStaple LowerRightSingle *PageSize TabloidExtra
+*UIConstraints: *XRStaple LeftDual *PageSize TabloidExtra
+*UIConstraints: *XRStaple RightDual *PageSize TabloidExtra
+*UIConstraints: *XRStaple TopDual *PageSize TabloidExtra
+*UIConstraints: *XRStaple BottomDual *PageSize TabloidExtra
+*UIConstraints: *PageSize TabloidExtra *OutputBin FinisherTray
+*UIConstraints: *OutputBin FinisherTray *PageSize TabloidExtra
+*UIConstraints: *PageSize Statement *XRStaple UpperLeftSingle
+*UIConstraints: *PageSize Statement *XRStaple LowerLeftSingle
+*UIConstraints: *PageSize Statement *XRStaple UpperRightSingle
+*UIConstraints: *PageSize Statement *XRStaple LowerRightSingle
+*UIConstraints: *PageSize Statement *XRStaple LeftDual
+*UIConstraints: *PageSize Statement *XRStaple RightDual
+*UIConstraints: *PageSize Statement *XRStaple TopDual
+*UIConstraints: *PageSize Statement *XRStaple BottomDual
+*UIConstraints: *XRStaple UpperLeftSingle *PageSize Statement
+*UIConstraints: *XRStaple LowerLeftSingle *PageSize Statement
+*UIConstraints: *XRStaple UpperRightSingle *PageSize Statement
+*UIConstraints: *XRStaple LowerRightSingle *PageSize Statement
+*UIConstraints: *XRStaple LeftDual *PageSize Statement
+*UIConstraints: *XRStaple RightDual *PageSize Statement
+*UIConstraints: *XRStaple TopDual *PageSize Statement
+*UIConstraints: *XRStaple BottomDual *PageSize Statement
+*UIConstraints: *PageSize Statement *OutputBin FinisherTray
+*UIConstraints: *OutputBin FinisherTray *PageSize Statement
+*UIConstraints: *PageRegion A3 *XRStaple LeftDual
+*UIConstraints: *PageRegion A3 *XRStaple RightDual
+*UIConstraints: *XRStaple LeftDual *PageRegion A3
+*UIConstraints: *XRStaple RightDual *PageRegion A3
+*UIConstraints: *PageRegion B4 *XRStaple LeftDual
+*UIConstraints: *PageRegion B4 *XRStaple RightDual
+*UIConstraints: *XRStaple LeftDual *PageRegion B4
+*UIConstraints: *XRStaple RightDual *PageRegion B4
+*UIConstraints: *PageRegion FanFoldGermanLegal *XRStaple LeftDual
+*UIConstraints: *PageRegion FanFoldGermanLegal *XRStaple RightDual
+*UIConstraints: *PageRegion FanFoldGermanLegal *XRStaple TopDual
+*UIConstraints: *PageRegion FanFoldGermanLegal *XRStaple BottomDual
+*UIConstraints: *XRStaple LeftDual *PageRegion FanFoldGermanLegal
+*UIConstraints: *XRStaple RightDual *PageRegion FanFoldGermanLegal
+*UIConstraints: *XRStaple TopDual *PageRegion FanFoldGermanLegal
+*UIConstraints: *XRStaple BottomDual *PageRegion FanFoldGermanLegal
+*UIConstraints: *PageRegion Legal *XRStaple LeftDual
+*UIConstraints: *PageRegion Legal *XRStaple RightDual
+*UIConstraints: *PageRegion Legal *XRStaple TopDual
+*UIConstraints: *PageRegion Legal *XRStaple BottomDual
+*UIConstraints: *XRStaple LeftDual *PageRegion Legal
+*UIConstraints: *XRStaple RightDual *PageRegion Legal
+*UIConstraints: *XRStaple TopDual *PageRegion Legal
+*UIConstraints: *XRStaple BottomDual *PageRegion Legal
+*UIConstraints: *PageRegion B5 *XRStaple TopDual
+*UIConstraints: *PageRegion B5 *XRStaple BottomDual
+*UIConstraints: *XRStaple TopDual *PageRegion B5
+*UIConstraints: *XRStaple BottomDual *PageRegion B5
+*UIConstraints: *PageRegion A4 *XRStaple TopDual
+*UIConstraints: *PageRegion A4 *XRStaple BottomDual
+*UIConstraints: *XRStaple TopDual *PageRegion A4
+*UIConstraints: *XRStaple BottomDual *PageRegion A4
+*UIConstraints: *PageRegion Letter *XRStaple TopDual
+*UIConstraints: *PageRegion Letter *XRStaple BottomDual
+*UIConstraints: *XRStaple TopDual *PageRegion Letter
+*UIConstraints: *XRStaple BottomDual *PageRegion Letter
+*UIConstraints: *PageRegion Tabloid *XRStaple LeftDual
+*UIConstraints: *PageRegion Tabloid *XRStaple RightDual
+*UIConstraints: *XRStaple LeftDual *PageRegion Tabloid
+*UIConstraints: *XRStaple RightDual *PageRegion Tabloid
+*UIConstraints: *PageRegion A5 *XRStaple UpperLeftSingle
+*UIConstraints: *PageRegion A5 *XRStaple LowerLeftSingle
+*UIConstraints: *PageRegion A5 *XRStaple UpperRightSingle
+*UIConstraints: *PageRegion A5 *XRStaple LowerRightSingle
+*UIConstraints: *PageRegion A5 *XRStaple LeftDual
+*UIConstraints: *PageRegion A5 *XRStaple RightDual
+*UIConstraints: *PageRegion A5 *XRStaple TopDual
+*UIConstraints: *PageRegion A5 *XRStaple BottomDual
+*UIConstraints: *XRStaple UpperLeftSingle *PageRegion A5
+*UIConstraints: *XRStaple LowerLeftSingle *PageRegion A5
+*UIConstraints: *XRStaple UpperRightSingle *PageRegion A5
+*UIConstraints: *XRStaple LowerRightSingle *PageRegion A5
+*UIConstraints: *XRStaple LeftDual *PageRegion A5
+*UIConstraints: *XRStaple RightDual *PageRegion A5
+*UIConstraints: *XRStaple TopDual *PageRegion A5
+*UIConstraints: *XRStaple BottomDual *PageRegion A5
+*UIConstraints: *PageRegion A5 *OutputBin FinisherTray
+*UIConstraints: *OutputBin FinisherTray *PageRegion A5
+*UIConstraints: *PageRegion A6 *XRStaple UpperLeftSingle
+*UIConstraints: *PageRegion A6 *XRStaple LowerLeftSingle
+*UIConstraints: *PageRegion A6 *XRStaple UpperRightSingle
+*UIConstraints: *PageRegion A6 *XRStaple LowerRightSingle
+*UIConstraints: *PageRegion A6 *XRStaple LeftDual
+*UIConstraints: *PageRegion A6 *XRStaple RightDual
+*UIConstraints: *PageRegion A6 *XRStaple TopDual
+*UIConstraints: *PageRegion A6 *XRStaple BottomDual
+*UIConstraints: *XRStaple UpperLeftSingle *PageRegion A6
+*UIConstraints: *XRStaple LowerLeftSingle *PageRegion A6
+*UIConstraints: *XRStaple UpperRightSingle *PageRegion A6
+*UIConstraints: *XRStaple LowerRightSingle *PageRegion A6
+*UIConstraints: *XRStaple LeftDual *PageRegion A6
+*UIConstraints: *XRStaple RightDual *PageRegion A6
+*UIConstraints: *XRStaple TopDual *PageRegion A6
+*UIConstraints: *XRStaple BottomDual *PageRegion A6
+*UIConstraints: *PageRegion A6 *OutputBin FinisherTray
+*UIConstraints: *OutputBin FinisherTray *PageRegion A6
+*UIConstraints: *PageRegion B6 *XRStaple UpperLeftSingle
+*UIConstraints: *PageRegion B6 *XRStaple LowerLeftSingle
+*UIConstraints: *PageRegion B6 *XRStaple UpperRightSingle
+*UIConstraints: *PageRegion B6 *XRStaple LowerRightSingle
+*UIConstraints: *PageRegion B6 *XRStaple LeftDual
+*UIConstraints: *PageRegion B6 *XRStaple RightDual
+*UIConstraints: *PageRegion B6 *XRStaple TopDual
+*UIConstraints: *PageRegion B6 *XRStaple BottomDual
+*UIConstraints: *XRStaple UpperLeftSingle *PageRegion B6
+*UIConstraints: *XRStaple LowerLeftSingle *PageRegion B6
+*UIConstraints: *XRStaple UpperRightSingle *PageRegion B6
+*UIConstraints: *XRStaple LowerRightSingle *PageRegion B6
+*UIConstraints: *XRStaple LeftDual *PageRegion B6
+*UIConstraints: *XRStaple RightDual *PageRegion B6
+*UIConstraints: *XRStaple TopDual *PageRegion B6
+*UIConstraints: *XRStaple BottomDual *PageRegion B6
+*UIConstraints: *PageRegion B6 *OutputBin FinisherTray
+*UIConstraints: *OutputBin FinisherTray *PageRegion B6
+*UIConstraints: *PageRegion TabloidExtra *XRStaple UpperLeftSingle
+*UIConstraints: *PageRegion TabloidExtra *XRStaple LowerLeftSingle
+*UIConstraints: *PageRegion TabloidExtra *XRStaple UpperRightSingle
+*UIConstraints: *PageRegion TabloidExtra *XRStaple LowerRightSingle
+*UIConstraints: *PageRegion TabloidExtra *XRStaple LeftDual
+*UIConstraints: *PageRegion TabloidExtra *XRStaple RightDual
+*UIConstraints: *PageRegion TabloidExtra *XRStaple TopDual
+*UIConstraints: *PageRegion TabloidExtra *XRStaple BottomDual
+*UIConstraints: *XRStaple UpperLeftSingle *PageRegion TabloidExtra
+*UIConstraints: *XRStaple LowerLeftSingle *PageRegion TabloidExtra
+*UIConstraints: *XRStaple UpperRightSingle *PageRegion TabloidExtra
+*UIConstraints: *XRStaple LowerRightSingle *PageRegion TabloidExtra
+*UIConstraints: *XRStaple LeftDual *PageRegion TabloidExtra
+*UIConstraints: *XRStaple RightDual *PageRegion TabloidExtra
+*UIConstraints: *XRStaple TopDual *PageRegion TabloidExtra
+*UIConstraints: *XRStaple BottomDual *PageRegion TabloidExtra
+*UIConstraints: *PageRegion TabloidExtra *OutputBin FinisherTray
+*UIConstraints: *OutputBin FinisherTray *PageRegion TabloidExtra
+*UIConstraints: *PageRegion Statement *XRStaple UpperLeftSingle
+*UIConstraints: *PageRegion Statement *XRStaple LowerLeftSingle
+*UIConstraints: *PageRegion Statement *XRStaple UpperRightSingle
+*UIConstraints: *PageRegion Statement *XRStaple LowerRightSingle
+*UIConstraints: *PageRegion Statement *XRStaple LeftDual
+*UIConstraints: *PageRegion Statement *XRStaple RightDual
+*UIConstraints: *PageRegion Statement *XRStaple TopDual
+*UIConstraints: *PageRegion Statement *XRStaple BottomDual
+*UIConstraints: *XRStaple UpperLeftSingle *PageRegion Statement
+*UIConstraints: *XRStaple LowerLeftSingle *PageRegion Statement
+*UIConstraints: *XRStaple UpperRightSingle *PageRegion Statement
+*UIConstraints: *XRStaple LowerRightSingle *PageRegion Statement
+*UIConstraints: *XRStaple LeftDual *PageRegion Statement
+*UIConstraints: *XRStaple RightDual *PageRegion Statement
+*UIConstraints: *XRStaple TopDual *PageRegion Statement
+*UIConstraints: *XRStaple BottomDual *PageRegion Statement
+*UIConstraints: *PageRegion Statement *OutputBin FinisherTray
+*UIConstraints: *OutputBin FinisherTray *PageRegion Statement
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *PageSize A3
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *PageRegion A3
+*UIConstraints: *PageSize A3 *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *PageRegion A3 *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *PageSize Tabloid
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *PageRegion Tabloid
+*UIConstraints: *PageSize Tabloid *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *PageRegion Tabloid *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *XRSlipSheet 4thTrayTTM *PageSize A3
+*UIConstraints: *XRSlipSheet 4thTrayTTM *PageRegion A3
+*UIConstraints: *PageSize A3 *XRSlipSheet 4thTrayTTM
+*UIConstraints: *PageRegion A3 *XRSlipSheet 4thTrayTTM
+*UIConstraints: *XRSlipSheet 4thTrayTTM *PageSize Tabloid
+*UIConstraints: *XRSlipSheet 4thTrayTTM *PageRegion Tabloid
+*UIConstraints: *PageSize Tabloid *XRSlipSheet 4thTrayTTM
+*UIConstraints: *PageRegion Tabloid *XRSlipSheet 4thTrayTTM
+*UIConstraints: *XRSlipSheet AutoTray *OutputBin FinisherTray
+*UIConstraints: *XRSlipSheet 1stTray *OutputBin FinisherTray
+*UIConstraints: *XRSlipSheet 2ndTray *OutputBin FinisherTray
+*UIConstraints: *XRSlipSheet 3rdTray *OutputBin FinisherTray
+*UIConstraints: *XRSlipSheet 4thTray *OutputBin FinisherTray
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *OutputBin FinisherTray
+*UIConstraints: *XRSlipSheet 4thTrayTTM *OutputBin FinisherTray
+*UIConstraints: *OutputBin FinisherTray *XRSlipSheet AutoTray
+*UIConstraints: *OutputBin FinisherTray *XRSlipSheet 1stTray
+*UIConstraints: *OutputBin FinisherTray *XRSlipSheet 2ndTray
+*UIConstraints: *OutputBin FinisherTray *XRSlipSheet 3rdTray
+*UIConstraints: *OutputBin FinisherTray *XRSlipSheet 4thTray
+*UIConstraints: *OutputBin FinisherTray *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *OutputBin FinisherTray *XRSlipSheet 4thTrayTTM
+*UIConstraints: *XRSlipSheet AutoTray *XRStaple UpperLeftSingle
+*UIConstraints: *XRSlipSheet 1stTray *XRStaple UpperLeftSingle
+*UIConstraints: *XRSlipSheet 2ndTray *XRStaple UpperLeftSingle
+*UIConstraints: *XRSlipSheet 3rdTray *XRStaple UpperLeftSingle
+*UIConstraints: *XRSlipSheet 4thTray *XRStaple UpperLeftSingle
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *XRStaple UpperLeftSingle
+*UIConstraints: *XRSlipSheet 4thTrayTTM *XRStaple UpperLeftSingle
+*UIConstraints: *XRStaple UpperLeftSingle *XRSlipSheet AutoTray
+*UIConstraints: *XRStaple UpperLeftSingle *XRSlipSheet 1stTray
+*UIConstraints: *XRStaple UpperLeftSingle *XRSlipSheet 2ndTray
+*UIConstraints: *XRStaple UpperLeftSingle *XRSlipSheet 3rdTray
+*UIConstraints: *XRStaple UpperLeftSingle *XRSlipSheet 4thTray
+*UIConstraints: *XRStaple UpperLeftSingle *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *XRStaple UpperLeftSingle *XRSlipSheet 4thTrayTTM
+*UIConstraints: *XRSlipSheet AutoTray *XRStaple LowerLeftSingle
+*UIConstraints: *XRSlipSheet 1stTray *XRStaple LowerLeftSingle
+*UIConstraints: *XRSlipSheet 2ndTray *XRStaple LowerLeftSingle
+*UIConstraints: *XRSlipSheet 3rdTray *XRStaple LowerLeftSingle
+*UIConstraints: *XRSlipSheet 4thTray *XRStaple LowerLeftSingle
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *XRStaple LowerLeftSingle
+*UIConstraints: *XRSlipSheet 4thTrayTTM *XRStaple LowerLeftSingle
+*UIConstraints: *XRStaple LowerLeftSingle *XRSlipSheet AutoTray
+*UIConstraints: *XRStaple LowerLeftSingle *XRSlipSheet 1stTray
+*UIConstraints: *XRStaple LowerLeftSingle *XRSlipSheet 2ndTray
+*UIConstraints: *XRStaple LowerLeftSingle *XRSlipSheet 3rdTray
+*UIConstraints: *XRStaple LowerLeftSingle *XRSlipSheet 4thTray
+*UIConstraints: *XRStaple LowerLeftSingle *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *XRStaple LowerLeftSingle *XRSlipSheet 4thTrayTTM
+*UIConstraints: *XRSlipSheet AutoTray *XRStaple UpperRightSingle
+*UIConstraints: *XRSlipSheet 1stTray *XRStaple UpperRightSingle
+*UIConstraints: *XRSlipSheet 2ndTray *XRStaple UpperRightSingle
+*UIConstraints: *XRSlipSheet 3rdTray *XRStaple UpperRightSingle
+*UIConstraints: *XRSlipSheet 4thTray *XRStaple UpperRightSingle
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *XRStaple UpperRightSingle
+*UIConstraints: *XRSlipSheet 4thTrayTTM *XRStaple UpperRightSingle
+*UIConstraints: *XRStaple UpperRightSingle *XRSlipSheet AutoTray
+*UIConstraints: *XRStaple UpperRightSingle *XRSlipSheet 1stTray
+*UIConstraints: *XRStaple UpperRightSingle *XRSlipSheet 2ndTray
+*UIConstraints: *XRStaple UpperRightSingle *XRSlipSheet 3rdTray
+*UIConstraints: *XRStaple UpperRightSingle *XRSlipSheet 4thTray
+*UIConstraints: *XRStaple UpperRightSingle *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *XRStaple UpperRightSingle *XRSlipSheet 4thTrayTTM
+*UIConstraints: *XRSlipSheet AutoTray *XRStaple LowerRightSingle
+*UIConstraints: *XRSlipSheet 1stTray *XRStaple LowerRightSingle
+*UIConstraints: *XRSlipSheet 2ndTray *XRStaple LowerRightSingle
+*UIConstraints: *XRSlipSheet 3rdTray *XRStaple LowerRightSingle
+*UIConstraints: *XRSlipSheet 4thTray *XRStaple LowerRightSingle
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *XRStaple LowerRightSingle
+*UIConstraints: *XRSlipSheet 4thTrayTTM *XRStaple LowerRightSingle
+*UIConstraints: *XRStaple LowerRightSingle *XRSlipSheet AutoTray
+*UIConstraints: *XRStaple LowerRightSingle *XRSlipSheet 1stTray
+*UIConstraints: *XRStaple LowerRightSingle *XRSlipSheet 2ndTray
+*UIConstraints: *XRStaple LowerRightSingle *XRSlipSheet 3rdTray
+*UIConstraints: *XRStaple LowerRightSingle *XRSlipSheet 4thTray
+*UIConstraints: *XRStaple LowerRightSingle *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *XRStaple LowerRightSingle *XRSlipSheet 4thTrayTTM
+*UIConstraints: *XRSlipSheet AutoTray *XRStaple TopDual
+*UIConstraints: *XRSlipSheet 1stTray *XRStaple TopDual
+*UIConstraints: *XRSlipSheet 2ndTray *XRStaple TopDual
+*UIConstraints: *XRSlipSheet 3rdTray *XRStaple TopDual
+*UIConstraints: *XRSlipSheet 4thTray *XRStaple TopDual
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *XRStaple TopDual
+*UIConstraints: *XRSlipSheet 4thTrayTTM *XRStaple TopDual
+*UIConstraints: *XRStaple TopDual *XRSlipSheet AutoTray
+*UIConstraints: *XRStaple TopDual *XRSlipSheet 1stTray
+*UIConstraints: *XRStaple TopDual *XRSlipSheet 2ndTray
+*UIConstraints: *XRStaple TopDual *XRSlipSheet 3rdTray
+*UIConstraints: *XRStaple TopDual *XRSlipSheet 4thTray
+*UIConstraints: *XRStaple TopDual *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *XRStaple TopDual *XRSlipSheet 4thTrayTTM
+*UIConstraints: *XRSlipSheet AutoTray *XRStaple BottomDual
+*UIConstraints: *XRSlipSheet 1stTray *XRStaple BottomDual
+*UIConstraints: *XRSlipSheet 2ndTray *XRStaple BottomDual
+*UIConstraints: *XRSlipSheet 3rdTray *XRStaple BottomDual
+*UIConstraints: *XRSlipSheet 4thTray *XRStaple BottomDual
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *XRStaple BottomDual
+*UIConstraints: *XRSlipSheet 4thTrayTTM *XRStaple BottomDual
+*UIConstraints: *XRStaple BottomDual *XRSlipSheet AutoTray
+*UIConstraints: *XRStaple BottomDual *XRSlipSheet 1stTray
+*UIConstraints: *XRStaple BottomDual *XRSlipSheet 2ndTray
+*UIConstraints: *XRStaple BottomDual *XRSlipSheet 3rdTray
+*UIConstraints: *XRStaple BottomDual *XRSlipSheet 4thTray
+*UIConstraints: *XRStaple BottomDual *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *XRStaple BottomDual *XRSlipSheet 4thTrayTTM
+*UIConstraints: *XRSlipSheet AutoTray *XRStaple LeftDual
+*UIConstraints: *XRSlipSheet 1stTray *XRStaple LeftDual
+*UIConstraints: *XRSlipSheet 2ndTray *XRStaple LeftDual
+*UIConstraints: *XRSlipSheet 3rdTray *XRStaple LeftDual
+*UIConstraints: *XRSlipSheet 4thTray *XRStaple LeftDual
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *XRStaple LeftDual
+*UIConstraints: *XRSlipSheet 4thTrayTTM *XRStaple LeftDual
+*UIConstraints: *XRStaple LeftDual *XRSlipSheet AutoTray
+*UIConstraints: *XRStaple LeftDual *XRSlipSheet 1stTray
+*UIConstraints: *XRStaple LeftDual *XRSlipSheet 2ndTray
+*UIConstraints: *XRStaple LeftDual *XRSlipSheet 3rdTray
+*UIConstraints: *XRStaple LeftDual *XRSlipSheet 4thTray
+*UIConstraints: *XRStaple LeftDual *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *XRStaple LeftDual *XRSlipSheet 4thTrayTTM
+*UIConstraints: *XRSlipSheet AutoTray *XRStaple RightDual
+*UIConstraints: *XRSlipSheet 1stTray *XRStaple RightDual
+*UIConstraints: *XRSlipSheet 2ndTray *XRStaple RightDual
+*UIConstraints: *XRSlipSheet 3rdTray *XRStaple RightDual
+*UIConstraints: *XRSlipSheet 4thTray *XRStaple RightDual
+*UIConstraints: *XRSlipSheet 3rdTrayTTM *XRStaple RightDual
+*UIConstraints: *XRSlipSheet 4thTrayTTM *XRStaple RightDual
+*UIConstraints: *XRStaple RightDual *XRSlipSheet AutoTray
+*UIConstraints: *XRStaple RightDual *XRSlipSheet 1stTray
+*UIConstraints: *XRStaple RightDual *XRSlipSheet 2ndTray
+*UIConstraints: *XRStaple RightDual *XRSlipSheet 3rdTray
+*UIConstraints: *XRStaple RightDual *XRSlipSheet 4thTray
+*UIConstraints: *XRStaple RightDual *XRSlipSheet 3rdTrayTTM
+*UIConstraints: *XRStaple RightDual *XRSlipSheet 4thTrayTTM
+*UIConstraints: *MediaType ThinPaper *OutputBin FinisherTray
+*UIConstraints: *MediaType LabelPaper *OutputBin FinisherTray
+*UIConstraints: *MediaType ThickPaper *OutputBin FinisherTray
+*UIConstraints: *MediaType ThickPaperBack *OutputBin FinisherTray
+*UIConstraints: *MediaType ThickPaper2 *OutputBin FinisherTray
+*UIConstraints: *MediaType ThickPaper2Back *OutputBin FinisherTray
+*UIConstraints: *MediaType Transparency *OutputBin FinisherTray
+*UIConstraints: *OutputBin FinisherTray *MediaType ThinPaper
+*UIConstraints: *OutputBin FinisherTray *MediaType LabelPaper
+*UIConstraints: *OutputBin FinisherTray *MediaType ThickPaper
+*UIConstraints: *OutputBin FinisherTray *MediaType ThickPaperBack
+*UIConstraints: *OutputBin FinisherTray *MediaType ThickPaper2
+*UIConstraints: *OutputBin FinisherTray *MediaType ThickPaper2Back
+*UIConstraints: *OutputBin FinisherTray *MediaType Transparency
+*UIConstraints: *MediaType ThinPaper *XRStaple UpperLeftSingle
+*UIConstraints: *MediaType ThinPaper *XRStaple LowerLeftSingle
+*UIConstraints: *MediaType ThinPaper *XRStaple UpperRightSingle
+*UIConstraints: *MediaType ThinPaper *XRStaple LowerRightSingle
+*UIConstraints: *MediaType ThinPaper *XRStaple LeftDual
+*UIConstraints: *MediaType ThinPaper *XRStaple RightDual
+*UIConstraints: *MediaType ThinPaper *XRStaple TopDual
+*UIConstraints: *MediaType ThinPaper *XRStaple BottomDual
+*UIConstraints: *XRStaple UpperLeftSingle *MediaType ThinPaper
+*UIConstraints: *XRStaple LowerLeftSingle *MediaType ThinPaper
+*UIConstraints: *XRStaple UpperRightSingle *MediaType ThinPaper
+*UIConstraints: *XRStaple LowerRightSingle *MediaType ThinPaper
+*UIConstraints: *XRStaple LeftDual *MediaType ThinPaper
+*UIConstraints: *XRStaple RightDual *MediaType ThinPaper
+*UIConstraints: *XRStaple TopDual *MediaType ThinPaper
+*UIConstraints: *XRStaple BottomDual *MediaType ThinPaper
+*UIConstraints: *MediaType LabelPaper *XRStaple UpperLeftSingle
+*UIConstraints: *MediaType LabelPaper *XRStaple LowerLeftSingle
+*UIConstraints: *MediaType LabelPaper *XRStaple UpperRightSingle
+*UIConstraints: *MediaType LabelPaper *XRStaple LowerRightSingle
+*UIConstraints: *MediaType LabelPaper *XRStaple LeftDual
+*UIConstraints: *MediaType LabelPaper *XRStaple RightDual
+*UIConstraints: *MediaType LabelPaper *XRStaple TopDual
+*UIConstraints: *MediaType LabelPaper *XRStaple BottomDual
+*UIConstraints: *XRStaple UpperLeftSingle *MediaType LabelPaper
+*UIConstraints: *XRStaple LowerLeftSingle *MediaType LabelPaper
+*UIConstraints: *XRStaple UpperRightSingle *MediaType LabelPaper
+*UIConstraints: *XRStaple LowerRightSingle *MediaType LabelPaper
+*UIConstraints: *XRStaple LeftDual *MediaType LabelPaper
+*UIConstraints: *XRStaple RightDual *MediaType LabelPaper
+*UIConstraints: *XRStaple TopDual *MediaType LabelPaper
+*UIConstraints: *XRStaple BottomDual *MediaType LabelPaper
+*UIConstraints: *MediaType ThickPaper *XRStaple UpperLeftSingle
+*UIConstraints: *MediaType ThickPaper *XRStaple LowerLeftSingle
+*UIConstraints: *MediaType ThickPaper *XRStaple UpperRightSingle
+*UIConstraints: *MediaType ThickPaper *XRStaple LowerRightSingle
+*UIConstraints: *MediaType ThickPaper *XRStaple LeftDual
+*UIConstraints: *MediaType ThickPaper *XRStaple RightDual
+*UIConstraints: *MediaType ThickPaper *XRStaple TopDual
+*UIConstraints: *MediaType ThickPaper *XRStaple BottomDual
+*UIConstraints: *XRStaple UpperLeftSingle *MediaType ThickPaper
+*UIConstraints: *XRStaple LowerLeftSingle *MediaType ThickPaper
+*UIConstraints: *XRStaple UpperRightSingle *MediaType ThickPaper
+*UIConstraints: *XRStaple LowerRightSingle *MediaType ThickPaper
+*UIConstraints: *XRStaple LeftDual *MediaType ThickPaper
+*UIConstraints: *XRStaple RightDual *MediaType ThickPaper
+*UIConstraints: *XRStaple TopDual *MediaType ThickPaper
+*UIConstraints: *XRStaple BottomDual *MediaType ThickPaper
+*UIConstraints: *MediaType ThickPaperBack *XRStaple UpperLeftSingle
+*UIConstraints: *MediaType ThickPaperBack *XRStaple LowerLeftSingle
+*UIConstraints: *MediaType ThickPaperBack *XRStaple UpperRightSingle
+*UIConstraints: *MediaType ThickPaperBack *XRStaple LowerRightSingle
+*UIConstraints: *MediaType ThickPaperBack *XRStaple LeftDual
+*UIConstraints: *MediaType ThickPaperBack *XRStaple RightDual
+*UIConstraints: *MediaType ThickPaperBack *XRStaple TopDual
+*UIConstraints: *MediaType ThickPaperBack *XRStaple BottomDual
+*UIConstraints: *XRStaple UpperLeftSingle *MediaType ThickPaperBack
+*UIConstraints: *XRStaple LowerLeftSingle *MediaType ThickPaperBack
+*UIConstraints: *XRStaple UpperRightSingle *MediaType ThickPaperBack
+*UIConstraints: *XRStaple LowerRightSingle *MediaType ThickPaperBack
+*UIConstraints: *XRStaple LeftDual *MediaType ThickPaperBack
+*UIConstraints: *XRStaple RightDual *MediaType ThickPaperBack
+*UIConstraints: *XRStaple TopDual *MediaType ThickPaperBack
+*UIConstraints: *XRStaple BottomDual *MediaType ThickPaperBack
+*UIConstraints: *MediaType ThickPaper2 *XRStaple UpperLeftSingle
+*UIConstraints: *MediaType ThickPaper2 *XRStaple LowerLeftSingle
+*UIConstraints: *MediaType ThickPaper2 *XRStaple UpperRightSingle
+*UIConstraints: *MediaType ThickPaper2 *XRStaple LowerRightSingle
+*UIConstraints: *MediaType ThickPaper2 *XRStaple LeftDual
+*UIConstraints: *MediaType ThickPaper2 *XRStaple RightDual
+*UIConstraints: *MediaType ThickPaper2 *XRStaple TopDual
+*UIConstraints: *MediaType ThickPaper2 *XRStaple BottomDual
+*UIConstraints: *XRStaple UpperLeftSingle *MediaType ThickPaper2
+*UIConstraints: *XRStaple LowerLeftSingle *MediaType ThickPaper2
+*UIConstraints: *XRStaple UpperRightSingle *MediaType ThickPaper2
+*UIConstraints: *XRStaple LowerRightSingle *MediaType ThickPaper2
+*UIConstraints: *XRStaple LeftDual *MediaType ThickPaper2
+*UIConstraints: *XRStaple RightDual *MediaType ThickPaper2
+*UIConstraints: *XRStaple TopDual *MediaType ThickPaper2
+*UIConstraints: *XRStaple BottomDual *MediaType ThickPaper2
+*UIConstraints: *MediaType ThickPaper2Back *XRStaple UpperLeftSingle
+*UIConstraints: *MediaType ThickPaper2Back *XRStaple LowerLeftSingle
+*UIConstraints: *MediaType ThickPaper2Back *XRStaple UpperRightSingle
+*UIConstraints: *MediaType ThickPaper2Back *XRStaple LowerRightSingle
+*UIConstraints: *MediaType ThickPaper2Back *XRStaple LeftDual
+*UIConstraints: *MediaType ThickPaper2Back *XRStaple RightDual
+*UIConstraints: *MediaType ThickPaper2Back *XRStaple TopDual
+*UIConstraints: *MediaType ThickPaper2Back *XRStaple BottomDual
+*UIConstraints: *XRStaple UpperLeftSingle *MediaType ThickPaper2Back
+*UIConstraints: *XRStaple LowerLeftSingle *MediaType ThickPaper2Back
+*UIConstraints: *XRStaple UpperRightSingle *MediaType ThickPaper2Back
+*UIConstraints: *XRStaple LowerRightSingle *MediaType ThickPaper2Back
+*UIConstraints: *XRStaple LeftDual *MediaType ThickPaper2Back
+*UIConstraints: *XRStaple RightDual *MediaType ThickPaper2Back
+*UIConstraints: *XRStaple TopDual *MediaType ThickPaper2Back
+*UIConstraints: *XRStaple BottomDual *MediaType ThickPaper2Back
+*UIConstraints: *MediaType Transparency *XRStaple UpperLeftSingle
+*UIConstraints: *MediaType Transparency *XRStaple LowerLeftSingle
+*UIConstraints: *MediaType Transparency *XRStaple UpperRightSingle
+*UIConstraints: *MediaType Transparency *XRStaple LowerRightSingle
+*UIConstraints: *MediaType Transparency *XRStaple LeftDual
+*UIConstraints: *MediaType Transparency *XRStaple RightDual
+*UIConstraints: *MediaType Transparency *XRStaple TopDual
+*UIConstraints: *MediaType Transparency *XRStaple BottomDual
+*UIConstraints: *XRStaple UpperLeftSingle *MediaType Transparency
+*UIConstraints: *XRStaple LowerLeftSingle *MediaType Transparency
+*UIConstraints: *XRStaple UpperRightSingle *MediaType Transparency
+*UIConstraints: *XRStaple LowerRightSingle *MediaType Transparency
+*UIConstraints: *XRStaple LeftDual *MediaType Transparency
+*UIConstraints: *XRStaple RightDual *MediaType Transparency
+*UIConstraints: *XRStaple TopDual *MediaType Transparency
+*UIConstraints: *XRStaple BottomDual *MediaType Transparency
+*UIConstraints: *OutputBin CenterTray *XRStaple UpperLeftSingle
+*UIConstraints: *OutputBin CenterTray *XRStaple LowerLeftSingle
+*UIConstraints: *OutputBin CenterTray *XRStaple UpperRightSingle
+*UIConstraints: *OutputBin CenterTray *XRStaple LowerRightSingle
+*UIConstraints: *OutputBin CenterTray *XRStaple LeftDual
+*UIConstraints: *OutputBin CenterTray *XRStaple RightDual
+*UIConstraints: *OutputBin CenterTray *XRStaple TopDual
+*UIConstraints: *OutputBin CenterTray *XRStaple BottomDual
+*UIConstraints: *XRStaple UpperLeftSingle *OutputBin CenterTray
+*UIConstraints: *XRStaple LowerLeftSingle *OutputBin CenterTray
+*UIConstraints: *XRStaple UpperRightSingle *OutputBin CenterTray
+*UIConstraints: *XRStaple LowerRightSingle *OutputBin CenterTray
+*UIConstraints: *XRStaple LeftDual *OutputBin CenterTray
+*UIConstraints: *XRStaple RightDual *OutputBin CenterTray
+*UIConstraints: *XRStaple TopDual *OutputBin CenterTray
+*UIConstraints: *XRStaple BottomDual *OutputBin CenterTray
+*UIConstraints: *ManualFeed True *OutputBin FinisherTray
+*UIConstraints: *OutputBin FinisherTray *ManualFeed True
+*NonUIConstraints: *CustomPageSize True *InputSlot 1stTray
+*NonUIConstraints: *CustomPageSize True *InputSlot 2ndTray
+*NonUIConstraints: *CustomPageSize True *InputSlot 3rdTray
+*NonUIConstraints: *CustomPageSize True *InputSlot 4thTray
+*NonUIConstraints: *CustomPageSize True *InputSlot 3rdTrayTTM
+*NonUIConstraints: *CustomPageSize True *InputSlot 4thTrayTTM
+*NonUIConstraints: *CustomPageSize True *ManualFeed False
+*NonUIConstraints: *InputSlot 1stTray *CustomPageSize True
+*NonUIConstraints: *InputSlot 2ndTray *CustomPageSize True
+*NonUIConstraints: *InputSlot 3rdTray *CustomPageSize True
+*NonUIConstraints: *InputSlot 4thTray *CustomPageSize True
+*NonUIConstraints: *InputSlot 3rdTrayTTM *CustomPageSize True
+*NonUIConstraints: *InputSlot 4thTrayTTM *CustomPageSize True
+*NonUIConstraints: *ManualFeed False *CustomPageSize True
+
+*NonUIConstraints: *CustomPageSize True *XRStaple UpperLeftSingle
+*NonUIConstraints: *CustomPageSize True *XRStaple LowerLeftSingle
+*NonUIConstraints: *CustomPageSize True *XRStaple UpperRightSingle
+*NonUIConstraints: *CustomPageSize True *XRStaple LowerRightSingle
+*NonUIConstraints: *CustomPageSize True *XRStaple LeftDual
+*NonUIConstraints: *CustomPageSize True *XRStaple RightDual
+*NonUIConstraints: *CustomPageSize True *XRStaple TopDual
+*NonUIConstraints: *CustomPageSize True *XRStaple BottomDual
+*NonUIConstraints: *XRStaple UpperLeftSingle *CustomPageSize True
+*NonUIConstraints: *XRStaple LowerLeftSingle *CustomPageSize True
+*NonUIConstraints: *XRStaple UpperRightSingle *CustomPageSize True
+*NonUIConstraints: *XRStaple LowerRightSingle *CustomPageSize True
+*NonUIConstraints: *XRStaple LeftDual *CustomPageSize True
+*NonUIConstraints: *XRStaple RightDual *CustomPageSize True
+*NonUIConstraints: *XRStaple TopDual *CustomPageSize True
+*NonUIConstraints: *XRStaple BottomDual *CustomPageSize True
+*NonUIConstraints: *CustomPageSize True *OutputBin FinisherTray
+*NonUIConstraints: *OutputBin FinisherTray *CustomPageSize True
+*NonUIConstraints: *CustomPageSize True *MediaType Transparency
+*NonUIConstraints: *MediaType Transparency *CustomPageSize True
+
+*% ==== Device Capabilities ===============
+*LanguageLevel: "3"
+*Protocols: BCP TBCP
+*1284Modes Parallel: Compat Nibble ECP
+*1284DeviceID: "MANUFACTURER:XEROX;COMMAND SET:;MODEL:WorkCentre 24;CLASS:PRINTER;COMPATIBLE ID:;DESCRIPTION:XEROX WorkCentre 24;"
+
+*FreeVM: "15307240"
+*VMOption 512Meg/Standard 512MB: "15307240"
+
+*ColorDevice: True
+*DefaultColorSpace: CMYK
+*VariablePaperSize: True
+*LandscapeOrientation: Plus90
+*TTRasterizer: Type42
+*?TTRasterizer: "
+save
+    42 /FontType resourcestatus
+    {pop pop (Type42)}{(No Type42)} ifelse = flush
+restore
+"
+*End
+*FileSystem: True
+*?FileSystem: "
+  save false
+   (%disk?%)
+   { currentdevparams dup /Writeable known
+      { /Writeable get {pop true} if }  { pop } ifelse
+    } 10 string /IODevice resourceforall
+    {(True)}{(False)} ifelse = flush
+ restore
+"
+*End
+
+*Throughput: "13"
+*Password: "()" 
+*ExitServer: "
+ count 0 eq
+ { false } { true exch startjob } ifelse
+ not { 
+     (WARNING: Cannot modify initial VM.) =
+     (Missing or invalid password.) =
+     (Please contact the author of this software.) = flush quit
+     } if
+"
+*End
+*Reset: "
+ count 0 eq
+ { false } { true exch startjob } ifelse
+ not { 
+    (WARNING: Cannot reset printer.) =
+    (Missing or invalid password.) =
+    (Please contact the author of this software.) = flush quit
+    } if
+ systemdict /quit get exec
+ (WARNING : Printer Reset Failed.) = flush
+"
+*End
+
+*SuggestedJobTimeout: "0"
+*SuggestedWaitTimeout: "300"
+*PrintPSErrors: True
+
+*% OutputMode Information ===================
+*DefaultResolution: 600dpi
+*?Resolution: "
+save
+    currentpagedevice /HWResolution get dup aload pop eq
+    {0 get cvi 9 string cvs print}
+    {aload pop exch cvi 9 string cvs print (x) print cvi 9 string cvs print}
+    ifelse (dpi) =
+restore
+"
+*End
+*AccurateScreensSupport: True
+
+*% Paper Handling ===================
+
+*RequiresPageRegion 1stTray: False
+*RequiresPageRegion 2ndTray: False
+*RequiresPageRegion 3rdTray: False
+*RequiresPageRegion 4thTray: False
+*RequiresPageRegion 3rdTrayTTM: False
+*RequiresPageRegion 4thTrayTTM: False
+
+*% Code in this section both selects a tray and sets up a frame buffer.
+*OpenUI *PageSize: PickOne
+*OrderDependency: 60.0 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize A4/A4 (210x297mm): "
+    6 dict dup /PageSize [595 842] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageSize A3/A3 (297x420mm): "
+    6 dict dup /PageSize [842 1191] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageSize A5/A5 (148x210mm): "
+    6 dict dup /PageSize [420 595] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageSize A6/A6 (105x148mm): "
+    6 dict dup /PageSize [297 420] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageSize B4/B4 (257x364mm): "
+    6 dict dup /PageSize [729 1032] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageSize B5/B5 (182x257mm): "
+    6 dict dup /PageSize [516 729] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageSize B6/B6 (128x182mm): "
+    6 dict dup /PageSize [363 516] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageSize Letter/8.5x11" (Letter): "
+    6 dict dup /PageSize [612 792] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageSize FanFoldGermanLegal/8.5x13" (Folio): "
+    6 dict dup /PageSize [612 936] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageSize Legal/8.5x14" (Legal): "
+    6 dict dup /PageSize [612 1008] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageSize Tabloid/11x17" (Ledger): "
+    6 dict dup /PageSize [792 1224] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageSize TabloidExtra/12x18" : "
+    6 dict dup /PageSize [864 1296] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageSize Statement/5.5x8.5" (Statement): "
+    6 dict dup /PageSize [396 612] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*?PageSize: "
+  save
+   currentpagedevice /PageSize get aload pop
+   2 copy gt {exch} if 
+   (Unknown) 
+  10 dict
+   dup [842 1191] (A3) put
+   dup [595 842] (A4) put
+   dup [420 595] (A5) put
+   dup [297 420] (A6) put
+   dup [729 1032] (B4) put
+   dup [516 729] (B5) put
+   dup [363 516] (B6) put
+   dup [612 792] (Letter) put
+   dup [612 936] (FanFoldGermanLegal) put
+   dup [612 1008] (Legal) put
+   dup [792 1224] (Tabloid) put
+   dup [864 1296] (TabloidExtra) put
+   dup [396 612] (Statement) put
+ { exch aload pop 4 index sub abs 5 le exch 
+   5 index sub abs 5 le and 
+      {exch pop exit} {pop} ifelse
+   } bind forall
+   = flush pop pop
+   restore
+"
+*End
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion:  PickOne
+*OrderDependency: 80.0 AnySetup *PageRegion
+*DefaultPageRegion: A4
+*PageRegion A4/A4 (210x297mm): "
+    6 dict dup /PageSize [595 842] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageRegion A3/A3 (297x420mm): "
+    6 dict dup /PageSize [842 1191] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageRegion A5/A5 (148x210mm): "
+    6 dict dup /PageSize [420 595] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageRegion A6/A6 (105x148mm): "
+    6 dict dup /PageSize [297 420] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageRegion B4/B4 (257x364mm): "
+    6 dict dup /PageSize [729 1032] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageRegion B5/B5 (182x257mm): "
+    6 dict dup /PageSize [516 729] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageRegion B6/B6 (128x182mm): "
+    6 dict dup /PageSize [363 516] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageRegion Letter/8.5x11" (Letter): "
+    6 dict dup /PageSize [612 792] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageRegion FanFoldGermanLegal/8.5x13" (Folio): "
+    6 dict dup /PageSize [612 936] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageRegion Legal/8.5x14" (Legal): "
+    6 dict dup /PageSize [612 1008] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageRegion Tabloid/11x17" (Ledger): "
+    6 dict dup /PageSize [792 1224] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageRegion TabloidExtra/12x18" : "
+    6 dict dup /PageSize [864 1296] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*PageRegion Statement/5.5x8.5" (Statement): "
+    6 dict dup /PageSize [396 612] put dup /ImagingBBox null put 
+    dup /LeadingEdge null put
+    dup /MediaPosition null put dup /TraySwitch true put currentpagedevice
+    /Policies 2 copy known 
+    {get /PageSize 2 copy known 
+      {get dup 3 ge exch 6 le and {dup /DeferredMediaSelection false put} if}
+      {pop pop} ifelse
+    }{pop pop} ifelse setpagedevice
+"
+*End
+*CloseUI: *PageRegion
+
+*% The following entries provide information about specific paper keywords.
+*DefaultImageableArea: Letter
+*ImageableArea A3/A3 (297x420mm): "11.62 11.62 830.27 1178.93 "
+*ImageableArea A4/A4 (210x297mm): "11.62 11.62 583.65 830.27 "
+*ImageableArea A5/A5 (148x210mm): "11.62 11.62 407.91 583.65 "
+*ImageableArea A6/A6 (105x148mm): "11.62 11.62 286.02 407.91 "
+*ImageableArea B4/B4 (257x364mm): "11.62 11.62 716.88 1020.19 "
+*ImageableArea B5/B5 (182x257mm): "11.62 11.62 504.28 716.88 "
+*ImageableArea B6/B6 (128x182mm): "11.62 11.62 351.21 504.28 "
+*ImageableArea Letter/8.5x11" (Letter): "11.62 11.62 600.38 780.38 "
+*ImageableArea FanFoldGermanLegal/8.5x13" (Folio): "11.62 11.62 600.38 924.38 " 
+*ImageableArea Legal/8.5x14" (Legal): "11.62 11.62 600.38 996.38 " 
+*ImageableArea Tabloid/11x17" (Ledger): "11.62 11.62 780.38 1212.38 " 
+*ImageableArea TabloidExtra/12x18" : "11.62 11.62 852.38 1284.38 " 
+*ImageableArea Statement/5.5x8.5" (Statement): "11.62 11.62 384.38 600.38 " 
+*?ImageableArea: "
+save
+   3 dict begin
+   /cvp { (                ) cvs print ( ) print } bind def
+   /upperright {10000 mul floor 10000 div} bind def
+   /lowerleft {10000 mul ceiling 10000 div} bind def
+   newpath clippath pathbbox
+   4 -2 roll exch 2 {lowerleft cvp} repeat
+   exch 2 {upperright cvp} repeat (\n) print flush
+   end
+restore
+"
+*End
+
+*% These provide the physical dimensions of the paper (by keyword)
+*DefaultPaperDimension: Letter
+*PaperDimension A4/A4 (210x297mm): "595 842"
+*PaperDimension A3/A3 (297x420mm): "842 1191"
+*PaperDimension A5/A5 (148x210mm): "420 595"
+*PaperDimension A6/A6 (105x148mm): "297 420"
+*PaperDimension B4/B4 (257x364mm): "729 1032"
+*PaperDimension B5/B5 (182x257mm): "516 729"
+*PaperDimension B6/B6 (128x182mm): "363 516"
+*PaperDimension Letter/8.5x11" (Letter): "612 792"
+*PaperDimension FanFoldGermanLegal/8.5x13" (Folio): "612 936"
+*PaperDimension Legal/8.5x14" (Legal): "612 1008"
+*PaperDimension Tabloid/11x17" (Ledger): "792 1224"
+*PaperDimension TabloidExtra/12x18" : "864 1296"
+*PaperDimension Statement/5.5x8.5" (Statement): "396 612"
+
+*OpenUI *InputSlot: PickOne
+*OrderDependency: 50.0 AnySetup *InputSlot
+*DefaultInputSlot: 1stTray
+*InputSlot 1stTray/Tray1: "
+  currentpagedevice /InputAttributes get dup 0 known 
+  {0 get dup null eq 
+   { pop } 
+   { dup length 4 add dict copy 
+     dup /DeferredMediaSelection true put
+     dup /MediaPosition 0 put
+     dup /ManualFeed false put
+     dup /TraySwitch false put
+     setpagedevice
+   } ifelse }
+  {pop}
+  ifelse
+"
+*End
+*InputSlot 2ndTray/Tray2: "
+  currentpagedevice /InputAttributes get dup 1 known 
+  {1 get dup null eq 
+   { pop } 
+   { dup length 4 add dict copy 
+     dup /DeferredMediaSelection true put
+     dup /MediaPosition 1 put
+     dup /ManualFeed false put
+     dup /TraySwitch false put
+     setpagedevice
+   } ifelse }
+  {pop}
+  ifelse
+"
+*End
+*InputSlot 3rdTray/Tray3: "
+  currentpagedevice /InputAttributes get dup 2 known 
+  {2 get dup null eq 
+   { pop } 
+   { dup length 4 add dict copy 
+     dup /DeferredMediaSelection true put
+     dup /MediaPosition 2 put
+     dup /ManualFeed false put
+     dup /TraySwitch false put
+     setpagedevice
+   } ifelse }
+  {pop}
+  ifelse
+"
+*End
+*InputSlot 4thTray/Tray4: "
+  currentpagedevice /InputAttributes get dup 3 known 
+  {3 get dup null eq 
+   { pop } 
+   { dup length 4 add dict copy 
+     dup /DeferredMediaSelection true put
+     dup /MediaPosition 3 put
+     dup /ManualFeed false put
+     dup /TraySwitch false put
+     setpagedevice
+   } ifelse }
+  {pop}
+  ifelse
+"
+*End
+*InputSlot 3rdTrayTTM/Tray 3 (High Capacity): "
+  currentpagedevice /InputAttributes get dup 2 known 
+  {2 get dup null eq 
+   { pop } 
+   { dup length 4 add dict copy 
+     dup /DeferredMediaSelection true put
+     dup /MediaPosition 2 put
+     dup /ManualFeed false put
+     dup /TraySwitch false put
+     setpagedevice
+   } ifelse }
+  {pop}
+  ifelse
+"
+*End
+*InputSlot 4thTrayTTM/Tray 4 (High Capacity): "
+  currentpagedevice /InputAttributes get dup 3 known 
+  {3 get dup null eq 
+   { pop } 
+   { dup length 4 add dict copy 
+     dup /DeferredMediaSelection true put
+     dup /MediaPosition 3 put
+     dup /ManualFeed false put
+     dup /TraySwitch false put
+     setpagedevice
+   } ifelse }
+  {pop}
+  ifelse
+"
+*End
+*?InputSlot: "
+save
+  6 dict
+  dup 0 (1stTray) put
+  dup 1 (2ndTray) put
+  dup 2 (3rdTray) put
+  dup 3 (4thTray) put
+  dup 4 (3rdTrayTTM) put
+  dup 5 (4thTrayTTM) put
+  currentpagedevice dup /MediaPosition known 
+  { /MediaPosition get dup null eq {pop pop (Unknown)}
+    {
+    /Custom /ProcSet resourcestatus {
+      pop pop /Custom /ProcSet findresource dup /engineoptions known {
+        /engineoptions get exec /TandemTray 2 copy known {get {2 add} if}{pop pop} ifelse
+      } {pop} ifelse
+    } if
+    get
+    } ifelse
+  } {pop pop (Unknown)} ifelse
+  = flush
+restore
+"
+*End
+*CloseUI: *InputSlot
+
+*OpenUI *OutputBin/Output tray: PickOne
+*OrderDependency: 130.0 AnySetup *OutputBin
+*DefaultOutputBin:  CenterTray
+*OutputBin CenterTray/Center Tray: "
+  currentpagedevice /OutputAttributes get dup 0 known 
+  {0 get dup null eq 
+   { pop } 
+   { dup length dict copy 
+     setpagedevice
+   } ifelse }
+  {pop}
+  ifelse
+"
+*End
+*OutputBin FinisherTray/Finisher Tray: "
+  currentpagedevice /OutputAttributes get dup 30 known 
+  {30 get dup null eq 
+   { pop } 
+   { dup length dict copy 
+     setpagedevice
+   } ifelse }
+  {pop}
+  ifelse
+"
+*End
+*?OutputBin:"
+save
+  currentpagedevice
+  dup /OutputType get null eq {
+   /OutputAttributes get dup /Priority get
+   {
+    2 copy known {exit} {pop} ifelse
+   } forall
+   dup type /integertype eq {
+    exch pop
+   } {
+    pop 0
+   } ifelse
+  } {
+   /OutputAttributes get
+   dup /Priority get
+   {
+    2 copy known {
+     2 copy get /OutputType get
+     currentpagedevice /OutputType get
+     anchorsearch {
+      pop length 0 eq {exit} if
+     } {
+      pop
+     } ifelse
+     pop
+    } {
+     pop
+    } ifelse
+   } forall
+   dup type /integertype eq {
+    exch pop
+   } {
+    pop 30
+   } ifelse
+  } ifelse
+  20 dict
+  dup 0 (CenterTray) put
+  dup 30 (FinisherTray) put
+  dup 1 (SideTray) put
+  exch 2 copy known {get} {pop pop (Unknown)} ifelse
+  = flush
+restore
+"
+*End
+*CloseUI: *OutputBin
+
+*OpenUI *ManualFeed/Tray 5 (Bypass):  Boolean
+*OrderDependency: 35.0 AnySetup *ManualFeed
+*DefaultManualFeed: False
+*ManualFeed True: "1 dict dup /ManualFeed true put setpagedevice"
+*ManualFeed False: "1 dict dup /ManualFeed false put setpagedevice"
+*?ManualFeed: "
+  save
+    currentpagedevice /ManualFeed known
+    {currentpagedevice /ManualFeed get {(True)}{(False)}ifelse}
+    {(False)} ifelse = flush
+  restore
+"
+*End
+*CloseUI: *ManualFeed
+
+*OpenUI *Duplex:  PickOne
+*OrderDependency: 100.0 AnySetup *Duplex
+*DefaultDuplex: None
+*Duplex None/Off: "
+    1 dict
+    dup /Duplex false put
+    setpagedevice
+"
+*End
+*Duplex DuplexNoTumble: "
+    2 dict dup /Duplex true put
+    dup /Tumble false put setpagedevice
+"
+*End
+*Duplex DuplexTumble: "
+    2 dict dup /Duplex true put
+    dup /Tumble true put setpagedevice
+"
+*End
+*?Duplex: "
+save
+   currentpagedevice /Duplex known 
+   { currentpagedevice /Duplex get
+       { currentpagedevice /Tumble get
+          {(DuplexTumble)}{(DuplexNoTumble)}ifelse
+       }
+       { (None) } ifelse
+   }
+   { (None)}
+   ifelse = flush
+restore
+"
+*End
+*CloseUI: *Duplex
+
+*OpenUI *Jog/Job Offset:  PickOne
+*OrderDependency: 140.0 AnySetup *Jog
+*DefaultJog: None
+*Jog None: "1 dict dup /Jog 0 put setpagedevice"
+*Jog DeviceDeactivation/Offset Per Job: "
+/Custom /ProcSet resourcestatus
+ { pop pop /Custom /ProcSet findresource dup /setjobinstruction known
+   {/setjobinstruction get 1 dict begin /Jog true def currentdict end exch exec} if
+ }if
+"
+*End
+*Jog EndOfSet/Offset Per Set: "1 dict dup /Jog 3 put setpagedevice"
+*?Jog: "
+save
+  [(None)(DeviceDeactivation)(DeviceDeactivation)(EndOfSet)]
+  currentpagedevice /Jog known 
+  {currentpagedevice /Jog get {get} stopped {pop pop (Unknown)} if}
+  {pop (Unknown)}ifelse = flush
+restore
+"
+*End
+*CloseUI: *Jog
+
+*OpenUI *Collate/Collated:  Boolean
+*OrderDependency: 150.0 AnySetup *Collate
+*DefaultCollate: False
+*Collate False/Off: "1 dict dup /Collate false put setpagedevice"
+*Collate True/On: "1 dict dup /Collate true put setpagedevice"
+*?Collate: "
+save
+  currentpagedevice dup /Collate known {/Collate get {(True)}{(False)}ifelse}{pop (Unknown)}ifelse
+  = flush
+restore
+"
+*End
+*CloseUI: *Collate
+
+*% SlipSheet Information ===================
+*OpenUI *XRSlipSheet/Transparency Separators:  PickOne
+*OrderDependency: 120.0 AnySetup *XRSlipSheet
+*DefaultXRSlipSheet: OFF
+*XRSlipSheet OFF/None:  "1 dict dup /SlipSheet 0 put setpagedevice "
+*XRSlipSheet AutoTray/Auto: "
+    2 dict dup dup /SlipSheet 4 put
+    /SlipSheetDetails 2 dict dup /AutoTraySelect 1 put dup /Type 1 put
+    put setpagedevice "
+*End
+*XRSlipSheet 1stTray/Tray 1: "
+    2 dict dup dup /SlipSheet 4 put
+    /SlipSheetDetails 3 dict dup /AutoTraySelect 0 put
+    dup /Type 1 put dup
+    /SheetTray 0 put put setpagedevice "
+*End
+*XRSlipSheet 2ndTray/Tray 2: "
+    2 dict dup dup /SlipSheet 4 put
+    /SlipSheetDetails 3 dict dup /AutoTraySelect 0 put
+    dup /Type 1 put dup
+    /SheetTray 1 put put setpagedevice "
+*End
+*XRSlipSheet 3rdTray/Tray 3: "
+    2 dict dup dup /SlipSheet 4 put
+    /SlipSheetDetails 3 dict dup /AutoTraySelect 0 put
+    dup /Type 1 put dup
+    /SheetTray 2 put put setpagedevice "
+*End
+*XRSlipSheet 4thTray/Tray 4: "
+    2 dict dup dup /SlipSheet 4 put
+    /SlipSheetDetails 3 dict dup /AutoTraySelect 0 put
+    dup /Type 1 put dup
+    /SheetTray 3 put put setpagedevice "
+*End
+*XRSlipSheet 3rdTrayTTM/Tray 3 (High Capacity): "
+    2 dict dup dup /SlipSheet 4 put
+    /SlipSheetDetails 3 dict dup /AutoTraySelect 0 put
+    dup /Type 1 put dup
+    /SheetTray 2 put put setpagedevice "
+*End
+*XRSlipSheet 4thTrayTTM/Tray 4 (High Capacity): "
+    2 dict dup dup /SlipSheet 4 put
+    /SlipSheetDetails 3 dict dup /AutoTraySelect 0 put
+    dup /Type 1 put dup
+    /SheetTray 3 put put setpagedevice "
+*End
+*?XRSlipSheet: "
+save
+  currentpagedevice /SlipSheet known {
+    currentpagedevice dup /SlipSheet get 0 eq {pop (OFF)}
+    {
+       /SlipSheetDetails known {
+          currentpagedevice /SlipSheetDetails get dup /Type get 1 eq {
+            dup /AutoTraySelect get 1 eq {pop (AutoTray)}
+            { /SheetTray get dup 3 ge {
+                /Custom /ProcSet resourcestatus {
+                  pop pop /Custom /ProcSet findresource dup /engineoptions known {
+                    /engineoptions get exec /TandemTray 2 copy known {get {2 add} if}{pop pop} ifelse
+                  } {pop} ifelse
+                } if
+              } if
+              [(1stTray)(2ndTray)(3rdTray)(4thTray)(3rdTrayTTM)(4thTrayTTM)] exch get
+            } ifelse
+          } {(Unknown)} ifelse
+       } {(Unknown)} ifelse
+    } ifelse
+  }{(Unknown)} ifelse
+  = flush
+restore
+"
+*End
+*CloseUI: *XRSlipSheet
+
+*OpenUI *XRMSILeadingEdge/Bypass Feed Orientation:  PickOne
+*OrderDependency: 110.0 AnySetup *XRMSILeadingEdge
+*DefaultXRMSILeadingEdge: ShortEdge
+*XRMSILeadingEdge ShortEdge/Landscape: "
+currentpagedevice dup /ManualFeed get 
+{/PageSize get aload pop 666 eq exch 340 eq and {2}{0}ifelse
+ 1 dict begin /LeadingEdge exch def currentdict end setpagedevice
+}{pop} ifelse
+"
+*End
+*XRMSILeadingEdge LongEdge/Portrait: "
+currentpagedevice dup /ManualFeed get 
+{/PageSize get aload pop 666 eq exch 340 eq and {2}{1}ifelse
+ 1 dict begin /LeadingEdge exch def currentdict end setpagedevice
+}{pop} ifelse
+"
+*End
+*?XRMSILeadingEdge: "
+save
+  (Unknown)
+  [(ShortEdge) (LongEdge)]
+  currentpagedevice dup /LeadingEdge known 
+  {/LeadingEdge get dup null eq
+    {pop pop} 
+    {2 copy exch length ge {pop pop}{get exch pop} ifelse} ifelse
+  }
+  {pop pop} ifelse
+  = flush
+restore
+"
+*End
+*CloseUI: *XRMSILeadingEdge
+
+*OpenUI *MediaType/Paper Type (Bypass Tray):  PickOne
+*OrderDependency: 90.0 AnySetup *MediaType
+*DefaultMediaType: Default
+*MediaType Default/Use Printer Settings: ""
+*MediaType Stationary/Plain: "1 dict dup /MediaClass (stationary) put setpagedevice"
+*MediaType FinePaper/Bond: "1 dict dup /MediaClass (fine) put setpagedevice"
+*MediaType RecyclePaper/Recycled: "1 dict dup /MediaClass (recycled) put setpagedevice"
+*MediaType CustomSizedPaper1/Custom 1: "1 dict dup /MediaClass (user1) put setpagedevice"
+*MediaType CustomSizedPaper2/Custom 2: "1 dict dup /MediaClass (user2) put setpagedevice"
+*MediaType CustomSizedPaper3/Custom 3: "1 dict dup /MediaClass (user3) put setpagedevice"
+*MediaType CustomSizedPaper4/Custom 4: "1 dict dup /MediaClass (user4) put setpagedevice"
+*MediaType CustomSizedPaper5/Custom 5: "1 dict dup /MediaClass (user5) put setpagedevice"
+*MediaType ThinPaper/Lightweight (55-63g/m2): "1 dict dup /MediaClass (thin) put setpagedevice"
+*MediaType ThickPaper/Heavyweight 1 (106-169g/m2): "1 dict dup /MediaClass (thick1) put setpagedevice"
+*MediaType ThickPaperBack/Heavyweight 1 - Side 2: "1 dict dup /MediaClass (thick1 side2) put setpagedevice"
+*MediaType ThickPaper2/Heavyweight 2 (170-220g/m2): "1 dict dup /MediaClass (thick2) put setpagedevice"
+*MediaType ThickPaper2Back/Heavyweight 2 - Side 2: "1 dict dup /MediaClass (thick2 side2) put setpagedevice"
+*MediaType Transparency/Transparency: "1 dict dup /MediaClass (transparency) put setpagedevice"
+*MediaType LabelPaper/Labels: "1 dict dup /MediaClass (label) put setpagedevice"
+*?MediaType: "
+save
+    currentpagedevice /MediaClass get dup null eq {pop (Default)}
+    { dup (stationary) eq {pop (Stationary)}
+     { dup (fine) eq {pop (FinePaper)}
+      { dup (recycled) eq {pop (RecyclePaper)}
+       {dup (thickpaper1) eq{pop (ThickPaper)}
+        {dup (thickpaper1 side2) eq{pop (ThickPaperBack)}
+         {dup (thickpaper2) eq {pop (ThickPaper2)}
+          {dup (thickpaper2 side2) eq {pop (ThickPaper2Back)}
+           {dup (transparency) eq {pop (Transparency)}
+            {dup (label) eq {pop (LabelPaper)}
+             {dup (thin) eq {pop (ThinPaper)}
+              {dup (user1) eq {pop (CustomSizedPaper1)}
+               {dup (user2) eq {pop (CustomSizedPaper2)}
+                {dup (user3) eq {pop (CustomSizedPaper3)}
+                 {dup (user4) eq {pop (CustomSizedPaper4)}
+                  {dup (user5) eq {pop (CustomSizedPaper5)}
+                   {(Unknown)} ifelse
+                  } ifelse 
+                 } ifelse 
+                } ifelse 
+               } ifelse 
+              } ifelse 
+             } ifelse 
+            } ifelse 
+           } ifelse
+          } ifelse
+         } ifelse
+        } ifelse
+       } ifelse
+      } ifelse
+     } ifelse
+    } ifelse
+   = flush
+restore
+"
+*End
+*CloseUI: *MediaType
+
+*OpenUI *XROutputMode/Print Mode:PickOne
+*OrderDependency: 10.0 AnySetup *XROutputMode
+*DefaultXROutputMode: 600x600
+*XROutputMode 600x600/High Speed: "
+    1 dict dup /HWResolution [600 600] put setpagedevice
+"
+*End
+*XROutputMode 1200x600/Standard: "
+    1 dict dup /HWResolution [1200 600] put setpagedevice
+"
+*End
+*XROutputMode 1200x1200/High Quality: "
+    1 dict dup /HWResolution [1200 1200] put setpagedevice
+"
+*End
+*?XROutputMode: "
+save
+  currentpagedevice /HWResolution get dup aload pop eq
+  {0 get dup 600 eq {(600x600)}{1200 eq {(1200x1200)}{(Unknown)}ifelse}ifelse}
+  {aload pop exch 1200 eq exch 600 eq and {(1200x600)}{(Unknown)}ifelse}
+  ifelse
+  = flush
+restore
+"
+*End
+*CloseUI: *XROutputMode
+*OpenUI *XRColorMode/Output Color:PickOne
+*OrderDependency: 20.0 AnySetup *XRColorMode
+*DefaultXRColorMode: Color
+*XRColorMode Color/Color: "
+  1 dict dup /ProcessColorModel /DeviceCMYK put setpagedevice
+"
+*End
+*XRColorMode Black/Black: "
+  1 dict dup /ProcessColorModel /DeviceGray put setpagedevice
+"
+*End
+*?XRColorMode: "
+save
+  currentpagedevice /ProcessColorModel get
+  cvn /DeviceGray eq {(Black)}{(Color)} ifelse
+  = flush
+restore
+"
+*End
+*CloseUI: *XRColorMode
+*% RGB Color Correction Information ==========================
+*OpenUI *XRRGBCCorrection/RGB Color Correction: PickOne
+*OrderDependency: 25.0 AnySetup *XRRGBCCorrection
+*DefaultXRRGBCCorrection: Standard
+*XRRGBCCorrection Standard/Normal: "
+  1 dict dup 
+  2 dict dup /Type 26 put dup /RGBCorrection 3 put
+  /DeviceRenderingInfo exch put
+  setpagedevice
+"
+*End
+*XRRGBCCorrection Photo/Photo: "
+  1 dict dup 
+  2 dict dup /Type 26 put dup /RGBCorrection 1 put
+  /DeviceRenderingInfo exch put
+  setpagedevice
+"
+*End
+*XRRGBCCorrection Web/Web Pages: "
+  1 dict dup 
+  2 dict dup /Type 26 put dup /RGBCorrection 2 put
+  /DeviceRenderingInfo exch put
+  setpagedevice
+"
+*End
+*XRRGBCCorrection Presentation/Presentation: "
+  1 dict dup 
+  2 dict dup /Type 26 put dup /RGBCorrection 4 put
+  /DeviceRenderingInfo exch put
+  setpagedevice
+"
+*End
+*XRRGBCCorrection Off/None: "
+  1 dict dup 
+  2 dict dup /Type 26 put dup /RGBCorrection 0 put
+  /DeviceRenderingInfo exch put
+  setpagedevice
+"
+*End
+*?XRRGBCCorrection: "
+save
+  currentpagedevice /DeviceRenderingInfo 2 copy known {
+    get dup /Type get 26 eq {
+      /RGBCorrection get
+      [(Off)(Photo)(Web)(Standard)(Presentation)] exch get
+    }
+    {pop (Unknown)} ifelse
+  }
+  {pop pop (Unknown)} ifelse
+  = flush
+restore
+"
+*End
+*CloseUI: *XRRGBCCorrection
+*OpenUI *XRRGBBCorrection/RGB Gamma Correction: PickOne
+*OrderDependency: 26.0 AnySetup *XRRGBBCorrection
+*DefaultXRRGBBCorrection: Dark
+*XRRGBBCorrection Lightest/1.0: "
+  1 dict dup 
+  2 dict dup /Type 26 put dup /GammaCorrection 1 put
+  /DeviceRenderingInfo exch put
+  setpagedevice
+"
+*End
+*XRRGBBCorrection Light/1.4: "
+  1 dict dup 
+  2 dict dup /Type 26 put dup /GammaCorrection 2 put
+  /DeviceRenderingInfo exch put
+  setpagedevice
+"
+*End
+*XRRGBBCorrection Standard/1.8: "
+  1 dict dup 
+  2 dict dup /Type 26 put dup /GammaCorrection 3 put
+  /DeviceRenderingInfo exch put
+  setpagedevice
+"
+*End
+*XRRGBBCorrection Dark/2.2: "
+  1 dict dup 
+  2 dict dup /Type 26 put dup /GammaCorrection 4 put
+  /DeviceRenderingInfo exch put
+  setpagedevice
+"
+*End
+*XRRGBBCorrection Darkest/2.6: "
+  1 dict dup 
+  2 dict dup /Type 26 put dup /GammaCorrection 5 put
+  /DeviceRenderingInfo exch put
+  setpagedevice
+"
+*End
+*XRRGBBCorrection Off/Off: "
+  1 dict dup 
+  2 dict dup /Type 26 put dup /GammaCorrection 0 put
+  /DeviceRenderingInfo exch put
+  setpagedevice
+"
+*End
+*?XRRGBBCorrection: "
+save
+  currentpagedevice /DeviceRenderingInfo 2 copy known {
+    get dup /Type get 26 eq {
+      /GammaCorrection get
+      [(Off) (Lightest) (Light) (Standard) (Dark) (Darkest)] exch get
+    }
+    {pop (Unknown)} ifelse
+  }
+  {pop pop (Unknown)} ifelse
+  = flush
+restore
+"
+*End
+*CloseUI: *XRRGBBCorrection
+*% EngineScreen Information ===================
+*OpenUI *XREngineScreen/Screen:  PickOne
+*OrderDependency: 27.0 AnySetup *XREngineScreen
+*DefaultXREngineScreen: Screen2
+*XREngineScreen Screen1/Fineness:  "
+  1 dict dup 
+  /PostRenderingEnhanceDetails 2 dict 
+  dup /Type 32 put dup /EngineScreen 0 put put 
+  dup /PostRenderingEnhance true put setpagedevice
+"
+*End
+*XREngineScreen Screen2/Gradation:  "
+  1 dict dup 
+  /PostRenderingEnhanceDetails 2 dict 
+  dup /Type 32 put dup /EngineScreen 1 put put 
+  dup /PostRenderingEnhance true put setpagedevice
+"
+*End
+*?XREngineScreen: "
+save
+  currentpagedevice /PostRenderingEnhanceDetails 2 copy known {
+    get dup /Type get 32 eq {
+      /EngineScreen get [(Screen1) (Screen2)] exch get
+    }
+    {pop (Unknown)} ifelse
+  }
+  {pop pop (Unknown)} ifelse
+  = flush
+restore
+"
+*End
+*CloseUI: *XREngineScreen
+*OpenUI *Smoothing/Image Enhancement : Boolean
+*OrderDependency: 180.0 AnySetup *Smoothing
+*DefaultSmoothing: True
+*Smoothing True/On: "
+  1 dict dup /PostRenderingEnhance true put 
+  dup /PostRenderingEnhanceDetails 2 dict 
+  dup /Type 32 put 
+  dup /REValue 1 put 
+  put setpagedevice
+"
+*End
+*Smoothing False/Off: "
+  1 dict dup /PostRenderingEnhance true put
+  dup /PostRenderingEnhanceDetails 2 dict 
+  dup /Type 32 put 
+  dup /REValue 0 put 
+  put setpagedevice
+"
+*End
+*?Smoothing: "
+  save
+    currentpagedevice /PostRenderingEnhance 2 copy known {
+      get {
+        currentpagedevice /PostRenderingEnhanceDetails 2 copy known 
+          { get dup /Type get 32 eq {
+             /REValue get 1 eq
+             {(True)}{(False)}ifelse
+             }
+             {pop (Unknown)} ifelse
+          }
+          { pop pop (Unknown)} ifelse
+      }{(False)} ifelse
+    }{(Unknown)}ifelse
+    = flush
+  restore
+"
+*End
+*CloseUI: *Smoothing
+
+*% TonerSaver Information ===================
+*OpenUI *XRTonerSaver/Draft Mode:  Boolean
+*OrderDependency: 29.0 AnySetup *XRTonerSaver
+*DefaultXRTonerSaver: False
+*XRTonerSaver True/On:  "1 dict dup /PostRenderingEnhanceDetails 2 dict dup /Type 32 put dup /TonerSaver 1 put put setpagedevice"
+*XRTonerSaver False/Off: "1 dict dup /PostRenderingEnhanceDetails 2 dict dup /Type 32 put dup /TonerSaver 0 put put setpagedevice"
+*?XRTonerSaver: "
+save
+  currentpagedevice /PostRenderingEnhanceDetails 2 copy known {
+    get dup /Type get 32 eq {
+      /TonerSaver get 1 eq
+      {(True)}{(False)}ifelse
+    }
+    {pop (Unknown)} ifelse
+  }
+  {pop pop (Unknown)} ifelse
+  = flush
+restore
+"
+*End
+*CloseUI: *XRTonerSaver
+
+*% Gray Balance Information ===================
+*OpenUI *XRGrayBalance/Gray Guaranteed:  Boolean
+*OrderDependency: 28.0 AnySetup *XRGrayBalance
+*DefaultXRGrayBalance: True
+*XRGrayBalance False/Off: "
+  1 dict dup 
+  2 dict dup /Type 26 put dup /RGBToK 0 put
+  /DeviceRenderingInfo exch put
+  setpagedevice
+"
+*End
+*XRGrayBalance True/On:  "
+  1 dict dup 
+  2 dict dup /Type 26 put dup /RGBToK 1 put
+  /DeviceRenderingInfo exch put
+  setpagedevice
+"
+*End
+*?XRGrayBalance: "
+save
+  currentpagedevice /DeviceRenderingInfo 2 copy known {
+    get dup /Type get 26 eq {
+      /RGBToK get
+      [(False) (True) (Unknown) (Unknown)] exch get
+    }
+    {pop (Unknown)} ifelse
+  }
+  {pop pop (Unknown)} ifelse
+  = flush
+restore
+"
+*End
+*CloseUI: *XRGrayBalance
+
+*OpenUI *XRStaple/Stapling: PickOne
+*OrderDependency: 155.0 AnySetup *XRStaple
+*DefaultXRStaple: None
+*XRStaple None/None: "
+ 1 dict dup /Staple 0 put setpagedevice
+"
+*End
+*XRStaple UpperLeftSingle/Top Left: "
+4 dict begin
+ /Staple 3 def
+ /Collate true def
+  2 dict begin
+  /Type 7 def
+  /Location 0 def currentdict end
+ /StapleDetails exch def currentdict end
+setpagedevice
+"
+*End
+*XRStaple UpperRightSingle/Top Right: "
+4 dict begin
+ /Staple 3 def
+ /Collate true def
+  2 dict begin
+  /Type 7 def
+  /Location 2 def currentdict end
+ /StapleDetails exch def currentdict end
+setpagedevice
+"
+*End
+*XRStaple LowerRightSingle/Bottom Right: "
+4 dict begin
+ /Staple 3 def
+ /Collate true def
+  2 dict begin
+  /Type 7 def
+  /Location 3 def currentdict end
+ /StapleDetails exch def currentdict end
+setpagedevice
+"
+*End
+*XRStaple LowerLeftSingle/Bottom Left: "
+4 dict begin
+ /Staple 3 def
+ /Collate true def
+  2 dict begin
+  /Type 7 def
+  /Location 1 def currentdict end
+ /StapleDetails exch def currentdict end
+setpagedevice
+"
+*End
+*XRStaple LeftDual/Left Double: "
+4 dict begin
+ /Staple 3 def
+ /Collate true def
+ /LeadingEdge 1 def
+  2 dict begin
+  /Type 7 def
+  /Location 6 def currentdict end
+ /StapleDetails exch def currentdict end
+setpagedevice
+"
+*End
+*XRStaple TopDual/Top Double: "
+4 dict begin
+ /Staple 3 def
+ /Collate true def
+ /LeadingEdge 0 def
+  2 dict begin
+  /Type 7 def
+  /Location 4 def currentdict end
+ /StapleDetails exch def currentdict end
+setpagedevice
+"
+*End
+*XRStaple RightDual/Right Double: "
+4 dict begin
+ /Staple 3 def
+ /Collate true def
+ /LeadingEdge 1 def
+  2 dict begin
+  /Type 7 def
+  /Location 7 def currentdict end
+ /StapleDetails exch def currentdict end
+setpagedevice
+"
+*End
+*XRStaple BottomDual/Bottom Double: "
+4 dict begin
+ /Staple 3 def
+ /Collate true def
+ /LeadingEdge 0 def
+  2 dict begin
+  /Type 7 def
+  /Location 5 def currentdict end
+ /StapleDetails exch def currentdict end
+setpagedevice
+"
+*End
+*?XRStaple: "
+save
+  currentpagedevice dup /Staple 2 copy known 
+   {get 0 eq
+    {pop (None)}
+    {/StapleDetails 2 copy known
+     {get dup /Type get 7 eq
+      {/Location get [(UpperLeftSingle)(LowerLeftSingle)(UpperRightSingle)(LowerRightSingle)(TopDual)(BottomDual)(LeftDual)(RightDual)] exch get}
+      {pop (Unknown)} ifelse
+     {pop pop (Unknown)}ifelse
+    }ifelse
+   }
+   {pop pop pop (None)} ifelse
+  = flush
+restore
+"
+*End
+*CloseUI: *XRStaple
+
+*% Halftone Information ===============
+*DefaultHalftoneType: 5
+*ScreenFreq: "85.0"
+*ScreenAngle: "45.0"
+*DefaultScreenProc: Dot
+*ScreenProc Dot: "{180 mul cos exch 180 mul cos add 2 div} bind"
+*ScreenProc Line: "{ pop }"
+*ScreenProc Ellipse: "{ dup 5 mul 8 div mul exch dup mul exch add sqrt 1 exch sub }"
+*DefaultTransfer: Null
+*Transfer Null: "{ }"
+*Transfer Null.Inverse: "{ 1 exch sub }"
+
+*% CustomPageSize Information ===========
+
+*OpenUI *XRCustomPageSizeCorrection/Custom Paper Image Rotation: Boolean
+*OrderDependency: 1.0 Prolog *XRCustomPageSizeCorrection
+*DefaultXRCustomPageSizeCorrection: True
+*XRCustomPageSizeCorrection True/On: "userdict /4.3PPDCompliant false put"
+*XRCustomPageSizeCorrection False/Off: "userdict /4.3PPDCompliant true put"
+*?XRCustomPageSizeCorrection: "
+    save
+    (Unknown)
+    userdict /4.3PPDCompliant known
+        {userdict /4.3PPDCompliant get
+            {pop (False) }{pop (True)} ifelse
+        } if
+        = flush
+    restore
+"
+*End
+*CloseUI: *XRCustomPageSizeCorrection
+
+*HWMargins: 11.62 11.62 11.62 11.62
+*LeadingEdge Short: ""
+*DefaultLeadingEdge: Short
+*MaxMediaWidth: "907"
+*MaxMediaHeight: "1368"
+*NonUIOrderDependency: 30.0 AnySetup *CustomPageSize
+*CustomPageSize True: "
+userdict /4.3PPDCompliant known
+    {userdict /4.3PPDCompliant get } {false} ifelse
+{ % From Print Managers complying with 4.3 PPD Spec.
+  pop pop pop % discard orientation & offsets
+  3 dict begin
+    /PageSize [
+      4 -2 roll
+    ] def
+  /ImagingBBox null def
+  /ManualFeed true def
+  currentdict end setpagedevice
+}{ % From Print Managers not complying with 4.3 PPD Spec.
+  pop pop pop % discard orientation & offsets
+  3 dict begin
+    /PageSize [
+      4 -2 roll exch
+    ] def
+  /ImagingBBox null def
+  /ManualFeed true def
+  currentdict end setpagedevice
+} ifelse"
+*End
+*ParamCustomPageSize Height:       1 points 396 1368
+*ParamCustomPageSize Width:        2 points 284 907
+*ParamCustomPageSize WidthOffset:  3 points 0 0 
+*ParamCustomPageSize HeightOffset: 4 points 0 0 
+*ParamCustomPageSize Orientation:  5 int 1 1
+
+*OpenUI *XRSubPaperSelection/Substitute Tray : PickOne
+*OrderDependency: 40.0 AnySetup *XRSubPaperSelection
+*DefaultXRSubPaperSelection: Policy0
+*XRSubPaperSelection Policy0/Use Printer Settings: "
+"
+*End
+*XRSubPaperSelection Policy2/Display Message: "
+  2 dict dup /Policies 1 dict dup /PageSize 1 put put 
+  dup /DeferredMediaSelection true put setpagedevice
+"
+*End
+*XRSubPaperSelection Policy3/Use Nearest Size (With Zoom): "
+  2 dict dup /Policies 1 dict dup /PageSize 3 put put 
+  dup /DeferredMediaSelection false put setpagedevice
+"
+*End
+*XRSubPaperSelection Policy5/Use Nearest Size (No Zoom): "
+  2 dict dup /Policies 1 dict dup /PageSize 5 put put 
+  dup /DeferredMediaSelection false put setpagedevice
+"
+*End
+*XRSubPaperSelection Policy4/Use Larger Size (With Zoom): "
+  2 dict dup /Policies 1 dict dup /PageSize 4 put put 
+  dup /DeferredMediaSelection false put setpagedevice
+"
+*End
+*XRSubPaperSelection Policy6/Use Larger Size (No Zoom): "
+  2 dict dup /Policies 1 dict dup /PageSize 6 put put 
+  dup /DeferredMediaSelection false put setpagedevice
+"
+*End
+*?XRSubPaperSelection: "
+  save
+  [(Policy0)(Unknown)(Policy2)(Policy3)(Policy4)(Policy5)(Policy6)(Unknown)]
+  currentpagedevice /Policies get /PageSize get get = flush
+  restore
+"
+*End
+*CloseUI: *XRSubPaperSelection
+
+
+*% Font Information =====================
+
+*FCacheSize 512Meg: 1441792
+
+*DefaultFont: Courier
+
+*Font AlbertusMT-Italic: Standard "(001.000)" Standard ROM
+*Font AlbertusMT-Light: Standard "(001.000)" Standard ROM
+*Font AlbertusMT: Standard "(001.000)" Standard ROM
+*Font AntiqueOlive-Bold: Standard "(501.009)" ExtendedRoman ROM
+*Font AntiqueOlive-Compact: Standard "(501.008)" ExtendedRoman ROM
+*Font AntiqueOlive-Italic: Standard "(501.010)" Standard ROM
+*Font AntiqueOlive-Roman: Standard "(501.008)" ExtendedRoman ROM
+*Font AntiqueOliveCE-Bold: Win1250 "(501.009)" ExtendedRoman ROM
+*Font AntiqueOliveCE-Compact: Win1250 "(501.008)" ExtendedRoman ROM
+*Font AntiqueOliveCE-Italic: Win1250 "(501.010)" ExtendedRoman ROM
+*Font AntiqueOliveCE-Roman: Win1250 "(501.008)" ExtendedRoman ROM
+*Font Apple-Chancery: Standard "(001.001)" ExtendedRoman ROM
+*Font Apple-ChanceryCE: Win1250 "(001.001)" ExtendedRoman ROM
+*Font Arial-BoldItalicMT: Standard "(501.009)" ExtendedRoman ROM
+*Font Arial-BoldMT: Standard "(501.009)" ExtendedRoman ROM
+*Font Arial-ItalicMT: Standard "(501.012)" ExtendedRoman ROM
+*Font ArialCE-Bold: Win1250 "(501.009)" ExtendedRoman ROM
+*Font ArialCE-BoldItalic: Win1250 "(501.009)" ExtendedRoman ROM
+*Font ArialCE-Italic: Win1250 "(501.012)" ExtendedRoman ROM
+*Font ArialCE: Win1250 "(501.009)" ExtendedRoman ROM
+*Font ArialMT: Standard "(501.009)" ExtendedRoman ROM
+*Font AvantGarde-Book: Standard "(501.009)" ExtendedRoman ROM
+*Font AvantGarde-BookOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font AvantGarde-Demi: Standard "(501.010)" ExtendedRoman ROM
+*Font AvantGarde-DemiOblique: Standard "(501.010)" ExtendedRoman ROM
+*Font AvantGardeCE-Book: Win1250 "(501.009)" ExtendedRoman ROM
+*Font AvantGardeCE-BookOblique: Win1250 "(501.009)" ExtendedRoman ROM
+*Font AvantGardeCE-Demi: Win1250 "(501.010)" ExtendedRoman ROM
+*Font AvantGardeCE-DemiOblique: Win1250 "(501.010)" ExtendedRoman ROM
+*Font Bodoni-Bold: Standard "(501.006)" ExtendedRoman ROM
+*Font Bodoni-BoldItalic: Standard "(501.007)" ExtendedRoman ROM
+*Font Bodoni-Italic: Standard "(501.007)" ExtendedRoman ROM
+*Font Bodoni-Poster: Standard "(501.009)" ExtendedRoman ROM
+*Font Bodoni-PosterCompressed: Standard "(501.007)" ExtendedRoman ROM
+*Font Bodoni: Standard "(501.008)" ExtendedRoman ROM
+*Font BodoniCE-Bold: Win1250 "(501.006)" ExtendedRoman ROM
+*Font BodoniCE-BoldItalic: Win1250 "(501.007)" ExtendedRoman ROM
+*Font BodoniCE-Italic: Win1250 "(501.007)" ExtendedRoman ROM
+*Font BodoniCE-Poster: Win1250 "(501.009)" ExtendedRoman ROM
+*Font BodoniCE-PosterCompressed: Win1250 "(501.007)" ExtendedRoman ROM
+*Font BodoniCE: Win1250 "(501.008)" ExtendedRoman ROM
+*Font Bookman-Demi: Standard "(501.007)" ExtendedRoman ROM
+*Font Bookman-DemiItalic: Standard "(501.008)" ExtendedRoman ROM
+*Font Bookman-Light: Standard "(501.006)" ExtendedRoman ROM
+*Font Bookman-LightItalic: Standard "(501.007)" ExtendedRoman ROM
+*Font BookmanCE-Demi: Win1250 "(501.007)" ExtendedRoman ROM
+*Font BookmanCE-DemiItalic: Win1250 "(501.008)" ExtendedRoman ROM
+*Font BookmanCE-Light: Win1250 "(501.006)" ExtendedRoman ROM
+*Font BookmanCE-LightItalic: Win1250 "(501.007)" ExtendedRoman ROM
+*Font Carta: Special "(001.001)" Special ROM
+*Font Chicago: Standard "(501.011)" ExtendedRoman ROM
+*Font ChicagoCE: Win1250 "(501.011)" ExtendedRoman ROM
+*Font Clarendon-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Clarendon-Light: Standard "(501.009)" ExtendedRoman ROM
+*Font Clarendon: Standard "(501.009)" ExtendedRoman ROM
+*Font ClarendonCE-Bold: Win1250 "(501.008)" ExtendedRoman ROM
+*Font ClarendonCE-Light: Win1250 "(501.009)" ExtendedRoman ROM
+*Font ClarendonCE: Win1250 "(501.009)" ExtendedRoman ROM
+*Font CooperBlack-Italic: Standard "(001.003)" Standard ROM
+*Font CooperBlack: Standard "(001.003)" Standard ROM
+*Font Copperplate-ThirtyThreeBC: Standard "(001.002)" Standard ROM
+*Font Copperplate-ThirtyTwoBC: Standard "(001.002)" Standard ROM
+*Font Coronet-Regular: Standard "(001.000)" ExtendedRoman ROM
+*Font CoronetCE-Regular: Win1250 "(001.000)" ExtendedRoman ROM
+*Font Courier-Bold: Standard "(501.010)" ExtendedRoman ROM
+*Font Courier-BoldOblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Courier-Oblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Courier: Standard "(501.010)" ExtendedRoman ROM
+*Font CourierCE-Bold: Win1250 "(501.010)" ExtendedRoman ROM
+*Font CourierCE-BoldOblique: Win1250 "(501.010)" ExtendedRoman ROM
+*Font CourierCE-Oblique: Win1250 "(501.010)" ExtendedRoman ROM
+*Font CourierCE: Win1250 "(501.010)" ExtendedRoman ROM
+*Font Eurostile-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Eurostile-BoldExtendedTwo: Standard "(501.008)" ExtendedRoman ROM
+*Font Eurostile-ExtendedTwo: Standard "(501.010)" ExtendedRoman ROM
+*Font Eurostile: Standard "(501.008)" ExtendedRoman ROM
+*Font EurostileCE-Bold: Win1250 "(501.008)" ExtendedRoman ROM
+*Font EurostileCE-BoldExtendedTwo: Win1250 "(501.008)" ExtendedRoman ROM
+*Font EurostileCE-ExtendedTwo: Win1250 "(501.010)" ExtendedRoman ROM
+*Font EurostileCE: Win1250 "(501.008)" ExtendedRoman ROM
+*Font Geneva: Standard "(501.007)" ExtendedRoman ROM
+*Font GenevaCE: Win1250 "(501.007)" ExtendedRoman ROM
+*Font GillSans-Bold: Standard "(501.007)" ExtendedRoman ROM
+*Font GillSans-BoldCondensed: Standard "(501.006)" ExtendedRoman ROM
+*Font GillSans-BoldItalic: Standard "(501.008)" ExtendedRoman ROM
+*Font GillSans-Condensed: Standard "(501.007)" ExtendedRoman ROM
+*Font GillSans-ExtraBold: Standard "(501.008)" ExtendedRoman ROM
+*Font GillSans-Italic: Standard "(501.008)" ExtendedRoman ROM
+*Font GillSans-Light: Standard "(501.009)" ExtendedRoman ROM
+*Font GillSans-LightItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font GillSans: Standard "(501.009)" ExtendedRoman ROM
+*Font GillSansCE-Bold: Win1250 "(501.007)" ExtendedRoman ROM
+*Font GillSansCE-BoldCondensed: Win1250 "(501.006)" ExtendedRoman ROM
+*Font GillSansCE-BoldItalic: Win1250 "(501.008)" ExtendedRoman ROM
+*Font GillSansCE-Condensed: Win1250 "(501.007)" ExtendedRoman ROM
+*Font GillSansCE-ExtraBold: Win1250 "(501.008)" ExtendedRoman ROM
+*Font GillSansCE-Italic: Win1250 "(501.008)" ExtendedRoman ROM
+*Font GillSansCE-Light: Win1250 "(501.009)" ExtendedRoman ROM
+*Font GillSansCE-LightItalic: Win1250 "(501.009)" ExtendedRoman ROM
+*Font GillSansCE-Roman: Win1250 "(501.009)" ExtendedRoman ROM
+*Font Goudy-Bold: Standard "(001.002)" Standard ROM
+*Font Goudy-BoldItalic: Standard "(001.002)" Standard ROM
+*Font Goudy-ExtraBold: Standard "(001.001)" Standard ROM
+*Font Goudy-Italic: Standard "(001.002)" Standard ROM
+*Font Goudy: Standard "(001.003)" Standard ROM
+*Font Helvetica-Bold: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-BoldOblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Condensed-Bold: Standard "(501.009)" ExtendedRoman ROM
+*Font Helvetica-Condensed-BoldObl: Standard "(501.009)" ExtendedRoman ROM
+*Font Helvetica-Condensed-Oblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Condensed: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Narrow-Bold: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Narrow-Oblique: Standard "(501.008)" ExtendedRoman ROM
+*Font Helvetica-Narrow: Standard "(501.008)" ExtendedRoman ROM
+*Font Helvetica-Oblique: Standard "(501.008)" ExtendedRoman ROM
+*Font Helvetica: Standard "(501.008)" ExtendedRoman ROM
+*Font HelveticaCE-Bold: Win1250 "(501.010)" ExtendedRoman ROM
+*Font HelveticaCE-BoldOblique: Win1250 "(501.010)" ExtendedRoman ROM
+*Font HelveticaCE-Cond: Win1250 "(501.010)" ExtendedRoman ROM
+*Font HelveticaCE-CondBold: Win1250 "(501.009)" ExtendedRoman ROM
+*Font HelveticaCE-CondBoldObl: Win1250 "(501.009)" ExtendedRoman ROM
+*Font HelveticaCE-CondObl: Win1250 "(501.010)" ExtendedRoman ROM
+*Font HelveticaCE-Narrow: Win1250 "(501.008)" ExtendedRoman ROM
+*Font HelveticaCE-NarrowBold: Win1250 "(501.010)" ExtendedRoman ROM
+*Font HelveticaCE-NarrowBoldOblique: Win1250 "(501.010)" ExtendedRoman ROM
+*Font HelveticaCE-NarrowOblique: Win1250 "(501.008)" ExtendedRoman ROM
+*Font HelveticaCE-Oblique: Win1250 "(501.008)" ExtendedRoman ROM
+*Font HelveticaCE: Win1250 "(501.008)" ExtendedRoman ROM
+*Font HoeflerText-Black: Standard "(501.008)" ExtendedRoman ROM
+*Font HoeflerText-BlackItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font HoeflerText-Italic: Standard "(501.010)" ExtendedRoman ROM
+*Font HoeflerText-Ornaments: Special "(001.001)" Special ROM
+*Font HoeflerText-Regular: Standard "(501.009)" ExtendedRoman ROM
+*Font HoeflerTextCE-Black: Win1250 "(501.008)" ExtendedRoman ROM
+*Font HoeflerTextCE-BlackItalic: Win1250 "(501.009)" ExtendedRoman ROM
+*Font HoeflerTextCE-Italic: Win1250 "(501.010)" ExtendedRoman ROM
+*Font HoeflerTextCE-Regular: Win1250 "(501.009)" ExtendedRoman ROM
+*Font JoannaMT-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font JoannaMT-BoldItalic: Standard "(501.008)" ExtendedRoman ROM
+*Font JoannaMT-Italic: Standard "(501.008)" ExtendedRoman ROM
+*Font JoannaMT: Standard "(501.009)" ExtendedRoman ROM
+*Font JoannaMTCE-Bold: Win1250 "(501.008)" ExtendedRoman ROM
+*Font JoannaMTCE-BoldItalic: Win1250 "(501.008)" ExtendedRoman ROM
+*Font JoannaMTCE-Italic: Win1250 "(501.008)" ExtendedRoman ROM
+*Font JoannaMTCE: Win1250 "(501.009)" ExtendedRoman ROM
+*Font LetterGothic-Bold: Standard "(501.010)" ExtendedRoman ROM
+*Font LetterGothic-BoldSlanted: Standard "(501.010)" ExtendedRoman ROM
+*Font LetterGothic-Slanted: Standard "(501.010)" ExtendedRoman ROM
+*Font LetterGothic: Standard "(501.009)" ExtendedRoman ROM
+*Font LetterGothicCE-Bold: Win1250 "(501.010)" ExtendedRoman ROM
+*Font LetterGothicCE-BoldSlanted: Win1250 "(501.010)" ExtendedRoman ROM
+*Font LetterGothicCE-Slanted: Win1250 "(501.010)" ExtendedRoman ROM
+*Font LetterGothicCE: Win1250 "(501.009)" ExtendedRoman ROM
+*Font LubalinGraph-Book: Standard "(501.009)" ExtendedRoman ROM
+*Font LubalinGraph-BookOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font LubalinGraph-Demi: Standard "(501.009)" ExtendedRoman ROM
+*Font LubalinGraph-DemiOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font LubalinGraphCE-Book: Win1250 "(501.009)" ExtendedRoman ROM
+*Font LubalinGraphCE-BookOblique: Win1250 "(501.009)" ExtendedRoman ROM
+*Font LubalinGraphCE-Demi: Win1250 "(501.009)" ExtendedRoman ROM
+*Font LubalinGraphCE-DemiOblique: Win1250 "(501.009)" ExtendedRoman ROM
+*Font Marigold: Standard "(001.000)" Standard ROM
+*Font MonaLisa-Recut: Standard "(001.000)" Standard ROM
+*Font Monaco: Standard "(501.012)" ExtendedRoman ROM
+*Font MonacoCE: Win1250 "(501.012)" ExtendedRoman ROM
+*Font NewCenturySchlbk-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font NewCenturySchlbk-Italic: Standard "(501.011)" ExtendedRoman ROM
+*Font NewCenturySchlbk-Roman: Standard "(501.008)" ExtendedRoman ROM
+*Font NewCenturySchlbkCE-Bold: Win1250 "(501.008)" ExtendedRoman ROM
+*Font NewCenturySchlbkCE-BoldItalic: Win1250 "(501.009)" ExtendedRoman ROM
+*Font NewCenturySchlbkCE-Italic: Win1250 "(501.011)" ExtendedRoman ROM
+*Font NewCenturySchlbkCE-Roman: Win1250 "(501.008)" ExtendedRoman ROM
+*Font NewYork: Standard "(501.013)" ExtendedRoman ROM
+*Font NewYorkCE: Win1250 "(501.013)" ExtendedRoman ROM
+*Font Optima-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Optima-BoldItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font Optima-Italic: Standard "(501.010)" ExtendedRoman ROM
+*Font Optima: Standard "(501.010)" ExtendedRoman ROM
+*Font OptimaCE-Bold: Win1250 "(501.008)" ExtendedRoman ROM
+*Font OptimaCE-BoldItalic: Win1250 "(501.009)" ExtendedRoman ROM
+*Font OptimaCE-Italic: Win1250 "(501.010)" ExtendedRoman ROM
+*Font OptimaCE-Roman: Win1250 "(501.010)" ExtendedRoman ROM
+*Font Oxford: Standard "(001.000)" Standard ROM
+*Font Palatino-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Palatino-BoldItalic: Standard "(501.007)" ExtendedRoman ROM
+*Font Palatino-Italic: Standard "(501.008)" ExtendedRoman ROM
+*Font Palatino-Roman: Standard "(501.006)" ExtendedRoman ROM
+*Font PalatinoCE-Bold: Win1250 "(501.008)" ExtendedRoman ROM
+*Font PalatinoCE-BoldItalic: Win1250 "(501.007)" ExtendedRoman ROM
+*Font PalatinoCE-Italic: Win1250 "(501.008)" ExtendedRoman ROM
+*Font PalatinoCE-Roman: Win1250 "(501.006)" ExtendedRoman ROM
+*Font StempelGaramond-Bold: Standard "(501.007)" ExtendedRoman ROM
+*Font StempelGaramond-BoldItalic: Standard "(501.012)" ExtendedRoman ROM
+*Font StempelGaramond-Italic: Standard "(501.009)" ExtendedRoman ROM
+*Font StempelGaramond-Roman: Standard "(501.011)" ExtendedRoman ROM
+*Font StempelGaramondCE-Bold: Win1250 "(501.007)" ExtendedRoman ROM
+*Font StempelGaramondCE-BoldItalic: Win1250 "(501.012)" ExtendedRoman ROM
+*Font StempelGaramondCE-Italic: Win1250 "(501.009)" ExtendedRoman ROM
+*Font StempelGaramondCE-Roman: Win1250 "(501.011)" ExtendedRoman ROM
+*Font Symbol: Special "(001.008)" Special ROM
+*Font Tekton: Standard "(001.001)" Standard ROM
+*Font Times-Bold: Standard "(501.009)" ExtendedRoman ROM
+*Font Times-BoldItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font Times-Italic: Standard "(501.010)" ExtendedRoman ROM
+*Font Times-Roman: Standard "(501.010)" ExtendedRoman ROM
+*Font TimesCE-Bold: Win1250 "(501.009)" ExtendedRoman ROM
+*Font TimesCE-BoldItalic: Win1250 "(501.009)" ExtendedRoman ROM
+*Font TimesCE-Italic: Win1250 "(501.010)" ExtendedRoman ROM
+*Font TimesCE-Roman: Win1250 "(501.010)" ExtendedRoman ROM
+*Font TimesNewRomanCE-Bold: Win1250 "(501.009)" ExtendedRoman ROM
+*Font TimesNewRomanCE-BoldItalic: Win1250 "(501.011)" ExtendedRoman ROM
+*Font TimesNewRomanCE-Italic: Win1250 "(501.011)" ExtendedRoman ROM
+*Font TimesNewRomanCE: Win1250 "(501.010)" ExtendedRoman ROM
+*Font TimesNewRomanPS-BoldItalicMT: Standard "(501.011)" ExtendedRoman ROM
+*Font TimesNewRomanPS-BoldMT: Standard "(501.009)" ExtendedRoman ROM
+*Font TimesNewRomanPS-ItalicMT: Standard "(501.011)" ExtendedRoman ROM
+*Font TimesNewRomanPSMT: Standard "(501.010)" ExtendedRoman ROM
+*Font Univers-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Univers-BoldExt: Standard "(501.010)" ExtendedRoman ROM
+*Font Univers-BoldExtObl: Standard "(501.010)" ExtendedRoman ROM
+*Font Univers-BoldOblique: Standard "(501.008)" ExtendedRoman ROM
+*Font Univers-Condensed: Standard "(501.011)" ExtendedRoman ROM
+*Font Univers-CondensedBold: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-CondensedBoldOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-CondensedOblique: Standard "(501.011)" ExtendedRoman ROM
+*Font Univers-Extended: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-ExtendedObl: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-Light: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-LightOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-Oblique: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers: Standard "(501.009)" ExtendedRoman ROM
+*Font UniversCE-Bold: Win1250 "(501.008)" ExtendedRoman ROM
+*Font UniversCE-BoldExt: Win1250 "(501.010)" ExtendedRoman ROM
+*Font UniversCE-BoldExtObl: Win1250 "(501.010)" ExtendedRoman ROM
+*Font UniversCE-BoldOblique: Win1250 "(501.008)" ExtendedRoman ROM
+*Font UniversCE-Condensed: Win1250 "(501.011)" ExtendedRoman ROM
+*Font UniversCE-CondensedBold: Win1250 "(501.009)" ExtendedRoman ROM
+*Font UniversCE-CondensedBoldOblique: Win1250 "(501.009)" ExtendedRoman ROM
+*Font UniversCE-CondensedOblique: Win1250 "(501.011)" ExtendedRoman ROM
+*Font UniversCE-Extended: Win1250 "(501.009)" ExtendedRoman ROM
+*Font UniversCE-ExtendedObl: Win1250 "(501.009)" ExtendedRoman ROM
+*Font UniversCE-Light: Win1250 "(501.009)" ExtendedRoman ROM
+*Font UniversCE-LightOblique: Win1250 "(501.009)" ExtendedRoman ROM
+*Font UniversCE-Medium: Win1250 "(501.009)" ExtendedRoman ROM
+*Font UniversCE-Oblique: Win1250 "(501.009)" ExtendedRoman ROM
+*Font Wingdings-Regular: Special "(001.001)" Special ROM
+*Font ZapfChancery-MediumItalic: Standard "(002.000)" ExtendedRoman ROM
+*Font ZapfChanceryCE-MediumItalic: Win1250 "(002.000)" ExtendedRoman ROM
+*Font ZapfDingbats: Special "(001.005S)" Special ROM
+
+
+*?FontQuery: "
+ save
+   { count 1 gt
+      { exch dup 127 string cvs (/) print print (:) print
+        /Font resourcestatus {pop pop (Yes)} {(No)} ifelse =
+      } { exit } ifelse 
+   } bind loop
+   (*) = flush
+ restore
+"
+*End
+
+*?FontList: "
+save
+  (*) {cvn ==} 128 string /Font resourceforall
+  (*) = flush
+restore
+"
+*End
+
+*% Printer Messages (verbatim from printer):
+*Message: "%%[ exitserver: permanent state may be changed ]%%"
+*Message: "%%[ Flushing: rest of job (to end-of-file) will be ignored ]%%"
+*Message: "\FontName\ not found, using Courier"
+
+*% Status (format: %%[ status: <one of these> ] %%)
+*Status: "initializing"
+*Status: "idle"
+*Status: "holding"
+*Status: "busy"
+*Status: "waiting"
+*Status: "PrinterError: Service Call"
+*Status: "PrinterError: Drum&Toner Cartridge is Missing"
+*Status: "PrinterError: No Toner"
+*Status: "PrinterError: Left Hand Cover Open"
+*Status: "PrinterError: Cabinet Left Hand Cover Open"
+*Status: "PrinterError: Duplex Docking Cover Open"
+*Status: "PrinterError: Side Tray Docking Unit Open"
+*Status: "PrinterError: Side Tray Hand Cover Open"
+*Status: "PrinterError: Tray Lifter Failed"
+*Status: "PrinterError: Paper Jam"
+*Status: "PrinterError: Paper Jam at Fuser"
+*Status: "PrinterError: Paper Jam at Registration Roller"
+*Status: "PrinterError: Paper Jam at Duplex Module"
+*Status: "PrinterError: Paper Jam at Duplex Tray"
+*Status: "PrinterError: Paper Jam at Tray1"
+*Status: "PrinterError: Paper Jam at Tray2"
+*Status: "PrinterError: Paper Jam at Tray3"
+*Status: "PrinterError: Paper Jam at Tray4"
+*Status: "PrinterError: Paper Jam at Manual Feed Tray"
+*Status: "PrinterError: Paper Jam at Side Tray"
+*Status: "PrinterError: Center bin is Full"
+*Status: "PrinterError: Duplex Module Fail"
+*Status: "PrinterError: Tray is Missing"
+*Status: "PrinterError: Any Trays are Missing"
+*Status: "PrinterError: Out of Paper in All Trays"
+*Status: "PrinterError: Out of Paper"
+*Status: "PrinterError: Out of Paper in Maunal Feed Tray"
+
+*% Input Sources (format: %%[ status: <stat>; source: <one of these> ]%% )
+*Source: "Serial"
+*Source: "Parallel"
+*Source: "LocalTalk"
+*Source: "EtherTalk"
+*Source: "RemotePrinter"
+*Source: "PrintServer"
+*Source: "LPR"
+*Source: "Internal"
+
+*% Printer Error (format: %%[ PrinterError: <one of these> ]%%)
+*PrinterError: "Service Call"
+*PrinterError: "Drum&Toner Cartridge is Missing"
+*PrinterError: "No Toner"
+*PrinterError: "Left Hand Cover Open"
+*PrinterError: "Cabinet Left Hand Cover Open"
+*PrinterError: "Duplex Docking Cover Open"
+*PrinterError: "Side Tray Docking Unit Open"
+*PrinterError: "Side Tray Hand Cover Open"
+*PrinterError: "Tray Lifter Failed"
+*PrinterError: "Paper Jam"
+*PrinterError: "Paper Jam at Fuser"
+*PrinterError: "Paper Jam at Registration Roller"
+*PrinterError: "Paper Jam at Duplex Module"
+*PrinterError: "Paper Jam at Duplex Tray"
+*PrinterError: "Paper Jam at Tray1"
+*PrinterError: "Paper Jam at Tray2"
+*PrinterError: "Paper Jam at Tray3"
+*PrinterError: "Paper Jam at Tray4"
+*PrinterError: "Paper Jam at Manual Feed Tray"
+*PrinterError: "Paper Jam at Side Tray"
+*PrinterError: "Center bin is Full"
+*PrinterError: "Duplex Module Fail"
+*PrinterError: "Tray is Missing"
+*PrinterError: "Any Trays are Missing"
+*PrinterError: "Out of Paper in All Trays"
+*PrinterError: "Out of Paper"
+*PrinterError: "Out of Paper in Maunal Feed Tray"
+
+*% Color Separation Information =====================
+*DefaultGuaranteedMaxSeparations: 1
+*GuaranteedMaxSeparations 4: ""
+*GuaranteedMaxSeparations 3: ""
+*GuaranteedMaxSeparations 2: ""
+*GuaranteedMaxSeparations 1: ""
+*?GuaranteedMaxSeparations: "
+    currentpagedevice /MaxSeparations get ="
+*End
+*% Produced using PPDTool 2.3's BLDPPD43.PS file
+*% Last Edit Date: Jul 22 2003
+*% The byte count of this file should be exactly 144156 or 147397
+*% depending on the filesystem it resides in.
+*% end of PPD file for Xerox WorkCentre 1324 with PostScript
