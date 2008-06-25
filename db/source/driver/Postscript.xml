@@ -1,15 +1,15 @@
-<driver id="driver/Postscript">
+<driver id='driver/Postscript'>
   <name>Postscript</name>
   <url>http://partners.adobe.com/public/developer/ps/index_specs.html</url>
   <execution>
     <postscript/>
     <nopageaccounting/>
-    <prototype>level=%D; /usr/bin/printf &quot;%%!PS\n%%%% %%%%\n%C&quot;; if [ $level -gt 0 ]; then if [ $level -lt 99 ]; then level=&quot; -dLanguageLevel=$level&quot;; else level=&quot;&quot;; fi; gs -q -dPARANOIDSAFER -dNOPAUSE -dBATCH -sDEVICE=pswrite$level%A%Z -sOutputFile=- -; else cat; fi</prototype>
+    <prototype>level=%D; /usr/bin/printf "%%!PS\n%%%% %%%%\n%C"; if [ $level -gt 0 ]; then if [ $level -lt 99 ]; then level=" -dLanguageLevel=$level"; else level=""; fi; gs -q -dPARANOIDSAFER -dNOPAUSE -dBATCH -sDEVICE=pswrite$level%A%Z -sOutputFile=- -; else cat; fi</prototype>
   </execution>
   <comments>
     <en>
 
-    Generic Postscript &quot;driver&quot;. Generally, for Postscript
+    Generic Postscript "driver". Generally, for Postscript
     printers, you will not need a driver, as all applications produce
     PostScript. For the printing system getting access to the
     printer-specific features the manufacturer supplies a PPD file for
@@ -17,7 +17,7 @@
     Foomatic-generated one to get all functionality of your PostScript
     printer working. The files provided by Foomatic are generic files
     which contain only some standard options, use them only if you do
-    not find an appropriate PPD for your printer.&lt;p&gt;
+    not find an appropriate PPD for your printer.&lt;p>
 
     In addition, this driver allows to convert the PostScript data
     from the application to a lower PostScript level, so that
@@ -28,38 +28,38 @@
     the printer is able to print these fonts. This needs extra memory
     in the printer, if your printer does not print the job, the memory
     is unsufficient, try to lower the resolution or to use a PCL
-    driver (&quot;hpijs&quot;, &quot;ljet4&quot;,
-    &quot;lj5gray&quot;/&quot;lj5mono&quot;,
-    &quot;pxlmono&quot;/&quot;pxlcolor&quot;).&lt;p&gt;
+    driver ("hpijs", "ljet4",
+    "lj5gray"/"lj5mono",
+    "pxlmono"/"pxlcolor").&lt;p>
 
     One can make use of all functionality which the PostScript
     printers have under Windows/MacOS when one uses the PPD file
     coming with the printer, downloaded from &lt;a
-    href=&quot;/download/PPD/&quot;&gt;here on OpenPrinting&lt;/a&gt;, from the
+    href="/download/PPD/">here on OpenPrinting&lt;/a>, from the
     manufacturer's home page, or from &lt;a
-    href=&quot;http://www.adobe.com/products/printerdrivers/winppd.html&quot;&gt;Adobe's&lt;/a&gt;
-    web site (do &quot;&lt;tt&gt;unzip -L [filename].EXE&lt;/tt&gt;&quot; to get the
+    href="http://www.adobe.com/products/printerdrivers/winppd.html">Adobe's&lt;/a>
+    web site (do "&lt;tt>unzip -L [filename].EXE&lt;/tt>" to get the
     PPD files). If there are several different PPD files for your
     printer model and none dedicated for Linux or Unix, the PPD for
-    Windows NT works best in most cases.&lt;p&gt;
+    Windows NT works best in most cases.&lt;p>
 
 
     CUPS and PPR support PPD files directly, LPD/GNUlpr/LPRng, PDQ,
     CPS, and spooler-less users can set up their printers with
-    &lt;tt&gt;foomatic-rip&lt;/tt&gt; as they would set up a printer
-    with a Foomatic PPD file. &lt;tt&gt;foomatic-rip&lt;/tt&gt; works
+    &lt;tt>foomatic-rip&lt;/tt> as they would set up a printer
+    with a Foomatic PPD file. &lt;tt>foomatic-rip&lt;/tt> works
     as well with manufacturer-supplied PostScript PPD files. This way
     all PostScript printers work perfectly under GNU/Linux or other
     free operating systems. GhostScript is not needed for them. See
-    also our &lt;a href=&quot;ppd-doc.html&quot;&gt;PPD documentation
-    page&lt;/a&gt; for instructions.&lt;p&gt;
+    also our &lt;a href="ppd-doc.html">PPD documentation
+    page&lt;/a> for instructions.&lt;p>
 
-    See the tutorial chapter &quot;&lt;a
-    href=&quot;http://www.openprinting.org/kpfeifle/LinuxKongress2002/Tutorial/III.PostScript-and-PPDs/III.PostScript-and-PPDs.html&quot;&gt;Some
+    See the tutorial chapter "&lt;a
+    href="http://www.openprinting.org/kpfeifle/LinuxKongress2002/Tutorial/III.PostScript-and-PPDs/III.PostScript-and-PPDs.html">Some
     Theoretical Background: CUPS, PPDs, PostScript, and
-    GhostScript&lt;/a&gt;&quot; (&lt;a
-    href=&quot;http://www.openprinting.org/kpfeifle/LinuxKongress2002/Tutorial/III.PostScript-and-PPDs/III.PostScript-and-PPDs.pdf&quot;&gt;PDF&lt;/a&gt;)
-    for detailed information about PostScript and PPD files.&lt;p&gt;
+    GhostScript&lt;/a>" (&lt;a
+    href="http://www.openprinting.org/kpfeifle/LinuxKongress2002/Tutorial/III.PostScript-and-PPDs/III.PostScript-and-PPDs.pdf">PDF&lt;/a>)
+    for detailed information about PostScript and PPD files.&lt;p>
 
   </en>
   </comments>
@@ -91,14 +91,14 @@
       <id>printer/Apple-LaserWriter_Pro_630</id>
       <!-- Apple LaserWriter Pro 630 -->
       <comments>
-        <en>You need to set the &quot;mode switch&quot; on the printer to a Postscript (as opposed to an HP-PCL) mode.  Mode 0 works fine.</en>
+        <en>You need to set the "mode switch" on the printer to a Postscript (as opposed to an HP-PCL) mode.  Mode 0 works fine.</en>
       </comments>
     </printer>
     <printer>
       <id>printer/Apple-LaserWriter_Select_360</id>
       <!-- Apple LaserWriter Select 360 -->
       <comments>
-        <en>Configured for 600x600 Postscript with printtool.  Printing with printer set to &quot;Postscript/Normal&quot; on the parallel port.  Note that printer can also handle PCL.</en>
+        <en>Configured for 600x600 Postscript with printtool.  Printing with printer set to "Postscript/Normal" on the parallel port.  Note that printer can also handle PCL.</en>
       </comments>
     </printer>
     <printer>
@@ -532,6 +532,15 @@
       <id>printer/Gestetner-MP_5000B</id>
     </printer>
     <printer>
+      <id>printer/Gestetner-MP_6000</id>
+    </printer>
+    <printer>
+      <id>printer/Gestetner-MP_7000</id>
+    </printer>
+    <printer>
+      <id>printer/Gestetner-MP_8000</id>
+    </printer>
+    <printer>
       <id>printer/Gestetner-MP_C6000</id>
     </printer>
     <printer>
@@ -545,6 +554,9 @@
     </printer>
     <printer>
       <id>printer/Gestetner-P7031n</id>
+    </printer>
+    <printer>
+      <id>printer/Gestetner-P7031nL</id>
     </printer>
     <printer>
       <id>printer/Gestetner-P7032</id>
@@ -590,6 +602,12 @@
     </printer>
     <printer>
       <id>printer/Gestetner-P7675</id>
+    </printer>
+    <printer>
+      <id>printer/Gestetner-SP_8200DN</id>
+    </printer>
+    <printer>
+      <id>printer/Gestetner-SP_C420DN</id>
     </printer>
     <printer>
       <id>printer/Gestetner-SP_W2470</id>
@@ -1192,6 +1210,15 @@
       <id>printer/Infotec-MP_5000B</id>
     </printer>
     <printer>
+      <id>printer/Infotec-MP_6000</id>
+    </printer>
+    <printer>
+      <id>printer/Infotec-MP_7000</id>
+    </printer>
+    <printer>
+      <id>printer/Infotec-MP_8000</id>
+    </printer>
+    <printer>
       <id>printer/Infotec-MP_C6000</id>
     </printer>
     <printer>
@@ -1555,6 +1582,9 @@
       <id>printer/Lanier-LP131n</id>
     </printer>
     <printer>
+      <id>printer/Lanier-LP131nL</id>
+    </printer>
+    <printer>
       <id>printer/Lanier-LP135n</id>
     </printer>
     <printer>
@@ -1565,6 +1595,9 @@
     </printer>
     <printer>
       <id>printer/Lanier-LP145n_SP_8100DN</id>
+    </printer>
+    <printer>
+      <id>printer/Lanier-LP150dn_SP8200DN</id>
     </printer>
     <printer>
       <id>printer/Lanier-LP175_LP175hdn</id>
@@ -1580,6 +1613,9 @@
     </printer>
     <printer>
       <id>printer/Lanier-LP235c</id>
+    </printer>
+    <printer>
+      <id>printer/Lanier-LP331cn_SP_C420</id>
     </printer>
     <printer>
       <id>printer/Lanier-LP332c</id>
@@ -1663,10 +1699,19 @@
       <id>printer/Lanier-MP_5500_LD255</id>
     </printer>
     <printer>
+      <id>printer/Lanier-MP_6000_LD260</id>
+    </printer>
+    <printer>
       <id>printer/Lanier-MP_6500_LD265</id>
     </printer>
     <printer>
+      <id>printer/Lanier-MP_7000_LD270</id>
+    </printer>
+    <printer>
       <id>printer/Lanier-MP_7500_LD275</id>
+    </printer>
+    <printer>
+      <id>printer/Lanier-MP_8000_LD280</id>
     </printer>
     <printer>
       <id>printer/Lanier-MP_9000_LD190</id>
@@ -1691,6 +1736,9 @@
     </printer>
     <printer>
       <id>printer/Lanier-SP_4100N</id>
+    </printer>
+    <printer>
+      <id>printer/Lanier-SP_4100NL</id>
     </printer>
     <printer>
       <id>printer/Lanier-SP_4110N</id>
@@ -1759,10 +1807,10 @@
       <!-- Lexmark C752b -->
     </printer>
     <printer>
-      <id>printer/Lexmark-C770n</id>
+      <id>printer/Lexmark-C770dtn</id>
     </printer>
     <printer>
-      <id>printer/Lexmark-C770dtn</id>
+      <id>printer/Lexmark-C770n</id>
     </printer>
     <printer>
       <id>printer/Lexmark-C772dn</id>
@@ -2163,10 +2211,19 @@
       <id>printer/NRG-MP_5500</id>
     </printer>
     <printer>
+      <id>printer/NRG-MP_6000</id>
+    </printer>
+    <printer>
       <id>printer/NRG-MP_6500</id>
     </printer>
     <printer>
+      <id>printer/NRG-MP_7000</id>
+    </printer>
+    <printer>
       <id>printer/NRG-MP_7500</id>
+    </printer>
+    <printer>
+      <id>printer/NRG-MP_8000</id>
     </printer>
     <printer>
       <id>printer/NRG-MP_9000</id>
@@ -2244,10 +2301,16 @@
       <id>printer/NRG-SP_4100N</id>
     </printer>
     <printer>
+      <id>printer/NRG-SP_4100NL</id>
+    </printer>
+    <printer>
       <id>printer/NRG-SP_4110N</id>
     </printer>
     <printer>
       <id>printer/NRG-SP_8100DN</id>
+    </printer>
+    <printer>
+      <id>printer/NRG-SP_8200DN</id>
     </printer>
     <printer>
       <id>printer/NRG-SP_9100DN</id>
@@ -2257,6 +2320,9 @@
     </printer>
     <printer>
       <id>printer/NRG-SP_C411DN</id>
+    </printer>
+    <printer>
+      <id>printer/NRG-SP_C420DN</id>
     </printer>
     <printer>
       <id>printer/NRG-SP_C811DN</id>
@@ -2282,6 +2348,60 @@
     </printer>
     <printer>
       <id>printer/Oce-8465PS</id>
+    </printer>
+    <printer>
+      <id>printer/Oce-PPC3073PS</id>
+    </printer>
+    <printer>
+      <id>printer/Oce-PPC3074PS</id>
+    </printer>
+    <printer>
+      <id>printer/Oce-PPC3093PS</id>
+    </printer>
+    <printer>
+      <id>printer/Oce-PPC3094PS</id>
+    </printer>
+    <printer>
+      <id>printer/Oce-PPC3113PS</id>
+    </printer>
+    <printer>
+      <id>printer/Oce-PPC3114PS</id>
+    </printer>
+    <printer>
+      <id>printer/Oce-PPC5115PS</id>
+    </printer>
+    <printer>
+      <id>printer/Oce-PPC5160PS</id>
+    </printer>
+    <printer>
+      <id>printer/Oce-VarioPrint_2045PS</id>
+    </printer>
+    <printer>
+      <id>printer/Oce-VarioPrint_2050PS</id>
+    </printer>
+    <printer>
+      <id>printer/Oce-VarioPrint_2055PS</id>
+    </printer>
+    <printer>
+      <id>printer/Oce-VarioPrint_2060PS</id>
+    </printer>
+    <printer>
+      <id>printer/Oce-VarioPrint_2065PS</id>
+    </printer>
+    <printer>
+      <id>printer/Oce-VarioPrint_2070PS</id>
+    </printer>
+    <printer>
+      <id>printer/Oce-VarioPrint_2090PS</id>
+    </printer>
+    <printer>
+      <id>printer/Oce-VarioPrint_2100PS</id>
+    </printer>
+    <printer>
+      <id>printer/Oce-VarioPrint_2105PS</id>
+    </printer>
+    <printer>
+      <id>printer/Oce-VarioPrint_2110PS</id>
     </printer>
     <printer>
       <id>printer/Oce-cm2510</id>
@@ -2353,64 +2473,10 @@
       <id>printer/Oce-im9220</id>
     </printer>
     <printer>
-      <id>printer/Oce-PPC3073PS</id>
-    </printer>
-    <printer>
-      <id>printer/Oce-PPC3074PS</id>
-    </printer>
-    <printer>
-      <id>printer/Oce-PPC3093PS</id>
-    </printer>
-    <printer>
-      <id>printer/Oce-PPC3094PS</id>
-    </printer>
-    <printer>
-      <id>printer/Oce-PPC3113PS</id>
-    </printer>
-    <printer>
-      <id>printer/Oce-PPC3114PS</id>
-    </printer>
-    <printer>
-      <id>printer/Oce-PPC5115PS</id>
-    </printer>
-    <printer>
-      <id>printer/Oce-PPC5160PS</id>
-    </printer>
-    <printer>
       <id>printer/Oce-sx1480</id>
     </printer>
     <printer>
       <id>printer/Oce-sx2100</id>
-    </printer>
-    <printer>
-      <id>printer/Oce-VarioPrint_2045PS</id>
-    </printer>
-    <printer>
-      <id>printer/Oce-VarioPrint_2050PS</id>
-    </printer>
-    <printer>
-      <id>printer/Oce-VarioPrint_2055PS</id>
-    </printer>
-    <printer>
-      <id>printer/Oce-VarioPrint_2060PS</id>
-    </printer>
-    <printer>
-      <id>printer/Oce-VarioPrint_2065PS</id>
-    </printer>
-    <printer>
-      <id>printer/Oce-VarioPrint_2070PS</id>
-    </printer>
-    <printer>
-      <id>printer/Oce-VarioPrint_2090PS</id>
-    </printer>
-    <printer>
-      <id>printer/Oce-VarioPrint_2100PS</id>
-    </printer>
-    <printer>
-      <id>printer/Oce-VarioPrint_2105PS</id>
-    </printer>
-    <printer>
-      <id>printer/Oce-VarioPrint_2110PS</id>
     </printer>
     <printer>
       <id>printer/Okidata-B4350</id>
@@ -2739,10 +2805,19 @@
       <id>printer/Ricoh-Aficio_MP_5500</id>
     </printer>
     <printer>
+      <id>printer/Ricoh-Aficio_MP_6000</id>
+    </printer>
+    <printer>
       <id>printer/Ricoh-Aficio_MP_6500</id>
     </printer>
     <printer>
+      <id>printer/Ricoh-Aficio_MP_7000</id>
+    </printer>
+    <printer>
       <id>printer/Ricoh-Aficio_MP_7500</id>
+    </printer>
+    <printer>
+      <id>printer/Ricoh-Aficio_MP_8000</id>
     </printer>
     <printer>
       <id>printer/Ricoh-Aficio_MP_9000</id>
@@ -2775,10 +2850,16 @@
       <id>printer/Ricoh-Aficio_SP_4100N</id>
     </printer>
     <printer>
+      <id>printer/Ricoh-Aficio_SP_4100NL</id>
+    </printer>
+    <printer>
       <id>printer/Ricoh-Aficio_SP_4110N</id>
     </printer>
     <printer>
       <id>printer/Ricoh-Aficio_SP_8100DN</id>
+    </printer>
+    <printer>
+      <id>printer/Ricoh-Aficio_SP_8200DN</id>
     </printer>
     <printer>
       <id>printer/Ricoh-Aficio_SP_9100DN</id>
@@ -2791,6 +2872,9 @@
     </printer>
     <printer>
       <id>printer/Ricoh-Aficio_SP_C411DN</id>
+    </printer>
+    <printer>
+      <id>printer/Ricoh-Aficio_SP_C420DN</id>
     </printer>
     <printer>
       <id>printer/Ricoh-Aficio_SP_C811DN</id>
@@ -2847,9 +2931,9 @@
     <printer>
       <id>printer/Samsung-ML-2250</id>
       <comments>
-        <en>This printer has a DIMM expansion slot which can take a POSTSCRIPT 3 Emulator ROM. The ROM can be purchased online relatively cheaply (~65 Euro 18.08.2006). Its part number is ML-00PD. An example source www.csv.de.&lt;p&gt;
+        <en>This printer has a DIMM expansion slot which can take a POSTSCRIPT 3 Emulator ROM. The ROM can be purchased online relatively cheaply (~65 Euro 18.08.2006). Its part number is ML-00PD. An example source www.csv.de.&lt;p>
 
-Once the module is installed the postscript drivers can be used.&lt;p&gt;
+Once the module is installed the postscript drivers can be used.&lt;p>
 
 The printer's memory can also be upgraded up to 144MB. This is also a DIMM module. The Samsung branded memory is rather expensive (500+ euro), a generic memory does the same job with out trouble. A 128MB generic memory module can be found for around ~65 Euro (10.04.2006) from for example best-electronics on ebay.de</en>
       </comments>
@@ -2990,10 +3074,19 @@ The printer's memory can also be upgraded up to 144MB. This is also a DIMM modul
       <id>printer/Savin-8055</id>
     </printer>
     <printer>
+      <id>printer/Savin-8060</id>
+    </printer>
+    <printer>
       <id>printer/Savin-8065</id>
     </printer>
     <printer>
+      <id>printer/Savin-8070</id>
+    </printer>
+    <printer>
       <id>printer/Savin-8075</id>
+    </printer>
+    <printer>
+      <id>printer/Savin-8080</id>
     </printer>
     <printer>
       <id>printer/Savin-8090</id>
@@ -3101,6 +3194,9 @@ The printer's memory can also be upgraded up to 144MB. This is also a DIMM modul
       <id>printer/Savin-CLP128</id>
     </printer>
     <printer>
+      <id>printer/Savin-CLP131DN</id>
+    </printer>
+    <printer>
       <id>printer/Savin-CLP135</id>
     </printer>
     <printer>
@@ -3143,6 +3239,9 @@ The printer's memory can also be upgraded up to 144MB. This is also a DIMM modul
       <id>printer/Savin-MLP145</id>
     </printer>
     <printer>
+      <id>printer/Savin-MLP150DN</id>
+    </printer>
+    <printer>
       <id>printer/Savin-MLP175n</id>
     </printer>
     <printer>
@@ -3165,6 +3264,9 @@ The printer's memory can also be upgraded up to 144MB. This is also a DIMM modul
     </printer>
     <printer>
       <id>printer/Savin-MLP31n</id>
+    </printer>
+    <printer>
+      <id>printer/Savin-MLP31nL</id>
     </printer>
     <printer>
       <id>printer/Savin-MLP32</id>
@@ -3469,6 +3571,9 @@ The printer's memory can also be upgraded up to 144MB. This is also a DIMM modul
       <!-- Xerox DocuPrint N17 -->
     </printer>
     <printer>
+      <id>printer/Xerox-DocuPrint_N2125PS</id>
+    </printer>
+    <printer>
       <id>printer/Xerox-DocuPrint_N24</id>
     </printer>
     <printer>
@@ -3476,13 +3581,10 @@ The printer's memory can also be upgraded up to 144MB. This is also a DIMM modul
       <!-- Xerox DocuPrint N32 -->
     </printer>
     <printer>
-      <id>printer/Xerox-DocuPrint_N40</id>
-    </printer>
-    <printer>
-      <id>printer/Xerox-DocuPrint_N2125PS</id>
-    </printer>
-    <printer>
       <id>printer/Xerox-DocuPrint_N3225PS</id>
+    </printer>
+    <printer>
+      <id>printer/Xerox-DocuPrint_N40</id>
     </printer>
     <printer>
       <id>printer/Xerox-DocuPrint_N4025PS</id>
@@ -3500,21 +3602,6 @@ The printer's memory can also be upgraded up to 144MB. This is also a DIMM modul
       <id>printer/Xerox-FaxCentre_2218</id>
     </printer>
     <printer>
-      <id>printer/Xerox-Phaser_790</id>
-    </printer>
-    <printer>
-      <id>printer/Xerox-Phaser_860B</id>
-    </printer>
-    <printer>
-      <id>printer/Xerox-Phaser_860N</id>
-    </printer>
-    <printer>
-      <id>printer/Xerox-Phaser_860DP</id>
-    </printer>
-    <printer>
-      <id>printer/Xerox-Phaser_860DX</id>
-    </printer>
-    <printer>
       <id>printer/Xerox-Phaser_1235</id>
     </printer>
     <printer>
@@ -3524,7 +3611,7 @@ The printer's memory can also be upgraded up to 144MB. This is also a DIMM modul
       <id>printer/Xerox-Phaser_3200MFP</id>
     </printer>
     <printer>
-      <id>printer/Xerox-Phaser_3400</id> 
+      <id>printer/Xerox-Phaser_3400</id>
     </printer>
     <printer>
       <id>printer/Xerox-Phaser_3450</id>
@@ -3536,10 +3623,10 @@ The printer's memory can also be upgraded up to 144MB. This is also a DIMM modul
       <id>printer/Xerox-Phaser_4400B</id>
     </printer>
     <printer>
-      <id>printer/Xerox-Phaser_4400DX</id>
+      <id>printer/Xerox-Phaser_4400DT</id>
     </printer>
     <printer>
-      <id>printer/Xerox-Phaser_4400DT</id>
+      <id>printer/Xerox-Phaser_4400DX</id>
     </printer>
     <printer>
       <id>printer/Xerox-Phaser_4400N</id>
@@ -3680,9 +3767,6 @@ The printer's memory can also be upgraded up to 144MB. This is also a DIMM modul
       <id>printer/Xerox-Phaser_7400</id>
     </printer>
     <printer>
-      <id>printer/Xerox-Phaser_7400DXF</id>
-    </printer>
-    <printer>
       <id>printer/Xerox-Phaser_7400DN</id>
     </printer>
     <printer>
@@ -3692,10 +3776,10 @@ The printer's memory can also be upgraded up to 144MB. This is also a DIMM modul
       <id>printer/Xerox-Phaser_7400DX</id>
     </printer>
     <printer>
-      <id>printer/Xerox-Phaser_7400N</id>
+      <id>printer/Xerox-Phaser_7400DXF</id>
     </printer>
     <printer>
-      <id>printer/Xerox-Phaser_7700DN</id>
+      <id>printer/Xerox-Phaser_7400N</id>
     </printer>
     <printer>
       <id>printer/Xerox-Phaser_7700DN</id>
@@ -3729,6 +3813,9 @@ The printer's memory can also be upgraded up to 144MB. This is also a DIMM modul
     </printer>
     <printer>
       <id>printer/Xerox-Phaser_7760GX</id>
+    </printer>
+    <printer>
+      <id>printer/Xerox-Phaser_790</id>
     </printer>
     <printer>
       <id>printer/Xerox-Phaser_8200B</id>
@@ -3779,6 +3866,18 @@ The printer's memory can also be upgraded up to 144MB. This is also a DIMM modul
       <id>printer/Xerox-Phaser_8560DN</id>
     </printer>
     <printer>
+      <id>printer/Xerox-Phaser_860B</id>
+    </printer>
+    <printer>
+      <id>printer/Xerox-Phaser_860DP</id>
+    </printer>
+    <printer>
+      <id>printer/Xerox-Phaser_860DX</id>
+    </printer>
+    <printer>
+      <id>printer/Xerox-Phaser_860N</id>
+    </printer>
+    <printer>
       <id>printer/Xerox-Phaser_8860</id>
     </printer>
     <printer>
@@ -3803,13 +3902,13 @@ The printer's memory can also be upgraded up to 144MB. This is also a DIMM modul
       <id>printer/Xerox-WorkCentre_C2424</id>
     </printer>
     <printer>
+      <id>printer/Xerox-WorkCentre_M118</id>
+    </printer>
+    <printer>
       <id>printer/Xerox-WorkCentre_M20</id>
     </printer>
     <printer>
       <id>printer/Xerox-WorkCentre_M24</id>
-    </printer>
-    <printer>
-      <id>printer/Xerox-WorkCentre_M118</id>
     </printer>
     <printer>
       <id>printer/Xerox-WorkCentre_PE120</id>
