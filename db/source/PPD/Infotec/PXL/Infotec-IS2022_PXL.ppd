@@ -4,9 +4,9 @@
 *%    for "Infotec  IS2022 PXL"
 *%
 *%    CreationDate: 2001/02/08
-*%    Modified:     2007/12/14
+*%    Modified:     2008/08/29
 *%
-*%    COPYRIGHT (C) 2001-2007 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2001-2008 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -66,39 +66,39 @@
 *DefaultOption20InternalTray2: False
 *Option20InternalTray2 False/Not Installed: ""
 *Option20InternalTray2 True/Installed: ""
-*CloseUI *Option20InternalTray2
+*CloseUI: *Option20InternalTray2
 
 *OpenUI *Option25ShiftTray/Shift Tray: PickOne
 *DefaultOption25ShiftTray: False
 *Option25ShiftTray False/Not Installed: ""
 *Option25ShiftTray True/Installed: ""
-*CloseUI *Option25ShiftTray
+*CloseUI: *Option25ShiftTray
 
 *OpenUI *Option10DuplexUnit/Duplex Unit: PickOne
 *DefaultOption10DuplexUnit: False
 *Option10DuplexUnit False/Not Installed: ""
 *Option10DuplexUnit True/Installed: ""
-*CloseUI *Option10DuplexUnit
+*CloseUI: *Option10DuplexUnit
 
 *OpenUI *Option30Finisher/Finisher: PickOne
 *DefaultOption30Finisher: None
 *Option30Finisher None/Not Installed: ""
 *Option30Finisher Fin500/Finisher 500: ""
 *Option30Finisher Fin1000/Finisher 1000: ""
-*CloseUI *Option30Finisher
+*CloseUI: *Option30Finisher
 
 *OpenUI *Option3BypassTray/Bypass Tray: PickOne
 *DefaultOption3BypassTray: False
 *Option3BypassTray False/Not Installed: ""
 *Option3BypassTray True/Installed: ""
-*CloseUI *Option3BypassTray
+*CloseUI: *Option3BypassTray
 
 *OpenUI *Option1OptionTray/Option Tray: PickOne
 *DefaultOption1OptionTray: None
 *Option1OptionTray None/Not Installed: ""
 *Option1OptionTray 1Cassette/Tray 3(LCT): ""
 *Option1OptionTray 2Cassette/Tray 3 and 4: ""
-*CloseUI *Option1OptionTray
+*CloseUI: *Option1OptionTray
 
 
 *CloseGroup: InstallableOptions
@@ -106,7 +106,7 @@
 *%========== Ghostscript Command line ==========
 
 *FoomaticIDs: Infotec-IS2022 pxlmono
-*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE%B%A%C -sOutputFile=- - %D%E"
+*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE%B%A%C %D%E"
 
 *OpenGroup: General
 *OpenUI *ColorModel/Color Mode: PickOne
@@ -147,13 +147,17 @@
 *OrderDependency: 20 AnySetup *PageSize
 *DefaultPageSize: Letter
 *PageSize A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
-*FoomaticRIPOptionSetting PageSize=A3: " -sPAPERSIZE=a3"
+*FoomaticRIPOptionSetting PageSize=A3: " -sPAPERSIZE=a3 -sOutputFile=- - "
 *PageSize A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
-*FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4"
+*FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4 -sOutputFile=- - "
+*PageSize A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
+*FoomaticRIPOptionSetting PageSize=A5: " -sPAPERSIZE=a5 -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0f\xf8\x25/g&quot;"
+*PageSize Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
+*FoomaticRIPOptionSetting PageSize=Legal: " -sPAPERSIZE=legal -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x01\xf8\x25/g&quot;"
 *PageSize Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
-*FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter"
+*FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter -sOutputFile=- - "
 *PageSize 11x17/11x17: "%% FoomaticRIPOptionSetting: PageSize=11x17"
-*FoomaticRIPOptionSetting PageSize=11x17: " -sPAPERSIZE=11x17"
+*FoomaticRIPOptionSetting PageSize=11x17: " -sPAPERSIZE=11x17  -sOutputFile=- - "
 *CloseUI: *PageSize
 
 *OpenUI *PageRegion: PickOne
@@ -161,6 +165,8 @@
 *DefaultPageRegion: Letter
 *PageRegion A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
 *PageRegion A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
+*PageRegion A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
+*PageRegion Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
 *PageRegion Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
 *PageRegion 11x17/11x17: "%% FoomaticRIPOptionSetting: PageSize=11x17"
 *CloseUI: *PageRegion
@@ -170,12 +176,16 @@
 *DefaultImageableArea: Letter
 *ImageableArea A3/A3: "12 12 830 1179"
 *ImageableArea A4/A4: "12 12 583 830"
+*ImageableArea A5/A5: "12 12 408 583"
+*ImageableArea Legal/Legal: "12 12 600 996"
 *ImageableArea Letter/Letter: "12 12 600 780"
 *ImageableArea 11x17/11x17: "12 12 780 1212"
 
 *DefaultPaperDimension: Letter
 *PaperDimension A3/A3: "842 1191"
 *PaperDimension A4/A4: "595 842"
+*PaperDimension A5/A5: "420 595"
+*PaperDimension Legal/Legal: "612 1008"
 *PaperDimension Letter/Letter: "612 792"
 *PaperDimension 11x17/11x17: "792 1224"
 
@@ -501,6 +511,8 @@
 *UIConstraints: *InputSlot 1Tray *MediaType Thin
 *UIConstraints: *InputSlot 3Tray *MediaType Thin
 *UIConstraints: *InputSlot 4Tray *MediaType Thin
+*UIConstraints: *PageSize A5 *OutputBin FujigawaShift
+*UIConstraints: *OutputBin FujigawaShift *PageSize A5
 *UIConstraints: *MediaType Labels *OutputBin Bin1
 *UIConstraints: *MediaType Labels *OutputBin FujigawaShift
 *UIConstraints: *MediaType Labels *OutputBin KingUpper

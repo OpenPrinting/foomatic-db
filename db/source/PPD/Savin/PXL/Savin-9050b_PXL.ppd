@@ -4,7 +4,7 @@
 *%    for "Savin 9050b PXL"
 *%
 *%    CreationDate: 2006/12/26
-*%    Modified:     2008/03/14
+*%    Modified:     2008/08/29
 *%
 *%    COPYRIGHT (C) 2006-2008 RICOH COMPANY, LTD.
 *%    
@@ -68,20 +68,20 @@
 *Finisher FinKING/Finisher SR790: ""
 *Finisher FinEUPHPOS/Finisher SR3020: ""
 *Finisher FinEUPHIMPOS/Finisher SR3030: ""
-*CloseUI *Finisher
+*CloseUI: *Finisher
 
 *OpenUI *OptionTray/Option Tray: PickOne
 *DefaultOptionTray: NotInstalled
 *OptionTray NotInstalled/Not Installed: ""
 *OptionTray 1Cassette/Tray 3 (LCT): ""
 *OptionTray 2Cassette/Lower Paper Trays: ""
-*CloseUI *OptionTray
+*CloseUI: *OptionTray
 
 *OpenUI *InnerTray2/Upper Internal Tray: PickOne
 *DefaultInnerTray2: NotInstalled
 *InnerTray2 NotInstalled/Not Installed: ""
 *InnerTray2 Installed/Installed: ""
-*CloseUI *InnerTray2
+*CloseUI: *InnerTray2
 
 
 *CloseGroup: InstallableOptions
@@ -89,7 +89,7 @@
 *%========== Ghostscript Command line ==========
 
 *FoomaticIDs: Savin-9050b pxlmono
-*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE%B%A%C -sOutputFile=- - %D%E"
+*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE%B%A%C %D%E"
 
 *OpenGroup: General
 *OpenUI *ColorModel/Color Mode: PickOne
@@ -130,13 +130,17 @@
 *OrderDependency: 20 AnySetup *PageSize
 *DefaultPageSize: Letter
 *PageSize A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
-*FoomaticRIPOptionSetting PageSize=A3: " -sPAPERSIZE=a3"
+*FoomaticRIPOptionSetting PageSize=A3: " -sPAPERSIZE=a3 -sOutputFile=- - "
 *PageSize A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
-*FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4"
+*FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4 -sOutputFile=- - "
+*PageSize A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
+*FoomaticRIPOptionSetting PageSize=A5: " -sPAPERSIZE=a5 -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0f\xf8\x25/g&quot;"
+*PageSize Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
+*FoomaticRIPOptionSetting PageSize=Legal: " -sPAPERSIZE=legal -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x01\xf8\x25/g&quot;"
 *PageSize Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
-*FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter"
+*FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter -sOutputFile=- - "
 *PageSize 11x17/11x17: "%% FoomaticRIPOptionSetting: PageSize=11x17"
-*FoomaticRIPOptionSetting PageSize=11x17: " -sPAPERSIZE=11x17"
+*FoomaticRIPOptionSetting PageSize=11x17: " -sPAPERSIZE=11x17  -sOutputFile=- - "
 *CloseUI: *PageSize
 
 *OpenUI *PageRegion: PickOne
@@ -144,6 +148,8 @@
 *DefaultPageRegion: Letter
 *PageRegion A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
 *PageRegion A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
+*PageRegion A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
+*PageRegion Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
 *PageRegion Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
 *PageRegion 11x17/11x17: "%% FoomaticRIPOptionSetting: PageSize=11x17"
 *CloseUI: *PageRegion
@@ -153,12 +159,16 @@
 *DefaultImageableArea: Letter
 *ImageableArea A3/A3: "12 12 830 1179"
 *ImageableArea A4/A4: "12 12 583 830"
+*ImageableArea A5/A5: "12 12 408 583"
+*ImageableArea Legal/Legal: "12 12 600 996"
 *ImageableArea Letter/Letter: "12 12 600 780"
 *ImageableArea 11x17/11x17: "12 12 780 1212"
 
 *DefaultPaperDimension: Letter
 *PaperDimension A3/A3: "842 1191"
 *PaperDimension A4/A4: "595 842"
+*PaperDimension A5/A5: "420 595"
+*PaperDimension Legal/Legal: "612 1008"
 *PaperDimension Letter/Letter: "612 792"
 *PaperDimension 11x17/11x17: "792 1224"
 
@@ -702,9 +712,15 @@
 *UIConstraints: *MediaType Prepunched *OutputBin FinEUPHBShift
 *UIConstraints: *MediaType OHP *OutputBin FinEUPHBShift
 *UIConstraints: *PageSize A3 *InputSlot 5Tray
+*UIConstraints: *PageSize A5 *InputSlot 5Tray
+*UIConstraints: *PageSize Legal *InputSlot 5Tray
 *UIConstraints: *PageSize 11x17 *InputSlot 5Tray
 *UIConstraints: *InputSlot 5Tray *PageSize A3
+*UIConstraints: *InputSlot 5Tray *PageSize A5
+*UIConstraints: *InputSlot 5Tray *PageSize Legal
 *UIConstraints: *InputSlot 5Tray *PageSize 11x17
+*UIConstraints: *OutputBin FinEUPHBBKLower *PageSize A5
+*UIConstraints: *PageSize A5 *OutputBin FinEUPHBBKLower
 *UIConstraints: *InputSlot MultiTray *Duplex DuplexTumble
 *UIConstraints: *InputSlot MultiTray *Duplex DuplexNoTumble
 *UIConstraints: *Duplex DuplexTumble *InputSlot MultiTray

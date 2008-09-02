@@ -4,9 +4,9 @@
 *%    for "Ricoh Aficio MP 161 PXL"
 *%
 *%    CreationDate: 2006/02/20
-*%    Modified:     2007/12/14
+*%    Modified:     2008/08/29
 *%
-*%    COPYRIGHT (C) 2006-2007 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2006-2008 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -66,7 +66,7 @@
 *DefaultOptionTray: False
 *OptionTray False/Not Installed: ""
 *OptionTray True/Installed: ""
-*CloseUI *OptionTray
+*CloseUI: *OptionTray
 
 
 *CloseGroup: InstallableOptions
@@ -74,7 +74,7 @@
 *%========== Ghostscript Command line ==========
 
 *FoomaticIDs: Ricoh-Aficio_MP_161 pxlmono
-*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE%B%A%C -sOutputFile=- - %D%E"
+*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE%B%A%C %D%E"
 
 *OpenGroup: General
 *OpenUI *ColorModel/Color Mode: PickOne
@@ -115,15 +115,21 @@
 *OrderDependency: 20 AnySetup *PageSize
 *DefaultPageSize: Letter
 *PageSize A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
-*FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4"
+*FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4 -sOutputFile=- - "
+*PageSize A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
+*FoomaticRIPOptionSetting PageSize=A5: " -sPAPERSIZE=a5 -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0f\xf8\x25/g&quot;"
+*PageSize Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
+*FoomaticRIPOptionSetting PageSize=Legal: " -sPAPERSIZE=legal -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x01\xf8\x25/g&quot;"
 *PageSize Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
-*FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter"
+*FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter -sOutputFile=- - "
 *CloseUI: *PageSize
 
 *OpenUI *PageRegion: PickOne
 *OrderDependency: 25 AnySetup *PageRegion
 *DefaultPageRegion: Letter
 *PageRegion A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
+*PageRegion A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
+*PageRegion Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
 *PageRegion Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
 *CloseUI: *PageRegion
 
@@ -131,10 +137,14 @@
 
 *DefaultImageableArea: Letter
 *ImageableArea A4/A4: "12 12 583 830"
+*ImageableArea A5/A5: "12 12 408 583"
+*ImageableArea Legal/Legal: "12 12 600 996"
 *ImageableArea Letter/Letter: "12 12 600 780"
 
 *DefaultPaperDimension: Letter
 *PaperDimension A4/A4: "595 842"
+*PaperDimension A5/A5: "420 595"
+*PaperDimension Legal/Legal: "612 1008"
 *PaperDimension Letter/Letter: "612 792"
 
 *%========== Media Handling Features ==========
@@ -281,6 +291,14 @@
 *UIConstraints: *InputSlot 2Tray *MediaType OHP
 *UIConstraints: *InputSlot 1Tray *MediaType Thick
 *UIConstraints: *InputSlot 2Tray *MediaType Thick
+*UIConstraints: *PageSize A5 *InputSlot 2Tray
+*UIConstraints: *PageSize Legal *InputSlot 1Tray
+*UIConstraints: *InputSlot 2Tray *PageSize A5
+*UIConstraints: *InputSlot 1Tray *PageSize Legal
+*UIConstraints: *PageSize A5 *Duplex DuplexTumble
+*UIConstraints: *PageSize A5 *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexTumble *PageSize A5
+*UIConstraints: *Duplex DuplexNoTumble *PageSize A5
 *UIConstraints: *MediaType Labels *Duplex DuplexTumble
 *UIConstraints: *MediaType Labels *Duplex DuplexNoTumble
 *UIConstraints: *MediaType OHP *Duplex DuplexTumble

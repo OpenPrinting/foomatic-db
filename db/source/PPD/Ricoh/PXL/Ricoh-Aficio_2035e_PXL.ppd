@@ -4,9 +4,9 @@
 *%    for "Ricoh Aficio 2035e PXL"
 *%
 *%    CreationDate: 2002/03/18
-*%    Modified:     2007/12/14
+*%    Modified:     2008/08/29
 *%
-*%    COPYRIGHT (C) 2002-2007 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2002-2008 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -66,13 +66,13 @@
 *DefaultOption21ExternalTray: False
 *Option21ExternalTray False/Not Installed: ""
 *Option21ExternalTray True/Installed: ""
-*CloseUI *Option21ExternalTray
+*CloseUI: *Option21ExternalTray
 
 *OpenUI *Option20InternalTray2/Internal Tray 2: PickOne
 *DefaultOption20InternalTray2: False
 *Option20InternalTray2 False/Not Installed: ""
 *Option20InternalTray2 True/Installed: ""
-*CloseUI *Option20InternalTray2
+*CloseUI: *Option20InternalTray2
 
 *OpenUI *Option30Finisher/Finisher: PickOne
 *DefaultOption30Finisher: None
@@ -80,19 +80,19 @@
 *Option30Finisher FinKING/Finisher 1000: ""
 *Option30Finisher FinLAWC/Finisher 2250: ""
 *Option30Finisher FinTONEC/Booklet Finisher: ""
-*CloseUI *Option30Finisher
+*CloseUI: *Option30Finisher
 
 *OpenUI *Option2LargeCapacityTray/Large Capacity Tray: PickOne
 *DefaultOption2LargeCapacityTray: False
 *Option2LargeCapacityTray False/Not Installed: ""
 *Option2LargeCapacityTray True/Installed: ""
-*CloseUI *Option2LargeCapacityTray
+*CloseUI: *Option2LargeCapacityTray
 
 *OpenUI *Option1LowerPaperTrays/Lower Paper Trays: PickOne
 *DefaultOption1LowerPaperTrays: False
 *Option1LowerPaperTrays False/Not Installed: ""
 *Option1LowerPaperTrays True/Installed: ""
-*CloseUI *Option1LowerPaperTrays
+*CloseUI: *Option1LowerPaperTrays
 
 
 *CloseGroup: InstallableOptions
@@ -100,7 +100,7 @@
 *%========== Ghostscript Command line ==========
 
 *FoomaticIDs: Ricoh-Aficio_2035e pxlmono
-*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE%B%A%C -sOutputFile=- - %D%E"
+*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE%B%A%C %D%E"
 
 *OpenGroup: General
 *OpenUI *ColorModel/Color Mode: PickOne
@@ -141,13 +141,17 @@
 *OrderDependency: 20 AnySetup *PageSize
 *DefaultPageSize: Letter
 *PageSize A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
-*FoomaticRIPOptionSetting PageSize=A3: " -sPAPERSIZE=a3"
+*FoomaticRIPOptionSetting PageSize=A3: " -sPAPERSIZE=a3 -sOutputFile=- - "
 *PageSize A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
-*FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4"
+*FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4 -sOutputFile=- - "
+*PageSize A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
+*FoomaticRIPOptionSetting PageSize=A5: " -sPAPERSIZE=a5 -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0f\xf8\x25/g&quot;"
+*PageSize Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
+*FoomaticRIPOptionSetting PageSize=Legal: " -sPAPERSIZE=legal -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x01\xf8\x25/g&quot;"
 *PageSize Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
-*FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter"
+*FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter -sOutputFile=- - "
 *PageSize 11x17/11x17: "%% FoomaticRIPOptionSetting: PageSize=11x17"
-*FoomaticRIPOptionSetting PageSize=11x17: " -sPAPERSIZE=11x17"
+*FoomaticRIPOptionSetting PageSize=11x17: " -sPAPERSIZE=11x17  -sOutputFile=- - "
 *CloseUI: *PageSize
 
 *OpenUI *PageRegion: PickOne
@@ -155,6 +159,8 @@
 *DefaultPageRegion: Letter
 *PageRegion A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
 *PageRegion A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
+*PageRegion A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
+*PageRegion Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
 *PageRegion Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
 *PageRegion 11x17/11x17: "%% FoomaticRIPOptionSetting: PageSize=11x17"
 *CloseUI: *PageRegion
@@ -164,12 +170,16 @@
 *DefaultImageableArea: Letter
 *ImageableArea A3/A3: "12 12 830 1179"
 *ImageableArea A4/A4: "12 12 583 830"
+*ImageableArea A5/A5: "12 12 408 583"
+*ImageableArea Legal/Legal: "12 12 600 996"
 *ImageableArea Letter/Letter: "12 12 600 780"
 *ImageableArea 11x17/11x17: "12 12 780 1212"
 
 *DefaultPaperDimension: Letter
 *PaperDimension A3/A3: "842 1191"
 *PaperDimension A4/A4: "595 842"
+*PaperDimension A5/A5: "420 595"
+*PaperDimension Legal/Legal: "612 1008"
 *PaperDimension Letter/Letter: "612 792"
 *PaperDimension 11x17/11x17: "792 1224"
 
@@ -541,8 +551,12 @@
 *UIConstraints: *InputSlot 4Tray *MediaType Thick
 *UIConstraints: *InputSlot 5Tray *MediaType Thick
 *UIConstraints: *PageSize A3 *InputSlot 5Tray
+*UIConstraints: *PageSize A5 *InputSlot 5Tray
+*UIConstraints: *PageSize Legal *InputSlot 5Tray
 *UIConstraints: *PageSize 11x17 *InputSlot 5Tray
 *UIConstraints: *InputSlot 5Tray *PageSize A3
+*UIConstraints: *InputSlot 5Tray *PageSize A5
+*UIConstraints: *InputSlot 5Tray *PageSize Legal
 *UIConstraints: *InputSlot 5Tray *PageSize 11x17
 *UIConstraints: *InputSlot MultiTray *Duplex DuplexTumble
 *UIConstraints: *InputSlot MultiTray *Duplex DuplexNoTumble
