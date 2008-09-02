@@ -4,9 +4,9 @@
 *%    for "Infotec  ISC 5560 PXL"
 *%
 *%    CreationDate: 2004/03/18
-*%    Modified:     2007/12/14
+*%    Modified:     2008/08/29
 *%
-*%    COPYRIGHT (C) 2004-2007 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2004-2008 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -66,13 +66,13 @@
 *DefaultOption2LargeCapacityTray: False
 *Option2LargeCapacityTray False/Not Installed: ""
 *Option2LargeCapacityTray True/Installed: ""
-*CloseUI *Option2LargeCapacityTray
+*CloseUI: *Option2LargeCapacityTray
 
 *OpenUI *Option40Mailbox/Mailbox: PickOne
 *DefaultOption40Mailbox: False
 *Option40Mailbox False/Not Installed: ""
 *Option40Mailbox True/Installed: ""
-*CloseUI *Option40Mailbox
+*CloseUI: *Option40Mailbox
 
 *OpenUI *Option30Finisher/Finisher: PickOne
 *DefaultOption30Finisher: None
@@ -80,7 +80,7 @@
 *Option30Finisher FinEUPHPOS/Finisher MEC BK: ""
 *Option30Finisher FinEUPHIMPOS/Finisher MEC: ""
 *Option30Finisher FinVICTORIAC/Finisher 3000B: ""
-*CloseUI *Option30Finisher
+*CloseUI: *Option30Finisher
 
 
 *CloseGroup: InstallableOptions
@@ -88,7 +88,7 @@
 *%========== Ghostscript Command line ==========
 
 *FoomaticIDs: Infotec-ISC_5560 pxlmono
-*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE%B%A%C -sOutputFile=- - %D%E"
+*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE%B%A%C %D%E"
 
 *OpenGroup: General
 *OpenUI *ColorModel/Color Mode: PickOne
@@ -138,13 +138,17 @@
 *OrderDependency: 20 AnySetup *PageSize
 *DefaultPageSize: Letter
 *PageSize A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
-*FoomaticRIPOptionSetting PageSize=A3: " -sPAPERSIZE=a3"
+*FoomaticRIPOptionSetting PageSize=A3: " -sPAPERSIZE=a3 -sOutputFile=- - "
 *PageSize A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
-*FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4"
+*FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4 -sOutputFile=- - "
+*PageSize A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
+*FoomaticRIPOptionSetting PageSize=A5: " -sPAPERSIZE=a5 -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0f\xf8\x25/g&quot;"
 *PageSize 11x17/11x17: "%% FoomaticRIPOptionSetting: PageSize=11x17"
-*FoomaticRIPOptionSetting PageSize=11x17: " -sPAPERSIZE=11x17"
+*FoomaticRIPOptionSetting PageSize=11x17: " -sPAPERSIZE=11x17  -sOutputFile=- - "
+*PageSize Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
+*FoomaticRIPOptionSetting PageSize=Legal: " -sPAPERSIZE=legal -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x01\xf8\x25/g&quot;"
 *PageSize Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
-*FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter"
+*FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter -sOutputFile=- - "
 *CloseUI: *PageSize
 
 *OpenUI *PageRegion: PickOne
@@ -152,7 +156,9 @@
 *DefaultPageRegion: Letter
 *PageRegion A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
 *PageRegion A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
+*PageRegion A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
 *PageRegion 11x17/11x17: "%% FoomaticRIPOptionSetting: PageSize=11x17"
+*PageRegion Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
 *PageRegion Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
 *CloseUI: *PageRegion
 
@@ -161,13 +167,17 @@
 *DefaultImageableArea: Letter
 *ImageableArea A3/A3: "12 12 830 1179"
 *ImageableArea A4/A4: "12 12 583 830"
+*ImageableArea A5/A5: "12 12 408 583"
 *ImageableArea 11x17/11x17: "12 12 780 1212"
+*ImageableArea Legal/Legal: "12 12 600 996"
 *ImageableArea Letter/Letter: "12 12 600 780"
 
 *DefaultPaperDimension: Letter
 *PaperDimension A3/A3: "842 1191"
 *PaperDimension A4/A4: "595 842"
+*PaperDimension A5/A5: "420 595"
 *PaperDimension 11x17/11x17: "792 1224"
+*PaperDimension Legal/Legal: "612 1008"
 *PaperDimension Letter/Letter: "612 792"
 
 *%========== Media Handling Features ==========
@@ -755,9 +765,15 @@
 *UIConstraints: *StapleLocation RightW *InputSlot MultiTray
 *UIConstraints: *StapleLocation UpperW *InputSlot MultiTray
 *UIConstraints: *StapleLocation CenterW *InputSlot MultiTray
+*UIConstraints: *PageSize A5 *InputSlot 1Tray
+*UIConstraints: *PageSize Legal *InputSlot 1Tray
 *UIConstraints: *PageSize A3 *InputSlot 4Tray
+*UIConstraints: *PageSize A5 *InputSlot 4Tray
 *UIConstraints: *PageSize 11x17 *InputSlot 4Tray
+*UIConstraints: *InputSlot 1Tray *PageSize A5
+*UIConstraints: *InputSlot 1Tray *PageSize Legal
 *UIConstraints: *InputSlot 4Tray *PageSize A3
+*UIConstraints: *InputSlot 4Tray *PageSize A5
 *UIConstraints: *InputSlot 4Tray *PageSize 11x17
 *UIConstraints: *MediaType Labels *InputSlot 1Tray
 *UIConstraints: *MediaType OHP *InputSlot 1Tray

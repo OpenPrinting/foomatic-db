@@ -4,9 +4,9 @@
 *%    for "Ricoh Aficio 3228C PXL"
 *%
 *%    CreationDate: 2004/03/23
-*%    Modified:     2007/12/14
+*%    Modified:     2008/08/29
 *%
-*%    COPYRIGHT (C) 2004-2007 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2004-2008 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -67,20 +67,20 @@
 *Option1Tray None/None: ""
 *Option1Tray 1Cassette/Tray 3: ""
 *Option1Tray 2Cassette/Tray 3 and 4: ""
-*CloseUI *Option1Tray
+*CloseUI: *Option1Tray
 
 *OpenUI *Option50LeftTray1and2/Left Tray 1 and 2: PickOne
 *DefaultOption50LeftTray1and2: False
 *Option50LeftTray1and2 False/Not Installed: ""
 *Option50LeftTray1and2 True/Installed: ""
-*CloseUI *Option50LeftTray1and2
+*CloseUI: *Option50LeftTray1and2
 
 *OpenUI *Option30Finisher/Finisher: PickOne
 *DefaultOption30Finisher: None
 *Option30Finisher None/Not Installed: ""
 *Option30Finisher Fin2250/2 Tray Finisher: ""
 *Option30Finisher FinKINU/Booklet Finisher: ""
-*CloseUI *Option30Finisher
+*CloseUI: *Option30Finisher
 
 
 *CloseGroup: InstallableOptions
@@ -88,7 +88,7 @@
 *%========== Ghostscript Command line ==========
 
 *FoomaticIDs: Ricoh-Aficio_3228C pxlmono
-*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE%B%A%C -sOutputFile=- - %D%E"
+*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE%B%A%C %D%E"
 
 *OpenGroup: General
 *OpenUI *ColorModel/Color Mode: PickOne
@@ -142,13 +142,17 @@
 *OrderDependency: 20 AnySetup *PageSize
 *DefaultPageSize: Letter
 *PageSize A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
-*FoomaticRIPOptionSetting PageSize=A3: " -sPAPERSIZE=a3"
+*FoomaticRIPOptionSetting PageSize=A3: " -sPAPERSIZE=a3 -sOutputFile=- - "
 *PageSize A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
-*FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4"
+*FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4 -sOutputFile=- - "
+*PageSize A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
+*FoomaticRIPOptionSetting PageSize=A5: " -sPAPERSIZE=a5 -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0f\xf8\x25/g&quot;"
+*PageSize Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
+*FoomaticRIPOptionSetting PageSize=Legal: " -sPAPERSIZE=legal -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x01\xf8\x25/g&quot;"
 *PageSize Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
-*FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter"
+*FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter -sOutputFile=- - "
 *PageSize 11x17/11x17: "%% FoomaticRIPOptionSetting: PageSize=11x17"
-*FoomaticRIPOptionSetting PageSize=11x17: " -sPAPERSIZE=11x17"
+*FoomaticRIPOptionSetting PageSize=11x17: " -sPAPERSIZE=11x17  -sOutputFile=- - "
 *CloseUI: *PageSize
 
 *OpenUI *PageRegion: PickOne
@@ -156,6 +160,8 @@
 *DefaultPageRegion: Letter
 *PageRegion A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
 *PageRegion A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
+*PageRegion A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
+*PageRegion Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
 *PageRegion Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
 *PageRegion 11x17/11x17: "%% FoomaticRIPOptionSetting: PageSize=11x17"
 *CloseUI: *PageRegion
@@ -165,12 +171,16 @@
 *DefaultImageableArea: Letter
 *ImageableArea A3/A3: "12 12 830 1179"
 *ImageableArea A4/A4: "12 12 583 830"
+*ImageableArea A5/A5: "12 12 408 583"
+*ImageableArea Legal/Legal: "12 12 600 996"
 *ImageableArea Letter/Letter: "12 12 600 780"
 *ImageableArea 11x17/11x17: "12 12 780 1212"
 
 *DefaultPaperDimension: Letter
 *PaperDimension A3/A3: "842 1191"
 *PaperDimension A4/A4: "595 842"
+*PaperDimension A5/A5: "420 595"
+*PaperDimension Legal/Legal: "612 1008"
 *PaperDimension Letter/Letter: "612 792"
 *PaperDimension 11x17/11x17: "792 1224"
 
@@ -576,9 +586,17 @@
 *UIConstraints: *InputSlot 3Tray *MediaType Labels
 *UIConstraints: *InputSlot 4Tray *MediaType Labels
 *UIConstraints: *PageSize A3 *InputSlot 1Tray
+*UIConstraints: *PageSize A5 *InputSlot 1Tray
+*UIConstraints: *PageSize Legal *InputSlot 1Tray
 *UIConstraints: *PageSize 11x17 *InputSlot 1Tray
 *UIConstraints: *InputSlot 1Tray *PageSize A3
+*UIConstraints: *InputSlot 1Tray *PageSize A5
+*UIConstraints: *InputSlot 1Tray *PageSize Legal
 *UIConstraints: *InputSlot 1Tray *PageSize 11x17
+*UIConstraints: *PageSize A5 *OutputBin FinKINUShift
+*UIConstraints: *PageSize A5 *OutputBin FinBooklet
+*UIConstraints: *OutputBin FinKINUShift *PageSize A5
+*UIConstraints: *OutputBin FinBooklet *PageSize A5
 *UIConstraints: *StapleLocation UpperLeft *OutputBin Standard
 *UIConstraints: *StapleLocation UpperLeft *OutputBin External
 *UIConstraints: *StapleLocation UpperLeft *OutputBin CFBin1

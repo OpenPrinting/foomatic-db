@@ -4,9 +4,9 @@
 *%    for "Savin 8110 PXL"
 *%
 *%    CreationDate: 2005/05/11
-*%    Modified:     2007/12/14
+*%    Modified:     2008/08/29
 *%
-*%    COPYRIGHT (C) 2005-2007 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2005-2008 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -66,38 +66,38 @@
 *DefaultOption2LargeCapacityTray: False
 *Option2LargeCapacityTray False/Not Installed: ""
 *Option2LargeCapacityTray True/Installed: ""
-*CloseUI *Option2LargeCapacityTray
+*CloseUI: *Option2LargeCapacityTray
 
 *OpenUI *Option3Tray7/Tray 7: PickOne
 *DefaultOption3Tray7: False
 *Option3Tray7 False/Not Installed: ""
 *Option3Tray7 True/Installed: ""
-*CloseUI *Option3Tray7
+*CloseUI: *Option3Tray7
 
 *OpenUI *Option100MultiholePunchUnit/Multi-hole Punch Unit: PickOne
 *DefaultOption100MultiholePunchUnit: False
 *Option100MultiholePunchUnit False/Not Installed: ""
 *Option100MultiholePunchUnit True/Installed: ""
-*CloseUI *Option100MultiholePunchUnit
+*CloseUI: *Option100MultiholePunchUnit
 
 *OpenUI *Option50Zfoldingunit/Z-folding unit: PickOne
 *DefaultOption50Zfoldingunit: False
 *Option50Zfoldingunit False/Not Installed: ""
 *Option50Zfoldingunit True/Installed: ""
-*CloseUI *Option50Zfoldingunit
+*CloseUI: *Option50Zfoldingunit
 
 *OpenUI *Option32OutputOption/Output Option: PickOne
 *DefaultOption32OutputOption: None
 *Option32OutputOption None/Not Installed: ""
 *Option32OutputOption Karun/Finisher BK5000: ""
 *Option32OutputOption Plockmatic/Booklet Processor: ""
-*CloseUI *Option32OutputOption
+*CloseUI: *Option32OutputOption
 
 *OpenUI *Option30FinisherSR5000/Finisher SR5000: PickOne
 *DefaultOption30FinisherSR5000: True
 *Option30FinisherSR5000 True/Installed: ""
 *Option30FinisherSR5000 False/Not Installed: ""
-*CloseUI *Option30FinisherSR5000
+*CloseUI: *Option30FinisherSR5000
 
 
 *CloseGroup: InstallableOptions
@@ -105,7 +105,7 @@
 *%========== Ghostscript Command line ==========
 
 *FoomaticIDs: Savin-8110 pxlmono
-*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE%B%A%C -sOutputFile=- - %D%E"
+*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE%B%A%C %D%E"
 
 *OpenGroup: General
 *OpenUI *ColorModel/Color Mode: PickOne
@@ -150,13 +150,17 @@
 *OrderDependency: 20 AnySetup *PageSize
 *DefaultPageSize: Letter
 *PageSize A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
-*FoomaticRIPOptionSetting PageSize=A3: " -sPAPERSIZE=a3"
+*FoomaticRIPOptionSetting PageSize=A3: " -sPAPERSIZE=a3 -sOutputFile=- - "
 *PageSize A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
-*FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4"
+*FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4 -sOutputFile=- - "
+*PageSize A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
+*FoomaticRIPOptionSetting PageSize=A5: " -sPAPERSIZE=a5 -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0f\xf8\x25/g&quot;"
 *PageSize 11x17/11x17: "%% FoomaticRIPOptionSetting: PageSize=11x17"
-*FoomaticRIPOptionSetting PageSize=11x17: " -sPAPERSIZE=11x17"
+*FoomaticRIPOptionSetting PageSize=11x17: " -sPAPERSIZE=11x17  -sOutputFile=- - "
+*PageSize Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
+*FoomaticRIPOptionSetting PageSize=Legal: " -sPAPERSIZE=legal -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x01\xf8\x25/g&quot;"
 *PageSize Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
-*FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter"
+*FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter -sOutputFile=- - "
 *CloseUI: *PageSize
 
 *OpenUI *PageRegion: PickOne
@@ -164,7 +168,9 @@
 *DefaultPageRegion: Letter
 *PageRegion A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
 *PageRegion A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
+*PageRegion A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
 *PageRegion 11x17/11x17: "%% FoomaticRIPOptionSetting: PageSize=11x17"
+*PageRegion Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
 *PageRegion Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
 *CloseUI: *PageRegion
 
@@ -173,13 +179,17 @@
 *DefaultImageableArea: Letter
 *ImageableArea A3/A3: "12 12 830 1179"
 *ImageableArea A4/A4: "12 12 583 830"
+*ImageableArea A5/A5: "12 12 408 583"
 *ImageableArea 11x17/11x17: "12 12 780 1212"
+*ImageableArea Legal/Legal: "12 12 600 996"
 *ImageableArea Letter/Letter: "12 12 600 780"
 
 *DefaultPaperDimension: Letter
 *PaperDimension A3/A3: "842 1191"
 *PaperDimension A4/A4: "595 842"
+*PaperDimension A5/A5: "420 595"
 *PaperDimension 11x17/11x17: "792 1224"
+*PaperDimension Legal/Legal: "612 1008"
 *PaperDimension Letter/Letter: "612 792"
 
 *%========== Media Handling Features ==========
@@ -591,6 +601,8 @@
 *UIConstraints: *Option50Zfoldingunit False *RIZfold Right
 *UIConstraints: *RIZfold Left *Option50Zfoldingunit False
 *UIConstraints: *Option50Zfoldingunit False *RIZfold Left
+*UIConstraints: *PageSize A5 *InputSlot 1Tray
+*UIConstraints: *InputSlot 1Tray *PageSize A5
 *UIConstraints: *MediaType Translucent *InputSlot 1Tray
 *UIConstraints: *InputSlot 1Tray *MediaType Translucent
 *UIConstraints: *MediaType Labels *InputSlot 1Tray
