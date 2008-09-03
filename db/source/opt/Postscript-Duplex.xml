@@ -1,84 +1,64 @@
-<option type="enum" id="opt/Postscript-PreFilter">
+<option type="enum" id="opt/162">
   <!-- A multilingual <comments> block can appear here, too;
        it should be treated as documentation for the user. -->
   <arg_longname>
-   <en>GhostScript pre-filtering</en>
+   <en>Double-Sided Printing</en>
   </arg_longname>
   <arg_shortname>
-   <en>PreFilter</en><!-- backends only know <en> shortnames! -->
+   <en>Duplex</en><!-- backends only know <en> shortnames! -->
   </arg_shortname>
   <arg_execution>
-   <arg_group>Miscellaneous</arg_group>
-   <arg_order>100</arg_order>
-   <arg_spot>D</arg_spot>
-   <arg_required />
-   <arg_substitution />
+   <arg_group>General</arg_group>
+   <arg_order>130</arg_order>
+   <arg_spot>Z</arg_spot>
+   <arg_postscript />
    <arg_proto>%s</arg_proto>
   </arg_execution>
   <constraints>
      <constraint sense="true">
       <driver>Postscript</driver>
-      <arg_defval>ev/Postscript-NoPreFilter</arg_defval>
-     </constraint>
-     <constraint sense="true">
-      <make>Kyocera</make>
-      <model>FS-5500</model>
-      <driver>Postscript</driver>
-      <arg_defval>ev/Postscript-Level1</arg_defval>
+      <arg_defval>ev/909</arg_defval>
      </constraint>
   </constraints>
   <enum_vals>
-   <enum_val id="ev/Postscript-NoPreFilter">
+   <enum_val id="ev/909">
     <ev_longname>
-     <en>No pre-filtering</en>
+     <en>Off</en>
     </ev_longname>
     <!-- A multilingual <comments> block can appear here, too;
          it should be treated as documentation for the user. -->
     <ev_shortname>
-     <en>No</en>
+     <en>None</en>
      <!-- Until someone tells me how to learn the user locale in 
           backends, the shortname must be monolingual in <en>! -->
     </ev_shortname>
-    <ev_driverval>0</ev_driverval>
+    <ev_driverval>&lt;&lt;/Duplex false&gt;&gt;setpagedevice</ev_driverval>
    </enum_val>
-   <enum_val id="ev/Postscript-EmbedFonts">
+   <enum_val id="ev/910">
     <ev_longname>
-     <en>Embed GhostScript fonts only</en>
+     <en>Long Edge (Standard)</en>
     </ev_longname>
     <!-- A multilingual <comments> block can appear here, too;
          it should be treated as documentation for the user. -->
     <ev_shortname>
-     <en>EmbedFonts</en>
+     <en>DuplexNoTumble</en>
      <!-- Until someone tells me how to learn the user locale in 
           backends, the shortname must be monolingual in <en>! -->
     </ev_shortname>
-    <ev_driverval>99</ev_driverval>
+    <ev_driverval>&lt;&lt;/Duplex true /Tumble false&gt;&gt;setpagedevice</ev_driverval>
    </enum_val>
-   <enum_val id="ev/Postscript-Level1">
+   <enum_val id="ev/911">
     <ev_longname>
-     <en>Convert to PS level 1</en>
+     <en>Short Edge (Flip)</en>
     </ev_longname>
     <!-- A multilingual <comments> block can appear here, too;
          it should be treated as documentation for the user. -->
     <ev_shortname>
-     <en>Level1</en>
+     <en>DuplexTumble</en>
      <!-- Until someone tells me how to learn the user locale in 
           backends, the shortname must be monolingual in <en>! -->
     </ev_shortname>
-    <ev_driverval>1</ev_driverval>
-   </enum_val>
-   <enum_val id="ev/Postscript-Level2">
-    <ev_longname>
-     <en>Convert to PS level 2</en>
-    </ev_longname>
-    <!-- A multilingual <comments> block can appear here, too;
-         it should be treated as documentation for the user. -->
-    <ev_shortname>
-     <en>Level2</en>
-     <!-- Until someone tells me how to learn the user locale in 
-          backends, the shortname must be monolingual in <en>! -->
-    </ev_shortname>
-    <ev_driverval>2</ev_driverval>
+    <ev_driverval>&lt;&lt;/Duplex true /Tumble true&gt;&gt;setpagedevice</ev_driverval>
    </enum_val>
   </enum_vals>
 </option>

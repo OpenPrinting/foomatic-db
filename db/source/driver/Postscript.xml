@@ -1,10 +1,10 @@
-<?xml version="1.0" ?><driver id="driver/Postscript">
+<driver id="driver/Postscript">
   <name>Postscript</name>
   <url>http://partners.adobe.com/public/developer/ps/index_specs.html</url>
   <execution>
     <postscript/>
     <nopageaccounting/>
-    <prototype>level=%D; /usr/bin/printf &quot;%%!PS\n%%%% %%%%\n%C&quot;; if [ $level -gt 0 ]; then if [ $level -lt 99 ]; then level=&quot; -dLanguageLevel=$level&quot;; else level=&quot;&quot;; fi; gs -q -dPARANOIDSAFER -dNOPAUSE -dBATCH -sDEVICE=pswrite$level%A%Z -sOutputFile=- -; else cat; fi</prototype>
+    <prototype>cat%A%B%Z</prototype>
   </execution>
   <comments>
     <en>
@@ -19,19 +19,6 @@
     which contain only some standard options, use them only if you do
     not find an appropriate PPD for your printer.&lt;p&gt;
 
-    In addition, this driver allows to convert the PostScript data
-    from the application to a lower PostScript level, so that
-    applications which only produce level 2 or 3 can print on old
-    printers using only level 1. If the GhostScript on your machine
-    has fonts installed which are not standard PostScript fonts, the
-    fonts will get embedded in the data sent to the printer, so that
-    the printer is able to print these fonts. This needs extra memory
-    in the printer, if your printer does not print the job, the memory
-    is unsufficient, try to lower the resolution or to use a PCL
-    driver (&quot;hpijs&quot;, &quot;ljet4&quot;,
-    &quot;lj5gray&quot;/&quot;lj5mono&quot;,
-    &quot;pxlmono&quot;/&quot;pxlcolor&quot;).&lt;p&gt;
-
     One can make use of all functionality which the PostScript
     printers have under Windows/MacOS when one uses the PPD file
     coming with the printer, downloaded from &lt;a
@@ -42,7 +29,6 @@
     PPD files). If there are several different PPD files for your
     printer model and none dedicated for Linux or Unix, the PPD for
     Windows NT works best in most cases.&lt;p&gt;
-
 
     CUPS and PPR support PPD files directly, LPD/GNUlpr/LPRng, PDQ,
     CPS, and spooler-less users can set up their printers with
@@ -76,16 +62,8 @@
       <id>printer/Apple-LaserWriter_4_600</id>
     </printer>
     <printer>
-      <id>printer/Apple-LaserWriter_IINTX</id>
-      <!-- Apple LaserWriter IINTX -->
-    </printer>
-    <printer>
       <id>printer/Apple-LaserWriter_IIg</id>
       <!-- Apple LaserWriter IIg -->
-    </printer>
-    <printer>
-      <id>printer/Apple-LaserWriter_NT</id>
-      <!-- Apple LaserWriter NT -->
     </printer>
     <printer>
       <id>printer/Apple-LaserWriter_Pro_630</id>
@@ -1316,9 +1294,6 @@
     </printer>
     <printer>
       <id>printer/Kyocera-FS-400</id>
-    </printer>
-    <printer>
-      <id>printer/Kyocera-FS-5500</id>
     </printer>
     <printer>
       <id>printer/Kyocera-FS-5800C</id>
