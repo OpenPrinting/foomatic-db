@@ -1,11 +1,27 @@
 <driver id="driver/bjc600">
  <name>bjc600</name>
- <url>http://www.ghostscript.com/doc/gnu/7.05/Devices.htm#BJC</url>
+ <url>http://www.ghostscript.com/</url>
  <execution>
   <ghostscript />
-  <prototype>gs -q -dBATCH -dPARANOIDSAFER -dQUIET -dNOPAUSE -sDEVICE=bjc600%A%Z -sOutputFile=- -</prototype>
+  <prototype>NOPDF=1 gs -q -dBATCH -dPARANOIDSAFER -dQUIET -dNOPAUSE -sDEVICE=bjc600%A%Z -sOutputFile=- -</prototype>
+  <!-- The "NOPDF=1" makes foomatic-rip not finding the Ghostscript call
+       in the beginning of the command line and so it feeds in only 
+       PostScript and never PDF. This is a workaround for
+       http://bugs.ghostscript.com/show_bug.cgi?id=690032 -->
  </execution>
- 
+ <comments>
+   <en>
+
+     Ghostscript's built-in standard driver for Canon's inkjet
+     printers.&lt;p&gt;
+
+     NOTE: Due to a &lt;a
+     href="http://bugs.ghostscript.com/show_bug.cgi?id=690032"&gt;bug&lt;/a&gt;
+     GPL Ghostscript 8.63 crashes when using this driver with PDF
+     input data. With PostScript the driver works just fine.&lt;p&gt;
+
+   </en>
+ </comments>
  <printers>
   <printer>
    <id>printer/Canon-BJC-50</id><!-- Canon BJC-50 -->
