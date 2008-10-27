@@ -1,8 +1,105 @@
 2008-10-27  Till Kamppeter <till.kamppeter@gmail.com>
 
+	* printer/Oki-C5700dn.xml, printer/Oki-C5700n.xml,
+	  printer/Oki-C5900cdtn.xml, printer/Oki-C5900dn.xml,
+	  printer/Oki-C5900dtn.xml, printer/Oki-C5900n.xml,
+	  printer/Oki-C7500hdn.xml, printer/Oki-C9300dn.xml,
+	  printer/Oki-C9300hdn.xml, printer/Oki-C9300n.xml,
+	  printer/Oki-C9500dn.xml, printer/Oki-C9500hdn.xml,
+	  printer/Oki-C9600dn.xml, printer/Oki-C9600hdn.xml,
+	  printer/Oki-C9600hdtn.xml, printer/Oki-C9600n.xml,
+	  printer/Oki-C5700.xml, printer/Oki-C5900.xml,
+	  printer/Oki-C7500.xml, printer/Oki-C9300.xml,
+	  printer/Oki-C9500.xml, printer/Oki-C9600.xml, db/oldprinterids:
+	  Started cleaning up entries for Oki printers. We need only one
+	  entry per PPD file not oner for each combination of accessories.
+	
+	* driver/Postscript-Oce.xml, driver/Postscript2-Oce.xml: Added
+	  driver entry for Oce's PostScript level 2 printers. Some
+	  of Oce's printers have PPDs for both level 2 and level 3, so
+	  the additional driver entry is needed to link the two PPDs
+	  for one printer.
+
+	* PPD/Oce/Others/IM8530_1.PPD, PPD/Oce/Others/IM8530_1.ppd:
+	  Corrected file name extensions, so that automatic processes
+	  find this file.
+
+	* PPD/Oce/Others/OC2050_3.ppd, PPD/Oce/Others/OC2060_3.ppd,
+	  PPD/Oce/Others/OC2070_3.ppd, PPD/Oce/Others/OC3145_3.ppd,
+	  PPD/Oce/Others/OC3155_3.ppd, PPD/Oce/Others/OC3165_3.ppd,
+	  PPD/Oce/Others/OC8445_3.ppd, PPD/Oce/Others/OC8465_3.ppd,
+	  PPD/Oce/Others/OCVP2090.ppd, PPD/Oce/Others/OCVP2105.ppd:
+	  Removed obsolete PPDs, a newer version is already in the
+	  database.
+
+	* PPD/Kyocera/en/Kyocera_Mita_FS-C8026N_en.ppd: Removed wrong 
+	  device ID.
+
+	* PPD/Sharp/shc260mj.ppd: Removed this unnecessary PPD file.
+	  It differs from db/source/PPD/Sharp/shac260m.ppd only by the
+	  default paper size. For CUPS it is no problem to change the default
+	  paper size. This does not need an extra PPD.
+
 	* driver/Postscript-Kyocera.xml: Added new separate driver entry
 	  for Kyocera's ready-made PPDs.
 
+	* printer/Dell-3100cn.xml, printer/Kyocera-KM-C2630.xml,
+	  printer/Lexmark-C510.xml, printer/Lexmark-C510b.xml,
+	  printer/Lexmark-C520.xml, printer/Lexmark-C522.xml,
+	  printer/Lexmark-C524.xml, printer/Lexmark-C750.xml,
+	  printer/Lexmark-C752.xml, printer/Lexmark-C752b.xml,
+	  printer/Lexmark-C910.xml, printer/Lexmark-C912.xml,
+	  printer/Lexmark-E350d.xml, printer/Lexmark-E352dn.xml,
+	  printer/Oce-3145PS.xml, printer/Oce-3155PS.xml,
+	  printer/Oce-3165PS.xml, printer/Oce-8445PS.xml,
+	  printer/Oce-8465PS.xml, printer/Oce-9230.xml,
+	  printer/Oce-9245.xml, printer/Oce-9260.xml,
+	  printer/Oce-VarioPrint_2050PS.xml,
+	  printer/Oce-VarioPrint_2060PS.xml,
+	  printer/Oce-VarioPrint_2070PS.xml,
+	  printer/Oce-VarioPrint_2090PS.xml,
+	  printer/Oce-VarioPrint_2105PS.xml, printer/Oki-B4350.xml,
+	  printer/Oki-C5300.xml, printer/Oki-C6100.xml,
+	  printer/Oki-C6100dtn.xml, printer/Oki-C6100hdn.xml,
+	  printer/Oki-C6100n.xml, printer/Oki-C7300.xml,
+	  printer/Oki-C7300dn.xml, printer/Oki-C7300n.xml,
+	  printer/Oki-C8800dn.xml, printer/Oki-C8800n.xml,
+	  printer/Oki-C9200.xml, printer/Oki-C9200dn.xml,
+	  printer/Oki-C9200n.xml, printer/Oki-C9400.xml,
+	  printer/Sharp-AR-C260M.xml, printer/Sharp-MX-2300FGPS.xml,
+	  printer/Sharp-MX-2300GPS.xml, printer/Sharp-MX-2300NPS.xml,
+	  printer/Sharp-MX-2700FGPS.xml, printer/Sharp-MX-2700GPS.xml,
+	  printer/Sharp-MX-2700NPS.xml, printer/Sharp-MX-3500FNPS.xml,
+	  printer/Sharp-MX-3500NPS.xml, printer/Sharp-MX-3501FNPS.xml,
+	  printer/Sharp-MX-3501NPS.xml, printer/Sharp-MX-4500FNPS.xml,
+	  printer/Sharp-MX-4500NPS.xml, printer/Sharp-MX-4501FNPS.xml,
+	  printer/Sharp-MX-4501NPS.xml, printer/Toshiba-GL_1010.xml,
+	  printer/Toshiba-GL_1020.xml, printer/Toshiba-e-Studio_165.xml,
+	  printer/Toshiba-e-Studio_200L.xml,
+	  printer/Toshiba-e-Studio_202L.xml,
+	  printer/Toshiba-e-Studio_205.xml,
+	  printer/Toshiba-e-Studio_230.xml,
+	  printer/Toshiba-e-Studio_232.xml,
+	  printer/Toshiba-e-Studio_2500c.xml,
+	  printer/Toshiba-e-Studio_280.xml,
+	  printer/Toshiba-e-Studio_281c.xml,
+	  printer/Toshiba-e-Studio_282.xml,
+	  printer/Toshiba-e-Studio_350.xml,
+	  printer/Toshiba-e-Studio_3500c.xml,
+	  printer/Toshiba-e-Studio_3510c.xml,
+	  printer/Toshiba-e-Studio_3511.xml,
+	  printer/Toshiba-e-Studio_351c.xml,
+	  printer/Toshiba-e-Studio_352.xml,
+	  printer/Toshiba-e-Studio_450.xml,
+	  printer/Toshiba-e-Studio_4511.xml,
+	  printer/Toshiba-e-Studio_451c.xml,
+	  printer/Toshiba-e-Studio_452.xml,
+	  printer/Toshiba-e-Studio_520.xml,
+	  printer/Toshiba-e-Studio_600.xml,
+	  printer/Toshiba-e-Studio_720.xml,
+	  printer/Toshiba-e-Studio_850.xml: Fixed broken <drivers> tags
+	  and PPD links.
+	
 	* printer/Brother-DCP-8025D.xml, printer/Brother-MFC-8420.xml,
 	  printer/Brother-HL-6050.xml, printer/Brother-HL-5240.xml,
 	  printer/Brother-HL-2700CN.xml, printer/Brother-MFC-8640D.xml,
@@ -33,39 +130,37 @@
 	  printer/HP-DesignJet_5000PS.xml, printer/HP-DesignJet_1050C.xml,
 	  printer/HP-LaserJet_4100_MFP.xml,
 	  printer/HP-LaserJet_5Si_Mopier.xml,
-	  printer/HP-DesignJet_800PS.xml, printer/Kyocera-FS-6020.xml,
-	  printer/Kyocera-KM-C3225.xml, printer/Kyocera-FS-1030D.xml,
-	  printer/Kyocera-KM-6330.xml, printer/Kyocera-KM-4035.xml,
-	  printer/Kyocera-KM-1815.xml, printer/Kyocera-FS-2000D.xml,
-	  printer/Kyocera-FS-4000DN.xml, printer/Kyocera-FS-9520DN.xml,
-	  printer/Kyocera-FS-3820N.xml, printer/Kyocera-KM-2050.xml,
-	  printer/Kyocera-KM-6030.xml, printer/Kyocera-KM-4030.xml,
-	  printer/Kyocera-FS-3718M.xml, printer/Kyocera-FS-9130DN.xml,
-	  printer/Kyocera-KM-1650.xml, printer/Kyocera-KM-4050.xml,
-	  printer/Kyocera-FS-6750.xml, printer/Kyocera-FS-1020D.xml,
-	  printer/Kyocera-FS-920.xml, printer/Kyocera-KM-4230_5230.xml,
-	  printer/Kyocera-KM-C2630.xml, printer/Kyocera-FS-C5016N.xml,
-	  printer/Kyocera-KM-C830.xml, printer/Kyocera-FS-1714M.xml,
-	  printer/Kyocera-KM-3035.xml, printer/Kyocera-FS-C8008N.xml,
-	  printer/Kyocera-KM-C2520.xml, printer/Kyocera-FS-C5020N.xml,
-	  printer/Kyocera-FS-9120DN.xml, printer/Kyocera-Ci-1100.xml,
-	  printer/Kyocera-FS-1920.xml, printer/Kyocera-FS-6950DN.xml,
-	  printer/Kyocera-KM-1510.xml, printer/Kyocera-KM-5050.xml,
-	  printer/Kyocera-KM-C850.xml, printer/Kyocera-CS-1650.xml,
-	  printer/Kyocera-FS-1018MFP.xml, printer/Kyocera-CS-2050.xml,
-	  printer/Kyocera-CS-1815.xml, printer/Kyocera-FS-7028M.xml,
-	  printer/Kyocera-FS-C5030N.xml, printer/Kyocera-FS-6900.xml,
-	  printer/Kyocera-KM-2550.xml, printer/Kyocera-FS-3830N.xml,
-	  printer/Kyocera-CS-2550.xml, printer/Kyocera-KM-C2630.xml,
-	  printer/Kyocera-KM-C3232.xml, printer/Kyocera-FS-3900DN.xml,
-	  printer/Kyocera-FS-6300.xml, printer/Kyocera-KM-7530.xml,
-	  printer/Kyocera-KM-3050.xml, printer/Kyocera-FS-6026.xml,
-	  printer/Kyocera-KM-8030.xml, printer/Kyocera-KM-5035.xml,
-	  printer/Kyocera-FS-9530DN.xml, printer/Oce-NC3155.xml,
-	  printer/Oce-NC3145.xml, printer/Oce-NC3165.xml,
-	  printer/Oce-9245.xml, printer/Oce-9260.xml,
-	  printer/Oce-NC3145.xml, printer/Oce-NC3165.xml,
-	  printer/Oce-9230.xml, printer/Oce-NC3155.xml,
+	  printer/HP-DesignJet_800PS.xml, printer/Imagistics-im8530.xml,
+	  printer/Kyocera-FS-6020.xml, printer/Kyocera-KM-C3225.xml,
+	  printer/Kyocera-FS-1030D.xml, printer/Kyocera-KM-6330.xml,
+	  printer/Kyocera-KM-4035.xml, printer/Kyocera-KM-1815.xml,
+	  printer/Kyocera-FS-2000D.xml, printer/Kyocera-FS-4000DN.xml,
+	  printer/Kyocera-FS-9520DN.xml, printer/Kyocera-FS-3820N.xml,
+	  printer/Kyocera-KM-2050.xml, printer/Kyocera-KM-6030.xml,
+	  printer/Kyocera-KM-4030.xml, printer/Kyocera-FS-3718M.xml,
+	  printer/Kyocera-FS-9130DN.xml, printer/Kyocera-KM-1650.xml,
+	  printer/Kyocera-KM-4050.xml, printer/Kyocera-FS-6750.xml,
+	  printer/Kyocera-FS-1020D.xml, printer/Kyocera-FS-920.xml,
+	  printer/Kyocera-KM-4230_5230.xml, printer/Kyocera-KM-C2630.xml,
+	  printer/Kyocera-FS-C5016N.xml, printer/Kyocera-KM-C830.xml,
+	  printer/Kyocera-FS-1714M.xml, printer/Kyocera-KM-3035.xml,
+	  printer/Kyocera-FS-C8008N.xml, printer/Kyocera-KM-C2520.xml,
+	  printer/Kyocera-FS-C5020N.xml, printer/Kyocera-FS-9120DN.xml,
+	  printer/Kyocera-Ci-1100.xml, printer/Kyocera-FS-1920.xml,
+	  printer/Kyocera-FS-6950DN.xml, printer/Kyocera-KM-1510.xml,
+	  printer/Kyocera-KM-5050.xml, printer/Kyocera-KM-C850.xml,
+	  printer/Kyocera-CS-1650.xml, printer/Kyocera-FS-1018MFP.xml,
+	  printer/Kyocera-CS-2050.xml, printer/Kyocera-CS-1815.xml,
+	  printer/Kyocera-FS-7028M.xml, printer/Kyocera-FS-C5030N.xml,
+	  printer/Kyocera-FS-6900.xml, printer/Kyocera-KM-2550.xml,
+	  printer/Kyocera-FS-3830N.xml, printer/Kyocera-CS-2550.xml,
+	  printer/Kyocera-KM-C2630.xml, printer/Kyocera-KM-C3232.xml,
+	  printer/Kyocera-FS-3900DN.xml, printer/Kyocera-FS-6300.xml,
+	  printer/Kyocera-KM-7530.xml, printer/Kyocera-KM-3050.xml,
+	  printer/Kyocera-FS-6026.xml, printer/Kyocera-KM-8030.xml,
+	  printer/Kyocera-KM-5035.xml, printer/Kyocera-FS-9530DN.xml,
+	  printer/Kyocera-FS-C8026N.xml, printer/Oce-9245.xml,
+	  printer/Oce-9260.xml, printer/Oce-9230.xml,
 	  printer/Oki-C5450.xml, printer/Oki-C7400.xml,
 	  printer/Oki-C7200.xml, printer/Oki-C7100.xml,
 	  printer/Oki-14i.xml, printer/Sharp-AR-C260M.xml,
