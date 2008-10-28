@@ -666,20 +666,20 @@ things, but the two biggies are the prototype and the printers list
 
 # Driver types are 
 #
-#  <ghostscript /> : The driver code is compiled into GhostScript
+#  <ghostscript /> : The driver code is compiled into Ghostscript
 #
 #  <filter /> :      The driver code is a separate executable, either a
 #                    filter which converts generic bitmap output of
-#                    GhostScript to the printer's language, a wrapper 
-#                    around GhostScript, or an IJS plug-in.
+#                    Ghostscript to the printer's language, a wrapper 
+#                    around Ghostscript, or an IJS plug-in.
 #
 #  <uniprint /> :    A uniprint driver, consisting of one or more .upp
-#                    files for GhostScript.
+#                    files for Ghostscript.
 #
 #  <postscript /> :  A driver which has PostScript also as output (for 
 #                    PostScript printers). It usually does not call
-#                    GhostScript but only applies the user's option
-#                    settings to the data stream. But GhostScript can
+#                    Ghostscript but only applies the user's option
+#                    settings to the data stream. But Ghostscript can
 #                    be called here, too, as for downgrading to a lower
 #                    PostScript level.
 #
@@ -966,14 +966,14 @@ option (the user is forced to use the composite option). This allows
 options acting at two or more places.
 
 Example: A printer driver is a filter which converts a generic bitmap
-produced by GhostScript to the printer's native format. The command
+produced by Ghostscript to the printer's native format. The command
 line for converting PostScript to the printer's language could look like this
 
 gs -q -dBATCH -dSAFER -dNOPAUSE -sDEVICE=bitcmyk -r600 -sOutputFile=-
 - | filter -size=<width>x<height>
 
 where <width> and <height> is the page size in points (1/72
-inches). In addition, GhostScript needs to know the page size. For
+inches). In addition, Ghostscript needs to know the page size. For
 this one usually puts the following PostScript code into the
 PostScript input file:
 
@@ -981,7 +981,7 @@ PostScript input file:
 
 where <width> and <height> is again the page size in points. So we
 need two options for setting the page size, one PostScript option to
-set the page size for GhostScript and one command line option to set
+set the page size for Ghostscript and one command line option to set
 the page size for the filter. The user would have to change both when
 he wants to print on another paper size, and it does not make sense to
 have different settings for the two. So one could make the "PageSize"
