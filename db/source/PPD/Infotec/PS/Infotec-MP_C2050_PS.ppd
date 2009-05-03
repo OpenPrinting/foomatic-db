@@ -4,7 +4,7 @@
 *%    for "Infotec MP C2050 PS"
 *%
 *%    CreationDate: 2007/12/17
-*%    Modified:     2009/02/11
+*%    Modified:     2009/05/03
 *%
 *%    COPYRIGHT (C) 2007-2009 RICOH COMPANY, LTD.
 *%    
@@ -2222,6 +2222,7 @@ cleartomark\n"
 cleartomark\n"
 *End
 *JobType LockedPrint/Locked Print: ""
+*JobType DocServer/Document Server: ""
 *CloseUI: *JobType
 
 *OpenUI *LockedPrintPassword/Locked Print Password (4-8 digits): PickOne
@@ -2251,6 +2252,38 @@ cleartomark\n"
 cleartomark\n"
 *End
 *CloseUI: *LockedPrintPassword
+*CustomLockedPrintPassword True/Custom Password: ""
+*ParamCustomLockedPrintPassword Password: 1 passcode 4 8
+
+*OpenUI *DocServerPassword/Document Server Password (4-8 digits): PickOne
+*FoomaticRIPOption DocServerPassword: password CmdLine D
+*FoomaticRIPOptionMaxLength DocServerPassword:8
+*FoomaticRIPOptionAllowedChars DocServerPassword: "0-9"
+*OrderDependency: 255 AnySetup *DocServerPassword
+*FoomaticRIPOptionPrototype DocServerPassword: "mark\n&&
+(&user;) (20`date +%y%m%d%R | sed 's/://'`) (%s) (&title;) {storedprint} stopped\n&&
+cleartomark\n"
+*End
+*DefaultDocServerPassword: None
+*DocServerPassword None/None: ""
+*DocServerPassword 3001/3001: "%% FoomaticRIPOptionSetting: DocServerPassword=3001"
+*FoomaticRIPOptionSetting DocServerPassword=3001: "mark\n&&
+(&user;) (20`date +%y%m%d%R | sed 's/://'`) (3001) (&title;) {storedprint} stopped\n&&
+cleartomark\n"
+*End
+*DocServerPassword 3002/3002: "%% FoomaticRIPOptionSetting: DocServerPassword=3002"
+*FoomaticRIPOptionSetting DocServerPassword=3002: "mark\n&&
+(&user;) (20`date +%y%m%d%R | sed 's/://'`) (3002) (&title;) {storedprint} stopped\n&&
+cleartomark\n"
+*End
+*DocServerPassword 3003/3003: "%% FoomaticRIPOptionSetting: DocServerPassword=3003"
+*FoomaticRIPOptionSetting DocServerPassword=3003: "mark\n&&
+(&user;) (20`date +%y%m%d%R | sed 's/://'`) (3003) (&title;) {storedprint} stopped\n&&
+cleartomark\n"
+*End
+*CloseUI: *DocServerPassword
+*CustomDocServerPassword True/Custom Password: ""
+*ParamCustomDocServerPassword Password: 1 passcode 4 8
 
 *OpenUI *UserCode/User Code (up to 8 digits): PickOne
 *FoomaticRIPOption UserCode: string CmdLine A
@@ -2279,6 +2312,8 @@ cleartomark\n"
 cleartomark\n"
 *End
 *CloseUI: *UserCode
+*CustomUserCode True/User Code: ""
+*ParamCustomUserCode UserCode: 1 passcode 1 8
 
 *CloseGroup: JobLog/Job Log
 

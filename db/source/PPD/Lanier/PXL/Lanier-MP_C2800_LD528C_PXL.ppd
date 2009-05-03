@@ -4,9 +4,9 @@
 *%    for "Lanier MP C2800/LD528C PXL"
 *%
 *%    CreationDate: 2007/06/25
-*%    Modified:     2008/12/16
+*%    Modified:     2009/05/03
 *%
-*%    COPYRIGHT (C) 2007-2008 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2007-2009 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -282,6 +282,8 @@
 *FoomaticRIPOptionSetting MediaType=Preprinted: "SET MEDIATYPE=PREPRINTED"
 *MediaType Labels/Labels: "%% FoomaticRIPOptionSetting: MediaType=Labels"
 *FoomaticRIPOptionSetting MediaType=Labels: "SET MEDIATYPE=LABELS"
+*MediaType Coated/Coated: "%% FoomaticRIPOptionSetting: MediaType=Coated"
+*FoomaticRIPOptionSetting MediaType=Coated: "SET MEDIATYPE=COATED"
 *MediaType Bond/Bond: "%% FoomaticRIPOptionSetting: MediaType=Bond"
 *FoomaticRIPOptionSetting MediaType=Bond: "SET MEDIATYPE=BOND"
 *MediaType Cardstock/Cardstock: "%% FoomaticRIPOptionSetting: MediaType=Cardstock"
@@ -479,40 +481,23 @@
 *End
 *CloseUI: *JobType
 
-
-*OpenUI *LockedPrintPassword/Locked Print Password (4-8 digits): PickOne
-*FoomaticRIPOption LockedPrintPassword: password JCL A
-*FoomaticRIPOptionMaxLength LockedPrintPassword:8
-*FoomaticRIPOptionAllowedChars LockedPrintPassword: "0-9"
-*OrderDependency: 255 AnySetup *LockedPrintPassword
-*FoomaticRIPOptionPrototype LockedPrintPassword: "SET JOBPASSWORD=%s"
-*DefaultLockedPrintPassword: None
-*LockedPrintPassword None/None: ""
-*LockedPrintPassword 4001/4001: "%% FoomaticRIPOptionSetting: LockedPrintPassword=4001"
-*FoomaticRIPOptionSetting LockedPrintPassword=4001: "SET JOBPASSWORD=4001"
-*LockedPrintPassword 4002/4002: "%% FoomaticRIPOptionSetting: LockedPrintPassword=4002"
-*FoomaticRIPOptionSetting LockedPrintPassword=4002: "SET JOBPASSWORD=4002"
-*LockedPrintPassword 4003/4003: "%% FoomaticRIPOptionSetting: LockedPrintPassword=4003"
-*FoomaticRIPOptionSetting LockedPrintPassword=4003: "SET JOBPASSWORD=4003"
-*CloseUI: *LockedPrintPassword
-
-
-*OpenUI *DocServerPassword/Document Server Password (4-8 digits): PickOne
-*FoomaticRIPOption DocServerPassword: password JCL A
-*FoomaticRIPOptionMaxLength DocServerPassword:8
-*FoomaticRIPOptionAllowedChars DocServerPassword: "0-9"
-*OrderDependency: 255 AnySetup *DocServerPassword
-*FoomaticRIPOptionPrototype DocServerPassword: "SET JOBPASSWORD=%s"
-*DefaultDocServerPassword: None
-*DocServerPassword None/None: ""
-*DocServerPassword 3001/3001: "%% FoomaticRIPOptionSetting: DocServerPassword=3001"
-*FoomaticRIPOptionSetting DocServerPassword=3001: "SET JOBPASSWORD=3001"
-*DocServerPassword 3002/3002: "%% FoomaticRIPOptionSetting: DocServerPassword=3002"
-*FoomaticRIPOptionSetting DocServerPassword=3002: "SET JOBPASSWORD=3002"
-*DocServerPassword 3003/3003: "%% FoomaticRIPOptionSetting: DocServerPassword=3003"
-*FoomaticRIPOptionSetting DocServerPassword=3003: "SET JOBPASSWORD=3003"
-*CloseUI: *DocServerPassword
-
+*OpenUI *Password/Locked Print or Doc Server Password (4-8 digits): PickOne
+*FoomaticRIPOption Password: password JCL A
+*FoomaticRIPOptionMaxLength Password:8
+*FoomaticRIPOptionAllowedChars Password: "0-9"
+*OrderDependency: 255 AnySetup *Password
+*FoomaticRIPOptionPrototype Password: "SET JOBPASSWORD2=&quot;%s&quot;"
+*DefaultPassword: None
+*Password None/None: ""
+*Password 4001/4001: "%% FoomaticRIPOptionSetting: Password=4001"
+*FoomaticRIPOptionSetting Password=4001: "SET JOBPASSWORD2=&quot;4001&quot;"
+*Password 4002/4002: "%% FoomaticRIPOptionSetting: Password=4002"
+*FoomaticRIPOptionSetting Password=4002: "SET JOBPASSWORD2=&quot;4002&quot;"
+*Password 4003/4003: "%% FoomaticRIPOptionSetting: Password=4003"
+*FoomaticRIPOptionSetting Password=4003: "SET JOBPASSWORD2=&quot;4003&quot;"
+*CloseUI: *Password
+*CustomPassword True/Custom Password: "@PJL SET JOBPASSWORD2=&quot;\1&quot;<0A>"
+*ParamCustomPassword Password: 1 passcode 4 8
 
 *OpenUI *UserCode/User Code (up to 8 digits): PickOne
 *FoomaticRIPOption UserCode: string JCL A
@@ -529,8 +514,11 @@
 *UserCode 1003/1003: "%% FoomaticRIPOptionSetting: UserCode=1003"
 *FoomaticRIPOptionSetting UserCode=1003: "SET USERCODE=&quot;1003&quot;"
 *CloseUI: *UserCode
+*CustomUserCode True/Custom UserCode: "@PJL SET USERCODE=&quot;\1&quot;<0A>"
+*ParamCustomUserCode UserCode: 1 passcode 1 8
 
 *CloseGroup: JobLog/Job Log
+
 
 *UIConstraints: *OptionTray NotInstalled *InputSlot 3Tray
 *UIConstraints: *InputSlot 3Tray *OptionTray NotInstalled
@@ -688,10 +676,14 @@
 *UIConstraints: *InputSlot 3Tray *MediaType Thin
 *UIConstraints: *InputSlot 4Tray *MediaType Thin
 *UIConstraints: *InputSlot 5Tray *MediaType Thin
+*UIConstraints: *MediaType Coated *InputSlot 1Tray
 *UIConstraints: *MediaType Envelope *InputSlot 1Tray
 *UIConstraints: *MediaType Envelope *InputSlot 5Tray
+*UIConstraints: *InputSlot 1Tray *MediaType Coated
 *UIConstraints: *InputSlot 1Tray *MediaType Envelope
 *UIConstraints: *InputSlot 5Tray *MediaType Envelope
+*UIConstraints: *MediaType Coated *InputSlot 1Tray
+*UIConstraints: *InputSlot 1Tray *MediaType Coated
 *UIConstraints: *OutputBin Bin1 *MediaType OHP
 *UIConstraints: *OutputBin Bin1 *MediaType Thick2
 *UIConstraints: *OutputBin Bin1 *MediaType Thick3
@@ -704,6 +696,7 @@
 *UIConstraints: *OutputBin FinKINGUpper *MediaType Thick3
 *UIConstraints: *OutputBin FinKINGUpper *MediaType Glossy
 *UIConstraints: *OutputBin FinKINGShift *MediaType Labels
+*UIConstraints: *OutputBin FinKINGShift *MediaType Coated
 *UIConstraints: *OutputBin FinKINGShift *MediaType OHP
 *UIConstraints: *OutputBin FinKINGShift *MediaType Thick
 *UIConstraints: *OutputBin FinKINGShift *MediaType Thick2
@@ -711,6 +704,7 @@
 *UIConstraints: *OutputBin FinKINGShift *MediaType Glossy
 *UIConstraints: *OutputBin FinKINGShift *MediaType Envelope
 *UIConstraints: *OutputBin FinTigUpper *MediaType Labels
+*UIConstraints: *OutputBin FinTigUpper *MediaType Coated
 *UIConstraints: *OutputBin FinTigUpper *MediaType OHP
 *UIConstraints: *OutputBin FinTigUpper *MediaType Thick
 *UIConstraints: *OutputBin FinTigUpper *MediaType Thick2
@@ -721,6 +715,7 @@
 *UIConstraints: *OutputBin FinTigMiddle *MediaType OHP
 *UIConstraints: *OutputBin FinTigMiddle *MediaType Glossy
 *UIConstraints: *OutputBin FinTigLower *MediaType Labels
+*UIConstraints: *OutputBin FinTigLower *MediaType Coated
 *UIConstraints: *OutputBin FinTigLower *MediaType OHP
 *UIConstraints: *OutputBin FinTigLower *MediaType Thick
 *UIConstraints: *OutputBin FinTigLower *MediaType Thick2
@@ -740,6 +735,7 @@
 *UIConstraints: *MediaType Thick3 *OutputBin FinKINGUpper
 *UIConstraints: *MediaType Glossy *OutputBin FinKINGUpper
 *UIConstraints: *MediaType Labels *OutputBin FinKINGShift
+*UIConstraints: *MediaType Coated *OutputBin FinKINGShift
 *UIConstraints: *MediaType OHP *OutputBin FinKINGShift
 *UIConstraints: *MediaType Thick *OutputBin FinKINGShift
 *UIConstraints: *MediaType Thick2 *OutputBin FinKINGShift
@@ -747,6 +743,7 @@
 *UIConstraints: *MediaType Glossy *OutputBin FinKINGShift
 *UIConstraints: *MediaType Envelope *OutputBin FinKINGShift
 *UIConstraints: *MediaType Labels *OutputBin FinTigUpper
+*UIConstraints: *MediaType Coated *OutputBin FinTigUpper
 *UIConstraints: *MediaType OHP *OutputBin FinTigUpper
 *UIConstraints: *MediaType Thick *OutputBin FinTigUpper
 *UIConstraints: *MediaType Thick2 *OutputBin FinTigUpper
@@ -756,6 +753,7 @@
 *UIConstraints: *MediaType OHP *OutputBin FinTigMiddle
 *UIConstraints: *MediaType Glossy *OutputBin FinTigMiddle
 *UIConstraints: *MediaType Labels *OutputBin FinTigLower
+*UIConstraints: *MediaType Coated *OutputBin FinTigLower
 *UIConstraints: *MediaType OHP *OutputBin FinTigLower
 *UIConstraints: *MediaType Thick *OutputBin FinTigLower
 *UIConstraints: *MediaType Thick2 *OutputBin FinTigLower
@@ -798,6 +796,8 @@
 *UIConstraints: *StapleLocation CenterW *InputSlot MultiTray
 *UIConstraints: *Duplex DuplexTumble *MediaType Labels
 *UIConstraints: *Duplex DuplexNoTumble *MediaType Labels
+*UIConstraints: *Duplex DuplexTumble *MediaType Coated
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Coated
 *UIConstraints: *Duplex DuplexTumble *MediaType OHP
 *UIConstraints: *Duplex DuplexNoTumble *MediaType OHP
 *UIConstraints: *Duplex DuplexTumble *MediaType Thick2
@@ -812,6 +812,8 @@
 *UIConstraints: *Duplex DuplexNoTumble *MediaType Envelope
 *UIConstraints: *MediaType Labels *Duplex DuplexTumble
 *UIConstraints: *MediaType Labels *Duplex DuplexNoTumble
+*UIConstraints: *MediaType Coated *Duplex DuplexTumble
+*UIConstraints: *MediaType Coated *Duplex DuplexNoTumble
 *UIConstraints: *MediaType OHP *Duplex DuplexTumble
 *UIConstraints: *MediaType OHP *Duplex DuplexNoTumble
 *UIConstraints: *MediaType Thick2 *Duplex DuplexTumble
@@ -830,6 +832,12 @@
 *UIConstraints: *MediaType Labels *StapleLocation RightW
 *UIConstraints: *MediaType Labels *StapleLocation UpperW
 *UIConstraints: *MediaType Labels *StapleLocation CenterW
+*UIConstraints: *MediaType Coated *StapleLocation UpperLeft
+*UIConstraints: *MediaType Coated *StapleLocation UpperRight
+*UIConstraints: *MediaType Coated *StapleLocation LeftW
+*UIConstraints: *MediaType Coated *StapleLocation RightW
+*UIConstraints: *MediaType Coated *StapleLocation UpperW
+*UIConstraints: *MediaType Coated *StapleLocation CenterW
 *UIConstraints: *MediaType OHP *StapleLocation UpperLeft
 *UIConstraints: *MediaType OHP *StapleLocation UpperRight
 *UIConstraints: *MediaType OHP *StapleLocation LeftW
@@ -867,6 +875,12 @@
 *UIConstraints: *StapleLocation RightW *MediaType Labels
 *UIConstraints: *StapleLocation UpperW *MediaType Labels
 *UIConstraints: *StapleLocation CenterW *MediaType Labels
+*UIConstraints: *StapleLocation UpperLeft *MediaType Coated
+*UIConstraints: *StapleLocation UpperRight *MediaType Coated
+*UIConstraints: *StapleLocation LeftW *MediaType Coated
+*UIConstraints: *StapleLocation RightW *MediaType Coated
+*UIConstraints: *StapleLocation UpperW *MediaType Coated
+*UIConstraints: *StapleLocation CenterW *MediaType Coated
 *UIConstraints: *StapleLocation UpperLeft *MediaType OHP
 *UIConstraints: *StapleLocation UpperRight *MediaType OHP
 *UIConstraints: *StapleLocation LeftW *MediaType OHP
@@ -1141,6 +1155,36 @@
 *UIConstraints: *RIPunch UpperEU4 *MediaType Labels
 *UIConstraints: *MediaType Labels *RIPunch UpperNEU4
 *UIConstraints: *RIPunch UpperNEU4 *MediaType Labels
+*UIConstraints: *MediaType Coated *RIPunch LeftJP2
+*UIConstraints: *RIPunch LeftJP2 *MediaType Coated
+*UIConstraints: *MediaType Coated *RIPunch LeftUS2
+*UIConstraints: *RIPunch LeftUS2 *MediaType Coated
+*UIConstraints: *MediaType Coated *RIPunch LeftUS3
+*UIConstraints: *RIPunch LeftUS3 *MediaType Coated
+*UIConstraints: *MediaType Coated *RIPunch LeftEU4
+*UIConstraints: *RIPunch LeftEU4 *MediaType Coated
+*UIConstraints: *MediaType Coated *RIPunch LeftNEU4
+*UIConstraints: *RIPunch LeftNEU4 *MediaType Coated
+*UIConstraints: *MediaType Coated *RIPunch RightJP2
+*UIConstraints: *RIPunch RightJP2 *MediaType Coated
+*UIConstraints: *MediaType Coated *RIPunch RightUS2
+*UIConstraints: *RIPunch RightUS2 *MediaType Coated
+*UIConstraints: *MediaType Coated *RIPunch RightUS3
+*UIConstraints: *RIPunch RightUS3 *MediaType Coated
+*UIConstraints: *MediaType Coated *RIPunch RightEU4
+*UIConstraints: *RIPunch RightEU4 *MediaType Coated
+*UIConstraints: *MediaType Coated *RIPunch RightNEU4
+*UIConstraints: *RIPunch RightNEU4 *MediaType Coated
+*UIConstraints: *MediaType Coated *RIPunch UpperJP2
+*UIConstraints: *RIPunch UpperJP2 *MediaType Coated
+*UIConstraints: *MediaType Coated *RIPunch UpperUS2
+*UIConstraints: *RIPunch UpperUS2 *MediaType Coated
+*UIConstraints: *MediaType Coated *RIPunch UpperUS3
+*UIConstraints: *RIPunch UpperUS3 *MediaType Coated
+*UIConstraints: *MediaType Coated *RIPunch UpperEU4
+*UIConstraints: *RIPunch UpperEU4 *MediaType Coated
+*UIConstraints: *MediaType Coated *RIPunch UpperNEU4
+*UIConstraints: *RIPunch UpperNEU4 *MediaType Coated
 *UIConstraints: *MediaType OHP *RIPunch LeftJP2
 *UIConstraints: *RIPunch LeftJP2 *MediaType OHP
 *UIConstraints: *MediaType OHP *RIPunch LeftUS2

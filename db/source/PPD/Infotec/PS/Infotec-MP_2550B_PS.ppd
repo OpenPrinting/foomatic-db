@@ -4,9 +4,9 @@
 *%    for "Infotec MP 2550B PS"
 *%
 *%    CreationDate: 2007/01/09
-*%    Modified:     2008/03/14
+*%    Modified:     2009/05/03
 *%
-*%    COPYRIGHT (C) 2007-2008 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2007-2009 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -209,18 +209,18 @@ restore
 *End
 *CloseUI: *Finisher
 
-*OpenUI *OptionDuplexUnit/Duplex Unit: PickOne
-*DefaultOptionDuplexUnit: NotInstalled
-*OptionDuplexUnit NotInstalled/Not Installed: ""
-*OptionDuplexUnit Installed/Installed: ""
-*?OptionDuplexUnit: "
+*OpenUI *DuplexUnit/Duplex Unit: PickOne
+*DefaultDuplexUnit: NotInstalled
+*DuplexUnit NotInstalled/Not Installed: ""
+*DuplexUnit Installed/Installed: ""
+*?DuplexUnit: "
   save
   statusdict /duplex get
   {(Installed)}{(NotInstalled)}ifelse = flush
   restore
 "
 *End
-*CloseUI: *OptionDuplexUnit
+*CloseUI: *DuplexUnit
 *CloseGroup: InstallableOptions
 
 
@@ -233,18 +233,18 @@ restore
 *UIConstraints: *OptionTray 1Cassette *InputSlot 4Tray
 
 *%========== Duplex Unit / Bypass Tray ==========
-*UIConstraints: *OptionDuplexUnit Installed *InputBypassTray NotInstalled
-*UIConstraints: *InputBypassTray NotInstalled *OptionDuplexUnit Installed
+*UIConstraints: *DuplexUnit Installed *InputBypassTray NotInstalled
+*UIConstraints: *InputBypassTray NotInstalled *DuplexUnit Installed
 
 *%========== InputSlot / Bypass Tray ==========
 *UIConstraints: *InputSlot MultiTray *InputBypassTray NotInstalled
 *UIConstraints: *InputBypassTray NotInstalled *InputSlot MultiTray
 
 *%========== Duplex / Duplex Unit ==========
-*UIConstraints: *Duplex DuplexTumble *OptionDuplexUnit NotInstalled
-*UIConstraints: *OptionDuplexUnit NotInstalled *Duplex DuplexTumble
-*UIConstraints: *Duplex DuplexNoTumble *OptionDuplexUnit NotInstalled
-*UIConstraints: *OptionDuplexUnit NotInstalled *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexTumble *DuplexUnit NotInstalled
+*UIConstraints: *DuplexUnit NotInstalled *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexNoTumble *DuplexUnit NotInstalled
+*UIConstraints: *DuplexUnit NotInstalled *Duplex DuplexNoTumble
 
 *%========== Destination / Internal Tray 2 ==========
 *UIConstraints: *OutputBin Bin1 *InnerTray2 NotInstalled
@@ -2281,9 +2281,8 @@ restore
 
 *cupsFilter: "application/vnd.cups-postscript 0 foomatic-rip"
 
-*FoomaticIDs: Infotec-MP_2550B Postscript
 *FoomaticRIPCommandLine: "printf &quot;%%!PS-Adobe-3.0\n%%%% %%&&
-%%\n%B%C%D%A&quot;; cat;"
+%%\n%B%C%D%A&quot;%%%%; cat;"
 *End
 
 *OpenGroup: JobLog/Job Log
@@ -2333,6 +2332,8 @@ cleartomark\n"
 cleartomark\n"
 *End
 *CloseUI: *LockedPrintPassword
+*CustomLockedPrintPassword True/Custom Password: ""
+*ParamCustomLockedPrintPassword Password: 1 passcode 4 8
 
 *OpenUI *DocServerPassword/Document Server Password (4-8 digits): PickOne
 *FoomaticRIPOption DocServerPassword: password CmdLine D
@@ -2361,6 +2362,8 @@ cleartomark\n"
 cleartomark\n"
 *End
 *CloseUI: *DocServerPassword
+*CustomDocServerPassword True/Custom Password: ""
+*ParamCustomDocServerPassword Password: 1 passcode 4 8
 
 *OpenUI *UserCode/User Code (up to 8 digits): PickOne
 *FoomaticRIPOption UserCode: string CmdLine A
@@ -2389,6 +2392,8 @@ cleartomark\n"
 cleartomark\n"
 *End
 *CloseUI: *UserCode
+*CustomUserCode True/User Code: ""
+*ParamCustomUserCode UserCode: 1 passcode 1 8
 
 *CloseGroup: JobLog/Job Log
 
