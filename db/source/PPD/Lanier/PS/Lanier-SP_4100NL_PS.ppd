@@ -4,9 +4,9 @@
 *%    for "Lanier SP 4100NL PS"
 *%
 *%    CreationDate: 2006/07/01
-*%    Modified:     2008/06/25
+*%    Modified:     2009/05/03
 *%
-*%    COPYRIGHT (C) 2006-2008 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2006-2009 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -110,11 +110,11 @@ restore
 *End
 *CloseUI: *OptionTray
 
-*OpenUI *OptionDuplexUnit/Duplex Unit: PickOne
-*DefaultOptionDuplexUnit: NotInstalled
-*OptionDuplexUnit NotInstalled/Not Installed: ""
-*OptionDuplexUnit Installed/Installed: ""
-*?OptionDuplexUnit: "
+*OpenUI *DuplexUnit/Duplex Unit: PickOne
+*DefaultDuplexUnit: NotInstalled
+*DuplexUnit NotInstalled/Not Installed: ""
+*DuplexUnit Installed/Installed: ""
+*?DuplexUnit: "
 save
 mark
 (NotInstalled)
@@ -132,7 +132,7 @@ cleartomark
 restore
 "
 *End
-*CloseUI: *OptionDuplexUnit
+*CloseUI: *DuplexUnit
 
 *CloseGroup: InstallableOptions
 
@@ -146,10 +146,10 @@ restore
 *UIConstraints: *InputSlot 3Tray *OptionTray 1Cassette
 
 *%========== Duplex Unit / Duplex
-*UIConstraints: *OptionDuplexUnit NotInstalled *Duplex DuplexNoTumble
-*UIConstraints: *OptionDuplexUnit NotInstalled *Duplex DuplexTumble
-*UIConstraints: *Duplex DuplexNoTumble *OptionDuplexUnit NotInstalled
-*UIConstraints: *Duplex DuplexTumble *OptionDuplexUnit NotInstalled
+*UIConstraints: *DuplexUnit NotInstalled *Duplex DuplexNoTumble
+*UIConstraints: *DuplexUnit NotInstalled *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexNoTumble *DuplexUnit NotInstalled
+*UIConstraints: *Duplex DuplexTumble *DuplexUnit NotInstalled
 
 *%====== RIPaperPolicy & MediaType
 *UIConstraints: *RIPaperPolicy PromptUser *MediaType None
@@ -1430,7 +1430,6 @@ restore
 
 *cupsFilter: "application/vnd.cups-postscript 0 foomatic-rip"
 
-*FoomaticIDs: Lanier-SP_4100NL Postscript
 *FoomaticRIPCommandLine: "printf &quot;%%!PS-Adobe-3.0\n%%%% %%&&
 %%\n%B%C%D%A&quot;%%%%; cat;"
 *End
@@ -1481,6 +1480,8 @@ cleartomark\n"
 cleartomark\n"
 *End
 *CloseUI: *LockedPrintPassword
+*CustomLockedPrintPassword True/Custom Password: ""
+*ParamCustomLockedPrintPassword Password: 1 passcode 4 8
 
 *OpenUI *UserCode/User Code (up to 8 digits): PickOne
 *FoomaticRIPOption UserCode: string CmdLine A
@@ -1509,6 +1510,8 @@ cleartomark\n"
 cleartomark\n"
 *End
 *CloseUI: *UserCode
+*CustomUserCode True/User Code: ""
+*ParamCustomUserCode UserCode: 1 passcode 1 8
 
 *CloseGroup: JobLog/Job Log
 
