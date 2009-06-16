@@ -1,0 +1,3357 @@
+*PPD-Adobe: "4.3"
+*%
+*%  Printer Description file
+*%    for "Infotec MP 8001 PS"
+*%
+*%    CreationDate: 2008/04/17
+*%    Modified:     2009/06/14
+*%
+*%    COPYRIGHT (C) 2008-2009 RICOH COMPANY, LTD.
+*%    
+*%    Permission is hereby granted, free of charge, to any person obtaining
+*%    a copy of this software and associated documentation files (the
+*%    "Software"), to deal in the Software without restriction, including
+*%    without limitation the rights to use, copy, modify, merge, publish,
+*%    distribute, sublicense, and/or sell copies of the Software, and to
+*%    permit persons to whom the Software is furnished to do so, subject to
+*%    the following conditions:
+*%    
+*%    The above copyright notice and this permission notice shall be
+*%    included in all copies or substantial portions of the Software.
+*%    
+*%    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+*%    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+*%    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+*%    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+*%    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+*%    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+*%    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*%    
+*%    [this is the MIT open source license -- please see www.opensource.org]
+*%
+
+*FileVersion: "1.0"
+*FormatVersion: "4.3"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+*ModelName: "Infotec MP 8001"
+*PCFileName: "IF1453E3.PPD"
+*Manufacturer: "Infotec"
+*Product: "(infotec MP 8001 PS3)"
+*PSVersion: "(3017.104) 2"
+*ShortNickName: "Infotec MP 8001 PS"
+*NickName: "Infotec MP 8001 PS"
+
+*%PNP_NAME: "MP 8001"
+
+*%LOADDLL_NAME32: "MFRICRES.dll"
+*%RESDLL_NAME32: "MP601dat.dll"
+*%LOADDLL_VERSION32: "1,1,9,0"
+
+*%LOADDLL_NAME64: "MFRICR64.dll"
+*%RESDLL_NAME64: "MP601d64.dll"
+*%LOADDLL_VERSION64: "1,1,9,0"
+
+*%HTMLHELPTYPE: "::/XPS_PS/"
+
+*%Finisher.FinEUPHRATESDBK.BookletOpposite
+*%BookletProcessor.Plockmatic.BookletOpposite
+
+*%========== Basic Device Capabilities ==========
+
+
+*LanguageLevel: "3"
+*ColorDevice: False
+*DefaultColorSpace: Gray
+
+*TTRasterizer: Type42
+*?TTRasterizer: "
+   save
+      42 /FontType resourcestatus
+      { pop pop (Type42)} {pop pop (None)} ifelse = flush
+   restore
+"
+*End
+
+*FileSystem: True
+*?FileSystem: "
+  save
+  statusdict /diskonline get exec
+  {(True)}{(False)}ifelse = flush
+  restore
+"
+*End
+
+*Throughput: "80"
+
+*%========== Installable Options ==========
+*%========== & System Management ==========
+
+*OpenGroup: InstallableOptions/Installable Options
+
+*OpenUI *LargeCapacityTray/Large Capacity Tray: PickOne
+*DefaultLargeCapacityTray: NotInstalled
+*LargeCapacityTray NotInstalled/Not Installed: ""
+*LargeCapacityTray Installed/Installed: ""
+*?LargeCapacityTray: "
+save
+mark
+(NotInstalled)
+userdict /86f6369627 known {
+	userdict /86f6369627 get 
+	/perifdict get /inslot get dup type /arraytype eq {
+	    {
+		dup 6 eq {(Installed) exit} if
+		pop
+	    } forall
+	}{pop} ifelse
+}if
+= flush
+cleartomark
+restore
+"
+*End
+*CloseUI: *LargeCapacityTray
+
+*OpenUI *Finisher/Finisher: PickOne
+*DefaultFinisher: NotInstalled
+*Finisher NotInstalled/Not Installed: ""
+*Finisher FinEUPHRATESD/Finisher SR4030: ""
+*Finisher FinEUPHRATESDBK/Finisher SR4040: ""
+*Finisher FinVICTORIAG/Finisher SR4050: ""
+*?Finisher: "
+save
+mark
+(NotInstalled)
+userdict /86f6369627 known {
+	userdict /86f6369627 get 
+	/perifdict get /outslot get dup type /arraytype eq {
+	    {
+		dup 21 eq {(FinEUPHRATESD) exit} if
+		dup 22 eq {(FinEUPHRATESDBK) exit} if
+		dup 15 eq {(FinVICTORIAG) exit} if
+		pop
+	    } forall
+	}{pop} ifelse
+}if
+= flush
+cleartomark
+restore
+"
+*End
+*CloseUI: *Finisher
+
+*OpenUI *BookletProcessor/Booklet Processor: PickOne
+*DefaultBookletProcessor: False
+*BookletProcessor False/Not Installed: ""
+*BookletProcessor Plockmatic/Installed: ""
+*?BookletProcessor: "
+save
+mark
+(False)
+userdict /86f6369627 known {
+	userdict /86f6369627 get 
+	/perifdict get /outslot get dup type /arraytype eq {
+	    {
+		dup 19 eq {(Plockmatic) exit} if
+		pop
+	    } forall
+	}{pop} ifelse
+}if
+= flush
+cleartomark
+restore
+"
+*End
+*CloseUI: *BookletProcessor
+
+*OpenUI *Mailbox/Mailbox: PickOne
+*DefaultMailbox: NotInstalled
+*Mailbox NotInstalled/Not Installed: ""
+*Mailbox Installed/Installed: ""
+*?Mailbox: "
+save
+mark
+(NotInstalled)
+userdict /86f6369627 known {
+	userdict /86f6369627 get 
+	/perifdict get /outslot get dup type /arraytype eq {
+	    {
+		dup 4 eq {(Installed) exit} if
+		pop
+	    } forall
+	}{pop} ifelse
+}if
+= flush
+cleartomark
+restore
+"
+*End
+*CloseUI: *Mailbox
+
+*OpenUI *MultiHolePunchUnit/Multi-hole Punch Unit: PickOne
+*DefaultMultiHolePunchUnit: False
+*MultiHolePunchUnit False/Not Installed: ""
+*MultiHolePunchUnit True/Installed: ""
+*?MultiHolePunchUnit: "
+save
+mark
+(False)
+userdict /86f6369627 known {
+	userdict /86f6369627 get 
+	/perifdict get /outslot get dup type /arraytype eq {
+	    {
+		dup 26 eq {(True) exit} if
+		pop
+	    } forall
+	}{pop} ifelse
+}if
+= flush
+cleartomark
+restore
+"
+*End
+*CloseUI: *MultiHolePunchUnit
+
+*OpenUI *MultiFold/Folding Unit: PickOne
+*DefaultMultiFold: NotInstalled
+*MultiFold NotInstalled/Not Installed: ""
+*MultiFold Installed/Installed: ""
+*?MultiFold: "
+save
+mark
+(NotInstalled)
+userdict /86f6369627 known {
+	userdict /86f6369627 get 
+	/perifdict get /outslot get dup type /arraytype eq {
+	    {
+		dup 33 eq {(Installed) exit} if
+		pop
+	    } forall
+	}{pop} ifelse
+}if
+= flush
+cleartomark
+restore
+"
+*End
+*CloseUI: *MultiFold
+
+*CloseGroup: InstallableOptions
+
+*FreeVM: "2261000"
+
+*Password: "0"
+*ExitServer: "
+  count 0 eq 
+  {false}{true exch startjob}ifelse
+  not {(WARNING: Cannot modify initial VM.) =
+       (Missing or invalid Password.) =
+       (Please contact the author.) = flush quit
+  }if
+"
+*End
+*Reset: "
+  count 0 eq
+  {false}{true exch startjob}ifelse
+  not {(WARNING: Cannot reset printer.) =
+       (Missing or invalid Password.) =
+       (Please contact the author.) = flush quit
+  }if 
+  systemdict /quit get exec
+  (WARNING: Printer Reset Failed.) = flush
+"
+*End
+
+*SuggestedJobTimeout: "0"
+*SuggestedWaitTimeout: "300"
+*PrintPSErrors: True
+*%DeviceAdjustMatrix: "[1 0 0 1 0 0]"
+
+*%========== Media Selection ==========
+*LandscapeOrientation: Minus90
+
+*OpenUI *PageSize: PickOne
+*OrderDependency: 20 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize A3/A3: "<< /PageSize [842 1191] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageSize A4/A4: "<< /PageSize [595 842] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageSize A5/A5: "<< /PageSize [420 595] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageSize A6/A6: "<< /PageSize [297 420] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageSize B4/B4 (JIS): "<< /PageSize [729 1032] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageSize B5/B5 (JIS): "<< /PageSize [516 729] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageSize B6/B6 (JIS): "<< /PageSize [363 516] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageSize Legal/Legal: "<< /PageSize [612 1008] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageSize Letter/Letter: "<< /PageSize [612 792] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageSize HalfLetter/5.5x8.5: "<< /PageSize [396 612] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageSize F/8x13: "<< /PageSize [576 936] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageSize Folio/8.25x13: "<< /PageSize [595 935] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageSize FanFoldGermanLegal/8.5x13: "<< /PageSize [612 936] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageSize 11x14/11x14: "<< /PageSize [792 1008] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageSize 11x17/11x17: "<< /PageSize [792 1224] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageSize Executive/Executive: "<< /PageSize [522 756] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageSize 8Kai/8K: "<< /PageSize [757 1106] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageSize 16Kai/16K: "<< /PageSize [553 757] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*?PageSize: "
+  save
+  currentpagedevice /PageSize get aload pop
+  2 copy gt {exch}if (Unknown)
+  18 dict
+    dup [842 1191] (A3) put
+    dup [595 842]  (A4) put
+    dup [420 595]  (A5) put
+    dup [297 420]  (A6) put
+    dup [729 1032] (B4) put
+    dup [516 729]  (B5) put
+    dup [363 516]  (B6) put
+    dup [612 1008] (Legal) put
+    dup [612 792]  (Letter) put
+    dup [396 612]  (HalfLetter) put
+    dup [576 936] (F) put
+    dup [595 935] (Folio) put
+    dup [612 936] (FanFoldGermanLegal) put
+    dup [792 1008] (11x14) put
+    dup [792 1224] (11x17) put
+    dup [522 756] (Executive) put
+    dup [757 1106] (8Kai) put
+    dup [553 757] (16Kai) put
+    {exch aload pop 4 index sub abs 5 le exch 5 index
+     sub abs 5 le and {exch pop exit}{pop}ifelse 
+    }bind forall = flush pop pop
+    restore
+"
+*End
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 25 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion A3/A3: "<< /PageSize [842 1191] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageRegion A4/A4: "<< /PageSize [595 842] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageRegion A5/A5: "<< /PageSize [420 595] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageRegion A6/A6: "<< /PageSize [297 420] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageRegion B4/B4 (JIS): "<< /PageSize [729 1032] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageRegion B5/B5 (JIS): "<< /PageSize [516 729] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageRegion B6/B6 (JIS): "<< /PageSize [363 516] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageRegion Legal/Legal: "<< /PageSize [612 1008] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageRegion Letter/Letter: "<< /PageSize [612 792] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageRegion HalfLetter/5.5x8.5: "<< /PageSize [396 612] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageRegion F/8x13: "<< /PageSize [576 936] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageRegion Folio/8.25x13: "<< /PageSize [595 935] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageRegion FanFoldGermanLegal/8.5x13: "<< /PageSize [612 936] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageRegion 11x14/11x14: "<< /PageSize [792 1008] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageRegion 11x17/11x17: "<< /PageSize [792 1224] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageRegion Executive/Executive: "<< /PageSize [522 756] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageRegion 8Kai/8K: "<< /PageSize [757 1106] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*PageRegion 16Kai/16K: "<< /PageSize [553 757] /ImagingBBox null >> setpagedevice
+false setedgetoedge"
+*End
+*CloseUI: *PageRegion
+
+*%========== Information About Media Sizes ==========
+
+*DefaultImageableArea: A4
+*ImageableArea A3/A3: "12 12 830 1179"
+*ImageableArea A4/A4: "12 12 583 830"
+*ImageableArea A5/A5: "12 12 408 583"
+*ImageableArea A6/A6: "12 12 285 408"
+*ImageableArea B4/B4 (JIS): "12 12 717 1020"
+*ImageableArea B5/B5 (JIS): "12 12 504 717"
+*ImageableArea B6/B6 (JIS): "12 12 351 504"
+*ImageableArea Legal/Legal: "12 12 600 996"
+*ImageableArea Letter/Letter: "12 12 600 780"
+*ImageableArea HalfLetter/5.5x8.5: "12 12 384 600"
+*ImageableArea F/8x13: "12 12 564 924"
+*ImageableArea Folio/8.25x13: "12 12 583 923"
+*ImageableArea FanFoldGermanLegal/8.5x13: "12 12 600 924"
+*ImageableArea 11x14/11x14: "12 12 780 996"
+*ImageableArea 11x17/11x17: "12 12 780 1212"
+*ImageableArea Executive/Executive: "12 12 510 744"
+*ImageableArea 8Kai/8K: "12 12 745 1094"
+*ImageableArea 16Kai/16K: "12 12 541 745"
+*?ImageableArea: "
+  save
+  /cvp {(            ) cvs print (               ) print}bind def
+  newpath clippath pathbbox 4 -2 roll exch
+  2 {10000 mul ceiling 10000 div cvp}repeat exch
+  2 {10000 mul floor 10000 div cvp}repeat flush
+  restore
+"
+*End
+
+*DefaultPaperDimension: A4
+*PaperDimension A3/A3: "842 1191"
+*PaperDimension A4/A4: "595 842"
+*PaperDimension A5/A5: "420 595"
+*PaperDimension A6/A6: "297 420"
+*PaperDimension B4/B4 (JIS): "729 1032"
+*PaperDimension B5/B5 (JIS): "516 729"
+*PaperDimension B6/B6 (JIS): "363 516"
+*PaperDimension Legal/Legal: "612 1008"
+*PaperDimension Letter/Letter: "612 792"
+*PaperDimension HalfLetter/5.5x8.5: "396 612"
+*PaperDimension F/8x13: "576 936"
+*PaperDimension Folio/8.25x13: "595 935"
+*PaperDimension FanFoldGermanLegal/8.5x13: "612 936"
+*PaperDimension 11x14/11x14: "792 1008"
+*PaperDimension 11x17/11x17: "792 1224"
+*PaperDimension Executive/Executive: "522 756"
+*PaperDimension 8Kai/8K: "757 1106"
+*PaperDimension 16Kai/16K: "553 757"
+
+*%========== Media Handling Features ==========
+
+*OpenUI *MediaType/Paper Type: PickOne
+*OrderDependency: 205 AnySetup *MediaType
+*MediaType Auto/Plain/Recycled: "<< /MediaType (Auto) >> setpagedevice"
+*MediaType Plain/Plain (52 - 80 g/m2): "<< /MediaType (Plain) >> setpagedevice"
+*MediaType Recycled/Recycled: "<< /MediaType (Recycled) >> setpagedevice"
+*MediaType Special/Special: "<< /MediaType (Special) >> setpagedevice"
+*MediaType Colored1/Color 1: "<< /MediaType (Color1) >> setpagedevice"
+*MediaType Colored2/Color 2: "<< /MediaType (Color2) >> setpagedevice"
+*MediaType Letterhead/Letterhead: "<< /MediaType (Letterhead) >> setpagedevice"
+*MediaType Preprinted/Preprinted: "<< /MediaType (Preprinted) >> setpagedevice"
+*MediaType Prepunched/Prepunched: "<< /MediaType (Prepunched) >> setpagedevice"
+*MediaType Labels/Labels: "<< /MediaType (Labels) >> setpagedevice"
+*MediaType Bond/Bond: "<< /MediaType (Bond) >> setpagedevice"
+*MediaType Cardstock/Cardstock: "<< /MediaType (Cardstock) >> setpagedevice"
+*MediaType OHP/Transparency: "<< /MediaType (Transparency) >> setpagedevice"
+*MediaType Thick/Thick (104 - 216 g/m2): "<< /MediaType (Thick) >> setpagedevice"
+*MediaType Middlethick/Middle Thick (81 - 103 g/m2): "<< /MediaType (Middlethick) >> setpagedevice"
+*MediaType Index/Tab Stock: "<< /MediaType (Index) >> setpagedevice"
+*MediaType Translucent/Translucent: "<< /MediaType (Translucent) >> setpagedevice"
+*MediaType None/None: "<< /MediaType (None) >> setpagedevice"
+*?MediaType: "
+  save
+  /UK (Unknown) def
+  {
+    currentpagedevice /MediaType 2 copy known not { UK exit } if
+    get dup null eq 1 index (Plain) eq or { (Plain) exit } if
+    dup (Auto) eq { dup exit } if
+    dup (Recycled) eq { dup exit } if
+    dup (Special) eq { dup exit } if
+    dup (Colored1) eq { dup exit } if
+    dup (Colored2) eq { dup exit } if
+    dup (Letterhead) eq { dup exit } if
+    dup (Preprinted) eq { dup exit } if
+    dup (Prepunched) eq { dup exit } if
+    dup (Labels) eq { dup exit } if
+    dup (Bond) eq { dup exit } if
+    dup (Cardstock) eq { dup exit } if
+    dup (OHP) eq { dup exit } if
+    dup (Thick) eq { dup exit } if
+    dup (Middlethick) eq { dup exit } if
+    dup (Index) eq { dup exit } if
+    dup (Translucent) eq { dup exit } if
+    dup (None) eq { dup exit } if
+    UK exit
+  } bind loop
+  mark count 1 sub 2 roll cleartomark
+  = flush
+  restore
+"
+*End
+*DefaultMediaType: Auto
+*CloseUI: *MediaType
+
+*OpenUI *InputSlot: PickOne
+*OrderDependency: 30 AnySetup *InputSlot
+*DefaultInputSlot: Auto
+*InputSlot MultiTray/Bypass Tray: "<</MediaPosition 0>> setpagedevice"
+*InputSlot 1Tray/Tray 1 (LCT): "<</MediaPosition 1>> setpagedevice"
+*InputSlot 2Tray/Tray 2: "<</MediaPosition 2>> setpagedevice"
+*InputSlot 3Tray/Tray 3: "<</MediaPosition 3>> setpagedevice"
+*InputSlot 5Tray/Large Capacity Tray: "<</MediaPosition 5>> setpagedevice"
+*InputSlot Auto/Auto Select: ""
+*?InputSlot: "
+  save
+  [(MultiTray)(1Tray)(2Tray)(3Tray)(5Tray)]
+  statusdict /papertray get exec {get}stopped
+  {pop pop (Unknown)}if = flush
+  restore
+"
+*End
+*CloseUI: *InputSlot
+
+*OpenUI *OutputBin/Destination: PickOne
+*OrderDependency: 210 AnySetup *OutputBin
+*OutputBin Default/Printer Default: "<< /OutputType null>>setpagedevice"
+*OutputBin Standard/Copy Tray: "<< /OutputType (Standard)>>setpagedevice"
+*OutputBin FinEUPHDUpper/Finisher SR4030 Upper Tray: "<< /OutputType (FinProof) >>setpagedevice"
+*OutputBin FinEUPHDShift/Finisher SR4030 Shift Tray: "<< /OutputType (FinShift) >>setpagedevice"
+*OutputBin FinEUPHDBKUpper/Finisher SR4040 Upper Tray: "<< /OutputType (FinProof) >>setpagedevice"
+*OutputBin FinEUPHDBKShift/Finisher SR4040 Shift Tray: "<< /OutputType (FinShift) >>setpagedevice"
+*OutputBin FinEUPHDBK/Finisher SR4040 Booklet Tray: "<< /OutputType (FinBooklet) >>setpagedevice"
+*OutputBin FinVICTGUpper/Finisher SR4050 Upper Tray: "<< /OutputType (FinProof) >>setpagedevice"
+*OutputBin FinVICTGShift/Finisher SR4050 Shift Tray: "<< /OutputType (FinShift) >>setpagedevice"
+*OutputBin PlockmaticTray/Booklet Processor Tray: "<< /OutputType (FinShift) >>setpagedevice"
+*OutputBin FinDONAUProof/Folding Unit Tray: "<< /OutputType (FoldProof) >>setpagedevice"
+*OutputBin MailBoxBin1/Mailbox Tray 1: "<< /OutputType (MailBin1)>>setpagedevice"
+*OutputBin MailBoxBin2/Mailbox Tray 2: "<< /OutputType (MailBin2)>>setpagedevice"
+*OutputBin MailBoxBin3/Mailbox Tray 3: "<< /OutputType (MailBin3)>>setpagedevice"
+*OutputBin MailBoxBin4/Mailbox Tray 4: "<< /OutputType (MailBin4)>>setpagedevice"
+*OutputBin MailBoxBin5/Mailbox Tray 5: "<< /OutputType (MailBin5)>>setpagedevice"
+*OutputBin MailBoxBin6/Mailbox Tray 6: "<< /OutputType (MailBin6)>>setpagedevice"
+*OutputBin MailBoxBin7/Mailbox Tray 7: "<< /OutputType (MailBin7)>>setpagedevice"
+*OutputBin MailBoxBin8/Mailbox Tray 8: "<< /OutputType (MailBin8)>>setpagedevice"
+*OutputBin MailBoxBin9/Mailbox Tray 9: "<< /OutputType (MailBin9)>>setpagedevice"
+*DefaultOutputBin: Default
+*?OutputBin: "
+  save
+  currentpagedevice /OutputType get = flush
+  restore
+"
+*End
+*CloseUI: *OutputBin
+
+*%=== Custom Paper Support =================
+*LeadingEdge Short: ""
+*LeadingEdge Long: ""
+*DefaultLeadingEdge: Short
+
+*MaxMediaWidth:  "865"
+*MaxMediaHeight: "3572"
+*HWMargins:      12 12 12 12
+*CustomPageSize True: "pop pop pop 
+  << /PageSize [ 5 -2 roll ]  /ImagingBBox null
+  /Policies <</PageSize 2 /MediaType 2>>
+  /DeferredMediaSelection true
+  >> setpagedevice"
+*End
+
+*ParamCustomPageSize Width:        1 points 283 865
+*ParamCustomPageSize Height:       2 points 396 3572
+*ParamCustomPageSize WidthOffset:  3 points 0 0
+*ParamCustomPageSize HeightOffset: 4 points 0 0
+*ParamCustomPageSize Orientation:  5 int 1 1
+
+*NonUIOrderDependency: 21 AnySetup *CustomPageSize True
+
+*RequiresPageRegion MultiTray: True
+*RequiresPageRegion 1Tray: True
+*RequiresPageRegion 2Tray: True
+*RequiresPageRegion 3Tray: True
+*RequiresPageRegion 5Tray: True
+
+*%========== Resolution and Appearance Control ==========
+
+*OpenUI *Resolution/Resolution: PickOne
+*OrderDependency: 40 AnySetup *Resolution
+*DefaultResolution: 600dpi
+*Resolution 600dpi/600 dpi: "<</HWResolution[600 600]>>setpagedevice"
+*Resolution 1200dpi/1200 dpi: "<</HWResolution[1200 1200]>>setpagedevice"
+*?Resolution: "
+  save
+  currentpagedevice /HWResolution get 0 get
+  (       ) cvs print (dpi) = flush
+  restore
+"
+*End
+*CloseUI: *Resolution
+
+*OpenUI *RIPaperPolicy/Fit to Paper: PickOne
+*OrderDependency: 10 AnySetup *RIPaperPolicy
+*DefaultRIPaperPolicy: PromptUser
+*RIPaperPolicy PromptUser/Prompt User: "
+  <</DeferredMediaSelection true>> setpagedevice
+  <</Policies << /PageSize 2 /MediaType 2 >> >> setpagedevice"
+*End
+*RIPaperPolicy NearestSizeAdjust/Nearest Size and Scale: "
+  <</DeferredMediaSelection false>> setpagedevice
+  <</Policies << /PageSize 3 /MediaType 2 >> >> setpagedevice"
+*End
+*RIPaperPolicy NearestSizeNoAdjust/Nearest Size and Crop: "
+  <</DeferredMediaSelection false>> setpagedevice
+  <</Policies << /PageSize 5 /MediaType 2 >> >> setpagedevice"
+*End
+*CloseUI: *RIPaperPolicy
+
+*OpenUI *Duplex/Duplex: PickOne
+*OrderDependency: 50 AnySetup *Duplex
+*DefaultDuplex: None
+*Duplex None/Off: "<</Duplex false>>setpagedevice"
+*Duplex DuplexNoTumble/Long Edge: "<</Duplex true /Tumble false>>setpagedevice"
+*Duplex DuplexTumble/Short Edge: "<</Duplex true /Tumble true>>setpagedevice"
+*?Duplex: "
+  save
+  currentpagedevice /Duplex get
+  {currentpagedevice /Tumble get
+    {(DuplexTumble)}{(DuplexNoTumble)}ifelse
+  }{(None)}ifelse = flush
+  restore
+"
+*End
+*CloseUI: *Duplex
+
+*OpenUI *Collate/Collate: PickOne
+*OrderDependency: 200 AnySetup *Collate
+*DefaultCollate: False
+*Collate False/Off: "<</Collate false>>setpagedevice"
+*Collate True/On: "<</Collate true
+  /CollateDetails <</Type 6 /AlignSet false>>
+  >>setpagedevice"
+*End
+*?Collate: "
+  save
+  currentpagedevice /Collate get 
+  {{(True)}{(False)}ifelse }stopped {(Unknown)}if = flush
+  restore
+"
+*End
+*CloseUI: *Collate
+
+*OpenUI *RIPrintMode/Print Mode: PickOne
+*OrderDependency: 45 AnySetup *RIPrintMode
+*DefaultRIPrintMode: 0rhit
+*RIPrintMode 0rhit/Through: "
+  <</PostRenderingEnhance false>> setpagedevice"
+*End
+*RIPrintMode 1rhit/Edge Smoothing: "<</PostRenderingEnhance true
+  /PostRenderingEnhanceDetails << /Type 34 /OutputMode 0>> >> setpagedevice"
+*End
+*RIPrintMode 3rhit/Toner Saving: "<</PostRenderingEnhance true
+  /PostRenderingEnhanceDetails << /Type 34 /OutputMode 3>> >> setpagedevice"
+*End
+*?RIPrintMode: "
+  save
+  /UK (Unknown) def
+  {
+    currentpagedevice dup /PostRenderingEnhance 2 copy known not { UK exit } if
+    get dup false eq {pop (0rhit) exit }
+    {pop /PostRenderingEnhanceDetails get dup /OutputMode get
+    dup 0 eq {pop (1rhit) exit} if
+    dup 3 eq {pop (3rhit) exit} if
+    UK exit
+    } ifelse
+  } bind loop
+  mark count 1 sub 2 roll cleartomark
+  = flush
+  restore
+"
+*End
+*CloseUI: *RIPrintMode
+
+*OpenUI *Rimagesm/Image Smoothing: PickOne
+*OrderDependency: 160 AnySetup *Rimagesm
+*DefaultRimagesm: Off
+*Rimagesm Off/Off: "(off) /RDeviceProcSet /ProcSet findresource /SetImageInterpolate get exec"
+*Rimagesm On/On: "(on) /RDeviceProcSet /ProcSet findresource /SetImageInterpolate get exec"
+*Rimagesm Auto/Auto: "(auto) /RDeviceProcSet /ProcSet findresource /SetImageInterpolate get exec"
+*Rimagesm 90ppi/Less than 90 ppi: "90 /RDeviceProcSet /ProcSet findresource /SetImageInterpolate get exec"
+*Rimagesm 150ppi/Less than 150 ppi: "150 /RDeviceProcSet /ProcSet findresource /SetImageInterpolate get exec"
+*Rimagesm 200ppi/Less than 200 ppi: "200 /RDeviceProcSet /ProcSet findresource /SetImageInterpolate get exec"
+*Rimagesm 300ppi/Less than 300 ppi: "300 /RDeviceProcSet /ProcSet findresource /SetImageInterpolate get exec"
+*CloseUI: *Rimagesm
+
+*OpenUI *RPSDitherType/Dithering: PickOne
+*OrderDependency: 130 AnySetup *RPSDitherType
+*DefaultRPSDitherType: Auto
+*RPSDitherType Auto/Auto: "(auto) RCsethalftonetype"
+*RPSDitherType Photo/Photographic: "(photo) RCsethalftonetype"
+*RPSDitherType Letter/Text: "(text) RCsethalftonetype"
+*RPSDitherType User/User Setting: "(user) RCsethalftonetype"
+*CloseUI: *RPSDitherType
+
+*OpenUI *StapleLocation/Staple: PickOne
+*OrderDependency: 220 AnySetup *StapleLocation
+*DefaultStapleLocation: None
+*StapleLocation None/Off: "<< /Staple 0 >> setpagedevice"
+*StapleLocation UpperLeft/Top left: "<< 
+  /Collate true  /CollateDetails <</Type 6 /AlignSet true>>
+  /Staple 2  /StapleDetails << /Type 14 /Angle 0 /Position 0 >>
+  >> setpagedevice"
+*End
+*StapleLocation UpperRight/Top right: "<< 
+  /Collate true  /CollateDetails <</Type 6 /AlignSet true>>
+  /Staple 2  /StapleDetails << /Type 14 /Angle 0 /Position 6 >>
+  >> setpagedevice"
+*End
+*StapleLocation LeftW/2 at left: "<< 
+  /Collate true  /CollateDetails <</Type 6 /AlignSet true>>
+  /Staple 2  /StapleDetails << /Type 14 /Angle 0 /Position 1 >>
+  >> setpagedevice"
+*End
+*StapleLocation RightW/2 at right: "<< 
+  /Collate true  /CollateDetails <</Type 6 /AlignSet true>>
+  /Staple 2  /StapleDetails << /Type 14 /Angle 0 /Position 5 >>
+  >> setpagedevice"
+*End
+*StapleLocation UpperW/2 at top: "<< 
+  /Collate true  /CollateDetails <</Type 6 /AlignSet true>>
+  /Staple 2  /StapleDetails << /Type 14 /Angle 0 /Position 7 >>
+  >> setpagedevice"
+*End
+*StapleLocation CenterW/2 at center: "<< 
+  /Collate true  /CollateDetails <</Type 6 /AlignSet true>>
+  /Staple 2  /StapleDetails << /Type 14 /Angle 0 /Position 8 >>
+  >> setpagedevice"
+*End
+*?StapleLocation: "
+  save
+  /UK (Unknown) def
+  {
+    currentpagedevice dup /Staple 2 copy known not { UK exit } if
+    get dup 0 eq {pop (None) exit }
+    {pop /StapleDetails get dup /Position get
+    dup 0 eq {pop (UpperLeft) exit} if
+    dup 6 eq {pop (UpperRight) exit} if
+    dup 1 eq {pop (LeftW) exit} if
+    dup 5 eq {pop (RightW) exit} if
+    dup 7 eq {pop (UpperW) exit} if
+    dup 8 eq {pop (CenterW) exit} if
+    UK exit
+    } ifelse
+  } bind loop
+  mark count 1 sub 2 roll cleartomark
+  = flush
+  restore
+"
+*End
+*CloseUI: *StapleLocation
+
+*OpenUI *RIPunch/Punch: PickOne
+*OrderDependency: 230 AnySetup *RIPunch
+*RIPunch None/Off: "<< /Punch 0 >> setpagedevice"
+*RIPunch Left2/2 at left: "<< /Punch 2
+  /PunchDetails << /Type 4 /Position 0 /NumHoles 2 >> >> setpagedevice"
+*End
+*RIPunch Left3/3 at left: "<< /Punch 2
+  /PunchDetails << /Type 4 /Position 0 /NumHoles 3 >> >> setpagedevice"
+*End
+*RIPunch Left4/4 at left: "<< /Punch 2
+  /PunchDetails << /Type 4 /Position 0 /NumHoles 4 >> >> setpagedevice"
+*End
+*RIPunch Right2/2 at right: "<< /Punch 2
+  /PunchDetails << /Type 4 /Position 2 /NumHoles 2 >> >> setpagedevice"
+*End
+*RIPunch Right3/3 at right: "<< /Punch 2
+  /PunchDetails << /Type 4 /Position 2 /NumHoles 3 >> >> setpagedevice"
+*End
+*RIPunch Right4/4 at right: "<< /Punch 2
+  /PunchDetails << /Type 4 /Position 2 /NumHoles 4 >> >> setpagedevice"
+*End
+*RIPunch Upper2/2 at top: "<< /Punch 2
+  /PunchDetails << /Type 4 /Position 3 /NumHoles 2 >> >> setpagedevice"
+*End
+*RIPunch Upper3/3 at top: "<< /Punch 2
+  /PunchDetails << /Type 4 /Position 3 /NumHoles 3 >> >> setpagedevice"
+*End
+*RIPunch Upper4/4 at top: "<< /Punch 2
+  /PunchDetails << /Type 4 /Position 3 /NumHoles 4 >> >> setpagedevice"
+*End
+*RIPunch GBCLeft/Multiple at left: "
+  << /Punch 2 /PunchDetails << /Type 3 /Position 0>> >> setpagedevice"
+*End
+*RIPunch GBCRight/Multiple at right: "
+  << /Punch 2 /PunchDetails << /Type 3 /Position 2>> >> setpagedevice"
+*End
+*RIPunch GBCTop/Multiple at top: "
+  << /Punch 2 /PunchDetails << /Type 3 /Position 3>> >> setpagedevice"
+*End
+*DefaultRIPunch: None
+*?RIPunch: "
+  save
+  /UK (Unknown) def
+  {
+    currentpagedevice dup /Punch 2 copy known not { UK exit } if
+    get dup 0 eq {pop (None) exit }
+    {pop /PunchDetails get dup /Position get
+    dup 0 eq {pop (Left2) exit} if
+    dup 2 eq {pop (Right2) exit} if
+    dup 3 eq {pop (Upper2) exit} if
+    UK exit
+    } ifelse
+  } bind loop
+  mark count 1 sub 2 roll cleartomark
+  = flush
+  restore
+"
+*End
+*CloseUI: *RIPunch
+
+*OpenUI *RIFoldType/Fold Type: PickOne
+*OrderDependency: 260 AnySetup *RIFoldType
+*RIFoldType None/None: ""
+*RIFoldType Twofold/Half Fold: "userdict /RPS_MFdict 1 dict put
+userdict /RPS_MFdict get begin /RPS_MF_FOLDTYPE 10 def end"
+*End
+*RIFoldType ThreefoldIn/Letter Fold-in: "userdict /RPS_MFdict 1 dict put
+userdict /RPS_MFdict get begin /RPS_MF_FOLDTYPE 11 def end"
+*End
+*RIFoldType ThreefoldOut/Letter Fold-out: "userdict /RPS_MFdict 1 dict put
+userdict /RPS_MFdict get begin /RPS_MF_FOLDTYPE 12 def end"
+*End
+*RIFoldType Quarto/Double Parallel Fold: "userdict /RPS_MFdict 1 dict put
+userdict /RPS_MFdict get begin /RPS_MF_FOLDTYPE 13 def end"
+*End
+*RIFoldType Gatefold/Gate Fold: "userdict /RPS_MFdict 1 dict put
+userdict /RPS_MFdict get begin /RPS_MF_FOLDTYPE 14 def end"
+*End
+*DefaultRIFoldType: None
+*?RIFoldType: "
+"
+*End
+*CloseUI: *RIFoldType
+
+*OpenUI *OverlapFold/Multi-sheet Fold: PickOne
+*OrderDependency: 262 AnySetup *OverlapFold
+*OverlapFold Off/Off: "userdict /RPS_MFdict known{ 
+<< /Fold 1 
+/FoldDetails 
+<< /Type 11 
+/FoldType userdict /RPS_MFdict get  /RPS_MF_FOLDTYPE get 
+/Stack false >> 
+>> setpagedevice 
+} if"
+*End
+*OverlapFold On/On: "userdict /RPS_MFdict known{ 
+<< /Fold 1 
+/FoldDetails 
+<< /Type 11 
+/FoldType userdict /RPS_MFdict get /RPS_MF_FOLDTYPE get 
+/Stack true >> 
+>> setpagedevice 
+} if"
+*End
+*DefaultOverlapFold: Off
+*?OverlapFold: "
+"
+*End
+*CloseUI: *OverlapFold
+
+*OpenUI *RIZfold/Z-fold: PickOne
+*OrderDependency: 250 AnySetup *RIZfold
+*RIZfold None/Off: "<< /Fold 0 >> setpagedevice"
+*RIZfold Bottom/Bottom Fold: "<< /Fold 1
+  /FoldDetails << /Type 7 /FoldType 0 /ImageRotation 2 >> >> setpagedevice"
+*End
+*RIZfold Right/Right Fold: "<< /Fold 1
+  /FoldDetails << /Type 7 /FoldType 0 /ImageRotation 1 >> >> setpagedevice"
+*End
+*RIZfold Left/Left Fold: "<< /Fold 1
+  /FoldDetails << /Type 7 /FoldType 0 /ImageRotation 3 >> >> setpagedevice"
+*End
+*DefaultRIZfold: None
+*?RIZfold: "
+"
+*End
+*CloseUI: *RIZfold
+
+*OpenUI *RIRotateBy180/Rotate by 180 degrees: PickOne
+*OrderDependency: 165 AnySetup *RIRotateBy180
+*RIRotateBy180 Off/Off: "0 /RDeviceProcSet /ProcSet findresource /SetImageRotation get exec"
+*RIRotateBy180 On/On: "1 /RDeviceProcSet /ProcSet findresource /SetImageRotation get exec"
+*DefaultRIRotateBy180: Off
+*CloseUI: *RIRotateBy180
+
+*OpenUI *RIOrientOvr/Orientation Override: PickOne
+*OrderDependency: 170 AnySetup *RIOrientOvr
+*RIOrientOvr Off/Off: ""
+*RIOrientOvr Landscape/Landscape: "
+  1 /RDeviceProcSet /ProcSet findresource /SetOrientationOverride get exec"
+*End
+*RIOrientOvr Portrait/Portrait: "
+  0 /RDeviceProcSet /ProcSet findresource /SetOrientationOverride get exec"
+*End
+*DefaultRIOrientOvr: Off
+*CloseUI: *RIOrientOvr
+
+*OpenUI *Faceup/Eject Face-up: PickOne
+*OrderDependency: 167 AnySetup *Faceup
+*Faceup Off/Off: "<< /OutputFaceUp false >>setpagedevice"
+*Faceup On/On: "<< /OutputFaceUp true >>setpagedevice"
+*DefaultFaceup: Off
+*CloseUI: *Faceup
+
+*%=== Watermark ========
+*OpenUI *RIWatermark/Watermark:  PickOne
+*OrderDependency: 300 AnySetup *RIWatermark
+*DefaultRIWatermark: Off
+*RIWatermark Off/Off: ""
+*RIWatermark On/On: "
+ userdict /RPS_WMdict 10 dict put
+ userdict /RPS_WMdict get begin
+  /RPS_WM true def
+  /RPS_WM_adjangle { 1.0 mul } bind def	%% Portrait, Portrait(4up)
+  /RPS_WM_adjust 0.5 def
+  /RPS_WM_position { %% center
+	currentpagedevice /PageSize get
+	aload pop exch 2.0 div exch 2.0 div translate
+	RPS_WM_angle RPS_WM_adjangle rotate
+	RPS_WM_font findfont RPS_WM_size scalefont setfont
+	RPS_WM_str stringwidth pop 2.0 div neg RPS_WM_size 2.0 div moveto
+  } bind def
+ end
+ <<
+	/EndPage {
+		2 eq { pop false }{
+			userdict /RPS_WMdict 2 copy known {
+				get begin
+				RPS_WM {
+					gsave
+					initgraphics
+					RPS_WM_color
+					RPS_WM_Pattern
+					RPS_WM_position
+					RPS_WM_draw
+					grestore
+				} if
+				end
+			}{ pop pop } ifelse
+			pop true
+		} ifelse
+	} bind
+ >> setpagedevice"
+*End
+*CloseUI: *RIWatermark
+
+*%=== Watermark Text ========
+*OpenUI *RIWMText/Watermark Text:  PickOne
+*OrderDependency: 310 AnySetup *RIWMText
+*DefaultRIWMText: Confidential
+*RIWMText Confidential/CONFIDENTIAL: "userdict /RPS_WMdict get begin
+ /RPS_WM_str (CONFIDENTIAL) def end"
+*End
+*RIWMText Copy/COPY: "userdict /RPS_WMdict get begin
+ /RPS_WM_str (COPY) def end"
+*End
+*RIWMText Copyright/DRAFT: "userdict /RPS_WMdict get begin
+ /RPS_WM_str (DRAFT) def end"
+*End
+*RIWMText Final/FINAL: "userdict /RPS_WMdict get begin
+ /RPS_WM_str (FINAL) def end"
+*End
+*RIWMText FileCopy/FILE COPY: "userdict /RPS_WMdict get begin
+ /RPS_WM_str (FILE COPY) def end"
+*End
+*RIWMText Proof/PROOF: "userdict /RPS_WMdict get begin
+ /RPS_WM_str (PROOF) def end"
+*End
+*RIWMText TopSecret/TOP SECRET: "userdict /RPS_WMdict get begin
+ /RPS_WM_str (TOP SECRET) def end"
+*End
+*CloseUI: *RIWMText
+
+*%=== WaterMark Font ========
+*OpenUI *RIwmFont/Watermark Font:  PickOne
+*OrderDependency: 320 AnySetup *RIwmFont
+*DefaultRIwmFont: HelveticaB
+*RIwmFont CourierB/Courier Bold: "userdict /RPS_WMdict get begin
+ /RPS_WM_font /Courier-Bold def end"
+*End
+*RIwmFont TimesB/Times Bold: "userdict /RPS_WMdict get begin
+ /RPS_WM_font /Times-Bold def end"
+*End
+*RIwmFont HelveticaB/Helvetica Bold: "userdict /RPS_WMdict get begin
+ /RPS_WM_font /Helvetica-Bold def end"
+*End
+*CloseUI: *RIwmFont
+
+*%=== WaterMark Font Size========
+*OpenUI *RIwmSize/Watermark Size:  PickOne
+*OrderDependency: 330 AnySetup *RIwmSize
+*DefaultRIwmSize: 36
+*RIwmSize 24/24 Point: "userdict /RPS_WMdict get begin
+ /RPS_WM_size 24 def end"
+*End
+*RIwmSize 36/36 Point: "userdict /RPS_WMdict get begin
+ /RPS_WM_size 36 def end"
+*End
+*RIwmSize 48/48 Point: "userdict /RPS_WMdict get begin
+ /RPS_WM_size 48 def end"
+*End
+*RIwmSize 60/60 Point: "userdict /RPS_WMdict get begin
+ /RPS_WM_size 60 def end"
+*End
+*RIwmSize 72/72 Point: "userdict /RPS_WMdict get begin
+ /RPS_WM_size 72 def end"
+*End
+*CloseUI: *RIwmSize
+
+*%=== WaterMark Angle ========
+*OpenUI *RIwmAngle/Watermark Angle:  PickOne
+*OrderDependency: 340 AnySetup *RIwmAngle
+*DefaultRIwmAngle: 45Deg
+*RIwmAngle 180Deg/180 Degrees: "userdict /RPS_WMdict get begin
+ /RPS_WM_angle 180 def end"
+*End
+*RIwmAngle 135Deg/135 Degrees: "userdict /RPS_WMdict get begin
+ /RPS_WM_angle 135 def end"
+*End
+*RIwmAngle 90Deg/90 Degrees: "userdict /RPS_WMdict get begin
+ /RPS_WM_angle 90 def end"
+*End
+*RIwmAngle 45Deg/45 Degrees: "userdict /RPS_WMdict get begin
+ /RPS_WM_angle 45 def end"
+*End
+*RIwmAngle 0Deg/0 Degrees: "userdict /RPS_WMdict get begin
+ /RPS_WM_angle 0 def end"
+*End
+*RIwmAngle M45Deg/-45 Degrees: "userdict /RPS_WMdict get begin
+ /RPS_WM_angle -45 def end"
+*End
+*RIwmAngle M90Deg/-90 Degrees: "userdict /RPS_WMdict get begin
+ /RPS_WM_angle -90 def end"
+*End
+*RIwmAngle M135Deg/-135 Degrees: "userdict /RPS_WMdict get begin
+ /RPS_WM_angle -135 def end"
+*End
+*RIwmAngle M180Deg/-180 Degrees: "userdict /RPS_WMdict get begin
+ /RPS_WM_angle -180 def end"
+*End
+*CloseUI: *RIwmAngle
+
+*%=== WaterMark Style ========
+*OpenUI *RIwmTextStyle/Watermark Style:  PickOne
+*OrderDependency: 350 AnySetup *RIwmTextStyle
+*DefaultRIwmTextStyle: Gray
+*RIwmTextStyle Gray/Gray: "userdict /RPS_WMdict get begin
+   /RPS_WM_color { 0 setgray }  bind  def
+   /RPS_WM_Pattern {
+	<<
+		/PatternType 1
+		/PaintType 1
+		/TilingType 3
+		/BBox [ 0 0 1 1 ]
+		/XStep 1 
+		/YStep 1 
+		/PaintProc {
+			begin
+				RPS_WM_color
+				8 8 true [ 8 0 0 -8 0 8 ]
+				<88002200 88002200> imagemask
+			end
+		}
+	>> [ 1 0 0 -1 0 1 ] makepattern
+	setpattern }
+   bind def
+   /RPS_WM_draw {	%% RPS_WM_mask
+	RPS_WM_str false charpath fill
+  } bind def end"
+*End
+*RIwmTextStyle Outline/Outlined: "userdict /RPS_WMdict get begin
+   /RPS_WM_color { 0 setgray }  bind  def
+   /RPS_WM_Pattern {} def
+   /RPS_WM_draw {	%% RPS_WM_outline
+	0 setlinewidth RPS_WM_str false charpath stroke
+  } bind def end"
+*End
+*CloseUI: *RIwmTextStyle
+
+*%========== Gray Levels and Halftoning ==========
+*AccurateScreensSupport: True
+*ScreenFreq: "85.0"
+*ScreenAngle: "45.0"
+*DefaultScreenProc: Dot
+*ScreenProc Dot: "
+  {abs exch abs 2 copy add 1 gt
+   {1 sub dup mul exch 1 sub dup mul add 1 sub}
+   {dup mul exch dup mul add 1 exch sub}
+   ifelse}
+"
+*End
+*ScreenProc Line: "{pop}"
+*ScreenProc Ellipse: "
+  {dup 5 mul 8 div mul exch dup mul exch add sqrt 1 exch sub}
+"
+*End
+
+*%========== Font ==========
+
+*DefaultFont: Courier
+*Font AlbertusMT: Standard "(001.000)" Standard ROM
+*Font AlbertusMT-Italic: Standard "(001.000)" Standard ROM
+*Font AlbertusMT-Light: Standard "(001.000)" Standard ROM
+*Font AntiqueOlive-Bold: Standard "(501.009)" ExtendedRoman ROM
+*Font AntiqueOlive-Compact: Standard "(501.008)" ExtendedRoman ROM
+*Font AntiqueOlive-Italic: Standard "(501.010)" ExtendedRoman ROM
+*Font AntiqueOlive-Roman: Standard "(501.008)" ExtendedRoman ROM
+*Font Apple-Chancery: Standard "(001.001)" ExtendedRoman ROM
+*Font ArialMT: Standard "(501.009)" ExtendedRoman ROM
+*Font Arial-BoldMT: Standard "(501.009)" ExtendedRoman ROM
+*Font Arial-BoldItalicMT: Standard "(501.009)" ExtendedRoman ROM
+*Font Arial-ItalicMT: Standard "(501.012)" ExtendedRoman ROM
+*Font AvantGarde-Book: Standard "(501.009)" ExtendedRoman ROM
+*Font AvantGarde-BookOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font AvantGarde-Demi: Standard "(501.010)" ExtendedRoman ROM
+*Font AvantGarde-DemiOblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Bodoni: Standard "(501.008)" ExtendedRoman ROM
+*Font Bodoni-Bold: Standard "(501.006)" ExtendedRoman ROM
+*Font Bodoni-BoldItalic: Standard "(501.007)" ExtendedRoman ROM
+*Font Bodoni-Italic: Standard "(501.007)" ExtendedRoman ROM
+*Font Bodoni-Poster: Standard "(501.009)" ExtendedRoman ROM
+*Font Bodoni-PosterCompressed: Standard "(501.007)" ExtendedRoman ROM
+*Font Bookman-Demi: Standard "(501.007)" ExtendedRoman ROM
+*Font Bookman-DemiItalic: Standard "(501.008)" ExtendedRoman ROM
+*Font Bookman-Light: Standard "(501.006)" ExtendedRoman ROM
+*Font Bookman-LightItalic: Standard "(501.007)" ExtendedRoman ROM
+*Font Carta: Special "(001.001)" Special ROM
+*Font Chicago: Standard "(501.011)" ExtendedRoman ROM
+*Font Clarendon-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Clarendon-Light: Standard "(501.009)" ExtendedRoman ROM
+*Font Clarendon: Standard "(501.009)" ExtendedRoman ROM
+*Font CooperBlack-Italic: Standard "(001.003)" Standard ROM
+*Font CooperBlack: Standard "(001.003)" Standard ROM
+*Font Copperplate-ThirtyThreeBC: Standard "(001.002)" Standard ROM
+*Font Copperplate-ThirtyTwoBC: Standard "(001.002)" Standard ROM
+*Font Coronet-Regular: Standard "(001.000)" ExtendedRoman ROM
+*Font Courier-Bold: Standard "(501.010)" ExtendedRoman ROM
+*Font Courier-BoldOblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Courier-Oblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Courier: Standard "(501.010)" ExtendedRoman ROM
+*Font Eurostile-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Eurostile-BoldExtendedTwo: Standard "(501.008)" ExtendedRoman ROM
+*Font Eurostile-ExtendedTwo: Standard "(501.010)" ExtendedRoman ROM
+*Font Eurostile: Standard "(501.008)" ExtendedRoman ROM
+*Font Geneva: Standard "(501.007)" ExtendedRoman ROM
+*Font GillSans: Standard "(501.009)" ExtendedRoman ROM
+*Font GillSans-Bold: Standard "(501.007)" ExtendedRoman ROM
+*Font GillSans-BoldCondensed: Standard "(501.006)" ExtendedRoman ROM
+*Font GillSans-BoldItalic: Standard "(501.008)" ExtendedRoman ROM
+*Font GillSans-Condensed: Standard "(501.007)" ExtendedRoman ROM
+*Font GillSans-ExtraBold: Standard "(501.008)" ExtendedRoman ROM
+*Font GillSans-Italic: Standard "(501.008)" ExtendedRoman ROM
+*Font GillSans-Light: Standard "(501.009)" ExtendedRoman ROM
+*Font GillSans-LightItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font Goudy: Standard "(001.003)" Standard ROM
+*Font Goudy-Bold: Standard "(001.002)" Standard ROM
+*Font Goudy-BoldItalic: Standard "(001.002)" Standard ROM
+*Font Goudy-ExtraBold: Standard "(001.001)" Standard ROM
+*Font Goudy-Italic: Standard "(001.002)" Standard ROM
+*Font Helvetica: Standard "(501.008)" ExtendedRoman ROM
+*Font Helvetica-Bold: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-BoldOblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Condensed-Bold: Standard "(501.009)" ExtendedRoman ROM
+*Font Helvetica-Condensed-BoldObl: Standard "(501.009)" ExtendedRoman ROM
+*Font Helvetica-Condensed-Oblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Condensed: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Narrow-Bold: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Narrow-Oblique: Standard "(501.008)" ExtendedRoman ROM
+*Font Helvetica-Narrow: Standard "(501.008)" ExtendedRoman ROM
+*Font Helvetica-Oblique: Standard "(501.008)" ExtendedRoman ROM
+*Font HoeflerText-Black: Standard "(501.008)" ExtendedRoman ROM
+*Font HoeflerText-BlackItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font HoeflerText-Italic: Standard "(501.010)" ExtendedRoman ROM
+*Font HoeflerText-Ornaments: Special "(001.001)" Special ROM
+*Font HoeflerText-Regular: Standard "(501.009)" ExtendedRoman ROM
+*Font JoannaMT: Standard "(501.009)" ExtendedRoman ROM
+*Font JoannaMT-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font JoannaMT-BoldItalic: Standard "(501.008)" ExtendedRoman ROM
+*Font JoannaMT-Italic: Standard "(501.008)" ExtendedRoman ROM
+*Font LetterGothic: Standard "(501.009)" ExtendedRoman ROM
+*Font LetterGothic-Bold: Standard "(501.010)" ExtendedRoman ROM
+*Font LetterGothic-BoldSlanted: Standard "(501.010)" ExtendedRoman ROM
+*Font LetterGothic-Slanted: Standard "(501.010)" ExtendedRoman ROM
+*Font LubalinGraph-Book: Standard "(501.009)" ExtendedRoman ROM
+*Font LubalinGraph-BookOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font LubalinGraph-Demi: Standard "(501.009)" ExtendedRoman ROM
+*Font LubalinGraph-DemiOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font Marigold: Standard "(001.000)" Standard ROM
+*Font MonaLisa-Recut: Standard "(001.000)" Standard ROM
+*Font Monaco: Standard "(501.012)" ExtendedRoman ROM
+*Font NewCenturySchlbk-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font NewCenturySchlbk-Italic: Standard "(501.011)" ExtendedRoman ROM
+*Font NewCenturySchlbk-Roman: Standard "(501.008)" ExtendedRoman ROM
+*Font NewYork: Standard "(501.013)" ExtendedRoman ROM
+*Font Optima-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Optima-BoldItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font Optima-Italic: Standard "(501.010)" ExtendedRoman ROM
+*Font Optima: Standard "(501.010)" ExtendedRoman ROM
+*Font Oxford: Standard "(001.000)" Standard ROM
+*Font Palatino-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Palatino-BoldItalic: Standard "(501.007)" ExtendedRoman ROM
+*Font Palatino-Italic: Standard "(501.008)" ExtendedRoman ROM
+*Font Palatino-Roman: Standard "(501.006)" ExtendedRoman ROM
+*Font StempelGaramond-Bold: Standard "(501.007)" ExtendedRoman ROM
+*Font StempelGaramond-BoldItalic: Standard "(501.012)" ExtendedRoman ROM
+*Font StempelGaramond-Italic: Standard "(501.009)" ExtendedRoman ROM
+*Font StempelGaramond-Roman: Standard "(501.011)" ExtendedRoman ROM
+*Font Symbol: Special "(001.008)" Special ROM
+*Font Tekton: Standard "(001.001)" Standard ROM
+*Font Times-Bold: Standard "(501.009)" ExtendedRoman ROM
+*Font Times-BoldItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font Times-Italic: Standard "(501.010)" ExtendedRoman ROM
+*Font Times-Roman: Standard "(501.010)" ExtendedRoman ROM
+*Font TimesNewRomanPS-BoldItalicMT: Standard "(501.011)" ExtendedRoman ROM
+*Font TimesNewRomanPS-BoldMT: Standard "(501.009)" ExtendedRoman ROM
+*Font TimesNewRomanPS-ItalicMT: Standard "(501.011)" ExtendedRoman ROM
+*Font TimesNewRomanPSMT: Standard "(501.010)" ExtendedRoman ROM
+*Font Univers: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Univers-BoldExt: Standard "(501.010)" ExtendedRoman ROM
+*Font Univers-BoldExtObl: Standard "(501.010)" ExtendedRoman ROM
+*Font Univers-BoldOblique: Standard "(501.008)" ExtendedRoman ROM
+*Font Univers-Condensed: Standard "(501.011)" ExtendedRoman ROM
+*Font Univers-CondensedBold: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-CondensedBoldOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-CondensedOblique: Standard "(501.011)" ExtendedRoman ROM
+*Font Univers-Extended: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-ExtendedObl: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-Light: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-LightOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-Oblique: Standard "(501.009)" ExtendedRoman ROM
+*Font Wingdings-Regular: Special "(001.001)" Special ROM
+*Font ZapfChancery-MediumItalic: Standard "(002.000)" ExtendedRoman ROM
+*Font ZapfDingbats: Special "(001.005S)" Special ROM
+
+*?FontQuery: "
+  save
+  {count 1 gt {
+    exch dup 127 string cvs (/) print print (:) print
+    /Font resourcestatus {pop pop (Yes)}{(NO)}ifelse =
+    }{exit}ifelse 
+  }bind loop (*) = flush
+  restore
+"
+*End
+
+*?FontList: "
+  save
+  (*) {cvn ==} 128 string /Font resourceforall (*) = flush
+  restore
+"
+*End
+
+*Status: "initializing"
+*Status: "holding"
+*Status: "idle"
+*Status: "busy"
+*Status: "waiting"
+*Status: "printing"
+*Status: "print test page"
+
+*Source: "Parallel"
+*Source: "TCP/IP"
+*Source: "EtherTalk"
+*Source: "SPX/IPX"
+*Source: "NetBEUI"
+*Source: "IEEE1394"
+
+*Message: "%%[ exitserver: permanent state may be changed ]%%"
+*Message: "%%[ Flushing: rest of job (to end-of-file) will be ignored ]%%"
+*Message: "\FontName\ not found, using Courier"
+
+*%========== Color Separation ==========
+
+*DefaultColorSep: ProcessBlack.141lpi.600dpi/141 lpi / 600 dpi
+
+*%===== For 600 dpi =====
+
+*ColorSepScreenAngle ProcessBlack.141lpi.600dpi/141 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.141lpi.600dpi/141 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.134lpi.600dpi/134 lpi / 600 dpi: "27.0"
+*ColorSepScreenAngle ProcessMagenta.134lpi.600dpi/134 lpi / 600 dpi: "63.0"
+*ColorSepScreenAngle ProcessYellow.150lpi.600dpi/150 lpi / 600 dpi: "0.0"
+
+*ColorSepScreenFreq ProcessBlack.141lpi.600dpi/141 lpi / 600 dpi: "141"
+*ColorSepScreenFreq CustomColor.141lpi.600dpi/141 lpi / 600 dpi: "141"
+*ColorSepScreenFreq ProcessCyan.134lpi.600dpi/134 lpi / 600 dpi: "134"
+*ColorSepScreenFreq ProcessMagenta.134lpi.600dpi/134 lpi / 600 dpi: "134"
+*ColorSepScreenFreq ProcessYellow.150lpi.600dpi/150 lpi / 600 dpi: "150"
+
+*%===== For 1200 dpi =====
+
+*ColorSepScreenAngle ProcessBlack.212lpi.1200dpi/212 lpi / 1200 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.212lpi.1200dpi/212 lpi / 1200 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.212lpi.1200dpi/212 lpi / 1200 dpi: "15.0"
+*ColorSepScreenAngle ProcessMagenta.212lpi.1200dpi/212 lpi / 1200 dpi: "75.0"
+*ColorSepScreenAngle ProcessYellow.212lpi.1200dpi/212 lpi / 1200 dpi: "0.0"
+
+*ColorSepScreenFreq ProcessBlack.212lpi.1200dpi/212 lpi / 1200 dpi: "212"
+*ColorSepScreenFreq CustomColor.212lpi.1200dpi/212 lpi / 1200 dpi: "212"
+*ColorSepScreenFreq ProcessCyan.212lpi.1200dpi/212 lpi / 1200 dpi: "212"
+*ColorSepScreenFreq ProcessMagenta.212lpi.1200dpi/212 lpi / 1200 dpi: "212"
+*ColorSepScreenFreq ProcessYellow.212lpi.1200dpi/212 lpi / 1200 dpi: "212"
+
+*%========== LCT / InputSlot
+*UIConstraints: *LargeCapacityTray NotInstalled *InputSlot 5Tray
+*UIConstraints: *InputSlot 5Tray *LargeCapacityTray NotInstalled
+
+*%========== Finisher / Plockmatic
+*UIConstraints: *Finisher NotInstalled *BookletProcessor Plockmatic
+*UIConstraints: *Finisher FinEUPHRATESD *BookletProcessor Plockmatic
+*UIConstraints: *Finisher FinEUPHRATESDBK *BookletProcessor Plockmatic
+*UIConstraints: *BookletProcessor Plockmatic *Finisher NotInstalled
+*UIConstraints: *BookletProcessor Plockmatic *Finisher FinEUPHRATESD
+*UIConstraints: *BookletProcessor Plockmatic *Finisher FinEUPHRATESDBK
+
+*%========== Finisher / MailBox
+*UIConstraints: *Finisher NotInstalled *Mailbox Installed
+*UIConstraints: *Finisher FinVICTORIAG *Mailbox Installed
+*UIConstraints: *Mailbox Installed *Finisher NotInstalled
+*UIConstraints: *Mailbox Installed *Finisher FinVICTORIAG
+
+*%========== Finisher / Multi-hole Punch Unit
+*UIConstraints: *Finisher NotInstalled *MultiHolePunchUnit True
+*UIConstraints: *Finisher FinEUPHRATESD *MultiHolePunchUnit True
+*UIConstraints: *Finisher FinEUPHRATESDBK *MultiHolePunchUnit True
+*UIConstraints: *MultiHolePunchUnit True *Finisher NotInstalled
+*UIConstraints: *MultiHolePunchUnit True *Finisher FinEUPHRATESD
+*UIConstraints: *MultiHolePunchUnit True *Finisher FinEUPHRATESDBK
+
+*%========== Finisher / Folding Unit
+*UIConstraints: *Finisher NotInstalled *MultiFold Installed
+*UIConstraints: *Finisher FinEUPHRATESD *MultiFold Installed
+*UIConstraints: *MultiFold Installed *Finisher NotInstalled
+*UIConstraints: *MultiFold Installed *Finisher FinEUPHRATESD
+
+*%========== Finisher / Destination
+*UIConstraints: *Finisher NotInstalled *OutputBin FinEUPHDUpper
+*UIConstraints: *Finisher NotInstalled *OutputBin FinEUPHDShift
+*UIConstraints: *Finisher NotInstalled *OutputBin FinEUPHDBKUpper
+*UIConstraints: *Finisher NotInstalled *OutputBin FinEUPHDBKShift
+*UIConstraints: *Finisher NotInstalled *OutputBin FinEUPHDBK
+*UIConstraints: *Finisher NotInstalled *OutputBin FinVICTGUpper
+*UIConstraints: *Finisher NotInstalled *OutputBin FinVICTGShift
+*UIConstraints: *OutputBin FinEUPHDUpper *Finisher NotInstalled
+*UIConstraints: *OutputBin FinEUPHDShift *Finisher NotInstalled
+*UIConstraints: *OutputBin FinEUPHDBKUpper *Finisher NotInstalled
+*UIConstraints: *OutputBin FinEUPHDBKShift *Finisher NotInstalled
+*UIConstraints: *OutputBin FinEUPHDBK *Finisher NotInstalled
+*UIConstraints: *OutputBin FinVICTGUpper *Finisher NotInstalled
+*UIConstraints: *OutputBin FinVICTGShift *Finisher NotInstalled
+*UIConstraints: *Finisher FinEUPHRATESD *OutputBin Standard
+*UIConstraints: *Finisher FinEUPHRATESD *OutputBin FinEUPHDBKUpper
+*UIConstraints: *Finisher FinEUPHRATESD *OutputBin FinEUPHDBKShift
+*UIConstraints: *Finisher FinEUPHRATESD *OutputBin FinEUPHDBK
+*UIConstraints: *Finisher FinEUPHRATESD *OutputBin FinVICTGUpper
+*UIConstraints: *Finisher FinEUPHRATESD *OutputBin FinVICTGShift
+*UIConstraints: *OutputBin Standard *Finisher FinEUPHRATESD
+*UIConstraints: *OutputBin FinEUPHDBKUpper *Finisher FinEUPHRATESD
+*UIConstraints: *OutputBin FinEUPHDBKShift *Finisher FinEUPHRATESD
+*UIConstraints: *OutputBin FinEUPHDBK *Finisher FinEUPHRATESD
+*UIConstraints: *OutputBin FinVICTGUpper *Finisher FinEUPHRATESD
+*UIConstraints: *OutputBin FinVICTGShift *Finisher FinEUPHRATESD
+*UIConstraints: *Finisher FinEUPHRATESDBK *OutputBin Standard
+*UIConstraints: *Finisher FinEUPHRATESDBK *OutputBin FinEUPHDUpper
+*UIConstraints: *Finisher FinEUPHRATESDBK *OutputBin FinEUPHDShift
+*UIConstraints: *Finisher FinEUPHRATESDBK *OutputBin FinVICTGUpper
+*UIConstraints: *Finisher FinEUPHRATESDBK *OutputBin FinVICTGShift
+*UIConstraints: *OutputBin Standard *Finisher FinEUPHRATESDBK
+*UIConstraints: *OutputBin FinEUPHDUpper *Finisher FinEUPHRATESDBK
+*UIConstraints: *OutputBin FinEUPHDShift *Finisher FinEUPHRATESDBK
+*UIConstraints: *OutputBin FinVICTGUpper *Finisher FinEUPHRATESDBK
+*UIConstraints: *OutputBin FinVICTGShift *Finisher FinEUPHRATESDBK
+*UIConstraints: *Finisher FinVICTORIAG *OutputBin Standard
+*UIConstraints: *Finisher FinVICTORIAG *OutputBin FinEUPHDUpper
+*UIConstraints: *Finisher FinVICTORIAG *OutputBin FinEUPHDShift
+*UIConstraints: *Finisher FinVICTORIAG *OutputBin FinEUPHDBKUpper
+*UIConstraints: *Finisher FinVICTORIAG *OutputBin FinEUPHDBKShift
+*UIConstraints: *Finisher FinVICTORIAG *OutputBin FinEUPHDBK
+*UIConstraints: *OutputBin Standard *Finisher FinVICTORIAG
+*UIConstraints: *OutputBin FinEUPHDUpper *Finisher FinVICTORIAG
+*UIConstraints: *OutputBin FinEUPHDShift *Finisher FinVICTORIAG
+*UIConstraints: *OutputBin FinEUPHDBKUpper *Finisher FinVICTORIAG
+*UIConstraints: *OutputBin FinEUPHDBKShift *Finisher FinVICTORIAG
+*UIConstraints: *OutputBin FinEUPHDBK *Finisher FinVICTORIAG
+
+*%========== Finisher / Staple
+*UIConstraints: *Finisher NotInstalled *StapleLocation UpperLeft
+*UIConstraints: *Finisher NotInstalled *StapleLocation UpperRight
+*UIConstraints: *Finisher NotInstalled *StapleLocation LeftW
+*UIConstraints: *Finisher NotInstalled *StapleLocation RightW
+*UIConstraints: *Finisher NotInstalled *StapleLocation UpperW
+*UIConstraints: *Finisher NotInstalled *StapleLocation CenterW
+*UIConstraints: *Finisher FinEUPHRATESD *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *Finisher NotInstalled
+*UIConstraints: *StapleLocation UpperRight *Finisher NotInstalled
+*UIConstraints: *StapleLocation LeftW *Finisher NotInstalled
+*UIConstraints: *StapleLocation RightW *Finisher NotInstalled
+*UIConstraints: *StapleLocation UpperW *Finisher NotInstalled
+*UIConstraints: *StapleLocation CenterW *Finisher NotInstalled
+*UIConstraints: *StapleLocation CenterW *Finisher FinEUPHRATESD
+
+*%========== Finisher / Punch
+*UIConstraints: *Finisher NotInstalled *RIPunch Left2
+*UIConstraints: *Finisher NotInstalled *RIPunch Left3
+*UIConstraints: *Finisher NotInstalled *RIPunch Left4
+*UIConstraints: *Finisher NotInstalled *RIPunch Right2
+*UIConstraints: *Finisher NotInstalled *RIPunch Right3
+*UIConstraints: *Finisher NotInstalled *RIPunch Right4
+*UIConstraints: *Finisher NotInstalled *RIPunch Upper2
+*UIConstraints: *Finisher NotInstalled *RIPunch Upper3
+*UIConstraints: *Finisher NotInstalled *RIPunch Upper4
+*UIConstraints: *RIPunch Left2 *Finisher NotInstalled
+*UIConstraints: *RIPunch Left3 *Finisher NotInstalled
+*UIConstraints: *RIPunch Left4 *Finisher NotInstalled
+*UIConstraints: *RIPunch Right2 *Finisher NotInstalled
+*UIConstraints: *RIPunch Right3 *Finisher NotInstalled
+*UIConstraints: *RIPunch Right4 *Finisher NotInstalled
+*UIConstraints: *RIPunch Upper2 *Finisher NotInstalled
+*UIConstraints: *RIPunch Upper3 *Finisher NotInstalled
+*UIConstraints: *RIPunch Upper4 *Finisher NotInstalled
+
+*%========== Plockmatic / Destination
+*UIConstraints: *BookletProcessor Plockmatic *OutputBin FinVICTGShift
+*UIConstraints: *BookletProcessor False *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin FinVICTGShift *BookletProcessor Plockmatic
+*UIConstraints: *OutputBin PlockmaticTray *BookletProcessor False
+
+*%========== Plockmatic / Staple
+*UIConstraints: *BookletProcessor Plockmatic *StapleLocation UpperLeft
+*UIConstraints: *BookletProcessor Plockmatic *StapleLocation UpperRight
+*UIConstraints: *BookletProcessor Plockmatic *StapleLocation LeftW
+*UIConstraints: *BookletProcessor Plockmatic *StapleLocation RightW
+*UIConstraints: *BookletProcessor Plockmatic *StapleLocation UpperW
+*UIConstraints: *StapleLocation UpperLeft *BookletProcessor Plockmatic
+*UIConstraints: *StapleLocation UpperRight *BookletProcessor Plockmatic
+*UIConstraints: *StapleLocation LeftW *BookletProcessor Plockmatic
+*UIConstraints: *StapleLocation RightW *BookletProcessor Plockmatic
+*UIConstraints: *StapleLocation UpperW *BookletProcessor Plockmatic
+
+*%========== MailBox / Destination
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin1
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin2
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin3
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin4
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin5
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin6
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin7
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin8
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin9
+*UIConstraints: *OutputBin MailBoxBin1 *Mailbox NotInstalled
+*UIConstraints: *OutputBin MailBoxBin2 *Mailbox NotInstalled
+*UIConstraints: *OutputBin MailBoxBin3 *Mailbox NotInstalled
+*UIConstraints: *OutputBin MailBoxBin4 *Mailbox NotInstalled
+*UIConstraints: *OutputBin MailBoxBin5 *Mailbox NotInstalled
+*UIConstraints: *OutputBin MailBoxBin6 *Mailbox NotInstalled
+*UIConstraints: *OutputBin MailBoxBin7 *Mailbox NotInstalled
+*UIConstraints: *OutputBin MailBoxBin8 *Mailbox NotInstalled
+*UIConstraints: *OutputBin MailBoxBin9 *Mailbox NotInstalled
+
+*%========== Multi-hole Punch Unit / Punch
+*UIConstraints: *MultiHolePunchUnit False *RIPunch GBCLeft
+*UIConstraints: *MultiHolePunchUnit False *RIPunch GBCRight
+*UIConstraints: *MultiHolePunchUnit False *RIPunch GBCTop
+*UIConstraints: *RIPunch GBCLeft *MultiHolePunchUnit False
+*UIConstraints: *RIPunch GBCRight *MultiHolePunchUnit False
+*UIConstraints: *RIPunch GBCTop *MultiHolePunchUnit False
+
+*%========== Folding Unit / Destination
+*UIConstraints: *MultiFold NotInstalled *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *MultiFold NotInstalled
+
+*%========== ZFold / Folding Unit
+*UIConstraints: *MultiFold NotInstalled *RIZfold Bottom
+*UIConstraints: *MultiFold NotInstalled *RIZfold Left
+*UIConstraints: *MultiFold NotInstalled *RIZfold Right
+*UIConstraints: *RIZfold Bottom *MultiFold NotInstalled
+*UIConstraints: *RIZfold Left *MultiFold NotInstalled
+*UIConstraints: *RIZfold Right *MultiFold NotInstalled
+
+*%========== Fold type / Folding Unit
+*UIConstraints: *MultiFold NotInstalled *RIFoldType Twofold
+*UIConstraints: *MultiFold NotInstalled *RIFoldType ThreefoldIn
+*UIConstraints: *MultiFold NotInstalled *RIFoldType ThreefoldOut
+*UIConstraints: *MultiFold NotInstalled *RIFoldType Quarto
+*UIConstraints: *MultiFold NotInstalled *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *MultiFold NotInstalled
+*UIConstraints: *RIFoldType ThreefoldIn *MultiFold NotInstalled
+*UIConstraints: *RIFoldType ThreefoldOut *MultiFold NotInstalled
+*UIConstraints: *RIFoldType Quarto *MultiFold NotInstalled
+*UIConstraints: *RIFoldType Gatefold *MultiFold NotInstalled
+
+*%========== MediaType / Fit to Paper
+*UIConstraints: *MediaType None *RIPaperPolicy PromptUser
+*UIConstraints: *RIPaperPolicy PromptUser *MediaType None
+
+*%========== Page Size / InputSlot
+*UIConstraints: *PageSize A5 *InputSlot 1Tray
+*UIConstraints: *PageSize A6 *InputSlot 1Tray
+*UIConstraints: *PageSize B5 *InputSlot 1Tray
+*UIConstraints: *PageSize B6 *InputSlot 1Tray
+*UIConstraints: *PageSize HalfLetter *InputSlot 1Tray
+*UIConstraints: *PageSize 11x14 *InputSlot 1Tray
+*UIConstraints: *PageSize Executive *InputSlot 1Tray
+*UIConstraints: *PageSize F *InputSlot 1Tray
+*UIConstraints: *PageSize Folio *InputSlot 1Tray
+*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot 1Tray
+*UIConstraints: *PageSize 8Kai *InputSlot 1Tray
+*UIConstraints: *PageSize 16Kai *InputSlot 1Tray
+*UIConstraints: *PageSize A6 *InputSlot 2Tray
+*UIConstraints: *PageSize B6 *InputSlot 2Tray
+*UIConstraints: *PageSize A6 *InputSlot 3Tray
+*UIConstraints: *PageSize B6 *InputSlot 3Tray
+*UIConstraints: *PageSize A3 *InputSlot 5Tray
+*UIConstraints: *PageSize A5 *InputSlot 5Tray
+*UIConstraints: *PageSize A6 *InputSlot 5Tray
+*UIConstraints: *PageSize B6 *InputSlot 5Tray
+*UIConstraints: *PageSize HalfLetter *InputSlot 5Tray
+*UIConstraints: *PageSize 11x14 *InputSlot 5Tray
+*UIConstraints: *PageSize 11x17 *InputSlot 5Tray
+*UIConstraints: *PageSize Executive *InputSlot 5Tray
+*UIConstraints: *PageSize F *InputSlot 5Tray
+*UIConstraints: *PageSize Folio *InputSlot 5Tray
+*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot 5Tray
+*UIConstraints: *PageSize 8Kai *InputSlot 5Tray
+*UIConstraints: *PageSize 16Kai *InputSlot 5Tray
+*UIConstraints: *PageSize 8Kai *InputSlot MultiTray
+*UIConstraints: *PageSize 16Kai *InputSlot MultiTray
+
+*UIConstraints: *InputSlot 1Tray *PageSize A5
+*UIConstraints: *InputSlot 1Tray *PageSize A6
+*UIConstraints: *InputSlot 1Tray *PageSize B5
+*UIConstraints: *InputSlot 1Tray *PageSize B6
+*UIConstraints: *InputSlot 1Tray *PageSize HalfLetter
+*UIConstraints: *InputSlot 1Tray *PageSize 11x14
+*UIConstraints: *InputSlot 1Tray *PageSize Executive
+*UIConstraints: *InputSlot 1Tray *PageSize F
+*UIConstraints: *InputSlot 1Tray *PageSize Folio
+*UIConstraints: *InputSlot 1Tray *PageSize FanFoldGermanLegal
+*UIConstraints: *InputSlot 1Tray *PageSize 8Kai
+*UIConstraints: *InputSlot 1Tray *PageSize 16Kai
+*UIConstraints: *InputSlot 2Tray *PageSize A6
+*UIConstraints: *InputSlot 2Tray *PageSize B6
+*UIConstraints: *InputSlot 3Tray *PageSize A6
+*UIConstraints: *InputSlot 3Tray *PageSize B6
+*UIConstraints: *InputSlot 5Tray *PageSize A3
+*UIConstraints: *InputSlot 5Tray *PageSize A5
+*UIConstraints: *InputSlot 5Tray *PageSize A6
+*UIConstraints: *InputSlot 5Tray *PageSize B6
+*UIConstraints: *InputSlot 5Tray *PageSize HalfLetter
+*UIConstraints: *InputSlot 5Tray *PageSize 11x14
+*UIConstraints: *InputSlot 5Tray *PageSize 11x17
+*UIConstraints: *InputSlot 5Tray *PageSize Executive
+*UIConstraints: *InputSlot 5Tray *PageSize F
+*UIConstraints: *InputSlot 5Tray *PageSize Folio
+*UIConstraints: *InputSlot 5Tray *PageSize FanFoldGermanLegal
+*UIConstraints: *InputSlot 5Tray *PageSize 8Kai
+*UIConstraints: *InputSlot 5Tray *PageSize 16Kai
+*UIConstraints: *InputSlot MultiTray *PageSize 8Kai
+*UIConstraints: *InputSlot MultiTray *PageSize 16Kai
+
+*UIConstraints: *PageRegion A5 *InputSlot 1Tray
+*UIConstraints: *PageRegion A6 *InputSlot 1Tray
+*UIConstraints: *PageRegion B5 *InputSlot 1Tray
+*UIConstraints: *PageRegion B6 *InputSlot 1Tray
+*UIConstraints: *PageRegion HalfLetter *InputSlot 1Tray
+*UIConstraints: *PageRegion 11x14 *InputSlot 1Tray
+*UIConstraints: *PageRegion Executive *InputSlot 1Tray
+*UIConstraints: *PageRegion F *InputSlot 1Tray
+*UIConstraints: *PageRegion Folio *InputSlot 1Tray
+*UIConstraints: *PageRegion FanFoldGermanLegal *InputSlot 1Tray
+*UIConstraints: *PageRegion 8Kai *InputSlot 1Tray
+*UIConstraints: *PageRegion 16Kai *InputSlot 1Tray
+*UIConstraints: *PageRegion A6 *InputSlot 2Tray
+*UIConstraints: *PageRegion B6 *InputSlot 2Tray
+*UIConstraints: *PageRegion A6 *InputSlot 3Tray
+*UIConstraints: *PageRegion B6 *InputSlot 3Tray
+*UIConstraints: *PageRegion A3 *InputSlot 5Tray
+*UIConstraints: *PageRegion A5 *InputSlot 5Tray
+*UIConstraints: *PageRegion A6 *InputSlot 5Tray
+*UIConstraints: *PageRegion B6 *InputSlot 5Tray
+*UIConstraints: *PageRegion HalfLetter *InputSlot 5Tray
+*UIConstraints: *PageRegion 11x14 *InputSlot 5Tray
+*UIConstraints: *PageRegion 11x17 *InputSlot 5Tray
+*UIConstraints: *PageRegion Executive *InputSlot 5Tray
+*UIConstraints: *PageRegion F *InputSlot 5Tray
+*UIConstraints: *PageRegion Folio *InputSlot 5Tray
+*UIConstraints: *PageRegion FanFoldGermanLegal *InputSlot 5Tray
+*UIConstraints: *PageRegion 8Kai *InputSlot 5Tray
+*UIConstraints: *PageRegion 16Kai *InputSlot 5Tray
+*UIConstraints: *PageRegion 8Kai *InputSlot MultiTray
+*UIConstraints: *PageRegion 16Kai *InputSlot MultiTray
+
+*UIConstraints: *InputSlot 1Tray *PageRegion A5
+*UIConstraints: *InputSlot 1Tray *PageRegion A6
+*UIConstraints: *InputSlot 1Tray *PageRegion B5
+*UIConstraints: *InputSlot 1Tray *PageRegion B6
+*UIConstraints: *InputSlot 1Tray *PageRegion HalfLetter
+*UIConstraints: *InputSlot 1Tray *PageRegion 11x14
+*UIConstraints: *InputSlot 1Tray *PageRegion Executive
+*UIConstraints: *InputSlot 1Tray *PageRegion F
+*UIConstraints: *InputSlot 1Tray *PageRegion Folio
+*UIConstraints: *InputSlot 1Tray *PageRegion FanFoldGermanLegal
+*UIConstraints: *InputSlot 1Tray *PageRegion 8Kai
+*UIConstraints: *InputSlot 1Tray *PageRegion 16Kai
+*UIConstraints: *InputSlot 2Tray *PageRegion A6
+*UIConstraints: *InputSlot 2Tray *PageRegion B6
+*UIConstraints: *InputSlot 3Tray *PageRegion A6
+*UIConstraints: *InputSlot 3Tray *PageRegion B6
+*UIConstraints: *InputSlot 5Tray *PageRegion A3
+*UIConstraints: *InputSlot 5Tray *PageRegion A5
+*UIConstraints: *InputSlot 5Tray *PageRegion A6
+*UIConstraints: *InputSlot 5Tray *PageRegion B6
+*UIConstraints: *InputSlot 5Tray *PageRegion HalfLetter
+*UIConstraints: *InputSlot 5Tray *PageRegion 11x14
+*UIConstraints: *InputSlot 5Tray *PageRegion 11x17
+*UIConstraints: *InputSlot 5Tray *PageRegion Executive
+*UIConstraints: *InputSlot 5Tray *PageRegion F
+*UIConstraints: *InputSlot 5Tray *PageRegion Folio
+*UIConstraints: *InputSlot 5Tray *PageRegion FanFoldGermanLegal
+*UIConstraints: *InputSlot 5Tray *PageRegion 8Kai
+*UIConstraints: *InputSlot 5Tray *PageRegion 16Kai
+*UIConstraints: *InputSlot MultiTray *PageRegion 8Kai
+*UIConstraints: *InputSlot MultiTray *PageRegion 16Kai
+
+*%========== Page Size / Duplex
+*UIConstraints: *PageSize A6 *Duplex DuplexTumble
+*UIConstraints: *PageSize A6 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize B6 *Duplex DuplexTumble
+*UIConstraints: *PageSize B6 *Duplex DuplexNoTumble
+
+*UIConstraints: *Duplex DuplexTumble *PageSize A6
+*UIConstraints: *Duplex DuplexNoTumble *PageSize A6
+*UIConstraints: *Duplex DuplexTumble *PageSize B6
+*UIConstraints: *Duplex DuplexNoTumble *PageSize B6
+
+*UIConstraints: *PageRegion A6 *Duplex DuplexTumble
+*UIConstraints: *PageRegion A6 *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion B6 *Duplex DuplexTumble
+*UIConstraints: *PageRegion B6 *Duplex DuplexNoTumble
+
+*UIConstraints: *Duplex DuplexTumble *PageRegion A6
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion A6
+*UIConstraints: *Duplex DuplexTumble *PageRegion B6
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion B6
+
+*%========== Page Size / Destination
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin1
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin2
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin3
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin4
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin5
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin6
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin7
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin8
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin9
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin1
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin2
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin3
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin4
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin5
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin6
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin7
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin8
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin9
+*UIConstraints: *OutputBin MailBoxBin1 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin2 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin3 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin4 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin5 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin6 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin7 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin8 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin9 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin1 *PageSize B6
+*UIConstraints: *OutputBin MailBoxBin2 *PageSize B6
+*UIConstraints: *OutputBin MailBoxBin3 *PageSize B6
+*UIConstraints: *OutputBin MailBoxBin4 *PageSize B6
+*UIConstraints: *OutputBin MailBoxBin5 *PageSize B6
+*UIConstraints: *OutputBin MailBoxBin6 *PageSize B6
+*UIConstraints: *OutputBin MailBoxBin7 *PageSize B6
+*UIConstraints: *OutputBin MailBoxBin8 *PageSize B6
+*UIConstraints: *OutputBin MailBoxBin9 *PageSize B6
+
+*UIConstraints: *PageRegion A6 *OutputBin MailBoxBin1
+*UIConstraints: *PageRegion A6 *OutputBin MailBoxBin2
+*UIConstraints: *PageRegion A6 *OutputBin MailBoxBin3
+*UIConstraints: *PageRegion A6 *OutputBin MailBoxBin4
+*UIConstraints: *PageRegion A6 *OutputBin MailBoxBin5
+*UIConstraints: *PageRegion A6 *OutputBin MailBoxBin6
+*UIConstraints: *PageRegion A6 *OutputBin MailBoxBin7
+*UIConstraints: *PageRegion A6 *OutputBin MailBoxBin8
+*UIConstraints: *PageRegion A6 *OutputBin MailBoxBin9
+*UIConstraints: *PageRegion B6 *OutputBin MailBoxBin1
+*UIConstraints: *PageRegion B6 *OutputBin MailBoxBin2
+*UIConstraints: *PageRegion B6 *OutputBin MailBoxBin3
+*UIConstraints: *PageRegion B6 *OutputBin MailBoxBin4
+*UIConstraints: *PageRegion B6 *OutputBin MailBoxBin5
+*UIConstraints: *PageRegion B6 *OutputBin MailBoxBin6
+*UIConstraints: *PageRegion B6 *OutputBin MailBoxBin7
+*UIConstraints: *PageRegion B6 *OutputBin MailBoxBin8
+*UIConstraints: *PageRegion B6 *OutputBin MailBoxBin9
+*UIConstraints: *OutputBin MailBoxBin1 *PageRegion A6
+*UIConstraints: *OutputBin MailBoxBin2 *PageRegion A6
+*UIConstraints: *OutputBin MailBoxBin3 *PageRegion A6
+*UIConstraints: *OutputBin MailBoxBin4 *PageRegion A6
+*UIConstraints: *OutputBin MailBoxBin5 *PageRegion A6
+*UIConstraints: *OutputBin MailBoxBin6 *PageRegion A6
+*UIConstraints: *OutputBin MailBoxBin7 *PageRegion A6
+*UIConstraints: *OutputBin MailBoxBin8 *PageRegion A6
+*UIConstraints: *OutputBin MailBoxBin9 *PageRegion A6
+*UIConstraints: *OutputBin MailBoxBin1 *PageRegion B6
+*UIConstraints: *OutputBin MailBoxBin2 *PageRegion B6
+*UIConstraints: *OutputBin MailBoxBin3 *PageRegion B6
+*UIConstraints: *OutputBin MailBoxBin4 *PageRegion B6
+*UIConstraints: *OutputBin MailBoxBin5 *PageRegion B6
+*UIConstraints: *OutputBin MailBoxBin6 *PageRegion B6
+*UIConstraints: *OutputBin MailBoxBin7 *PageRegion B6
+*UIConstraints: *OutputBin MailBoxBin8 *PageRegion B6
+*UIConstraints: *OutputBin MailBoxBin9 *PageRegion B6
+
+
+*UIConstraints: *OutputBin FinEUPHDBK *PageSize A5
+*UIConstraints: *OutputBin FinEUPHDBK *PageSize A6
+*UIConstraints: *OutputBin FinEUPHDBK *PageSize B6
+*UIConstraints: *OutputBin FinEUPHDBK *PageSize Legal
+*UIConstraints: *OutputBin FinEUPHDBK *PageSize HalfLetter
+*UIConstraints: *OutputBin FinEUPHDBK *PageSize 11x14
+*UIConstraints: *OutputBin FinEUPHDBK *PageSize Executive
+*UIConstraints: *OutputBin FinEUPHDBK *PageSize F
+*UIConstraints: *OutputBin FinEUPHDBK *PageSize Folio
+*UIConstraints: *OutputBin FinEUPHDBK *PageSize FanFoldGermanLegal
+*UIConstraints: *OutputBin FinEUPHDBK *PageSize 8Kai
+*UIConstraints: *OutputBin FinEUPHDBK *PageSize 16Kai
+*UIConstraints: *PageSize A5 *OutputBin FinEUPHDBK
+*UIConstraints: *PageSize A6 *OutputBin FinEUPHDBK
+*UIConstraints: *PageSize B6 *OutputBin FinEUPHDBK
+*UIConstraints: *PageSize Legal *OutputBin FinEUPHDBK
+*UIConstraints: *PageSize HalfLetter *OutputBin FinEUPHDBK
+*UIConstraints: *PageSize 11x14 *OutputBin FinEUPHDBK
+*UIConstraints: *PageSize Executive *OutputBin FinEUPHDBK
+*UIConstraints: *PageSize F *OutputBin FinEUPHDBK
+*UIConstraints: *PageSize Folio *OutputBin FinEUPHDBK
+*UIConstraints: *PageSize FanFoldGermanLegal *OutputBin FinEUPHDBK
+*UIConstraints: *PageSize 8Kai *OutputBin FinEUPHDBK
+*UIConstraints: *PageSize 16Kai *OutputBin FinEUPHDBK
+
+*UIConstraints: *OutputBin FinEUPHDBK *PageRegion A5
+*UIConstraints: *OutputBin FinEUPHDBK *PageRegion A6
+*UIConstraints: *OutputBin FinEUPHDBK *PageRegion B6
+*UIConstraints: *OutputBin FinEUPHDBK *PageRegion Legal
+*UIConstraints: *OutputBin FinEUPHDBK *PageRegion HalfLetter
+*UIConstraints: *OutputBin FinEUPHDBK *PageRegion 11x14
+*UIConstraints: *OutputBin FinEUPHDBK *PageRegion Executive
+*UIConstraints: *OutputBin FinEUPHDBK *PageRegion F
+*UIConstraints: *OutputBin FinEUPHDBK *PageRegion Folio
+*UIConstraints: *OutputBin FinEUPHDBK *PageRegion FanFoldGermanLegal
+*UIConstraints: *OutputBin FinEUPHDBK *PageRegion 8Kai
+*UIConstraints: *OutputBin FinEUPHDBK *PageRegion 16Kai
+*UIConstraints: *PageRegion A5 *OutputBin FinEUPHDBK
+*UIConstraints: *PageRegion A6 *OutputBin FinEUPHDBK
+*UIConstraints: *PageRegion B6 *OutputBin FinEUPHDBK
+*UIConstraints: *PageRegion Legal *OutputBin FinEUPHDBK
+*UIConstraints: *PageRegion HalfLetter *OutputBin FinEUPHDBK
+*UIConstraints: *PageRegion 11x14 *OutputBin FinEUPHDBK
+*UIConstraints: *PageRegion Executive *OutputBin FinEUPHDBK
+*UIConstraints: *PageRegion F *OutputBin FinEUPHDBK
+*UIConstraints: *PageRegion Folio *OutputBin FinEUPHDBK
+*UIConstraints: *PageRegion FanFoldGermanLegal *OutputBin FinEUPHDBK
+*UIConstraints: *PageRegion 8Kai *OutputBin FinEUPHDBK
+*UIConstraints: *PageRegion 16Kai *OutputBin FinEUPHDBK
+
+
+*UIConstraints: *OutputBin FinVICTGShift *PageSize A6
+*UIConstraints: *OutputBin FinVICTGShift *PageSize B6
+*UIConstraints: *PageSize A6 *OutputBin FinVICTGShift
+*UIConstraints: *PageSize B6 *OutputBin FinVICTGShift
+*UIConstraints: *OutputBin FinVICTGShift *PageRegion A6
+*UIConstraints: *OutputBin FinVICTGShift *PageRegion B6
+*UIConstraints: *PageRegion A6 *OutputBin FinVICTGShift
+*UIConstraints: *PageRegion B6 *OutputBin FinVICTGShift
+
+
+*UIConstraints: *OutputBin PlockmaticTray *PageSize A5
+*UIConstraints: *OutputBin PlockmaticTray *PageSize A6
+*UIConstraints: *OutputBin PlockmaticTray *PageSize B6
+*UIConstraints: *OutputBin PlockmaticTray *PageSize B5
+*UIConstraints: *OutputBin PlockmaticTray *PageSize HalfLetter
+*UIConstraints: *OutputBin PlockmaticTray *PageSize 11x14
+*UIConstraints: *OutputBin PlockmaticTray *PageSize Executive
+*UIConstraints: *OutputBin PlockmaticTray *PageSize F
+*UIConstraints: *OutputBin PlockmaticTray *PageSize Folio
+*UIConstraints: *OutputBin PlockmaticTray *PageSize FanFoldGermanLegal
+*UIConstraints: *OutputBin PlockmaticTray *PageSize 8Kai
+*UIConstraints: *OutputBin PlockmaticTray *PageSize 16Kai
+*UIConstraints: *PageSize A5 *OutputBin PlockmaticTray
+*UIConstraints: *PageSize A6 *OutputBin PlockmaticTray
+*UIConstraints: *PageSize B6 *OutputBin PlockmaticTray
+*UIConstraints: *PageSize B5 *OutputBin PlockmaticTray
+*UIConstraints: *PageSize HalfLetter *OutputBin PlockmaticTray
+*UIConstraints: *PageSize 11x14 *OutputBin PlockmaticTray
+*UIConstraints: *PageSize Executive *OutputBin PlockmaticTray
+*UIConstraints: *PageSize F *OutputBin PlockmaticTray
+*UIConstraints: *PageSize Folio *OutputBin PlockmaticTray
+*UIConstraints: *PageSize FanFoldGermanLegal *OutputBin PlockmaticTray
+*UIConstraints: *PageSize 8Kai *OutputBin PlockmaticTray
+*UIConstraints: *PageSize 16Kai *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin PlockmaticTray *PageRegion A5
+*UIConstraints: *OutputBin PlockmaticTray *PageRegion A6
+*UIConstraints: *OutputBin PlockmaticTray *PageRegion B6
+*UIConstraints: *OutputBin PlockmaticTray *PageRegion B5
+*UIConstraints: *OutputBin PlockmaticTray *PageRegion HalfLetter
+*UIConstraints: *OutputBin PlockmaticTray *PageRegion 11x14
+*UIConstraints: *OutputBin PlockmaticTray *PageRegion Executive
+*UIConstraints: *OutputBin PlockmaticTray *PageRegion F
+*UIConstraints: *OutputBin PlockmaticTray *PageRegion Folio
+*UIConstraints: *OutputBin PlockmaticTray *PageRegion FanFoldGermanLegal
+*UIConstraints: *OutputBin PlockmaticTray *PageRegion 8Kai
+*UIConstraints: *OutputBin PlockmaticTray *PageRegion 16Kai
+*UIConstraints: *PageRegion A5 *OutputBin PlockmaticTray
+*UIConstraints: *PageRegion A6 *OutputBin PlockmaticTray
+*UIConstraints: *PageRegion B6 *OutputBin PlockmaticTray
+*UIConstraints: *PageRegion B5 *OutputBin PlockmaticTray
+*UIConstraints: *PageRegion HalfLetter *OutputBin PlockmaticTray
+*UIConstraints: *PageRegion 11x14 *OutputBin PlockmaticTray
+*UIConstraints: *PageRegion Executive *OutputBin PlockmaticTray
+*UIConstraints: *PageRegion F *OutputBin PlockmaticTray
+*UIConstraints: *PageRegion Folio *OutputBin PlockmaticTray
+*UIConstraints: *PageRegion FanFoldGermanLegal *OutputBin PlockmaticTray
+*UIConstraints: *PageRegion 8Kai *OutputBin PlockmaticTray
+*UIConstraints: *PageRegion 16Kai *OutputBin PlockmaticTray
+
+*%========== Paper Size / Faceup
+*UIConstraints: *Faceup On *PageSize A6
+*UIConstraints: *Faceup On *PageSize B6
+*UIConstraints: *PageSize A6 *Faceup On
+*UIConstraints: *PageSize B6 *Faceup On
+*UIConstraints: *Faceup On *PageRegion A6
+*UIConstraints: *Faceup On *PageRegion B6
+*UIConstraints: *PageRegion A6 *Faceup On
+*UIConstraints: *PageRegion B6 *Faceup On
+
+*%========== MediaType / InputSlot
+*UIConstraints: *MediaType Index *InputSlot MultiTray
+*UIConstraints: *MediaType Labels *InputSlot 1Tray
+*UIConstraints: *MediaType Cardstock *InputSlot 1Tray
+*UIConstraints: *MediaType OHP *InputSlot 1Tray
+*UIConstraints: *MediaType Index *InputSlot 1Tray
+*UIConstraints: *MediaType Labels *InputSlot 2Tray
+*UIConstraints: *MediaType Cardstock *InputSlot 2Tray
+*UIConstraints: *MediaType OHP *InputSlot 2Tray
+*UIConstraints: *MediaType Labels *InputSlot 3Tray
+*UIConstraints: *MediaType Cardstock *InputSlot 3Tray
+*UIConstraints: *MediaType OHP *InputSlot 3Tray
+*UIConstraints: *MediaType Labels *InputSlot 5Tray
+*UIConstraints: *MediaType Cardstock *InputSlot 5Tray
+*UIConstraints: *MediaType OHP *InputSlot 5Tray
+*UIConstraints: *MediaType Index *InputSlot 5Tray
+*UIConstraints: *MediaType Translucent *InputSlot 5Tray
+*UIConstraints: *InputSlot MultiTray *MediaType Index
+*UIConstraints: *InputSlot 1Tray *MediaType Labels
+*UIConstraints: *InputSlot 1Tray *MediaType Cardstock
+*UIConstraints: *InputSlot 1Tray *MediaType OHP
+*UIConstraints: *InputSlot 1Tray *MediaType Index
+*UIConstraints: *InputSlot 2Tray *MediaType Labels
+*UIConstraints: *InputSlot 2Tray *MediaType Cardstock
+*UIConstraints: *InputSlot 2Tray *MediaType OHP
+*UIConstraints: *InputSlot 3Tray *MediaType Labels
+*UIConstraints: *InputSlot 3Tray *MediaType Cardstock
+*UIConstraints: *InputSlot 3Tray *MediaType OHP
+*UIConstraints: *InputSlot 5Tray *MediaType Labels
+*UIConstraints: *InputSlot 5Tray *MediaType Cardstock
+*UIConstraints: *InputSlot 5Tray *MediaType OHP
+*UIConstraints: *InputSlot 5Tray *MediaType Index
+*UIConstraints: *InputSlot 5Tray *MediaType Translucent
+
+*%========== InputSlot / Duplex
+*UIConstraints: *Duplex DuplexTumble *InputSlot MultiTray
+*UIConstraints: *Duplex DuplexNoTumble *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *Duplex DuplexTumble
+*UIConstraints: *InputSlot MultiTray *Duplex DuplexNoTumble
+
+*%========== Staple / InputSlot
+*UIConstraints: *InputSlot MultiTray *StapleLocation UpperLeft
+*UIConstraints: *InputSlot MultiTray *StapleLocation UpperRight
+*UIConstraints: *InputSlot MultiTray *StapleLocation LeftW
+*UIConstraints: *InputSlot MultiTray *StapleLocation RightW
+*UIConstraints: *InputSlot MultiTray *StapleLocation UpperW
+*UIConstraints: *InputSlot MultiTray *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *InputSlot MultiTray
+*UIConstraints: *StapleLocation UpperRight *InputSlot MultiTray
+*UIConstraints: *StapleLocation LeftW *InputSlot MultiTray
+*UIConstraints: *StapleLocation RightW *InputSlot MultiTray
+*UIConstraints: *StapleLocation UpperW *InputSlot MultiTray
+*UIConstraints: *StapleLocation CenterW *InputSlot MultiTray
+
+*%========== InputSlot / Punch
+*UIConstraints: *InputSlot MultiTray *RIPunch Left2
+*UIConstraints: *InputSlot MultiTray *RIPunch Left3
+*UIConstraints: *InputSlot MultiTray *RIPunch Left4
+*UIConstraints: *InputSlot MultiTray *RIPunch Right2
+*UIConstraints: *InputSlot MultiTray *RIPunch Right3
+*UIConstraints: *InputSlot MultiTray *RIPunch Right4
+*UIConstraints: *InputSlot MultiTray *RIPunch Upper2
+*UIConstraints: *InputSlot MultiTray *RIPunch Upper3
+*UIConstraints: *InputSlot MultiTray *RIPunch Upper4
+*UIConstraints: *InputSlot MultiTray *RIPunch GBCLeft
+*UIConstraints: *InputSlot MultiTray *RIPunch GBCRight
+*UIConstraints: *InputSlot MultiTray *RIPunch GBCTop
+*UIConstraints: *RIPunch Left2 *InputSlot MultiTray
+*UIConstraints: *RIPunch Left3 *InputSlot MultiTray
+*UIConstraints: *RIPunch Left4 *InputSlot MultiTray
+*UIConstraints: *RIPunch Right2 *InputSlot MultiTray
+*UIConstraints: *RIPunch Right3 *InputSlot MultiTray
+*UIConstraints: *RIPunch Right4 *InputSlot MultiTray
+*UIConstraints: *RIPunch Upper2 *InputSlot MultiTray
+*UIConstraints: *RIPunch Upper3 *InputSlot MultiTray
+*UIConstraints: *RIPunch Upper4 *InputSlot MultiTray
+*UIConstraints: *RIPunch GBCLeft *InputSlot MultiTray
+*UIConstraints: *RIPunch GBCRight *InputSlot MultiTray
+*UIConstraints: *RIPunch GBCTop *InputSlot MultiTray
+
+*%========== InputSlot / ZFold
+*UIConstraints: *RIZfold Bottom *InputSlot MultiTray
+*UIConstraints: *RIZfold Right *InputSlot MultiTray
+*UIConstraints: *RIZfold Left *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *RIZfold Bottom
+*UIConstraints: *InputSlot MultiTray *RIZfold Right
+*UIConstraints: *InputSlot MultiTray *RIZfold Left
+
+*%========== InputSlot / Fold type
+*UIConstraints: *RIFoldType Twofold *InputSlot MultiTray
+*UIConstraints: *RIFoldType ThreefoldIn *InputSlot MultiTray
+*UIConstraints: *RIFoldType ThreefoldOut *InputSlot MultiTray
+*UIConstraints: *RIFoldType Quarto *InputSlot MultiTray
+*UIConstraints: *RIFoldType Gatefold *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *RIFoldType Twofold
+*UIConstraints: *InputSlot MultiTray *RIFoldType ThreefoldIn
+*UIConstraints: *InputSlot MultiTray *RIFoldType ThreefoldOut
+*UIConstraints: *InputSlot MultiTray *RIFoldType Quarto
+*UIConstraints: *InputSlot MultiTray *RIFoldType Gatefold
+
+*%========== MediaType / Duplex
+*UIConstraints: *Duplex DuplexTumble *MediaType Cardstock
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Cardstock
+*UIConstraints: *Duplex DuplexTumble *MediaType Labels
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Labels
+*UIConstraints: *Duplex DuplexTumble *MediaType OHP
+*UIConstraints: *Duplex DuplexNoTumble *MediaType OHP
+*UIConstraints: *Duplex DuplexTumble *MediaType Index
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Index
+*UIConstraints: *MediaType Cardstock *Duplex DuplexTumble
+*UIConstraints: *MediaType Cardstock *Duplex DuplexNoTumble
+*UIConstraints: *MediaType Labels *Duplex DuplexTumble
+*UIConstraints: *MediaType Labels *Duplex DuplexNoTumble
+*UIConstraints: *MediaType OHP *Duplex DuplexTumble
+*UIConstraints: *MediaType OHP *Duplex DuplexNoTumble
+*UIConstraints: *MediaType Index *Duplex DuplexTumble
+*UIConstraints: *MediaType Index *Duplex DuplexNoTumble
+
+*%========== Destination / MediaType
+*UIConstraints: *OutputBin PlockmaticTray *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *OutputBin PlockmaticTray
+
+*UIConstraints: *OutputBin FinEUPHDBK *MediaType Labels
+*UIConstraints: *OutputBin FinVICTGShift *MediaType Labels
+*UIConstraints: *OutputBin PlockmaticTray *MediaType Labels
+*UIConstraints: *MediaType Labels *OutputBin FinEUPHDBK
+*UIConstraints: *MediaType Labels *OutputBin FinVICTGShift
+*UIConstraints: *MediaType Labels *OutputBin PlockmaticTray
+
+*UIConstraints: *OutputBin FinEUPHDBK *MediaType OHP
+*UIConstraints: *OutputBin FinVICTGShift *MediaType OHP
+*UIConstraints: *OutputBin PlockmaticTray *MediaType OHP
+*UIConstraints: *MediaType OHP *OutputBin FinEUPHDBK
+*UIConstraints: *MediaType OHP *OutputBin FinVICTGShift
+*UIConstraints: *MediaType OHP *OutputBin PlockmaticTray
+
+*UIConstraints: *OutputBin FinEUPHDUpper *MediaType Thick
+*UIConstraints: *OutputBin FinEUPHDShift *MediaType Thick
+*UIConstraints: *OutputBin FinEUPHDBKUpper *MediaType Thick
+*UIConstraints: *OutputBin FinEUPHDBKShift *MediaType Thick
+*UIConstraints: *OutputBin FinEUPHDBK *MediaType Thick
+*UIConstraints: *OutputBin PlockmaticTray *MediaType Thick
+*UIConstraints: *MediaType Thick *OutputBin FinEUPHDUpper
+*UIConstraints: *MediaType Thick *OutputBin FinEUPHDShift
+*UIConstraints: *MediaType Thick *OutputBin FinEUPHDBKUpper
+*UIConstraints: *MediaType Thick *OutputBin FinEUPHDBKShift
+*UIConstraints: *MediaType Thick *OutputBin FinEUPHDBK
+*UIConstraints: *MediaType Thick *OutputBin PlockmaticTray
+
+*UIConstraints: *OutputBin FinEUPHDBK *MediaType Index
+*UIConstraints: *OutputBin PlockmaticTray *MediaType Index
+*UIConstraints: *MediaType Index *OutputBin FinEUPHDBK
+*UIConstraints: *MediaType Index *OutputBin PlockmaticTray
+
+*UIConstraints: *OutputBin FinVICTGShift *MediaType Translucent
+*UIConstraints: *MediaType Translucent *OutputBin FinVICTGShift
+
+*UIConstraints: *OutputBin MailBoxBin1 *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin2 *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin3 *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin4 *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin5 *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin6 *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin7 *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin8 *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin9 *MediaType Labels
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin1
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin2
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin3
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin4
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin5
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin6
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin7
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin8
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin9
+
+*UIConstraints: *OutputBin MailBoxBin1 *MediaType OHP
+*UIConstraints: *OutputBin MailBoxBin2 *MediaType OHP
+*UIConstraints: *OutputBin MailBoxBin3 *MediaType OHP
+*UIConstraints: *OutputBin MailBoxBin4 *MediaType OHP
+*UIConstraints: *OutputBin MailBoxBin5 *MediaType OHP
+*UIConstraints: *OutputBin MailBoxBin6 *MediaType OHP
+*UIConstraints: *OutputBin MailBoxBin7 *MediaType OHP
+*UIConstraints: *OutputBin MailBoxBin8 *MediaType OHP
+*UIConstraints: *OutputBin MailBoxBin9 *MediaType OHP
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin1
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin2
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin3
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin4
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin5
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin6
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin7
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin8
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin9
+
+*UIConstraints: *OutputBin MailBoxBin1 *MediaType Index
+*UIConstraints: *OutputBin MailBoxBin2 *MediaType Index
+*UIConstraints: *OutputBin MailBoxBin3 *MediaType Index
+*UIConstraints: *OutputBin MailBoxBin4 *MediaType Index
+*UIConstraints: *OutputBin MailBoxBin5 *MediaType Index
+*UIConstraints: *OutputBin MailBoxBin6 *MediaType Index
+*UIConstraints: *OutputBin MailBoxBin7 *MediaType Index
+*UIConstraints: *OutputBin MailBoxBin8 *MediaType Index
+*UIConstraints: *OutputBin MailBoxBin9 *MediaType Index
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin1
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin2
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin3
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin4
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin5
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin6
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin7
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin8
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin9
+
+*UIConstraints: *OutputBin MailBoxBin1 *MediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin2 *MediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin3 *MediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin4 *MediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin5 *MediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin6 *MediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin7 *MediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin8 *MediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin9 *MediaType Translucent
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin1
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin2
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin3
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin4
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin5
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin6
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin7
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin8
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin9
+
+*%========== Staple / MediaType
+*UIConstraints: *MediaType Labels *StapleLocation UpperLeft
+*UIConstraints: *MediaType Labels *StapleLocation UpperRight
+*UIConstraints: *MediaType Labels *StapleLocation LeftW
+*UIConstraints: *MediaType Labels *StapleLocation RightW
+*UIConstraints: *MediaType Labels *StapleLocation UpperW
+*UIConstraints: *MediaType Labels *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *MediaType Labels
+*UIConstraints: *StapleLocation UpperRight *MediaType Labels
+*UIConstraints: *StapleLocation LeftW *MediaType Labels
+*UIConstraints: *StapleLocation RightW *MediaType Labels
+*UIConstraints: *StapleLocation UpperW *MediaType Labels
+*UIConstraints: *StapleLocation CenterW *MediaType Labels
+*UIConstraints: *MediaType OHP *StapleLocation UpperLeft
+*UIConstraints: *MediaType OHP *StapleLocation UpperRight
+*UIConstraints: *MediaType OHP *StapleLocation LeftW
+*UIConstraints: *MediaType OHP *StapleLocation RightW
+*UIConstraints: *MediaType OHP *StapleLocation UpperW
+*UIConstraints: *MediaType OHP *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *MediaType OHP
+*UIConstraints: *StapleLocation UpperRight *MediaType OHP
+*UIConstraints: *StapleLocation LeftW *MediaType OHP
+*UIConstraints: *StapleLocation RightW *MediaType OHP
+*UIConstraints: *StapleLocation UpperW *MediaType OHP
+*UIConstraints: *StapleLocation CenterW *MediaType OHP
+*UIConstraints: *MediaType Thick *StapleLocation CenterW
+*UIConstraints: *StapleLocation CenterW *MediaType Thick
+*UIConstraints: *MediaType Index *StapleLocation CenterW
+*UIConstraints: *StapleLocation CenterW *MediaType Index
+
+*%========== Punch / MediaType
+*UIConstraints: *MediaType Labels *RIPunch Left2
+*UIConstraints: *MediaType OHP *RIPunch Left2
+*UIConstraints: *MediaType Thick *RIPunch Left2
+*UIConstraints: *MediaType Translucent *RIPunch Left2
+*UIConstraints: *RIPunch Left2 *MediaType Labels
+*UIConstraints: *RIPunch Left2 *MediaType OHP
+*UIConstraints: *RIPunch Left2 *MediaType Thick
+*UIConstraints: *RIPunch Left2 *MediaType Translucent
+*UIConstraints: *MediaType Labels *RIPunch Left3
+*UIConstraints: *MediaType OHP *RIPunch Left3
+*UIConstraints: *MediaType Thick *RIPunch Left3
+*UIConstraints: *MediaType Translucent *RIPunch Left3
+*UIConstraints: *RIPunch Left3 *MediaType Labels
+*UIConstraints: *RIPunch Left3 *MediaType OHP
+*UIConstraints: *RIPunch Left3 *MediaType Thick
+*UIConstraints: *RIPunch Left3 *MediaType Translucent
+*UIConstraints: *MediaType Labels *RIPunch Left4
+*UIConstraints: *MediaType OHP *RIPunch Left4
+*UIConstraints: *MediaType Thick *RIPunch Left4
+*UIConstraints: *MediaType Translucent *RIPunch Left4
+*UIConstraints: *RIPunch Left4 *MediaType Labels
+*UIConstraints: *RIPunch Left4 *MediaType OHP
+*UIConstraints: *RIPunch Left4 *MediaType Thick
+*UIConstraints: *RIPunch Left4 *MediaType Translucent
+*UIConstraints: *MediaType Labels *RIPunch Right2
+*UIConstraints: *MediaType OHP *RIPunch Right2
+*UIConstraints: *MediaType Thick *RIPunch Right2
+*UIConstraints: *MediaType Translucent *RIPunch Right2
+*UIConstraints: *RIPunch Right2 *MediaType Labels
+*UIConstraints: *RIPunch Right2 *MediaType OHP
+*UIConstraints: *RIPunch Right2 *MediaType Thick
+*UIConstraints: *RIPunch Right2 *MediaType Translucent
+*UIConstraints: *MediaType Labels *RIPunch Right3
+*UIConstraints: *MediaType OHP *RIPunch Right3
+*UIConstraints: *MediaType Thick *RIPunch Right3
+*UIConstraints: *MediaType Translucent *RIPunch Right3
+*UIConstraints: *RIPunch Right3 *MediaType Labels
+*UIConstraints: *RIPunch Right3 *MediaType OHP
+*UIConstraints: *RIPunch Right3 *MediaType Thick
+*UIConstraints: *RIPunch Right3 *MediaType Translucent
+*UIConstraints: *MediaType Labels *RIPunch Right4
+*UIConstraints: *MediaType OHP *RIPunch Right4
+*UIConstraints: *MediaType Thick *RIPunch Right4
+*UIConstraints: *MediaType Translucent *RIPunch Right4
+*UIConstraints: *RIPunch Right4 *MediaType Labels
+*UIConstraints: *RIPunch Right4 *MediaType OHP
+*UIConstraints: *RIPunch Right4 *MediaType Thick
+*UIConstraints: *RIPunch Right4 *MediaType Translucent
+*UIConstraints: *MediaType Labels *RIPunch Upper2
+*UIConstraints: *MediaType OHP *RIPunch Upper2
+*UIConstraints: *MediaType Thick *RIPunch Upper2
+*UIConstraints: *MediaType Translucent *RIPunch Upper2
+*UIConstraints: *RIPunch Upper2 *MediaType Labels
+*UIConstraints: *RIPunch Upper2 *MediaType OHP
+*UIConstraints: *RIPunch Upper2 *MediaType Thick
+*UIConstraints: *RIPunch Upper2 *MediaType Translucent
+*UIConstraints: *MediaType Labels *RIPunch Upper3
+*UIConstraints: *MediaType OHP *RIPunch Upper3
+*UIConstraints: *MediaType Thick *RIPunch Upper3
+*UIConstraints: *MediaType Translucent *RIPunch Upper3
+*UIConstraints: *RIPunch Upper3 *MediaType Labels
+*UIConstraints: *RIPunch Upper3 *MediaType OHP
+*UIConstraints: *RIPunch Upper3 *MediaType Thick
+*UIConstraints: *RIPunch Upper3 *MediaType Translucent
+*UIConstraints: *MediaType Labels *RIPunch Upper4
+*UIConstraints: *MediaType OHP *RIPunch Upper4
+*UIConstraints: *MediaType Thick *RIPunch Upper4
+*UIConstraints: *MediaType Translucent *RIPunch Upper4
+*UIConstraints: *RIPunch Upper4 *MediaType Labels
+*UIConstraints: *RIPunch Upper4 *MediaType OHP
+*UIConstraints: *RIPunch Upper4 *MediaType Thick
+*UIConstraints: *RIPunch Upper4 *MediaType Translucent
+*UIConstraints: *MediaType Labels *RIPunch GBCLeft
+*UIConstraints: *MediaType OHP *RIPunch GBCLeft
+*UIConstraints: *MediaType Thick *RIPunch GBCLeft
+*UIConstraints: *MediaType Translucent *RIPunch GBCLeft
+*UIConstraints: *RIPunch GBCLeft *MediaType Labels
+*UIConstraints: *RIPunch GBCLeft *MediaType OHP
+*UIConstraints: *RIPunch GBCLeft *MediaType Thick
+*UIConstraints: *RIPunch GBCLeft *MediaType Translucent
+*UIConstraints: *MediaType Labels *RIPunch GBCRight
+*UIConstraints: *MediaType OHP *RIPunch GBCRight
+*UIConstraints: *MediaType Thick *RIPunch GBCRight
+*UIConstraints: *MediaType Translucent *RIPunch GBCRight
+*UIConstraints: *RIPunch GBCRight *MediaType Labels
+*UIConstraints: *RIPunch GBCRight *MediaType OHP
+*UIConstraints: *RIPunch GBCRight *MediaType Thick
+*UIConstraints: *RIPunch GBCRight *MediaType Translucent
+*UIConstraints: *MediaType Labels *RIPunch GBCTop
+*UIConstraints: *MediaType OHP *RIPunch GBCTop
+*UIConstraints: *MediaType Thick *RIPunch GBCTop
+*UIConstraints: *MediaType Translucent *RIPunch GBCTop
+*UIConstraints: *RIPunch GBCTop *MediaType Labels
+*UIConstraints: *RIPunch GBCTop *MediaType OHP
+*UIConstraints: *RIPunch GBCTop *MediaType Thick
+*UIConstraints: *RIPunch GBCTop *MediaType Translucent
+
+*%========== Z-fold / MediaType
+*UIConstraints: *MediaType Letterhead *RIZfold Bottom
+*UIConstraints: *MediaType Cardstock *RIZfold Bottom
+*UIConstraints: *MediaType Labels *RIZfold Bottom
+*UIConstraints: *MediaType OHP *RIZfold Bottom
+*UIConstraints: *MediaType Index *RIZfold Bottom
+*UIConstraints: *MediaType Translucent *RIZfold Bottom
+*UIConstraints: *RIZfold Bottom *MediaType Letterhead
+*UIConstraints: *RIZfold Bottom *MediaType Cardstock
+*UIConstraints: *RIZfold Bottom *MediaType Labels
+*UIConstraints: *RIZfold Bottom *MediaType OHP
+*UIConstraints: *RIZfold Bottom *MediaType Index
+*UIConstraints: *RIZfold Bottom *MediaType Translucent
+*UIConstraints: *MediaType Letterhead *RIZfold Right
+*UIConstraints: *MediaType Cardstock *RIZfold Right
+*UIConstraints: *MediaType Labels *RIZfold Right
+*UIConstraints: *MediaType OHP *RIZfold Right
+*UIConstraints: *MediaType Index *RIZfold Right
+*UIConstraints: *MediaType Translucent *RIZfold Right
+*UIConstraints: *RIZfold Right *MediaType Letterhead
+*UIConstraints: *RIZfold Right *MediaType Cardstock
+*UIConstraints: *RIZfold Right *MediaType Labels
+*UIConstraints: *RIZfold Right *MediaType OHP
+*UIConstraints: *RIZfold Right *MediaType Index
+*UIConstraints: *RIZfold Right *MediaType Translucent
+*UIConstraints: *MediaType Letterhead *RIZfold Left
+*UIConstraints: *MediaType Cardstock *RIZfold Left
+*UIConstraints: *MediaType Labels *RIZfold Left
+*UIConstraints: *MediaType OHP *RIZfold Left
+*UIConstraints: *MediaType Index *RIZfold Left
+*UIConstraints: *MediaType Translucent *RIZfold Left
+*UIConstraints: *RIZfold Left *MediaType Letterhead
+*UIConstraints: *RIZfold Left *MediaType Cardstock
+*UIConstraints: *RIZfold Left *MediaType Labels
+*UIConstraints: *RIZfold Left *MediaType OHP
+*UIConstraints: *RIZfold Left *MediaType Index
+*UIConstraints: *RIZfold Left *MediaType Translucent
+
+*%========== Fold type / MediaType
+*UIConstraints: *MediaType Letterhead *RIFoldType Twofold
+*UIConstraints: *MediaType Cardstock *RIFoldType Twofold
+*UIConstraints: *MediaType Labels *RIFoldType Twofold
+*UIConstraints: *MediaType OHP *RIFoldType Twofold
+*UIConstraints: *MediaType Index *RIFoldType Twofold
+*UIConstraints: *MediaType Translucent *RIFoldType Twofold
+*UIConstraints: *RIFoldType Twofold *MediaType Letterhead
+*UIConstraints: *RIFoldType Twofold *MediaType Cardstock
+*UIConstraints: *RIFoldType Twofold *MediaType Labels
+*UIConstraints: *RIFoldType Twofold *MediaType OHP
+*UIConstraints: *RIFoldType Twofold *MediaType Index
+*UIConstraints: *RIFoldType Twofold *MediaType Translucent
+*UIConstraints: *MediaType Letterhead *RIFoldType ThreefoldIn
+*UIConstraints: *MediaType Cardstock *RIFoldType ThreefoldIn
+*UIConstraints: *MediaType Labels *RIFoldType ThreefoldIn
+*UIConstraints: *MediaType OHP *RIFoldType ThreefoldIn
+*UIConstraints: *MediaType Index *RIFoldType ThreefoldIn
+*UIConstraints: *MediaType Translucent *RIFoldType ThreefoldIn
+*UIConstraints: *RIFoldType ThreefoldIn *MediaType Letterhead
+*UIConstraints: *RIFoldType ThreefoldIn *MediaType Cardstock
+*UIConstraints: *RIFoldType ThreefoldIn *MediaType Labels
+*UIConstraints: *RIFoldType ThreefoldIn *MediaType OHP
+*UIConstraints: *RIFoldType ThreefoldIn *MediaType Index
+*UIConstraints: *RIFoldType ThreefoldIn *MediaType Translucent
+*UIConstraints: *MediaType Letterhead *RIFoldType ThreefoldOut
+*UIConstraints: *MediaType Cardstock *RIFoldType ThreefoldOut
+*UIConstraints: *MediaType Labels *RIFoldType ThreefoldOut
+*UIConstraints: *MediaType OHP *RIFoldType ThreefoldOut
+*UIConstraints: *MediaType Index *RIFoldType ThreefoldOut
+*UIConstraints: *MediaType Translucent *RIFoldType ThreefoldOut
+*UIConstraints: *RIFoldType ThreefoldOut *MediaType Letterhead
+*UIConstraints: *RIFoldType ThreefoldOut *MediaType Cardstock
+*UIConstraints: *RIFoldType ThreefoldOut *MediaType Labels
+*UIConstraints: *RIFoldType ThreefoldOut *MediaType OHP
+*UIConstraints: *RIFoldType ThreefoldOut *MediaType Index
+*UIConstraints: *RIFoldType ThreefoldOut *MediaType Translucent
+*UIConstraints: *MediaType Letterhead *RIFoldType Quarto
+*UIConstraints: *MediaType Cardstock *RIFoldType Quarto
+*UIConstraints: *MediaType Labels *RIFoldType Quarto
+*UIConstraints: *MediaType OHP *RIFoldType Quarto
+*UIConstraints: *MediaType Index *RIFoldType Quarto
+*UIConstraints: *MediaType Translucent *RIFoldType Quarto
+*UIConstraints: *RIFoldType Quarto *MediaType Letterhead
+*UIConstraints: *RIFoldType Quarto *MediaType Cardstock
+*UIConstraints: *RIFoldType Quarto *MediaType Labels
+*UIConstraints: *RIFoldType Quarto *MediaType OHP
+*UIConstraints: *RIFoldType Quarto *MediaType Index
+*UIConstraints: *RIFoldType Quarto *MediaType Translucent
+*UIConstraints: *MediaType Letterhead *RIFoldType Gatefold
+*UIConstraints: *MediaType Cardstock *RIFoldType Gatefold
+*UIConstraints: *MediaType Labels *RIFoldType Gatefold
+*UIConstraints: *MediaType OHP *RIFoldType Gatefold
+*UIConstraints: *MediaType Index *RIFoldType Gatefold
+*UIConstraints: *MediaType Translucent *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Gatefold *MediaType Letterhead
+*UIConstraints: *RIFoldType Gatefold *MediaType Cardstock
+*UIConstraints: *RIFoldType Gatefold *MediaType Labels
+*UIConstraints: *RIFoldType Gatefold *MediaType OHP
+*UIConstraints: *RIFoldType Gatefold *MediaType Index
+*UIConstraints: *RIFoldType Gatefold *MediaType Translucent
+
+*%========== Faceup / MediaType
+*UIConstraints: *MediaType Cardstock *Faceup On
+*UIConstraints: *MediaType Labels *Faceup On
+*UIConstraints: *MediaType OHP *Faceup On
+*UIConstraints: *Faceup On *MediaType Cardstock
+*UIConstraints: *Faceup On *MediaType Labels
+*UIConstraints: *Faceup On *MediaType OHP
+
+*%========== Staple / Destination
+*UIConstraints: *OutputBin FinEUPHDUpper *StapleLocation UpperLeft
+*UIConstraints: *OutputBin FinEUPHDUpper *StapleLocation UpperRight
+*UIConstraints: *OutputBin FinEUPHDUpper *StapleLocation LeftW
+*UIConstraints: *OutputBin FinEUPHDUpper *StapleLocation RightW
+*UIConstraints: *OutputBin FinEUPHDUpper *StapleLocation UpperW
+*UIConstraints: *OutputBin FinEUPHDUpper *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinEUPHDUpper
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinEUPHDUpper
+*UIConstraints: *StapleLocation LeftW *OutputBin FinEUPHDUpper
+*UIConstraints: *StapleLocation RightW *OutputBin FinEUPHDUpper
+*UIConstraints: *StapleLocation UpperW *OutputBin FinEUPHDUpper
+*UIConstraints: *StapleLocation CenterW *OutputBin FinEUPHDUpper
+
+*UIConstraints: *OutputBin FinEUPHDShift *StapleLocation CenterW
+*UIConstraints: *StapleLocation CenterW *OutputBin FinEUPHDShift
+
+*UIConstraints: *OutputBin FinEUPHDBKUpper *StapleLocation UpperLeft
+*UIConstraints: *OutputBin FinEUPHDBKUpper *StapleLocation UpperRight
+*UIConstraints: *OutputBin FinEUPHDBKUpper *StapleLocation LeftW
+*UIConstraints: *OutputBin FinEUPHDBKUpper *StapleLocation RightW
+*UIConstraints: *OutputBin FinEUPHDBKUpper *StapleLocation UpperW
+*UIConstraints: *OutputBin FinEUPHDBKUpper *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinEUPHDBKUpper
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinEUPHDBKUpper
+*UIConstraints: *StapleLocation LeftW *OutputBin FinEUPHDBKUpper
+*UIConstraints: *StapleLocation RightW *OutputBin FinEUPHDBKUpper
+*UIConstraints: *StapleLocation UpperW *OutputBin FinEUPHDBKUpper
+*UIConstraints: *StapleLocation CenterW *OutputBin FinEUPHDBKUpper
+
+*UIConstraints: *OutputBin FinEUPHDBK *StapleLocation None
+*UIConstraints: *OutputBin FinEUPHDBK *StapleLocation UpperLeft
+*UIConstraints: *OutputBin FinEUPHDBK *StapleLocation UpperRight
+*UIConstraints: *OutputBin FinEUPHDBK *StapleLocation LeftW
+*UIConstraints: *OutputBin FinEUPHDBK *StapleLocation RightW
+*UIConstraints: *OutputBin FinEUPHDBK *StapleLocation UpperW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinEUPHDBK
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinEUPHDBK
+*UIConstraints: *StapleLocation LeftW *OutputBin FinEUPHDBK
+*UIConstraints: *StapleLocation RightW *OutputBin FinEUPHDBK
+*UIConstraints: *StapleLocation UpperW *OutputBin FinEUPHDBK
+*UIConstraints: *StapleLocation None *OutputBin FinEUPHDBK
+
+*UIConstraints: *OutputBin FinVICTGUpper *StapleLocation UpperLeft
+*UIConstraints: *OutputBin FinVICTGUpper *StapleLocation UpperRight
+*UIConstraints: *OutputBin FinVICTGUpper *StapleLocation LeftW
+*UIConstraints: *OutputBin FinVICTGUpper *StapleLocation RightW
+*UIConstraints: *OutputBin FinVICTGUpper *StapleLocation UpperW
+*UIConstraints: *OutputBin FinVICTGUpper *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinVICTGUpper
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinVICTGUpper
+*UIConstraints: *StapleLocation LeftW *OutputBin FinVICTGUpper
+*UIConstraints: *StapleLocation RightW *OutputBin FinVICTGUpper
+*UIConstraints: *StapleLocation UpperW *OutputBin FinVICTGUpper
+*UIConstraints: *StapleLocation CenterW *OutputBin FinVICTGUpper
+
+*UIConstraints: *OutputBin FinVICTGShift *StapleLocation CenterW
+*UIConstraints: *StapleLocation CenterW *OutputBin FinVICTGShift
+
+*UIConstraints: *OutputBin PlockmaticTray *StapleLocation None
+*UIConstraints: *StapleLocation None *OutputBin PlockmaticTray
+
+*UIConstraints: *OutputBin FinDONAUProof *StapleLocation UpperLeft
+*UIConstraints: *OutputBin FinDONAUProof *StapleLocation UpperRight
+*UIConstraints: *OutputBin FinDONAUProof *StapleLocation LeftW
+*UIConstraints: *OutputBin FinDONAUProof *StapleLocation RightW
+*UIConstraints: *OutputBin FinDONAUProof *StapleLocation UpperW
+*UIConstraints: *OutputBin FinDONAUProof *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinDONAUProof
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinDONAUProof
+*UIConstraints: *StapleLocation LeftW *OutputBin FinDONAUProof
+*UIConstraints: *StapleLocation RightW *OutputBin FinDONAUProof
+*UIConstraints: *StapleLocation UpperW *OutputBin FinDONAUProof
+*UIConstraints: *StapleLocation CenterW *OutputBin FinDONAUProof
+
+*UIConstraints: *OutputBin MailBoxBin1 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin1 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin1 *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin1 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin1 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin1 *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin1
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin1
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin1
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin1
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin1
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin1
+*UIConstraints: *OutputBin MailBoxBin2 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin2 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin2 *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin2 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin2 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin2 *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin2
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin2
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin2
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin2
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin2
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin2
+*UIConstraints: *OutputBin MailBoxBin3 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin3 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin3 *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin3 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin3 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin3 *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin3
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin3
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin3
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin3
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin3
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin3
+*UIConstraints: *OutputBin MailBoxBin4 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin4 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin4 *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin4 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin4 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin4 *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin4
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin4
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin4
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin4
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin4
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin4
+*UIConstraints: *OutputBin MailBoxBin5 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin5 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin5 *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin5 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin5 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin5 *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin5
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin5
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin5
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin5
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin5
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin5
+*UIConstraints: *OutputBin MailBoxBin6 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin6 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin6 *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin6 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin6 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin6 *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin6
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin6
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin6
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin6
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin6
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin6
+*UIConstraints: *OutputBin MailBoxBin7 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin7 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin7 *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin7 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin7 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin7 *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin7
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin7
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin7
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin7
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin7
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin7
+*UIConstraints: *OutputBin MailBoxBin8 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin8 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin8 *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin8 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin8 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin8 *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin8
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin8
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin8
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin8
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin8
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin8
+*UIConstraints: *OutputBin MailBoxBin9 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin9 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin9 *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin9 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin9 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin9 *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin9
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin9
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin9
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin9
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin9
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin9
+
+*%========== Punch / Destination
+*UIConstraints: *OutputBin FinEUPHDBK *RIPunch Left2
+*UIConstraints: *OutputBin FinEUPHDBK *RIPunch Left3
+*UIConstraints: *OutputBin FinEUPHDBK *RIPunch Left4
+*UIConstraints: *OutputBin FinEUPHDBK *RIPunch Right2
+*UIConstraints: *OutputBin FinEUPHDBK *RIPunch Right3
+*UIConstraints: *OutputBin FinEUPHDBK *RIPunch Right4
+*UIConstraints: *OutputBin FinEUPHDBK *RIPunch Upper2
+*UIConstraints: *OutputBin FinEUPHDBK *RIPunch Upper3
+*UIConstraints: *OutputBin FinEUPHDBK *RIPunch Upper4
+*UIConstraints: *OutputBin FinEUPHDBK *RIPunch GBCLeft
+*UIConstraints: *OutputBin FinEUPHDBK *RIPunch GBCRight
+*UIConstraints: *OutputBin FinEUPHDBK *RIPunch GBCTop
+*UIConstraints: *RIPunch Left2 *OutputBin FinEUPHDBK
+*UIConstraints: *RIPunch Left3 *OutputBin FinEUPHDBK
+*UIConstraints: *RIPunch Left4 *OutputBin FinEUPHDBK
+*UIConstraints: *RIPunch Right2 *OutputBin FinEUPHDBK
+*UIConstraints: *RIPunch Right3 *OutputBin FinEUPHDBK
+*UIConstraints: *RIPunch Right4 *OutputBin FinEUPHDBK
+*UIConstraints: *RIPunch Upper2 *OutputBin FinEUPHDBK
+*UIConstraints: *RIPunch Upper3 *OutputBin FinEUPHDBK
+*UIConstraints: *RIPunch Upper4 *OutputBin FinEUPHDBK
+*UIConstraints: *RIPunch GBCLeft *OutputBin FinEUPHDBK
+*UIConstraints: *RIPunch GBCRight *OutputBin FinEUPHDBK
+*UIConstraints: *RIPunch GBCTop *OutputBin FinEUPHDBK
+
+*UIConstraints: *OutputBin PlockmaticTray *RIPunch Left2
+*UIConstraints: *OutputBin PlockmaticTray *RIPunch Left3
+*UIConstraints: *OutputBin PlockmaticTray *RIPunch Left4
+*UIConstraints: *OutputBin PlockmaticTray *RIPunch Right2
+*UIConstraints: *OutputBin PlockmaticTray *RIPunch Right3
+*UIConstraints: *OutputBin PlockmaticTray *RIPunch Right4
+*UIConstraints: *OutputBin PlockmaticTray *RIPunch Upper2
+*UIConstraints: *OutputBin PlockmaticTray *RIPunch Upper3
+*UIConstraints: *OutputBin PlockmaticTray *RIPunch Upper4
+*UIConstraints: *OutputBin PlockmaticTray *RIPunch GBCLeft
+*UIConstraints: *OutputBin PlockmaticTray *RIPunch GBCRight
+*UIConstraints: *OutputBin PlockmaticTray *RIPunch GBCTop
+*UIConstraints: *RIPunch Left2 *OutputBin PlockmaticTray
+*UIConstraints: *RIPunch Left3 *OutputBin PlockmaticTray
+*UIConstraints: *RIPunch Left4 *OutputBin PlockmaticTray
+*UIConstraints: *RIPunch Right2 *OutputBin PlockmaticTray
+*UIConstraints: *RIPunch Right3 *OutputBin PlockmaticTray
+*UIConstraints: *RIPunch Right4 *OutputBin PlockmaticTray
+*UIConstraints: *RIPunch Upper2 *OutputBin PlockmaticTray
+*UIConstraints: *RIPunch Upper3 *OutputBin PlockmaticTray
+*UIConstraints: *RIPunch Upper4 *OutputBin PlockmaticTray
+*UIConstraints: *RIPunch GBCLeft *OutputBin PlockmaticTray
+*UIConstraints: *RIPunch GBCRight *OutputBin PlockmaticTray
+*UIConstraints: *RIPunch GBCTop *OutputBin PlockmaticTray
+
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch Left2
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch Left3
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch Left4
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch Right2
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch Right3
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch Right4
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch Upper2
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch Upper3
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch Upper4
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch GBCLeft
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch GBCRight
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch GBCTop
+*UIConstraints: *RIPunch Left2 *OutputBin FinDONAUProof
+*UIConstraints: *RIPunch Left3 *OutputBin FinDONAUProof
+*UIConstraints: *RIPunch Left4 *OutputBin FinDONAUProof
+*UIConstraints: *RIPunch Right2 *OutputBin FinDONAUProof
+*UIConstraints: *RIPunch Right3 *OutputBin FinDONAUProof
+*UIConstraints: *RIPunch Right4 *OutputBin FinDONAUProof
+*UIConstraints: *RIPunch Upper2 *OutputBin FinDONAUProof
+*UIConstraints: *RIPunch Upper3 *OutputBin FinDONAUProof
+*UIConstraints: *RIPunch Upper4 *OutputBin FinDONAUProof
+*UIConstraints: *RIPunch GBCLeft *OutputBin FinDONAUProof
+*UIConstraints: *RIPunch GBCRight *OutputBin FinDONAUProof
+*UIConstraints: *RIPunch GBCTop *OutputBin FinDONAUProof
+
+*%========== ZFold / Destination
+*UIConstraints: *OutputBin FinEUPHDBK *RIZfold Bottom
+*UIConstraints: *OutputBin FinEUPHDBK *RIZfold Left
+*UIConstraints: *OutputBin FinEUPHDBK *RIZfold Right
+*UIConstraints: *RIZfold Bottom *OutputBin FinEUPHDBK
+*UIConstraints: *RIZfold Left *OutputBin FinEUPHDBK
+*UIConstraints: *RIZfold Right *OutputBin FinEUPHDBK
+
+*UIConstraints: *OutputBin PlockmaticTray *RIZfold Bottom
+*UIConstraints: *OutputBin PlockmaticTray *RIZfold Left
+*UIConstraints: *OutputBin PlockmaticTray *RIZfold Right
+*UIConstraints: *RIZfold Bottom *OutputBin PlockmaticTray
+*UIConstraints: *RIZfold Left *OutputBin PlockmaticTray
+*UIConstraints: *RIZfold Right *OutputBin PlockmaticTray
+
+*UIConstraints: *OutputBin MailBoxBin1 *RIZfold Bottom
+*UIConstraints: *OutputBin MailBoxBin1 *RIZfold Left
+*UIConstraints: *OutputBin MailBoxBin1 *RIZfold Right
+*UIConstraints: *RIZfold Bottom *OutputBin MailBoxBin1
+*UIConstraints: *RIZfold Left *OutputBin MailBoxBin1
+*UIConstraints: *RIZfold Right *OutputBin MailBoxBin1
+*UIConstraints: *OutputBin MailBoxBin2 *RIZfold Bottom
+*UIConstraints: *OutputBin MailBoxBin2 *RIZfold Left
+*UIConstraints: *OutputBin MailBoxBin2 *RIZfold Right
+*UIConstraints: *RIZfold Bottom *OutputBin MailBoxBin2
+*UIConstraints: *RIZfold Left *OutputBin MailBoxBin2
+*UIConstraints: *RIZfold Right *OutputBin MailBoxBin2
+*UIConstraints: *OutputBin MailBoxBin3 *RIZfold Bottom
+*UIConstraints: *OutputBin MailBoxBin3 *RIZfold Left
+*UIConstraints: *OutputBin MailBoxBin3 *RIZfold Right
+*UIConstraints: *RIZfold Bottom *OutputBin MailBoxBin3
+*UIConstraints: *RIZfold Left *OutputBin MailBoxBin3
+*UIConstraints: *RIZfold Right *OutputBin MailBoxBin3
+*UIConstraints: *OutputBin MailBoxBin4 *RIZfold Bottom
+*UIConstraints: *OutputBin MailBoxBin4 *RIZfold Left
+*UIConstraints: *OutputBin MailBoxBin4 *RIZfold Right
+*UIConstraints: *RIZfold Bottom *OutputBin MailBoxBin4
+*UIConstraints: *RIZfold Left *OutputBin MailBoxBin4
+*UIConstraints: *RIZfold Right *OutputBin MailBoxBin4
+*UIConstraints: *OutputBin MailBoxBin5 *RIZfold Bottom
+*UIConstraints: *OutputBin MailBoxBin5 *RIZfold Left
+*UIConstraints: *OutputBin MailBoxBin5 *RIZfold Right
+*UIConstraints: *RIZfold Bottom *OutputBin MailBoxBin5
+*UIConstraints: *RIZfold Left *OutputBin MailBoxBin5
+*UIConstraints: *RIZfold Right *OutputBin MailBoxBin5
+*UIConstraints: *OutputBin MailBoxBin6 *RIZfold Bottom
+*UIConstraints: *OutputBin MailBoxBin6 *RIZfold Left
+*UIConstraints: *OutputBin MailBoxBin6 *RIZfold Right
+*UIConstraints: *RIZfold Bottom *OutputBin MailBoxBin6
+*UIConstraints: *RIZfold Left *OutputBin MailBoxBin6
+*UIConstraints: *RIZfold Right *OutputBin MailBoxBin6
+*UIConstraints: *OutputBin MailBoxBin7 *RIZfold Bottom
+*UIConstraints: *OutputBin MailBoxBin7 *RIZfold Left
+*UIConstraints: *OutputBin MailBoxBin7 *RIZfold Right
+*UIConstraints: *RIZfold Bottom *OutputBin MailBoxBin7
+*UIConstraints: *RIZfold Left *OutputBin MailBoxBin7
+*UIConstraints: *RIZfold Right *OutputBin MailBoxBin7
+*UIConstraints: *OutputBin MailBoxBin8 *RIZfold Bottom
+*UIConstraints: *OutputBin MailBoxBin8 *RIZfold Left
+*UIConstraints: *OutputBin MailBoxBin8 *RIZfold Right
+*UIConstraints: *RIZfold Bottom *OutputBin MailBoxBin8
+*UIConstraints: *RIZfold Left *OutputBin MailBoxBin8
+*UIConstraints: *RIZfold Right *OutputBin MailBoxBin8
+*UIConstraints: *OutputBin MailBoxBin9 *RIZfold Bottom
+*UIConstraints: *OutputBin MailBoxBin9 *RIZfold Left
+*UIConstraints: *OutputBin MailBoxBin9 *RIZfold Right
+*UIConstraints: *RIZfold Bottom *OutputBin MailBoxBin9
+*UIConstraints: *RIZfold Left *OutputBin MailBoxBin9
+*UIConstraints: *RIZfold Right *OutputBin MailBoxBin9
+
+*%========== Fold type / Destination
+*UIConstraints: *OutputBin FinEUPHDUpper *RIFoldType Twofold
+*UIConstraints: *OutputBin FinEUPHDUpper *RIFoldType ThreefoldIn
+*UIConstraints: *OutputBin FinEUPHDUpper *RIFoldType ThreefoldOut
+*UIConstraints: *OutputBin FinEUPHDUpper *RIFoldType Quarto
+*UIConstraints: *OutputBin FinEUPHDUpper *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *OutputBin FinEUPHDUpper
+*UIConstraints: *RIFoldType ThreefoldIn *OutputBin FinEUPHDUpper
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin FinEUPHDUpper
+*UIConstraints: *RIFoldType Quarto *OutputBin FinEUPHDUpper
+*UIConstraints: *RIFoldType Gatefold *OutputBin FinEUPHDUpper
+*UIConstraints: *OutputBin FinEUPHDShift *RIFoldType Twofold
+*UIConstraints: *OutputBin FinEUPHDShift *RIFoldType ThreefoldIn
+*UIConstraints: *OutputBin FinEUPHDShift *RIFoldType ThreefoldOut
+*UIConstraints: *OutputBin FinEUPHDShift *RIFoldType Quarto
+*UIConstraints: *OutputBin FinEUPHDShift *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *OutputBin FinEUPHDShift
+*UIConstraints: *RIFoldType ThreefoldIn *OutputBin FinEUPHDShift
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin FinEUPHDShift
+*UIConstraints: *RIFoldType Quarto *OutputBin FinEUPHDShift
+*UIConstraints: *RIFoldType Gatefold *OutputBin FinEUPHDShift
+*UIConstraints: *OutputBin FinEUPHDBKUpper *RIFoldType Twofold
+*UIConstraints: *OutputBin FinEUPHDBKUpper *RIFoldType ThreefoldIn
+*UIConstraints: *OutputBin FinEUPHDBKUpper *RIFoldType ThreefoldOut
+*UIConstraints: *OutputBin FinEUPHDBKUpper *RIFoldType Quarto
+*UIConstraints: *OutputBin FinEUPHDBKUpper *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *OutputBin FinEUPHDBKUpper
+*UIConstraints: *RIFoldType ThreefoldIn *OutputBin FinEUPHDBKUpper
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin FinEUPHDBKUpper
+*UIConstraints: *RIFoldType Quarto *OutputBin FinEUPHDBKUpper
+*UIConstraints: *RIFoldType Gatefold *OutputBin FinEUPHDBKUpper
+*UIConstraints: *OutputBin FinEUPHDBKShift *RIFoldType Twofold
+*UIConstraints: *OutputBin FinEUPHDBKShift *RIFoldType ThreefoldIn
+*UIConstraints: *OutputBin FinEUPHDBKShift *RIFoldType ThreefoldOut
+*UIConstraints: *OutputBin FinEUPHDBKShift *RIFoldType Quarto
+*UIConstraints: *OutputBin FinEUPHDBKShift *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *OutputBin FinEUPHDBKShift
+*UIConstraints: *RIFoldType ThreefoldIn *OutputBin FinEUPHDBKShift
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin FinEUPHDBKShift
+*UIConstraints: *RIFoldType Quarto *OutputBin FinEUPHDBKShift
+*UIConstraints: *RIFoldType Gatefold *OutputBin FinEUPHDBKShift
+*UIConstraints: *OutputBin FinEUPHDBK *RIFoldType Twofold
+*UIConstraints: *OutputBin FinEUPHDBK *RIFoldType ThreefoldIn
+*UIConstraints: *OutputBin FinEUPHDBK *RIFoldType ThreefoldOut
+*UIConstraints: *OutputBin FinEUPHDBK *RIFoldType Quarto
+*UIConstraints: *OutputBin FinEUPHDBK *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *OutputBin FinEUPHDBK
+*UIConstraints: *RIFoldType ThreefoldIn *OutputBin FinEUPHDBK
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin FinEUPHDBK
+*UIConstraints: *RIFoldType Quarto *OutputBin FinEUPHDBK
+*UIConstraints: *RIFoldType Gatefold *OutputBin FinEUPHDBK
+*UIConstraints: *OutputBin FinVICTGUpper *RIFoldType Twofold
+*UIConstraints: *OutputBin FinVICTGUpper *RIFoldType ThreefoldIn
+*UIConstraints: *OutputBin FinVICTGUpper *RIFoldType ThreefoldOut
+*UIConstraints: *OutputBin FinVICTGUpper *RIFoldType Quarto
+*UIConstraints: *OutputBin FinVICTGUpper *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *OutputBin FinVICTGUpper
+*UIConstraints: *RIFoldType ThreefoldIn *OutputBin FinVICTGUpper
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin FinVICTGUpper
+*UIConstraints: *RIFoldType Quarto *OutputBin FinVICTGUpper
+*UIConstraints: *RIFoldType Gatefold *OutputBin FinVICTGUpper
+*UIConstraints: *OutputBin FinVICTGShift *RIFoldType Twofold
+*UIConstraints: *OutputBin FinVICTGShift *RIFoldType ThreefoldIn
+*UIConstraints: *OutputBin FinVICTGShift *RIFoldType ThreefoldOut
+*UIConstraints: *OutputBin FinVICTGShift *RIFoldType Quarto
+*UIConstraints: *OutputBin FinVICTGShift *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *OutputBin FinVICTGShift
+*UIConstraints: *RIFoldType ThreefoldIn *OutputBin FinVICTGShift
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin FinVICTGShift
+*UIConstraints: *RIFoldType Quarto *OutputBin FinVICTGShift
+*UIConstraints: *RIFoldType Gatefold *OutputBin FinVICTGShift
+*UIConstraints: *OutputBin PlockmaticTray *RIFoldType Twofold
+*UIConstraints: *OutputBin PlockmaticTray *RIFoldType ThreefoldIn
+*UIConstraints: *OutputBin PlockmaticTray *RIFoldType ThreefoldOut
+*UIConstraints: *OutputBin PlockmaticTray *RIFoldType Quarto
+*UIConstraints: *OutputBin PlockmaticTray *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *OutputBin PlockmaticTray
+*UIConstraints: *RIFoldType ThreefoldIn *OutputBin PlockmaticTray
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin PlockmaticTray
+*UIConstraints: *RIFoldType Quarto *OutputBin PlockmaticTray
+*UIConstraints: *RIFoldType Gatefold *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin MailBoxBin1 *RIFoldType Twofold
+*UIConstraints: *OutputBin MailBoxBin1 *RIFoldType ThreefoldIn
+*UIConstraints: *OutputBin MailBoxBin1 *RIFoldType ThreefoldOut
+*UIConstraints: *OutputBin MailBoxBin1 *RIFoldType Quarto
+*UIConstraints: *OutputBin MailBoxBin1 *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *OutputBin MailBoxBin1
+*UIConstraints: *RIFoldType ThreefoldIn *OutputBin MailBoxBin1
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin MailBoxBin1
+*UIConstraints: *RIFoldType Quarto *OutputBin MailBoxBin1
+*UIConstraints: *RIFoldType Gatefold *OutputBin MailBoxBin1
+*UIConstraints: *OutputBin MailBoxBin2 *RIFoldType Twofold
+*UIConstraints: *OutputBin MailBoxBin2 *RIFoldType ThreefoldIn
+*UIConstraints: *OutputBin MailBoxBin2 *RIFoldType ThreefoldOut
+*UIConstraints: *OutputBin MailBoxBin2 *RIFoldType Quarto
+*UIConstraints: *OutputBin MailBoxBin2 *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *OutputBin MailBoxBin2
+*UIConstraints: *RIFoldType ThreefoldIn *OutputBin MailBoxBin2
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin MailBoxBin2
+*UIConstraints: *RIFoldType Quarto *OutputBin MailBoxBin2
+*UIConstraints: *RIFoldType Gatefold *OutputBin MailBoxBin2
+*UIConstraints: *OutputBin MailBoxBin3 *RIFoldType Twofold
+*UIConstraints: *OutputBin MailBoxBin3 *RIFoldType ThreefoldIn
+*UIConstraints: *OutputBin MailBoxBin3 *RIFoldType ThreefoldOut
+*UIConstraints: *OutputBin MailBoxBin3 *RIFoldType Quarto
+*UIConstraints: *OutputBin MailBoxBin3 *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *OutputBin MailBoxBin3
+*UIConstraints: *RIFoldType ThreefoldIn *OutputBin MailBoxBin3
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin MailBoxBin3
+*UIConstraints: *RIFoldType Quarto *OutputBin MailBoxBin3
+*UIConstraints: *RIFoldType Gatefold *OutputBin MailBoxBin3
+*UIConstraints: *OutputBin MailBoxBin4 *RIFoldType Twofold
+*UIConstraints: *OutputBin MailBoxBin4 *RIFoldType ThreefoldIn
+*UIConstraints: *OutputBin MailBoxBin4 *RIFoldType ThreefoldOut
+*UIConstraints: *OutputBin MailBoxBin4 *RIFoldType Quarto
+*UIConstraints: *OutputBin MailBoxBin4 *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *OutputBin MailBoxBin4
+*UIConstraints: *RIFoldType ThreefoldIn *OutputBin MailBoxBin4
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin MailBoxBin4
+*UIConstraints: *RIFoldType Quarto *OutputBin MailBoxBin4
+*UIConstraints: *RIFoldType Gatefold *OutputBin MailBoxBin4
+*UIConstraints: *OutputBin MailBoxBin5 *RIFoldType Twofold
+*UIConstraints: *OutputBin MailBoxBin5 *RIFoldType ThreefoldIn
+*UIConstraints: *OutputBin MailBoxBin5 *RIFoldType ThreefoldOut
+*UIConstraints: *OutputBin MailBoxBin5 *RIFoldType Quarto
+*UIConstraints: *OutputBin MailBoxBin5 *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *OutputBin MailBoxBin5
+*UIConstraints: *RIFoldType ThreefoldIn *OutputBin MailBoxBin5
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin MailBoxBin5
+*UIConstraints: *RIFoldType Quarto *OutputBin MailBoxBin5
+*UIConstraints: *RIFoldType Gatefold *OutputBin MailBoxBin5
+*UIConstraints: *OutputBin MailBoxBin6 *RIFoldType Twofold
+*UIConstraints: *OutputBin MailBoxBin6 *RIFoldType ThreefoldIn
+*UIConstraints: *OutputBin MailBoxBin6 *RIFoldType ThreefoldOut
+*UIConstraints: *OutputBin MailBoxBin6 *RIFoldType Quarto
+*UIConstraints: *OutputBin MailBoxBin6 *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *OutputBin MailBoxBin6
+*UIConstraints: *RIFoldType ThreefoldIn *OutputBin MailBoxBin6
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin MailBoxBin6
+*UIConstraints: *RIFoldType Quarto *OutputBin MailBoxBin6
+*UIConstraints: *RIFoldType Gatefold *OutputBin MailBoxBin6
+*UIConstraints: *OutputBin MailBoxBin7 *RIFoldType Twofold
+*UIConstraints: *OutputBin MailBoxBin7 *RIFoldType ThreefoldIn
+*UIConstraints: *OutputBin MailBoxBin7 *RIFoldType ThreefoldOut
+*UIConstraints: *OutputBin MailBoxBin7 *RIFoldType Quarto
+*UIConstraints: *OutputBin MailBoxBin7 *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *OutputBin MailBoxBin7
+*UIConstraints: *RIFoldType ThreefoldIn *OutputBin MailBoxBin7
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin MailBoxBin7
+*UIConstraints: *RIFoldType Quarto *OutputBin MailBoxBin7
+*UIConstraints: *RIFoldType Gatefold *OutputBin MailBoxBin7
+*UIConstraints: *OutputBin MailBoxBin8 *RIFoldType Twofold
+*UIConstraints: *OutputBin MailBoxBin8 *RIFoldType ThreefoldIn
+*UIConstraints: *OutputBin MailBoxBin8 *RIFoldType ThreefoldOut
+*UIConstraints: *OutputBin MailBoxBin8 *RIFoldType Quarto
+*UIConstraints: *OutputBin MailBoxBin8 *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *OutputBin MailBoxBin8
+*UIConstraints: *RIFoldType ThreefoldIn *OutputBin MailBoxBin8
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin MailBoxBin8
+*UIConstraints: *RIFoldType Quarto *OutputBin MailBoxBin8
+*UIConstraints: *RIFoldType Gatefold *OutputBin MailBoxBin8
+*UIConstraints: *OutputBin MailBoxBin9 *RIFoldType Twofold
+*UIConstraints: *OutputBin MailBoxBin9 *RIFoldType ThreefoldIn
+*UIConstraints: *OutputBin MailBoxBin9 *RIFoldType ThreefoldOut
+*UIConstraints: *OutputBin MailBoxBin9 *RIFoldType Quarto
+*UIConstraints: *OutputBin MailBoxBin9 *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *OutputBin MailBoxBin9
+*UIConstraints: *RIFoldType ThreefoldIn *OutputBin MailBoxBin9
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin MailBoxBin9
+*UIConstraints: *RIFoldType Quarto *OutputBin MailBoxBin9
+*UIConstraints: *RIFoldType Gatefold *OutputBin MailBoxBin9
+
+*%========== Punch / Staple
+*UIConstraints: *StapleLocation CenterW *RIPunch Left2
+*UIConstraints: *StapleLocation CenterW *RIPunch Left3
+*UIConstraints: *StapleLocation CenterW *RIPunch Left4
+*UIConstraints: *StapleLocation CenterW *RIPunch Right2
+*UIConstraints: *StapleLocation CenterW *RIPunch Right3
+*UIConstraints: *StapleLocation CenterW *RIPunch Right4
+*UIConstraints: *StapleLocation CenterW *RIPunch Upper2
+*UIConstraints: *StapleLocation CenterW *RIPunch Upper3
+*UIConstraints: *StapleLocation CenterW *RIPunch Upper4
+*UIConstraints: *StapleLocation CenterW *RIPunch GBCLeft
+*UIConstraints: *StapleLocation CenterW *RIPunch GBCRight
+*UIConstraints: *StapleLocation CenterW *RIPunch GBCTop
+*UIConstraints: *RIPunch Left2 *StapleLocation CenterW
+*UIConstraints: *RIPunch Left3 *StapleLocation CenterW
+*UIConstraints: *RIPunch Left4 *StapleLocation CenterW
+*UIConstraints: *RIPunch Right2 *StapleLocation CenterW
+*UIConstraints: *RIPunch Right3 *StapleLocation CenterW
+*UIConstraints: *RIPunch Right4 *StapleLocation CenterW
+*UIConstraints: *RIPunch Upper2 *StapleLocation CenterW
+*UIConstraints: *RIPunch Upper3 *StapleLocation CenterW
+*UIConstraints: *RIPunch Upper4 *StapleLocation CenterW
+*UIConstraints: *RIPunch GBCLeft *StapleLocation CenterW
+*UIConstraints: *RIPunch GBCRight *StapleLocation CenterW
+*UIConstraints: *RIPunch GBCTop *StapleLocation CenterW
+
+*UIConstraints: *StapleLocation UpperLeft *RIPunch GBCLeft
+*UIConstraints: *StapleLocation UpperLeft *RIPunch GBCRight
+*UIConstraints: *StapleLocation UpperLeft *RIPunch GBCTop
+*UIConstraints: *RIPunch GBCLeft *StapleLocation UpperLeft
+*UIConstraints: *RIPunch GBCRight *StapleLocation UpperLeft
+*UIConstraints: *RIPunch GBCTop *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation UpperRight *RIPunch GBCLeft
+*UIConstraints: *StapleLocation UpperRight *RIPunch GBCRight
+*UIConstraints: *StapleLocation UpperRight *RIPunch GBCTop
+*UIConstraints: *RIPunch GBCLeft *StapleLocation UpperRight
+*UIConstraints: *RIPunch GBCRight *StapleLocation UpperRight
+*UIConstraints: *RIPunch GBCTop *StapleLocation UpperRight
+*UIConstraints: *StapleLocation LeftW *RIPunch GBCLeft
+*UIConstraints: *StapleLocation LeftW *RIPunch GBCRight
+*UIConstraints: *StapleLocation LeftW *RIPunch GBCTop
+*UIConstraints: *RIPunch GBCLeft *StapleLocation LeftW
+*UIConstraints: *RIPunch GBCRight *StapleLocation LeftW
+*UIConstraints: *RIPunch GBCTop *StapleLocation LeftW
+*UIConstraints: *StapleLocation RightW *RIPunch GBCLeft
+*UIConstraints: *StapleLocation RightW *RIPunch GBCRight
+*UIConstraints: *StapleLocation RightW *RIPunch GBCTop
+*UIConstraints: *RIPunch GBCLeft *StapleLocation RightW
+*UIConstraints: *RIPunch GBCRight *StapleLocation RightW
+*UIConstraints: *RIPunch GBCTop *StapleLocation RightW
+*UIConstraints: *StapleLocation UpperW *RIPunch GBCLeft
+*UIConstraints: *StapleLocation UpperW *RIPunch GBCRight
+*UIConstraints: *StapleLocation UpperW *RIPunch GBCTop
+*UIConstraints: *RIPunch GBCLeft *StapleLocation UpperW
+*UIConstraints: *RIPunch GBCRight *StapleLocation UpperW
+*UIConstraints: *RIPunch GBCTop *StapleLocation UpperW
+
+*%========== ZFold / Staple
+*UIConstraints: *RIZfold Bottom *StapleLocation CenterW
+*UIConstraints: *RIZfold Right *StapleLocation CenterW
+*UIConstraints: *RIZfold Left *StapleLocation CenterW
+*UIConstraints: *StapleLocation CenterW *RIZfold Bottom
+*UIConstraints: *StapleLocation CenterW *RIZfold Right
+*UIConstraints: *StapleLocation CenterW *RIZfold Left
+
+*%========== Fold type / Staple
+*UIConstraints: *StapleLocation UpperLeft *RIFoldType Twofold
+*UIConstraints: *StapleLocation UpperLeft *RIFoldType ThreefoldIn
+*UIConstraints: *StapleLocation UpperLeft *RIFoldType ThreefoldOut
+*UIConstraints: *StapleLocation UpperLeft *RIFoldType Quarto
+*UIConstraints: *StapleLocation UpperLeft *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *StapleLocation UpperLeft
+*UIConstraints: *RIFoldType ThreefoldIn *StapleLocation UpperLeft
+*UIConstraints: *RIFoldType ThreefoldOut *StapleLocation UpperLeft
+*UIConstraints: *RIFoldType Quarto *StapleLocation UpperLeft
+*UIConstraints: *RIFoldType Gatefold *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation UpperRight *RIFoldType Twofold
+*UIConstraints: *StapleLocation UpperRight *RIFoldType ThreefoldIn
+*UIConstraints: *StapleLocation UpperRight *RIFoldType ThreefoldOut
+*UIConstraints: *StapleLocation UpperRight *RIFoldType Quarto
+*UIConstraints: *StapleLocation UpperRight *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *StapleLocation UpperRight
+*UIConstraints: *RIFoldType ThreefoldIn *StapleLocation UpperRight
+*UIConstraints: *RIFoldType ThreefoldOut *StapleLocation UpperRight
+*UIConstraints: *RIFoldType Quarto *StapleLocation UpperRight
+*UIConstraints: *RIFoldType Gatefold *StapleLocation UpperRight
+*UIConstraints: *StapleLocation LeftW *RIFoldType Twofold
+*UIConstraints: *StapleLocation LeftW *RIFoldType ThreefoldIn
+*UIConstraints: *StapleLocation LeftW *RIFoldType ThreefoldOut
+*UIConstraints: *StapleLocation LeftW *RIFoldType Quarto
+*UIConstraints: *StapleLocation LeftW *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *StapleLocation LeftW
+*UIConstraints: *RIFoldType ThreefoldIn *StapleLocation LeftW
+*UIConstraints: *RIFoldType ThreefoldOut *StapleLocation LeftW
+*UIConstraints: *RIFoldType Quarto *StapleLocation LeftW
+*UIConstraints: *RIFoldType Gatefold *StapleLocation LeftW
+*UIConstraints: *StapleLocation RightW *RIFoldType Twofold
+*UIConstraints: *StapleLocation RightW *RIFoldType ThreefoldIn
+*UIConstraints: *StapleLocation RightW *RIFoldType ThreefoldOut
+*UIConstraints: *StapleLocation RightW *RIFoldType Quarto
+*UIConstraints: *StapleLocation RightW *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *StapleLocation RightW
+*UIConstraints: *RIFoldType ThreefoldIn *StapleLocation RightW
+*UIConstraints: *RIFoldType ThreefoldOut *StapleLocation RightW
+*UIConstraints: *RIFoldType Quarto *StapleLocation RightW
+*UIConstraints: *RIFoldType Gatefold *StapleLocation RightW
+*UIConstraints: *StapleLocation UpperW *RIFoldType Twofold
+*UIConstraints: *StapleLocation UpperW *RIFoldType ThreefoldIn
+*UIConstraints: *StapleLocation UpperW *RIFoldType ThreefoldOut
+*UIConstraints: *StapleLocation UpperW *RIFoldType Quarto
+*UIConstraints: *StapleLocation UpperW *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *StapleLocation UpperW
+*UIConstraints: *RIFoldType ThreefoldIn *StapleLocation UpperW
+*UIConstraints: *RIFoldType ThreefoldOut *StapleLocation UpperW
+*UIConstraints: *RIFoldType Quarto *StapleLocation UpperW
+*UIConstraints: *RIFoldType Gatefold *StapleLocation UpperW
+*UIConstraints: *StapleLocation CenterW *RIFoldType Twofold
+*UIConstraints: *StapleLocation CenterW *RIFoldType ThreefoldIn
+*UIConstraints: *StapleLocation CenterW *RIFoldType ThreefoldOut
+*UIConstraints: *StapleLocation CenterW *RIFoldType Quarto
+*UIConstraints: *StapleLocation CenterW *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Twofold *StapleLocation CenterW
+*UIConstraints: *RIFoldType ThreefoldIn *StapleLocation CenterW
+*UIConstraints: *RIFoldType ThreefoldOut *StapleLocation CenterW
+*UIConstraints: *RIFoldType Quarto *StapleLocation CenterW
+*UIConstraints: *RIFoldType Gatefold *StapleLocation CenterW
+
+*%========== Faceup / Staple
+*UIConstraints: *StapleLocation UpperLeft *Faceup On
+*UIConstraints: *StapleLocation UpperRight *Faceup On
+*UIConstraints: *StapleLocation LeftW *Faceup On
+*UIConstraints: *StapleLocation RightW *Faceup On
+*UIConstraints: *StapleLocation UpperW *Faceup On
+*UIConstraints: *StapleLocation CenterW *Faceup On
+*UIConstraints: *Faceup On *StapleLocation UpperLeft
+*UIConstraints: *Faceup On *StapleLocation UpperRight
+*UIConstraints: *Faceup On *StapleLocation LeftW
+*UIConstraints: *Faceup On *StapleLocation RightW
+*UIConstraints: *Faceup On *StapleLocation UpperW
+*UIConstraints: *Faceup On *StapleLocation CenterW
+
+*%========== ZFold / Punch
+*UIConstraints: *RIZfold Bottom *RIPunch Left2
+*UIConstraints: *RIZfold Bottom *RIPunch Left3
+*UIConstraints: *RIZfold Bottom *RIPunch Left4
+*UIConstraints: *RIZfold Bottom *RIPunch Right2
+*UIConstraints: *RIZfold Bottom *RIPunch Right3
+*UIConstraints: *RIZfold Bottom *RIPunch Right4
+*UIConstraints: *RIZfold Bottom *RIPunch Upper2
+*UIConstraints: *RIZfold Bottom *RIPunch Upper3
+*UIConstraints: *RIZfold Bottom *RIPunch Upper4
+*UIConstraints: *RIZfold Bottom *RIPunch GBCLeft
+*UIConstraints: *RIZfold Bottom *RIPunch GBCRight
+*UIConstraints: *RIZfold Bottom *RIPunch GBCTop
+*UIConstraints: *RIPunch Left2 *RIZfold Bottom
+*UIConstraints: *RIPunch Left3 *RIZfold Bottom
+*UIConstraints: *RIPunch Left4 *RIZfold Bottom
+*UIConstraints: *RIPunch Right2 *RIZfold Bottom
+*UIConstraints: *RIPunch Right3 *RIZfold Bottom
+*UIConstraints: *RIPunch Right4 *RIZfold Bottom
+*UIConstraints: *RIPunch Upper2 *RIZfold Bottom
+*UIConstraints: *RIPunch Upper3 *RIZfold Bottom
+*UIConstraints: *RIPunch Upper4 *RIZfold Bottom
+*UIConstraints: *RIPunch GBCLeft *RIZfold Bottom
+*UIConstraints: *RIPunch GBCRight *RIZfold Bottom
+*UIConstraints: *RIPunch GBCTop *RIZfold Bottom
+
+*UIConstraints: *RIZfold Left *RIPunch Left2
+*UIConstraints: *RIZfold Left *RIPunch Left3
+*UIConstraints: *RIZfold Left *RIPunch Left4
+*UIConstraints: *RIZfold Left *RIPunch Right2
+*UIConstraints: *RIZfold Left *RIPunch Right3
+*UIConstraints: *RIZfold Left *RIPunch Right4
+*UIConstraints: *RIZfold Left *RIPunch Upper2
+*UIConstraints: *RIZfold Left *RIPunch Upper3
+*UIConstraints: *RIZfold Left *RIPunch Upper4
+*UIConstraints: *RIZfold Left *RIPunch GBCLeft
+*UIConstraints: *RIZfold Left *RIPunch GBCRight
+*UIConstraints: *RIZfold Left *RIPunch GBCTop
+*UIConstraints: *RIPunch Left2 *RIZfold Left
+*UIConstraints: *RIPunch Left3 *RIZfold Left
+*UIConstraints: *RIPunch Left4 *RIZfold Left
+*UIConstraints: *RIPunch Right2 *RIZfold Left
+*UIConstraints: *RIPunch Right3 *RIZfold Left
+*UIConstraints: *RIPunch Right4 *RIZfold Left
+*UIConstraints: *RIPunch Upper2 *RIZfold Left
+*UIConstraints: *RIPunch Upper3 *RIZfold Left
+*UIConstraints: *RIPunch Upper4 *RIZfold Left
+*UIConstraints: *RIPunch GBCLeft *RIZfold Left
+*UIConstraints: *RIPunch GBCRight *RIZfold Left
+*UIConstraints: *RIPunch GBCTop *RIZfold Left
+
+*UIConstraints: *RIZfold Right *RIPunch Left2
+*UIConstraints: *RIZfold Right *RIPunch Left3
+*UIConstraints: *RIZfold Right *RIPunch Left4
+*UIConstraints: *RIZfold Right *RIPunch Right2
+*UIConstraints: *RIZfold Right *RIPunch Right3
+*UIConstraints: *RIZfold Right *RIPunch Right4
+*UIConstraints: *RIZfold Right *RIPunch Upper2
+*UIConstraints: *RIZfold Right *RIPunch Upper3
+*UIConstraints: *RIZfold Right *RIPunch Upper4
+*UIConstraints: *RIZfold Right *RIPunch GBCLeft
+*UIConstraints: *RIZfold Right *RIPunch GBCRight
+*UIConstraints: *RIZfold Right *RIPunch GBCTop
+*UIConstraints: *RIPunch Left2 *RIZfold Right
+*UIConstraints: *RIPunch Left3 *RIZfold Right
+*UIConstraints: *RIPunch Left4 *RIZfold Right
+*UIConstraints: *RIPunch Right2 *RIZfold Right
+*UIConstraints: *RIPunch Right3 *RIZfold Right
+*UIConstraints: *RIPunch Right4 *RIZfold Right
+*UIConstraints: *RIPunch Upper2 *RIZfold Right
+*UIConstraints: *RIPunch Upper3 *RIZfold Right
+*UIConstraints: *RIPunch Upper4 *RIZfold Right
+*UIConstraints: *RIPunch GBCLeft *RIZfold Right
+*UIConstraints: *RIPunch GBCRight *RIZfold Right
+*UIConstraints: *RIPunch GBCTop *RIZfold Right
+
+*%========== Fold type / Punch
+*UIConstraints: *RIFoldType Twofold *RIPunch Left2
+*UIConstraints: *RIFoldType Twofold *RIPunch Left3
+*UIConstraints: *RIFoldType Twofold *RIPunch Left4
+*UIConstraints: *RIFoldType Twofold *RIPunch Right2
+*UIConstraints: *RIFoldType Twofold *RIPunch Right3
+*UIConstraints: *RIFoldType Twofold *RIPunch Right4
+*UIConstraints: *RIFoldType Twofold *RIPunch Upper2
+*UIConstraints: *RIFoldType Twofold *RIPunch Upper3
+*UIConstraints: *RIFoldType Twofold *RIPunch Upper4
+*UIConstraints: *RIFoldType Twofold *RIPunch GBCLeft
+*UIConstraints: *RIFoldType Twofold *RIPunch GBCRight
+*UIConstraints: *RIFoldType Twofold *RIPunch GBCTop
+*UIConstraints: *RIPunch Left2 *RIFoldType Twofold
+*UIConstraints: *RIPunch Left3 *RIFoldType Twofold
+*UIConstraints: *RIPunch Left4 *RIFoldType Twofold
+*UIConstraints: *RIPunch Right2 *RIFoldType Twofold
+*UIConstraints: *RIPunch Right3 *RIFoldType Twofold
+*UIConstraints: *RIPunch Right4 *RIFoldType Twofold
+*UIConstraints: *RIPunch Upper2 *RIFoldType Twofold
+*UIConstraints: *RIPunch Upper3 *RIFoldType Twofold
+*UIConstraints: *RIPunch Upper4 *RIFoldType Twofold
+*UIConstraints: *RIPunch GBCLeft *RIFoldType Twofold
+*UIConstraints: *RIPunch GBCRight *RIFoldType Twofold
+*UIConstraints: *RIPunch GBCTop *RIFoldType Twofold
+*UIConstraints: *RIFoldType ThreefoldIn *RIPunch Left2
+*UIConstraints: *RIFoldType ThreefoldIn *RIPunch Left3
+*UIConstraints: *RIFoldType ThreefoldIn *RIPunch Left4
+*UIConstraints: *RIFoldType ThreefoldIn *RIPunch Right2
+*UIConstraints: *RIFoldType ThreefoldIn *RIPunch Right3
+*UIConstraints: *RIFoldType ThreefoldIn *RIPunch Right4
+*UIConstraints: *RIFoldType ThreefoldIn *RIPunch Upper2
+*UIConstraints: *RIFoldType ThreefoldIn *RIPunch Upper3
+*UIConstraints: *RIFoldType ThreefoldIn *RIPunch Upper4
+*UIConstraints: *RIFoldType ThreefoldIn *RIPunch GBCLeft
+*UIConstraints: *RIFoldType ThreefoldIn *RIPunch GBCRight
+*UIConstraints: *RIFoldType ThreefoldIn *RIPunch GBCTop
+*UIConstraints: *RIPunch Left2 *RIFoldType ThreefoldIn
+*UIConstraints: *RIPunch Left3 *RIFoldType ThreefoldIn
+*UIConstraints: *RIPunch Left4 *RIFoldType ThreefoldIn
+*UIConstraints: *RIPunch Right2 *RIFoldType ThreefoldIn
+*UIConstraints: *RIPunch Right3 *RIFoldType ThreefoldIn
+*UIConstraints: *RIPunch Right4 *RIFoldType ThreefoldIn
+*UIConstraints: *RIPunch Upper2 *RIFoldType ThreefoldIn
+*UIConstraints: *RIPunch Upper3 *RIFoldType ThreefoldIn
+*UIConstraints: *RIPunch Upper4 *RIFoldType ThreefoldIn
+*UIConstraints: *RIPunch GBCLeft *RIFoldType ThreefoldIn
+*UIConstraints: *RIPunch GBCRight *RIFoldType ThreefoldIn
+*UIConstraints: *RIPunch GBCTop *RIFoldType ThreefoldIn
+*UIConstraints: *RIFoldType ThreefoldOut *RIPunch Left2
+*UIConstraints: *RIFoldType ThreefoldOut *RIPunch Left3
+*UIConstraints: *RIFoldType ThreefoldOut *RIPunch Left4
+*UIConstraints: *RIFoldType ThreefoldOut *RIPunch Right2
+*UIConstraints: *RIFoldType ThreefoldOut *RIPunch Right3
+*UIConstraints: *RIFoldType ThreefoldOut *RIPunch Right4
+*UIConstraints: *RIFoldType ThreefoldOut *RIPunch Upper2
+*UIConstraints: *RIFoldType ThreefoldOut *RIPunch Upper3
+*UIConstraints: *RIFoldType ThreefoldOut *RIPunch Upper4
+*UIConstraints: *RIFoldType ThreefoldOut *RIPunch GBCLeft
+*UIConstraints: *RIFoldType ThreefoldOut *RIPunch GBCRight
+*UIConstraints: *RIFoldType ThreefoldOut *RIPunch GBCTop
+*UIConstraints: *RIPunch Left2 *RIFoldType ThreefoldOut
+*UIConstraints: *RIPunch Left3 *RIFoldType ThreefoldOut
+*UIConstraints: *RIPunch Left4 *RIFoldType ThreefoldOut
+*UIConstraints: *RIPunch Right2 *RIFoldType ThreefoldOut
+*UIConstraints: *RIPunch Right3 *RIFoldType ThreefoldOut
+*UIConstraints: *RIPunch Right4 *RIFoldType ThreefoldOut
+*UIConstraints: *RIPunch Upper2 *RIFoldType ThreefoldOut
+*UIConstraints: *RIPunch Upper3 *RIFoldType ThreefoldOut
+*UIConstraints: *RIPunch Upper4 *RIFoldType ThreefoldOut
+*UIConstraints: *RIPunch GBCLeft *RIFoldType ThreefoldOut
+*UIConstraints: *RIPunch GBCRight *RIFoldType ThreefoldOut
+*UIConstraints: *RIPunch GBCTop *RIFoldType ThreefoldOut
+*UIConstraints: *RIFoldType Quarto *RIPunch Left2
+*UIConstraints: *RIFoldType Quarto *RIPunch Left3
+*UIConstraints: *RIFoldType Quarto *RIPunch Left4
+*UIConstraints: *RIFoldType Quarto *RIPunch Right2
+*UIConstraints: *RIFoldType Quarto *RIPunch Right3
+*UIConstraints: *RIFoldType Quarto *RIPunch Right4
+*UIConstraints: *RIFoldType Quarto *RIPunch Upper2
+*UIConstraints: *RIFoldType Quarto *RIPunch Upper3
+*UIConstraints: *RIFoldType Quarto *RIPunch Upper4
+*UIConstraints: *RIFoldType Quarto *RIPunch GBCLeft
+*UIConstraints: *RIFoldType Quarto *RIPunch GBCRight
+*UIConstraints: *RIFoldType Quarto *RIPunch GBCTop
+*UIConstraints: *RIPunch Left2 *RIFoldType Quarto
+*UIConstraints: *RIPunch Left3 *RIFoldType Quarto
+*UIConstraints: *RIPunch Left4 *RIFoldType Quarto
+*UIConstraints: *RIPunch Right2 *RIFoldType Quarto
+*UIConstraints: *RIPunch Right3 *RIFoldType Quarto
+*UIConstraints: *RIPunch Right4 *RIFoldType Quarto
+*UIConstraints: *RIPunch Upper2 *RIFoldType Quarto
+*UIConstraints: *RIPunch Upper3 *RIFoldType Quarto
+*UIConstraints: *RIPunch Upper4 *RIFoldType Quarto
+*UIConstraints: *RIPunch GBCLeft *RIFoldType Quarto
+*UIConstraints: *RIPunch GBCRight *RIFoldType Quarto
+*UIConstraints: *RIPunch GBCTop *RIFoldType Quarto
+*UIConstraints: *RIFoldType Gatefold *RIPunch Left2
+*UIConstraints: *RIFoldType Gatefold *RIPunch Left3
+*UIConstraints: *RIFoldType Gatefold *RIPunch Left4
+*UIConstraints: *RIFoldType Gatefold *RIPunch Right2
+*UIConstraints: *RIFoldType Gatefold *RIPunch Right3
+*UIConstraints: *RIFoldType Gatefold *RIPunch Right4
+*UIConstraints: *RIFoldType Gatefold *RIPunch Upper2
+*UIConstraints: *RIFoldType Gatefold *RIPunch Upper3
+*UIConstraints: *RIFoldType Gatefold *RIPunch Upper4
+*UIConstraints: *RIFoldType Gatefold *RIPunch GBCLeft
+*UIConstraints: *RIFoldType Gatefold *RIPunch GBCRight
+*UIConstraints: *RIFoldType Gatefold *RIPunch GBCTop
+*UIConstraints: *RIPunch Left2 *RIFoldType Gatefold
+*UIConstraints: *RIPunch Left3 *RIFoldType Gatefold
+*UIConstraints: *RIPunch Left4 *RIFoldType Gatefold
+*UIConstraints: *RIPunch Right2 *RIFoldType Gatefold
+*UIConstraints: *RIPunch Right3 *RIFoldType Gatefold
+*UIConstraints: *RIPunch Right4 *RIFoldType Gatefold
+*UIConstraints: *RIPunch Upper2 *RIFoldType Gatefold
+*UIConstraints: *RIPunch Upper3 *RIFoldType Gatefold
+*UIConstraints: *RIPunch Upper4 *RIFoldType Gatefold
+*UIConstraints: *RIPunch GBCLeft *RIFoldType Gatefold
+*UIConstraints: *RIPunch GBCRight *RIFoldType Gatefold
+*UIConstraints: *RIPunch GBCTop *RIFoldType Gatefold
+
+*%========== ZFold / Fold type
+*UIConstraints: *RIZfold Bottom *RIFoldType Twofold
+*UIConstraints: *RIZfold Right *RIFoldType Twofold
+*UIConstraints: *RIZfold Left *RIFoldType Twofold
+*UIConstraints: *RIFoldType Twofold *RIZfold Bottom
+*UIConstraints: *RIFoldType Twofold *RIZfold Right
+*UIConstraints: *RIFoldType Twofold *RIZfold Left
+*UIConstraints: *RIZfold Bottom *RIFoldType ThreefoldIn
+*UIConstraints: *RIZfold Right *RIFoldType ThreefoldIn
+*UIConstraints: *RIZfold Left *RIFoldType ThreefoldIn
+*UIConstraints: *RIFoldType ThreefoldIn *RIZfold Bottom
+*UIConstraints: *RIFoldType ThreefoldIn *RIZfold Right
+*UIConstraints: *RIFoldType ThreefoldIn *RIZfold Left
+*UIConstraints: *RIZfold Bottom *RIFoldType ThreefoldOut
+*UIConstraints: *RIZfold Right *RIFoldType ThreefoldOut
+*UIConstraints: *RIZfold Left *RIFoldType ThreefoldOut
+*UIConstraints: *RIFoldType ThreefoldOut *RIZfold Bottom
+*UIConstraints: *RIFoldType ThreefoldOut *RIZfold Right
+*UIConstraints: *RIFoldType ThreefoldOut *RIZfold Left
+*UIConstraints: *RIZfold Bottom *RIFoldType Quarto
+*UIConstraints: *RIZfold Right *RIFoldType Quarto
+*UIConstraints: *RIZfold Left *RIFoldType Quarto
+*UIConstraints: *RIFoldType Quarto *RIZfold Bottom
+*UIConstraints: *RIFoldType Quarto *RIZfold Right
+*UIConstraints: *RIFoldType Quarto *RIZfold Left
+*UIConstraints: *RIZfold Bottom *RIFoldType Gatefold
+*UIConstraints: *RIZfold Right *RIFoldType Gatefold
+*UIConstraints: *RIZfold Left *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Gatefold *RIZfold Bottom
+*UIConstraints: *RIFoldType Gatefold *RIZfold Right
+*UIConstraints: *RIFoldType Gatefold *RIZfold Left
+
+*%========== ZFold / Faceup
+*UIConstraints: *RIZfold Bottom *Faceup On
+*UIConstraints: *RIZfold Right *Faceup On
+*UIConstraints: *RIZfold Left *Faceup On
+*UIConstraints: *Faceup On *RIZfold Bottom
+*UIConstraints: *Faceup On *RIZfold Right
+*UIConstraints: *Faceup On *RIZfold Left
+
+*%========== Fold type / Overlap fold
+*UIConstraints: *OverlapFold On *RIFoldType None
+*UIConstraints: *OverlapFold On *RIFoldType Quarto
+*UIConstraints: *OverlapFold On *RIFoldType Gatefold
+*UIConstraints: *RIFoldType None *OverlapFold On
+*UIConstraints: *RIFoldType Quarto *OverlapFold On
+*UIConstraints: *RIFoldType Gatefold *OverlapFold On
+
+
+
+*%========== Enable Ricoh JobLog Feature==========
+
+*cupsFilter: "application/vnd.cups-postscript 0 foomatic-rip"
+
+*FoomaticRIPCommandLine: "printf &quot;%%!PS-Adobe-3.0\n%%%% %%&&
+%%\n%B%C%D%A&quot;%%%%; cat;"
+*End
+
+*OpenGroup: JobLog/Job Log
+
+*OpenUI *JobType/JobType: PickOne
+*FoomaticRIPOption JobType: enum CmdLine B
+*OrderDependency: 255 AnySetup *JobType
+*DefaultJobType: Normal
+*JobType Normal/Normal: "%% FoomaticRIPOptionSetting: JobType=Normal"
+*FoomaticRIPOptionSetting JobType=Normal: "mark\n&&
+() () (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+cleartomark\n"
+*End
+*JobType SamplePrint/Sample Print: "%% FoomaticRIPOptionSetting: JobType=SamplePrint"
+*FoomaticRIPOptionSetting JobType=SamplePrint: "mark\n&&
+(&user;) (20`date +%y%m%d%R | sed 's/://'`) {proofprint} stopped\n&&
+cleartomark\n"
+*End
+*JobType LockedPrint/Locked Print: ""
+*JobType DocServer/Document Server: ""
+*CloseUI: *JobType
+
+*OpenUI *LockedPrintPassword/Locked Print Password (4-8 digits): PickOne
+*FoomaticRIPOption LockedPrintPassword: password CmdLine C
+*FoomaticRIPOptionMaxLength LockedPrintPassword:8
+*FoomaticRIPOptionAllowedChars LockedPrintPassword: "0-9"
+*OrderDependency: 255 AnySetup *LockedPrintPassword
+*FoomaticRIPOptionPrototype LockedPrintPassword: "mark\n&&
+(&user;) (20`date +%y%m%d%R | sed 's/://'`) (%s) {secureprint} stopped\n&&
+cleartomark\n"
+*End
+*DefaultLockedPrintPassword: None
+*LockedPrintPassword None/None: ""
+*LockedPrintPassword 4001/4001: "%% FoomaticRIPOptionSetting: LockedPrintPassword=4001"
+*FoomaticRIPOptionSetting LockedPrintPassword=4001: "mark\n&&
+(&user;) (20`date +%y%m%d%R | sed 's/://'`) (4001) {secureprint} stopped\n&&
+cleartomark\n"
+*End
+*LockedPrintPassword 4002/4002: "%% FoomaticRIPOptionSetting: LockedPrintPassword=4002"
+*FoomaticRIPOptionSetting LockedPrintPassword=4002: "mark\n&&
+(&user;) (20`date +%y%m%d%R | sed 's/://'`) (4002) {secureprint} stopped\n&&
+cleartomark\n"
+*End
+*LockedPrintPassword 4003/4003: "%% FoomaticRIPOptionSetting: LockedPrintPassword=4003"
+*FoomaticRIPOptionSetting LockedPrintPassword=4003: "mark\n&&
+(&user;) (20`date +%y%m%d%R | sed 's/://'`) (4003) {secureprint} stopped\n&&
+cleartomark\n"
+*End
+*CloseUI: *LockedPrintPassword
+*CustomLockedPrintPassword True/Custom Password: ""
+*ParamCustomLockedPrintPassword Password: 1 passcode 4 8
+
+*OpenUI *DocServerPassword/Document Server Password (4-8 digits): PickOne
+*FoomaticRIPOption DocServerPassword: password CmdLine D
+*FoomaticRIPOptionMaxLength DocServerPassword:8
+*FoomaticRIPOptionAllowedChars DocServerPassword: "0-9"
+*OrderDependency: 255 AnySetup *DocServerPassword
+*FoomaticRIPOptionPrototype DocServerPassword: "mark\n&&
+(&user;) (20`date +%y%m%d%R | sed 's/://'`) (%s) (&title;) {storedprint} stopped\n&&
+cleartomark\n"
+*End
+*DefaultDocServerPassword: None
+*DocServerPassword None/None: ""
+*DocServerPassword 3001/3001: "%% FoomaticRIPOptionSetting: DocServerPassword=3001"
+*FoomaticRIPOptionSetting DocServerPassword=3001: "mark\n&&
+(&user;) (20`date +%y%m%d%R | sed 's/://'`) (3001) (&title;) {storedprint} stopped\n&&
+cleartomark\n"
+*End
+*DocServerPassword 3002/3002: "%% FoomaticRIPOptionSetting: DocServerPassword=3002"
+*FoomaticRIPOptionSetting DocServerPassword=3002: "mark\n&&
+(&user;) (20`date +%y%m%d%R | sed 's/://'`) (3002) (&title;) {storedprint} stopped\n&&
+cleartomark\n"
+*End
+*DocServerPassword 3003/3003: "%% FoomaticRIPOptionSetting: DocServerPassword=3003"
+*FoomaticRIPOptionSetting DocServerPassword=3003: "mark\n&&
+(&user;) (20`date +%y%m%d%R | sed 's/://'`) (3003) (&title;) {storedprint} stopped\n&&
+cleartomark\n"
+*End
+*CloseUI: *DocServerPassword
+*CustomDocServerPassword True/Custom Password: ""
+*ParamCustomDocServerPassword Password: 1 passcode 4 8
+
+*OpenUI *UserCode/User Code (up to 8 digits): PickOne
+*FoomaticRIPOption UserCode: string CmdLine A
+*FoomaticRIPOptionMaxLength UserCode:8
+*FoomaticRIPOptionAllowedChars UserCode: "0-9"
+*OrderDependency: 255 AnySetup *UserCode
+*FoomaticRIPOptionPrototype UserCode: "mark\n&&
+() (%s) (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+cleartomark\n"
+*End
+*DefaultUserCode: None
+*UserCode None/None: ""
+*UserCode 1001/1001: "%% FoomaticRIPOptionSetting: UserCode=1001"
+*FoomaticRIPOptionSetting UserCode=1001: "mark\n&&
+() (1001) (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+cleartomark\n"
+*End
+*UserCode 1002/1002: "%% FoomaticRIPOptionSetting: UserCode=1002"
+*FoomaticRIPOptionSetting UserCode=1002: "mark\n&&
+() (1002) (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+cleartomark\n"
+*End
+*UserCode 1003/1003: "%% FoomaticRIPOptionSetting: UserCode=1003"
+*FoomaticRIPOptionSetting UserCode=1003: "mark\n&&
+() (1003) (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+cleartomark\n"
+*End
+*CloseUI: *UserCode
+*CustomUserCode True/Custom UserCode: ""
+*ParamCustomUserCode UserCode: 1 passcode 1 8
+
+*CloseGroup: JobLog/Job Log
+
+
+*% end of Printer Description file
