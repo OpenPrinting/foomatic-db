@@ -1,11 +1,11 @@
 *PPD-Adobe: "4.3"
 *%=============================================================================
 *%
-*%  PPD for Kyocera KM-8030 (German)
+*%  PPD file for Kyocera KM-8030 (German)
 *%  Linux Version
 *%
 *%  Copyright (C) 2000 KYOCERA CORPORATION
-*%  Copyright (C) 2005 Revised Edition KYOCERA MITA CORPORATION
+*%  Copyright (C) 2006 Revised Edition KYOCERA MITA CORPORATION
 *%
 *%  Permission is hereby granted, free of charge, to any person obtaining
 *%  a copy of this software and associated documentation files (the
@@ -37,10 +37,12 @@
 *Product: "(KM-8030)"
 *PSVersion: "(3011.103) 1"
 *Manufacturer: "Kyocera"
-*ModelName: "Kyocera KM-8030"
-*ShortNickName: "Kyocera KM-8030"
-*NickName: "Kyocera KM-8030"
-*PCFileName: "KC8030DE.PPD"
+*ModelName: "Kyocera KM-8030 KPDL"
+*ShortNickName: "Kyocera KM-8030 (KPDL)"
+*NickName: "Kyocera KM-8030 (KPDL)"
+*PCFileName: "KM8030EG.PPD"
+
+*1284DeviceID: "MDL:KM-8030;MFG:Kyocera"
 
 *% Basic Device Capabilities
 *LanguageLevel: "3"
@@ -101,7 +103,7 @@
 *Protocols: PJL TBCP
 
 *1284Modes Parallel: Compat Nibble ECP
-*1284DeviceID: "MFG:Kyocera;Model:Kyocera KM-8030;COMMAND SET: POSTSCRIPT,PJL,PCL"
+*1284DeviceID: "MFG:Kyocera;MODEL:Kyocera KM-8030;COMMAND SET: POSTSCRIPT,PJL,PCL"
 
 *% JCL Information 
 *JCLBegin: "<1B>%-12345X@PJL JOB<0A>"
@@ -112,7 +114,7 @@
 *OpenGroup: InstallableOptions/Installierte Optionen
 
 *% Finisher
-*OpenUI *Option17/Finisher DF-30: Boolean
+*OpenUI *Option17/Finisher: Boolean
 *DefaultOption17: False
 *Option17 False/Nicht installiert: ""
 *Option17 True/Installiert: ""
@@ -197,7 +199,7 @@
   (%disk?%)
   {currentdevparams dup /Writeable known
     {dup /Writeable get
-      {exch pop /LogicalSize get dup 0 gt exch 102400 lt eq true}{pop pop false} ifelse
+      {exch pop /LogicalSize get dup 0 gt exch 950000 lt eq true}{pop pop false} ifelse
     }{pop pop} ifelse
   } 100 string /IODevice resourceforall
   {{(RAMDisk)}{(HardDisk)} ifelse}{(None)} ifelse
@@ -206,17 +208,23 @@
 *CloseUI: *Option18
 
 *% Paper Feeder
-*OpenUI *Option20/Papiermagazin: Boolean
-*DefaultOption20: False
-*Option20 False/Nicht installiert: ""
-*Option20 True/Installiert: ""
+*OpenUI *Option20/Papiermagazin: PickOne
+*DefaultOption20: None
+*Option20 None/Nicht installiert: ""
+*Option20 PF650/Papiermagazin: ""
+*Option20 PF660/Large-paper Side Feeder: ""
 *?Option20: "
-  save
-  (False) currentpagedevice dup /InputAttributes known {
-    /InputAttributes get
-    dup 6 known {dup 6 get null ne {exch pop (True) exch} if} if
-  } if pop
-  = flush restore"
+	save
+	6 currentpagedevice /InputAttributes get
+	exch 2 copy known
+	{ get type /dicttype eq
+		{
+			/Large-paper-side-feeder
+			/HWOptions resourcestatus
+			{ pop pop (PF660) } { (PF650) } ifelse true
+		} { false } ifelse
+	} { pop pop false } ifelse
+	not { (None) } if = flush restore"
 *End
 *CloseUI: *Option20
 
@@ -272,10 +280,14 @@
 
 
 *% Constraints
-*UIConstraints: *Option20 False *InputSlot ST11
-*UIConstraints: *InputSlot ST11 *Option20 False
-*UIConstraints: *MediaType Thick *Duplex
-*UIConstraints: *Duplex *MediaType Thick
+*UIConstraints: *Option20 None *InputSlot ST11
+*UIConstraints: *InputSlot ST11 *Option20 None
+*UIConstraints: *Option20 None *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *Option20 None
+*UIConstraints: *Option20 PF650 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *Option20 PF650
+*UIConstraints: *Option20 PF660 *InputSlot ST11
+*UIConstraints: *InputSlot ST11 *Option20 PF660
 *UIConstraints: *MediaType Transparency *Duplex
 *UIConstraints: *Duplex *MediaType Transparency
 *UIConstraints: *MediaType Labels *Duplex
@@ -286,8 +298,8 @@
 *UIConstraints: *Duplex *MediaType Envelope
 *UIConstraints: *MediaType Cardstock *Duplex
 *UIConstraints: *Duplex *MediaType Cardstock
-*UIConstraints: *MediaType Bond *Duplex
-*UIConstraints: *Duplex *MediaType Bond
+*UIConstraints: *MediaType Thick *Duplex
+*UIConstraints: *Duplex *MediaType Thick
 *UIConstraints: *MediaType Rough *Duplex
 *UIConstraints: *Duplex *MediaType Rough
 *UIConstraints: *MediaType Transparency *InputSlot MITALTRY1
@@ -338,8 +350,6 @@
 *UIConstraints: *InputSlot MITATRAY4 *MediaType Cardstock
 *UIConstraints: *MediaType Prepunched *InputSlot MITATRAY4
 *UIConstraints: *InputSlot MITATRAY4 *MediaType Prepunched
-*UIConstraints: *MediaType Bond *OutputBin LFTTRAYDWN
-*UIConstraints: *OutputBin LFTTRAYDWN *MediaType Bond
 *UIConstraints: *MediaType Transparency *OutputBin LFTTRAYDWN
 *UIConstraints: *OutputBin LFTTRAYDWN *MediaType Transparency
 *UIConstraints: *MediaType Labels *OutputBin LFTTRAYDWN
@@ -350,24 +360,8 @@
 *UIConstraints: *OutputBin LFTTRAYDWN *MediaType Vellum
 *UIConstraints: *MediaType Cardstock *OutputBin LFTTRAYDWN
 *UIConstraints: *OutputBin LFTTRAYDWN *MediaType Cardstock
-*UIConstraints: *MediaType User1 *OutputBin LFTTRAYDWN
-*UIConstraints: *OutputBin LFTTRAYDWN *MediaType User1
-*UIConstraints: *MediaType User2 *OutputBin LFTTRAYDWN
-*UIConstraints: *OutputBin LFTTRAYDWN *MediaType User2
-*UIConstraints: *MediaType User3 *OutputBin LFTTRAYDWN
-*UIConstraints: *OutputBin LFTTRAYDWN *MediaType User3
-*UIConstraints: *MediaType User4 *OutputBin LFTTRAYDWN
-*UIConstraints: *OutputBin LFTTRAYDWN *MediaType User4
-*UIConstraints: *MediaType User5 *OutputBin LFTTRAYDWN
-*UIConstraints: *OutputBin LFTTRAYDWN *MediaType User5
-*UIConstraints: *MediaType User6 *OutputBin LFTTRAYDWN
-*UIConstraints: *OutputBin LFTTRAYDWN *MediaType User6
-*UIConstraints: *MediaType User7 *OutputBin LFTTRAYDWN
-*UIConstraints: *OutputBin LFTTRAYDWN *MediaType User7
-*UIConstraints: *MediaType User8 *OutputBin LFTTRAYDWN
-*UIConstraints: *OutputBin LFTTRAYDWN *MediaType User8
-*UIConstraints: *MediaType Bond *OutputBin FDStacker
-*UIConstraints: *OutputBin FDStacker *MediaType Bond
+*UIConstraints: *MediaType Thick *OutputBin LFTTRAYDWN
+*UIConstraints: *OutputBin LFTTRAYDWN *MediaType Thick
 *UIConstraints: *MediaType Transparency *OutputBin FDStacker
 *UIConstraints: *OutputBin FDStacker *MediaType Transparency
 *UIConstraints: *MediaType Labels *OutputBin FDStacker
@@ -378,24 +372,8 @@
 *UIConstraints: *OutputBin FDStacker *MediaType Vellum
 *UIConstraints: *MediaType Cardstock *OutputBin FDStacker
 *UIConstraints: *OutputBin FDStacker *MediaType Cardstock
-*UIConstraints: *MediaType User1 *OutputBin FDStacker
-*UIConstraints: *OutputBin FDStacker *MediaType User1
-*UIConstraints: *MediaType User2 *OutputBin FDStacker
-*UIConstraints: *OutputBin FDStacker *MediaType User2
-*UIConstraints: *MediaType User3 *OutputBin FDStacker
-*UIConstraints: *OutputBin FDStacker *MediaType User3
-*UIConstraints: *MediaType User4 *OutputBin FDStacker
-*UIConstraints: *OutputBin FDStacker *MediaType User4
-*UIConstraints: *MediaType User5 *OutputBin FDStacker
-*UIConstraints: *OutputBin FDStacker *MediaType User5
-*UIConstraints: *MediaType User6 *OutputBin FDStacker
-*UIConstraints: *OutputBin FDStacker *MediaType User6
-*UIConstraints: *MediaType User7 *OutputBin FDStacker
-*UIConstraints: *OutputBin FDStacker *MediaType User7
-*UIConstraints: *MediaType User8 *OutputBin FDStacker
-*UIConstraints: *OutputBin FDStacker *MediaType User8
-*UIConstraints: *MediaType Bond *OutputBin SubFDStacker
-*UIConstraints: *OutputBin SubFDStacker *MediaType Bond
+*UIConstraints: *MediaType Thick *OutputBin FDStacker
+*UIConstraints: *OutputBin FDStacker *MediaType Thick
 *UIConstraints: *MediaType Transparency *OutputBin SubFDStacker
 *UIConstraints: *OutputBin SubFDStacker *MediaType Transparency
 *UIConstraints: *MediaType Labels *OutputBin SubFDStacker
@@ -406,24 +384,10 @@
 *UIConstraints: *OutputBin SubFDStacker *MediaType Vellum
 *UIConstraints: *MediaType Cardstock *OutputBin SubFDStacker
 *UIConstraints: *OutputBin SubFDStacker *MediaType Cardstock
-*UIConstraints: *MediaType User1 *OutputBin SubFDStacker
-*UIConstraints: *OutputBin SubFDStacker *MediaType User1
-*UIConstraints: *MediaType User2 *OutputBin SubFDStacker
-*UIConstraints: *OutputBin SubFDStacker *MediaType User2
-*UIConstraints: *MediaType User3 *OutputBin SubFDStacker
-*UIConstraints: *OutputBin SubFDStacker *MediaType User3
-*UIConstraints: *MediaType User4 *OutputBin SubFDStacker
-*UIConstraints: *OutputBin SubFDStacker *MediaType User4
-*UIConstraints: *MediaType User5 *OutputBin SubFDStacker
-*UIConstraints: *OutputBin SubFDStacker *MediaType User5
-*UIConstraints: *MediaType User6 *OutputBin SubFDStacker
-*UIConstraints: *OutputBin SubFDStacker *MediaType User6
-*UIConstraints: *MediaType User7 *OutputBin SubFDStacker
-*UIConstraints: *OutputBin SubFDStacker *MediaType User7
-*UIConstraints: *MediaType User8 *OutputBin SubFDStacker
-*UIConstraints: *OutputBin SubFDStacker *MediaType User8
-*UIConstraints: *MediaType Bond *OutputBin MTDWN01
-*UIConstraints: *OutputBin MTDWN01 *MediaType Bond
+*UIConstraints: *MediaType Thick *OutputBin SubFDStacker
+*UIConstraints: *OutputBin SubFDStacker *MediaType Thick
+*UIConstraints: *MediaType Envelope *OutputBin SubFUStacker
+*UIConstraints: *OutputBin SubFUStacker *MediaType Envelope
 *UIConstraints: *MediaType Transparency *OutputBin MTDWN01
 *UIConstraints: *OutputBin MTDWN01 *MediaType Transparency
 *UIConstraints: *MediaType Labels *OutputBin MTDWN01
@@ -434,24 +398,8 @@
 *UIConstraints: *OutputBin MTDWN01 *MediaType Vellum
 *UIConstraints: *MediaType Cardstock *OutputBin MTDWN01
 *UIConstraints: *OutputBin MTDWN01 *MediaType Cardstock
-*UIConstraints: *MediaType User1 *OutputBin MTDWN01
-*UIConstraints: *OutputBin MTDWN01 *MediaType User1
-*UIConstraints: *MediaType User2 *OutputBin MTDWN01
-*UIConstraints: *OutputBin MTDWN01 *MediaType User2
-*UIConstraints: *MediaType User3 *OutputBin MTDWN01
-*UIConstraints: *OutputBin MTDWN01 *MediaType User3
-*UIConstraints: *MediaType User4 *OutputBin MTDWN01
-*UIConstraints: *OutputBin MTDWN01 *MediaType User4
-*UIConstraints: *MediaType User5 *OutputBin MTDWN01
-*UIConstraints: *OutputBin MTDWN01 *MediaType User5
-*UIConstraints: *MediaType User6 *OutputBin MTDWN01
-*UIConstraints: *OutputBin MTDWN01 *MediaType User6
-*UIConstraints: *MediaType User7 *OutputBin MTDWN01
-*UIConstraints: *OutputBin MTDWN01 *MediaType User7
-*UIConstraints: *MediaType User8 *OutputBin MTDWN01
-*UIConstraints: *OutputBin MTDWN01 *MediaType User8
-*UIConstraints: *MediaType Bond *OutputBin MTDWN02
-*UIConstraints: *OutputBin MTDWN02 *MediaType Bond
+*UIConstraints: *MediaType Thick *OutputBin MTDWN01
+*UIConstraints: *OutputBin MTDWN01 *MediaType Thick
 *UIConstraints: *MediaType Transparency *OutputBin MTDWN02
 *UIConstraints: *OutputBin MTDWN02 *MediaType Transparency
 *UIConstraints: *MediaType Labels *OutputBin MTDWN02
@@ -462,24 +410,8 @@
 *UIConstraints: *OutputBin MTDWN02 *MediaType Vellum
 *UIConstraints: *MediaType Cardstock *OutputBin MTDWN02
 *UIConstraints: *OutputBin MTDWN02 *MediaType Cardstock
-*UIConstraints: *MediaType User1 *OutputBin MTDWN02
-*UIConstraints: *OutputBin MTDWN02 *MediaType User1
-*UIConstraints: *MediaType User2 *OutputBin MTDWN02
-*UIConstraints: *OutputBin MTDWN02 *MediaType User2
-*UIConstraints: *MediaType User3 *OutputBin MTDWN02
-*UIConstraints: *OutputBin MTDWN02 *MediaType User3
-*UIConstraints: *MediaType User4 *OutputBin MTDWN02
-*UIConstraints: *OutputBin MTDWN02 *MediaType User4
-*UIConstraints: *MediaType User5 *OutputBin MTDWN02
-*UIConstraints: *OutputBin MTDWN02 *MediaType User5
-*UIConstraints: *MediaType User6 *OutputBin MTDWN02
-*UIConstraints: *OutputBin MTDWN02 *MediaType User6
-*UIConstraints: *MediaType User7 *OutputBin MTDWN02
-*UIConstraints: *OutputBin MTDWN02 *MediaType User7
-*UIConstraints: *MediaType User8 *OutputBin MTDWN02
-*UIConstraints: *OutputBin MTDWN02 *MediaType User8
-*UIConstraints: *MediaType Bond *OutputBin MTDWN03
-*UIConstraints: *OutputBin MTDWN03 *MediaType Bond
+*UIConstraints: *MediaType Thick *OutputBin MTDWN02
+*UIConstraints: *OutputBin MTDWN02 *MediaType Thick
 *UIConstraints: *MediaType Transparency *OutputBin MTDWN03
 *UIConstraints: *OutputBin MTDWN03 *MediaType Transparency
 *UIConstraints: *MediaType Labels *OutputBin MTDWN03
@@ -490,24 +422,8 @@
 *UIConstraints: *OutputBin MTDWN03 *MediaType Vellum
 *UIConstraints: *MediaType Cardstock *OutputBin MTDWN03
 *UIConstraints: *OutputBin MTDWN03 *MediaType Cardstock
-*UIConstraints: *MediaType User1 *OutputBin MTDWN03
-*UIConstraints: *OutputBin MTDWN03 *MediaType User1
-*UIConstraints: *MediaType User2 *OutputBin MTDWN03
-*UIConstraints: *OutputBin MTDWN03 *MediaType User2
-*UIConstraints: *MediaType User3 *OutputBin MTDWN03
-*UIConstraints: *OutputBin MTDWN03 *MediaType User3
-*UIConstraints: *MediaType User4 *OutputBin MTDWN03
-*UIConstraints: *OutputBin MTDWN03 *MediaType User4
-*UIConstraints: *MediaType User5 *OutputBin MTDWN03
-*UIConstraints: *OutputBin MTDWN03 *MediaType User5
-*UIConstraints: *MediaType User6 *OutputBin MTDWN03
-*UIConstraints: *OutputBin MTDWN03 *MediaType User6
-*UIConstraints: *MediaType User7 *OutputBin MTDWN03
-*UIConstraints: *OutputBin MTDWN03 *MediaType User7
-*UIConstraints: *MediaType User8 *OutputBin MTDWN03
-*UIConstraints: *OutputBin MTDWN03 *MediaType User8
-*UIConstraints: *MediaType Bond *OutputBin MTDWN04
-*UIConstraints: *OutputBin MTDWN04 *MediaType Bond
+*UIConstraints: *MediaType Thick *OutputBin MTDWN03
+*UIConstraints: *OutputBin MTDWN03 *MediaType Thick
 *UIConstraints: *MediaType Transparency *OutputBin MTDWN04
 *UIConstraints: *OutputBin MTDWN04 *MediaType Transparency
 *UIConstraints: *MediaType Labels *OutputBin MTDWN04
@@ -518,24 +434,8 @@
 *UIConstraints: *OutputBin MTDWN04 *MediaType Vellum
 *UIConstraints: *MediaType Cardstock *OutputBin MTDWN04
 *UIConstraints: *OutputBin MTDWN04 *MediaType Cardstock
-*UIConstraints: *MediaType User1 *OutputBin MTDWN04
-*UIConstraints: *OutputBin MTDWN04 *MediaType User1
-*UIConstraints: *MediaType User2 *OutputBin MTDWN04
-*UIConstraints: *OutputBin MTDWN04 *MediaType User2
-*UIConstraints: *MediaType User3 *OutputBin MTDWN04
-*UIConstraints: *OutputBin MTDWN04 *MediaType User3
-*UIConstraints: *MediaType User4 *OutputBin MTDWN04
-*UIConstraints: *OutputBin MTDWN04 *MediaType User4
-*UIConstraints: *MediaType User5 *OutputBin MTDWN04
-*UIConstraints: *OutputBin MTDWN04 *MediaType User5
-*UIConstraints: *MediaType User6 *OutputBin MTDWN04
-*UIConstraints: *OutputBin MTDWN04 *MediaType User6
-*UIConstraints: *MediaType User7 *OutputBin MTDWN04
-*UIConstraints: *OutputBin MTDWN04 *MediaType User7
-*UIConstraints: *MediaType User8 *OutputBin MTDWN04
-*UIConstraints: *OutputBin MTDWN04 *MediaType User8
-*UIConstraints: *MediaType Bond *OutputBin MTDWN05
-*UIConstraints: *OutputBin MTDWN05 *MediaType Bond
+*UIConstraints: *MediaType Thick *OutputBin MTDWN04
+*UIConstraints: *OutputBin MTDWN04 *MediaType Thick
 *UIConstraints: *MediaType Transparency *OutputBin MTDWN05
 *UIConstraints: *OutputBin MTDWN05 *MediaType Transparency
 *UIConstraints: *MediaType Labels *OutputBin MTDWN05
@@ -546,42 +446,18 @@
 *UIConstraints: *OutputBin MTDWN05 *MediaType Vellum
 *UIConstraints: *MediaType Cardstock *OutputBin MTDWN05
 *UIConstraints: *OutputBin MTDWN05 *MediaType Cardstock
-*UIConstraints: *MediaType User1 *OutputBin MTDWN05
-*UIConstraints: *OutputBin MTDWN05 *MediaType User1
-*UIConstraints: *MediaType User2 *OutputBin MTDWN05
-*UIConstraints: *OutputBin MTDWN05 *MediaType User2
-*UIConstraints: *MediaType User3 *OutputBin MTDWN05
-*UIConstraints: *OutputBin MTDWN05 *MediaType User3
-*UIConstraints: *MediaType User4 *OutputBin MTDWN05
-*UIConstraints: *OutputBin MTDWN05 *MediaType User4
-*UIConstraints: *MediaType User5 *OutputBin MTDWN05
-*UIConstraints: *OutputBin MTDWN05 *MediaType User5
-*UIConstraints: *MediaType User6 *OutputBin MTDWN05
-*UIConstraints: *OutputBin MTDWN05 *MediaType User6
-*UIConstraints: *MediaType User7 *OutputBin MTDWN05
-*UIConstraints: *OutputBin MTDWN05 *MediaType User7
-*UIConstraints: *MediaType User8 *OutputBin MTDWN05
-*UIConstraints: *OutputBin MTDWN05 *MediaType User8
-*UIConstraints: *MediaType Transparency *OutputBin MTUP01
-*UIConstraints: *OutputBin MTUP01 *MediaType Transparency
-*UIConstraints: *MediaType Labels *OutputBin MTUP01
-*UIConstraints: *OutputBin MTUP01 *MediaType Labels
-*UIConstraints: *MediaType Transparency *OutputBin MTUP02
-*UIConstraints: *OutputBin MTUP02 *MediaType Transparency
-*UIConstraints: *MediaType Labels *OutputBin MTUP02
-*UIConstraints: *OutputBin MTUP02 *MediaType Labels
-*UIConstraints: *MediaType Transparency *OutputBin MTUP03
-*UIConstraints: *OutputBin MTUP03 *MediaType Transparency
-*UIConstraints: *MediaType Labels *OutputBin MTUP03
-*UIConstraints: *OutputBin MTUP03 *MediaType Labels
-*UIConstraints: *MediaType Transparency *OutputBin MTUP04
-*UIConstraints: *OutputBin MTUP04 *MediaType Transparency
-*UIConstraints: *MediaType Labels *OutputBin MTUP04
-*UIConstraints: *OutputBin MTUP04 *MediaType Labels
-*UIConstraints: *MediaType Transparency *OutputBin MTUP05
-*UIConstraints: *OutputBin MTUP05 *MediaType Transparency
-*UIConstraints: *MediaType Labels *OutputBin MTUP05
-*UIConstraints: *OutputBin MTUP05 *MediaType Labels
+*UIConstraints: *MediaType Thick *OutputBin MTDWN05
+*UIConstraints: *OutputBin MTDWN05 *MediaType Thick
+*UIConstraints: *OutputBin MTUP01 *MediaType Envelope
+*UIConstraints: *MediaType Envelope *OutputBin MTUP01
+*UIConstraints: *OutputBin MTUP02 *MediaType Envelope
+*UIConstraints: *MediaType Envelope *OutputBin MTUP02
+*UIConstraints: *OutputBin MTUP03 *MediaType Envelope
+*UIConstraints: *MediaType Envelope *OutputBin MTUP03
+*UIConstraints: *OutputBin MTUP04 *MediaType Envelope
+*UIConstraints: *MediaType Envelope *OutputBin MTUP04
+*UIConstraints: *OutputBin MTUP05 *MediaType Envelope
+*UIConstraints: *MediaType Envelope *OutputBin MTUP05
 *UIConstraints: *MediaType Rough *InputSlot MITALTRY1
 *UIConstraints: *InputSlot MITALTRY1 *MediaType Rough
 *UIConstraints: *MediaType Rough *InputSlot MITALTRY2
@@ -620,20 +496,28 @@
 *UIConstraints: *InputSlot ST11 *MediaType Prepunched
 *UIConstraints: *MediaType Rough *InputSlot ST11
 *UIConstraints: *InputSlot ST11 *MediaType Rough
+*UIConstraints: *MediaType Transparency *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *MediaType Transparency
+*UIConstraints: *MediaType Labels *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *MediaType Labels
+*UIConstraints: *MediaType Envelope *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *MediaType Envelope
+*UIConstraints: *MediaType Vellum *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *MediaType Vellum
+*UIConstraints: *MediaType Cardstock *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *MediaType Cardstock
+*UIConstraints: *MediaType Prepunched *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *MediaType Prepunched
+*UIConstraints: *MediaType Rough *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *MediaType Rough
+*UIConstraints: *Option17 False *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *Option17 False
 *UIConstraints: *OutputBin LFTTRAYDWN *PageSize ISOB5
 *UIConstraints: *PageSize ISOB5 *OutputBin LFTTRAYDWN
 *UIConstraints: *OutputBin LFTTRAYDWN *PageSize B6
 *UIConstraints: *PageSize B6 *OutputBin LFTTRAYDWN
-*UIConstraints: *OutputBin LFTTRAYDWN *PageSize B5
-*UIConstraints: *PageSize B5 *OutputBin LFTTRAYDWN
 *UIConstraints: *OutputBin LFTTRAYDWN *PageSize Executive
 *UIConstraints: *PageSize Executive *OutputBin LFTTRAYDWN
-*UIConstraints: *OutputBin LFTTRAYDWN *PageSize P8K
-*UIConstraints: *PageSize P8K *OutputBin LFTTRAYDWN
-*UIConstraints: *OutputBin LFTTRAYDWN *PageSize P16K
-*UIConstraints: *PageSize P16K *OutputBin LFTTRAYDWN
-*UIConstraints: *PageSize EnvPersonal *OutputBin LFTTRAYDWN
-*UIConstraints: *OutputBin LFTTRAYDWN *PageSize EnvPersonal
 *UIConstraints: *PageSize Env9 *OutputBin LFTTRAYDWN
 *UIConstraints: *OutputBin LFTTRAYDWN *PageSize Env9
 *UIConstraints: *PageSize Env10 *OutputBin LFTTRAYDWN
@@ -646,6 +530,36 @@
 *UIConstraints: *OutputBin LFTTRAYDWN *PageSize EnvC5
 *UIConstraints: *PageSize EnvC4 *OutputBin LFTTRAYDWN
 *UIConstraints: *OutputBin LFTTRAYDWN *PageSize EnvC4
+*UIConstraints: *Jog EndOfSet *OutputBin LFTTRAYDWN
+*UIConstraints: *OutputBin LFTTRAYDWN *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *OutputBin LFTTRAYUP
+*UIConstraints: *OutputBin LFTTRAYUP *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *OutputBin FUStacker
+*UIConstraints: *OutputBin FUStacker *Jog EndOfSet
+*UIConstraints: *OutputBin SubFDStacker *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *OutputBin SubFDStacker
+*UIConstraints: *OutputBin SubFDStacker *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *OutputBin SubFUStacker
+*UIConstraints: *Jog EndOfSet *OutputBin MTDWN01
+*UIConstraints: *OutputBin MTDWN01 *Jog EndOfSet
+*UIConstraints: *OutputBin MTUP01 *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *OutputBin MTUP01
+*UIConstraints: *Jog EndOfSet *OutputBin MTDWN02
+*UIConstraints: *OutputBin MTDWN02 *Jog EndOfSet
+*UIConstraints: *OutputBin MTUP02 *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *OutputBin MTUP02
+*UIConstraints: *Jog EndOfSet *OutputBin MTDWN03
+*UIConstraints: *OutputBin MTDWN03 *Jog EndOfSet
+*UIConstraints: *OutputBin MTUP03 *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *OutputBin MTUP03
+*UIConstraints: *Jog EndOfSet *OutputBin MTDWN04
+*UIConstraints: *OutputBin MTDWN04 *Jog EndOfSet
+*UIConstraints: *OutputBin MTUP04 *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *OutputBin MTUP04
+*UIConstraints: *Jog EndOfSet *OutputBin MTDWN05
+*UIConstraints: *OutputBin MTDWN05 *Jog EndOfSet
+*UIConstraints: *OutputBin MTUP05 *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *OutputBin MTUP05
 *UIConstraints: *OutputBin LFTTRAYDWN *PageSize A6
 *UIConstraints: *PageSize A6 *OutputBin LFTTRAYDWN
 *UIConstraints: *OutputBin FDStacker *PageSize ISOB5
@@ -654,12 +568,6 @@
 *UIConstraints: *PageSize B6 *OutputBin FDStacker
 *UIConstraints: *OutputBin FDStacker *PageSize Executive
 *UIConstraints: *PageSize Executive *OutputBin FDStacker
-*UIConstraints: *OutputBin FDStacker *PageSize P8K
-*UIConstraints: *PageSize P8K *OutputBin FDStacker
-*UIConstraints: *OutputBin FDStacker *PageSize P16K
-*UIConstraints: *PageSize P16K *OutputBin FDStacker
-*UIConstraints: *PageSize EnvPersonal *OutputBin FDStacker
-*UIConstraints: *OutputBin FDStacker *PageSize EnvPersonal
 *UIConstraints: *PageSize Env9 *OutputBin FDStacker
 *UIConstraints: *OutputBin FDStacker *PageSize Env9
 *UIConstraints: *PageSize Env10 *OutputBin FDStacker
@@ -674,18 +582,10 @@
 *UIConstraints: *OutputBin FDStacker *PageSize EnvC4
 *UIConstraints: *OutputBin SubFDStacker *PageSize ISOB5
 *UIConstraints: *PageSize ISOB5 *OutputBin SubFDStacker
-*UIConstraints: *OutputBin SubFDStacker *PageSize B5
 *UIConstraints: *PageSize B6 *OutputBin SubFDStacker
 *UIConstraints: *OutputBin SubFDStacker *PageSize B6
-*UIConstraints: *PageSize B5 *OutputBin SubFDStacker
 *UIConstraints: *OutputBin SubFDStacker *PageSize Executive
 *UIConstraints: *PageSize Executive *OutputBin SubFDStacker
-*UIConstraints: *OutputBin SubFDStacker *PageSize P8K
-*UIConstraints: *PageSize P8K *OutputBin SubFDStacker
-*UIConstraints: *OutputBin SubFDStacker *PageSize P16K
-*UIConstraints: *PageSize P16K *OutputBin SubFDStacker
-*UIConstraints: *PageSize EnvPersonal *OutputBin SubFDStacker
-*UIConstraints: *OutputBin SubFDStacker *PageSize EnvPersonal
 *UIConstraints: *PageSize Env9 *OutputBin SubFDStacker
 *UIConstraints: *OutputBin SubFDStacker *PageSize Env9
 *UIConstraints: *PageSize Env10 *OutputBin SubFDStacker
@@ -698,8 +598,6 @@
 *UIConstraints: *OutputBin SubFDStacker *PageSize EnvC5
 *UIConstraints: *PageSize EnvC4 *OutputBin SubFDStacker
 *UIConstraints: *OutputBin SubFDStacker *PageSize EnvC4
-*UIConstraints: *PageSize EnvPersonal *OutputBin SubFUStacker
-*UIConstraints: *OutputBin SubFUStacker *PageSize EnvPersonal
 *UIConstraints: *PageSize Env9 *OutputBin SubFUStacker
 *UIConstraints: *OutputBin SubFUStacker *PageSize Env9
 *UIConstraints: *PageSize Env10 *OutputBin SubFUStacker
@@ -712,50 +610,132 @@
 *UIConstraints: *PageSize A6 *OutputBin FDStacker
 *UIConstraints: *OutputBin SubFDStacker *PageSize A6
 *UIConstraints: *PageSize A6 *OutputBin SubFDStacker
-*UIConstraints: *PageSize A5 *KMStapleMode
-*UIConstraints: *KMStapleMode *PageSize A5
-*UIConstraints: *PageSize ISOB5 *KMStapleMode
-*UIConstraints: *KMStapleMode *PageSize ISOB5
-*UIConstraints: *PageSize B6 *KMStapleMode
-*UIConstraints: *KMStapleMode *PageSize B6
-*UIConstraints: *PageSize Folio *KMStapleMode
-*UIConstraints: *KMStapleMode *PageSize Folio
-*UIConstraints: *PageSize Executive *KMStapleMode
-*UIConstraints: *KMStapleMode *PageSize Executive
-*UIConstraints: *PageSize Statement *KMStapleMode
-*UIConstraints: *KMStapleMode *PageSize Statement
-*UIConstraints: *PageSize P8K *KMStapleMode
-*UIConstraints: *KMStapleMode *PageSize P8K
-*UIConstraints: *PageSize P16K *KMStapleMode
-*UIConstraints: *KMStapleMode *PageSize P16K
-*UIConstraints: *PageSize EnvC4 *KMStapleMode
-*UIConstraints: *KMStapleMode *PageSize EnvC4
-*UIConstraints: *PageSize EnvC5 *KMStapleMode
-*UIConstraints: *KMStapleMode *PageSize EnvC5
-*UIConstraints: *PageSize Env10 *KMStapleMode
-*UIConstraints: *KMStapleMode *PageSize Env10
-*UIConstraints: *PageSize Env9 *KMStapleMode
-*UIConstraints: *KMStapleMode *PageSize Env9
-*UIConstraints: *PageSize EnvMonarch *KMStapleMode
-*UIConstraints: *KMStapleMode *PageSize EnvMonarch
-*UIConstraints: *PageSize EnvPersonal *KMStapleMode
-*UIConstraints: *KMStapleMode *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvDL *KMStapleMode
-*UIConstraints: *KMStapleMode *PageSize EnvDL
-*UIConstraints: *PageSize A6 *KMStapleMode
-*UIConstraints: *KMStapleMode *PageSize A6
+*UIConstraints: *KCFold *StapleCount
+*UIConstraints: *StapleCount *KCFold
+*UIConstraints: *KCRotate On *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *KCRotate On
+*UIConstraints: *KCRotate On *KCStaple
+*UIConstraints: *KCStaple *KCRotate On
+*UIConstraints: *KCCollate None *KCRotate On
+*UIConstraints: *KCRotate On *KCCollate None
+*UIConstraints: *KCBooklet Left *KCRotate On
+*UIConstraints: *KCRotate On *KCBooklet Left
+*UIConstraints: *KCBooklet Right *KCRotate On
+*UIConstraints: *KCRotate On *KCBooklet Right
+*UIConstraints: *PageSize A5 *KCStaple
+*UIConstraints: *KCStaple *PageSize A5
+*UIConstraints: *PageSize ISOB5 *KCStaple
+*UIConstraints: *KCStaple *PageSize ISOB5
+*UIConstraints: *PageSize B6 *KCStaple
+*UIConstraints: *KCStaple *PageSize B6
+*UIConstraints: *PageSize Folio *KCStaple
+*UIConstraints: *KCStaple *PageSize Folio
+*UIConstraints: *PageSize Executive *KCStaple
+*UIConstraints: *KCStaple *PageSize Executive
+*UIConstraints: *PageSize Statement *KCStaple
+*UIConstraints: *KCStaple *PageSize Statement
+*UIConstraints: *PageSize EnvC4 *KCStaple
+*UIConstraints: *KCStaple *PageSize EnvC4
+*UIConstraints: *PageSize EnvC5 *KCStaple
+*UIConstraints: *KCStaple *PageSize EnvC5
+*UIConstraints: *PageSize Env10 *KCStaple
+*UIConstraints: *KCStaple *PageSize Env10
+*UIConstraints: *PageSize Env9 *KCStaple
+*UIConstraints: *KCStaple *PageSize Env9
+*UIConstraints: *PageSize EnvMonarch *KCStaple
+*UIConstraints: *KCStaple *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvDL *KCStaple
+*UIConstraints: *KCStaple *PageSize EnvDL
+*UIConstraints: *MediaType Transparency *KCStaple
+*UIConstraints: *KCStaple *MediaType Transparency
+*UIConstraints: *MediaType Labels *KCStaple
+*UIConstraints: *KCStaple *MediaType Labels
+*UIConstraints: *MediaType Envelope *KCStaple
+*UIConstraints: *KCStaple *MediaType Envelope
+*UIConstraints: *MediaType Cardstock *KCStaple
+*UIConstraints: *KCStaple *MediaType Cardstock
+*UIConstraints: *MediaType Transparency *KCPunch
+*UIConstraints: *KCPunch *MediaType Transparency
+*UIConstraints: *MediaType Labels *KCPunch
+*UIConstraints: *KCPunch *MediaType Labels
+*UIConstraints: *MediaType Envelope *KCPunch
+*UIConstraints: *KCPunch *MediaType Envelope
+*UIConstraints: *MediaType Cardstock *KCPunch
+*UIConstraints: *KCPunch *MediaType Cardstock
+*UIConstraints: *MediaType Transparency *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *MediaType Transparency
+*UIConstraints: *MediaType Labels *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *MediaType Labels
+*UIConstraints: *MediaType Envelope *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *MediaType Envelope
+*UIConstraints: *MediaType Cardstock *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *MediaType Cardstock
+*UIConstraints: *MediaType Vellum *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *MediaType Vellum
+*UIConstraints: *MediaType Transparency *KCRotate On
+*UIConstraints: *KCRotate On *MediaType Transparency
+*UIConstraints: *MediaType Labels *KCRotate On
+*UIConstraints: *KCRotate On *MediaType Labels
+*UIConstraints: *MediaType Envelope *KCRotate On
+*UIConstraints: *KCRotate On *MediaType Envelope
+*UIConstraints: *MediaType Cardstock *KCRotate On
+*UIConstraints: *KCRotate On *MediaType Cardstock
+*UIConstraints: *MediaType Vellum *KCRotate On
+*UIConstraints: *KCRotate On *MediaType Vellum
+*UIConstraints: *MediaType Thick *KCRotate On
+*UIConstraints: *KCRotate On *MediaType Thick
+*UIConstraints: *MediaType Transparency *KCBooklet Left
+*UIConstraints: *KCBooklet Left *MediaType Transparency
+*UIConstraints: *MediaType Labels *KCBooklet Left
+*UIConstraints: *KCBooklet Left *MediaType Labels
+*UIConstraints: *MediaType Envelope *KCBooklet Left
+*UIConstraints: *KCBooklet Left *MediaType Envelope
+*UIConstraints: *MediaType Cardstock *KCBooklet Left
+*UIConstraints: *KCBooklet Left *MediaType Cardstock
+*UIConstraints: *MediaType Vellum *KCBooklet Left
+*UIConstraints: *KCBooklet Left *MediaType Vellum
+*UIConstraints: *MediaType Rough *KCBooklet Left
+*UIConstraints: *KCBooklet Left *MediaType Rough
+*UIConstraints: *MediaType Transparency *KCBooklet Right
+*UIConstraints: *KCBooklet Right *MediaType Transparency
+*UIConstraints: *MediaType Labels *KCBooklet Right
+*UIConstraints: *KCBooklet Right *MediaType Labels
+*UIConstraints: *MediaType Envelope *KCBooklet Right
+*UIConstraints: *KCBooklet Right *MediaType Envelope
+*UIConstraints: *MediaType Cardstock *KCBooklet Right
+*UIConstraints: *KCBooklet Right *MediaType Cardstock
+*UIConstraints: *MediaType Vellum *KCBooklet Right
+*UIConstraints: *KCBooklet Right *MediaType Vellum
+*UIConstraints: *MediaType Rough *KCBooklet Right
+*UIConstraints: *KCBooklet Right *MediaType Rough
+*UIConstraints: *KCStaple *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *KCStaple
+*UIConstraints: *OutputBin FUStacker *KCStaple
+*UIConstraints: *KCStaple *OutputBin FUStacker
+*UIConstraints: *OutputBin SubFDStacker *KCStaple
+*UIConstraints: *KCStaple *OutputBin SubFDStacker
+*UIConstraints: *OutputBin SubFUStacker *KCStaple
+*UIConstraints: *KCStaple *OutputBin SubFUStacker
+*UIConstraints: *OutputBin MTUP01 *KCStaple
+*UIConstraints: *KCStaple *OutputBin MTUP01
+*UIConstraints: *OutputBin MTUP02 *KCStaple
+*UIConstraints: *KCStaple *OutputBin MTUP02
+*UIConstraints: *OutputBin MTUP03 *KCStaple
+*UIConstraints: *KCStaple *OutputBin MTUP03
+*UIConstraints: *OutputBin MTUP04 *KCStaple
+*UIConstraints: *KCStaple *OutputBin MTUP04
+*UIConstraints: *OutputBin MTUP05 *KCStaple
+*UIConstraints: *KCStaple *OutputBin MTUP05
+*UIConstraints: *Option17 True *KCRotate On
+*UIConstraints: *KCRotate On *Option17 True
+*UIConstraints: *PageSize A6 *KCStaple
+*UIConstraints: *KCStaple *PageSize A6
 *UIConstraints: *OutputBin MTDWN01 *PageSize ISOB5
 *UIConstraints: *PageSize ISOB5 *OutputBin MTDWN01
 *UIConstraints: *OutputBin MTDWN01 *PageSize B6
 *UIConstraints: *PageSize B6 *OutputBin MTDWN01
 *UIConstraints: *OutputBin MTDWN01 *PageSize Executive
 *UIConstraints: *PageSize Executive *OutputBin MTDWN01
-*UIConstraints: *OutputBin MTDWN01 *PageSize P8K
-*UIConstraints: *PageSize P8K *OutputBin MTDWN01
-*UIConstraints: *OutputBin MTDWN01 *PageSize P16K
-*UIConstraints: *PageSize P16K *OutputBin MTDWN01
-*UIConstraints: *PageSize EnvPersonal *OutputBin MTDWN01
-*UIConstraints: *OutputBin MTDWN01 *PageSize EnvPersonal
 *UIConstraints: *PageSize Env9 *OutputBin MTDWN01
 *UIConstraints: *OutputBin MTDWN01 *PageSize Env9
 *UIConstraints: *PageSize Env10 *OutputBin MTDWN01
@@ -774,12 +754,6 @@
 *UIConstraints: *PageSize B6 *OutputBin MTDWN02
 *UIConstraints: *OutputBin MTDWN02 *PageSize Executive
 *UIConstraints: *PageSize Executive *OutputBin MTDWN02
-*UIConstraints: *OutputBin MTDWN02 *PageSize P8K
-*UIConstraints: *PageSize P8K *OutputBin MTDWN02
-*UIConstraints: *OutputBin MTDWN02 *PageSize P16K
-*UIConstraints: *PageSize P16K *OutputBin MTDWN02
-*UIConstraints: *PageSize EnvPersonal *OutputBin MTDWN02
-*UIConstraints: *OutputBin MTDWN02 *PageSize EnvPersonal
 *UIConstraints: *PageSize Env9 *OutputBin MTDWN02
 *UIConstraints: *OutputBin MTDWN02 *PageSize Env9
 *UIConstraints: *PageSize Env10 *OutputBin MTDWN02
@@ -798,12 +772,6 @@
 *UIConstraints: *PageSize B6 *OutputBin MTDWN03
 *UIConstraints: *OutputBin MTDWN03 *PageSize Executive
 *UIConstraints: *PageSize Executive *OutputBin MTDWN03
-*UIConstraints: *OutputBin MTDWN03 *PageSize P8K
-*UIConstraints: *PageSize P8K *OutputBin MTDWN03
-*UIConstraints: *OutputBin MTDWN03 *PageSize P16K
-*UIConstraints: *PageSize P16K *OutputBin MTDWN03
-*UIConstraints: *PageSize EnvPersonal *OutputBin MTDWN03
-*UIConstraints: *OutputBin MTDWN03 *PageSize EnvPersonal
 *UIConstraints: *PageSize Env9 *OutputBin MTDWN03
 *UIConstraints: *OutputBin MTDWN03 *PageSize Env9
 *UIConstraints: *PageSize Env10 *OutputBin MTDWN03
@@ -822,12 +790,6 @@
 *UIConstraints: *PageSize B6 *OutputBin MTDWN04
 *UIConstraints: *OutputBin MTDWN04 *PageSize Executive
 *UIConstraints: *PageSize Executive *OutputBin MTDWN04
-*UIConstraints: *OutputBin MTDWN04 *PageSize P8K
-*UIConstraints: *PageSize P8K *OutputBin MTDWN04
-*UIConstraints: *OutputBin MTDWN04 *PageSize P16K
-*UIConstraints: *PageSize P16K *OutputBin MTDWN04
-*UIConstraints: *PageSize EnvPersonal *OutputBin MTDWN04
-*UIConstraints: *OutputBin MTDWN04 *PageSize EnvPersonal
 *UIConstraints: *PageSize Env9 *OutputBin MTDWN04
 *UIConstraints: *OutputBin MTDWN04 *PageSize Env9
 *UIConstraints: *PageSize Env10 *OutputBin MTDWN04
@@ -846,12 +808,6 @@
 *UIConstraints: *PageSize B6 *OutputBin MTDWN05
 *UIConstraints: *OutputBin MTDWN05 *PageSize Executive
 *UIConstraints: *PageSize Executive *OutputBin MTDWN05
-*UIConstraints: *OutputBin MTDWN05 *PageSize P8K
-*UIConstraints: *PageSize P8K *OutputBin MTDWN05
-*UIConstraints: *OutputBin MTDWN05 *PageSize P16K
-*UIConstraints: *PageSize P16K *OutputBin MTDWN05
-*UIConstraints: *PageSize EnvPersonal *OutputBin MTDWN05
-*UIConstraints: *OutputBin MTDWN05 *PageSize EnvPersonal
 *UIConstraints: *PageSize Env9 *OutputBin MTDWN05
 *UIConstraints: *OutputBin MTDWN05 *PageSize Env9
 *UIConstraints: *PageSize Env10 *OutputBin MTDWN05
@@ -868,12 +824,6 @@
 *UIConstraints: *PageSize ISOB5 *OutputBin MTUP01
 *UIConstraints: *OutputBin MTUP01 *PageSize Executive
 *UIConstraints: *PageSize Executive *OutputBin MTUP01
-*UIConstraints: *OutputBin MTUP01 *PageSize P8K
-*UIConstraints: *PageSize P8K *OutputBin MTUP01
-*UIConstraints: *OutputBin MTUP01 *PageSize P16K
-*UIConstraints: *PageSize P16K *OutputBin MTUP01
-*UIConstraints: *PageSize EnvPersonal *OutputBin MTUP01
-*UIConstraints: *OutputBin MTUP01 *PageSize EnvPersonal
 *UIConstraints: *PageSize Env9 *OutputBin MTUP01
 *UIConstraints: *OutputBin MTUP01 *PageSize Env9
 *UIConstraints: *PageSize Env10 *OutputBin MTUP01
@@ -890,12 +840,6 @@
 *UIConstraints: *PageSize ISOB5 *OutputBin MTUP02
 *UIConstraints: *OutputBin MTUP02 *PageSize Executive
 *UIConstraints: *PageSize Executive *OutputBin MTUP02
-*UIConstraints: *OutputBin MTUP02 *PageSize P8K
-*UIConstraints: *PageSize P8K *OutputBin MTUP02
-*UIConstraints: *OutputBin MTUP02 *PageSize P16K
-*UIConstraints: *PageSize P16K *OutputBin MTUP02
-*UIConstraints: *PageSize EnvPersonal *OutputBin MTUP02
-*UIConstraints: *OutputBin MTUP02 *PageSize EnvPersonal
 *UIConstraints: *PageSize Env9 *OutputBin MTUP02
 *UIConstraints: *OutputBin MTUP02 *PageSize Env9
 *UIConstraints: *PageSize Env10 *OutputBin MTUP02
@@ -912,12 +856,6 @@
 *UIConstraints: *PageSize ISOB5 *OutputBin MTUP03
 *UIConstraints: *OutputBin MTUP03 *PageSize Executive
 *UIConstraints: *PageSize Executive *OutputBin MTUP03
-*UIConstraints: *OutputBin MTUP03 *PageSize P8K
-*UIConstraints: *PageSize P8K *OutputBin MTUP03
-*UIConstraints: *OutputBin MTUP03 *PageSize P16K
-*UIConstraints: *PageSize P16K *OutputBin MTUP03
-*UIConstraints: *PageSize EnvPersonal *OutputBin MTUP03
-*UIConstraints: *OutputBin MTUP03 *PageSize EnvPersonal
 *UIConstraints: *PageSize Env9 *OutputBin MTUP03
 *UIConstraints: *OutputBin MTUP03 *PageSize Env9
 *UIConstraints: *PageSize Env10 *OutputBin MTUP03
@@ -934,12 +872,6 @@
 *UIConstraints: *PageSize ISOB5 *OutputBin MTUP04
 *UIConstraints: *OutputBin MTUP04 *PageSize Executive
 *UIConstraints: *PageSize Executive *OutputBin MTUP04
-*UIConstraints: *OutputBin MTUP04 *PageSize P8K
-*UIConstraints: *PageSize P8K *OutputBin MTUP04
-*UIConstraints: *OutputBin MTUP04 *PageSize P16K
-*UIConstraints: *PageSize P16K *OutputBin MTUP04
-*UIConstraints: *PageSize EnvPersonal *OutputBin MTUP04
-*UIConstraints: *OutputBin MTUP04 *PageSize EnvPersonal
 *UIConstraints: *PageSize Env9 *OutputBin MTUP04
 *UIConstraints: *OutputBin MTUP04 *PageSize Env9
 *UIConstraints: *PageSize Env10 *OutputBin MTUP04
@@ -956,12 +888,6 @@
 *UIConstraints: *PageSize ISOB5 *OutputBin MTUP05
 *UIConstraints: *OutputBin MTUP05 *PageSize Executive
 *UIConstraints: *PageSize Executive *OutputBin MTUP05
-*UIConstraints: *OutputBin MTUP05 *PageSize P8K
-*UIConstraints: *PageSize P8K *OutputBin MTUP05
-*UIConstraints: *OutputBin MTUP05 *PageSize P16K
-*UIConstraints: *PageSize P16K *OutputBin MTUP05
-*UIConstraints: *PageSize EnvPersonal *OutputBin MTUP05
-*UIConstraints: *OutputBin MTUP05 *PageSize EnvPersonal
 *UIConstraints: *PageSize Env9 *OutputBin MTUP05
 *UIConstraints: *OutputBin MTUP05 *PageSize Env9
 *UIConstraints: *PageSize Env10 *OutputBin MTUP05
@@ -984,14 +910,42 @@
 *UIConstraints: *PageSize A6 *OutputBin MTDWN04
 *UIConstraints: *OutputBin MTDWN05 *PageSize A6
 *UIConstraints: *PageSize A6 *OutputBin MTDWN05
-*UIConstraints: *KCCollate *Option18 None
-*UIConstraints: *Option18 None *KCCollate Temp0
+*UIConstraints: *KCCollate None *KCStaple CenterLeft
+*UIConstraints: *KCStaple CenterLeft *KCCollate None
+*UIConstraints: *KCCollate None *KCStaple CenterRight
+*UIConstraints: *KCStaple CenterRight *KCCollate None
+*UIConstraints: *KCCollate None *KCStaple Upperleft
+*UIConstraints: *KCStaple Upperleft *KCCollate None
+*UIConstraints: *KCCollate None *KCStaple UpperRight
+*UIConstraints: *KCStaple UpperRight *KCCollate None
+*UIConstraints: *KCCollate None *KCStaple UpperCenter
+*UIConstraints: *KCStaple UpperCenter *KCCollate None
+*UIConstraints: *KCCollate None *KCBooklet Left
+*UIConstraints: *KCBooklet Left *KCCollate None
+*UIConstraints: *KCCollate None *KCBooklet Right
+*UIConstraints: *KCBooklet Right *KCCollate None
+*UIConstraints: *KCCollate None *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *KCCollate None
+*UIConstraints: *KCCollate None *KCCovermode FrontCB
+*UIConstraints: *KCCovermode FrontCB *KCCollate None
+*UIConstraints: *KCCollate None *KCCovermode FrontCFP
+*UIConstraints: *KCCovermode FrontCFP *KCCollate None
+*UIConstraints: *KCCollate None *KCCovermode FrontCBP
+*UIConstraints: *KCCovermode FrontCBP *KCCollate None
+*UIConstraints: *KCCollate None *KCCovermode FrontCSP
+*UIConstraints: *KCCovermode FrontCSP *KCCollate None
+*UIConstraints: *Duplex None *KCCovermode FrontCBP
+*UIConstraints: *KCCovermode FrontCBP *Duplex None
+*UIConstraints: *Duplex None *KCCovermode FrontCSP
+*UIConstraints: *KCCovermode FrontCSP *Duplex None
+*UIConstraints: *KCCollate None *KCOHP Blank
+*UIConstraints: *KCOHP Blank *KCCollate None
+*UIConstraints: *KCCollate None *KCOHP Copy
+*UIConstraints: *KCOHP Copy *KCCollate None
 *UIConstraints: *Option18 None *KCCollate Temp
 *UIConstraints: *Option18 None *KCCollate Perm
 *UIConstraints: *Option18 RAMDisk *KCCollate Perm
 *UIConstraints: *KCCollate Perm *Option18 RAMDisk
-*UIConstraints: *Option18 HardDisk *KCCollate Temp0
-*UIConstraints: *KCCollate Temp0 *Option18 HardDisk
 *UIConstraints: *Option18 RAMDisk *KCCollate Temp
 *UIConstraints: *KCCollate Temp *Option18 RAMDisk
 *UIConstraints: *Option18 None *KCCollate QuickCopy
@@ -1037,10 +991,10 @@
 *UIConstraints: *KCCollate VMBUser08 *Option18 RAMDisk
 *UIConstraints: *KCCollate VMBUser09 *Option18 RAMDisk
 *UIConstraints: *KCCollate VMBUser10 *Option18 RAMDisk
-*UIConstraints: *KCRotate On *Option18 None
-*UIConstraints: *Option18 None *KCRotate On
-*UIConstraints: *KCRotate On *Option17 True
-*UIConstraints: *Option17 True *KCRotate On
+*NonUIConstraints: *InputSlot ST11 *CustomPageSize
+*NonUIConstraints: *CustomPageSize *InputSlot ST11
+*NonUIConstraints: *InputSlot PF660 *CustomPageSize
+*NonUIConstraints: *CustomPageSize *InputSlot PF660
 *UIConstraints: *Option17 True *OutputBin LFTTRAYDWN
 *UIConstraints: *OutputBin LFTTRAYDWN *Option17 True
 *UIConstraints: *Option17 True *OutputBin LFTTRAYUP
@@ -1053,8 +1007,8 @@
 *UIConstraints: *OutputBin SubFDStacker *Option17 False
 *UIConstraints: *Option17 False *OutputBin SubFUStacker
 *UIConstraints: *OutputBin SubFUStacker *Option17 False
-*UIConstraints: *Option17 False *KMStapleMode
-*UIConstraints: *KMStapleMode *Option17 False
+*UIConstraints: *Option17 False *KCStaple
+*UIConstraints: *KCStaple *Option17 False
 *UIConstraints: *Option17 False *Option21 True
 *UIConstraints: *Option21 True *Option17 False
 *UIConstraints: *KCPunch *Option21 False
@@ -1088,12 +1042,6 @@
 *UIConstraints: *OutputBin SubFUStacker *Option24 True
 *UIConstraints: *Option24 True *OutputBin SubFDStacker
 *UIConstraints: *OutputBin SubFDStacker *Option24 True
-*UIConstraints: *KCPunch 2HoleL *PageSize A3
-*UIConstraints: *PageSize A3 *KCPunch 2HoleL
-*UIConstraints: *KCPunch 2HoleR *PageSize A3
-*UIConstraints: *PageSize A3 *KCPunch 2HoleR
-*UIConstraints: *KCPunch 2HoleU *PageSize A3
-*UIConstraints: *PageSize A3 *KCPunch 2HoleU
 *UIConstraints: *KCPunch 3HoleL *PageSize A5
 *UIConstraints: *PageSize A5 *KCPunch 3HoleL
 *UIConstraints: *KCPunch 3HoleR *PageSize A5
@@ -1106,12 +1054,6 @@
 *UIConstraints: *PageSize A5 *KCPunch 4HoleR
 *UIConstraints: *KCPunch 4HoleU *PageSize A5
 *UIConstraints: *PageSize A5 *KCPunch 4HoleU
-*UIConstraints: *KCPunch 2HoleL *PageSize B4
-*UIConstraints: *PageSize B4 *KCPunch 2HoleL
-*UIConstraints: *KCPunch 2HoleR *PageSize B4
-*UIConstraints: *PageSize B4 *KCPunch 2HoleR
-*UIConstraints: *KCPunch 2HoleU *PageSize B4
-*UIConstraints: *PageSize B4 *KCPunch 2HoleU
 *UIConstraints: *KCPunch 4HoleL *PageSize B4
 *UIConstraints: *PageSize B4 *KCPunch 4HoleL
 *UIConstraints: *KCPunch 4HoleR *PageSize B4
@@ -1220,12 +1162,6 @@
 *UIConstraints: *PageSize Executive *KCPunch 4HoleR
 *UIConstraints: *KCPunch 4HoleU *PageSize Executive
 *UIConstraints: *PageSize Executive *KCPunch 4HoleU
-*UIConstraints: *KCPunch 2HoleL *PageSize Statement
-*UIConstraints: *PageSize Statement *KCPunch 2HoleL
-*UIConstraints: *KCPunch 2HoleR *PageSize Statement
-*UIConstraints: *PageSize Statement *KCPunch 2HoleR
-*UIConstraints: *KCPunch 2HoleU *PageSize Statement
-*UIConstraints: *PageSize Statement *KCPunch 2HoleU
 *UIConstraints: *KCPunch 3HoleL *PageSize Statement
 *UIConstraints: *PageSize Statement *KCPunch 3HoleL
 *UIConstraints: *KCPunch 3HoleR *PageSize Statement
@@ -1250,42 +1186,6 @@
 *UIConstraints: *PageSize OficioI *KCPunch 4HoleR
 *UIConstraints: *KCPunch 4HoleU *PageSize OficioI
 *UIConstraints: *PageSize OficioI *KCPunch 4HoleU
-*UIConstraints: *KCPunch 2HoleL *PageSize P8K
-*UIConstraints: *PageSize P8K *KCPunch 2HoleL
-*UIConstraints: *KCPunch 2HoleR *PageSize P8K
-*UIConstraints: *PageSize P8K *KCPunch 2HoleR
-*UIConstraints: *KCPunch 2HoleU *PageSize P8K
-*UIConstraints: *PageSize P8K *KCPunch 2HoleU
-*UIConstraints: *KCPunch 3HoleL *PageSize P8K
-*UIConstraints: *PageSize P8K *KCPunch 3HoleL
-*UIConstraints: *KCPunch 3HoleR *PageSize P8K
-*UIConstraints: *PageSize P8K *KCPunch 3HoleR
-*UIConstraints: *KCPunch 3HoleU *PageSize P8K
-*UIConstraints: *PageSize P8K *KCPunch 3HoleU
-*UIConstraints: *KCPunch 4HoleL *PageSize P8K
-*UIConstraints: *PageSize P8K *KCPunch 4HoleL
-*UIConstraints: *KCPunch 4HoleR *PageSize P8K
-*UIConstraints: *PageSize P8K *KCPunch 4HoleR
-*UIConstraints: *KCPunch 4HoleU *PageSize P8K
-*UIConstraints: *PageSize P8K *KCPunch 4HoleU
-*UIConstraints: *KCPunch 2HoleL *PageSize P16K
-*UIConstraints: *PageSize P16K *KCPunch 2HoleL
-*UIConstraints: *KCPunch 2HoleR *PageSize P16K
-*UIConstraints: *PageSize P16K *KCPunch 2HoleR
-*UIConstraints: *KCPunch 2HoleU *PageSize P16K
-*UIConstraints: *PageSize P16K *KCPunch 2HoleU
-*UIConstraints: *KCPunch 3HoleL *PageSize P16K
-*UIConstraints: *PageSize P16K *KCPunch 3HoleL
-*UIConstraints: *KCPunch 3HoleR *PageSize P16K
-*UIConstraints: *PageSize P16K *KCPunch 3HoleR
-*UIConstraints: *KCPunch 3HoleU *PageSize P16K
-*UIConstraints: *PageSize P16K *KCPunch 3HoleU
-*UIConstraints: *KCPunch 4HoleL *PageSize P16K
-*UIConstraints: *PageSize P16K *KCPunch 4HoleL
-*UIConstraints: *KCPunch 4HoleR *PageSize P16K
-*UIConstraints: *PageSize P16K *KCPunch 4HoleR
-*UIConstraints: *KCPunch 4HoleU *PageSize P16K
-*UIConstraints: *PageSize P16K *KCPunch 4HoleU
 *UIConstraints: *KCPunch 2HoleL *PageSize EnvC4
 *UIConstraints: *PageSize EnvC4 *KCPunch 2HoleL
 *UIConstraints: *KCPunch 2HoleR *PageSize EnvC4
@@ -1376,24 +1276,6 @@
 *UIConstraints: *PageSize EnvMonarch *KCPunch 4HoleR
 *UIConstraints: *KCPunch 4HoleU *PageSize EnvMonarch
 *UIConstraints: *PageSize EnvMonarch *KCPunch 4HoleU
-*UIConstraints: *KCPunch 2HoleL *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *KCPunch 2HoleL
-*UIConstraints: *KCPunch 2HoleR *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *KCPunch 2HoleR
-*UIConstraints: *KCPunch 2HoleU *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *KCPunch 2HoleU
-*UIConstraints: *KCPunch 3HoleL *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *KCPunch 3HoleL
-*UIConstraints: *KCPunch 3HoleR *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *KCPunch 3HoleR
-*UIConstraints: *KCPunch 3HoleU *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *KCPunch 3HoleU
-*UIConstraints: *KCPunch 4HoleL *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *KCPunch 4HoleL
-*UIConstraints: *KCPunch 4HoleR *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *KCPunch 4HoleR
-*UIConstraints: *KCPunch 4HoleU *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *KCPunch 4HoleU
 *UIConstraints: *KCPunch 2HoleL *PageSize A6
 *UIConstraints: *PageSize A6 *KCPunch 2HoleL
 *UIConstraints: *KCPunch 2HoleR *PageSize A6
@@ -1454,24 +1336,6 @@
 *UIConstraints: *PageSize Executive *KCPunch 2HoleREUR
 *UIConstraints: *KCPunch 2HoleUEUR *PageSize Executive
 *UIConstraints: *PageSize Executive *KCPunch 2HoleUEUR
-*UIConstraints: *KCPunch 2HoleLEUR *PageSize Statement
-*UIConstraints: *PageSize Statement *KCPunch 2HoleLEUR
-*UIConstraints: *KCPunch 2HoleREUR *PageSize Statement
-*UIConstraints: *PageSize Statement *KCPunch 2HoleREUR
-*UIConstraints: *KCPunch 2HoleUEUR *PageSize Statement
-*UIConstraints: *PageSize Statement *KCPunch 2HoleUEUR
-*UIConstraints: *KCPunch 2HoleLEUR *PageSize P8K
-*UIConstraints: *PageSize P8K *KCPunch 2HoleLEUR
-*UIConstraints: *KCPunch 2HoleREUR *PageSize P8K
-*UIConstraints: *PageSize P8K *KCPunch 2HoleREUR
-*UIConstraints: *KCPunch 2HoleUEUR *PageSize P8K
-*UIConstraints: *PageSize P8K *KCPunch 2HoleUEUR
-*UIConstraints: *KCPunch 2HoleLEUR *PageSize P16K
-*UIConstraints: *PageSize P16K *KCPunch 2HoleLEUR
-*UIConstraints: *KCPunch 2HoleREUR *PageSize P16K
-*UIConstraints: *PageSize P16K *KCPunch 2HoleREUR
-*UIConstraints: *KCPunch 2HoleUEUR *PageSize P16K
-*UIConstraints: *PageSize P16K *KCPunch 2HoleUEUR
 *UIConstraints: *KCPunch 2HoleLEUR *PageSize EnvC4
 *UIConstraints: *PageSize EnvC4 *KCPunch 2HoleLEUR
 *UIConstraints: *KCPunch 2HoleREUR *PageSize EnvC4
@@ -1502,12 +1366,6 @@
 *UIConstraints: *PageSize EnvMonarch *KCPunch 2HoleREUR
 *UIConstraints: *KCPunch 2HoleUEUR *PageSize EnvMonarch
 *UIConstraints: *PageSize EnvMonarch *KCPunch 2HoleUEUR
-*UIConstraints: *KCPunch 2HoleLEUR *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *KCPunch 2HoleLEUR
-*UIConstraints: *KCPunch 2HoleREUR *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *KCPunch 2HoleREUR
-*UIConstraints: *KCPunch 2HoleUEUR *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *KCPunch 2HoleUEUR
 *UIConstraints: *KCPunch 2HoleLEUR *PageSize EnvDL
 *UIConstraints: *PageSize EnvDL *KCPunch 2HoleLEUR
 *UIConstraints: *KCPunch 2HoleREUR *PageSize EnvDL
@@ -1534,8 +1392,8 @@
 *UIConstraints: *PageSize Env9 *KCBooklet Left
 *UIConstraints: *KCBooklet Left *PageSize EnvMonarch
 *UIConstraints: *PageSize EnvMonarch *KCBooklet Left
-*UIConstraints: *KCBooklet Left *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *KCBooklet Left
+*UIConstraints: *KCBooklet Left *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *KCBooklet Left
 *UIConstraints: *KCBooklet Right *PageSize ISOB5
 *UIConstraints: *PageSize ISOB5 *KCBooklet Right
 *UIConstraints: *KCBooklet Right *PageSize B6
@@ -1556,8 +1414,6 @@
 *UIConstraints: *PageSize Env9 *KCBooklet Right
 *UIConstraints: *KCBooklet Right *PageSize EnvMonarch
 *UIConstraints: *PageSize EnvMonarch *KCBooklet Right
-*UIConstraints: *KCBooklet Right *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *KCBooklet Right
 *UIConstraints: *KCBooklet Right *PageSize EnvDL
 *UIConstraints: *PageSize EnvDL *KCBooklet Right
 *UIConstraints: *KCBooklet Left *PageSize A6
@@ -1584,8 +1440,6 @@
 *UIConstraints: *PageSize Executive *KCRotate On
 *UIConstraints: *KCRotate On *PageSize Statement
 *UIConstraints: *PageSize Statement *KCRotate On
-*UIConstraints: *KCRotate On *PageSize OficioI
-*UIConstraints: *PageSize OficioI *KCRotate On
 *UIConstraints: *KCRotate On *PageSize P8K
 *UIConstraints: *PageSize P8K *KCRotate On
 *UIConstraints: *KCRotate On *PageSize EnvC4
@@ -1598,10 +1452,12 @@
 *UIConstraints: *PageSize Env9 *KCRotate On
 *UIConstraints: *KCRotate On *PageSize EnvMonarch
 *UIConstraints: *PageSize EnvMonarch *KCRotate On
-*UIConstraints: *KCRotate On *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *KCRotate On
 *UIConstraints: *KCRotate On *PageSize EnvDL
 *UIConstraints: *PageSize EnvDL *KCRotate On
+*UIConstraints: *KCRotate On *PageSize B4
+*UIConstraints: *PageSize B4 *KCRotate On
+*UIConstraints: *KCRotate On *PageSize OficioI
+*UIConstraints: *PageSize OficioI *KCRotate On
 *UIConstraints: *KCRotate On *PageSize A6
 *UIConstraints: *PageSize A6 *KCRotate On
 *UIConstraints: *Jog EndOfSet *PageSize ISOB5
@@ -1614,10 +1470,6 @@
 *UIConstraints: *PageSize Executive *Jog EndOfSet
 *UIConstraints: *Jog EndOfSet *PageSize Statement
 *UIConstraints: *PageSize Statement *Jog EndOfSet
-*UIConstraints: *Jog EndOfSet *PageSize P8K
-*UIConstraints: *PageSize P8K *Jog EndOfSet
-*UIConstraints: *Jog EndOfSet *PageSize P16K
-*UIConstraints: *PageSize P16K *Jog EndOfSet
 *UIConstraints: *Jog EndOfSet *PageSize EnvC4
 *UIConstraints: *PageSize EnvC4 *Jog EndOfSet
 *UIConstraints: *Jog EndOfSet *PageSize EnvC5
@@ -1628,8 +1480,8 @@
 *UIConstraints: *PageSize Env9 *Jog EndOfSet
 *UIConstraints: *Jog EndOfSet *PageSize EnvMonarch
 *UIConstraints: *PageSize EnvMonarch *Jog EndOfSet
-*UIConstraints: *Jog EndOfSet *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *Jog EndOfSet
+*UIConstraints: *Jog EndOfSet *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *Jog EndOfSet
 *UIConstraints: *PageSize Legal *InputSlot ST11
 *UIConstraints: *InputSlot ST11 *PageSize Legal
 *UIConstraints: *PageRegion Legal *InputSlot ST11
@@ -1666,10 +1518,6 @@
 *UIConstraints: *InputSlot ST11 *PageSize B6
 *UIConstraints: *PageRegion B6 *InputSlot ST11
 *UIConstraints: *InputSlot ST11 *PageRegion B6
-*UIConstraints: *PageSize EnvPersonal *InputSlot ST11
-*UIConstraints: *InputSlot ST11 *PageSize EnvPersonal
-*UIConstraints: *PageRegion EnvPersonal *InputSlot ST11
-*UIConstraints: *InputSlot ST11 *PageRegion EnvPersonal
 *UIConstraints: *PageSize Env9 *InputSlot ST11
 *UIConstraints: *InputSlot ST11 *PageSize Env9
 *UIConstraints: *PageRegion Env9 *InputSlot ST11
@@ -1718,6 +1566,82 @@
 *UIConstraints: *InputSlot ST11 *PageSize OficioI
 *UIConstraints: *PageRegion OficioI *InputSlot ST11
 *UIConstraints: *InputSlot ST11 *PageRegion OficioI
+*UIConstraints: *PageSize Executive *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageSize Executive
+*UIConstraints: *PageRegion Executive *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageRegion Executive
+*UIConstraints: *PageSize A5 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageSize A5
+*UIConstraints: *PageRegion A5 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageRegion A5
+*UIConstraints: *PageSize A6 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageSize A6
+*UIConstraints: *PageRegion A6 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageRegion A6
+*UIConstraints: *PageSize B4 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageSize B4
+*UIConstraints: *PageRegion B4 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageRegion B4
+*UIConstraints: *PageSize B5 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageSize B5
+*UIConstraints: *PageRegion B5 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageRegion B5
+*UIConstraints: *PageSize ISOB5 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageSize ISOB5
+*UIConstraints: *PageRegion ISOB5 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageRegion ISOB5
+*UIConstraints: *PageSize B6 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageSize B6
+*UIConstraints: *PageRegion B6 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageRegion B6
+*UIConstraints: *PageSize Env9 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageSize Env9
+*UIConstraints: *PageRegion Env9 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageRegion Env9
+*UIConstraints: *PageSize Env10 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageSize Env10
+*UIConstraints: *PageRegion Env10 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageRegion Env10
+*UIConstraints: *PageSize EnvMonarch *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageSize EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageRegion EnvMonarch
+*UIConstraints: *PageSize EnvDL *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageSize EnvDL
+*UIConstraints: *PageRegion EnvDL *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageRegion EnvDL
+*UIConstraints: *PageSize EnvC5 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageSize EnvC5
+*UIConstraints: *PageRegion EnvC5 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageRegion EnvC5
+*UIConstraints: *PageSize OficioII *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageSize OficioII
+*UIConstraints: *PageRegion OficioII *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageRegion OficioII
+*UIConstraints: *PageSize Folio *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageSize Folio
+*UIConstraints: *PageRegion Folio *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageRegion Folio
+*UIConstraints: *PageSize EnvC4 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageSize EnvC4
+*UIConstraints: *PageRegion EnvC4 *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageRegion EnvC4
+*UIConstraints: *PageSize Statement *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageSize Statement
+*UIConstraints: *PageRegion Statement *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageRegion Statement
+*UIConstraints: *PageSize P8K *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageSize P8K
+*UIConstraints: *PageRegion P8K *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageRegion P8K
+*UIConstraints: *PageSize P16K *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageSize P16K
+*UIConstraints: *PageRegion P16K *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageRegion P16K
+*UIConstraints: *PageSize OficioI *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageSize OficioI
+*UIConstraints: *PageRegion OficioI *InputSlot PF660
+*UIConstraints: *InputSlot PF660 *PageRegion OficioI
 *UIConstraints: *PageSize Legal *InputSlot MITALTRY1
 *UIConstraints: *InputSlot MITALTRY1 *PageSize Legal
 *UIConstraints: *PageRegion Legal *InputSlot MITALTRY1
@@ -1754,10 +1678,6 @@
 *UIConstraints: *InputSlot MITALTRY1 *PageSize B6
 *UIConstraints: *PageRegion B6 *InputSlot MITALTRY1
 *UIConstraints: *InputSlot MITALTRY1 *PageRegion B6
-*UIConstraints: *PageSize EnvPersonal *InputSlot MITALTRY1
-*UIConstraints: *InputSlot MITALTRY1 *PageSize EnvPersonal
-*UIConstraints: *PageRegion EnvPersonal *InputSlot MITALTRY1
-*UIConstraints: *InputSlot MITALTRY1 *PageRegion EnvPersonal
 *UIConstraints: *PageSize Env9 *InputSlot MITALTRY1
 *UIConstraints: *InputSlot MITALTRY1 *PageSize Env9
 *UIConstraints: *PageRegion Env9 *InputSlot MITALTRY1
@@ -1798,10 +1718,6 @@
 *UIConstraints: *InputSlot MITALTRY1 *PageSize P8K
 *UIConstraints: *PageRegion P8K *InputSlot MITALTRY1
 *UIConstraints: *InputSlot MITALTRY1 *PageRegion P8K
-*UIConstraints: *PageSize P16K *InputSlot MITALTRY1
-*UIConstraints: *InputSlot MITALTRY1 *PageSize P16K
-*UIConstraints: *PageRegion P16K *InputSlot MITALTRY1
-*UIConstraints: *InputSlot MITALTRY1 *PageRegion P16K
 *UIConstraints: *PageSize OficioI *InputSlot MITALTRY1
 *UIConstraints: *InputSlot MITALTRY1 *PageSize OficioI
 *UIConstraints: *PageRegion OficioI *InputSlot MITALTRY1
@@ -1842,10 +1758,6 @@
 *UIConstraints: *InputSlot MITALTRY2 *PageSize B6
 *UIConstraints: *PageRegion B6 *InputSlot MITALTRY2
 *UIConstraints: *InputSlot MITALTRY2 *PageRegion B6
-*UIConstraints: *PageSize EnvPersonal *InputSlot MITALTRY2
-*UIConstraints: *InputSlot MITALTRY2 *PageSize EnvPersonal
-*UIConstraints: *PageRegion EnvPersonal *InputSlot MITALTRY2
-*UIConstraints: *InputSlot MITALTRY2 *PageRegion EnvPersonal
 *UIConstraints: *PageSize Env9 *InputSlot MITALTRY2
 *UIConstraints: *InputSlot MITALTRY2 *PageSize Env9
 *UIConstraints: *PageRegion Env9 *InputSlot MITALTRY2
@@ -1886,10 +1798,6 @@
 *UIConstraints: *InputSlot MITALTRY2 *PageSize P8K
 *UIConstraints: *PageRegion P8K *InputSlot MITALTRY2
 *UIConstraints: *InputSlot MITALTRY2 *PageRegion P8K
-*UIConstraints: *PageSize P16K *InputSlot MITALTRY2
-*UIConstraints: *InputSlot MITALTRY2 *PageSize P16K
-*UIConstraints: *PageRegion P16K *InputSlot MITALTRY2
-*UIConstraints: *InputSlot MITALTRY2 *PageRegion P16K
 *UIConstraints: *PageSize OficioI *InputSlot MITALTRY2
 *UIConstraints: *InputSlot MITALTRY2 *PageSize OficioI
 *UIConstraints: *PageRegion OficioI *InputSlot MITALTRY2
@@ -1910,10 +1818,6 @@
 *UIConstraints: *InputSlot MITATRAY3 *PageSize B6
 *UIConstraints: *PageRegion B6 *InputSlot MITATRAY3
 *UIConstraints: *InputSlot MITATRAY3 *PageRegion B6
-*UIConstraints: *PageSize EnvPersonal *InputSlot MITATRAY3
-*UIConstraints: *InputSlot MITATRAY3 *PageSize EnvPersonal
-*UIConstraints: *PageRegion EnvPersonal *InputSlot MITATRAY3
-*UIConstraints: *InputSlot MITATRAY3 *PageRegion EnvPersonal
 *UIConstraints: *PageSize Env9 *InputSlot MITATRAY3
 *UIConstraints: *InputSlot MITATRAY3 *PageSize Env9
 *UIConstraints: *PageRegion Env9 *InputSlot MITATRAY3
@@ -1954,10 +1858,6 @@
 *UIConstraints: *InputSlot MITATRAY4 *PageSize B6
 *UIConstraints: *PageRegion B6 *InputSlot MITATRAY4
 *UIConstraints: *InputSlot MITATRAY4 *PageRegion B6
-*UIConstraints: *PageSize EnvPersonal *InputSlot MITATRAY4
-*UIConstraints: *InputSlot MITATRAY4 *PageSize EnvPersonal
-*UIConstraints: *PageRegion EnvPersonal *InputSlot MITATRAY4
-*UIConstraints: *InputSlot MITATRAY4 *PageRegion EnvPersonal
 *UIConstraints: *PageSize Env9 *InputSlot MITATRAY4
 *UIConstraints: *InputSlot MITATRAY4 *PageSize Env9
 *UIConstraints: *PageRegion Env9 *InputSlot MITATRAY4
@@ -2006,12 +1906,6 @@
 *UIConstraints: *Duplex *PageRegion B6
 *UIConstraints: *PageRegion B6 *Duplex DuplexTumble
 *UIConstraints: *PageRegion B6 *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageSize EnvPersonal
-*UIConstraints: *PageSize EnvPersonal *Duplex DuplexTumble
-*UIConstraints: *PageSize EnvPersonal *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageRegion EnvPersonal
-*UIConstraints: *PageRegion EnvPersonal *Duplex DuplexTumble
-*UIConstraints: *PageRegion EnvPersonal *Duplex DuplexNoTumble
 *UIConstraints: *Duplex *PageSize Env9
 *UIConstraints: *PageSize Env9 *Duplex DuplexTumble
 *UIConstraints: *PageSize Env9 *Duplex DuplexNoTumble
@@ -2048,18 +1942,8 @@
 *UIConstraints: *Duplex *PageRegion EnvC4
 *UIConstraints: *PageRegion EnvC4 *Duplex DuplexTumble
 *UIConstraints: *PageRegion EnvC4 *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageSize P8K
-*UIConstraints: *PageSize P8K *Duplex DuplexTumble
-*UIConstraints: *PageSize P8K *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageRegion P8K
-*UIConstraints: *PageRegion P8K *Duplex DuplexTumble
-*UIConstraints: *PageRegion P8K *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageSize P16K
-*UIConstraints: *PageSize P16K *Duplex DuplexTumble
-*UIConstraints: *PageSize P16K *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *PageRegion P16K
-*UIConstraints: *PageRegion P16K *Duplex DuplexTumble
-*UIConstraints: *PageRegion P16K *Duplex DuplexNoTumble
+*UIConstraints: *KCFold On *KCBooklet None
+*UIConstraints: *KCBooklet None *KCFold On
 *UIConstraints: *Option18 None *KCSuperWatermark
 *UIConstraints: *KCSuperWatermark *Option18 None
 
@@ -2117,6 +2001,13 @@
 *Transfer Null: "{}"
 *Transfer Null.Inverse: "{1 exch sub}"
 
+*% Page Policy Definitions
+*OpenUI *PagePolicy/Page Policy: PickOne
+*OrderDependency: 15 AnySetup *PagePolicy
+*DefaultPagePolicy: On
+*PagePolicy On/AutoSizeSelect: "<< /DeferredMediaSelection true >> setpagedevice"
+*CloseUI: *PagePolicy
+
 *% Paper Handling 
 *% Page Size Definitions
 *OpenUI *PageSize: PickOne
@@ -2139,8 +2030,7 @@
 *PageSize Letter/US-Letter: "<< /Policies << /PageSize 7 >> /PageSize [612 792] /ImagingBBox null >> setpagedevice"
 *PageSize Legal/US-Legal: "<< /Policies << /PageSize 7 >> /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
 *PageSize Executive/US-Executive: "<< /Policies << /PageSize 7 >> /PageSize [522 756] /ImagingBBox null >> setpagedevice"
-*PageSize Tabloid/17x11 (US-Ledger): "<< /Policies << /PageSize 7 >> /PageSize [792 1224] /ImagingBBox null >> setpagedevice"
-*PageSize EnvPersonal/Umschlag #6: "<< /Policies << /PageSize 7 >> /PageSize [261 468] /ImagingBBox null >> setpagedevice"
+*PageSize Tabloid/Ledger 11x17: "<< /Policies << /PageSize 7 >> /PageSize [792 1224] /ImagingBBox null >> setpagedevice"
 *PageSize Env9/Umschlag #9: "<< /Policies << /PageSize 7 >> /PageSize [279 639] /ImagingBBox null >> setpagedevice"
 *PageSize Env10/Umschlag #10: "<< /Policies << /PageSize 7 >> /PageSize [297 684] /ImagingBBox null >> setpagedevice"
 *PageSize EnvMonarch/Umschlag US-Monarch: "<< /Policies << /PageSize 7 >> /PageSize [279 540] /ImagingBBox null >> setpagedevice"
@@ -2152,7 +2042,7 @@
   currentpagedevice /PageSize get aload pop
   2 copy gt {exch} if
   (Unknown)
-  25 dict
+  24 dict
   dup [842 1191] (A3) put
   dup [595 842] (A4) put
   dup [420 595] (A5) put
@@ -2171,7 +2061,6 @@
   dup [612 1008] (Legal) put
   dup [522 756] (Executive) put
   dup [792 1224] (Tabloid) put
-  dup [261 468] (EnvPersonal) put
   dup [279 639] (Env9) put
   dup [297 684] (Env10) put
   dup [279 540] (EnvMonarch) put
@@ -2201,8 +2090,7 @@
 *PageRegion Letter/US-Letter: "<< /Policies << /PageSize 7 >> /PageSize [612 792] /ImagingBBox null >> setpagedevice"
 *PageRegion Legal/US-Legal: "<< /Policies << /PageSize 7 >> /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
 *PageRegion Executive/US-Executive: "<< /Policies << /PageSize 7 >> /PageSize [522 756] /ImagingBBox null >> setpagedevice"
-*PageRegion Tabloid/17x11 (US-Ledger): "<< /Policies << /PageSize 7 >> /PageSize [792 1224] /ImagingBBox null >> setpagedevice"
-*PageRegion EnvPersonal/Umschlag #6: "<< /Policies << /PageSize 7 >> /PageSize [261 468] /ImagingBBox null >> setpagedevice"
+*PageRegion Tabloid/Ledger 11x17: "<< /Policies << /PageSize 7 >> /PageSize [792 1224] /ImagingBBox null >> setpagedevice"
 *PageRegion Env9/Umschlag #9: "<< /Policies << /PageSize 7 >> /PageSize [279 639] /ImagingBBox null >> setpagedevice"
 *PageRegion Env10/Umschlag #10: "<< /Policies << /PageSize 7 >> /PageSize [297 684] /ImagingBBox null >> setpagedevice"
 *PageRegion EnvMonarch/Umschlag US-Monarch: "<< /Policies << /PageSize 7 >> /PageSize [279 540] /ImagingBBox null >> setpagedevice"
@@ -2236,8 +2124,7 @@
 *ImageableArea Letter/US-Letter: "12 08 600 784"
 *ImageableArea Legal/US-Legal: "12 08 600 1000"
 *ImageableArea Executive/US-Executive: "12 08 510 748"
-*ImageableArea Tabloid/17x11 (US-Ledger): "12 08 780 1216"
-*ImageableArea EnvPersonal/Umschlag #6: "12 08 237 452"
+*ImageableArea Tabloid/Ledger 11x17: "12 08 780 1216"
 *ImageableArea Env9/Umschlag #9: "12 08 255 623"
 *ImageableArea Env10/Umschlag #10: "12 08 273 668"
 *ImageableArea EnvMonarch/Umschlag US-Monarch: "12 08 255 524"
@@ -2273,8 +2160,7 @@
 *PaperDimension Letter/US-Letter: "612 792"
 *PaperDimension Legal/US-Legal: "612 1008"
 *PaperDimension Executive/US-Executive: "522 756"
-*PaperDimension Tabloid/17x11 (US-Ledger): "792 1224"
-*PaperDimension EnvPersonal/Umschlag #6: "261 468"
+*PaperDimension Tabloid/Ledger 11x17: "792 1224"
 *PaperDimension Env9/Umschlag #9: "279 639"
 *PaperDimension Env10/Umschlag #10: "297 684"
 *PaperDimension EnvMonarch/Umschlag US-Monarch: "279 540"
@@ -2308,12 +2194,13 @@
 *OpenUI *InputSlot: PickOne
 *OrderDependency: 30 AnySetup *InputSlot
 *DefaultInputSlot: MITALTRY1
-*InputSlot MITALTRY1/Kassette 1: "<</ManualFeed false>> setpagedevice statusdict begin 0 setpapertray end"
-*InputSlot MITALTRY2/Kassette 2: "<</ManualFeed false>> setpagedevice statusdict begin 1 setpapertray end"
-*InputSlot MITATRAY3/Kassette 3: "<</ManualFeed false>> setpagedevice statusdict begin 4 setpapertray end"
-*InputSlot MITATRAY4/Kassette 4: "<</ManualFeed false>> setpagedevice statusdict begin 5 setpapertray end"
-*InputSlot MF1/Universalzufuhr: "<</ManualFeed false>> setpagedevice statusdict begin 3 setpapertray end"
-*InputSlot ST11/Papiermagazin: "<</ManualFeed false>> setpagedevice statusdict begin 6 setpapertray end"
+*InputSlot MITALTRY1/Kassette 1: "<< /ManualFeed false /DeferredMediaSelection false >> setpagedevice statusdict begin 0 setpapertray end"
+*InputSlot MITALTRY2/Kassette 2: "<< /ManualFeed false /DeferredMediaSelection false >> setpagedevice statusdict begin 1 setpapertray end"
+*InputSlot MITATRAY3/Kassette 3: "<< /ManualFeed false /DeferredMediaSelection false >> setpagedevice statusdict begin 4 setpapertray end"
+*InputSlot MITATRAY4/Kassette 4: "<< /ManualFeed false /DeferredMediaSelection false >> setpagedevice statusdict begin 5 setpapertray end"
+*InputSlot MF1/Universalzufuhr: "<< /ManualFeed false /DeferredMediaSelection false >> setpagedevice statusdict begin 3 setpapertray end"
+*InputSlot ST11/Papiermagazin: "<< /ManualFeed false /DeferredMediaSelection false >> setpagedevice statusdict begin 6 setpapertray end"
+*InputSlot PF660/Large-paper Side Feeder: "<< /ManualFeed false /DeferredMediaSelection false >> setpagedevice statusdict begin 6 setpapertray end"
 *?InputSlot: ""
 *CloseUI: *InputSlot
 
@@ -2321,7 +2208,7 @@
 *OpenUI *MediaType: PickOne
 *OrderDependency: 95 AnySetup *MediaType
 *DefaultMediaType: PrnDef
-*MediaType PrnDef/Standard: "<</ManualFeed false /DeferredMediaSelection true >> setpagedevice"
+*MediaType PrnDef/Standard: ""
 *MediaType Plain/Normalpapier: "<</ManualFeed false /MediaType (Plain) /DeferredMediaSelection true >> setpagedevice"
 *MediaType Transparency/ Folien: "<</ManualFeed false /MediaType (Transparency) /DeferredMediaSelection true >> setpagedevice"
 *MediaType Labels/Etiketten: "<</ManualFeed false /MediaType (Labels) /DeferredMediaSelection true >> setpagedevice"
@@ -2335,7 +2222,7 @@
 *MediaType Vellum/Pergamentpapier: "<</ManualFeed false /MediaType (Vellum) /DeferredMediaSelection true >> setpagedevice"
 *MediaType Envelope/Umschlag: "<</ManualFeed false /MediaType (Envelope) /DeferredMediaSelection true >> setpagedevice"
 *MediaType Rough/Grobes Papier: "<</ManualFeed false /MediaType (Rough) /DeferredMediaSelection true >> setpagedevice"
-*MediaType Thick/Thick: "<</ManualFeed false /MediaType (Thick) /DeferredMediaSelection true >> setpagedevice"
+*MediaType Thick/Starkespapier: "<</ManualFeed false /MediaType (Thick) /DeferredMediaSelection true >> setpagedevice"
 *MediaType Highqlty/Hohe Qualit<E4>t: "<</ManualFeed false /MediaType (Fine) /DeferredMediaSelection true >> setpagedevice"
 *MediaType User1/Anwender 1: "<</ManualFeed false /MediaType (Custom Type1) /DeferredMediaSelection true >> setpagedevice"
 *MediaType User2/Anwender 2: "<</ManualFeed false /MediaType (Custom Type2) /DeferredMediaSelection true >> setpagedevice"
@@ -2398,63 +2285,55 @@
 *% Page Stack Order
 
 *% Staple Mode Definitions
-*OpenUI *KMStapleMode/Heftfunktion: PickOne
-*OrderDependency: 20 AnySetup *KMStapleMode
-*DefaultKMStapleMode: None
-*KMStapleMode None/Aus: "<< /Staple 0 >> setpagedevice"
-*KMStapleMode CenterLeft/Mittig Links: "
+*OpenUI *KCStaple/Heftfunktion: PickOne
+*OrderDependency: 20 AnySetup *KCStaple
+*DefaultKCStaple: None
+*KCStaple None/Aus: "<< /Staple 0 >> setpagedevice"
+*KCStaple CenterLeft/Mittig Links: "
   userdict /UIStapleDetails known not {userdict /UIStapleDetails 10 dict put} if
   userdict /UIStapleDetails get /StaplePosition 52 put
-  << /Staple 3 /StapleDetails UIStapleDetails >> setpagedevice
-"
+  << /Staple 3 /StapleDetails UIStapleDetails >> setpagedevice"
 *End
-*KMStapleMode CenterRight/Mittelrecht: "
+*KCStaple CenterRight/Mittelrecht: "
   userdict /UIStapleDetails known not {userdict /UIStapleDetails 10 dict put} if
   userdict /UIStapleDetails get /StaplePosition 53 put
-  << /Staple 3 /StapleDetails UIStapleDetails >> setpagedevice
-"
+  << /Staple 3 /StapleDetails UIStapleDetails >> setpagedevice"
 *End
-*KMStapleMode Upperleft/Oben Links: "
+*KCStaple Upperleft/Oben Links: "
   userdict /UIStapleDetails known not {userdict /UIStapleDetails 10 dict put} if
   userdict /UIStapleDetails get /StaplePosition 50 put
-  << /Staple 3 /StapleDetails UIStapleDetails >> setpagedevice
-"
+  << /Staple 3 /StapleDetails UIStapleDetails >> setpagedevice"
 *End
-*KMStapleMode UpperRight/Oben Rechts: "
+*KCStaple UpperRight/Oben Rechts: "
   userdict /UIStapleDetails known not {userdict /UIStapleDetails 10 dict put} if
   userdict /UIStapleDetails get /StaplePosition 51 put
-  << /Staple 3 /StapleDetails UIStapleDetails >> setpagedevice
-"
+  << /Staple 3 /StapleDetails UIStapleDetails >> setpagedevice"
 *End
-*KMStapleMode UpperCenter/Oben Mittig: "
+*KCStaple UpperCenter/Oben Mittig: "
   userdict /UIStapleDetails known not {userdict /UIStapleDetails 10 dict put} if
   userdict /UIStapleDetails get /StaplePosition 54 put
-  << /Staple 3 /StapleDetails UIStapleDetails >> setpagedevice
-"
+  << /Staple 3 /StapleDetails UIStapleDetails >> setpagedevice"
 *End
-*?KMStapleMode: "
+*?KCStaple: "
   save
   currentpagedevice /Staple known
   dup {currentpagedevice /Staple get 0 ne and} if
   {currentpagedevice /StapleDetails get /StaplePosition get
   1 {
-    dup 1 eq {pop (UpperLeft) exit} if
+    dup 1 eq {pop (UpperRight) exit} if
     dup 2 eq {pop (UpperLeft) exit} if
     dup 3 eq {pop (Booklet) exit} if
   } repeat
   }{(None)} ifelse
   = flush restore"
 *End
-*CloseUI: *KMStapleMode
+*CloseUI: *KCStaple
 
 *% Staple Method Definitions
 *OpenUI *StapleCount/Heftmethode: PickOne
 *OrderDependency: 20 AnySetup *StapleCount
-*DefaultStapleCount: Auto
-*StapleCount Auto/Keine: "
-  userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
-  userdict /UIStapleDetails get /Count 0 put <</StapleDetails UIStapleDetails>> setpagedevice"
-*End
+*DefaultStapleCount: None
+*StapleCount None/Aus: ""
 *StapleCount Each50/Je 50 Blatt Heften: "
   userdict /UIStapleDetails known not  {userdict /UIStapleDetails 10 dict put} if
   userdict /UIStapleDetails get /Count 50 put <</StapleDetails UIStapleDetails>> setpagedevice"
@@ -2656,7 +2535,7 @@
 
 *% Rotate Method Definitions
 *OpenUI *KCRotate/Drehen Sortieren: PickOne
-*OrderDependency: 100 AnySetup *KCRotate
+*OrderDependency: 15 AnySetup *KCRotate
 *DefaultKCRotate: None
 *KCRotate None/Aus: "false statusdict /setkcrotatedcollation get exec"
 *KCRotate On/Ein: "true statusdict /setkcrotatedcollation get exec"
@@ -2690,8 +2569,8 @@
 *OrderDependency: 100 AnySetup *KCBooklet
 *DefaultKCBooklet: None
 *KCBooklet None/Aus: "0 statusdict /setkcbooklet get exec"
-*KCBooklet Left/Booklet links geheftet: " 1 statusdict /setkcbooklet get exec << /Fold 3 /FoldDetails << /FoldMode 1 >> >> setpagedevice statusdict begin true setduplexmode true settumble end"
-*KCBooklet Right/Booklet rechts geheftet: " 2 statusdict /setkcbooklet get exec << /Fold 3 /FoldDetails << /FoldMode 1 >> >> setpagedevice statusdict begin true setduplexmode true settumble end"
+*KCBooklet Left/Booklet links geheftet: " 1 statusdict /setkcbooklet get exec statusdict begin true setduplexmode true settumble end"
+*KCBooklet Right/Booklet rechts geheftet: " 2 statusdict /setkcbooklet get exec statusdict begin true setduplexmode true settumble end"
 *?KCBooklet: "(None) = flush"
 *End
 *CloseUI: *KCBooklet
@@ -2707,7 +2586,7 @@
 *CloseUI: *KCFold
 
 *% 180 Rotate Definitions
-*OpenUI *Rotate/180<B0> Rotiert: Boolean
+*OpenUI *Rotate/180 Rotiert: Boolean
 *OrderDependency: 45 AnySetup *Rotate
 *DefaultRotate: False
 *Rotate False/Aus: ""
@@ -2760,12 +2639,9 @@ userdict /180rotdetail true put
 *% Job Spooling Definitions
 *OpenUI *KCCollate/Job Zwischenspeicherung: PickOne
 *OrderDependency: 20 AnySetup *KCCollate
-*DefaultKCCollate: None
-*KCCollate None/Standard: "<< /Collate false >> setpagedevice"
-*KCCollate Temp0/Tempor<E4>r (RAM Disk): "
-  userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
-  userdict /UICollateDetails get /Mode 0 put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
-*End
+*DefaultKCCollate: PrnDef
+*KCCollate PrnDef/Standard: ""
+*KCCollate None/Keine: "<< /Collate false >> setpagedevice"
 *KCCollate Temp/Tempor<E4>r (Festplatte): "
   userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
   userdict /UICollateDetails get /Mode 1 put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
@@ -2828,7 +2704,7 @@ userdict /180rotdetail true put
 *End
 *KCCollate JobStorage/Auftragsspeicher: "
   userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
-  userdict /UICollateDetails get dup /Mode 0 put dup /Type 8 put /Hold 2 put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
+  userdict /UICollateDetails get dup /Mode 0 put dup /Type 8 put dup /Hold 2 put dup /HoldType 0 put /HoldKey (0000) pop pop pop <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
 *End
 *?KCCollate: "
   save
@@ -2838,7 +2714,6 @@ userdict /180rotdetail true put
       dup /Mode known {
         /Mode get
         1 {
-          dup 0 eq {pop (Temp0) exit} if
           dup 1 eq {pop (Temp) exit} if
           dup 2 eq {pop (Perm) exit} if
           dup 8 eq {pop (VMB) exit} if
@@ -2916,29 +2791,22 @@ userdict /180rotdetail true put
 *OrderDependency: 10 AnySetup *KCSuperWatermark
 *DefaultKCSuperWatermark: None
 *KCSuperWatermark None/Keine: ""
-*KCSuperWatermark UFA/Use Form-A Alle Seiten: "<</BeginPage {pop  mark {(%disk0%Form-A) kcloadpageimage} stopped cleartomark}>> setpagedevice"
-*KCSuperWatermark UFB/Use Form-B Alle Seiten: "<</BeginPage {pop  mark {(%disk0%Form-B) kcloadpageimage} stopped cleartomark}>> setpagedevice"
-*KCSuperWatermark UFC/Use Form-C Alle Seiten: "<</BeginPage {pop  mark {(%disk0%Form-C) kcloadpageimage} stopped cleartomark}>> setpagedevice"
-*KCSuperWatermark UFAFP/Use Form-A Erste Seite: "<</BeginPage {0 eq {mark {(%disk0%Form-A) kcloadpageimage} stopped cleartomark}if}>> setpagedevice"
-*KCSuperWatermark UFBFP/Use Form-B Erste Seite: "<</BeginPage {0 eq {mark {(%disk0%Form-B) kcloadpageimage} stopped cleartomark}if}>> setpagedevice"
-*KCSuperWatermark UFCFP/Use Form-C Erste Seite: "<</BeginPage {0 eq {mark {(%disk0%Form-C) kcloadpageimage} stopped cleartomark}if}>> setpagedevice"
-*KCSuperWatermark SFA/Save Form-A: "<</EndPage {exch pop 2 ne dup  mark exch {{(%disk0%Form-A) kcsavepageimage} stopped} if cleartomark}>> setpagedevice"
-*KCSuperWatermark SFB/Save Form-B: "<</EndPage {exch pop 2 ne dup  mark exch {{(%disk0%Form-B) kcsavepageimage} stopped} if cleartomark}>> setpagedevice"
-*KCSuperWatermark SFC/Save Form-C: "<</EndPage {exch pop 2 ne dup  mark exch {{(%disk0%Form-C) kcsavepageimage} stopped} if cleartomark}>> setpagedevice"
+*KCSuperWatermark UFA/Verwenden Form-A Alle Seiten: "<</BeginPage {pop  mark {(%disk0%Form-A) kcloadpageimage} stopped cleartomark}>> setpagedevice"
+*KCSuperWatermark UFB/Verwenden Form-B Alle Seiten: "<</BeginPage {pop  mark {(%disk0%Form-B) kcloadpageimage} stopped cleartomark}>> setpagedevice"
+*KCSuperWatermark UFC/Verwenden Form-C Alle Seiten: "<</BeginPage {pop  mark {(%disk0%Form-C) kcloadpageimage} stopped cleartomark}>> setpagedevice"
+*KCSuperWatermark UFAFP/Verwenden Form-A Erste Seite: "<</BeginPage {0 eq {mark {(%disk0%Form-A) kcloadpageimage} stopped cleartomark}if}>> setpagedevice"
+*KCSuperWatermark UFBFP/Verwenden Form-B Erste Seite: "<</BeginPage {0 eq {mark {(%disk0%Form-B) kcloadpageimage} stopped cleartomark}if}>> setpagedevice"
+*KCSuperWatermark UFCFP/Verwenden Form-C Erste Seite: "<</BeginPage {0 eq {mark {(%disk0%Form-C) kcloadpageimage} stopped cleartomark}if}>> setpagedevice"
+*KCSuperWatermark SFA/Speichern Form-A: "<</EndPage {exch pop 2 ne dup  mark exch {{(%disk0%Form-A) kcsavepageimage} stopped} if cleartomark}>> setpagedevice"
+*KCSuperWatermark SFB/Speichern Form-B: "<</EndPage {exch pop 2 ne dup  mark exch {{(%disk0%Form-B) kcsavepageimage} stopped} if cleartomark}>> setpagedevice"
+*KCSuperWatermark SFC/Speichern Form-C: "<</EndPage {exch pop 2 ne dup  mark exch {{(%disk0%Form-C) kcsavepageimage} stopped} if cleartomark}>> setpagedevice"
 *CloseUI: *KCSuperWatermark
 
-*% Page Policy Definitions
-*OpenUI *PagePolicy/Page Policy: PickOne
-*OrderDependency: 15 AnySetup *PagePolicy
-*DefaultPagePolicy: On
-*PagePolicy On/AutoSizeSelect: "<< /DeferredMediaSelection true >> setpagedevice"
-*CloseUI: *PagePolicy
-
 *% PPD Version Info 
-*OpenUI *KMVersion/PPD Version: PickOne
-*OrderDependency: 25 AnySetup *KMVersion
-*DefaultKMVersion: Default
-*KMVersion Default/8.2.0111 [01-11-2005]: "
+*OpenUI *KCVersion/PPD Version: PickOne
+*OrderDependency: 25 AnySetup *KCVersion
+*DefaultKCVersion: Default
+*KCVersion Default/8.2 [06-05-2006]: "
 globaldict /ct_AddStdCIDMap known {
 globaldict /ct_AddStdCIDMap get  length 7 eq
 {globaldict /ct_AddStdCIDMap get  0 get type /stringtype eq
@@ -2954,7 +2822,7 @@ globaldict /ct_AddStdCIDMap get
 put put setglobal
 } if} if} if} if} if} if} if"
 *End
-*CloseUI: *KMVersion
+*CloseUI: *KCVersion
 
 *% Font Information
 *DefaultFont: Courier
@@ -3138,4 +3006,4 @@ put put setglobal
 *Source: "LocalTalk"
 *Source: "Option"
 
-*%  End of PPD file for Kyocera KM-8030 (German)
+*%  End of PPD file for Kyocera KM-8030 (European German)

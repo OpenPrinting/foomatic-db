@@ -88,7 +88,12 @@
 *Protocols: PJL TBCP
 
 *1284Modes Parallel: Compat Nibble ECP
-*1284DeviceID: "MFG:Kyocera Mita;Model:Kyocera Mita FS-1018MFP;COMMAND SET: POSTSCRIPT,PJL,PCL"
+*1284DeviceID: "MFG:Kyocera Mita;MODEL:Kyocera Mita FS-1018MFP;COMMAND SET: POSTSCRIPT,PJL,PCL"
+
+*% JCL Information 
+*JCLBegin: "<1B>%-12345X@PJL JOB<0A>"
+*JCLToPSInterpreter: "@PJL ENTER LANGUAGE=POSTSCRIPT<0A>"
+*JCLEnd: "<1B>%-12345X@PJL EOJ<0A><1B>%-12345X"
 
 *% JCL Information 
 *JCLOpenUI *JCLEconomode/EcoPrint: PickOne
@@ -155,6 +160,8 @@
 *% Constraints
 *UIConstraints: *Option8 None *InputSlot PF17
 *UIConstraints: *InputSlot PF17 *Option8 None
+*UIConstraints: *MediaType Thick *Duplex
+*UIConstraints: *Duplex *MediaType Thick
 *UIConstraints: *MediaType Transparency *InputSlot Internal
 *UIConstraints: *InputSlot Internal *MediaType Transparency
 *UIConstraints: *MediaType Labels *InputSlot Internal

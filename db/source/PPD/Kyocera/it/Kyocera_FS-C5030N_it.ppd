@@ -103,7 +103,7 @@
 *Protocols: PJL TBCP
 
 *1284Modes Parallel: Compat Nibble ECP
-*1284DeviceID: "MFG:Kyocera;Model:Kyocera FS-C5030N;COMMAND SET: POSTSCRIPT,PJL,PCL"
+*1284DeviceID: "MFG:Kyocera;MODEL:Kyocera FS-C5030N;COMMAND SET: POSTSCRIPT,PJL,PCL"
 
 *% JCL Information 
 *JCLBegin: "<1B>%-12345X@PJL JOB<0A>"
@@ -118,25 +118,18 @@
 *JCLEconomode 75/75<25>: "@PJL SET KECOPLEVEL=75<0A>"
 *JCLCloseUI: *JCLEconomode
 
-*JCLOpenUI *JCLQuickPrint/Quick Print (CYM): Boolean
-*DefaultJCLQuickPrint: False
-*OrderDependency: 5 JCLSetup *JCLQuickPrint
-*JCLQuickPrint False/Disattivato: "@PJL ENTER LANGUAGE=PCL<0A>!R!CRES;GRAY0;"
-*JCLQuickPrint True/Attivo: "@PJL ENTER LANGUAGE=PCL<0A>!R!CRES;GRAY1;"
-*JCLCloseUI: *JCLQuickPrint
-
-*JCLOpenUI *JCLHalftone/Halftone Screen: PickOne
+*JCLOpenUI *JCLHalftone/Retino mezzitoni: PickOne
 *DefaultJCLHalftone: Gradation
-*OrderDependency: 6 JCLSetup *JCLHalftone
-*JCLHalftone Gradation/Optimize for Gradation: "SCRN0;"
-*JCLHalftone Detail/Optimize for Detail: "SCRN1;"
-*JCLHalftone LineArt/Optimize for Line Art: "SCRN2;"
+*OrderDependency: 5 JCLSetup *JCLHalftone
+*JCLHalftone Gradation/Ottimizza per uniformit<E0> colore: "!R!CRES;SCRN0;"
+*JCLHalftone Detail/Ottimizza per dettagli: "!R!CRES;SCRN1;"
+*JCLHalftone LineArt/Ottimizza per disegni al tratto: "!R!CRES;SCRN2;"
 *JCLCloseUI: *JCLHalftone
 
-*JCLOpenUI *JCLRedLevel/RGB Level (Red): PickOne
+*JCLOpenUI *JCLRedLevel/Livello RGB (Rosso): PickOne
 *DefaultJCLRedLevel: None
 *OrderDependency: 7 JCLSetup *JCLRedLevel
-*JCLRedLevel None/Normal: "RGBL0,0;"
+*JCLRedLevel None/Normale: "RGBL0,0;"
 *JCLRedLevel Minus10/-10: "RGBL0,-10;"
 *JCLRedLevel Minus9/-9: "RGBL0,-9;"
 *JCLRedLevel Minus8/-8: "RGBL0,-8;"
@@ -159,10 +152,10 @@
 *JCLRedLevel Plus10/+10: "RGBL0,10;"
 *JCLCloseUI: *JCLRedLevel
 
-*JCLOpenUI *JCLGreenLevel/RGB Level (Green): PickOne
+*JCLOpenUI *JCLGreenLevel/Livello RGB (Verde): PickOne
 *DefaultJCLGreenLevel: None
 *OrderDependency: 7 JCLSetup *JCLGreenLevel
-*JCLGreenLevel None/Normal: "RGBL1,0;"
+*JCLGreenLevel None/Normale: "RGBL1,0;"
 *JCLGreenLevel Minus10/-10: "RGBL1,-10;"
 *JCLGreenLevel Minus9/-9: "RGBL1,-9;"
 *JCLGreenLevel Minus8/-8: "RGBL1,-8;"
@@ -185,10 +178,10 @@
 *JCLGreenLevel Plus10/+10: "RGBL1,10;"
 *JCLCloseUI: *JCLGreenLevel
 
-*JCLOpenUI *JCLBlueLevel/RGB Level (Blue): PickOne
+*JCLOpenUI *JCLBlueLevel/Livello RGB (Blu): PickOne
 *DefaultJCLBlueLevel: None
 *OrderDependency: 7 JCLSetup *JCLBlueLevel
-*JCLBlueLevel None/Normal: "RGBL2,0;"
+*JCLBlueLevel None/Normale: "RGBL2,0;"
 *JCLBlueLevel Minus10/-10: "RGBL2,-10;"
 *JCLBlueLevel Minus9/-9: "RGBL2,-9;"
 *JCLBlueLevel Minus8/-8: "RGBL2,-8;"
@@ -211,10 +204,10 @@
 *JCLBlueLevel Plus10/+10: "RGBL2,10;"
 *JCLCloseUI: *JCLBlueLevel
 
-*JCLOpenUI *JCLHueMaster/Hue Rotation (Master): PickOne
+*JCLOpenUI *JCLHueMaster/Correzione tonalit<E0> (Master): PickOne
 *DefaultJCLHueMaster: None
 *OrderDependency: 8 JCLSetup *JCLHueMaster
-*JCLHueMaster None/Normal: "HUE0,0;"
+*JCLHueMaster None/Normale: "HUE0,0;"
 *JCLHueMaster Minus180/-180<B0>: "HUE0,-180;"
 *JCLHueMaster Minus170/-170<B0>: "HUE0,-170;"
 *JCLHueMaster Minus160/-160<B0>: "HUE0,-160;"
@@ -253,10 +246,10 @@
 *JCLHueMaster Plus180/+180<B0>: "HUE0,180;"
 *JCLCloseUI: *JCLHueMaster
 
-*JCLOpenUI *JCLHueRed/Hue Adjustment (Red): PickOne
+*JCLOpenUI *JCLHueRed/Correzione tonalit<E0> (Rosso): PickOne
 *DefaultJCLHueRed: None
 *OrderDependency: 9 JCLSetup *JCLHueRed
-*JCLHueRed None/Normal: "HUE1,0;"
+*JCLHueRed None/Normale: "HUE1,0;"
 *JCLHueRed Minus10/-60<B0>: "HUE1,-10;"
 *JCLHueRed Minus9/-54<B0>: "HUE1,-9;"
 *JCLHueRed Minus8/-48<B0>: "HUE1,-8;"
@@ -279,10 +272,10 @@
 *JCLHueRed Plus10/+60<B0>: "HUE1,10;"
 *JCLCloseUI: *JCLHueRed
 
-*JCLOpenUI *JCLHueYellow/Hue Adjustment (Yellow): PickOne
+*JCLOpenUI *JCLHueYellow/Correzione tonalit<E0> (Giallo): PickOne
 *DefaultJCLHueYellow: None
 *OrderDependency: 9 JCLSetup *JCLHueYellow
-*JCLHueYellow None/Normal: "HUE2,0;"
+*JCLHueYellow None/Normale: "HUE2,0;"
 *JCLHueYellow Minus10/-60<B0>: "HUE2,-10;"
 *JCLHueYellow Minus9/-54<B0>: "HUE2,-9;"
 *JCLHueYellow Minus8/-48<B0>: "HUE2,-8;"
@@ -305,10 +298,10 @@
 *JCLHueYellow Plus10/+60<B0>: "HUE2,10;"
 *JCLCloseUI: *JCLHueYellow
 
-*JCLOpenUI *JCLHueGreen/Hue Adjustment (Green): PickOne
+*JCLOpenUI *JCLHueGreen/Correzione tonalit<E0> (Verde): PickOne
 *DefaultJCLHueGreen: None
 *OrderDependency: 9 JCLSetup *JCLHueGreen
-*JCLHueGreen None/Normal: "HUE3,0;"
+*JCLHueGreen None/Normale: "HUE3,0;"
 *JCLHueGreen Minus10/-60<B0>: "HUE3,-10;"
 *JCLHueGreen Minus9/-54<B0>: "HUE3,-9;"
 *JCLHueGreen Minus8/-48<B0>: "HUE3,-8;"
@@ -331,10 +324,10 @@
 *JCLHueGreen Plus10/+60<B0>: "HUE3,10;"
 *JCLCloseUI: *JCLHueGreen
 
-*JCLOpenUI *JCLHueCyan/Hue Adjustment (Cyan): PickOne
+*JCLOpenUI *JCLHueCyan/Correzione tonalit<E0> (Ciano): PickOne
 *DefaultJCLHueCyan: None
 *OrderDependency: 9 JCLSetup *JCLHueCyan
-*JCLHueCyan None/Normal: "HUE4,0;"
+*JCLHueCyan None/Normale: "HUE4,0;"
 *JCLHueCyan Minus10/-60<B0>: "HUE4,-10;"
 *JCLHueCyan Minus9/-54<B0>: "HUE4,-9;"
 *JCLHueCyan Minus8/-48<B0>: "HUE4,-8;"
@@ -357,10 +350,10 @@
 *JCLHueCyan Plus10/+60<B0>: "HUE4,10;"
 *JCLCloseUI: *JCLHueCyan
 
-*JCLOpenUI *JCLHueBlue/Hue Adjustment (Blue): PickOne
+*JCLOpenUI *JCLHueBlue/Correzione tonalit<E0> (Blu): PickOne
 *DefaultJCLHueBlue: None
 *OrderDependency: 9 JCLSetup *JCLHueBlue
-*JCLHueBlue None/Normal: "HUE5,0;"
+*JCLHueBlue None/Normale: "HUE5,0;"
 *JCLHueBlue Minus10/-60<B0>: "HUE5,-10;"
 *JCLHueBlue Minus9/-54<B0>: "HUE5,-9;"
 *JCLHueBlue Minus8/-48<B0>: "HUE5,-8;"
@@ -383,10 +376,10 @@
 *JCLHueBlue Plus10/+60<B0>: "HUE5,10;"
 *JCLCloseUI: *JCLHueBlue
 
-*JCLOpenUI *JCLHueMagenta/Hue Adjustment (Magenta): PickOne
+*JCLOpenUI *JCLHueMagenta/Correzione tonalit<E0> (Magenta): PickOne
 *DefaultJCLHueMagenta: None
 *OrderDependency: 9 JCLSetup *JCLHueMagenta
-*JCLHueMagenta None/Normal: "HUE6,0;"
+*JCLHueMagenta None/Normale: "HUE6,0;"
 *JCLHueMagenta Minus10/-60<B0>: "HUE6,-10;"
 *JCLHueMagenta Minus9/-54<B0>: "HUE6,-9;"
 *JCLHueMagenta Minus8/-48<B0>: "HUE6,-8;"
@@ -409,10 +402,10 @@
 *JCLHueMagenta Plus10/+60<B0>: "HUE6,10;"
 *JCLCloseUI: *JCLHueMagenta
 
-*JCLOpenUI *JCLLightnessGamma/Lightness (Gamma): PickOne
+*JCLOpenUI *JCLLightnessGamma/Luminosit<E0> (Gamma): PickOne
 *DefaultJCLLightnessGamma: None
 *OrderDependency: 9 JCLSetup *JCLLightnessGamma
-*JCLLightnessGamma None/Normal: "LGHT0,0;"
+*JCLLightnessGamma None/Normale: "LGHT0,0;"
 *JCLLightnessGamma Minus10/-10: "LGHT0,-10;"
 *JCLLightnessGamma Minus9/-9: "LGHT0,-9;"
 *JCLLightnessGamma Minus8/-8: "LGHT0,-8;"
@@ -435,10 +428,10 @@
 *JCLLightnessGamma Plus10/+10: "LGHT0,10;"
 *JCLCloseUI: *JCLLightnessGamma
 
-*JCLOpenUI *JCLLightnessContrast/Lightness (Contrast): PickOne
+*JCLOpenUI *JCLLightnessContrast/Luminosit<E0> (Contrasto): PickOne
 *DefaultJCLLightnessContrast: None
 *OrderDependency: 9 JCLSetup *JCLLightnessContrast
-*JCLLightnessContrast None/Normal: "LGHT1,0;"
+*JCLLightnessContrast None/Normale: "LGHT1,0;"
 *JCLLightnessContrast Minus10/-10: "LGHT1,-10;"
 *JCLLightnessContrast Minus9/-9: "LGHT1,-9;"
 *JCLLightnessContrast Minus8/-8: "LGHT1,-8;"
@@ -461,10 +454,10 @@
 *JCLLightnessContrast Plus10/+10: "LGHT1,10;"
 *JCLCloseUI: *JCLLightnessContrast
 
-*JCLOpenUI *JCLSaturation/Saturation: PickOne
+*JCLOpenUI *JCLSaturation/Saturazione: PickOne
 *DefaultJCLSaturation: None
 *OrderDependency: 9 JCLSetup *JCLSaturation
-*JCLSaturation None/Normal: "SATU0;EXIT;<1B>%-12345X"
+*JCLSaturation None/Normale: "SATU0;EXIT;<1B>%-12345X"
 *JCLSaturation Minus10/-10: "SATU-10;EXIT;<1B>%-12345X"
 *JCLSaturation Minus9/-9: "SATU-9;EXIT;<1B>%-12345X"
 *JCLSaturation Minus8/-8: "SATU-8;EXIT;<1B>%-12345X"
@@ -617,8 +610,6 @@
 *UIConstraints: *InputSlot EF1 *Option01 None
 *UIConstraints: *Option01 MF1 *InputSlot EF1
 *UIConstraints: *InputSlot EF1 *Option01 MF1
-*UIConstraints: *Option01 EF1 *InputSlot MF1
-*UIConstraints: *InputSlot MF1 *Option01 EF1
 *UIConstraints: *Option20 None *InputSlot PF60A
 *UIConstraints: *InputSlot PF60A *Option20 None
 *UIConstraints: *Option20 None *InputSlot PF60B
@@ -634,17 +625,22 @@
 *UIConstraints: *Duplex *Option16 False
 *UIConstraints: *Option16 False *Duplex DuplexTumble
 *UIConstraints: *Option16 False *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *InputSlot MF1
-*UIConstraints: *InputSlot MF1 *Duplex DuplexTumble
-*UIConstraints: *InputSlot MF1 *Duplex DuplexNoTumble
 *UIConstraints: *InputSlot EF1 *Duplex
 *UIConstraints: *Duplex *InputSlot EF1
 *UIConstraints: *MediaType Thick *Duplex
 *UIConstraints: *Duplex *MediaType Thick
+*UIConstraints: *MediaType Transparency *Duplex
+*UIConstraints: *Duplex *MediaType Transparency
+*UIConstraints: *MediaType Labels *Duplex
+*UIConstraints: *Duplex *MediaType Labels
+*UIConstraints: *MediaType Vellum *Duplex
+*UIConstraints: *Duplex *MediaType Vellum
+*UIConstraints: *MediaType Envelope *Duplex
+*UIConstraints: *Duplex *MediaType Envelope
+*UIConstraints: *MediaType Cardstock *Duplex
+*UIConstraints: *Duplex *MediaType Cardstock
 *UIConstraints: *MediaType CoatedPaper *Duplex
 *UIConstraints: *Duplex *MediaType CoatedPaper
-*UIConstraints: *MediaType Highqlty *Duplex
-*UIConstraints: *Duplex *MediaType Highqlty
 *UIConstraints: *KCGlossmode True *Duplex DuplexTumble
 *UIConstraints: *Duplex DuplexTumble *KCGlossmode True
 *UIConstraints: *KCGlossmode True *Duplex DuplexNoTumble
@@ -709,7 +705,10 @@
 *UIConstraints: *InputSlot EF1 *MediaType Transparency
 *UIConstraints: *MediaType Vellum *InputSlot EF1
 *UIConstraints: *InputSlot EF1 *MediaType Vellum
-*UIConstraints: *KCCollate *Option18 None
+*NonUIConstraints: *InputSlot EF1 *CustomPageSize
+*NonUIConstraints: *CustomPageSize *InputSlot EF1
+*NonUIConstraints: *Duplex *CustomPageSize
+*NonUIConstraints: *CustomPageSize *Duplex
 *UIConstraints: *Option18 None *KCCollate Temp0
 *UIConstraints: *Option18 None *KCCollate Temp
 *UIConstraints: *Option18 None *KCCollate Perm
@@ -982,10 +981,10 @@
 *% Color Model
 *OpenUI *ColorModel/Modalit<E0> Colore: PickOne
 *OrderDependency: 10 AnySetup *ColorModel
-*DefaultColorModel: CMYK
+*DefaultColorMODEL: CMYK
 *ColorModel CMYK/Colorata (CMYK): "<< /ProcessColorModel /DeviceCMYK >> setpagedevice"
 *ColorModel Gray/Monocromatico: "<< /ProcessColorModel /DeviceGray >> setpagedevice"
-*?ColorModel: "
+*?ColorMODEL: "
   save
   currentpagedevice /ProcessColorModel get
   1 {
@@ -1010,8 +1009,8 @@
 *OpenUI *KCContone/Tonalit<E0> Costante: Boolean
 *OrderDependency: 15 AnySetup *KCContone
 *DefaultKCContone: False
-*KCContone False/Normal: "<< /PreRenderingEnhanceDetails << /BitsPerPixel 2>> >> setpagedevice"
-*KCContone True/Fine: "<< /PreRenderingEnhanceDetails << /BitsPerPixel 4>> >> setpagedevice"
+*KCContone False/Normale: "<< /PreRenderingEnhanceDetails << /BitsPerPixel 2>> >> setpagedevice"
+*KCContone True/Sottile: "<< /PreRenderingEnhanceDetails << /BitsPerPixel 4>> >> setpagedevice"
 *?KCContone: "
   save
   currentpagedevice dup /PreRenderingEnhance known
@@ -1022,7 +1021,7 @@
 *CloseUI: *KCContone
 
 *% Color Reproduction 
-*OpenUI *Colorreprod/Color Reproduction: PickOne
+*OpenUI *Colorreprod/Riproduzione colore: PickOne
 *OrderDependency: 10 AnySetup *Colorreprod
 *DefaultColorreprod: Auto1
 *Colorreprod Auto1/Automatico 1: "<< /ColorReproductionMode 0 >> setpagedevice"
@@ -1052,6 +1051,13 @@
 *DefaultTransfer: Null
 *Transfer Null: "{}"
 *Transfer Null.Inverse: "{1 exch sub}"
+
+*% Page Policy Definitions
+*OpenUI *PagePolicy/Page Policy: PickOne
+*OrderDependency: 15 AnySetup *PagePolicy
+*DefaultPagePolicy: On
+*PagePolicy On/AutoSizeSelect: "<< /DeferredMediaSelection true >> setpagedevice"
+*CloseUI: *PagePolicy
 
 *% Paper Handling 
 *% Page Size Definitions
@@ -1208,17 +1214,17 @@
 *ParamCustomPageSize Height: 2 points 420 1008
 *ParamCustomPageSize WidthOffset: 3 points 0 0
 *ParamCustomPageSize HeightOffset: 4 points 0 0
-*ParamCustomPageSize Orientation: 5 int 0 0
+*ParamCustomPageSize Orientation: 5 int 1 1
 
 *% Input Slot Definitions
 *OpenUI *InputSlot: PickOne
 *OrderDependency: 30 AnySetup *InputSlot
 *DefaultInputSlot: Internal
-*InputSlot Internal/Cassetto 1: "<</ManualFeed false>> setpagedevice statusdict begin 0 setpapertray end"
-*InputSlot PF60A/Cassetto 2: "<</ManualFeed false>> setpagedevice statusdict begin 1 setpapertray end"
-*InputSlot PF60B/Cassetto 3: "<</ManualFeed false>> setpagedevice statusdict begin 4 setpapertray end"
-*InputSlot PF60C/Cassetto 4: "<</ManualFeed false>> setpagedevice statusdict begin 5 setpapertray end"
-*InputSlot EF1/Alimentatore Buste: "<</ManualFeed false>> setpagedevice statusdict begin 2 setpapertray end"
+*InputSlot Internal/Cassetto 1: "<< /ManualFeed false >> setpagedevice statusdict begin 0 setpapertray end"
+*InputSlot PF60A/Cassetto 2: "<< /ManualFeed false >> setpagedevice statusdict begin 1 setpapertray end"
+*InputSlot PF60B/Cassetto 3: "<< /ManualFeed false >> setpagedevice statusdict begin 4 setpapertray end"
+*InputSlot PF60C/Cassetto 4: "<< /ManualFeed false >> setpagedevice statusdict begin 5 setpapertray end"
+*InputSlot EF1/Alimentatore Buste: "<< /ManualFeed false >> setpagedevice statusdict begin 2 setpapertray end"
 *InputSlot MF1/Vassoio multiformato: "currentpagedevice /InputAttributes get 3 get null eq
 { <</ManualFeed true>> setpagedevice }{ statusdict begin 3 setpapertray end } ifelse"
 *End
@@ -1243,7 +1249,7 @@
 *MediaType Vellum/Pergamena: "<</ManualFeed false /MediaType (Vellum) /DeferredMediaSelection true >> setpagedevice"
 *MediaType Envelope/Busta: "<</ManualFeed false /MediaType (Envelope) /DeferredMediaSelection true >> setpagedevice"
 *MediaType Rough/Ruvida: "<</ManualFeed false /MediaType (Rough) /DeferredMediaSelection true >> setpagedevice"
-*MediaType Thick/Thick: "<</ManualFeed false /MediaType (Thick) /DeferredMediaSelection true >> setpagedevice"
+*MediaType Thick/Spessa: "<</ManualFeed false /MediaType (Thick) /DeferredMediaSelection true >> setpagedevice"
 *MediaType CoatedPaper/Carta Patinata: "<</ManualFeed false /MediaType (CoatedPaper) /DeferredMediaSelection true >> setpagedevice"
 *MediaType Highqlty/Alta qualit<E0>: "<</ManualFeed false /MediaType (Fine) /DeferredMediaSelection true >> setpagedevice"
 *MediaType User1/Personalizzazione 1: "<</ManualFeed false /MediaType (Custom Type1) /DeferredMediaSelection true >> setpagedevice"
@@ -1298,8 +1304,8 @@
 *% Job Spooling Definitions
 *OpenUI *KCCollate/Gestione Proc. di Stampa: PickOne
 *OrderDependency: 20 AnySetup *KCCollate
-*DefaultKCCollate: None
-*KCCollate None/Impostazioni Predefinite: "<< /Collate false >> setpagedevice"
+*DefaultKCCollate: PrnDef
+*KCCollate PrnDef/Impostazioni Predefinite: "<< /Collate false >> setpagedevice"
 *KCCollate Temp0/Temporaneo (Disco RAM): "
   userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
   userdict /UICollateDetails get /Mode 0 put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
@@ -1366,7 +1372,7 @@
 *End
 *KCCollate JobStorage/Memorizzazione processi di stampa: "
   userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
-  userdict /UICollateDetails get dup /Mode 0 put dup /Type 8 put /Hold 2 put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
+  userdict /UICollateDetails get dup /Mode 0 put dup /Type 8 put dup /Hold 2 put dup /HoldType 0 put /HoldKey (0000) pop pop pop <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
 *End
 *?KCCollate: "
   save
@@ -1445,18 +1451,11 @@
 *KCSuperWatermark SFC/Salva Form-C: "<</EndPage {exch pop 2 ne dup  mark exch {{(%disk0%Form-C) kcsavepageimage} stopped} if cleartomark}>> setpagedevice"
 *CloseUI: *KCSuperWatermark
 
-*% Page Policy Definitions
-*OpenUI *PagePolicy/Page Policy: PickOne
-*OrderDependency: 15 AnySetup *PagePolicy
-*DefaultPagePolicy: On
-*PagePolicy On/AutoSizeSelect: "<< /DeferredMediaSelection true >> setpagedevice"
-*CloseUI: *PagePolicy
-
 *% PPD Version Info 
-*OpenUI *KMVersion/PPD Versione: PickOne
-*OrderDependency: 25 AnySetup *KMVersion
-*DefaultKMVersion: Default
-*KMVersion Default/8.2.0111 [01-11-2005]: "
+*OpenUI *KCVersion/PPD Versione: PickOne
+*OrderDependency: 25 AnySetup *KCVersion
+*DefaultKCVersion: Default
+*KCVersion Default/8.2 [09-20-2005]: "
 globaldict /ct_AddStdCIDMap known {
 globaldict /ct_AddStdCIDMap get  length 7 eq
 {globaldict /ct_AddStdCIDMap get  0 get type /stringtype eq
@@ -1472,7 +1471,7 @@ globaldict /ct_AddStdCIDMap get
 put put setglobal
 } if} if} if} if} if} if} if"
 *End
-*CloseUI: *KMVersion
+*CloseUI: *KCVersion
 
 *% Font Information
 *DefaultFont: Courier
@@ -1656,4 +1655,4 @@ put put setglobal
 *Source: "LocalTalk"
 *Source: "Option"
 
-*%  End of PPD file for Kyocera FS-C5030N (Italian)
+*%  End of PPD file for Kyocera FS-C5030N (European Italian)
