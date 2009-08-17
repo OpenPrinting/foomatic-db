@@ -1,0 +1,106 @@
+<driver id="driver/hpijs-pcl3">
+ <name>hpijs-pcl3</name>
+ <url>http://hplipopensource.com/</url>
+ <supplier>Hewlett-Packard</supplier>
+ <manufacturersupplied>HP|Apollo</manufacturersupplied>
+ <!--not "thirdpartysupplied"-->
+ <license>BSD</license>
+ <!--not "nonfreesoftware"-->
+ <supportcontacts>
+  <supportcontact level="voluntary" url="https://launchpad.net/hplip">HPLIP support and bug tracking system</supportcontact>
+  <!--not level="commercial"-->
+ </supportcontacts>
+ <shortdescription>
+  <en>
+   HP's HPIJS driver - PPDs for HP's Abollo- and Sony-branded inkjet printers
+  </en>
+ </shortdescription>
+ <functionality>
+  <maxresx>600</maxresx>
+  <maxresy>300</maxresy>
+  <color />
+  <text>100</text>
+  <lineart>100</lineart>
+  <graphics>100</graphics>
+  <photo>100</photo>
+  <load></load>
+  <speed>70</speed>
+ </functionality>
+ <execution>
+  <nopjl />
+  <ijs />
+  <prototype>gs -q -dBATCH -dPARANOIDSAFER -dQUIET -dNOPAUSE -sDEVICE=ijs -sIjsServer=hpijs%A%B%C -dIjsUseOutputFD%Z -sOutputFile=- -</prototype>
+  <ppdentry>
+    *DefaultResolution: 600dpi
+  </ppdentry>
+  <margins>
+   <general>
+    <unit>in</unit>
+    <relative />
+    <left>0.25</left>
+    <right>0.25</right>
+    <top>0.125</top>
+    <bottom>0.67</bottom>
+   </general>
+   <exception PageSize="A4">
+    <left>0.135</left>
+    <right>0.135</right>
+   </exception>
+  </margins>
+ </execution>
+ <comments>
+  <en>
+
+   HPIJS is HP's universal printer driver for most of their
+   non-PostScript printers. It comes as a part of HPLIP, HP Linux
+   Imaging and Printing. HPLIP is a complete driver suite which also
+   includes scanning, copying, and fax drivers for multi-function
+   devices and also the printer maintenance and management utility
+   hp-toolbox.&lt;P&gt;
+
+   The HPIJS driver is only one of the two flavors of HP's printer
+   driver. HP has recently added the CUPS Raster driver hpcups and
+   uses this driver by default currently. HPIJS is still included in
+   HPLIP, but more for backward compatibility.&lt;P&gt;
+
+   HP provides PPD files for all their supported printers and both
+   driver flavors, but unfortunately, they dropped support for their
+   printers which they marketed under the Apollo and Sony brand
+   names. This entry produces appropriate PPDs to get HPIJS support
+   back for these printers, so that they work with full printing
+   functionality. Especially the quality of colour printing is much
+   higher than the quality of other drivers which support the Apollo-
+   and Sony-branded printers.&lt;P&gt;
+
+  </en>
+ </comments>
+ <printers>
+  <printer>
+   <id>printer/Sony-IJP-V100</id>
+  </printer>
+  <printer>
+   <id>printer/Apollo-P-2200</id>
+  </printer>
+  <printer>
+   <id>printer/Apollo-P-2250</id>
+  </printer>
+  <printer>
+   <id>printer/Apollo-P-2100</id>
+  </printer>
+  <printer>
+   <id>printer/Apollo-P-2150</id>
+  </printer>
+  <printer>
+   <id>printer/Apollo-P-2500</id>
+  </printer>
+  <printer>
+   <id>printer/Apollo-P-2550</id>
+  </printer>
+  <printer>
+   <id>printer/Apollo-P-2600</id>
+  </printer>
+  <printer>
+   <id>printer/Apollo-P-2650</id>
+  </printer>
+ </printers>
+</driver>
