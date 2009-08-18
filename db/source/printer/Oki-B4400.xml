@@ -32,13 +32,51 @@
    </drivers>
    <comments>
       <en>
-      Max resolution with hpijs driver: 600x600
-I&apos;ve adapted the default ppd file to get Toner Saving / Toner Density features available.
-You can get it from http://injiniero.es/descargas/B4400.ppd
+      Max resolution with HPIJS driver ("hpijs-pcl5e"): 600x600 dpi&lt;p&gt;
+
+      Adding the following to the PPD file for the "pxlmono" driver
+      enables toner saving and toner density adjustments:&lt;p&gt;
+
+&lt;pre&gt;
+*OpenGroup: Adjustment/Adjustment
+
+*OpenUI *Economode/Toner Saving: PickOne
+*FoomaticRIPOption Economode: enum JCL A
+*OrderDependency: 160 AnySetup *Economode
+*DefaultEconomode: Medium
+*Economode Off/Off: "%% FoomaticRIPOptionSetting: Economode=Off"
+*FoomaticRIPOptionSetting Economode=Off: "SET ECONOMODE=OFF"
+*Economode Medium/Medium: "%% FoomaticRIPOptionSetting: Economode=Medium"
+*FoomaticRIPOptionSetting Economode=Medium: "SET ECONOMODE=ON"
+*Economode Light/Light: "%% FoomaticRIPOptionSetting: Economode=Light"
+*FoomaticRIPOptionSetting Economode=Light: "SET ECONOMODE=LIGHT"
+*CloseUI: *Economode
+
+*OpenUI *TonerDensity/Toner Density: PickOne
+*FoomaticRIPOption TonerDensity: enum JCL A
+*OrderDependency: 100 AnySetup *TonerDensity
+*DefaultTonerDensity: Medium
+*TonerDensity Light/Light: "%% FoomaticRIPOptionSetting: TonerDensity=Light"
+*FoomaticRIPOptionSetting TonerDensity=Light: "SET DENSITY=-2"
+*TonerDensity Lighter/Lighter: "%% FoomaticRIPOptionSetting: TonerDensity=Lighter"
+*FoomaticRIPOptionSetting TonerDensity=Lighter: "SET DENSITY=-1"
+*TonerDensity Medium/Meduim: "%% FoomaticRIPOptionSetting: TonerDensity=Medium"
+*FoomaticRIPOptionSetting TonerDensity=Medium: "SET DENSITY=0"
+*TonerDensity Darker/Darker: "%% FoomaticRIPOptionSetting: TonerDensity=Darker"
+*FoomaticRIPOptionSetting TonerDensity=Darker: "SET DENSITY=1"
+*TonerDensity Dark/Dark: "%% FoomaticRIPOptionSetting: TonerDensity=Dark"
+*FoomaticRIPOptionSetting TonerDensity=Dark: "SET DENSITY=2"
+*CloseUI: *TonerDensity
+
+*CloseGroup: Adjustment
+&lt;/pre&gt;&lt;p&gt;
+
+      You can also get the appropriately patched PPD &lt;a
+      href="http://injiniero.es/descargas/B4400.ppd"&gt;here&lt;/a&gt;.&lt;p&gt;
       
-      Throughput = 26
+      Throughput = 26&lt;p&gt;
       
-      Foomatic entry made by PPDtoXML T/G 0.18 on 2008-06-23
+      Foomatic entry made by PPDtoXML T/G 0.18 on 2008-06-23&lt;p&gt;
       </en>
    </comments>
 </printer>
