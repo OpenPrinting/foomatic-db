@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			elementFormDefault="qualified">
+
+    <xsd:include schemaLocation="types.xsd" />
+	
+	<xsd:simpleType name="packageScopes">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="general" />
+			<xsd:enumeration value="gui" />
+			<xsd:enumeration value="printer" />
+			<xsd:enumeration value="scanner" />
+			<xsd:enumeration value="fax" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="ratings">
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="0" />
+			<xsd:maxInclusive value="100" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	    			
+	<xsd:element name="functionality">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element name="maxresx" type="xsd:nonNegativeInteger" minOccurs="0" />
+				<xsd:element name="maxresy" type="xsd:nonNegativeInteger" minOccurs="0" />
+				<xsd:element name="color" minOccurs="0">
+					<xsd:complexType />								
+				</xsd:element>
+				<xsd:element name="monochrome" minOccurs="0">
+					<xsd:complexType />
+				</xsd:element>
+				<xsd:element name="text" type="ratings" minOccurs="0" />
+				<xsd:element name="lineart" type="ratings" minOccurs="0" />
+				<xsd:element name="graphics" type="ratings" minOccurs="0" />
+				<xsd:element name="photo" type="ratings" minOccurs="0" />
+				<xsd:element name="load" type="ratings" minOccurs="0" />
+				<xsd:element name="speed" type="ratings" minOccurs="0" />
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+	
+    <xsd:element name="driver">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element name="name" type="xsd:string" />
+				<xsd:element name="group" type="xsd:string" minOccurs="0" />
+				<xsd:element name="locales" type="xsd:string" minOccurs="0" />
+				<xsd:element name="pcdriver" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:pattern value="[A-Z]{2}" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="url" type="xsd:string" minOccurs="0" />
+				<xsd:element name="obsolete" minOccurs="0">
+					<xsd:complexType>
+						<xsd:attribute name="replace" type="xsd:string" use="required" />
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="supplier" type="xsd:string" minOccurs="0" />
+				<xsd:element name="thirdpartysupplied" minOccurs="0">
+					<xsd:complexType />
+				</xsd:element>
+				<xsd:element name="manufacturersupplied" type="xsd:string" minOccurs="0" />
+				<xsd:element name="license" type="xsd:string" minOccurs="0" />
+				<xsd:element name="licensetext" type="i18nString" minOccurs="0" />
+				<xsd:element name="nonfreesoftware" minOccurs="0">
+					<xsd:complexType />
+				</xsd:element>
+				<xsd:element name="patents" minOccurs="0">
+					<xsd:complexType />
+				</xsd:element>
+				<xsd:element name="supportcontacts" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="supportcontact" minOccurs="0" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute name="level" type="xsd:string" use="required" />
+											<xsd:attribute name="url" type="xsd:string" use="required" />
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="shortdescription" type="i18nString" minOccurs="0" />
+				<xsd:element name="packages" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="package" minOccurs="0" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute name="scope" type="packageScopes" use="required" />
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				
+				<xsd:element ref="functionality" minOccurs="0" />
+				
+				<!-- <execution> -->
+				<xsd:element name="execution">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="requires" minOccurs="0" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute name="version" type="xsd:string" use="optional" />
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="ghostscript" minOccurs="0">
+								<xsd:complexType />
+							</xsd:element>
+							<xsd:element name="ijs" minOccurs="0">
+								<xsd:complexType />
+							</xsd:element>
+							<xsd:element name="cups" minOccurs="0">
+								<xsd:complexType />
+							</xsd:element>
+							<xsd:element name="opvp" minOccurs="0">
+								<xsd:complexType />
+							</xsd:element>
+							<xsd:element name="uniprint" minOccurs="0">
+								<xsd:complexType />
+							</xsd:element>
+							<xsd:element name="filter" minOccurs="0">
+								<xsd:complexType />
+							</xsd:element>
+							<xsd:element name="postscript" minOccurs="0">
+								<xsd:complexType />
+							</xsd:element>
+							<xsd:element name="nopjl" minOccurs="0">
+								<xsd:complexType />
+							</xsd:element>
+							<xsd:element name="nopageaccounting" minOccurs="0">
+								<xsd:complexType />
+							</xsd:element>
+							<xsd:element name="prototype" type="xsd:string" minOccurs="0" />
+							<xsd:element name="prototype_pdf" type="xsd:string" minOccurs="0" />
+							<xsd:element name="margins" type="marginsDefinition" minOccurs="0" />
+							<xsd:element name="ppdentry" type="xsd:string" minOccurs="0" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<!-- </execution> -->
+				
+				<!-- <printers> -->
+				<xsd:element name="printers" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="printer" minOccurs="0" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:all>
+										<xsd:element name="id" type="printerID" />
+										<xsd:element name="comments" type="i18nString" minOccurs="0" />
+										<xsd:element ref="functionality" minOccurs="0" />
+										<xsd:element name="margins" type="marginsDefinition" minOccurs="0" />
+										<xsd:element name="ppdentry" type="xsd:string" minOccurs="0" />
+									</xsd:all>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<!-- </printers> -->
+				
+				<xsd:element name="comments" type="i18nString" minOccurs="0" />
+			</xsd:all>
+			<xsd:attribute name="id" type="driverID" use="required" />
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

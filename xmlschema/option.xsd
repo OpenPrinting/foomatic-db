@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			elementFormDefault="qualified">
+
+	<xsd:include schemaLocation="types.xsd" />
+	
+	<xsd:simpleType name="optionTypes">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="enum" />
+			<xsd:enumeration value="bool" />
+			<xsd:enumeration value="int" />
+			<xsd:enumeration value="float" />
+			<xsd:enumeration value="string" />
+			<xsd:enumeration value="password" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="optionID">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="opt/[a-zA-Z0-9]([a-zA-Z0-9_\.-])*" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="evalID">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:pattern value="ev/[a-zA-Z0-9]([a-zA-Z0-9_\.-])*">
+			</xsd:pattern>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="constraintData">
+		<xsd:all>
+			<xsd:element name="make" type="xsd:string" minOccurs="0" />
+			<xsd:element name="model" type="xsd:string" minOccurs="0" />
+			<xsd:element name="driver" type="xsd:string" minOccurs="0" />
+			<xsd:element name="printer" type="xsd:string" minOccurs="0" />
+			<xsd:element name="arg_defval" type="xsd:string" minOccurs="0" />
+		</xsd:all>
+		<xsd:attribute name="sense" type="xsd:boolean" />
+	</xsd:complexType>
+	
+	<xsd:element name="option">
+    	<xsd:complexType>
+    		<xsd:all>
+                <xsd:element name="arg_longname" type="i18nString" />
+                <xsd:element name="arg_shortname" type="i18nString" />
+    			<xsd:element name="arg_execution">
+    				<xsd:complexType>
+    					<xsd:all>
+    						<xsd:element name="arg_group" type="xsd:string" minOccurs="0" />
+    						<xsd:element name="arg_order" type="xsd:int" minOccurs="0" />
+    						<xsd:element name="arg_section" type="xsd:string" minOccurs="0" />
+    						<xsd:element name="arg_spot" minOccurs="0">
+    							<xsd:simpleType>
+    								<xsd:restriction base="xsd:string">
+    									<xsd:pattern value="[a-zA-Z]" />
+    								</xsd:restriction>
+    							</xsd:simpleType>
+    						</xsd:element>
+    						<xsd:element name="arg_required" minOccurs="0">
+    							<xsd:complexType />
+    						</xsd:element>
+    						<xsd:element name="arg_substitution" minOccurs="0">
+    							<xsd:complexType />
+    						</xsd:element>
+    						<xsd:element name="arg_postscript" minOccurs="0">
+    							<xsd:complexType />
+    						</xsd:element>
+    						<xsd:element name="arg_pjl" minOccurs="0">
+    							<xsd:complexType />
+    						</xsd:element>
+    						<xsd:element name="arg_composite" minOccurs="0">
+    							<xsd:complexType />
+    						</xsd:element>
+    						<xsd:element name="arg_forced_composite" minOccurs="0">
+    							<xsd:complexType />
+    						</xsd:element>
+    						<xsd:element name="arg_proto" type="xsd:string"  minOccurs="0"/>
+    					</xsd:all>
+    				</xsd:complexType>
+    			</xsd:element>
+    			<xsd:element name="constraints" minOccurs="0">
+    				<xsd:complexType>
+    					<xsd:sequence>
+    						<xsd:element name="constraint" type="constraintData" maxOccurs="unbounded" />
+    					</xsd:sequence>
+    				</xsd:complexType>
+    			</xsd:element>
+    			<xsd:element name="comments" type="i18nString" minOccurs="0" />
+    			<xsd:element name="arg_max" type="xsd:float" minOccurs="0" />
+    			<xsd:element name="arg_min" type="xsd:float" minOccurs="0" />
+    			<xsd:element name="arg_shortname_false" type="i18nString" minOccurs="0" />
+    			<xsd:element name="arg_maxlength" type="xsd:int" minOccurs="0" />
+    			<xsd:element name="arg_allowedchars" type="xsd:string" minOccurs="0" />
+    			<xsd:element name="arg_allowedregexp" type="xsd:string" minOccurs="0" />
+    			<xsd:element name="enum_vals" minOccurs="0">
+    				<xsd:complexType>
+    					<xsd:sequence>
+    						<xsd:element name="enum_val" maxOccurs="unbounded">
+    							<xsd:complexType>
+    								<xsd:all>
+    									<xsd:element name="ev_longname" type="i18nString" />
+    									<xsd:element name="ev_shortname" type="i18nString" />
+    									<xsd:element name="ev_driverval" type="xsd:string" />
+									<xsd:element name="comments" type="i18nString"  minOccurs="0" />
+    									<xsd:element name="constraints" minOccurs="0">
+    										<xsd:complexType>
+    											<xsd:sequence>
+    												<xsd:element name="constraint" type="constraintData" maxOccurs="unbounded" />
+    											</xsd:sequence>
+    										</xsd:complexType>
+    									</xsd:element>
+    								</xsd:all>
+    								<xsd:attribute name="id" type="evalID" use="required" />
+    							</xsd:complexType>
+    						</xsd:element>
+    					</xsd:sequence>
+    				</xsd:complexType>
+    			</xsd:element>
+    		</xsd:all>
+    		<xsd:attribute name="type" type="optionTypes" use="required" />
+    		<xsd:attribute name="id" type="optionID" use="required" />
+    	</xsd:complexType>
+    </xsd:element>
+</xsd:schema>

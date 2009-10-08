@@ -75,6 +75,27 @@ db/
 
   The XML database. See below.
 
+xmlschema/*.xsd
+
+  XML Schema files to verify the XML database entries. There is one for
+  each XML file type (printer, driver, option) and an additional one (types.xsd)
+  which is used by the first three.
+
+  To verify XML files run
+
+    xmllint --noout --schema xmlschema/<type>.xsd db/source/<type>/<file>.xml
+
+  For example for a driver:
+
+    xmllint --noout --schema xmlschema/driver.xsd db/source/driver/ljet4.xml
+
+  For all printers use:
+
+    xmllint --noout --schema xmlschema/printer.xsd db/source/printer/*.xml\
+
+  Do this check whenever you create or edit XML files to assure that your
+  XML file is correct.
+
 
 Dependencies
 ------------
@@ -1945,7 +1966,7 @@ The "DRV:" field in a device ID looks like this:
 PCLXL,POSTSCRIPT;DES:Hewlett-Packard LaserJet 4050 Series;DRV:Dljet4,R0,M0,F1,Sv,TG,X600,Y600,C0,t90,l90,g60,p30,s90;"
 
 If there is no device ID for a printer, the "*1284DeviceID" will
-contain only the "DRV:" firld.
+contain only the "DRV:" field.
 
 The PPDs contain the driver properties also in clear text, like this:
 

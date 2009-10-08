@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			elementFormDefault="qualified">
+	<xsd:annotation>
+		<xsd:documentation>
+			This file is an effort to isolate the most commonly used data-types used 
+			in describing elements of the foomatic XML schema. This file in included 
+			in the other XML schemas so that changes made to these data-types are 
+			instantly reflected in the main schema files.
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<!-- <simple_types> -->
+	<xsd:simpleType name="driverID" final="#all">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="driver/[a-zA-Z0-9]([a-zA-Z0-9_\.-])*"></xsd:pattern>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="printerID" final="#all">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="printer/[a-zA-Z0-9]([a-zA-Z0-9_\+-])*" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="ratingsValue">
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="0" />
+			<xsd:maxInclusive value="100" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="lengthUnits">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="pt" />
+			<xsd:enumeration value="in" />
+			<xsd:enumeration value="mm" />
+			<xsd:enumeration value="cm" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- </simple_types> -->
+	
+	<!-- <complex_types> -->
+	<xsd:complexType name="i18nString">
+		<xsd:all>
+			<xsd:element name="en" minOccurs="0" maxOccurs="1">
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="xsd:string">
+							<xsd:attribute name="url" type="xsd:string" use="optional" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="fr" minOccurs="0" maxOccurs="1">
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="xsd:string">
+							<xsd:attribute name="url" type="xsd:string" use="optional" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="de" minOccurs="0" maxOccurs="1">
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="xsd:string">
+							<xsd:attribute name="url" type="xsd:string" use="optional" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="jp" minOccurs="0" maxOccurs="1">
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="xsd:string">
+							<xsd:attribute name="url" type="xsd:string" use="optional" />
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:all>
+	</xsd:complexType>
+	
+	<xsd:complexType name="marginValues">
+		<xsd:all>
+			<xsd:element name="unit" type="lengthUnits" minOccurs="0" />
+			<xsd:element name="absolute" minOccurs="0">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="relative" minOccurs="0">
+				<xsd:complexType />
+			</xsd:element>
+			<xsd:element name="top" type="xsd:float" minOccurs="0" />
+			<xsd:element name="left" type="xsd:float" minOccurs="0" />
+			<xsd:element name="right" type="xsd:float" minOccurs="0" />
+			<xsd:element name="bottom" type="xsd:float" minOccurs="0" />
+		</xsd:all>
+	</xsd:complexType>
+	
+	<xsd:complexType name="marginsDefinition">
+		<xsd:sequence>
+			<xsd:element name="general" type="marginValues" minOccurs="0" />
+			<xsd:element name="exception" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="marginValues">
+							<xsd:attribute name="PageSize" type="xsd:string" use="required" />
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- </complex_types> -->
+	
+</xsd:schema>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			elementFormDefault="qualified">
+			
+	<xsd:include schemaLocation="types.xsd" />
+	
+	<xsd:complexType name="autodetectInformation">
+		<xsd:all>
+			<xsd:element name="ieee1284" type="xsd:string" minOccurs="0" />
+			<xsd:element name="commandset" type="xsd:string" minOccurs="0" />
+			<xsd:element name="description" type="xsd:string" minOccurs="0" />
+			<xsd:element name="manufacturer" type="xsd:string" minOccurs="0" />
+			<xsd:element name="model" type="xsd:string" minOccurs="0" />
+		</xsd:all>
+	</xsd:complexType>
+	
+	<xsd:element name="printer">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element name="make" type="xsd:string" />
+				<xsd:element name="model" type="xsd:string" />
+				<xsd:element name="pcmodel" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:pattern value="[A-Z0-9_]{0,8}" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+				<!-- <mechanism> -->
+				<xsd:element name="mechanism">
+				<xsd:annotation>
+					<xsd:documentation>
+						The mechanism section describes the various facets of a
+						printer's operating mechanism such as the maximum resolution
+						supported, the type of the printer (supported types are inkjet,
+						dotmatrix, laser, led, impact, sublimation and transfer), the 
+						margin specifications, some comments on the consumables (like 
+						toner or ribbon etc.) and if the printer prints in color.
+					</xsd:documentation>
+				</xsd:annotation>
+					<xsd:complexType>
+						<xsd:all>
+							<xsd:element name="laser" minOccurs="0">
+								<xsd:complexType />
+							</xsd:element>
+							<xsd:element name="led" minOccurs="0">
+								<xsd:complexType />
+							</xsd:element>
+							<xsd:element name="inkjet" minOccurs="0">
+								<xsd:complexType />
+							</xsd:element>
+							<xsd:element name="dotmatrix" minOccurs="0">
+								<xsd:complexType />
+							</xsd:element>
+							<xsd:element name="impact" minOccurs="0">
+								<xsd:complexType />
+							</xsd:element>
+							<xsd:element name="sublimation" minOccurs="0">
+								<xsd:complexType />
+							</xsd:element>
+							<xsd:element name="transfer" minOccurs="0">
+								<xsd:complexType />
+							</xsd:element>
+							<xsd:element name="thermal" minOccurs="0">
+								<xsd:complexType />
+							</xsd:element>
+							<!--<xsd:group ref="printerTypes" minOccurs="0" />-->
+							<xsd:element name="color" minOccurs="0">
+								<xsd:complexType />
+							</xsd:element>
+							<xsd:element name="resolution" minOccurs="0">
+								<xsd:complexType>
+									<xsd:all>
+										<xsd:element name="dpi" minOccurs="0">
+											<xsd:complexType>
+												<xsd:all>
+													<xsd:element name="x" type="xsd:nonNegativeInteger" minOccurs="0" />
+													<xsd:element name="y" type="xsd:nonNegativeInteger" minOccurs="0" />
+												</xsd:all>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:all>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="margins" type="marginsDefinition" minOccurs="0" />
+						</xsd:all>
+					</xsd:complexType>
+				</xsd:element>
+				<!-- </mechanism> -->
+				
+				<xsd:element name="url" type="xsd:string" minOccurs="0" />
+				
+				<!-- <lang> -->
+				<xsd:element name="lang" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						The lang section describes the printer command languages 
+						that are understood by this printer. A printer may be built 
+						to understand more than one language.
+					</xsd:documentation>
+				</xsd:annotation>
+					<xsd:complexType>
+						<xsd:all>
+							<xsd:element name="postscript" minOccurs="0">
+								<xsd:complexType>
+									<xsd:attribute name="level" type="xsd:string" />
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="pdf" minOccurs="0">
+								<xsd:complexType>
+									<xsd:attribute name="level" type="xsd:string" />
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="lips" minOccurs="0">
+								<xsd:complexType>
+									<xsd:attribute name="level" type="xsd:string" />
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="pcl" minOccurs="0">
+								<xsd:complexType>
+									<xsd:attribute name="level" type="xsd:string" />
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="escp" minOccurs="0">
+								<xsd:complexType>
+									<xsd:attribute name="level" type="xsd:string" />
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="escp2" minOccurs="0">
+								<xsd:complexType>
+									<xsd:attribute name="level" type="xsd:string" />
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="hpgl2" minOccurs="0">
+								<xsd:complexType>
+									<xsd:attribute name="level" type="xsd:string" />
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="tiff" minOccurs="0">
+								<xsd:complexType>
+									<xsd:attribute name="level" type="xsd:string" />
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="proprietary" minOccurs="0">
+								<xsd:complexType />
+							</xsd:element>
+							<xsd:element name="pjl" minOccurs="0">
+								<xsd:complexType />
+							</xsd:element>
+							<xsd:element name="text" minOccurs="0">
+								<xsd:complexType>
+									<xsd:all>
+										<xsd:element name="charset" type="xsd:string" />
+									</xsd:all>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:all>
+					</xsd:complexType>
+				</xsd:element>
+				<!-- </lang> -->
+				
+				<xsd:element name="autodetect" minOccurs="0">
+					<xsd:complexType>
+						<xsd:all>
+							<xsd:element name="general" type="autodetectInformation" minOccurs="0" />
+							<xsd:element name="parallel" type="autodetectInformation" minOccurs="0" />
+							<xsd:element name="usb" type="autodetectInformation" minOccurs="0" />
+							<xsd:element name="snmp" type="autodetectInformation" minOccurs="0" />
+						</xsd:all>
+					</xsd:complexType>
+				</xsd:element>
+				
+				<xsd:element name="functionality">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:enumeration value="A" />
+							<xsd:enumeration value="B" />
+							<xsd:enumeration value="D" />
+							<xsd:enumeration value="F" />
+							<xsd:enumeration value="" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+				<xsd:element name="driver" type="xsd:string" minOccurs="0" />
+				<xsd:element name="drivers" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="driver" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:all>
+										<xsd:element name="id">
+											<xsd:simpleType>
+												<xsd:restriction base="xsd:string">
+													<xsd:pattern value="[a-zA-Z0-9]([a-zA-Z0-9_\.-])*" />
+												</xsd:restriction>
+											</xsd:simpleType>
+										</xsd:element>
+										<xsd:element name="ppd" type="xsd:string" minOccurs="0" />
+										<xsd:element name="comments" type="i18nString" minOccurs="0" />
+									</xsd:all>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				
+				<xsd:element name="contrib_url" type="xsd:string" minOccurs="0" />
+				<xsd:element name="comments" type="i18nString" minOccurs="0" />
+			</xsd:all>
+			<xsd:attribute name="id" type="printerID" use="required" />
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
