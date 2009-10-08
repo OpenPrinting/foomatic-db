@@ -145,7 +145,753 @@ will be taken into account without any special steps.
 Data
 ----
 
-There are three main source datafiles; annotated examples:
+There are three main source datafiles (printers, drivers, and options;
+annotated examples:
+
+
+printer/HP-LaserJet_4000.xml
+============================
+
+# The printer file contains information specific to a particular
+# printer.
+
+<printer id="printer/HP-LaserJet_4000">
+
+# Make and model are not internationalized.  There will eventually be
+# an "alias" mechanism, but the need is different.
+
+  <make>HP</make>
+  <model>LaserJet 4000</model>
+
+# According to the Adobe specifications for PPD files every PPD file
+# must contain a unique DOS-compatible file name (the "*PCFileName"),
+# a file name with an up to 8 characters log base name and an up to 3
+# characters long extension, and upper and lower case letters being
+# considered as equal. As every PPD file is for a printer/driver
+# combo, we let the first 6 characters being provided by the printer
+# entry:
+
+  <pcmodel>HPLJ4K</pcmodel>
+
+# The first two characters should be the manufacturer prefix as listed
+# in Appendix D of Adobe's "PostScript Printer Description (PPD) File
+# Format Specification Version 4.3", available on
+
+# http://partners.adobe.com/public/developer/en/ps/5003.PPD_Spec_v4.3.pdf
+
+# Various stuff about the machine
+
+  <mechanism>
+
+# Printer types can be <laser />, <led />, <inkjet />, <dotmatrix />,
+# <impact />, <sublimation />, <transfer />, <thermal />. Other types
+# we have to add to the CGI script on OpenPrinting to make the web
+# interface displaying them properly.
+
+    <laser/>
+
+# At some point we can make color be less of a boolean flag and more
+# of a section full of goodies.
+
+    <!--not "color"-->
+    <resolution>
+
+# In theory this is a list.  In practice We've only got one per
+# printer which is the maximum resolution the manufacturer claims for
+# this printer. Do not put empty tags (like "<x></x>" or "<x />" here
+# if the resolution is not known. Leave out the tags (or the whole
+# <resolution> section).
+
+      <dpi>
+        <x>1200</x>
+        <y>1200</y>
+      </dpi>
+    </resolution>
+
+    <consumables>
+
+# Information about ink, drums, etc.
+# The comments are supposed to be qualitative ("Separate drum and
+# toner cartridges")
+
+      <comments>
+        <en>toner</en>
+      </comments>
+
+# There can be <partno>12A1975</partno> elements with manufacturer
+# part numbers for the various carts, etc it takes. Unfortunately,
+# this is not made use of, one could make a consumable database with
+# this for example.
+
+      <!--one or more "partno" elements.-->
+    </consumables>
+  </mechanism>
+
+  <url>http://www.pandi.hp.com/pandi-db/prod_info.show?model=C4118A&amp;name=LaserJet4000</url>
+
+# The lang section.  In practice this will be only minimally useful;
+# 
+#  - Backends can pstops the ps down a level if needed
+#  - Backends know if pjl options apply
+#  - Backends can know if direct text printing will work
+#
+# Commonly used language tags: <pcl level="x" />, <escp2 />, <proprietary />
+
+  <lang>
+    <postscript level="2" />
+    <pjl/>
+    <text>
+      <charset>us-ascii</charset>
+    </text>
+  </lang>
+
+# The autodetection stuff
+
+  <autodetect>
+
+# There are three ways to auto-detect a printer, via the parallel port
+# (<parallel>...</parallel>), the USB (<usb>...</usb>), or SNMP
+# (TCP/Socket-connected printer, <snmp>...</snmp>). Through these
+# interfaces the printers report back an IEEE-1284-complient ID string
+# from which the fields "MFG" (<manufacturer>...</manufacturer>),
+# "MDL" (<model>...</model>), "DES" (<description>...</description>),
+# and "CMD" (<commandset>...</commandset>) are used. The string itself
+# can be put between <ieee1284>...</ieee1284> tags, but all items
+# which are not constant for all printers of this model, as the serial
+# number ("SERN:...;") and the device status ("VSTATUS:...;") have to
+# be removed here. As the ID string is usually the same for all
+# detection methods, one can put the entries between
+# <general>...</general> tags, then the <parallel>...</parallel>,
+# <usb>...</usb>, and <snmp>...</snmp> are only used for
+# differences to the data between the <general>...</general> tags. A
+# complete entry could look like:
+#
+#  <autodetect>
+#    <general>
+#      <ieee1284>MFG:HEWLETT-PACKARD;MDL:DESKJET 600;CMD:MLC,PCL,PML;CLASS:PRINTER;DESCRIPTION:Hewlett-Packard DeskJet 600;</ieee1284>
+#      <commandset>MLC,PCL,PML</commandset>
+#      <description>Hewlett-Packard DeskJet 600</description>
+#      <manufacturer>HEWLETT-PACKARD</manufacturer>
+#      <model>DESKJET 600</model>
+#    </general>
+#  </autodetect>
+#
+
+# If you use CUPS, you get the device IDs of all locally connected
+# (USB, parallel) printers and of printers in the local network by
+# running:
+
+lpinfo -l -m
+
+# On Linux you find this info for the parallel ports (/dev/lp<N>, <N>
+# = 0, 1, 2, ...) in the files
+#
+#   /proc/sys/dev/parport/parport<N>/autoprobe*
+#
+# for the USB under Linux it is more complicated, easiest is to use a little
+# Perl script, called "getusbprinterid.pl":
+# You need to find the IOCTL call value to pass to the perl ioctl function.
+# Here is a little C program that does this. This is easier than trying to
+# use p2h and convert the *.h files to perl.
+
+# --------------------------------------------------------------------------
+#  /*
+#       print the IOCTL call value for printer information
+#  */
+#  #include <stdio.h>
+#  #include <sys/ioctl.h>
+#  /* From the /usr/src/linux<version>/drivers/usb/printer.c */
+#  #define DRIVER_VERSION "v0.11"
+#  #define DRIVER_AUTHOR "Michael Gee, Pavel Machek, Vojtech Pavlik, Randy Dunlap, Pete Zaitcev, David Paschal"
+#  #define DRIVER_DESC "USB Printer Device Class driver"
+#  
+#  #define USBLP_BUF_SIZE      8192
+#  #define DEVICE_ID_SIZE      1024
+#  
+#  /* ioctls: */
+#  #define LPGETSTATUS     0x060b      /* same as in drivers/char/lp.c */
+#  #define IOCNR_GET_DEVICE_ID     1
+#  #define IOCNR_GET_PROTOCOLS     2
+#  #define IOCNR_SET_PROTOCOL      3
+#  #define IOCNR_HP_SET_CHANNEL        4
+#  #define IOCNR_GET_BUS_ADDRESS       5
+#  #define IOCNR_GET_VID_PID       6
+#  /* Get device_id string: */
+#  #define LPIOC_GET_DEVICE_ID(len) _IOC(_IOC_READ, 'P', IOCNR_GET_DEVICE_ID, len)
+#  /* The following ioctls were added for http://hpoj.sourceforge.net */
+#  /* (HPOJ is replaced by HPLIP, http://hplipopensource.com/): */
+#  /* Get two-int array:
+#  * [0]=current protocol (1=7/1/1, 2=7/1/2, 3=7/1/3),
+#  * [1]=supported protocol mask (mask&(1<<n)!=0 means 7/1/n supported): */
+#  #define LPIOC_GET_PROTOCOLS(len) _IOC(_IOC_READ, 'P', IOCNR_GET_PROTOCOLS, len)
+#  /* Set protocol (arg: 1=7/1/1, 2=7/1/2, 3=7/1/3): */
+#  #define LPIOC_SET_PROTOCOL _IOC(_IOC_WRITE, 'P', IOCNR_SET_PROTOCOL, 0)
+#  /* Set channel number (HP Vendor-specific command): */
+#  #define LPIOC_HP_SET_CHANNEL _IOC(_IOC_WRITE, 'P', IOCNR_HP_SET_CHANNEL, 0)
+#  /* Get two-int array: [0]=bus number, [1]=device address: */
+#  #define LPIOC_GET_BUS_ADDRESS(len) _IOC(_IOC_READ, 'P', IOCNR_GET_BUS_ADDRESS, len)
+#  /* Get two-int array: [0]=vendor ID, [1]=product ID: */
+#  #define LPIOC_GET_VID_PID(len) _IOC(_IOC_READ, 'P', IOCNR_GET_VID_PID, len)
+#  
+#  
+#  int main( int argc, char *argv, char *envp[] )
+#  {
+#   int len = 1024;
+#   int v;
+#   /* _IOC(), _IOC_READ as defined in /usr/include/asm/ioctl.h
+# LPIOC_GET_DEVICE_ID(len) = _IOC(_IOC_READ, 'P', IOCNR_GET_DEVICE_ID, len)
+#   */
+#   v = LPIOC_GET_DEVICE_ID(len);          printf("$LPIOC_GET_DEVICE_ID = 0x%08x;\n", v );
+#   v = LPIOC_GET_BUS_ADDRESS(len);        printf("$LPIOC_GET_BUS_ADDRESS = 0x%08x;\n", v );
+#   v = LPIOC_GET_VID_PID(len);            printf("$LPIOC_GET_VID_PID = 0x%08x;\n", v );
+#   return(0);
+#  }
+#  
+#     
+# save this to a file, say getv.c, compile and run it, and you get an output
+$ like this:
+#  $LPIOC_GET_DEVICE_ID = 0x84005001;
+#  $LPIOC_GET_BUS_ADDRESS = 0x84005005;
+#  $LPIOC_GET_VID_PID = 0x84005006;
+
+
+
+# Here is the getusbprinterid.pl PERL program to get the usb information
+#    
+#	!/usr/bin/perl
+#	open FILE, "$ARGV[0]" or die "cannot open $ARGV[0]";
+#	my $result;
+#	# len = 1024
+#	# LPIOC_GET_DEVICE_ID(len) = _IOC(_IOC_READ, 'P', IOCNR_GET_DEVICE_ID, len)
+#	# _IOC(), _IOC_READ as defined in /usr/include/asm/ioctl.h
+#	$LPIOC_GET_DEVICE_ID = 0x84005001;
+#	$LPIOC_GET_BUS_ADDRESS = 0x84005005;
+#	$LPIOC_GET_VID_PID = 0x84005006;
+#	
+#	ioctl(FILE, $LPIOC_GET_DEVICE_ID , $result) or die;
+#	# Cut resulting string to its real length
+#	my $length = ord(substr($result, 1, 1)) + (ord(substr($result, 0, 1)) << 8);
+#	$result = substr($result, 2, $length-2);
+#	# Remove non-printable characters
+#	$result =~ tr/[\x0-\x1f]/\./;
+#	print "DeviceID $result\n";
+#	
+#	$result = pack("LL",0);
+#	ioctl(FILE, $LPIOC_GET_BUS_ADDRESS , $result) or die;
+#	my( $v1, $v2 ) = unpack("LL", $result );
+#	print "Bus '$v1', Device '$v2'\n";
+#	
+#	$result = pack("LL",0);
+#	ioctl(FILE, $LPIOC_GET_VID_PID, $result) or die;
+#	my( $v1, $v2 ) = unpack("LL", $result );
+#	print "Vendor '$v1', Product '$v2'\n";
+#	
+#	close FILE;
+#	
+#    
+# --------------------------------------------------------------------------
+
+# Running the program with "perl getusbprinterid.pl /dev/usb/lp0" returns the
+# ID string of the device on /dev/usb/lp0.
+# For example: perl getusbprinter.pl /dev/usb/lp0  
+#  DeviceID MFG:Hewlett-Packard;CMD:PJL,MLC,PCL,PCLXL,POSTSCRIPT;MDL:\
+#    HP LaserJet 2200;CLS:PRINTER;DES:Hewlett-Packard LaserJet 2200;\
+#    MEM:8MB;OPTRAY:250Sheets
+#  Bus '2', Device '2'
+#  Vendor '1008', Product '535'
+#
+# (lines broken for clarity)
+
+
+    <!--no known parport probe information-->
+  </autodetect>
+
+# Our grading system.  It's US-style letter grades A, B, D, and F,
+# which the website shows as "Perfectly", "Mostly", "Partially" and
+# "Paperweight" .
+# THERE IS NO `C'!!!
+
+  <functionality>A</functionality>
+
+# Arguably, the scores should live with the printer/driver association
+# and not on the printer, but then it's a big hassle to figure out if
+# a printer works... So the score is the one reached with the driver
+# working best, the "recommended" driver.
+
+# There's a spot for this "recommended" driver, usually the driver
+# which gives the maximum output quality. It is for user information
+# on the web site, but newbie-friendly printer setup GUIs should use
+# it, too. system-config-printer, printer setup tool of Fedora/Red
+# Hat, Ubuntu, and Mandriva Linux makes use of it, also the former
+# printerdrake of Mandriva Linux.
+
+  <driver>Postscript-HP</driver>
+
+# The following optional section describes with which drivers this
+# printer works. A valid printer/driver pair can be defined by either
+# adding the printer to the driver's printer list (the way how it
+# worked all the time) but also by adding the driver to the printer's
+# driver list. This way a printer can get associated with a driver for
+# which there is no driver XML file and a driver can list a supported
+# printer which is not in the printer XML database. For providing a
+# PPD file both printer and driver XML files must exist, but it is not
+# important in which of the two the printer/driver relationship is
+# defined.
+
+# The driver list in the printer XML files was introduced for once
+# defining links to ready-made PPD files (relative paths without "/",
+# "http:", "https:", or "ftp:" in the beginning are relative to
+# $libdir/db/source/, absolute links can point to external sites, as
+# for example the site of a printer manufacturer, but they must always
+# provide the non-interactive download of the PPD file, for example
+# via "wget") and second, listing the supported drivers for
+# visitor-contributed printer entries (from web input form). The
+# comments section is for adding comments specific to the
+# printer/driver combo. As it is human-readable it is
+# internationalized. Each driver entry here must have a driver ID. PPD
+# file link and comment are optional.
+
+  <drivers>
+    <driver>
+      <id>Postscript-HP</id>
+      <ppd>PPD/HP/HP_LaserJet_4000_Series.ppd</ppd>
+      <comments><en>...</en></comments>
+    </driver>
+  </drivers>
+
+
+# The <unverified /> tag marks entries which are entered by visitors
+# via the printer input form on the OpenPrinting web site. It does not
+# appear in approved entries (= all entries in the BZR repository of
+# the foomatic-db package).
+
+  <!--not "unverified"-->
+
+# If there is a web site with additional interesting info about this
+# printer, it can be mentioned in the entry by putting it between
+# <contrib_url>...</contrib_url> tags,
+
+  <!--no "contrib_url"-->
+
+# The regular notes section.  The allowed tags are: <p>, <a
+# href="foobar"> </a> and many other simple tags (<b>, <i>, <tt>,
+# ...). Note that to distinguish what is XML and what is the embedded
+# HTML, the following replacements have to be made:
+#
+#   < --> &lt;
+#   > --> &gt;
+#   " --> &quot;
+#   ' --> &apos;
+#   & --> &amp;
+#
+
+  <comments>
+    <en>
+    I don&apos;t believe this:&lt;p&gt;
+
+    &lt;i&gt;1200x1200 dpi only possible with Windows drivers,
+    600x600 can be reached w/o particular software.
+    The difference is visible, but only slightly, so
+    the Functionality got &quot;Mostly&quot;&lt;p&gt;&lt;/i&gt;&lt;p&gt;
+
+    Do the following:&lt;p&gt;
+
+    Set the resolution on the front panel to &quot;Prores 1200&quot;, not
+    to &quot;Fastres 1200&quot;. When you use CUPS with HPs PPD file, turn
+    off &quot;Fastres 1200&quot; in the printer configuration
+    options.&lt;p&gt;
+
+    Try the generic PostScript PPD file which comes with KUPS 1.0 or newer.
+    </en>
+  </comments>
+</printer>
+
+
+driver/md2k.xml
+===============
+
+The driver files contain information about drivers.  There are a few
+things, but the two biggies are the prototype and the printers list
+
+<driver id="driver/md2k">
+ <name>md2k</name>
+
+# According to the Adobe specifications for PPD files every PPD file
+# must contain a unique DOS-compatible file name (the "*PCFileName"),
+# a file name with an up to 8 characters log base name and an up to 3
+# characters long extension, and upper and lower case letters being
+# considered as equal. As every PPD file is for a printer/driver combo,
+# we let the last 2 characters being provided by the driver entry:
+
+ <pcdriver>M2</pcdriver>
+
+# The drivers listed by the OpenPrinting database are usually not
+# developed by OpenPrinting.  Most free software printer drivers come
+# from independent projects, initiated by peopke who want to get their
+# printers to work under Linux, some other drivers come from the
+# printer manufacturers. So even if OpenPrinting hosts a downloadable
+# package of the driver the development of the driver is not part of
+# OpenPrinting. Therefore every driver entry has to contain a
+# reference to the developers of the driver, where the driver can be
+# actually downloaded. The appropriate link goes into the <url> tag:
+
+ <url>http://plaza26.mbn.or.jp/~higamasa/gdevmd2k/</url>
+
+# The driver XML files can contain the following tags to describe the
+# driver's properties, so that a user can easily find the driver which
+# is most suitable for him. The properties are shown in the gray
+# driver info boxes on the OpenPrinting web site and they are also
+# supposed to be shown by printer setup tools when they offer to
+# download a driver from OpenPrinting. It is especially important to
+# supply them if a downloadable driver package or PPD files are
+# supplied.
+
+# Supplier's name, internationalization (with <en>...</en><de>...</de>...)
+# optional
+
+#   <supplier>SpliX project</supplier>
+
+# Does the driver come from the printer's manufacturer or from a third
+# party. The third form tells also the manufacturer names of the
+# printers which are from the manufacturer which developed the
+# driver. If there are also printers from other manufacturers
+# supported (like for the PCL driver HPIJS) then the OpenPrinting web
+# site does not show this driver as manufacturer-supplied on the pages
+# of the printers of other manufacturers.
+
+#   <thirdpartysupplied />   OR   <manufacturersupplied />   OR
+#   <manufacturersupplied>HP|Apollo</manufacturersupplied>
+
+# License name. Here should be put the common short name or
+# abbreviation if the license is one of the common free software
+# licenses. Otherwise it should contain something short and
+# descriptive, for non-free drivers simply "Commercial". The license
+# name can be internationalized with language tags
+# (<en>...</en><de>...</de>...).
+
+#   <license>GPL</license>
+
+# The license text does not need to be supplied for common free
+# software licenses. It should be supplied if:
+#
+#  - The license is not free (<nonfreesoftware /> tag set)
+#  - The driver has patent issues (<patents /> tag set, describe the
+#    patent issues here in that case)
+#  - The license of the driver is free but none of the common licenses
+#    (<nonfreesoftware /> tag not set)
+
+#   <licensetext>
+#    <en>
+#      ...
+#    </en>
+#   </licensetext>
+
+# License texts can also be linked from external sites:
+
+#   <licensetext>
+#    <en url="http://www.laserstar.com/licenses/en/gl-series-eula.txt" />
+#    <de url="http://www.laserstar.com/licenses/de/gl-series-eula.txt" />
+#    ...
+#   </licensetext>
+
+# License texts have to be given always as plain text, UTF-8-encoded.
+
+# Mark with this tag whether the driver is non-free software
+
+#   <nonfreesoftware />
+
+# All driver entries without this tag are considered to be free
+# software.
+
+# This tag tells whether there are any patent issues with the driver
+
+#   <patents />
+
+# The absence of the tag tells that the driver is free of patent
+# issues.
+
+# If a driver entry provides a <licensetext> and is <nonfreesoftware
+# /> or with <patents /> printer setup tools which download this
+# driver are supposed to present the license text and ask the user
+# whether he agrees with it.
+
+# Printer manufacturers could want to package their drivers for
+# different market regions (Europe, Asia/Pacific, Americas, ...) as
+# the markets demand different capabilities of printer drivers and
+# different user-settable options (CJK-language-related stufff for
+# example). So there could even be two different driver flavors for
+# the same printer but adapted to different regions. To express these
+# driver properties there are special tags.
+
+# For each flavor of the driver a separate driver entry (driver XML
+# file) has to be supplied. There is no requirement of certain
+# properties of the driver flavors to be equal or not. Especially the
+# printer lists can contain printers which are not in all flavors, for
+# example if printers are only sold in certain regions. To mark which
+# entries are belonging together one adds a group tag to each XML
+# file, with the same group name, but the name must be different to
+# the names of all already existing groups. A locales tag contains all
+# language/country codes for which the driver flavor is intended:
+
+#   <group>epson-inkjet</group>
+#   <locales>de en_UK en_IE fr_FR es_ES</locales>
+
+# The codes in the locales taghs should be different for the group
+# members, to allow to automatically select the most suitable flavor
+# if the detected printer is supported by more than one flavor.
+
+# For downloadable drivers support contacts should be given, so that
+# users get informed before they do the download and do not complain
+# at their OS distribution vendor if the driver downloaded from
+# OpenPrinting does not work. The human-readable string for the
+# support contact can be internationalized with language tags
+# (<en>...</en><de>...</de>...).
+
+#   <supportcontacts>
+#    <supportcontact level="voluntary" url="http://sourceforge.net/forum/?group_id=175815">SpliX forum at SourceForge</supportcontact>
+#    <supportcontact level="commercial" url="http://www.laserstar.com/support/">LaserStar Support</supportcontact>
+#   </supportcontacts>
+
+# This is an internationalized short description of the driver,
+# typically one line, to be used in the gray driver info boxes, in the
+# driver overview list, and also by printer setup tools. If a driver
+# entry is for a development version of a driver, tell it here, as the
+# long description is not shown everywhere.
+
+#   <shortdescription>
+#    <en>
+#     Driver for Samsung SPL2 (ML-1710, ...) and SPLc (CLP-500, ...) laser
+#     printers
+#    </en>
+#   </shortdescription>
+
+# If there are downloadable packages for this driver entry on the
+# OpenPrinting web site, usually packages whose name are the driver's
+# name (in all lowercase, "_" replaced by "-", optionally preceeded by
+# "openprinting-" or "openprinting-ppds-") are considered to belong to
+# this entry. If the package names are different, or if it depends on
+# the version number whether a package belongs to this entry, a
+# <packages> section has to be supplied. It is also required if the
+# driver package is split up into several components, to assign scopes
+# to them. Scopes can be: "general", "gui", "printer", "scanner",
+# "fax", ... Uses the "general" scope if packages are not split. Wild
+# cards are the same as used for file masks in the shell (NOT regular
+# expressions). They must match both Debian and RPM package file
+# names. Note that between file name and version number is a "-" for
+# RPMs and a "_" for Debian packages.
+
+#   <packages>
+#    <package scope="general">*splix*1.[0-9].[0-9]*</package>
+#   </packages>
+
+# It is possible to give absolute paths which can point to external
+# sites, as for example the site of a printer manufacturer, so that
+# the package can be hosted there but auto-downloaded via
+# OpenPrinting. Important is that these packages are auto-downloadable
+# LSB packages and that a non-interactive download is provided (should
+# also work with utilities like "wget"). Licenses which the users have
+# to agree on have to get supplied in the driver XML file. Printer
+# setup tools are supposed to ask the user for agreeing if the driver
+# is marked as non-free or with patent issues.
+
+# Example for packages provided by an external site:
+
+#   <packages>
+#    <package scope="general">http://download.example.com/printerdrivers/*canon-inkjet*</package>
+#   </packages>
+
+# The <functionality> section should make it easier for a user to
+# compare different drivers by giving some technical properties and
+# ratings (0...100) for common document types, system load, and
+# execution speed. The higher the number, the better the driver
+# performs here. It is not required to supply all items. Items can be
+# left out or can stay empty. <functionality> sections of the same
+# format can also be used in the <printer> entries in the <printers>
+# list, to describe exceptions for particular printers. If an item is
+# left out or empty there, the appropriate item in the general
+# <functionality> section is used, so only the items which are
+# different for the given printer need to be listed.
+
+#   <functionality>
+#    <maxresx>1200</maxresx>
+#    <maxresy>1200</maxresy>
+#    <color />   OR   <monochrome />
+#    <text>100</text>
+#    <lineart>100</lineart>
+#    <graphics>100</graphics>
+#    <photo>80</photo>
+#    <load>50</load>
+#    <speed>90</speed>
+#   </functionality>
+
+# Not all tags are required here, if the valur for a tag is not known,
+# the tag has to be left out. Do not put empty tags (like
+# "<text></text>" or "<text />" here.
+
+# The <execution> section describes everything needed to execute the
+# driver.
+
+ <execution>
+
+# Sometimes it is possible that a driver depends on another driver,
+# for example a manufacturer publishes a core driver which is
+# completely free software and supports most of their printer. In
+# addition, he publishes closed-source plugins for the core driver to
+# support additional printers where they cannot open the driver code
+# for IP reasons. He wants to link in all his driver packages for
+# automatic download with the <packages> tags. To make everything work
+# correctly he creates one driver entry for the core driver and one
+# for each plugin. The printers which do not need the plugin get
+# listed as supported by the core driver, the printers needing a
+# plugin are listed as supported by the plugin. To avoid that then
+# only a plugin gets automatically downloaded one adds a <requires>
+# tag to each entry of a plugin, to the beginning of the <execution>
+# section:
+
+#    <requires version="&gt;= 5.0.1">gutenprint</requires>
+#    <requires version="&gt;= 2.7.10">hpijs</requires>
+ 
+# The version attribute is optional, without, every version is
+# accepted. Optional relationships (>=, <=, =, <, >) allow to not only
+# accept the given version. The '>´ and '<' have to be replaced by the
+# appropriate XML entities, as described earlier here for other text
+# in the XML files. More than one <requires> tag is allowed.
+
+# Driver types are 
+#
+#  <ghostscript /> : The driver code is compiled into Ghostscript
+#
+#  <ijs /> :         IJS plug-in. These are raster drivers which connect
+#                    to the IJS interface of the renderer, usually of 
+#                    Ghostscript but also of pdftoijs or others. The
+#                    interface is based on pipes and is bi-directional.
+#                    It makes the driver independent of the renderer.
+#
+#  <cups /> :	     CUPS Raster driver. The raster driver standard
+#                    introduced by CUPS. The renderer generates the CUPS
+#		     Raster format, a bitmap format optimized for printing,
+#		     and it gets piped into the driver.
+#
+#  <opvp /> :        OpenPrinting Vector driver. DLL and IPC interface for
+#                    plugging printer drivers into the renderer. This is
+#                    the only solution of mudular printer drivers for high-
+#                    level graphics (vector) PDLs.
+#
+#  <uniprint /> :    A uniprint driver, consisting of one or more .upp
+#                    files for Ghostscript.
+#
+#  <filter /> :      The driver code is a separate executable and the 
+#                    driver does not fit into the groups listed above, 
+#                    usually either a filter which converts generic 
+#                    bitmap output of Ghostscript to the printer's 
+#                    language, or a wrapper around Ghostscript.
+#
+#  <postscript /> :  A driver which has PostScript as output (for 
+#                    PostScript printers). It usually does not call
+#                    Ghostscript but only applies the user's option
+#                    settings to the data stream. But Ghostscript can
+#                    be called here, too, as for downgrading to a lower
+#                    PostScript level or for handling PDF input.
+#
+# The driver type only provides information for the web pages (or
+# driver auto-download facilities of printer setup tools), it is not
+# used when generating PPD files.
+
+   <ghostscript />
+
+# The driver's <execution> section can also contain a
+#
+# <nopjl />
+#
+# which suppresses the usage of PJL options (options which send PJL
+# commands to the printer). This is done with drivers where the driver
+# itself already produces a PJL header and where the PJL options
+# defined for the supported printers would badly interfere. In most
+# cases this is not needed, as foomatic-rip merges the PJL headers of
+# the driver and of the PJL options.
+
+# And the driver's <execution> section can also contain a
+#
+# <nopageaccounting />
+#
+# This suppresses the inserting of page accounting code (for CUPS)
+# into the PostScript data stream. Some drivers lead to unexpected
+# behavior with that. Especially for the generic PostScript drivers
+# (which do not use Ghostscript in most cases) the accounting code
+# should not be inserted.
+
+# The prototype defines what command the backends run to drive this
+# printer. It must take at least PostScript, preferably both PDF and
+# PostScript on stdin and generate the printer's native language on
+# stdout. Various %A, %B, etc substitution "spots" are specified; this
+# is where substition options will be placed.
+
+  <prototype>gs -q -dBATCH -dSAFER -dQUIET -dNOPAUSE -sDEVICE=md2k%A%Z -sOutputFile=- -</prototype>
+ </execution>
+ <comments>
+  <en>
+    Part of the gdevmd2k-0.2a package by Shinya Umino.  The web page and
+    documentation are in Japanese.
+    &lt;a href="/clippings/MD5000-translation.txt"&gt;Here&lt;/a&gt;
+    is an English translation of the driver's web page, and &lt;a
+    href="/clippings/alpsmd.txt"&gt;here&lt;/a&gt; is the README from the
+    driver package.
+  </en>
+ </comments>
+
+# if there is only a <prototype> and not a <prototype_pdf> entry,
+# foomatic-rip will feed both PostScript and PDF into the command line
+# defined with <prototype>, otherwise for PostScript input the
+# <prototype> command line is used and for PDF input the
+# <prototype_pdf> command line. Both are defined the same way and the
+# same command line snippets are inserted from the option settings.
+
+# If there is only a <prototype> defined, PDF will only be fed in if
+# the command line begins with "gs " (this means Ghostscript is called
+# and Ghostscript understands both PostScript and PDF) and there are
+# no options based on inserting active PostScript code into the input
+# data stream. Otherwise foomatic-rip converts PDF input to PostScript
+# at first and feeds the PostScript through the command line.
+
+# The printer list is a simple list of printers that this driver works
+# with. Alternatively, one can tell that a given printer works with a
+# given driver also by a <drivers> list in the printer's XML file (see
+# above).
+
+ <printers>
+  <printer>
+   <id>printer/Alps-MD-1000</id><!-- Alps MD-1000 -->
+  </printer>
+  <printer>
+   <id>printer/Alps-MD-1300</id><!-- Alps MD-1300 -->
+  </printer>
+  <printer>
+   <id>printer/Alps-MD-2000</id><!-- Alps MD-2000 -->
+  </printer>
+  <printer>
+   <id>printer/Alps-MD-4000</id><!-- Alps MD-4000 -->
+  </printer>
+ </printers>
+</driver>
+
+# In the printer list it is also possible to place comments or
+# exceptions in the driver's functionality (see above) specific to a
+# certain printer/driver pair:
+
+#  <printer>
+#   <id>printer/HP-LaserJet_4050</id><!-- HP LaserJet 4050 -->
+#   <comments>
+#    <en>to 1200dpi</en>
+#   </comments>
+#   <functionality>
+#    <monochrome />
+#   </functionality>
+#  </printer>
+
+# Note that printer/driver relationships can also be expressed by
+# adding the driver to the <drivers> lists of the appropriate printer
+# XML files.
+
 
 source/opt/2.xml
 ================
@@ -186,8 +932,15 @@ source/opt/2.xml
    <en>Page Size</en>
   </arg_longname>
 
-# The comments are used to form documentation.  In theory these can
-# become man pages or the like.
+# The <comments> are used to form documentation.  In theory these can
+# become man pages or the like. Example:
+
+#   <comments>
+#    <en>
+#     This option allows the user to get a lighter or darker printout, but
+#     keeping totally black areas black and not making white areas gray.
+#    </en>
+#   </comments>
 
   <!-- A multilingual <comments> block can appear here, too;
        it should be treated as documentation for the user. -->
@@ -422,638 +1175,7 @@ source/opt/2.xml
 
 # This name should not contain spaces, ":", or "/".
 
-# See below for string and password options.
-
-printer/HP-LaserJet_4000.xml
-============================
-
-# The printer file contains information specific to a particular
-# printer.
-
-<printer id="printer/HP-LaserJet_4000">
-
-# Make and model are not internationalized.  There will eventually be
-# an "alias" mechanism, but the need is different.
-
-  <make>HP</make>
-  <model>LaserJet 4000</model>
-
-# According to the Adobe specifications for PPD files every PPD file
-# must contain a unique DOS-compatible file name (the "*PCFileName"),
-# a file name with an up to 8 characters log base name and an up to 3
-# characters long extension, and upper and lower case letters being
-# considered as equal. As every PPD file is for a printer/driver
-# combo, we let the first 6 characters being provided by the printer
-# entry:
-
-  <pcmodel>HPLJ4K</pcmodel>
-
-# The first two characters should be the manufacturer prefix as listed
-# in Appendix D of Adobe's "PostScript Printer Description (PPD) File
-# Format Specification Version 4.3", available on
-
-# http://partners.adobe.com/public/developer/en/ps/5003.PPD_Spec_v4.3.pdf
-
-# Various stuff about the machine
-
-  <mechanism>
-
-# Printer types can be <laser />, <led />, <inkjet />, <dotmatrix />,
-# <impact />, <sublimation />, <transfer />. Other types we have to
-# add to the CGI script on OpenPrinting to make the web interface
-# displaying them properly.
-
-    <laser/>
-
-# At some point we can make color be less of a boolean flag and more
-# of a section full of goodies.
-
-    <!--not "color"-->
-    <resolution>
-
-# In theory this is a list.  In practice We've only got one per
-# printer which is the maximum resolution the manufacturer claims
-# for this printer.
-
-      <dpi>
-        <x>1200</x>
-        <y>1200</y>
-      </dpi>
-    </resolution>
-
-    <consumables>
-
-# Information about ink, drums, etc.
-# The comments are supposed to be qualitative ("Separate drum and
-# toner cartridges")
-
-      <comments>
-        <en>toner</en>
-      </comments>
-
-# There can be <partno>12A1975</partno> elements with manufacturer
-# part numbers for the various carts, etc it takes. Unfortunately,
-# this is not made use of, one could make a consumable database with
-# this for example.
-
-      <!--one or more "partno" elements.-->
-    </consumables>
-  </mechanism>
-
-  <url>http://www.pandi.hp.com/pandi-db/prod_info.show?model=C4118A&amp;name=LaserJet4000</url>
-
-# The lang section.  In practice this will be only minimally useful;
-# 
-#  - Backends can pstops the ps down a level if needed
-#  - Backends know if pjl options apply
-#  - Backends can know if direct text printing will work
-#
-# Commonly used language tags: <pcl level="x" />, <escp2 />, <proprietary />
-
-  <lang>
-    <postscript level="2" />
-    <pjl/>
-    <text>
-      <charset>us-ascii</charset>
-    </text>
-  </lang>
-
-# The autodetection stuff
-
-  <autodetect>
-
-# There are three ways to auto-detect a printer, via the parallel port
-# (<parallel>...</parallel>), the USB (<usb>...</usb>), or SNMP
-# (TCP/Socket-connected printer, <snmp>...</snmp>). Through these
-# interfaces the printers report back an IEEE-1284-complient ID string
-# from which the fields "MFG" (<manufacturer>...</manufacturer>),
-# "MDL" (<model>...</model>), "DES" (<description>...</description>),
-# and "CMD" (<commandset>...</commandset>) are used. The string itself
-# can be put between <ieee1284>...</ieee1284> tags, but all items
-# which are not constant for all printers of this model, as the serial
-# number ("SERN:...;") and the device status ("VSTATUS:...;") have to
-# be removed here. As the ID string is usually the same for all
-# detection methods, one can put the entries between
-# <general>...</general> tags, then the <parallel>...</parallel>,
-# <usb>...</usb>, and <snmp>...</snmp> are only used for
-# differences to the data between the <general>...</general> tags. A
-# complete entry could look like:
-#
-#  <autodetect>
-#    <general>
-#      <ieee1284>MFG:HEWLETT-PACKARD;MDL:DESKJET 600;CMD:MLC,PCL,PML;CLASS:PRINTER;DESCRIPTION:Hewlett-Packard DeskJet 600;</ieee1284>
-#      <commandset>MLC,PCL,PML</commandset>
-#      <description>Hewlett-Packard DeskJet 600</description>
-#      <manufacturer>HEWLETT-PACKARD</manufacturer>
-#      <model>DESKJET 600</model>
-#    </general>
-#  </autodetect>
-#
-
-# On Linux you find this info for the parallel ports (/dev/lp<N>, <N>
-# = 0, 1, 2, ...) in the files
-#
-#   /proc/sys/dev/parport/parport<N>/autoprobe*
-#
-# for the USB under Linux it is more complicated, easiest is to use a little
-# Perl script, called "getusbprinterid.pl":
-# You need to find the IOCTL call value to pass to the perl ioctl function.
-# Here is a little C program that does this. This is easier than trying to
-# use p2h and convert the *.h files to perl.
-
-# --------------------------------------------------------------------------
-#  /*
-#       print the IOCTL call value for printer information
-#  */
-#  #include <stdio.h>
-#  #include <sys/ioctl.h>
-#  /* From the /usr/src/linux<version>/drivers/usb/printer.c */
-#  #define DRIVER_VERSION "v0.11"
-#  #define DRIVER_AUTHOR "Michael Gee, Pavel Machek, Vojtech Pavlik, Randy Dunlap, Pete Zaitcev, David Paschal"
-#  #define DRIVER_DESC "USB Printer Device Class driver"
-#  
-#  #define USBLP_BUF_SIZE      8192
-#  #define DEVICE_ID_SIZE      1024
-#  
-#  /* ioctls: */
-#  #define LPGETSTATUS     0x060b      /* same as in drivers/char/lp.c */
-#  #define IOCNR_GET_DEVICE_ID     1
-#  #define IOCNR_GET_PROTOCOLS     2
-#  #define IOCNR_SET_PROTOCOL      3
-#  #define IOCNR_HP_SET_CHANNEL        4
-#  #define IOCNR_GET_BUS_ADDRESS       5
-#  #define IOCNR_GET_VID_PID       6
-#  /* Get device_id string: */
-#  #define LPIOC_GET_DEVICE_ID(len) _IOC(_IOC_READ, 'P', IOCNR_GET_DEVICE_ID, len)
-#  /* The following ioctls were added for http://hpoj.sourceforge.net */
-#  /* (HPOJ is replaced by HPLIP, http://hplipopensource.com/): */
-#  /* Get two-int array:
-#  * [0]=current protocol (1=7/1/1, 2=7/1/2, 3=7/1/3),
-#  * [1]=supported protocol mask (mask&(1<<n)!=0 means 7/1/n supported): */
-#  #define LPIOC_GET_PROTOCOLS(len) _IOC(_IOC_READ, 'P', IOCNR_GET_PROTOCOLS, len)
-#  /* Set protocol (arg: 1=7/1/1, 2=7/1/2, 3=7/1/3): */
-#  #define LPIOC_SET_PROTOCOL _IOC(_IOC_WRITE, 'P', IOCNR_SET_PROTOCOL, 0)
-#  /* Set channel number (HP Vendor-specific command): */
-#  #define LPIOC_HP_SET_CHANNEL _IOC(_IOC_WRITE, 'P', IOCNR_HP_SET_CHANNEL, 0)
-#  /* Get two-int array: [0]=bus number, [1]=device address: */
-#  #define LPIOC_GET_BUS_ADDRESS(len) _IOC(_IOC_READ, 'P', IOCNR_GET_BUS_ADDRESS, len)
-#  /* Get two-int array: [0]=vendor ID, [1]=product ID: */
-#  #define LPIOC_GET_VID_PID(len) _IOC(_IOC_READ, 'P', IOCNR_GET_VID_PID, len)
-#  
-#  
-#  int main( int argc, char *argv, char *envp[] )
-#  {
-#   int len = 1024;
-#   int v;
-#   /* _IOC(), _IOC_READ as defined in /usr/include/asm/ioctl.h
-# LPIOC_GET_DEVICE_ID(len) = _IOC(_IOC_READ, 'P', IOCNR_GET_DEVICE_ID, len)
-#   */
-#   v = LPIOC_GET_DEVICE_ID(len);          printf("$LPIOC_GET_DEVICE_ID = 0x%08x;\n", v );
-#   v = LPIOC_GET_BUS_ADDRESS(len);        printf("$LPIOC_GET_BUS_ADDRESS = 0x%08x;\n", v );
-#   v = LPIOC_GET_VID_PID(len);            printf("$LPIOC_GET_VID_PID = 0x%08x;\n", v );
-#   return(0);
-#  }
-#  
-#     
-# save this to a file, say getv.c, compile and run it, and you get an output
-$ like this:
-#  $LPIOC_GET_DEVICE_ID = 0x84005001;
-#  $LPIOC_GET_BUS_ADDRESS = 0x84005005;
-#  $LPIOC_GET_VID_PID = 0x84005006;
-
-
-
-# Here is the getusbprinterid.pl PERL program to get the usb information
-#    
-#	!/usr/bin/perl
-#	open FILE, "$ARGV[0]" or die "cannot open $ARGV[0]";
-#	my $result;
-#	# len = 1024
-#	# LPIOC_GET_DEVICE_ID(len) = _IOC(_IOC_READ, 'P', IOCNR_GET_DEVICE_ID, len)
-#	# _IOC(), _IOC_READ as defined in /usr/include/asm/ioctl.h
-#	$LPIOC_GET_DEVICE_ID = 0x84005001;
-#	$LPIOC_GET_BUS_ADDRESS = 0x84005005;
-#	$LPIOC_GET_VID_PID = 0x84005006;
-#	
-#	ioctl(FILE, $LPIOC_GET_DEVICE_ID , $result) or die;
-#	# Cut resulting string to its real length
-#	my $length = ord(substr($result, 1, 1)) + (ord(substr($result, 0, 1)) << 8);
-#	$result = substr($result, 2, $length-2);
-#	# Remove non-printable characters
-#	$result =~ tr/[\x0-\x1f]/\./;
-#	print "DeviceID $result\n";
-#	
-#	$result = pack("LL",0);
-#	ioctl(FILE, $LPIOC_GET_BUS_ADDRESS , $result) or die;
-#	my( $v1, $v2 ) = unpack("LL", $result );
-#	print "Bus '$v1', Device '$v2'\n";
-#	
-#	$result = pack("LL",0);
-#	ioctl(FILE, $LPIOC_GET_VID_PID, $result) or die;
-#	my( $v1, $v2 ) = unpack("LL", $result );
-#	print "Vendor '$v1', Product '$v2'\n";
-#	
-#	close FILE;
-#	
-#    
-# --------------------------------------------------------------------------
-
-# Running the program with "perl getusbprinterid.pl /dev/usb/lp0" returns the
-# ID string of the device on /dev/usb/lp0.
-# For example: perl getusbprinter.pl /dev/usb/lp0  
-#  DeviceID MFG:Hewlett-Packard;CMD:PJL,MLC,PCL,PCLXL,POSTSCRIPT;MDL:\
-#    HP LaserJet 2200;CLS:PRINTER;DES:Hewlett-Packard LaserJet 2200;\
-#    MEM:8MB;OPTRAY:250Sheets
-#  Bus '2', Device '2'
-#  Vendor '1008', Product '535'
-#
-# (lines broken for clarity)
-
-
-    <!--no known parport probe information-->
-  </autodetect>
-
-# Our grading system.  It's US-style letter grades A, B, D, and F,
-# which the website shows as "Perfectly", "Mostly", "Partially" and
-# "Paperweight" .
-# THERE IS NO `C'!!!
-
-  <functionality>A</functionality>
-
-# Arguably, the scores should live with the printer/driver association
-# and not on the printer, but then it's a big hassle to figure out if
-# a printer works... So the score is the one reached with the driver
-# working best, the "recommended" driver.
-
-# There's a spot for this "recommended" driver, usually the driver
-# which gives the maximum output quality. It is for user information
-# on the web site, but newbie-friendly printer setup GUIs should use
-# it, too. system-config-printer, printer setup tool of Fedora/Red
-# Hat, Ubuntu, and Mandriva Linux makes use of it, also the former
-# printerdrake of Mandriva Linux.
-
-  <driver>Postscript-HP</driver>
-
-# The following optional section describes with which drivers this
-# printer works. A valid printer/driver pair can be defined by either
-# adding the printer to the driver's printer list (the way how it
-# worked all the time) but also by adding the driver to the printer's
-# driver list. This way a printer can get associated with a driver for
-# which there is no driver XML file and a driver can list a supported
-# printer which is not in the printer XML database. For providing a
-# PPD file both printer and driver XML files must exist, but it is not
-# important in which of the two the printer/driver relationship is
-# defined.
-
-# The driver list in the printer XML files was introduced for once
-# defining links to ready-made PPD files (relative paths without "/",
-# "http:", "https:", or "ftp:" in the beginning are relative to
-# $libdir/db/source/) and second, listing the supported drivers for
-# visitor-contributed printer entries (from web input form). The
-# comments section is for adding comments specific to the
-# printer/driver combo. As it is human-readable it is
-# internationalized. Each driver entry here must have a driver ID. PPD
-# file link and comment are optional.
-
-  <drivers>
-    <driver>
-      <id>Postscript-HP</id>
-      <ppd>PPD/HP/HP_LaserJet_4000_Series.ppd</ppd>
-      <comments><en>...</en></comments>
-    </driver>
-  </drivers>
-
-
-# The <unverified /> tag marks entries which are entered by visitors
-# via the printer input form on the OpenPrinting web site. It does not
-# appear in approved entries (= all entries in the BZR repository of
-# the foomatic-db package).
-
-  <!--not "unverified"-->
-
-# If there is a web site with additional interesting info about this
-# printer, it can be mentioned in the entry by putting it between
-# <contrib_url>...</contrib_url> tags,
-
-  <!--no "contrib_url"-->
-
-# The regular notes section.  The allowed tags are: <p>, <a
-# href="foobar"> </a> and many other simple tags (<b>, <i>, <tt>,
-# ...). Note that to distinguish what is XML and what is the embedded
-# HTML, the following replacements have to be made:
-#
-#   < --> &lt;
-#   > --> &gt;
-#   " --> &quot;
-#   ' --> &apos;
-#   & --> &amp;
-#
-
-  <comments>
-    <en>
-    I don&apos;t believe this:&lt;p&gt;
-
-    &lt;i&gt;1200x1200 dpi only possible with Windows drivers,
-    600x600 can be reached w/o particular software.
-    The difference is visible, but only slightly, so
-    the Functionality got &quot;Mostly&quot;&lt;p&gt;&lt;/i&gt;&lt;p&gt;
-
-    Do the following:&lt;p&gt;
-
-    Set the resolution on the front panel to &quot;Prores 1200&quot;, not
-    to &quot;Fastres 1200&quot;. When you use CUPS with HPs PPD file, turn
-    off &quot;Fastres 1200&quot; in the printer configuration
-    options.&lt;p&gt;
-
-    Try the generic PostScript PPD file which comes with KUPS 1.0 or newer.
-    </en>
-  </comments>
-</printer>
-
-
-driver/md2k.xml
-===============
-
-The driver files contain information about drivers.  There are a few
-things, but the two biggies are the prototype and the printers list
-
-<driver id="driver/md2k">
- <name>md2k</name>
-
-# According to the Adobe specifications for PPD files every PPD file
-# must contain a unique DOS-compatible file name (the "*PCFileName"),
-# a file name with an up to 8 characters log base name and an up to 3
-# characters long extension, and upper and lower case letters being
-# considered as equal. As every PPD file is for a printer/driver combo,
-# we let the last 2 characters being provided by the driver entry:
-
- <pcdriver>M2</pcdriver>
- <url>http://plaza26.mbn.or.jp/~higamasa/gdevmd2k/</url>
-
-# The driver XML files can contain the following tags to describe the
-# driver's properties, so that a user can easily find the driver which
-# is most suitable for him. The properties are shown in the gray
-# driver info boxes on the OpenPrinting web site and they are also
-# supposed to be shown by printer setup tools when they offer to
-# download a driver from OpenPrinting. It is very important to supply
-# them if a downloadable driver package or PPD files are supplied.
-
-# Supplier's name, internationalization (with <en>...</en><de>...</de>...)
-# optional
-
-#   <supplier>SpliX project</supplier>
-
-# Does the driver come from the printer's manufacturer or from a third
-# party. The third form tells also the manufacturer names of the
-# printers which are from the manufacturer which developed the
-# driver. If there are also printers from other manufacturers
-# supported (like for the PCL driver HPIJS) then the OpenPrinting web
-# site does not show this driver as manufacturer-supplied on the pages
-# of the printers of other manufacturers.
-
-#   <thirdpartysupplied />   OR   <manufacturersupplied />   OR
-#   <manufacturersupplied>HP|Apollo</manufacturersupplied>
-
-# License name. Here should be put the common short name or
-# abbreviation if the license is one of the common free software
-# licenses. Otherwise it should contain something short and
-# descriptive, for non-free drivers simply "Commercial". The license
-# name can be internationalized with language tags
-# (<en>...</en><de>...</de>...).
-
-#   <license>GPL</license>
-
-# The license text does not need to be supplied for common free
-# software licenses. It should be supplied if:
-#
-#  - The license is not free (<nonfreesoftware /> tag set)
-#  - The driver has patent issues (<patents /> tag set, describe the
-#    patent issues here in that case)
-#  - The license of the driver is free but none of the common licenses
-#    (<freesoftware /> tag set)
-
-#   <licensetext>
-#    <en>
-#      ...
-#    </en>
-#   </licensetext>
-
-# License texts can also be linked from external sites:
-
-#   <licensetext>
-#    <en url="http://www.laserstar.com/licenses/en/gl-series-eula.txt" />
-#    <de url="http://www.laserstar.com/licenses/de/gl-series-eula.txt" />
-#    ...
-#   </licensetext>
-
-# License texts have to be given always as plain text, UTF-8-encoded.
-
-# Mark with these tags whether the driver is free software
-
-#   <freesoftware />   OR   <nonfreesoftware />
-
-# These tags tell whether there are any patent issues with the driver
-
-#   <patents />   OR   <nopatents />
-
-# For downloadable drivers support contacts should be given, so that
-# users get informed before they do the download and do not complain
-# at their OS distribution vendor if the driver downloaded from
-# OpenPrinting does not work. The human-readable string for the
-# support contact can be internationalized with language tags
-# (<en>...</en><de>...</de>...).
-
-#   <supportcontacts>
-#    <supportcontact level="voluntary" url="http://sourceforge.net/forum/?group_id=175815">SpliX forum at SourceForge</supportcontact>
-#    <supportcontact level="commercial" url="http://www.laserstar.com/support/">LaserStar Support</supportcontact>
-#   </supportcontacts>
-
-# This is an internationalized short description of the driver,
-# typically one line, to be used in the gray driver info boxes, in the
-# driver overview list, and also by printer setup tools. If a driver
-# entry is for a development version of a driver, tell it here, as the
-# long description is not shown everywhere.
-
-#   <shortdescription>
-#    <en>
-#     Driver for Samsung SPL2 (ML-1710, ...) and SPLc (CLP-500, ...) laser
-#     printers
-#    </en>
-#   </shortdescription>
-
-# If there are downloadable packages for this driver entry on the
-# OpenPrinting web site, usually packages whose name are the driver's
-# name (in all lowercase, "_" replaced by "-", optionally preceeded by
-# "openprinting-" or "openprinting-ppds-") are considered to belong to
-# this entry. If the package names are different, or if it depends on
-# the version number whether a package belongs to this entry, a
-# <packages> section has to be supplied. It is also required if the
-# driver package is split up into several components, to assign scopes
-# to them. Scopes can be: "general", "gui", "printer", "scanner",
-# "fax", ... Uses the "general" scope if packages are not split. Wild
-# cards are the same as used for file masks in the shell (NOT regular
-# expressions). They must match both Debian and RPM package file
-# names. Note that between file name and version number is a "-" for
-# RPMs and a "_" for Debian packages.
-
-#   <packages>
-#    <package scope="general">*splix*1.[0-9].[0-9]*</package>
-#   </packages>
-
-# The <functionality> section should make it easier for a user to
-# compare different drivers by giving some technical properties and
-# ratings (0...100) for common document types, system load, and
-# execution speed. The higher the number, the better the driver
-# performs here. It is not required to supply all items. Items can be
-# left out or can stay empty. <functionality> sections of the same
-# format can also be used in the <printer> entries in the <printers>
-# list, to describe exceptions for particular printers. If an item is
-# left out or empty there, the appropriate item in the general
-# <functionality> section is used, so only the items which are
-# different for the given printer need to be listed.
-
-#   <functionality>
-#    <maxresx>1200</maxresx>
-#    <maxresy>1200</maxresy>
-#    <color />   OR   <monochrome />
-#    <text>100</text>
-#    <lineart>100</lineart>
-#    <graphics>100</graphics>
-#    <photo>80</photo>
-#    <load>50</load>
-#    <speed>90</speed>
-#   </functionality>
-
- <execution>
-
-# Driver types are 
-#
-#  <ghostscript /> : The driver code is compiled into Ghostscript
-#
-#  <ijs /> :         IJS plug-in. These are raster drivers which connect
-#                    to the IJS interface of the renderer, usually of 
-#                    Ghostscript but also of pdftoijs or others. The
-#                    interface is based on pipes and is bi-directional.
-#                    It makes the driver independent of the renderer.
-#
-#  <cups /> :	     CUPS Raster driver. The raster driver standard
-#                    introduced by CUPS. The renderer generates the CUPS
-#		     Raster format, a bitmap format optimized for printing,
-#		     and it gets piped into the driver.
-#
-#  <opvp /> :        OpenPrinting Vector driver. DLL and IPC interface for
-#                    plugging printer drivers into the renderer. This is
-#                    the only solution of mudular printer drivers for high-
-#                    level graphics (vector) PDLs.
-#
-#  <uniprint /> :    A uniprint driver, consisting of one or more .upp
-#                    files for Ghostscript.
-#
-#  <filter /> :      The driver code is a separate executable and the 
-#                    driver does not fit into the groups listed above, 
-#                    usually either a filter which converts generic 
-#                    bitmap output of Ghostscript to the printer's 
-#                    language, or a wrapper around Ghostscript.
-#
-#  <postscript /> :  A driver which has PostScript as output (for 
-#                    PostScript printers). It usually does not call
-#                    Ghostscript but only applies the user's option
-#                    settings to the data stream. But Ghostscript can
-#                    be called here, too, as for downgrading to a lower
-#                    PostScript level or for handling PDF input.
-#
-# The driver type only provides information for the web pages (or
-# driver auto-download facilities of printer setup tools), it is not
-# used when generating PPD files.
-
-# The driver's <execution> section can also contain a
-#
-# <nopjl />
-#
-# which suppresses the usage of PJL options (options which send PJL
-# commands to the printer). This is done with drivers where the driver
-# itself already produces a PJL header and where the PJL options
-# defined for the supported printers would badly interfere. In most
-# cases this is not needed, as foomatic-rip merges the PJL headers of
-# the driver and of the PJL options.
-
-# And the driver's <execution> section can also contain a
-#
-# <nopageaccounting/>
-#
-# This suppresses the inserting of page accounting code (for CUPS)
-# into the PostScript data stream. Some drivers lead to unexpected
-# behavior with that. Especially for the generic PostScript drivers
-# (which do not use Ghostscript in most cases) the accounting code
-# should not be inserted.
-
-# The prototype defines what command the backends run to drive this
-# printer. It must take at least PostScript, preferably both PDF and
-# PostScript on stdin and generate the printer's native language on
-# stdout. Various %A, %B, etc substitution "spots" are specified; this
-# is where substition options will be placed.
-
-  <prototype>gs -q -dBATCH -dSAFER -dQUIET -dNOPAUSE -sDEVICE=md2k%A%Z -sOutputFile=- -</prototype>
- </execution>
- <comments>
-  <en>
-    Part of the gdevmd2k-0.2a package by Shinya Umino.  The web page and
-    documentation are in Japanese.
-    &lt;a href="/clippings/MD5000-translation.txt"&gt;Here&lt;/a&gt;
-    is an English translation of the driver's web page, and &lt;a
-    href="/clippings/alpsmd.txt"&gt;here&lt;/a&gt; is the README from the
-    driver package.
-  </en>
- </comments>
-
-# if there is only a <prototype> and not a <prototype_pdf> entry,
-# foomatic-rip will feed both PostScript and PDF into the command line
-# defined with <prototype>, otherwise for PostScript input the
-# <prototype> command line is used and for PDF input the
-# <prototype_pdf> command line. Both are defined the same way and the
-# same command line snippets are inserted from the option settings.
-
-# If there is only a <prototype> defined, PDF will only be fed in if
-# the command line begins with "gs " (this means Ghostscript is called
-# and Ghostscript understands both PostScript and PDF) and there are
-# no options based on inserting active PostScript code into the input
-# data stream. Otherwise foomatic-rip converts PDF input to PostScript
-# at first and feeds the PostScript through the command line.
-
-# The printer list is a simple list of printers that this driver works
-# with. Alternatively, one can tell that a given printer works with a
-# given driver also by a <drivers> list in the printer's XML file (see
-# above).
-
- <printers>
-  <printer>
-   <id>printer/Alps-MD-1000</id><!-- Alps MD-1000 -->
-  </printer>
-  <printer>
-   <id>printer/Alps-MD-1300</id><!-- Alps MD-1300 -->
-  </printer>
-  <printer>
-   <id>printer/Alps-MD-2000</id><!-- Alps MD-2000 -->
-  </printer>
-  <printer>
-   <id>printer/Alps-MD-4000</id><!-- Alps MD-4000 -->
-  </printer>
- </printers>
-</driver>
-
-# In the printer list it is also possible to place comments or
-# exceptions in the driver's functionality (see above) specific to a
-# certain printer/driver pair:
-
-#  <printer>
-#   <id>printer/HP-LaserJet_4050</id><!-- HP LaserJet 4050 -->
-#   <comments>
-#    <en>to 1200dpi</en>
-#   </comments>
-#   <functionality>
-#    <monochrome />
-#   </functionality>
-#  </printer>
+# See below for string, password, and composite options.
 
 
 Composite Options
