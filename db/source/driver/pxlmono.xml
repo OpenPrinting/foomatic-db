@@ -1,8 +1,9 @@
-<driver id='driver/pxlmono'>
+<driver id="driver/pxlmono">
   <name>pxlmono</name>
   <url>http://www.ghostscript.com/</url>
+  <thirdpartysupplied />
   <execution>
-    <ghostscript/>
+    <ghostscript />
     <prototype>gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE%B%A%Z -sOutputFile=- - | perl -p -e 'if (! $did) { s/\xc0.\xf8\x26/\xc0%E\xf8\x26/ &amp;&amp; $did++; }'</prototype>
     <ppdentry>
      *DefaultResolution: 1200dpi
@@ -11,24 +12,24 @@
   <comments>
     <en>
     Driver for monochrome PCL 6 printers, much faster than the
-    "lj5gray"/"lj5mono" drivers.&lt;p&gt;
+    &quot;lj5gray&quot;/&quot;lj5mono&quot; drivers.&lt;p&gt;
 
-    The "pxlmono" and the "pxlcolor" driver are the same code, the
-    difference is only that the "pxlcolor" gives colour and the
-    "pxlmono" grayscale output. This entry for the "pxlmono" driver
-    lists only monochrome printers. See the &quot;&lt;a href="show_driver.cgi?driver=pxlcolor"&gt;pxlcolor&lt;/a&gt;&quot; driver entry
+    The &quot;pxlmono&quot; and the &quot;pxlcolor&quot; driver are the same code, the
+    difference is only that the &quot;pxlcolor&quot; gives colour and the
+    &quot;pxlmono&quot; grayscale output. This entry for the &quot;pxlmono&quot; driver
+    lists only monochrome printers. See the &quot;&lt;a href=&quot;show_driver.cgi?driver=pxlcolor&quot;&gt;pxlcolor&lt;/a&gt;&quot; driver entry
     for color printers.&lt;p&gt;
 
     Due to a bug in Ghostscript Duplex does not work with the
-    "pxlmono" and the "pxlcolor" drivers. Here is a &lt;a
-    href="http://www.openprinting.org/download/printing/ghostscript-pxl-patches/duplex.patch"&gt;patch&lt;/a&gt;
+    &quot;pxlmono&quot; and the &quot;pxlcolor&quot; drivers. Here is a &lt;a
+    href=&quot;http://www.openprinting.org/download/printing/ghostscript-pxl-patches/duplex.patch&quot;&gt;patch&lt;/a&gt;
     for GPL Ghostscript 8.63. This patch is needed so that the Duplex
     option of the PPDs from this site works. Setting Duplex with PJL
     commands does not work.&lt;p&gt;
 
-    The resolution must be given both with the "-r" option on the
+    The resolution must be given both with the &quot;-r&quot; option on the
     command line of Ghostscript and as PJL command. Here is a &lt;a
-    href="http://www.openprinting.org/download/printing/ghostscript-pxl-patches/resolution.patch"&gt;patch&lt;/a&gt;
+    href=&quot;http://www.openprinting.org/download/printing/ghostscript-pxl-patches/resolution.patch&quot;&gt;patch&lt;/a&gt;
     for GPL Ghostscript 8.63 so that giving the PJL commands is not
     necessary any more.&lt;p&gt;
 
@@ -36,22 +37,22 @@
     Ghostscript's output data stream in order to make paper tray
     selection work as the driver has a bug which breaks this
     functionality. This &lt;a
-    href="http://www.openprinting.org/download/printing/ghostscript-pxl-patches/inputslot.patch"&gt;patch&lt;/a&gt;
+    href=&quot;http://www.openprinting.org/download/printing/ghostscript-pxl-patches/inputslot.patch&quot;&gt;patch&lt;/a&gt;
     for GPL Ghostscript 8.63 fixes the problem and allows to set the
-    input tray with the "-dMediaPosition=X" commmand line option for
-    Ghostscript. "X" is an integer number which depends on the printer
-    model and tray. For HP "0" is usually the printer default, "1"
-    automatic selection, "2" manual feed, "4" the upper, and "5" the
+    input tray with the &quot;-dMediaPosition=X&quot; commmand line option for
+    Ghostscript. &quot;X&quot; is an integer number which depends on the printer
+    model and tray. For HP &quot;0&quot; is usually the printer default, &quot;1&quot;
+    automatic selection, &quot;2&quot; manual feed, &quot;4&quot; the upper, and &quot;5&quot; the
     lower tray. Note that for PCL 5/5e these numbers are
     different.&lt;p&gt;
 
-    GPL Ghostscript 8.63 comes with a CUPS filter ("pstopxl") and 2
-    PPD files for the "pxlmono" and "pxlcolor" drivers. Note that you
+    GPL Ghostscript 8.63 comes with a CUPS filter (&quot;pstopxl&quot;) and 2
+    PPD files for the &quot;pxlmono&quot; and &quot;pxlcolor&quot; drivers. Note that you
     will need all the three patches mentioned here to make the options
     in the PPD files actually work. With this &lt;a
-    href="http://www.openprinting.org/download/printing/ghostscript-cups-patches/pstopxl-pdf-input.patch"&gt;patch&lt;/a&gt;
+    href=&quot;http://www.openprinting.org/download/printing/ghostscript-cups-patches/pstopxl-pdf-input.patch&quot;&gt;patch&lt;/a&gt;
     the filter and the PPDs will be made ready for &lt;a
-    href="https://www.linuxfoundation.org/en/OpenPrinting/PDF_as_Standard_Print_Job_Format"&gt;PDF
+    href=&quot;https://www.linuxfoundation.org/en/OpenPrinting/PDF_as_Standard_Print_Job_Format&quot;&gt;PDF
     input&lt;/a&gt;.&lt;p&gt;
 
     The patches are all committed to the Subversion repository of GPL
@@ -92,10 +93,10 @@
       <id>printer/Brother-HL-1870N</id>
     </printer>
     <printer>
-      <id>printer/Brother-HL-2140</id>
+      <id>printer/Brother-HL-2060</id>
     </printer>
     <printer>
-      <id>printer/Brother-HL-2060</id>
+      <id>printer/Brother-HL-2140</id>
     </printer>
     <printer>
       <id>printer/Brother-HL-2170W</id>
@@ -134,31 +135,13 @@
       <id>printer/Brother-HL-7050N</id>
     </printer>
     <printer>
-      <id>printer/Canon-LBP-1000</id>
-    </printer>
-    <printer>
-      <id>printer/Canon-LBP-1760</id>
-    </printer>
-    <printer>
-      <id>printer/Canon-LBP-3360</id>
-    </printer>
-    <printer>
-      <id>printer/Canon-LBP-3460</id>
-    </printer>
-    <printer>
-      <id>printer/Canon-LBP-5970</id>
-    </printer>
-    <printer>
-      <id>printer/Canon-LBP-5975</id>
-    </printer>
-    <printer>
       <id>printer/Canon-imageRunner_1023</id>
     </printer>
     <printer>
-      <id>printer/Canon-imageRunner_1023N</id>
+      <id>printer/Canon-imageRunner_1023iF</id>
     </printer>
     <printer>
-      <id>printer/Canon-imageRunner_1023iF</id>
+      <id>printer/Canon-imageRunner_1023N</id>
     </printer>
     <printer>
       <id>printer/Canon-imageRunner_2016</id>
@@ -218,6 +201,24 @@
       <id>printer/Canon-imageRunner_8070</id>
     </printer>
     <printer>
+      <id>printer/Canon-LBP-1000</id>
+    </printer>
+    <printer>
+      <id>printer/Canon-LBP-1760</id>
+    </printer>
+    <printer>
+      <id>printer/Canon-LBP-3360</id>
+    </printer>
+    <printer>
+      <id>printer/Canon-LBP-3460</id>
+    </printer>
+    <printer>
+      <id>printer/Canon-LBP-5970</id>
+    </printer>
+    <printer>
+      <id>printer/Canon-LBP-5975</id>
+    </printer>
+    <printer>
       <id>printer/Epson-EPL-5800</id>
       <comments>
         <en>This driver works at all resolutions.</en>
@@ -242,13 +243,13 @@
       <id>printer/Epson-EPL-N2050</id>
     </printer>
     <printer>
+      <id>printer/Epson-EPL-N2050plus</id>
+    </printer>
+    <printer>
       <id>printer/Epson-EPL-N2050PS</id>
     </printer>
     <printer>
       <id>printer/Epson-EPL-N2050PSplus</id>
-    </printer>
-    <printer>
-      <id>printer/Epson-EPL-N2050plus</id>
     </printer>
     <printer>
       <id>printer/Epson-EPL-N2120</id>
@@ -353,10 +354,10 @@
       <id>printer/HP-LaserJet_9000</id>
     </printer>
     <printer>
-      <id>printer/HP-LaserJet_M1522n_MFP</id>
+      <id>printer/HP-LaserJet_M1522nf_MFP</id>
     </printer>
     <printer>
-      <id>printer/HP-LaserJet_M1522nf_MFP</id>
+      <id>printer/HP-LaserJet_M1522n_MFP</id>
     </printer>
     <printer>
       <id>printer/IBM-Infoprint_12</id>
@@ -473,21 +474,21 @@ HP2100M worked fine (i.e. no need to compile IEEE1284 into your kernel).</en>
 
     I've been able to print various things using this driver, but
     when attempting to print PostScript created by Gnumeric, I get the
-    following from the printer on some pages:&lt;p>
+    following from the printer on some pages:&lt;p&gt;
 
-    &lt;tt>PCL XL error&lt;br>
-    Subsystem:  STATE&lt;br>
-    Error:      IllegalAttributeDataType&lt;br>
-    Operator:   SetLineDash&lt;br>
-    Position:   ...&lt;p>&lt;/tt>
+    &lt;tt&gt;PCL XL error&lt;br&gt;
+    Subsystem:  STATE&lt;br&gt;
+    Error:      IllegalAttributeDataType&lt;br&gt;
+    Operator:   SetLineDash&lt;br&gt;
+    Position:   ...&lt;p&gt;&lt;/tt&gt;
 
     I wonder whether the fault lies in Gnumeric's PostScript
     generator (which Ghostscript renders without complaining) or in
-    the printer's PCL XL interpreter. Using "ljet4"
+    the printer's PCL XL interpreter. Using &quot;ljet4&quot;
     driver helped to solve this, but I suspect it worked just because
     PCL 5 is a bit dumber than PCL 6, so Ghostscript could not pass it
     so high-level data and have filtered out the bad
-    PostScript...&lt;p>
+    PostScript...&lt;p&gt;
 
         </en>
       </comments>

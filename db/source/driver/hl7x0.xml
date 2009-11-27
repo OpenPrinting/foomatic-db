@@ -1,50 +1,45 @@
 <driver id="driver/hl7x0">
- <name>hl7x0</name>
- <url>http://www.ghostscript.com/</url>
- <supplier>Ghostscript</supplier>
- <thirdpartysupplied />
- <!--not "manufacturersupplied"-->
- <license>GPL</license>
- <!--not "nonfreesoftware"-->
- <supportcontacts>
-  <supportcontact level="voluntary" url="http://forums.openprinting.org/list.php?24">OpenPrinting forum for Brother printers</supportcontact>
-  <!--not level="commercial"-->
- </supportcontacts>
- <shortdescription>
-  <en>
+  <name>hl7x0</name>
+  <url>http://www.ghostscript.com/</url>
+  <supplier>Ghostscript</supplier>
+  <thirdpartysupplied />
+  <license>GPL</license>
+  <supportcontacts>
+    <supportcontact url="http://forums.openprinting.org/list.php?24" level="voluntary">OpenPrinting forum for Brother printers</supportcontact>
+  </supportcontacts>
+  <shortdescription>
+    <en>
    Driver for Brother's proprietary printer language (works also on the PCL/PS models)
   </en>
- </shortdescription>
- <functionality>
-  <maxresx>2400</maxresx>
-  <maxresy>600</maxresy>
-  <monochrome />
-  <!--not "color"-->
-  <text>95</text>
-  <lineart>95</lineart>
-  <graphics>65</graphics>
-  <photo>35</photo>
-  <!--load rating unknown-->
-  <speed>100</speed>
- </functionality>
- <execution>
-  <ghostscript />
-  <prototype>RES=%E; gs -q -dBATCH -dPARANOIDSAFER -dQUIET -dNOPAUSE -sDEVICE=hl7x0%A%Z -r$RES -sOutputFile=-%C -f - | perl -e &apos;my $u = &quot;%U&quot;; my $j = &quot;%T&quot;; my $p = &quot;%F&quot;; my $r = &quot;&apos;$RES&apos;&quot;; my $e = &quot;%G&quot;; my $m = &quot;%H&quot;; my $d = &quot;%I&quot;; my $t = &quot;%J&quot;; my $pcmd = &quot;&quot;; if ($p =~ /^\d\d\d\d$/) {$u =~ s/\%U//; $u ||= &quot;Unknown&quot;; $j =~ s/\%T//; $j ||= &quot;Unknown&quot;; $u = chr(length($u) + 1) . $u . &quot;\x00&quot;; $j = chr(length($j) + 1) . $j . &quot;\x00&quot;; $p = chr(length($p) + 1) . $p . &quot;\x00&quot;; $pcmd = &quot;\@U1$u$j$p&quot;}; my $rcode = &quot;\x00&quot;; if ($r =~ /^150(|x150)$/) {$rcode = &quot;\x0a&quot;} elsif ($r =~ /^300(|x300)$/) {$rcode = &quot;\x05&quot;} elsif ($r =~ /^600(|x600)$/) {$rcode = &quot;\x00&quot;} elsif ($r =~ /^1200(|x1200)$/) {$rcode = &quot;\x0f&quot;}; my $rcmd = &quot;\@L$rcode&quot;; my $ecmd = ($e =~ /^[0123]$/ ? &quot;\@E&quot; . chr($e) : &quot;&quot;); my $mcmd = ($m =~ /^[012345678]$/ ? &quot;\@J\x00&quot; . chr($m) : &quot;&quot;); my $dcmd = ($d =~ /^[12]$/ ? &quot;\@O$d&quot; : &quot;&quot;); my $tcmd = ($t =~ /^[12MOo]$/ ? &quot;\@S$t&quot; : &quot;&quot;); my $did = 0; while (&lt;&gt;) {if (!$did) {s/\@L./$pcmd$rcmd$ecmd$mcmd$dcmd$tcmd/s &amp;&amp; $did ++}; print}&apos;</prototype>
-  <prototype_pdf>RES=%E; gs -q -dBATCH -dPARANOIDSAFER -dQUIET -dNOPAUSE -sDEVICE=hl7x0%A%Z -r$RES -sOutputFile=-%C -f - | perl -e &apos;my $u = &quot;%U&quot;; my $j = &quot;%T&quot;; my $p = &quot;%F&quot;; my $r = &quot;&apos;$RES&apos;&quot;; my $e = &quot;%G&quot;; my $m = &quot;%H&quot;; my $d = &quot;%I&quot;; my $t = &quot;%J&quot;; my $pcmd = &quot;&quot;; if ($p =~ /^\d\d\d\d$/) {$u =~ s/\%U//; $u ||= &quot;Unknown&quot;; $j =~ s/\%T//; $j ||= &quot;Unknown&quot;; $u = chr(length($u) + 1) . $u . &quot;\x00&quot;; $j = chr(length($j) + 1) . $j . &quot;\x00&quot;; $p = chr(length($p) + 1) . $p . &quot;\x00&quot;; $pcmd = &quot;\@U1$u$j$p&quot;}; my $rcode = &quot;\x00&quot;; if ($r =~ /^150(|x150)$/) {$rcode = &quot;\x0a&quot;} elsif ($r =~ /^300(|x300)$/) {$rcode = &quot;\x05&quot;} elsif ($r =~ /^600(|x600)$/) {$rcode = &quot;\x00&quot;} elsif ($r =~ /^1200(|x1200)$/) {$rcode = &quot;\x0f&quot;}; my $rcmd = &quot;\@L$rcode&quot;; my $ecmd = ($e =~ /^[0123]$/ ? &quot;\@E&quot; . chr($e) : &quot;&quot;); my $mcmd = ($m =~ /^[012345678]$/ ? &quot;\@J\x00&quot; . chr($m) : &quot;&quot;); my $dcmd = ($d =~ /^[12]$/ ? &quot;\@O$d&quot; : &quot;&quot;); my $tcmd = ($t =~ /^[12MOo]$/ ? &quot;\@S$t&quot; : &quot;&quot;); my $did = 0; while (&lt;&gt;) {if (!$did) {s/\@L./$pcmd$rcmd$ecmd$mcmd$dcmd$tcmd/s &amp;&amp; $did ++}; print}&apos;</prototype_pdf>
- </execution>
- <comments>
-  <en>
+  </shortdescription>
+  <functionality>
+    <maxresx>2400</maxresx>
+    <maxresy>600</maxresy>
+    <monochrome />
+    <text>95</text>
+    <lineart>95</lineart>
+    <graphics>65</graphics>
+    <photo>35</photo>
+    <speed>100</speed>
+  </functionality>
+  <execution>
+    <ghostscript />
+    <prototype>RES=%E; gs -q -dBATCH -dPARANOIDSAFER -dQUIET -dNOPAUSE -sDEVICE=hl7x0%A%Z -r$RES -sOutputFile=-%C -f - | perl -e 'my $u = &quot;%U&quot;; my $j = &quot;%T&quot;; my $p = &quot;%F&quot;; my $r = &quot;'$RES'&quot;; my $e = &quot;%G&quot;; my $m = &quot;%H&quot;; my $d = &quot;%I&quot;; my $t = &quot;%J&quot;; my $pcmd = &quot;&quot;; if ($p =~ /^\d\d\d\d$/) {$u =~ s/\%U//; $u ||= &quot;Unknown&quot;; $j =~ s/\%T//; $j ||= &quot;Unknown&quot;; $u = chr(length($u) + 1) . $u . &quot;\x00&quot;; $j = chr(length($j) + 1) . $j . &quot;\x00&quot;; $p = chr(length($p) + 1) . $p . &quot;\x00&quot;; $pcmd = &quot;\@U1$u$j$p&quot;}; my $rcode = &quot;\x00&quot;; if ($r =~ /^150(|x150)$/) {$rcode = &quot;\x0a&quot;} elsif ($r =~ /^300(|x300)$/) {$rcode = &quot;\x05&quot;} elsif ($r =~ /^600(|x600)$/) {$rcode = &quot;\x00&quot;} elsif ($r =~ /^1200(|x1200)$/) {$rcode = &quot;\x0f&quot;}; my $rcmd = &quot;\@L$rcode&quot;; my $ecmd = ($e =~ /^[0123]$/ ? &quot;\@E&quot; . chr($e) : &quot;&quot;); my $mcmd = ($m =~ /^[012345678]$/ ? &quot;\@J\x00&quot; . chr($m) : &quot;&quot;); my $dcmd = ($d =~ /^[12]$/ ? &quot;\@O$d&quot; : &quot;&quot;); my $tcmd = ($t =~ /^[12MOo]$/ ? &quot;\@S$t&quot; : &quot;&quot;); my $did = 0; while (&lt;&gt;) {if (!$did) {s/\@L./$pcmd$rcmd$ecmd$mcmd$dcmd$tcmd/s &amp;&amp; $did ++}; print}'</prototype>
+    <prototype_pdf>RES=%E; gs -q -dBATCH -dPARANOIDSAFER -dQUIET -dNOPAUSE -sDEVICE=hl7x0%A%Z -r$RES -sOutputFile=-%C -f - | perl -e 'my $u = &quot;%U&quot;; my $j = &quot;%T&quot;; my $p = &quot;%F&quot;; my $r = &quot;'$RES'&quot;; my $e = &quot;%G&quot;; my $m = &quot;%H&quot;; my $d = &quot;%I&quot;; my $t = &quot;%J&quot;; my $pcmd = &quot;&quot;; if ($p =~ /^\d\d\d\d$/) {$u =~ s/\%U//; $u ||= &quot;Unknown&quot;; $j =~ s/\%T//; $j ||= &quot;Unknown&quot;; $u = chr(length($u) + 1) . $u . &quot;\x00&quot;; $j = chr(length($j) + 1) . $j . &quot;\x00&quot;; $p = chr(length($p) + 1) . $p . &quot;\x00&quot;; $pcmd = &quot;\@U1$u$j$p&quot;}; my $rcode = &quot;\x00&quot;; if ($r =~ /^150(|x150)$/) {$rcode = &quot;\x0a&quot;} elsif ($r =~ /^300(|x300)$/) {$rcode = &quot;\x05&quot;} elsif ($r =~ /^600(|x600)$/) {$rcode = &quot;\x00&quot;} elsif ($r =~ /^1200(|x1200)$/) {$rcode = &quot;\x0f&quot;}; my $rcmd = &quot;\@L$rcode&quot;; my $ecmd = ($e =~ /^[0123]$/ ? &quot;\@E&quot; . chr($e) : &quot;&quot;); my $mcmd = ($m =~ /^[012345678]$/ ? &quot;\@J\x00&quot; . chr($m) : &quot;&quot;); my $dcmd = ($d =~ /^[12]$/ ? &quot;\@O$d&quot; : &quot;&quot;); my $tcmd = ($t =~ /^[12MOo]$/ ? &quot;\@S$t&quot; : &quot;&quot;); my $did = 0; while (&lt;&gt;) {if (!$did) {s/\@L./$pcmd$rcmd$ecmd$mcmd$dcmd$tcmd/s &amp;&amp; $did ++}; print}'</prototype_pdf>
+  </execution>
+  <comments>
+    <en>
 
     Fortunately, Brother uses the same protocol for their host-based
     printers for many years and an appropriate driver is embedded in
-    Ghostscript, named "hl7x0". Unfortunately the driver was not
+    Ghostscript, named &quot;hl7x0&quot;. Unfortunately the driver was not
     updated for the additional options and resolutions of newer
     Brother printers, so that simply using the driver does only give
     very basic support for the current models (only 600 dpi, no
     Duplex, no tray selection, ...).&lt;p&gt;
 
     Recently &lt;a
-    href="http://sourceforge.net/projects/hbp-for-brother"&gt;the
+    href=&quot;http://sourceforge.net/projects/hbp-for-brother&quot;&gt;the
     Windows driver output of the newer models was
     investigated&lt;/a&gt; and it turned out that for the additional
     options only the appropriate commands need to be inserted at the
@@ -58,8 +53,8 @@
     the PPD from here and the Ghostscript which comes with your
     distribution and you will have access to all resolutions including
     HQ1200 (2400x600 dpi), economy mode, media types, duplex, tray
-    selection, and even password-protected printing (aka "Locked
-    Print" or "Secured Print").&lt;p&gt;
+    selection, and even password-protected printing (aka &quot;Locked
+    Print&quot; or &quot;Secured Print&quot;).&lt;p&gt;
 
     Note that not all settings are available on all printers,
     especially on older models. On some printers you will get a
@@ -67,7 +62,7 @@
     case. Please report everything on our Brother forum, so that we
     can exclude unsuitable settings from the PPDs.&lt;p&gt;
 
-    With the "HQ1200" resolution setting the economy mode and duplex
+    With the &quot;HQ1200&quot; resolution setting the economy mode and duplex
     settings are ignored. You will always get one-sided printouts with
     standard toner density.&lt;p&gt;
 
@@ -81,37 +76,37 @@
     report on the Brother forum.&lt;p&gt;
 
   </en>
- </comments>
- <printers>
-  <printer>
-   <id>printer/Brother-HL-720</id><!-- Brother HL-720 -->
-  </printer>
-  <printer>
-   <id>printer/Brother-HL-730</id><!-- Brother HL-730 -->
-  </printer>
-  <printer>
-   <id>printer/Brother-HL-820</id><!-- Brother HL-820 -->
-  </printer>
-  <printer>
-   <id>printer/Brother-HL-1020</id><!-- Brother HL-1020 -->
-  </printer>
-  <printer>
-   <id>printer/Brother-HL-1040</id><!-- Brother HL-1040 -->
-   <comments>
-    <en>Works for 300 or 600dpi; faster than PCL.</en>
-   </comments>
-  </printer>
-  <printer>
-   <id>printer/Brother-DCP-8045D</id>
-  </printer>
-  <printer>
-   <id>printer/Brother-MFC-8300</id><!-- Brother MFC-8300 -->
-  </printer>
-  <printer>
-   <id>printer/Brother-MFC-9050</id><!-- Brother MFC-9050 -->
-   <comments>
-    <en>Prints at 600dpi.</en>
-   </comments>
-  </printer>
- </printers>
+  </comments>
+  <printers>
+    <printer>
+      <id>printer/Brother-DCP-8045D</id>
+    </printer>
+    <printer>
+      <id>printer/Brother-HL-1020</id>
+    </printer>
+    <printer>
+      <id>printer/Brother-HL-1040</id>
+      <comments>
+        <en>Works for 300 or 600dpi; faster than PCL.</en>
+      </comments>
+    </printer>
+    <printer>
+      <id>printer/Brother-HL-720</id>
+    </printer>
+    <printer>
+      <id>printer/Brother-HL-730</id>
+    </printer>
+    <printer>
+      <id>printer/Brother-HL-820</id>
+    </printer>
+    <printer>
+      <id>printer/Brother-MFC-8300</id>
+    </printer>
+    <printer>
+      <id>printer/Brother-MFC-9050</id>
+      <comments>
+        <en>Prints at 600dpi.</en>
+      </comments>
+    </printer>
+  </printers>
 </driver>

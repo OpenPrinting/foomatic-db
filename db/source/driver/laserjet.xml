@@ -1,182 +1,183 @@
 <driver id="driver/laserjet">
- <name>laserjet</name>
- <url>http://www.ghostscript.com/</url>
- <execution>
-  <ghostscript />
-  <prototype>gs -q -dBATCH -dPARANOIDSAFER -dQUIET -dNOPAUSE -sDEVICE=laserjet%A%Z -sOutputFile=-%C -f - | perl -p -0033 -e &quot; s/^&amp;l\d+[aA]/$&amp;%E/; &quot; </prototype>
- </execution>
- <comments>
-  <en>
+  <name>laserjet</name>
+  <url>http://www.ghostscript.com/</url>
+  <thirdpartysupplied />
+  <execution>
+    <ghostscript />
+    <prototype>gs -q -dBATCH -dPARANOIDSAFER -dQUIET -dNOPAUSE -sDEVICE=laserjet%A%Z -sOutputFile=-%C -f - | perl -p -0033 -e &quot; s/^&amp;l\d+[aA]/$&amp;%E/; &quot; </prototype>
+  </execution>
+  <comments>
+    <en>
     PCL 4 driver.&lt;p&gt;
 
     The PPDs from this site use an ugly Perl workaround to patch
     Ghostscript's output data stream in order to make paper tray
     selection work as the driver has a bug which breaks this
     functionality. This &lt;a
-    href="http://www.openprinting.org/download/printing/ghostscript-pcl-patches/inputslot.patch"&gt;patch&lt;/a&gt;
+    href=&quot;http://www.openprinting.org/download/printing/ghostscript-pcl-patches/inputslot.patch&quot;&gt;patch&lt;/a&gt;
     for GPL Ghostscript 8.63 fixes the problem and allows to set the
-    input tray with the "-dMediaPosition=X" commmand line option for
-    Ghostscript. "X" is an integer number which depends on the printer
-    model and tray. For HP "0" is usually the printer default, "7"
-    automatic selection, "2" manual feed, "1" the upper, and "4" the
+    input tray with the &quot;-dMediaPosition=X&quot; commmand line option for
+    Ghostscript. &quot;X&quot; is an integer number which depends on the printer
+    model and tray. For HP &quot;0&quot; is usually the printer default, &quot;7&quot;
+    automatic selection, &quot;2&quot; manual feed, &quot;1&quot; the upper, and &quot;4&quot; the
     lower tray. Note that for PCL 6/XL these numbers are
     different.&lt;p&gt;
 
   </en>
- </comments>
+  </comments>
   <printers>
-  <printer>
-   <id>printer/Generic-PCL_4_Printer</id>
-  </printer>
-  <printer>
-   <id>printer/Brother-HL-4Ve</id><!-- Brother HL-4Ve -->
-  </printer>
-  <printer>
-   <id>printer/Brother-HL-1240</id><!-- Brother HL-1240 -->
-  </printer>
-  <printer>
-   <id>printer/Brother-MFC-8300</id><!-- Brother MFC-8300 -->
-  </printer>
-  <printer>
-   <id>printer/Citizen-ProJet_II</id><!-- Citizen ProJet II -->
-  </printer>
-  <printer>
-   <id>printer/Epson-ActionLaser_II</id><!-- Epson ActionLaser II -->
-  </printer>
-  <printer>
-   <id>printer/Epson-EPL-7100</id><!-- Epson EPL-7100 -->
-   <comments>
-    <en>Appears to work for 300 and 600dpi.</en>
-   </comments>
-  </printer>
-  <printer>
-   <id>printer/Fujitsu-PrintPartner_10V</id><!-- Fujitsu PrintPartner 10V -->
-  </printer>
-  <printer>
-   <id>printer/HP-LaserJet</id><!-- HP LaserJet -->
-  </printer>
-  <printer>
-   <id>printer/HP-LaserJet_2</id><!-- HP LaserJet Series II -->
-  </printer>
-  <printer>
-   <id>printer/IBM-4019</id><!-- IBM 4019 -->
-  </printer>
-  <printer>
-   <id>printer/IBM-4029_030_LaserPrinter_10</id><!-- IBM 4029 030 LaserPrinter 10 -->
-  </printer>
-  <printer>
-   <id>printer/Kyocera-F-800</id>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-F-800T</id><!-- Kyocera F-800T -->
-  </printer>
-  <printer>
-   <id>printer/Kyocera-F-820</id>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-F-1000</id>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-F-1010</id><!-- Kyocera F-1010 -->
-  </printer>
-  <printer>
-   <id>printer/Kyocera-F-1200</id><!-- Kyocera F-1200 -->
-  </printer>
-  <printer>
-   <id>printer/Kyocera-F-1200S</id>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-F-1800</id>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-F-2000</id>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-F-2010</id>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-F-2200</id>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-F-2200S</id>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-F-3000</id>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-F-3010</id>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-F-3300</id><!-- Kyocera F-3300 -->
-  </printer>
-  <printer>
-   <id>printer/Kyocera-F-5000</id>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-P-2000</id><!-- Kyocera P-2000 -->
-  </printer>
-  <printer>
-   <id>printer/Kyocera-P-2002</id>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-FS-1500</id>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-FS-1550</id>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-FS-1550plus</id>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-FS-3400</id>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-FS-3400plus</id>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-FS-3500</id><!-- Kyocera FS-3500 -->
-   <comments>
-    <en>the ljet3 driver may mangle the output, use the laserjet driver.</en>
-   </comments>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-FS-400</id>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-FS-5500</id>
-  </printer>
-  <printer>
-   <id>printer/Kyocera-FS-850</id>
-  </printer>
-  <printer>
-   <id>printer/Oki-OL610e_S</id><!-- Oki OL 610e/S -->
-  </printer>
-  <printer>
-   <id>printer/Oki-OL400</id>
-  </printer>
-  <printer>
-   <id>printer/Oki-OL800</id><!-- Oki OL 800 -->
-  </printer>
-  <printer>
-   <id>printer/Olivetti-JP350S</id><!-- Olivetti JP350S -->
-  </printer>
-  <printer>
-   <id>printer/Olivetti-PG_306</id><!-- Olivetti PG 306 -->
-  </printer>
-  <printer>
-   <id>printer/PCPI-1030</id><!-- PCPI 1030 -->
-  </printer>
-  <printer>
-   <id>printer/Panasonic-KX-P6150</id><!-- Panasonic KX-P6150 -->
-  </printer>
-  <printer>
-   <id>printer/Seiko-SpeedJET_200</id><!-- Seiko SpeedJET 200 -->
-  </printer>
-  <printer>
-   <id>printer/Star-LaserPrinter_8</id><!-- Star LaserPrinter 8 -->
-   <comments>
-    <en>Ought to work fine...</en>
-   </comments>
-  </printer>
- </printers>
+    <printer>
+      <id>printer/Brother-HL-1240</id>
+    </printer>
+    <printer>
+      <id>printer/Brother-HL-4Ve</id>
+    </printer>
+    <printer>
+      <id>printer/Brother-MFC-8300</id>
+    </printer>
+    <printer>
+      <id>printer/Citizen-ProJet_II</id>
+    </printer>
+    <printer>
+      <id>printer/Epson-ActionLaser_II</id>
+    </printer>
+    <printer>
+      <id>printer/Epson-EPL-7100</id>
+      <comments>
+        <en>Appears to work for 300 and 600dpi.</en>
+      </comments>
+    </printer>
+    <printer>
+      <id>printer/Fujitsu-PrintPartner_10V</id>
+    </printer>
+    <printer>
+      <id>printer/Generic-PCL_4_Printer</id>
+    </printer>
+    <printer>
+      <id>printer/HP-LaserJet</id>
+    </printer>
+    <printer>
+      <id>printer/HP-LaserJet_2</id>
+    </printer>
+    <printer>
+      <id>printer/IBM-4019</id>
+    </printer>
+    <printer>
+      <id>printer/IBM-4029_030_LaserPrinter_10</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-F-1000</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-F-1010</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-F-1200</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-F-1200S</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-F-1800</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-F-2000</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-F-2010</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-F-2200</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-F-2200S</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-F-3000</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-F-3010</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-F-3300</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-F-5000</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-F-800</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-F-800T</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-F-820</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-FS-1500</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-FS-1550</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-FS-1550plus</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-FS-3400</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-FS-3400plus</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-FS-3500</id>
+      <comments>
+        <en>the ljet3 driver may mangle the output, use the laserjet driver.</en>
+      </comments>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-FS-400</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-FS-5500</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-FS-850</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-P-2000</id>
+    </printer>
+    <printer>
+      <id>printer/Kyocera-P-2002</id>
+    </printer>
+    <printer>
+      <id>printer/Oki-OL400</id>
+    </printer>
+    <printer>
+      <id>printer/Oki-OL610e_S</id>
+    </printer>
+    <printer>
+      <id>printer/Oki-OL800</id>
+    </printer>
+    <printer>
+      <id>printer/Olivetti-JP350S</id>
+    </printer>
+    <printer>
+      <id>printer/Olivetti-PG_306</id>
+    </printer>
+    <printer>
+      <id>printer/Panasonic-KX-P6150</id>
+    </printer>
+    <printer>
+      <id>printer/PCPI-1030</id>
+    </printer>
+    <printer>
+      <id>printer/Seiko-SpeedJET_200</id>
+    </printer>
+    <printer>
+      <id>printer/Star-LaserPrinter_8</id>
+      <comments>
+        <en>Ought to work fine...</en>
+      </comments>
+    </printer>
+  </printers>
 </driver>
