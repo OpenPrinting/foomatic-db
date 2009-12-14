@@ -1,0 +1,3031 @@
+*PPD-Adobe: "4.3"
+
+*%*****************************************************************************
+*%	Adobe PostScript(R) Printer Description File
+*%	For Lexmark C510 LaserPrinter
+*%	Produced by Lexmark International, Inc.
+*%
+*%	Copyright 2003 - 2005 Lexmark International, Inc.  All Rights Reserved.
+*%
+*%******************************************************************************
+*%	License
+*%******************************************************************************
+*%
+*%Redistribution of this file, with or without modification, is permitted 
+*%provided that the following conditions are met:
+*% 
+*% 	Redistributions of this file must reproduce the above copyright notice, 
+*%	this list of conditions and the following disclaimer in the file and 
+*%	documentation and/or other materials provided with the distribution.
+*%
+*%	Neither the name of Lexmark International, Inc. nor the names of its 
+*%	contributors may be used to endorse or promote products derived 
+*%	from this file without specific prior written permission.
+*%
+*%THIS FILE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND 
+*%ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+*%WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+*%DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+*%FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+*%DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+*%SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+*%CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
+*%OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+*%OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*%
+*%******************************************************************************
+*%	General Information
+*%******************************************************************************
+*FormatVersion:		"4.3"
+*FileVersion:		"10.6.0.1"
+*LanguageVersion:	English
+*LanguageEncoding:	ISOLatin1
+*cupsLanguages: "de es fr it ja pt zh_CN zh_TW ko"
+*cupsVersion: "1.2"
+*PCFileName:		"LXC510.PPD"
+
+*Product:			"(Lexmark C510)"
+*PSVersion:			"(3010.010) 20020503"
+*Manufacturer:		"Lexmark"
+*ModelName:			"Lexmark C510"
+*ShortNickName:		"Lexmark C510"
+*NickName:			"Lexmark C510"
+*1284DeviceID:      "MFG: Lexmark International ;MDL: Lexmark C510"
+
+*%*****************************************************************************
+*%	Basic Capabilities
+*%*****************************************************************************
+*Protocols:			TBCP
+*LanguageLevel:		"3"
+*Throughput:		"29"
+*ColorDevice:		True
+*DefaultColorSpace:	CMYK
+*TTRasterizer:		Type42
+*?TTRasterizer:		""
+*FileSystem:		True
+*?FileSystem:		""
+
+*Password:		"0"
+*ExitServer:	"
+	count 0 eq   % is the password on the stack?
+	{ true }
+	{ dup        % potential password
+		statusdict /checkpassword get exec not
+	} ifelse
+	{  %  if no password or not valid
+		(WARNING : Cannot perform the exitserver command.) =
+		(Password supplied is not valid.) =
+		(Please contact the author of this software.) = flush
+		quit
+	} if
+	serverdict /exitserver get exec"
+*End
+
+*Reset: "
+	count 0 eq  % is the password on the stack?
+	{ true }
+	{ dup      % potential password
+		statusdict /checkpassword get exec not
+	} ifelse
+	{  %  if no password or not valid
+		(WARNING : Cannot reset printer.) =
+		(Password supplied is not valid.) =
+		(Please contact the author of this software.) = flush
+		quit
+	} if
+	serverdict /exitserver get exec
+	systemdict /quit get exec
+	(WARNING : Printer Reset Failed.) = flush"
+*End
+
+*% Do Not Delete the Next Line
+*JobPatchFile 1: "%%Lexmark Linux PPD File 1"
+
+*%*****************************************************************************
+*%	Installable Options
+*%*****************************************************************************
+
+*OpenGroup: InstallableOptions/Options Installed
+*de.Translation InstallableOptions/Installierte Optionen:
+*es.Translation InstallableOptions/Opciones instaladas:
+*fr.Translation InstallableOptions/Options installées:
+*it.Translation InstallableOptions/Opzioni Installate:
+*ja.Translation InstallableOptions/装着済みオプション:
+*pt.Translation InstallableOptions/Opcionais Instalados:
+*zh_CN.Translation InstallableOptions/已安装选件:
+*zh_TW.Translation InstallableOptions/已安裝選購品:
+*ko.Translation InstallableOptions/설치된 옵션:
+
+*OpenUI *Trays/Trays: PickOne
+*de.Translation Trays/Fächer: ""
+*es.Translation Trays/Bandejas: ""
+*fr.Translation Trays/Tiroirs: ""
+*it.Translation Trays/Vassoi: ""
+*ja.Translation Trays/給紙カセット: ""
+*pt.Translation Trays/Bandejas: ""
+*zh_CN.Translation Trays/进纸匣: ""
+*zh_TW.Translation Trays/裝紙匣: ""
+*ko.Translation Trays/트레이: ""
+*DefaultTrays: Tray12
+*Trays Tray1/Tray 1:				""
+*de.Trays Tray1/Fach 1: ""
+*es.Trays Tray1/Bandeja 1: ""
+*fr.Trays Tray1/Tiroir 1: ""
+*it.Trays Tray1/Vassoio 1: ""
+*ja.Trays Tray1/カセット 1: ""
+*pt.Trays Tray1/Bandeja 1: ""
+*zh_CN.Trays Tray1/进纸匣 1: ""
+*zh_TW.Trays Tray1/裝紙匣 1: ""
+*ko.Trays Tray1/트레이 1: ""
+*Trays Tray12/Tray 1+2:				""
+*de.Trays Tray12/Fach 1+2: ""
+*es.Trays Tray12/Bandejas 1+2: ""
+*fr.Trays Tray12/Tiroir 1+2: ""
+*it.Trays Tray12/Vassoio 1+2: ""
+*ja.Trays Tray12/カセット 1+2: ""
+*pt.Trays Tray12/Bandejas 1+2: ""
+*zh_CN.Trays Tray12/进纸匣 1+2: ""
+*zh_TW.Trays Tray12/裝紙匣 1+2: ""
+*ko.Trays Tray12/트레이 1+2: ""
+*?Trays:							"
+	gsave
+	currentpagedevice /InputAttributes get
+	1 get null eq 
+		{(Tray1)} {(Tray12)}
+	ifelse
+	= flush
+	grestore"
+*End
+*CloseUI:	*Trays
+
+*OpenUI *OptDuplex/Duplex: PickOne
+*de.Translation OptDuplex/Duplex: ""
+*es.Translation OptDuplex/Encuadernado Doble: ""
+*fr.Translation OptDuplex/Reliure Recto Verso: ""
+*it.Translation OptDuplex/Fronte/Retro: ""
+*ja.Translation OptDuplex/両面印刷: ""
+*pt.Translation OptDuplex/Modo Duplex: ""
+*zh_CN.Translation OptDuplex/双面打印: ""
+*zh_TW.Translation OptDuplex/雙面列印: ""
+*ko.Translation OptDuplex/양면: ""
+*DefaultOptDuplex: InstalledM
+*OptDuplex NotInstalledM/Not Installed:					""
+*de.OptDuplex NotInstalledM/Nicht Eingebaut: ""
+*es.OptDuplex NotInstalledM/No Instalado: ""
+*fr.OptDuplex NotInstalledM/Non Installé: ""
+*it.OptDuplex NotInstalledM/Non installato: ""
+*ja.OptDuplex NotInstalledM/インストールされていません: ""
+*pt.OptDuplex NotInstalledM/Não instalado: ""
+*zh_CN.OptDuplex NotInstalledM/未安装: ""
+*zh_TW.OptDuplex NotInstalledM/未安裝: ""
+*ko.OptDuplex NotInstalledM/설치 안됨: ""
+*OptDuplex InstalledM/Installed:							""
+*de.OptDuplex InstalledM/Eingebaut: ""
+*es.OptDuplex InstalledM/Instalado: ""
+*fr.OptDuplex InstalledM/Installé: ""
+*it.OptDuplex InstalledM/Installato: ""
+*ja.OptDuplex InstalledM/インストール済み: ""
+*pt.OptDuplex InstalledM/Instalado: ""
+*zh_CN.OptDuplex InstalledM/已安装: ""
+*zh_TW.OptDuplex InstalledM/已安裝: ""
+*ko.OptDuplex InstalledM/설치됨: ""
+*?OptDuplex:										"
+	gsave
+	statusdict /duplexer get exec
+	true eq {(InstalledM)} {(NotInstalledM)} ifelse
+	= flush
+	grestore"
+*End
+*CloseUI:	*OptDuplex
+
+*OpenUI *Flash/Flash: PickOne
+*de.Translation Flash/Flash Speicher: ""
+*es.Translation Flash/Tarjeta Memoria Flash: ""
+*fr.Translation Flash/Carte Mémoire Flash: ""
+*it.Translation Flash/Memoria flash: ""
+*ja.Translation Flash/フラッシュ: ""
+*pt.Translation Flash/Placa Memória Flash: ""
+*zh_CN.Translation Flash/闪烁存储器: ""
+*zh_TW.Translation Flash/快閃: ""
+*ko.Translation Flash/플래시: ""
+*DefaultFlash: InstalledF
+*Flash NotInstalledF/Not Installed:						""
+*de.Flash NotInstalledF/Nicht Eingebaut: ""
+*es.Flash NotInstalledF/No Instalada: ""
+*fr.Flash NotInstalledF/Non Installée: ""
+*it.Flash NotInstalledF/Non installata: ""
+*ja.Flash NotInstalledF/インストールされていません: ""
+*pt.Flash NotInstalledF/Não instalada: ""
+*zh_CN.Flash NotInstalledF/未安装: ""
+*zh_TW.Flash NotInstalledF/未安裝: ""
+*ko.Flash NotInstalledF/설치 안됨: ""
+*Flash InstalledF/Installed:							""
+*de.Flash InstalledF/Eingebaut: ""
+*es.Flash InstalledF/Instalada: ""
+*fr.Flash InstalledF/Installée: ""
+*it.Flash InstalledF/Installata: ""
+*ja.Flash InstalledF/インストール済み: ""
+*pt.Flash InstalledF/Instalada: ""
+*zh_CN.Flash InstalledF/已安装: ""
+*zh_TW.Flash InstalledF/已安裝: ""
+*ko.Flash InstalledF/설치됨: ""
+*?Flash:										"
+	(%flash%) devstatus
+	false eq {(NotInstalledF)} {(InstalledF)} ifelse
+	= flush"
+*End
+*CloseUI:	*Flash
+
+*OpenUI *Disk/Disk: PickOne
+*de.Translation Disk/Festplatte: ""
+*es.Translation Disk/Disco de Impresora: ""
+*fr.Translation Disk/Disque Dur lmprimante: ""
+*it.Translation Disk/Disco fisso della stampante: ""
+*ja.Translation Disk/ディスク: ""
+*pt.Translation Disk/Disco Rígido da Impressora: ""
+*zh_CN.Translation Disk/磁盘: ""
+*zh_TW.Translation Disk/磁碟: ""
+*ko.Translation Disk/디스크: ""
+*DefaultDisk: InstalledM
+*Disk NotInstalledM/Not Installed:						""
+*de.Disk NotInstalledM/Nicht Eingebaut: ""
+*es.Disk NotInstalledM/No Instalado: ""
+*fr.Disk NotInstalledM/Non Installé: ""
+*it.Disk NotInstalledM/Non installato: ""
+*ja.Disk NotInstalledM/インストールされていません: ""
+*pt.Disk NotInstalledM/Não instalado: ""
+*zh_CN.Disk NotInstalledM/未安装: ""
+*zh_TW.Disk NotInstalledM/未安裝: ""
+*ko.Disk NotInstalledM/설치 안됨: ""
+*Disk InstalledM/Installed:							""
+*de.Disk InstalledM/Eingebaut: ""
+*es.Disk InstalledM/Instalado: ""
+*fr.Disk InstalledM/Installé: ""
+*it.Disk InstalledM/Installato: ""
+*ja.Disk InstalledM/インストール済み: ""
+*pt.Disk InstalledM/Instalado: ""
+*zh_CN.Disk InstalledM/已安装: ""
+*zh_TW.Disk InstalledM/已安裝: ""
+*ko.Disk InstalledM/설치됨: ""
+*?Disk:											"
+	(%disk%) devstatus
+	false eq {(NotInstalledM)} {(InstalledM)} ifelse
+	= flush"
+*End
+*CloseUI: *Disk
+
+*OpenUI *InstalledMemory/Printer Memory: PickOne
+*de.Translation InstalledMemory/Druckerspeicher: ""
+*es.Translation InstalledMemory/Memoria de Impresora: ""
+*fr.Translation InstalledMemory/Mémoire d'Imprimante: ""
+*it.Translation InstalledMemory/Memoria della stampante: ""
+*ja.Translation InstalledMemory/メモリー: ""
+*pt.Translation InstalledMemory/Memória da Impressora: ""
+*zh_CN.Translation InstalledMemory/打印机内存: ""
+*zh_TW.Translation InstalledMemory/印表機記憶體: ""
+*ko.Translation InstalledMemory/프린터 메모리: ""
+*DefaultInstalledMemory: 128Meg
+*InstalledMemory 64Meg/64 MB Memory:	""
+*de.InstalledMemory 64Meg/64 MB Speicher: ""
+*es.InstalledMemory 64Meg/Memoria 64 MB: ""
+*fr.InstalledMemory 64Meg/Mémoire 64 Mo: ""
+*it.InstalledMemory 64Meg/Memoria 64 MB: ""
+*ja.InstalledMemory 64Meg/64 MB メモリー: ""
+*pt.InstalledMemory 64Meg/64 MB Memória: ""
+*zh_CN.InstalledMemory 64Meg/64 MB 内存: ""
+*zh_TW.InstalledMemory 64Meg/64 MB 記憶體: ""
+*ko.InstalledMemory 64Meg/64 MB 메모리: ""
+*InstalledMemory 128Meg/128 MB Memory:	""
+*de.InstalledMemory 128Meg/128 MB Speicher: ""
+*es.InstalledMemory 128Meg/Memoria 128 MB: ""
+*fr.InstalledMemory 128Meg/Mémoire 128 Mo: ""
+*it.InstalledMemory 128Meg/Memoria 128 MB: ""
+*ja.InstalledMemory 128Meg/128 MB メモリー: ""
+*pt.InstalledMemory 128Meg/128 MB Memória: ""
+*zh_CN.InstalledMemory 128Meg/128 MB 内存: ""
+*zh_TW.InstalledMemory 128Meg/128 MB 記憶體: ""
+*ko.InstalledMemory 128Meg/128 MB 메모리: ""
+*InstalledMemory 192Meg/192 MB Memory:	""
+*de.InstalledMemory 192Meg/192 MB Speicher: ""
+*es.InstalledMemory 192Meg/Memoria 192 MB: ""
+*fr.InstalledMemory 192Meg/Mémoire 192 Mo: ""
+*it.InstalledMemory 192Meg/Memoria 192 MB: ""
+*ja.InstalledMemory 192Meg/192 MB メモリー: ""
+*pt.InstalledMemory 192Meg/192 MB Memória: ""
+*zh_CN.InstalledMemory 192Meg/192 MB 内存: ""
+*zh_TW.InstalledMemory 192Meg/192 MB 記憶體: ""
+*ko.InstalledMemory 192Meg/192 MB 메모리: ""
+*InstalledMemory 256Meg/256 MB Memory:	""
+*de.InstalledMemory 256Meg/256 MB Speicher: ""
+*es.InstalledMemory 256Meg/Memoria 256 MB: ""
+*fr.InstalledMemory 256Meg/Mémoire 256 Mo: ""
+*it.InstalledMemory 256Meg/Memoria 256 MB: ""
+*ja.InstalledMemory 256Meg/256 MB メモリー: ""
+*pt.InstalledMemory 256Meg/256 MB Memória: ""
+*zh_CN.InstalledMemory 256Meg/256 MB 内存: ""
+*zh_TW.InstalledMemory 256Meg/256 MB 記憶體: ""
+*ko.InstalledMemory 256Meg/256 MB 메모리: ""
+*InstalledMemory 320Meg/320 MB Memory:	""
+*de.InstalledMemory 320Meg/320 MB Speicher: ""
+*es.InstalledMemory 320Meg/Memoria 320 MB: ""
+*fr.InstalledMemory 320Meg/Mémoire 320 Mo: ""
+*it.InstalledMemory 320Meg/Memoria 320 MB: ""
+*ja.InstalledMemory 320Meg/320 MB メモリー: ""
+*pt.InstalledMemory 320Meg/320 MB Memória: ""
+*zh_CN.InstalledMemory 320Meg/320 MB 内存: ""
+*zh_TW.InstalledMemory 320Meg/320 MB 記憶體: ""
+*ko.InstalledMemory 320Meg/320 MB 메모리: ""
+*?InstalledMemory:						"
+	gsave
+	currentsystemparams /InstalledRam get 
+	1048576 div cvi 6 string cvs dup length dup 3 add string dup 3 index 0 exch putinterval dup
+	2 index (Meg) putinterval exch pop exch pop = flush
+	grestore"
+*End
+*CloseUI: *InstalledMemory
+
+*CloseGroup: InstallableOptions
+
+*%*****************************************************************************
+*%	VM
+*%*****************************************************************************
+
+*FreeVM:			"60000000"
+*VMOption 64Meg: 	"60000000"
+*VMOption 128Meg:	"124000000"
+*VMOption 192Meg:	"188000000"
+*VMOption 256Meg:	"252000000"
+*VMOption 320Meg:	"312000000"
+
+*%*****************************************************************************
+*%	Constraints
+*%*****************************************************************************
+*UIConstraints:	*Trays Tray1				*InputSlot Tray2
+*UIConstraints:	*Trays Tray1				*SepSource Tray2
+
+*UIConstraints:	*InputSlot Tray2			*PageSize A5
+*UIConstraints:	*InputSlot Tray2			*PageSize B5
+*UIConstraints:	*InputSlot Tray2			*PageSize Legal
+*UIConstraints:	*InputSlot Tray2			*PageSize Folio
+*UIConstraints:	*InputSlot Tray2			*PageSize Statement
+
+*UIConstraints:	*InputSlot Tray2			*PageRegion A5
+*UIConstraints:	*InputSlot Tray2			*PageRegion B5
+*UIConstraints:	*InputSlot Tray2			*PageRegion Legal
+*UIConstraints:	*InputSlot Tray2			*PageRegion Folio
+*UIConstraints:	*InputSlot Tray2			*PageRegion Statement
+
+*UIConstraints: *MediaType Transparency		*InputSlot Tray2
+
+*UIConstraints: *OptDuplex NotInstalledM	*Duplex DuplexNoTumble
+*UIConstraints: *OptDuplex NotInstalledM	*Duplex DuplexTumble
+
+*UIConstraints: *MediaType Card				*Duplex DuplexNoTumble
+*UIConstraints: *MediaType Card				*Duplex DuplexTumble
+*UIConstraints: *MediaType Transparency		*Duplex DuplexNoTumble
+*UIConstraints: *MediaType Transparency		*Duplex DuplexTumble
+*UIConstraints: *MediaType Labels			*Duplex DuplexNoTumble
+*UIConstraints: *MediaType Labels			*Duplex DuplexTumble
+
+*UIConstraints:	*PageSize Statement			*Duplex DuplexNoTumble
+*UIConstraints:	*PageSize Statement			*Duplex DuplexTumble
+
+*UIConstraints:	*PageRegion Statement		*Duplex DuplexNoTumble
+*UIConstraints:	*PageRegion Statement		*Duplex DuplexTumble
+
+*UIConstraints:	*SepPages None				*SepSource Tray1
+*UIConstraints:	*SepPages None				*SepSource Tray2
+
+*UIConstraints: *MediaColor Auto		*ManualRGBImage Vivid
+*UIConstraints: *MediaColor Auto		*ManualRGBImage sRGBDisplay
+*UIConstraints: *MediaColor Auto		*ManualRGBImage sRGBVivid
+*UIConstraints: *MediaColor Auto		*ManualRGBText Vivid
+*UIConstraints: *MediaColor Auto		*ManualRGBText sRGBDisplay
+*UIConstraints: *MediaColor Auto		*ManualRGBText sRGBVivid
+*UIConstraints: *MediaColor Auto		*ManualRGBGraphics Vivid
+*UIConstraints: *MediaColor Auto		*ManualRGBGraphics sRGBDisplay
+*UIConstraints: *MediaColor Auto		*ManualRGBGraphics sRGBVivid
+*UIConstraints: *MediaColor Auto		*ManualCMYK USCMYK
+*UIConstraints: *MediaColor Auto		*ManualCMYK EuroCMYK
+*UIConstraints: *MediaColor Auto		*ManualCMYK VividCMYK
+
+*UIConstraints: *MediaColor FalseM		*ManualRGBImage Vivid
+*UIConstraints: *MediaColor FalseM		*ManualRGBImage sRGBDisplay
+*UIConstraints: *MediaColor FalseM		*ManualRGBImage sRGBVivid
+*UIConstraints: *MediaColor FalseM		*ManualRGBText Vivid
+*UIConstraints: *MediaColor FalseM		*ManualRGBText sRGBDisplay
+*UIConstraints: *MediaColor FalseM		*ManualRGBText sRGBVivid
+*UIConstraints: *MediaColor FalseM		*ManualRGBGraphics Vivid
+*UIConstraints: *MediaColor FalseM		*ManualRGBGraphics sRGBDisplay
+*UIConstraints: *MediaColor FalseM		*ManualRGBGraphics sRGBVivid
+*UIConstraints: *MediaColor FalseM		*ManualCMYK USCMYK
+*UIConstraints: *MediaColor FalseM		*ManualCMYK EuroCMYK
+*UIConstraints: *MediaColor FalseM		*ManualCMYK VividCMYK
+
+*%*****************************************************************************
+*%	Halftone Information
+*%*****************************************************************************
+
+*ScreenFreq: "154.0"
+*ScreenAngle: "50.0"
+*DefaultScreenProc: Dot
+*ScreenProc Dot: "
+	{abs exch abs 2 copy add 1 gt {1 sub dup mul exch 1 sub dup mul add 1
+	sub }{dup mul exch dup mul add 1 exch sub }ifelse }"
+*End
+*ScreenProc Line: "{ pop }"
+*ScreenProc Ellipse: "{ dup 5 mul 8 div mul exch dup mul exch add sqrt 1 exch sub }"
+
+*DefaultTransfer: Factory
+*Transfer Factory: "{}"
+*Transfer Factory.Inverse: "{1 exch sub }"
+
+*DefaultPrintQuality: 2400x600dpi
+*OrderDependency: 11 AnySetup *PrintQuality
+*PrintQuality 2400x600dpi/2400 Image Quality: 	"<< /HWResolution [600 600] >> setpagedevice"
+*de.PrintQuality 2400x600dpi/2400 Image Quality: ""
+*es.PrintQuality 2400x600dpi/2400 Image Quality: ""
+*fr.PrintQuality 2400x600dpi/2400 Image Quality: ""
+*it.PrintQuality 2400x600dpi/2400 Image Quality: ""
+*ja.PrintQuality 2400x600dpi/2400 Image Quality: ""
+*pt.PrintQuality 2400x600dpi/2400 Image Quality: ""
+*zh_CN.PrintQuality 2400x600dpi/2400 Image Quality: ""
+*zh_TW.PrintQuality 2400x600dpi/2400 Image Quality: ""
+*ko.PrintQuality 2400x600dpi/2400 Image Quality: ""
+
+*%*****************************************************************************
+*%	Color Group
+*%*****************************************************************************
+
+*OpenGroup: Color/Color
+*de.Translation Color/Farbanpassung: 	"<< /HWResolution [600 600] >> setpagedevice"
+*es.Translation Color/Color: 	"<< /HWResolution [600 600] >> setpagedevice"
+*fr.Translation Color/Couleur: 	"<< /HWResolution [600 600] >> setpagedevice"
+*it.Translation Color/Colore: 	"<< /HWResolution [600 600] >> setpagedevice"
+*ja.Translation Color/カラー用紙: 	"<< /HWResolution [600 600] >> setpagedevice"
+*pt.Translation Color/Colorido: 	"<< /HWResolution [600 600] >> setpagedevice"
+*zh_CN.Translation Color/颜色: 	"<< /HWResolution [600 600] >> setpagedevice"
+*zh_TW.Translation Color/色彩: 	"<< /HWResolution [600 600] >> setpagedevice"
+*ko.Translation Color/칼라: 	"<< /HWResolution [600 600] >> setpagedevice"
+
+*%*****************************************************************************
+*%	Color Correction
+*%*****************************************************************************
+
+*OpenUI *MediaColor/Color Correction: PickOne
+*de.Translation MediaColor/Farbanpassung: ""
+*es.Translation MediaColor/Corrección de color: ""
+*fr.Translation MediaColor/Correction des Couleurs: ""
+*it.Translation MediaColor/Correzione Colore: ""
+*ja.Translation MediaColor/色補正　: ""
+*pt.Translation MediaColor/Correção de Cor: ""
+*zh_CN.Translation MediaColor/颜色修正: ""
+*zh_TW.Translation MediaColor/色彩修正: ""
+*ko.Translation MediaColor/색상 교정: ""
+*OrderDependency: 12 AnySetup *MediaColor
+*DefaultMediaColor: PrinterS
+*MediaColor PrinterS/Printer Setting:	""
+*de.MediaColor PrinterS/Druckereinstellung: ""
+*es.MediaColor PrinterS/Valor de la impresora: ""
+*fr.MediaColor PrinterS/Paramètres de l'imprimante: ""
+*it.MediaColor PrinterS/Impostazione stampante: ""
+*ja.MediaColor PrinterS/プリンタ設定: ""
+*pt.MediaColor PrinterS/Padrao da Impressora: ""
+*zh_CN.MediaColor PrinterS/打印机设置: ""
+*zh_TW.MediaColor PrinterS/印表機設置: ""
+*ko.MediaColor PrinterS/프린터 설정 : ""
+*MediaColor Auto/Auto:		 "<< /DeviceRenderingInfo << /ColorCorrection /Automatic >> >> setpagedevice"
+*de.MediaColor Auto/Automatisch: ""
+*es.MediaColor Auto/Automático: ""
+*fr.MediaColor Auto/Automatique: ""
+*it.MediaColor Auto/Automatico: ""
+*ja.MediaColor Auto/自動: ""
+*pt.MediaColor Auto/Automático: ""
+*zh_CN.MediaColor Auto/自动: ""
+*zh_TW.MediaColor Auto/自動: ""
+*ko.MediaColor Auto/자동: ""
+*MediaColor FalseM/Off:		 "<< /DeviceRenderingInfo << /ColorCorrection /Off >> >> setpagedevice"
+*de.MediaColor FalseM/Aus: ""
+*es.MediaColor FalseM/Desactivado: ""
+*fr.MediaColor FalseM/Hors Fonction: ""
+*it.MediaColor FalseM/Disabilitato: ""
+*ja.MediaColor FalseM/オフ: ""
+*pt.MediaColor FalseM/Desligado: ""
+*zh_CN.MediaColor FalseM/关: ""
+*zh_TW.MediaColor FalseM/關: ""
+*ko.MediaColor FalseM/꺼짐: ""
+*MediaColor Manual/Manual:	 "<< /DeviceRenderingInfo << /ColorCorrection /Manual >> >> setpagedevice"
+*de.MediaColor Manual/Manuell: ""
+*es.MediaColor Manual/Manual: ""
+*fr.MediaColor Manual/Manuel: ""
+*it.MediaColor Manual/Manuale: ""
+*ja.MediaColor Manual/手差し: ""
+*pt.MediaColor Manual/Manual: ""
+*zh_CN.MediaColor Manual/手动: ""
+*zh_TW.MediaColor Manual/手動: ""
+*ko.MediaColor Manual/수동: ""
+*?MediaColor:					"
+	gsave
+	3 dict
+        dup /Automatic (Auto) put
+        dup /Manual (Manual) put
+		dup /Off (FalseM) put
+
+	currentpagedevice /DeviceRenderingInfo get /ColorCorrection get
+	get = flush
+	grestore"
+*End
+*CloseUI: *MediaColor
+
+*%******************************************************************************
+*%	Toner Darkness
+*%******************************************************************************
+
+*OpenUI *TonerDarkness/Toner Darkness: PickOne
+*de.Translation TonerDarkness/Tonerdeckung: ""
+*es.Translation TonerDarkness/Intensidad del tóner: ""
+*fr.Translation TonerDarkness/Intensité Toner: ""
+*it.Translation TonerDarkness/Intensità del toner: ""
+*ja.Translation TonerDarkness/トナーの濃さ: ""
+*pt.Translation TonerDarkness/Tonalidade de toner: ""
+*zh_CN.Translation TonerDarkness/鼓粉浓度: ""
+*zh_TW.Translation TonerDarkness/碳粉明暗度: ""
+*ko.Translation TonerDarkness/토너 어둡기: ""
+*OrderDependency: 16 AnySetup *TonerDarkness
+*DefaultTonerDarkness:	PrinterS
+*TonerDarkness PrinterS/Printer Setting:		""
+*de.TonerDarkness PrinterS/Druckereinstellung: ""
+*es.TonerDarkness PrinterS/Valor de la impresora: ""
+*fr.TonerDarkness PrinterS/Paramètres de l'imprimante: ""
+*it.TonerDarkness PrinterS/Impostazione stampante: ""
+*ja.TonerDarkness PrinterS/プリンタ設定: ""
+*pt.TonerDarkness PrinterS/Padrao da Impressora: ""
+*zh_CN.TonerDarkness PrinterS/打印机设置: ""
+*zh_TW.TonerDarkness PrinterS/印表機設置: ""
+*ko.TonerDarkness PrinterS/프린터 설정 : ""
+*TonerDarkness 1/1:		"
+	<< /DeviceRenderingInfo << /PrintDarkness 1 >> >> setpagedevice"
+*End
+*de.TonerDarkness 1/1: ""
+*es.TonerDarkness 1/1: ""
+*fr.TonerDarkness 1/1: ""
+*it.TonerDarkness 1/1: ""
+*ja.TonerDarkness 1/1: ""
+*pt.TonerDarkness 1/1: ""
+*zh_CN.TonerDarkness 1/1: ""
+*zh_TW.TonerDarkness 1/1: ""
+*ko.TonerDarkness 1/1: ""
+*TonerDarkness 2/2:		"
+	<< /DeviceRenderingInfo << /PrintDarkness 2 >> >> setpagedevice"
+*End
+*de.TonerDarkness 2/2: ""
+*es.TonerDarkness 2/2: ""
+*fr.TonerDarkness 2/2: ""
+*it.TonerDarkness 2/2: ""
+*ja.TonerDarkness 2/2: ""
+*pt.TonerDarkness 2/2: ""
+*zh_CN.TonerDarkness 2/2: ""
+*zh_TW.TonerDarkness 2/2: ""
+*ko.TonerDarkness 2/2: ""
+*TonerDarkness 3/3:		"
+	<< /DeviceRenderingInfo << /PrintDarkness 3 >> >> setpagedevice"
+*End
+*de.TonerDarkness 3/3: ""
+*es.TonerDarkness 3/3: ""
+*fr.TonerDarkness 3/3: ""
+*it.TonerDarkness 3/3: ""
+*ja.TonerDarkness 3/3: ""
+*pt.TonerDarkness 3/3: ""
+*zh_CN.TonerDarkness 3/3: ""
+*zh_TW.TonerDarkness 3/3: ""
+*ko.TonerDarkness 3/3: ""
+*TonerDarkness 4/4:		"
+	<< /DeviceRenderingInfo << /PrintDarkness 4 >> >> setpagedevice"
+*End
+*de.TonerDarkness 4/4: ""
+*es.TonerDarkness 4/4: ""
+*fr.TonerDarkness 4/4: ""
+*it.TonerDarkness 4/4: ""
+*ja.TonerDarkness 4/4: ""
+*pt.TonerDarkness 4/4: ""
+*zh_CN.TonerDarkness 4/4: ""
+*zh_TW.TonerDarkness 4/4: ""
+*ko.TonerDarkness 4/4: ""
+*TonerDarkness 5/5:		"
+	<< /DeviceRenderingInfo << /PrintDarkness 5 >> >> setpagedevice"
+*End
+*de.TonerDarkness 5/5: ""
+*es.TonerDarkness 5/5: ""
+*fr.TonerDarkness 5/5: ""
+*it.TonerDarkness 5/5: ""
+*ja.TonerDarkness 5/5: ""
+*pt.TonerDarkness 5/5: ""
+*zh_CN.TonerDarkness 5/5: ""
+*zh_TW.TonerDarkness 5/5: ""
+*ko.TonerDarkness 5/5: ""
+*?TonerDarkness:		"
+	gsave
+	currentpagedevice /DeviceRenderingInfo get  /PrintDarkness get
+    = flush
+	grestore"
+*End
+*CloseUI: *TonerDarkness
+
+*%*****************************************************************************
+*%	Color Saver
+*%*****************************************************************************
+
+*OpenUI *ColorSaver/ColorSaver: PickOne
+*de.Translation ColorSaver/ColorSaver: ""
+*es.Translation ColorSaver/ColorSaver: ""
+*fr.Translation ColorSaver/ColorSaver: ""
+*it.Translation ColorSaver/ColorSaver: ""
+*ja.Translation ColorSaver/ColorSaver: ""
+*pt.Translation ColorSaver/ColorSaver: ""
+*zh_CN.Translation ColorSaver/ColorSaver: ""
+*zh_TW.Translation ColorSaver/ColorSaver: ""
+*ko.Translation ColorSaver/ColorSaver: ""
+*OrderDependency: 14 AnySetup *ColorSaver
+*DefaultColorSaver: PrinterS
+*ColorSaver PrinterS/Printer Setting:	""
+*de.ColorSaver PrinterS/Druckereinstellung: ""
+*es.ColorSaver PrinterS/Valor de la impresora: ""
+*fr.ColorSaver PrinterS/Paramètres de l'imprimante: ""
+*it.ColorSaver PrinterS/Impostazione stampante: ""
+*ja.ColorSaver PrinterS/プリンタ設定: ""
+*pt.ColorSaver PrinterS/Padrao da Impressora: ""
+*zh_CN.ColorSaver PrinterS/打印机设置: ""
+*zh_TW.ColorSaver PrinterS/印表機設置: ""
+*ko.ColorSaver PrinterS/프린터 설정 : ""
+*ColorSaver FalseM/Off:		"<< /DeviceRenderingInfo << /ColorSaver /Off >> >> setpagedevice"
+*de.ColorSaver FalseM/Aus: ""
+*es.ColorSaver FalseM/Desactivado: ""
+*fr.ColorSaver FalseM/Hors Fonction: ""
+*it.ColorSaver FalseM/Disabilitato: ""
+*ja.ColorSaver FalseM/オフ: ""
+*pt.ColorSaver FalseM/Desligado: ""
+*zh_CN.ColorSaver FalseM/关: ""
+*zh_TW.ColorSaver FalseM/關: ""
+*ko.ColorSaver FalseM/꺼짐: ""
+*ColorSaver TrueM/On:		"<< /DeviceRenderingInfo << /ColorSaver /On >> >> setpagedevice"
+*de.ColorSaver TrueM/Ein: ""
+*es.ColorSaver TrueM/Activado: ""
+*fr.ColorSaver TrueM/En Fonction: ""
+*it.ColorSaver TrueM/Abilitato: ""
+*ja.ColorSaver TrueM/オン: ""
+*pt.ColorSaver TrueM/Ativar: ""
+*zh_CN.ColorSaver TrueM/开: ""
+*zh_TW.ColorSaver TrueM/開: ""
+*ko.ColorSaver TrueM/켜짐: ""
+*?ColorSaver:				"
+	gsave
+	currentpagedevice /DeviceRenderingInfo get /ColorSaver get
+    (On) eq {(TrueM)}{(FalseM)} ifelse
+	= flush
+	grestore"
+*End
+*CloseUI: *ColorSaver
+
+*%******************************************************************************
+*%	Image Smoothing
+*%******************************************************************************
+
+*OpenUI *ImageSmoothing/Image Smoothing:  PickOne
+*de.Translation ImageSmoothing/Bildglättung: ""
+*es.Translation ImageSmoothing/Suavizar Imagen: ""
+*fr.Translation ImageSmoothing/Lissage Image: ""
+*it.Translation ImageSmoothing/Regol. immag.: ""
+*ja.Translation ImageSmoothing/イメージ・スムージング: ""
+*pt.Translation ImageSmoothing/Suavizar Imagem: ""
+*zh_CN.Translation ImageSmoothing/图象平滑: ""
+*zh_TW.Translation ImageSmoothing/影像平滑化: ""
+*ko.Translation ImageSmoothing/이미지 고르기: ""
+*OrderDependency:  15 AnySetup *ImageSmoothing
+*DefaultImageSmoothing:  PrinterS
+*ImageSmoothing PrinterS/Printer Setting:	""
+*de.ImageSmoothing PrinterS/Druckereinstellung: ""
+*es.ImageSmoothing PrinterS/Valor de la impresora: ""
+*fr.ImageSmoothing PrinterS/Paramètres de l'imprimante: ""
+*it.ImageSmoothing PrinterS/Impostazione stampante: ""
+*ja.ImageSmoothing PrinterS/プリンタ設定: ""
+*pt.ImageSmoothing PrinterS/Padrao da Impressora: ""
+*zh_CN.ImageSmoothing PrinterS/打印机设置: ""
+*zh_TW.ImageSmoothing PrinterS/印表機設置: ""
+*ko.ImageSmoothing PrinterS/프린터 설정 : ""
+*ImageSmoothing FalseF/Off:	"<< /Interpolate false >>"
+*de.ImageSmoothing FalseF/Aus: ""
+*es.ImageSmoothing FalseF/Desactivada: ""
+*fr.ImageSmoothing FalseF/Hors Fonction: ""
+*it.ImageSmoothing FalseF/Disabilitato: ""
+*ja.ImageSmoothing FalseF/オフ: ""
+*pt.ImageSmoothing FalseF/Desligada: ""
+*zh_CN.ImageSmoothing FalseF/关: ""
+*zh_TW.ImageSmoothing FalseF/關: ""
+*ko.ImageSmoothing FalseF/꺼짐: ""
+*ImageSmoothing TrueF/On:	"<< /Interpolate true >>"
+*de.ImageSmoothing TrueF/Ein: ""
+*es.ImageSmoothing TrueF/Activada: ""
+*fr.ImageSmoothing TrueF/En Fonction: ""
+*it.ImageSmoothing TrueF/Abilitato: ""
+*ja.ImageSmoothing TrueF/オン: ""
+*pt.ImageSmoothing TrueF/Ativar: ""
+*zh_CN.ImageSmoothing TrueF/开: ""
+*zh_TW.ImageSmoothing TrueF/開: ""
+*ko.ImageSmoothing TrueF/켜짐: ""
+*CloseUI:  *ImageSmoothing
+
+*%*****************************************************************************
+*%	Black And White
+*%*****************************************************************************
+
+*OpenUI *BLW/Black & White: PickOne
+*de.Translation BLW/Schwarz/Weiß: ""
+*es.Translation BLW/Blanco y negro: ""
+*fr.Translation BLW/Noir & Blanc: ""
+*it.Translation BLW/Bianco e nero: ""
+*ja.Translation BLW/白黒（モノクロ）: ""
+*pt.Translation BLW/Preto & Branco: ""
+*zh_CN.Translation BLW/黑色和白色: ""
+*zh_TW.Translation BLW/黑白: ""
+*ko.Translation BLW/흑백: ""
+*OrderDependency: 13 AnySetup *BLW
+*DefaultBLW: PrinterS
+*BLW PrinterS/Printer Setting:	""
+*de.BLW PrinterS/Druckereinstellung: ""
+*es.BLW PrinterS/Valor de la impresora: ""
+*fr.BLW PrinterS/Paramètres de l'imprimante: ""
+*it.BLW PrinterS/Impostazione stampante: ""
+*ja.BLW PrinterS/プリンタ設定: ""
+*pt.BLW PrinterS/Padrao da Impressora: ""
+*zh_CN.BLW PrinterS/打印机设置: ""
+*zh_TW.BLW PrinterS/印表機設置: ""
+*ko.BLW PrinterS/프린터 설정 : ""
+*BLW FalseM/Off:	"<< /ProcessColorModel /DeviceCMYK >> setpagedevice"
+*de.BLW FalseM/Aus: ""
+*es.BLW FalseM/Desactivado: ""
+*fr.BLW FalseM/Hors Fonction: ""
+*it.BLW FalseM/Disabilitato: ""
+*ja.BLW FalseM/オフ: ""
+*pt.BLW FalseM/Desligado: ""
+*zh_CN.BLW FalseM/关: ""
+*zh_TW.BLW FalseM/關: ""
+*ko.BLW FalseM/꺼짐: ""
+*BLW TrueM/On:		"<< /ProcessColorModel /DeviceGray >> setpagedevice"
+*de.BLW TrueM/Ein: ""
+*es.BLW TrueM/Activado: ""
+*fr.BLW TrueM/En Fonction: ""
+*it.BLW TrueM/Abilitato: ""
+*ja.BLW TrueM/オン: ""
+*pt.BLW TrueM/Ativar: ""
+*zh_CN.BLW TrueM/开: ""
+*zh_TW.BLW TrueM/開: ""
+*ko.BLW TrueM/켜짐: ""
+*?BLW:				"
+	gsave
+	currentpagedevice /ProcessColorModel get /DeviceGray 
+    (True) eq {(TrueM)}{(FalseM)} ifelse
+	= flush
+	grestore"
+*End
+*CloseUI: *BLW
+
+*CloseGroup: Color
+
+*%*****************************************************************************
+*%	Color Balance Group
+*%*****************************************************************************
+
+*OpenGroup: ColorBalance/Color Balance
+*de.Translation ColorBalance/Farbausgleich:		"<< /ProcessColorModel /DeviceGray >> setpagedevice"
+*es.Translation ColorBalance/Mezcla de color:		"<< /ProcessColorModel /DeviceGray >> setpagedevice"
+*fr.Translation ColorBalance/Equilibre des couleurs:		"<< /ProcessColorModel /DeviceGray >> setpagedevice"
+*it.Translation ColorBalance/Bilanciamento colore:		"<< /ProcessColorModel /DeviceGray >> setpagedevice"
+*ja.Translation ColorBalance/カラー バランス:		"<< /ProcessColorModel /DeviceGray >> setpagedevice"
+*pt.Translation ColorBalance/Equilíbrio de cores:		"<< /ProcessColorModel /DeviceGray >> setpagedevice"
+*zh_CN.Translation ColorBalance/颜色平衡:		"<< /ProcessColorModel /DeviceGray >> setpagedevice"
+*zh_TW.Translation ColorBalance/色彩平衡:		"<< /ProcessColorModel /DeviceGray >> setpagedevice"
+*ko.Translation ColorBalance/색상 균형:		"<< /ProcessColorModel /DeviceGray >> setpagedevice"
+
+*%*****************************************************************************
+*%	Color Balance - Cyan
+*%*****************************************************************************
+
+*OpenUI *CyanBalance/Cyan Balance: PickOne
+*de.Translation CyanBalance/Farbausgleich cyan: ""
+*es.Translation CyanBalance/Mezcla de cian: ""
+*fr.Translation CyanBalance/Equilibre cyan: ""
+*it.Translation CyanBalance/Bilanciamento Ciano: ""
+*ja.Translation CyanBalance/シアン バランス: ""
+*pt.Translation CyanBalance/EquilÌbrio de ciano: ""
+*zh_CN.Translation CyanBalance/青色平衡: ""
+*zh_TW.Translation CyanBalance/靛青色平衡: ""
+*ko.Translation CyanBalance/청색 발란스: ""
+*OrderDependency: 71 AnySetup *CyanBalance
+*DefaultCyanBalance: PrinterS
+*CyanBalance PrinterS/Printer Setting:	""
+*de.CyanBalance PrinterS/Druckereinstellung: ""
+*es.CyanBalance PrinterS/Valor de la impresora: ""
+*fr.CyanBalance PrinterS/Paramètres de l'imprimante: ""
+*it.CyanBalance PrinterS/Impostazione stampante: ""
+*ja.CyanBalance PrinterS/プリンタ設定: ""
+*pt.CyanBalance PrinterS/Padrao da Impressora: ""
+*zh_CN.CyanBalance PrinterS/打印机设置: ""
+*zh_TW.CyanBalance PrinterS/印表機設置: ""
+*ko.CyanBalance PrinterS/프린터 설정 : ""
+*CyanBalance -5/ -5: 	"<< /DeviceRenderingInfo << /ColorBalanceCyan -5 >> >> setpagedevice"
+*de.CyanBalance -5/ -5: ""
+*es.CyanBalance -5/ -5: ""
+*fr.CyanBalance -5/ -5: ""
+*it.CyanBalance -5/ -5: ""
+*ja.CyanBalance -5/ -5: ""
+*pt.CyanBalance -5/ -5: ""
+*zh_CN.CyanBalance -5/ -5: ""
+*zh_TW.CyanBalance -5/ -5: ""
+*ko.CyanBalance -5/ -5: ""
+*CyanBalance -4/ -4: 	"<< /DeviceRenderingInfo << /ColorBalanceCyan -4 >> >> setpagedevice"
+*de.CyanBalance -4/ -4: ""
+*es.CyanBalance -4/ -4: ""
+*fr.CyanBalance -4/ -4: ""
+*it.CyanBalance -4/ -4: ""
+*ja.CyanBalance -4/ -4: ""
+*pt.CyanBalance -4/ -4: ""
+*zh_CN.CyanBalance -4/ -4: ""
+*zh_TW.CyanBalance -4/ -4: ""
+*ko.CyanBalance -4/ -4: ""
+*CyanBalance -3/ -3: 	"<< /DeviceRenderingInfo << /ColorBalanceCyan -3 >> >> setpagedevice"
+*de.CyanBalance -3/ -3: ""
+*es.CyanBalance -3/ -3: ""
+*fr.CyanBalance -3/ -3: ""
+*it.CyanBalance -3/ -3: ""
+*ja.CyanBalance -3/ -3: ""
+*pt.CyanBalance -3/ -3: ""
+*zh_CN.CyanBalance -3/ -3: ""
+*zh_TW.CyanBalance -3/ -3: ""
+*ko.CyanBalance -3/ -3: ""
+*CyanBalance -2/ -2: 	"<< /DeviceRenderingInfo << /ColorBalanceCyan -2 >> >> setpagedevice"
+*de.CyanBalance -2/ -2: ""
+*es.CyanBalance -2/ -2: ""
+*fr.CyanBalance -2/ -2: ""
+*it.CyanBalance -2/ -2: ""
+*ja.CyanBalance -2/ -2: ""
+*pt.CyanBalance -2/ -2: ""
+*zh_CN.CyanBalance -2/ -2: ""
+*zh_TW.CyanBalance -2/ -2: ""
+*ko.CyanBalance -2/ -2: ""
+*CyanBalance -1/ -1: 	"<< /DeviceRenderingInfo << /ColorBalanceCyan -1 >> >> setpagedevice"
+*de.CyanBalance -1/ -1: ""
+*es.CyanBalance -1/ -1: ""
+*fr.CyanBalance -1/ -1: ""
+*it.CyanBalance -1/ -1: ""
+*ja.CyanBalance -1/ -1: ""
+*pt.CyanBalance -1/ -1: ""
+*zh_CN.CyanBalance -1/ -1: ""
+*zh_TW.CyanBalance -1/ -1: ""
+*ko.CyanBalance -1/ -1: ""
+*CyanBalance 0/  0:	"<< /DeviceRenderingInfo << /ColorBalanceCyan 0 >> >> setpagedevice"
+*de.CyanBalance 0/  0: ""
+*es.CyanBalance 0/  0: ""
+*fr.CyanBalance 0/  0: ""
+*it.CyanBalance 0/  0: ""
+*ja.CyanBalance 0/  0: ""
+*pt.CyanBalance 0/  0: ""
+*zh_CN.CyanBalance 0/  0: ""
+*zh_TW.CyanBalance 0/  0: ""
+*ko.CyanBalance 0/  0: ""
+*CyanBalance +1/ +1:	"<< /DeviceRenderingInfo << /ColorBalanceCyan 1 >> >> setpagedevice"
+*de.CyanBalance +1/ +1: ""
+*es.CyanBalance +1/ +1: ""
+*fr.CyanBalance +1/ +1: ""
+*it.CyanBalance +1/ +1: ""
+*ja.CyanBalance +1/ +1: ""
+*pt.CyanBalance +1/ +1: ""
+*zh_CN.CyanBalance +1/ +1: ""
+*zh_TW.CyanBalance +1/ +1: ""
+*ko.CyanBalance +1/ +1: ""
+*CyanBalance +2/ +2:	"<< /DeviceRenderingInfo << /ColorBalanceCyan 2 >> >> setpagedevice"
+*de.CyanBalance +2/ +2: ""
+*es.CyanBalance +2/ +2: ""
+*fr.CyanBalance +2/ +2: ""
+*it.CyanBalance +2/ +2: ""
+*ja.CyanBalance +2/ +2: ""
+*pt.CyanBalance +2/ +2: ""
+*zh_CN.CyanBalance +2/ +2: ""
+*zh_TW.CyanBalance +2/ +2: ""
+*ko.CyanBalance +2/ +2: ""
+*CyanBalance +3/ +3:	"<< /DeviceRenderingInfo << /ColorBalanceCyan 3 >> >> setpagedevice"
+*de.CyanBalance +3/ +3: ""
+*es.CyanBalance +3/ +3: ""
+*fr.CyanBalance +3/ +3: ""
+*it.CyanBalance +3/ +3: ""
+*ja.CyanBalance +3/ +3: ""
+*pt.CyanBalance +3/ +3: ""
+*zh_CN.CyanBalance +3/ +3: ""
+*zh_TW.CyanBalance +3/ +3: ""
+*ko.CyanBalance +3/ +3: ""
+*CyanBalance +4/ +4: 	"<< /DeviceRenderingInfo << /ColorBalanceCyan 4 >> >> setpagedevice"
+*de.CyanBalance +4/ +4: ""
+*es.CyanBalance +4/ +4: ""
+*fr.CyanBalance +4/ +4: ""
+*it.CyanBalance +4/ +4: ""
+*ja.CyanBalance +4/ +4: ""
+*pt.CyanBalance +4/ +4: ""
+*zh_CN.CyanBalance +4/ +4: ""
+*zh_TW.CyanBalance +4/ +4: ""
+*ko.CyanBalance +4/ +4: ""
+*CyanBalance +5/ +5: 	"<< /DeviceRenderingInfo << /ColorBalanceCyan 5 >> >> setpagedevice"
+*de.CyanBalance +5/ +5: ""
+*es.CyanBalance +5/ +5: ""
+*fr.CyanBalance +5/ +5: ""
+*it.CyanBalance +5/ +5: ""
+*ja.CyanBalance +5/ +5: ""
+*pt.CyanBalance +5/ +5: ""
+*zh_CN.CyanBalance +5/ +5: ""
+*zh_TW.CyanBalance +5/ +5: ""
+*ko.CyanBalance +5/ +5: ""
+*?CyanBalance:			"
+    gsave
+    currentpagedevice /DeviceRenderingInfo get /ColorBalance get /Cyan get = flush
+    grestore"
+*End
+*CloseUI: *CyanBalance
+
+*%*****************************************************************************
+*%	Color Balance - Magenta
+*%*****************************************************************************
+
+*OpenUI *MagentaBalance/Magenta Balance: PickOne
+*de.Translation MagentaBalance/Farbausgleich magenta: ""
+*es.Translation MagentaBalance/Mezcla de magenta: ""
+*fr.Translation MagentaBalance/Equilibre magenta: ""
+*it.Translation MagentaBalance/Bilanciamento Magenta: ""
+*ja.Translation MagentaBalance/マゼンタ バランス: ""
+*pt.Translation MagentaBalance/EquilÌbrio de magenta: ""
+*zh_CN.Translation MagentaBalance/品红色平衡: ""
+*zh_TW.Translation MagentaBalance/洋紅色平衡: ""
+*ko.Translation MagentaBalance/적색 발란스: ""
+*OrderDependency: 72 AnySetup *MagentaBalance
+*DefaultMagentaBalance: PrinterS
+*MagentaBalance PrinterS/Printer Setting:	""
+*de.MagentaBalance PrinterS/Druckereinstellung: ""
+*es.MagentaBalance PrinterS/Valor de la impresora: ""
+*fr.MagentaBalance PrinterS/Paramètres de l'imprimante: ""
+*it.MagentaBalance PrinterS/Impostazione stampante: ""
+*ja.MagentaBalance PrinterS/プリンタ設定: ""
+*pt.MagentaBalance PrinterS/Padrao da Impressora: ""
+*zh_CN.MagentaBalance PrinterS/打印机设置: ""
+*zh_TW.MagentaBalance PrinterS/印表機設置: ""
+*ko.MagentaBalance PrinterS/프린터 설정 : ""
+*MagentaBalance -5/ -5: 	"<< /DeviceRenderingInfo << /ColorBalanceMagenta -5 >> >> setpagedevice"
+*de.MagentaBalance -5/ -5: ""
+*es.MagentaBalance -5/ -5: ""
+*fr.MagentaBalance -5/ -5: ""
+*it.MagentaBalance -5/ -5: ""
+*ja.MagentaBalance -5/ -5: ""
+*pt.MagentaBalance -5/ -5: ""
+*zh_CN.MagentaBalance -5/ -5: ""
+*zh_TW.MagentaBalance -5/ -5: ""
+*ko.MagentaBalance -5/ -5: ""
+*MagentaBalance -4/ -4: 	"<< /DeviceRenderingInfo << /ColorBalanceMagenta -4 >> >> setpagedevice"
+*de.MagentaBalance -4/ -4: ""
+*es.MagentaBalance -4/ -4: ""
+*fr.MagentaBalance -4/ -4: ""
+*it.MagentaBalance -4/ -4: ""
+*ja.MagentaBalance -4/ -4: ""
+*pt.MagentaBalance -4/ -4: ""
+*zh_CN.MagentaBalance -4/ -4: ""
+*zh_TW.MagentaBalance -4/ -4: ""
+*ko.MagentaBalance -4/ -4: ""
+*MagentaBalance -3/ -3: 	"<< /DeviceRenderingInfo << /ColorBalanceMagenta -3 >> >> setpagedevice"
+*de.MagentaBalance -3/ -3: ""
+*es.MagentaBalance -3/ -3: ""
+*fr.MagentaBalance -3/ -3: ""
+*it.MagentaBalance -3/ -3: ""
+*ja.MagentaBalance -3/ -3: ""
+*pt.MagentaBalance -3/ -3: ""
+*zh_CN.MagentaBalance -3/ -3: ""
+*zh_TW.MagentaBalance -3/ -3: ""
+*ko.MagentaBalance -3/ -3: ""
+*MagentaBalance -2/ -2: 	"<< /DeviceRenderingInfo << /ColorBalanceMagenta -2 >> >> setpagedevice"
+*de.MagentaBalance -2/ -2: ""
+*es.MagentaBalance -2/ -2: ""
+*fr.MagentaBalance -2/ -2: ""
+*it.MagentaBalance -2/ -2: ""
+*ja.MagentaBalance -2/ -2: ""
+*pt.MagentaBalance -2/ -2: ""
+*zh_CN.MagentaBalance -2/ -2: ""
+*zh_TW.MagentaBalance -2/ -2: ""
+*ko.MagentaBalance -2/ -2: ""
+*MagentaBalance -1/ -1: 	"<< /DeviceRenderingInfo << /ColorBalanceMagenta -1 >> >> setpagedevice"
+*de.MagentaBalance -1/ -1: ""
+*es.MagentaBalance -1/ -1: ""
+*fr.MagentaBalance -1/ -1: ""
+*it.MagentaBalance -1/ -1: ""
+*ja.MagentaBalance -1/ -1: ""
+*pt.MagentaBalance -1/ -1: ""
+*zh_CN.MagentaBalance -1/ -1: ""
+*zh_TW.MagentaBalance -1/ -1: ""
+*ko.MagentaBalance -1/ -1: ""
+*MagentaBalance 0/  0:		"<< /DeviceRenderingInfo << /ColorBalanceMagenta 0 >> >> setpagedevice"
+*de.MagentaBalance 0/  0: ""
+*es.MagentaBalance 0/  0: ""
+*fr.MagentaBalance 0/  0: ""
+*it.MagentaBalance 0/  0: ""
+*ja.MagentaBalance 0/  0: ""
+*pt.MagentaBalance 0/  0: ""
+*zh_CN.MagentaBalance 0/  0: ""
+*zh_TW.MagentaBalance 0/  0: ""
+*ko.MagentaBalance 0/  0: ""
+*MagentaBalance +1/ +1:		"<< /DeviceRenderingInfo << /ColorBalanceMagenta 1 >> >> setpagedevice"
+*de.MagentaBalance +1/ +1: ""
+*es.MagentaBalance +1/ +1: ""
+*fr.MagentaBalance +1/ +1: ""
+*it.MagentaBalance +1/ +1: ""
+*ja.MagentaBalance +1/ +1: ""
+*pt.MagentaBalance +1/ +1: ""
+*zh_CN.MagentaBalance +1/ +1: ""
+*zh_TW.MagentaBalance +1/ +1: ""
+*ko.MagentaBalance +1/ +1: ""
+*MagentaBalance +2/ +2:		"<< /DeviceRenderingInfo << /ColorBalanceMagenta 2 >> >> setpagedevice"
+*de.MagentaBalance +2/ +2: ""
+*es.MagentaBalance +2/ +2: ""
+*fr.MagentaBalance +2/ +2: ""
+*it.MagentaBalance +2/ +2: ""
+*ja.MagentaBalance +2/ +2: ""
+*pt.MagentaBalance +2/ +2: ""
+*zh_CN.MagentaBalance +2/ +2: ""
+*zh_TW.MagentaBalance +2/ +2: ""
+*ko.MagentaBalance +2/ +2: ""
+*MagentaBalance +3/ +3:		"<< /DeviceRenderingInfo << /ColorBalanceMagenta 3 >> >> setpagedevice"
+*de.MagentaBalance +3/ +3: ""
+*es.MagentaBalance +3/ +3: ""
+*fr.MagentaBalance +3/ +3: ""
+*it.MagentaBalance +3/ +3: ""
+*ja.MagentaBalance +3/ +3: ""
+*pt.MagentaBalance +3/ +3: ""
+*zh_CN.MagentaBalance +3/ +3: ""
+*zh_TW.MagentaBalance +3/ +3: ""
+*ko.MagentaBalance +3/ +3: ""
+*MagentaBalance +4/ +4: 	"<< /DeviceRenderingInfo << /ColorBalanceMagenta 4 >> >> setpagedevice"
+*de.MagentaBalance +4/ +4: ""
+*es.MagentaBalance +4/ +4: ""
+*fr.MagentaBalance +4/ +4: ""
+*it.MagentaBalance +4/ +4: ""
+*ja.MagentaBalance +4/ +4: ""
+*pt.MagentaBalance +4/ +4: ""
+*zh_CN.MagentaBalance +4/ +4: ""
+*zh_TW.MagentaBalance +4/ +4: ""
+*ko.MagentaBalance +4/ +4: ""
+*MagentaBalance +5/ +5: 	"<< /DeviceRenderingInfo << /ColorBalanceMagenta 5 >> >> setpagedevice"
+*de.MagentaBalance +5/ +5: ""
+*es.MagentaBalance +5/ +5: ""
+*fr.MagentaBalance +5/ +5: ""
+*it.MagentaBalance +5/ +5: ""
+*ja.MagentaBalance +5/ +5: ""
+*pt.MagentaBalance +5/ +5: ""
+*zh_CN.MagentaBalance +5/ +5: ""
+*zh_TW.MagentaBalance +5/ +5: ""
+*ko.MagentaBalance +5/ +5: ""
+*?MagentaBalance:			"
+    gsave
+    currentpagedevice /DeviceRenderingInfo get /ColorBalance get /Magenta get = flush
+    grestore"
+*End
+*CloseUI: *MagentaBalance
+
+*%*****************************************************************************
+*%	Color Balance - Yellow
+*%*****************************************************************************
+
+*OpenUI *YellowBalance/Yellow Balance: PickOne
+*de.Translation YellowBalance/Farbausgleich gelb: ""
+*es.Translation YellowBalance/Mezcla de amarillo: ""
+*fr.Translation YellowBalance/Equilibre jaune: ""
+*it.Translation YellowBalance/Bilanciamento Giallo: ""
+*ja.Translation YellowBalance/イエロー バランス: ""
+*pt.Translation YellowBalance/EquilÌbrio de amarelo: ""
+*zh_CN.Translation YellowBalance/黄色平衡: ""
+*zh_TW.Translation YellowBalance/黃色平衡: ""
+*ko.Translation YellowBalance/황색 발란스: ""
+*OrderDependency: 73 AnySetup *YellowBalance
+*DefaultYellowBalance: PrinterS
+*YellowBalance PrinterS/Printer Setting:	""
+*de.YellowBalance PrinterS/Druckereinstellung: ""
+*es.YellowBalance PrinterS/Valor de la impresora: ""
+*fr.YellowBalance PrinterS/Paramètres de l'imprimante: ""
+*it.YellowBalance PrinterS/Impostazione stampante: ""
+*ja.YellowBalance PrinterS/プリンタ設定: ""
+*pt.YellowBalance PrinterS/Padrao da Impressora: ""
+*zh_CN.YellowBalance PrinterS/打印机设置: ""
+*zh_TW.YellowBalance PrinterS/印表機設置: ""
+*ko.YellowBalance PrinterS/프린터 설정 : ""
+*YellowBalance -5/ -5: 	"<< /DeviceRenderingInfo << /ColorBalanceYellow -5 >> >> setpagedevice"
+*de.YellowBalance -5/ -5: ""
+*es.YellowBalance -5/ -5: ""
+*fr.YellowBalance -5/ -5: ""
+*it.YellowBalance -5/ -5: ""
+*ja.YellowBalance -5/ -5: ""
+*pt.YellowBalance -5/ -5: ""
+*zh_CN.YellowBalance -5/ -5: ""
+*zh_TW.YellowBalance -5/ -5: ""
+*ko.YellowBalance -5/ -5: ""
+*YellowBalance -4/ -4: 	"<< /DeviceRenderingInfo << /ColorBalanceYellow -4 >> >> setpagedevice"
+*de.YellowBalance -4/ -4: ""
+*es.YellowBalance -4/ -4: ""
+*fr.YellowBalance -4/ -4: ""
+*it.YellowBalance -4/ -4: ""
+*ja.YellowBalance -4/ -4: ""
+*pt.YellowBalance -4/ -4: ""
+*zh_CN.YellowBalance -4/ -4: ""
+*zh_TW.YellowBalance -4/ -4: ""
+*ko.YellowBalance -4/ -4: ""
+*YellowBalance -3/ -3: 	"<< /DeviceRenderingInfo << /ColorBalanceYellow -3 >> >> setpagedevice"
+*de.YellowBalance -3/ -3: ""
+*es.YellowBalance -3/ -3: ""
+*fr.YellowBalance -3/ -3: ""
+*it.YellowBalance -3/ -3: ""
+*ja.YellowBalance -3/ -3: ""
+*pt.YellowBalance -3/ -3: ""
+*zh_CN.YellowBalance -3/ -3: ""
+*zh_TW.YellowBalance -3/ -3: ""
+*ko.YellowBalance -3/ -3: ""
+*YellowBalance -2/ -2: 	"<< /DeviceRenderingInfo << /ColorBalanceYellow -2 >> >> setpagedevice"
+*de.YellowBalance -2/ -2: ""
+*es.YellowBalance -2/ -2: ""
+*fr.YellowBalance -2/ -2: ""
+*it.YellowBalance -2/ -2: ""
+*ja.YellowBalance -2/ -2: ""
+*pt.YellowBalance -2/ -2: ""
+*zh_CN.YellowBalance -2/ -2: ""
+*zh_TW.YellowBalance -2/ -2: ""
+*ko.YellowBalance -2/ -2: ""
+*YellowBalance -1/ -1: 	"<< /DeviceRenderingInfo << /ColorBalanceYellow -1 >> >> setpagedevice"
+*de.YellowBalance -1/ -1: ""
+*es.YellowBalance -1/ -1: ""
+*fr.YellowBalance -1/ -1: ""
+*it.YellowBalance -1/ -1: ""
+*ja.YellowBalance -1/ -1: ""
+*pt.YellowBalance -1/ -1: ""
+*zh_CN.YellowBalance -1/ -1: ""
+*zh_TW.YellowBalance -1/ -1: ""
+*ko.YellowBalance -1/ -1: ""
+*YellowBalance 0/  0:	"<< /DeviceRenderingInfo << /ColorBalanceYellow 0 >> >> setpagedevice"
+*de.YellowBalance 0/  0: ""
+*es.YellowBalance 0/  0: ""
+*fr.YellowBalance 0/  0: ""
+*it.YellowBalance 0/  0: ""
+*ja.YellowBalance 0/  0: ""
+*pt.YellowBalance 0/  0: ""
+*zh_CN.YellowBalance 0/  0: ""
+*zh_TW.YellowBalance 0/  0: ""
+*ko.YellowBalance 0/  0: ""
+*YellowBalance +1/ +1:	"<< /DeviceRenderingInfo << /ColorBalanceYellow 1 >> >> setpagedevice"
+*de.YellowBalance +1/ +1: ""
+*es.YellowBalance +1/ +1: ""
+*fr.YellowBalance +1/ +1: ""
+*it.YellowBalance +1/ +1: ""
+*ja.YellowBalance +1/ +1: ""
+*pt.YellowBalance +1/ +1: ""
+*zh_CN.YellowBalance +1/ +1: ""
+*zh_TW.YellowBalance +1/ +1: ""
+*ko.YellowBalance +1/ +1: ""
+*YellowBalance +2/ +2:	"<< /DeviceRenderingInfo << /ColorBalanceYellow 2 >> >> setpagedevice"
+*de.YellowBalance +2/ +2: ""
+*es.YellowBalance +2/ +2: ""
+*fr.YellowBalance +2/ +2: ""
+*it.YellowBalance +2/ +2: ""
+*ja.YellowBalance +2/ +2: ""
+*pt.YellowBalance +2/ +2: ""
+*zh_CN.YellowBalance +2/ +2: ""
+*zh_TW.YellowBalance +2/ +2: ""
+*ko.YellowBalance +2/ +2: ""
+*YellowBalance +3/ +3:	"<< /DeviceRenderingInfo << /ColorBalanceYellow 3 >> >> setpagedevice"
+*de.YellowBalance +3/ +3: ""
+*es.YellowBalance +3/ +3: ""
+*fr.YellowBalance +3/ +3: ""
+*it.YellowBalance +3/ +3: ""
+*ja.YellowBalance +3/ +3: ""
+*pt.YellowBalance +3/ +3: ""
+*zh_CN.YellowBalance +3/ +3: ""
+*zh_TW.YellowBalance +3/ +3: ""
+*ko.YellowBalance +3/ +3: ""
+*YellowBalance +4/ +4: 	"<< /DeviceRenderingInfo << /ColorBalanceYellow 4 >> >> setpagedevice"
+*de.YellowBalance +4/ +4: ""
+*es.YellowBalance +4/ +4: ""
+*fr.YellowBalance +4/ +4: ""
+*it.YellowBalance +4/ +4: ""
+*ja.YellowBalance +4/ +4: ""
+*pt.YellowBalance +4/ +4: ""
+*zh_CN.YellowBalance +4/ +4: ""
+*zh_TW.YellowBalance +4/ +4: ""
+*ko.YellowBalance +4/ +4: ""
+*YellowBalance +5/ +5: 	"<< /DeviceRenderingInfo << /ColorBalanceYellow 5 >> >> setpagedevice"
+*de.YellowBalance +5/ +5: ""
+*es.YellowBalance +5/ +5: ""
+*fr.YellowBalance +5/ +5: ""
+*it.YellowBalance +5/ +5: ""
+*ja.YellowBalance +5/ +5: ""
+*pt.YellowBalance +5/ +5: ""
+*zh_CN.YellowBalance +5/ +5: ""
+*zh_TW.YellowBalance +5/ +5: ""
+*ko.YellowBalance +5/ +5: ""
+*?YellowBalance:			"
+    gsave
+    currentpagedevice /DeviceRenderingInfo get /ColorBalance get /Yellow get = flush
+    grestore"
+*End
+*CloseUI: *YellowBalance
+
+*%*****************************************************************************
+*%	Color Balance - Black
+*%*****************************************************************************
+
+*OpenUI *BlackBalance/Black Balance: PickOne
+*de.Translation BlackBalance/Farbausgleich schwarz: ""
+*es.Translation BlackBalance/Mezcla de negro: ""
+*fr.Translation BlackBalance/Equilibre noir: ""
+*it.Translation BlackBalance/Bilanciamento Nero: ""
+*ja.Translation BlackBalance/ブラック　バランス: ""
+*pt.Translation BlackBalance/EquilÌbrio de preto: ""
+*zh_CN.Translation BlackBalance/黑色平衡: ""
+*zh_TW.Translation BlackBalance/黑色平衡: ""
+*ko.Translation BlackBalance/흑색 발란스: ""
+*OrderDependency: 74 AnySetup *BlackBalance
+*DefaultBlackBalance: PrinterS
+*BlackBalance PrinterS/Printer Setting:	""
+*de.BlackBalance PrinterS/Druckereinstellung: ""
+*es.BlackBalance PrinterS/Valor de la impresora: ""
+*fr.BlackBalance PrinterS/Paramètres de l'imprimante: ""
+*it.BlackBalance PrinterS/Impostazione stampante: ""
+*ja.BlackBalance PrinterS/プリンタ設定: ""
+*pt.BlackBalance PrinterS/Padrao da Impressora: ""
+*zh_CN.BlackBalance PrinterS/打印机设置: ""
+*zh_TW.BlackBalance PrinterS/印表機設置: ""
+*ko.BlackBalance PrinterS/프린터 설정 : ""
+*BlackBalance -5/ -5: 	"<< /DeviceRenderingInfo << /ColorBalanceBlack -5 >> >> setpagedevice"
+*de.BlackBalance -5/ -5: ""
+*es.BlackBalance -5/ -5: ""
+*fr.BlackBalance -5/ -5: ""
+*it.BlackBalance -5/ -5: ""
+*ja.BlackBalance -5/ -5: ""
+*pt.BlackBalance -5/ -5: ""
+*zh_CN.BlackBalance -5/ -5: ""
+*zh_TW.BlackBalance -5/ -5: ""
+*ko.BlackBalance -5/ -5: ""
+*BlackBalance -4/ -4: 	"<< /DeviceRenderingInfo << /ColorBalanceBlack -4 >> >> setpagedevice"
+*de.BlackBalance -4/ -4: ""
+*es.BlackBalance -4/ -4: ""
+*fr.BlackBalance -4/ -4: ""
+*it.BlackBalance -4/ -4: ""
+*ja.BlackBalance -4/ -4: ""
+*pt.BlackBalance -4/ -4: ""
+*zh_CN.BlackBalance -4/ -4: ""
+*zh_TW.BlackBalance -4/ -4: ""
+*ko.BlackBalance -4/ -4: ""
+*BlackBalance -3/ -3: 	"<< /DeviceRenderingInfo << /ColorBalanceBlack -3 >> >> setpagedevice"
+*de.BlackBalance -3/ -3: ""
+*es.BlackBalance -3/ -3: ""
+*fr.BlackBalance -3/ -3: ""
+*it.BlackBalance -3/ -3: ""
+*ja.BlackBalance -3/ -3: ""
+*pt.BlackBalance -3/ -3: ""
+*zh_CN.BlackBalance -3/ -3: ""
+*zh_TW.BlackBalance -3/ -3: ""
+*ko.BlackBalance -3/ -3: ""
+*BlackBalance -2/ -2: 	"<< /DeviceRenderingInfo << /ColorBalanceBlack -2 >> >> setpagedevice"
+*de.BlackBalance -2/ -2: ""
+*es.BlackBalance -2/ -2: ""
+*fr.BlackBalance -2/ -2: ""
+*it.BlackBalance -2/ -2: ""
+*ja.BlackBalance -2/ -2: ""
+*pt.BlackBalance -2/ -2: ""
+*zh_CN.BlackBalance -2/ -2: ""
+*zh_TW.BlackBalance -2/ -2: ""
+*ko.BlackBalance -2/ -2: ""
+*BlackBalance -1/ -1: 	"<< /DeviceRenderingInfo << /ColorBalanceBlack -1 >> >> setpagedevice"
+*de.BlackBalance -1/ -1: ""
+*es.BlackBalance -1/ -1: ""
+*fr.BlackBalance -1/ -1: ""
+*it.BlackBalance -1/ -1: ""
+*ja.BlackBalance -1/ -1: ""
+*pt.BlackBalance -1/ -1: ""
+*zh_CN.BlackBalance -1/ -1: ""
+*zh_TW.BlackBalance -1/ -1: ""
+*ko.BlackBalance -1/ -1: ""
+*BlackBalance 0/  0:	"<< /DeviceRenderingInfo << /ColorBalanceBlack 0 >> >> setpagedevice"
+*de.BlackBalance 0/  0: ""
+*es.BlackBalance 0/  0: ""
+*fr.BlackBalance 0/  0: ""
+*it.BlackBalance 0/  0: ""
+*ja.BlackBalance 0/  0: ""
+*pt.BlackBalance 0/  0: ""
+*zh_CN.BlackBalance 0/  0: ""
+*zh_TW.BlackBalance 0/  0: ""
+*ko.BlackBalance 0/  0: ""
+*BlackBalance +1/ +1:	"<< /DeviceRenderingInfo << /ColorBalanceBlack 1 >> >> setpagedevice"
+*de.BlackBalance +1/ +1: ""
+*es.BlackBalance +1/ +1: ""
+*fr.BlackBalance +1/ +1: ""
+*it.BlackBalance +1/ +1: ""
+*ja.BlackBalance +1/ +1: ""
+*pt.BlackBalance +1/ +1: ""
+*zh_CN.BlackBalance +1/ +1: ""
+*zh_TW.BlackBalance +1/ +1: ""
+*ko.BlackBalance +1/ +1: ""
+*BlackBalance +2/ +2:	"<< /DeviceRenderingInfo << /ColorBalanceBlack 2 >> >> setpagedevice"
+*de.BlackBalance +2/ +2: ""
+*es.BlackBalance +2/ +2: ""
+*fr.BlackBalance +2/ +2: ""
+*it.BlackBalance +2/ +2: ""
+*ja.BlackBalance +2/ +2: ""
+*pt.BlackBalance +2/ +2: ""
+*zh_CN.BlackBalance +2/ +2: ""
+*zh_TW.BlackBalance +2/ +2: ""
+*ko.BlackBalance +2/ +2: ""
+*BlackBalance +3/ +3:	"<< /DeviceRenderingInfo << /ColorBalanceBlack 3 >> >> setpagedevice"
+*de.BlackBalance +3/ +3: ""
+*es.BlackBalance +3/ +3: ""
+*fr.BlackBalance +3/ +3: ""
+*it.BlackBalance +3/ +3: ""
+*ja.BlackBalance +3/ +3: ""
+*pt.BlackBalance +3/ +3: ""
+*zh_CN.BlackBalance +3/ +3: ""
+*zh_TW.BlackBalance +3/ +3: ""
+*ko.BlackBalance +3/ +3: ""
+*BlackBalance +4/ +4: 	"<< /DeviceRenderingInfo << /ColorBalanceBlack 4 >> >> setpagedevice"
+*de.BlackBalance +4/ +4: ""
+*es.BlackBalance +4/ +4: ""
+*fr.BlackBalance +4/ +4: ""
+*it.BlackBalance +4/ +4: ""
+*ja.BlackBalance +4/ +4: ""
+*pt.BlackBalance +4/ +4: ""
+*zh_CN.BlackBalance +4/ +4: ""
+*zh_TW.BlackBalance +4/ +4: ""
+*ko.BlackBalance +4/ +4: ""
+*BlackBalance +5/ +5: 	"<< /DeviceRenderingInfo << /ColorBalanceBlack 5 >> >> setpagedevice"
+*de.BlackBalance +5/ +5: ""
+*es.BlackBalance +5/ +5: ""
+*fr.BlackBalance +5/ +5: ""
+*it.BlackBalance +5/ +5: ""
+*ja.BlackBalance +5/ +5: ""
+*pt.BlackBalance +5/ +5: ""
+*zh_CN.BlackBalance +5/ +5: ""
+*zh_TW.BlackBalance +5/ +5: ""
+*ko.BlackBalance +5/ +5: ""
+*?BlackBalance:			"
+    gsave
+    currentpagedevice /DeviceRenderingInfo get /ColorBalance get /Black get = flush
+    grestore"
+*End
+*CloseUI: *BlackBalance
+
+*CloseGroup: ColorBalance
+
+*%*****************************************************************************
+*%	Manual Color Group
+*%*****************************************************************************
+
+*OpenGroup: ManualColor/Manual Color
+*de.Translation ManualColor/Manuelle Farbe: 	"<< /DeviceRenderingInfo << /ColorBalanceBlack 5 >> >> setpagedevice"
+*es.Translation ManualColor/Color manual: 	"<< /DeviceRenderingInfo << /ColorBalanceBlack 5 >> >> setpagedevice"
+*fr.Translation ManualColor/Couleur manuelle: 	"<< /DeviceRenderingInfo << /ColorBalanceBlack 5 >> >> setpagedevice"
+*it.Translation ManualColor/Colore manuale: 	"<< /DeviceRenderingInfo << /ColorBalanceBlack 5 >> >> setpagedevice"
+*ja.Translation ManualColor/手動カラー: 	"<< /DeviceRenderingInfo << /ColorBalanceBlack 5 >> >> setpagedevice"
+*pt.Translation ManualColor/Cor manual: 	"<< /DeviceRenderingInfo << /ColorBalanceBlack 5 >> >> setpagedevice"
+*zh_CN.Translation ManualColor/手动颜色: 	"<< /DeviceRenderingInfo << /ColorBalanceBlack 5 >> >> setpagedevice"
+*zh_TW.Translation ManualColor/手動色彩: 	"<< /DeviceRenderingInfo << /ColorBalanceBlack 5 >> >> setpagedevice"
+*ko.Translation ManualColor/수동 색상: 	"<< /DeviceRenderingInfo << /ColorBalanceBlack 5 >> >> setpagedevice"
+
+*%*****************************************************************************
+*%	Manual - RGB Image
+*%*****************************************************************************
+*OpenUI *ManualRGBImage/Manual RGB Image: PickOne
+*de.Translation ManualRGBImage/RGB Bild manuell: ""
+*es.Translation ManualRGBImage/Imagen RGB manual: ""
+*fr.Translation ManualRGBImage/Image RVB manuel: ""
+*it.Translation ManualRGBImage/Immagine RGB manuale: ""
+*ja.Translation ManualRGBImage/手動 RGB 画像: ""
+*pt.Translation ManualRGBImage/Manual Imagem RGB: ""
+*zh_CN.Translation ManualRGBImage/手动 RGB 图象 : ""
+*zh_TW.Translation ManualRGBImage/手動 RGB 影像: ""
+*ko.Translation ManualRGBImage/수동 RGB 이미지: ""
+*OrderDependency: 75 AnySetup *ManualRGBImage
+*DefaultManualRGBImage: PrinterS
+*ManualRGBImage PrinterS/Printer Setting:	""
+*de.ManualRGBImage PrinterS/Druckereinstellung: ""
+*es.ManualRGBImage PrinterS/Valor de la impresora: ""
+*fr.ManualRGBImage PrinterS/Paramètres de l'imprimante: ""
+*it.ManualRGBImage PrinterS/Impostazione stampante: ""
+*ja.ManualRGBImage PrinterS/プリンタ設定: ""
+*pt.ManualRGBImage PrinterS/Padrao da Impressora: ""
+*zh_CN.ManualRGBImage PrinterS/打印机设置: ""
+*zh_TW.ManualRGBImage PrinterS/印表機設置: ""
+*ko.ManualRGBImage PrinterS/프린터 설정 : ""
+*ManualRGBImage Vivid/Vivid: 				"<< /DeviceRenderingInfo << /ManualColorRGBImage /Vivid >> >> setpagedevice"
+*de.ManualRGBImage Vivid/Leuchtend: ""
+*es.ManualRGBImage Vivid/Intenso: ""
+*fr.ManualRGBImage Vivid/Vives: ""
+*it.ManualRGBImage Vivid/Vivace: ""
+*ja.ManualRGBImage Vivid/鮮明: ""
+*pt.ManualRGBImage Vivid/Cores vivas: ""
+*zh_CN.ManualRGBImage Vivid/生动: ""
+*zh_TW.ManualRGBImage Vivid/鮮明色彩: ""
+*ko.ManualRGBImage Vivid/Vivid: ""
+*ManualRGBImage sRGBDisplay/sRGB Display: 	"<< /DeviceRenderingInfo << /ManualColorRGBImage /sRGBDisplay >> >> setpagedevice"
+*de.ManualRGBImage sRGBDisplay/sRGB Bildschirm: ""
+*es.ManualRGBImage sRGBDisplay/Pantalla sRGB: ""
+*fr.ManualRGBImage sRGBDisplay/sRVB Ecran: ""
+*it.ManualRGBImage sRGBDisplay/Schermo sRGB: ""
+*ja.ManualRGBImage sRGBDisplay/sRGB 表示: ""
+*pt.ManualRGBImage sRGBDisplay/Exibir sRGB: ""
+*zh_CN.ManualRGBImage sRGBDisplay/sRGB 显示: ""
+*zh_TW.ManualRGBImage sRGBDisplay/sRGB 顯示: ""
+*ko.ManualRGBImage sRGBDisplay/sRGB 화면: ""
+*ManualRGBImage sRGBVivid/sRGB Vivid: 		"<< /DeviceRenderingInfo << /ManualColorRGBImage /sRGBGraphics >> >> setpagedevice"
+*de.ManualRGBImage sRGBVivid/sRGB Leuchtend: ""
+*es.ManualRGBImage sRGBVivid/Intenso sRGB: ""
+*fr.ManualRGBImage sRGBVivid/sRVB Vives: ""
+*it.ManualRGBImage sRGBVivid/Vivace sRGB: ""
+*ja.ManualRGBImage sRGBVivid/sRGB 鮮明: ""
+*pt.ManualRGBImage sRGBVivid/Nítido sRGB: ""
+*zh_CN.ManualRGBImage sRGBVivid/sRGB 逼真: ""
+*zh_TW.ManualRGBImage sRGBVivid/sRGB 鮮明色彩: ""
+*ko.ManualRGBImage sRGBVivid/sRGB Vivid: ""
+*ManualRGBImage Off/Off: 					"<< /DeviceRenderingInfo << /ManualColorRGBImage /Off >> >> setpagedevice"
+*de.ManualRGBImage Off/Aus: ""
+*es.ManualRGBImage Off/Desactivado: ""
+*fr.ManualRGBImage Off/Hors Fonction: ""
+*it.ManualRGBImage Off/Disabilitato: ""
+*ja.ManualRGBImage Off/オフ: ""
+*pt.ManualRGBImage Off/Desligado: ""
+*zh_CN.ManualRGBImage Off/关: ""
+*zh_TW.ManualRGBImage Off/關: ""
+*ko.ManualRGBImage Off/꺼짐: ""
+*?ManualRGBImage:							"
+	gsave
+	4 dict
+        dup /Vivid (Vivid) put
+        dup /sRGBDisplay (sRGBDisplay) put
+		dup /sRGBGraphics (sRGBVivid) put
+		dup /Off (Off) put
+	currentpagedevice /DeviceRenderingInfo get /ManualColorRGBImage get
+	{get} stopped {(PrinterS)} if
+	= flush
+	grestore"
+*End
+*CloseUI: *ManualRGBImage
+
+*%*****************************************************************************
+*%	Manual - RGB Text
+*%*****************************************************************************
+*OpenUI *ManualRGBText/Manual RGB Text: PickOne
+*de.Translation ManualRGBText/RGB Text manuell: ""
+*es.Translation ManualRGBText/Texto RGB manual: ""
+*fr.Translation ManualRGBText/Texte RVB manuel: ""
+*it.Translation ManualRGBText/Testo RGB manuale: ""
+*ja.Translation ManualRGBText/手動 RGB テキスト: ""
+*pt.Translation ManualRGBText/Manual Texto RGB: ""
+*zh_CN.Translation ManualRGBText/手动 RGB 文本: ""
+*zh_TW.Translation ManualRGBText/手動 RGB 文字: ""
+*ko.Translation ManualRGBText/수동 RGB 문자: ""
+*OrderDependency: 76 AnySetup *ManualRGBText
+*DefaultManualRGBText: PrinterS
+*ManualRGBText PrinterS/Printer Setting:	""
+*de.ManualRGBText PrinterS/Druckereinstellung: ""
+*es.ManualRGBText PrinterS/Valor de la impresora: ""
+*fr.ManualRGBText PrinterS/Paramètres de l'imprimante: ""
+*it.ManualRGBText PrinterS/Impostazione stampante: ""
+*ja.ManualRGBText PrinterS/プリンタ設定: ""
+*pt.ManualRGBText PrinterS/Padrao da Impressora: ""
+*zh_CN.ManualRGBText PrinterS/打印机设置: ""
+*zh_TW.ManualRGBText PrinterS/印表機設置: ""
+*ko.ManualRGBText PrinterS/프린터 설정 : ""
+*ManualRGBText Vivid/Vivid: 				"<< /DeviceRenderingInfo << /ManualColorRGBText /Vivid >> >> setpagedevice"
+*de.ManualRGBText Vivid/Leuchtend: ""
+*es.ManualRGBText Vivid/Intenso: ""
+*fr.ManualRGBText Vivid/Vives: ""
+*it.ManualRGBText Vivid/Vivace: ""
+*ja.ManualRGBText Vivid/鮮明: ""
+*pt.ManualRGBText Vivid/Cores vivas: ""
+*zh_CN.ManualRGBText Vivid/生动: ""
+*zh_TW.ManualRGBText Vivid/鮮明色彩: ""
+*ko.ManualRGBText Vivid/Vivid: ""
+*ManualRGBText sRGBDisplay/sRGB Display: 	"<< /DeviceRenderingInfo << /ManualColorRGBText /sRGBDisplay >> >> setpagedevice"
+*de.ManualRGBText sRGBDisplay/sRGB Bildschirm: ""
+*es.ManualRGBText sRGBDisplay/Pantalla sRGB: ""
+*fr.ManualRGBText sRGBDisplay/sRVB Ecran: ""
+*it.ManualRGBText sRGBDisplay/Schermo sRGB: ""
+*ja.ManualRGBText sRGBDisplay/sRGB 表示: ""
+*pt.ManualRGBText sRGBDisplay/Exibir sRGB: ""
+*zh_CN.ManualRGBText sRGBDisplay/sRGB 显示: ""
+*zh_TW.ManualRGBText sRGBDisplay/sRGB 顯示: ""
+*ko.ManualRGBText sRGBDisplay/sRGB 화면: ""
+*ManualRGBText sRGBVivid/sRGB Vivid: 		"<< /DeviceRenderingInfo << /ManualColorRGBText /sRGBGraphics >> >> setpagedevice"
+*de.ManualRGBText sRGBVivid/sRGB Leuchtend: ""
+*es.ManualRGBText sRGBVivid/Intenso sRGB: ""
+*fr.ManualRGBText sRGBVivid/sRVB Vives: ""
+*it.ManualRGBText sRGBVivid/Vivace sRGB: ""
+*ja.ManualRGBText sRGBVivid/sRGB 鮮明: ""
+*pt.ManualRGBText sRGBVivid/Nítido sRGB: ""
+*zh_CN.ManualRGBText sRGBVivid/sRGB 逼真: ""
+*zh_TW.ManualRGBText sRGBVivid/sRGB 鮮明色彩: ""
+*ko.ManualRGBText sRGBVivid/sRGB Vivid: ""
+*ManualRGBText Off/Off: 					"<< /DeviceRenderingInfo << /ManualColorRGBText /Off >> >> setpagedevice"
+*de.ManualRGBText Off/Aus: ""
+*es.ManualRGBText Off/Desactivado: ""
+*fr.ManualRGBText Off/Hors Fonction: ""
+*it.ManualRGBText Off/Disabilitato: ""
+*ja.ManualRGBText Off/オフ: ""
+*pt.ManualRGBText Off/Desligado: ""
+*zh_CN.ManualRGBText Off/关: ""
+*zh_TW.ManualRGBText Off/關: ""
+*ko.ManualRGBText Off/꺼짐: ""
+*?ManualRGBText:							"
+	gsave
+	4 dict
+        dup /Vivid (Vivid) put
+        dup /sRGBDisplay (sRGBDisplay) put
+		dup /sRGBGraphics (sRGBVivid) put
+		dup /Off (Off) put
+	currentpagedevice /DeviceRenderingInfo get /ManualColorRGBText get
+	{get} stopped {(PrinterS)} if
+	= flush
+	grestore"
+*End
+*CloseUI: *ManualRGBText
+
+*%*****************************************************************************
+*%	Manual - RGB Graphics
+*%*****************************************************************************
+*OpenUI *ManualRGBGraphics/Manual RGB Graphics: PickOne
+*de.Translation ManualRGBGraphics/RGB Grafiken manuell: ""
+*es.Translation ManualRGBGraphics/Gráficos RGB manual: ""
+*fr.Translation ManualRGBGraphics/Graphiques RVB manuel: ""
+*it.Translation ManualRGBGraphics/Grafica RGB manuale: ""
+*ja.Translation ManualRGBGraphics/手動 RGB グラフィックス: ""
+*pt.Translation ManualRGBGraphics/Manual Graficos RGB: ""
+*zh_CN.Translation ManualRGBGraphics/手动 RGB 图形: ""
+*zh_TW.Translation ManualRGBGraphics/手動 RGB 圖形: ""
+*ko.Translation ManualRGBGraphics/수동 RGB 그래픽: ""
+*OrderDependency: 77 AnySetup *ManualRGBGraphics
+*DefaultManualRGBGraphics: PrinterS
+*ManualRGBGraphics PrinterS/Printer Setting:	""
+*de.ManualRGBGraphics PrinterS/Druckereinstellung: ""
+*es.ManualRGBGraphics PrinterS/Valor de la impresora: ""
+*fr.ManualRGBGraphics PrinterS/Paramètres de l'imprimante: ""
+*it.ManualRGBGraphics PrinterS/Impostazione stampante: ""
+*ja.ManualRGBGraphics PrinterS/プリンタ設定: ""
+*pt.ManualRGBGraphics PrinterS/Padrao da Impressora: ""
+*zh_CN.ManualRGBGraphics PrinterS/打印机设置: ""
+*zh_TW.ManualRGBGraphics PrinterS/印表機設置: ""
+*ko.ManualRGBGraphics PrinterS/프린터 설정 : ""
+*ManualRGBGraphics Vivid/Vivid: 				"<< /DeviceRenderingInfo << /ManualColorRGBGraphics /Vivid >> >> setpagedevice"
+*de.ManualRGBGraphics Vivid/Leuchtend: ""
+*es.ManualRGBGraphics Vivid/Intenso: ""
+*fr.ManualRGBGraphics Vivid/Vives: ""
+*it.ManualRGBGraphics Vivid/Vivace: ""
+*ja.ManualRGBGraphics Vivid/鮮明: ""
+*pt.ManualRGBGraphics Vivid/Cores vivas: ""
+*zh_CN.ManualRGBGraphics Vivid/生动: ""
+*zh_TW.ManualRGBGraphics Vivid/鮮明色彩: ""
+*ko.ManualRGBGraphics Vivid/Vivid: ""
+*ManualRGBGraphics sRGBDisplay/sRGB Display: 	"<< /DeviceRenderingInfo << /ManualColorRGBGraphics /sRGBDisplay >> >> setpagedevice"
+*de.ManualRGBGraphics sRGBDisplay/sRGB Bildschirm: ""
+*es.ManualRGBGraphics sRGBDisplay/Pantalla sRGB: ""
+*fr.ManualRGBGraphics sRGBDisplay/sRVB Ecran: ""
+*it.ManualRGBGraphics sRGBDisplay/Schermo sRGB: ""
+*ja.ManualRGBGraphics sRGBDisplay/sRGB 表示: ""
+*pt.ManualRGBGraphics sRGBDisplay/Exibir sRGB: ""
+*zh_CN.ManualRGBGraphics sRGBDisplay/sRGB 显示: ""
+*zh_TW.ManualRGBGraphics sRGBDisplay/sRGB 顯示: ""
+*ko.ManualRGBGraphics sRGBDisplay/sRGB 화면: ""
+*ManualRGBGraphics sRGBVivid/sRGB Vivid: 		"<< /DeviceRenderingInfo << /ManualColorRGBGraphics /sRGBGraphics >> >> setpagedevice"
+*de.ManualRGBGraphics sRGBVivid/sRGB Leuchtend: ""
+*es.ManualRGBGraphics sRGBVivid/Intenso sRGB: ""
+*fr.ManualRGBGraphics sRGBVivid/sRVB Vives: ""
+*it.ManualRGBGraphics sRGBVivid/Vivace sRGB: ""
+*ja.ManualRGBGraphics sRGBVivid/sRGB 鮮明: ""
+*pt.ManualRGBGraphics sRGBVivid/Nítido sRGB: ""
+*zh_CN.ManualRGBGraphics sRGBVivid/sRGB 逼真: ""
+*zh_TW.ManualRGBGraphics sRGBVivid/sRGB 鮮明色彩: ""
+*ko.ManualRGBGraphics sRGBVivid/sRGB Vivid: ""
+*ManualRGBGraphics Off/Off: 					"<< /DeviceRenderingInfo << /ManualColorRGBGraphics /Off >> >> setpagedevice"
+*de.ManualRGBGraphics Off/Aus: ""
+*es.ManualRGBGraphics Off/Desactivado: ""
+*fr.ManualRGBGraphics Off/Hors Fonction: ""
+*it.ManualRGBGraphics Off/Disabilitato: ""
+*ja.ManualRGBGraphics Off/オフ: ""
+*pt.ManualRGBGraphics Off/Desligado: ""
+*zh_CN.ManualRGBGraphics Off/关: ""
+*zh_TW.ManualRGBGraphics Off/關: ""
+*ko.ManualRGBGraphics Off/꺼짐: ""
+*?ManualRGBGraphics:							"
+	gsave
+	4 dict
+        dup /Vivid (Vivid) put
+        dup /sRGBDisplay (sRGBDisplay) put
+		dup /sRGBGraphics (sRGBVivid) put
+		dup /Off (Off) put
+	currentpagedevice /DeviceRenderingInfo get /ManualColorRGBGraphics get
+	{get} stopped {(PrinterS)} if
+	= flush
+	grestore"
+*End
+*CloseUI: *ManualRGBGraphics
+
+*%*****************************************************************************
+*%	Manual - CMYK Image
+*%*****************************************************************************
+*OpenUI *ManualCMYK/Manual CMYK: PickOne
+*de.Translation ManualCMYK/Manuell CMYK: ""
+*es.Translation ManualCMYK/CMYK manual: ""
+*fr.Translation ManualCMYK/CMJN manuelle: ""
+*it.Translation ManualCMYK/CMYK manuale: ""
+*ja.Translation ManualCMYK/手動 CMYK: ""
+*pt.Translation ManualCMYK/CMYK manual: ""
+*zh_CN.Translation ManualCMYK/手动 CMYK: ""
+*zh_TW.Translation ManualCMYK/手動 CMYK: ""
+*ko.Translation ManualCMYK/수동 CMYK: ""
+*OrderDependency: 78 AnySetup *ManualCMYK
+*DefaultManualCMYK: PrinterS
+*ManualCMYK PrinterS/Printer Setting:	""
+*de.ManualCMYK PrinterS/Druckereinstellung: ""
+*es.ManualCMYK PrinterS/Valor de la impresora: ""
+*fr.ManualCMYK PrinterS/Paramètres de l'imprimante: ""
+*it.ManualCMYK PrinterS/Impostazione stampante: ""
+*ja.ManualCMYK PrinterS/プリンタ設定: ""
+*pt.ManualCMYK PrinterS/Padrao da Impressora: ""
+*zh_CN.ManualCMYK PrinterS/打印机设置: ""
+*zh_TW.ManualCMYK PrinterS/印表機設置: ""
+*ko.ManualCMYK PrinterS/프린터 설정 : ""
+*ManualCMYK USCMYK/US CMYK: 			"
+    << /DeviceRenderingInfo << /ManualColorCMYKImage /SWOP >> >> setpagedevice
+    << /DeviceRenderingInfo << /ManualColorCMYKText /SWOP >> >> setpagedevice
+    << /DeviceRenderingInfo << /ManualColorCMYKGraphics /SWOP >> >> setpagedevice"
+*End
+*de.ManualCMYK USCMYK/US-CMYK: ""
+*es.ManualCMYK USCMYK/CMYK EE.UU.: ""
+*fr.ManualCMYK USCMYK/CMJN US: ""
+*it.ManualCMYK USCMYK/CMYK US: ""
+*ja.ManualCMYK USCMYK/US CMYK: ""
+*pt.ManualCMYK USCMYK/US CMYK: ""
+*zh_CN.ManualCMYK USCMYK/US CMYK: ""
+*zh_TW.ManualCMYK USCMYK/US CMYK: ""
+*ko.ManualCMYK USCMYK/US CMYK: ""
+*ManualCMYK EuroCMYK/Euro CMYK: 		"
+    << /DeviceRenderingInfo << /ManualColorCMYKImage /Euro >> >> setpagedevice
+    << /DeviceRenderingInfo << /ManualColorCMYKText /Euro >> >> setpagedevice
+    << /DeviceRenderingInfo << /ManualColorCMYKGraphics /Euro >> >> setpagedevice"
+*End
+*de.ManualCMYK EuroCMYK/Euro-CMYK: ""
+*es.ManualCMYK EuroCMYK/CMYK Europa: ""
+*fr.ManualCMYK EuroCMYK/CMJN euro: ""
+*it.ManualCMYK EuroCMYK/CMYK Euro: ""
+*ja.ManualCMYK EuroCMYK/Euro CMYK: ""
+*pt.ManualCMYK EuroCMYK/EURO CMYK: ""
+*zh_CN.ManualCMYK EuroCMYK/Euro CMYK: ""
+*zh_TW.ManualCMYK EuroCMYK/Euro CMYK: ""
+*ko.ManualCMYK EuroCMYK/Euro CMYK: ""
+*ManualCMYK Off/Off: 					"
+    << /DeviceRenderingInfo << /ManualColorCMYKImage /Off >> >> setpagedevice
+    << /DeviceRenderingInfo << /ManualColorCMYKText /Off >> >> setpagedevice
+    << /DeviceRenderingInfo << /ManualColorCMYKGraphics /Off >> >> setpagedevice"
+*End
+*de.ManualCMYK Off/Aus: ""
+*es.ManualCMYK Off/Desactivado: ""
+*fr.ManualCMYK Off/Hors Fonction: ""
+*it.ManualCMYK Off/Disabilitato: ""
+*ja.ManualCMYK Off/オフ: ""
+*pt.ManualCMYK Off/Desligado: ""
+*zh_CN.ManualCMYK Off/关: ""
+*zh_TW.ManualCMYK Off/關: ""
+*ko.ManualCMYK Off/꺼짐: ""
+*ManualCMYK VividCMYK/Vivid CMYK: 		"
+    << /DeviceRenderingInfo << /ManualColorCMYKImage /VividCMYK >> >> setpagedevice
+    << /DeviceRenderingInfo << /ManualColorCMYKText /VividCMYK >> >> setpagedevice
+    << /DeviceRenderingInfo << /ManualColorCMYKGraphics /VividCMYK >> >> setpagedevice"
+*End
+*de.ManualCMYK VividCMYK/Leuchtend CMYK: ""
+*es.ManualCMYK VividCMYK/CMYK intenso: ""
+*fr.ManualCMYK VividCMYK/CMJN vive: ""
+*it.ManualCMYK VividCMYK/CMYK vivace: ""
+*ja.ManualCMYK VividCMYK/鮮明 CMYK: ""
+*pt.ManualCMYK VividCMYK/CMYK Vivas: ""
+*zh_CN.ManualCMYK VividCMYK/逼真 CMYK: ""
+*zh_TW.ManualCMYK VividCMYK/鮮明色彩 CMYK: ""
+*ko.ManualCMYK VividCMYK/Vivid CMYK: ""
+*?ManualCMYK:					 		"
+	gsave
+	4 dict
+        dup /SWOP (USCMYK) put
+        dup /Euro (EuroCMYK) put
+		dup /Off (off) put
+		dup /VividCMYK (VividCMYK) put
+	currentpagedevice /DeviceRenderingInfo get /ManualColorCMYKImage get
+	{get} stopped {(PrinterS)} if
+	= flush
+	grestore"
+*End
+*CloseUI: *ManualCMYK
+
+*CloseGroup: ManualColor
+
+*%******************************************************************************
+*%	Paper Handling Group
+*%******************************************************************************
+
+*OpenGroup: Paper/Paper
+*de.Translation Paper/Papier: 		""
+*es.Translation Paper/Papel: 		""
+*fr.Translation Paper/Papier: 		""
+*it.Translation Paper/Carta: 		""
+*ja.Translation Paper/用紙: 		""
+*pt.Translation Paper/Papel: 		""
+*zh_CN.Translation Paper/纸张: 		""
+*zh_TW.Translation Paper/紙張: 		""
+*ko.Translation Paper/용지: 		""
+
+*%*****************************************************************************
+*%	Paper Type
+*%*****************************************************************************
+
+*OpenUI *MediaType/Paper Type: PickOne
+*de.Translation MediaType/Papiersorte: ""
+*es.Translation MediaType/Tipo de papel: ""
+*fr.Translation MediaType/Type de papier: ""
+*it.Translation MediaType/Tipo di carta: ""
+*ja.Translation MediaType/用紙の種類: ""
+*pt.Translation MediaType/Tipo de Papel: ""
+*zh_CN.Translation MediaType/纸张类型: ""
+*zh_TW.Translation MediaType/紙張種類: ""
+*ko.Translation MediaType/용지 타입: ""
+*DefaultMediaType: PrinterS
+*OrderDependency: 40 AnySetup *MediaType
+*MediaType PrinterS/Printer Setting:		""
+*de.MediaType PrinterS/Druckereinstellung: ""
+*es.MediaType PrinterS/Valor de la impresora: ""
+*fr.MediaType PrinterS/Paramètres de l'imprimante: ""
+*it.MediaType PrinterS/Impostazione stampante: ""
+*ja.MediaType PrinterS/プリンタ設定: ""
+*pt.MediaType PrinterS/Padrao da Impressora: ""
+*zh_CN.MediaType PrinterS/打印机设置: ""
+*zh_TW.MediaType PrinterS/印表機設置: ""
+*ko.MediaType PrinterS/프린터 설정 : ""
+*MediaType Plain/Plain Paper:           "<< /MediaType (Plain) 			/Policies << /MediaType 2 >> >> setpagedevice"
+*de.MediaType Plain/Normalpapier: ""
+*es.MediaType Plain/Papel normal: ""
+*fr.MediaType Plain/Papier Normal: ""
+*it.MediaType Plain/Carta normale: ""
+*ja.MediaType Plain/普通紙: ""
+*pt.MediaType Plain/Papel normal: ""
+*zh_CN.MediaType Plain/普通纸: ""
+*zh_TW.MediaType Plain/普通紙: ""
+*ko.MediaType Plain/일반 용지: ""
+*MediaType Glossy/Glossy Paper:			"<< /MediaType (Glossy Paper) 	/Policies << /MediaType 2 >> >> setpagedevice"
+*de.MediaType Glossy/Glanzpapier: ""
+*es.MediaType Glossy/Papel brillante: ""
+*fr.MediaType Glossy/Papier glacé: ""
+*it.MediaType Glossy/Carta lucida: ""
+*ja.MediaType Glossy/光沢紙: ""
+*pt.MediaType Glossy/Papel Brilho: ""
+*zh_CN.MediaType Glossy/光面纸: ""
+*zh_TW.MediaType Glossy/光面紙: ""
+*ko.MediaType Glossy/광택지: ""
+*MediaType Card/Card Stock:             "<< /MediaType (Card Stock) 	/Policies << /MediaType 2 >> >> setpagedevice"
+*de.MediaType Card/Karton: ""
+*es.MediaType Card/Tarjeta: ""
+*fr.MediaType Card/Bristol: ""
+*it.MediaType Card/Cartoncino: ""
+*ja.MediaType Card/厚紙: ""
+*pt.MediaType Card/Cartões: ""
+*zh_CN.MediaType Card/卡片纸: ""
+*zh_TW.MediaType Card/卡片: ""
+*ko.MediaType Card/카드 용지: ""
+*MediaType Transparency/Transparency:	"<< /MediaType (Transparency) 	/Policies << /MediaType 2 >> >> setpagedevice"
+*de.MediaType Transparency/Folie: ""
+*es.MediaType Transparency/Transparencias: ""
+*fr.MediaType Transparency/Transparent: ""
+*it.MediaType Transparency/Transparente: ""
+*ja.MediaType Transparency/OHPフィルム: ""
+*pt.MediaType Transparency/Transparência: ""
+*zh_CN.MediaType Transparency/透明胶片: ""
+*zh_TW.MediaType Transparency/專用透明投影膠片: ""
+*ko.MediaType Transparency/OHP 필름: ""
+*MediaType Labels/Labels:               "<< /MediaType (Labels) 		/Policies << /MediaType 2 >> >> setpagedevice"
+*de.MediaType Labels/Etiketten: ""
+*es.MediaType Labels/Etiquetas: ""
+*fr.MediaType Labels/Etiquettes: ""
+*it.MediaType Labels/Etichette: ""
+*ja.MediaType Labels/ラベル: ""
+*pt.MediaType Labels/Etiquetas: ""
+*zh_CN.MediaType Labels/标签: ""
+*zh_TW.MediaType Labels/標籤: ""
+*ko.MediaType Labels/라벨: ""
+*MediaType Bond/Bond:					"<< /MediaType (Bond) 			/Policies << /MediaType 2 >> >> setpagedevice"
+*de.MediaType Bond/Feinpostpapier: ""
+*es.MediaType Bond/Alta calidad: ""
+*fr.MediaType Bond/Ordinaire: ""
+*it.MediaType Bond/Di qualitá: ""
+*ja.MediaType Bond/ボンド紙: ""
+*pt.MediaType Bond/Encorpado: ""
+*zh_CN.MediaType Bond/铜版纸: ""
+*zh_TW.MediaType Bond/無覆膜的雪銅紙: ""
+*ko.MediaType Bond/본드: ""
+*MediaType Envelope/Envelope:			"<< /MediaType (Envelope) 		/Policies << /MediaType 2 >> >> setpagedevice"
+*de.MediaType Envelope/Briefumschlag: ""
+*es.MediaType Envelope/Sobre: ""
+*fr.MediaType Envelope/Alimentation Enveloppe: ""
+*it.MediaType Envelope/Busta: ""
+*ja.MediaType Envelope/封筒: ""
+*pt.MediaType Envelope/Envelopes: ""
+*zh_CN.MediaType Envelope/信封: ""
+*zh_TW.MediaType Envelope/信封: ""
+*ko.MediaType Envelope/봉투: ""
+*MediaType Letterhead/Letterhead:		"<< /MediaType (Letterhead) 	/Policies << /MediaType 2 >> >> setpagedevice"
+*de.MediaType Letterhead/Briefbogen: ""
+*es.MediaType Letterhead/Cabecera: ""
+*fr.MediaType Letterhead/En-tête: ""
+*it.MediaType Letterhead/Carta intestata: ""
+*ja.MediaType Letterhead/レターヘッド: ""
+*pt.MediaType Letterhead/Timbrado: ""
+*zh_CN.MediaType Letterhead/信签: ""
+*zh_TW.MediaType Letterhead/銜頭紙: ""
+*ko.MediaType Letterhead/레터헤드: ""
+*MediaType Preprinted/Preprinted:		"<< /MediaType (Preprinted) 	/Policies << /MediaType 2 >> >> setpagedevice"
+*de.MediaType Preprinted/Vorgedruckt: ""
+*es.MediaType Preprinted/Preimpreso: ""
+*fr.MediaType Preprinted/Préimprimé: ""
+*it.MediaType Preprinted/Prestampati: ""
+*ja.MediaType Preprinted/プレプリント: ""
+*pt.MediaType Preprinted/Pré-impresso: ""
+*zh_CN.MediaType Preprinted/预印纸: ""
+*zh_TW.MediaType Preprinted/預印: ""
+*ko.MediaType Preprinted/양면지: ""
+*MediaType Colored/Colored Paper:		"<< /MediaType (Colored Paper) 	/Policies << /MediaType 2 >> >> setpagedevice"
+*de.MediaType Colored/Farbpapier: ""
+*es.MediaType Colored/Papel color: ""
+*fr.MediaType Colored/Papier couleur: ""
+*it.MediaType Colored/Carta colorata: ""
+*ja.MediaType Colored/カラー紙: ""
+*pt.MediaType Colored/Papel colorido: ""
+*zh_CN.MediaType Colored/彩色纸: ""
+*zh_TW.MediaType Colored/彩色紙: ""
+*ko.MediaType Colored/색상지: ""
+*MediaType Custom1/Custom Type 1:       "<< /MediaType (Custom Type 1) 	/Policies << /MediaType 2 >> >> setpagedevice"
+*de.MediaType Custom1/Benutzerdef. 1: ""
+*es.MediaType Custom1/Personalizado tipo 1: ""
+*fr.MediaType Custom1/Personnalisé 1: ""
+*it.MediaType Custom1/Pers. tipo 1: ""
+*ja.MediaType Custom1/カスタム タイプ 1: ""
+*pt.MediaType Custom1/Person tipo 1: ""
+*zh_CN.MediaType Custom1/定制类型 1: ""
+*zh_TW.MediaType Custom1/自訂種類 1: ""
+*ko.MediaType Custom1/사용자 양식 1: ""
+*MediaType Custom2/Custom Type 2:       "<< /MediaType (Custom Type 2) 	/Policies << /MediaType 2 >> >> setpagedevice"
+*de.MediaType Custom2/Benutzerdef. 2: ""
+*es.MediaType Custom2/Personalizado tipo 2: ""
+*fr.MediaType Custom2/Personnalisé 2: ""
+*it.MediaType Custom2/Pers. tipo 2: ""
+*ja.MediaType Custom2/カスタム タイプ 2: ""
+*pt.MediaType Custom2/Person tipo 2: ""
+*zh_CN.MediaType Custom2/定制类型 2: ""
+*zh_TW.MediaType Custom2/自訂種類 2: ""
+*ko.MediaType Custom2/사용자 양식 2: ""
+*CloseUI: *MediaType
+
+*%******************************************************************************
+*%	Form Substitution
+*%******************************************************************************
+
+*OpenUI *FormSubstitution/Form Substitution:  PickOne
+*de.Translation FormSubstitution/Ersatzformat: ""
+*es.Translation FormSubstitution/Sustitución de papel: ""
+*fr.Translation FormSubstitution/Changement de papier: ""
+*it.Translation FormSubstitution/Sostituzione modulo: ""
+*ja.Translation FormSubstitution/代替用紙: ""
+*pt.Translation FormSubstitution/Substituição de Formulário: ""
+*zh_CN.Translation FormSubstitution/页面替换: ""
+*zh_TW.Translation FormSubstitution/紙張規格替代: ""
+*ko.Translation FormSubstitution/용지 대체: ""
+*DefaultFormSubstitution: PrinterS
+*OrderDependency: 180 AnySetup *FormSubstitution
+*FormSubstitution PrinterS/Printer Setting:	""
+*de.FormSubstitution PrinterS/Druckereinstellung: ""
+*es.FormSubstitution PrinterS/Valor de la impresora: ""
+*fr.FormSubstitution PrinterS/Paramètres de l'imprimante: ""
+*it.FormSubstitution PrinterS/Impostazione stampante: ""
+*ja.FormSubstitution PrinterS/プリンタ設定: ""
+*pt.FormSubstitution PrinterS/Padrao da Impressora: ""
+*zh_CN.FormSubstitution PrinterS/打印机设置: ""
+*zh_TW.FormSubstitution PrinterS/印表機設置: ""
+*ko.FormSubstitution PrinterS/프린터 설정 : ""
+*FormSubstitution DefaultForm/Use printer default form:			"<< /Policies << /PageSize 1 >> >> setpagedevice"
+*de.FormSubstitution DefaultForm/Standardformat des Druckers verwenden: ""
+*es.FormSubstitution DefaultForm/Utilizar papel predeterminado de la impresora: ""
+*fr.FormSubstitution DefaultForm/Utiliser le format par défaut de l'imprimante: ""
+*it.FormSubstitution DefaultForm/Utilizza modulo predefinito stampante: ""
+*ja.FormSubstitution DefaultForm/プリンタの標準用紙を使用: ""
+*pt.FormSubstitution DefaultForm/Usar formulário padrão de impressora: ""
+*zh_CN.FormSubstitution DefaultForm/使用打印机默认页面: ""
+*zh_TW.FormSubstitution DefaultForm/使用印表機預設紙張規格: ""
+*ko.FormSubstitution DefaultForm/프린터 초기값 사용: ""
+*FormSubstitution PromptForm/Prompt for form on operator panel:	"<< /Policies << /PageSize 2 >> >> setpagedevice"
+*de.FormSubstitution PromptForm/Formatabfrage auf Bedienerkonsole: ""
+*es.FormSubstitution PromptForm/Solicitar papel en panel del operador: ""
+*fr.FormSubstitution PromptForm/Message d'insertion papier sur le panneau de commandes: ""
+*it.FormSubstitution PromptForm/Richiedi modulo su pan. operatore: ""
+*ja.FormSubstitution PromptForm/用紙の種類を操作パネルに表示する: ""
+*pt.FormSubstitution PromptForm/Pedir formulário no painel do operador: ""
+*zh_CN.FormSubstitution PromptForm/操作面板上的页面提示: ""
+*zh_TW.FormSubstitution PromptForm/操作面板的紙張規格提示: ""
+*ko.FormSubstitution PromptForm/조작 판넬에서 선택: ""
+*FormSubstitution FitToNearest/Fit to nearest form size:		"<< /Policies << /PageSize 3 >> >> setpagedevice"
+*de.FormSubstitution FitToNearest/An ähnlichstes Papierformat anpassen: ""
+*es.FormSubstitution FitToNearest/Ajustar al tamaño de papel más parecido: ""
+*fr.FormSubstitution FitToNearest/Adapter au format le plus proche: ""
+*it.FormSubstitution FitToNearest/Adatta a dimensioni modulo più simile: ""
+*ja.FormSubstitution FitToNearest/一番近い用紙サイズに合わせる: ""
+*pt.FormSubstitution FitToNearest/Ajustar para tam. form. mais próximo: ""
+*zh_CN.FormSubstitution FitToNearest/符合最接近的页面尺寸: ""
+*zh_TW.FormSubstitution FitToNearest/調整為最接近紙張尺寸: ""
+*ko.FormSubstitution FitToNearest/근접 크기에 맞게: ""
+*FormSubstitution FitNextLarger/Fit to next larger form size:	"<< /Policies << /PageSize 4 >> >> setpagedevice"
+*de.FormSubstitution FitNextLarger/An nächstgrößeres Papierformat anpassen: ""
+*es.FormSubstitution FitNextLarger/Ajustar al siguiente tamaño de papel: ""
+*fr.FormSubstitution FitNextLarger/Adapter au format supérieur suivant: ""
+*it.FormSubstitution FitNextLarger/Adatta a dimens. mod. più grande: ""
+*ja.FormSubstitution FitNextLarger/次に大きい用紙サイズに合わせる: ""
+*pt.FormSubstitution FitNextLarger/Ajustar para tam. form. maior: ""
+*zh_CN.FormSubstitution FitNextLarger/符合次大的页面尺寸: ""
+*zh_TW.FormSubstitution FitNextLarger/調整為大一號紙張尺寸: ""
+*ko.FormSubstitution FitNextLarger/다음으로 큰 크기에 맞게: ""
+*FormSubstitution UseNearest/Use nearest form size:				"<< /Policies << /PageSize 5 >> >> setpagedevice"
+*de.FormSubstitution UseNearest/Ähnlichstes Papierformat verwenden: ""
+*es.FormSubstitution UseNearest/Usar el tamaño de papel más parecido: ""
+*fr.FormSubstitution UseNearest/Utiliser le format le plus proche: ""
+*it.FormSubstitution UseNearest/Utilizza dimensioni di modulo più simili: ""
+*ja.FormSubstitution UseNearest/一番近い用紙サイズを使用: ""
+*pt.FormSubstitution UseNearest/Usar tamanho de formulário mais próximo: ""
+*zh_CN.FormSubstitution UseNearest/使用最接近的页面尺寸: ""
+*zh_TW.FormSubstitution UseNearest/使用最接近紙張尺寸: ""
+*ko.FormSubstitution UseNearest/근접 크기의 용지 사용: ""
+*FormSubstitution UseNextLarger/Use next larger form size:		"<< /Policies << /PageSize 6 >> >> setpagedevice"
+*de.FormSubstitution UseNextLarger/Nächstgrößeres Papierformat verwenden: ""
+*es.FormSubstitution UseNextLarger/Usar el siguiente tamaño de papel: ""
+*fr.FormSubstitution UseNextLarger/Utiliser le format supérieur suivant: ""
+*it.FormSubstitution UseNextLarger/Utilizza dimens. mod. più grandi: ""
+*ja.FormSubstitution UseNextLarger/次に大きい用紙サイズを使用: ""
+*pt.FormSubstitution UseNextLarger/Usar tamanho de formulário maior: ""
+*zh_CN.FormSubstitution UseNextLarger/使用次大的页面尺寸: ""
+*zh_TW.FormSubstitution UseNextLarger/使用下一號紙張尺寸: ""
+*ko.FormSubstitution UseNextLarger/다음으로 큰 용지 크기 사용: ""
+*?FormSubstitution:		"
+	gsave
+	currentpagedevice /Policies get /PageSize get
+	dup dup dup dup dup
+	6 eq
+		{(UseNextLarger)}{5 eq
+			{(UseNearest)}{4 eq
+				{(FitNextLarger)}{3 eq
+					{(FitToNearest)}{2 eq
+						{(PromptForm)}{1 eq
+							{(DefaultForm)}{(PromptForm)}
+						ifelse}
+					ifelse}
+				ifelse}
+			ifelse}
+		ifelse}
+	ifelse
+	= flush
+	grestore"
+*End
+*CloseUI:  *FormSubstitution
+
+*CloseGroup: Paper
+
+*%******************************************************************************
+*%	Finishing Group
+*%******************************************************************************
+
+*OpenGroup: Finishing/Finishing
+*de.Translation Finishing/Papierausgabe:		"<< /Policies << /PageSize 6 >> >> setpagedevice"
+*es.Translation Finishing/Acabado:		"<< /Policies << /PageSize 6 >> >> setpagedevice"
+*fr.Translation Finishing/Finition:		"<< /Policies << /PageSize 6 >> >> setpagedevice"
+*it.Translation Finishing/Fascicolazione:		"<< /Policies << /PageSize 6 >> >> setpagedevice"
+*ja.Translation Finishing/仕上げ:		"<< /Policies << /PageSize 6 >> >> setpagedevice"
+*pt.Translation Finishing/Acabamento:		"<< /Policies << /PageSize 6 >> >> setpagedevice"
+*zh_CN.Translation Finishing/输出:		"<< /Policies << /PageSize 6 >> >> setpagedevice"
+*zh_TW.Translation Finishing/輸出處理:		"<< /Policies << /PageSize 6 >> >> setpagedevice"
+*ko.Translation Finishing/마무리:		"<< /Policies << /PageSize 6 >> >> setpagedevice"
+
+*%*****************************************************************************
+*%	Separator Pages
+*%*****************************************************************************
+
+*OpenUI *SepPages/Separator Pages: PickOne
+*de.Translation SepPages/Trennseiten: ""
+*es.Translation SepPages/Hojas de separación: ""
+*fr.Translation SepPages/Séparateurs: ""
+*it.Translation SepPages/Fogli separatori: ""
+*ja.Translation SepPages/区切りページ: ""
+*pt.Translation SepPages/Páginas Separadoras: ""
+*zh_CN.Translation SepPages/分隔页: ""
+*zh_TW.Translation SepPages/分隔頁: ""
+*ko.Translation SepPages/페이지 분리기: ""
+*OrderDependency: 51 AnySetup *SepPages
+*DefaultSepPages: PrinterS
+*SepPages PrinterS/Printer Setting:	""
+*de.SepPages PrinterS/Druckereinstellung: ""
+*es.SepPages PrinterS/Valor de la impresora: ""
+*fr.SepPages PrinterS/Paramètres de l'imprimante: ""
+*it.SepPages PrinterS/Impostazione stampante: ""
+*ja.SepPages PrinterS/プリンタ設定: ""
+*pt.SepPages PrinterS/Padrao da Impressora: ""
+*zh_CN.SepPages PrinterS/打印机设置: ""
+*zh_TW.SepPages PrinterS/印表機設置: ""
+*ko.SepPages PrinterS/프린터 설정 : ""
+*SepPages None/None:				"<< /SlipSheet 0 >> setpagedevice"
+*de.SepPages None/Aus: ""
+*es.SepPages None/Desactivado: ""
+*fr.SepPages None/Hors Fonction: ""
+*it.SepPages None/Disabilitato: ""
+*ja.SepPages None/なし: ""
+*pt.SepPages None/Nenhum: ""
+*zh_CN.SepPages None/无: ""
+*zh_TW.SepPages None/無: ""
+*ko.SepPages None/없음: ""
+*SepPages Copies/Between Copies:	"<< /SlipSheet 3 >> setpagedevice"
+*de.SepPages Copies/Zwischen Kopien: ""
+*es.SepPages Copies/Entre copias: ""
+*fr.SepPages Copies/Entre les Copies: ""
+*it.SepPages Copies/Tra copie: ""
+*ja.SepPages Copies/部の間: ""
+*pt.SepPages Copies/Entre Cópias: ""
+*zh_CN.SepPages Copies/副本之间: ""
+*zh_TW.SepPages Copies/在列印副本之間: ""
+*ko.SepPages Copies/인쇄 사이: ""
+*SepPages Jobs/Between Jobs:		"<< /SlipSheet 2 >> setpagedevice"
+*de.SepPages Jobs/Zwischen Aufträgen: ""
+*es.SepPages Jobs/Entre trabajos: ""
+*fr.SepPages Jobs/Entre les Documents: ""
+*it.SepPages Jobs/Tra processi: ""
+*ja.SepPages Jobs/ジョブの間: ""
+*pt.SepPages Jobs/Entre Trabalhos: ""
+*zh_CN.SepPages Jobs/任务之间: ""
+*zh_TW.SepPages Jobs/介於工作之間: ""
+*ko.SepPages Jobs/작업 사이: ""
+*SepPages Pages/Between Pages:		"<< /SlipSheet 4 >> setpagedevice"
+*de.SepPages Pages/Zwischen Seiten: ""
+*es.SepPages Pages/Entre páginas: ""
+*fr.SepPages Pages/Entre les Pages: ""
+*it.SepPages Pages/Tra pagine: ""
+*ja.SepPages Pages/ページの間: ""
+*pt.SepPages Pages/Entre Páginas: ""
+*zh_CN.SepPages Pages/页之间: ""
+*zh_TW.SepPages Pages/介於頁面之間: ""
+*ko.SepPages Pages/페이지 사이: ""
+*?SepPages:							"
+	gsave
+	currentpagedevice /SlipSheet get
+	dup dup
+	4 eq {(Pages)}{
+        3 eq {(Copies)}{
+            2 eq {(Jobs)}
+                 {(None)}ifelse
+            }ifelse
+        }ifelse
+	= flush
+	grestore"
+*End
+*CloseUI: *SepPages
+
+*%*****************************************************************************
+*%	Separator Source
+*%*****************************************************************************
+
+*OpenUI *SepSource/Separator Source: PickOne
+*de.Translation SepSource/Trennseitenzufuhr: ""
+*es.Translation SepSource/Fuente de separadores: ""
+*fr.Translation SepSource/Alimentation Séparateur: ""
+*it.Translation SepSource/Origine separatore: ""
+*ja.Translation SepSource/区切りページ源: ""
+*pt.Translation SepSource/Origem do Separador: ""
+*zh_CN.Translation SepSource/分隔纸源: ""
+*zh_TW.Translation SepSource/分隔頁來源: ""
+*ko.Translation SepSource/자원 분리기: ""
+*OrderDependency: 52 AnySetup *SepSource
+*DefaultSepSource: PrinterS
+*SepSource PrinterS/Printer Setting:				""
+*de.SepSource PrinterS/Druckereinstellung: ""
+*es.SepSource PrinterS/Valor de la impresora: ""
+*fr.SepSource PrinterS/Paramètres de l'imprimante: ""
+*it.SepSource PrinterS/Impostazione stampante: ""
+*ja.SepSource PrinterS/プリンタ設定: ""
+*pt.SepSource PrinterS/Padrao da Impressora: ""
+*zh_CN.SepSource PrinterS/打印机设置: ""
+*zh_TW.SepSource PrinterS/印表機設置: ""
+*ko.SepSource PrinterS/프린터 설정 : ""
+*SepSource Tray1/Tray 1:						"<< /SlipSheetDetails << /Type 96 /SlipSheetSource 0 >> >> setpagedevice"
+*de.SepSource Tray1/Fach 1: ""
+*es.SepSource Tray1/Bandeja 1: ""
+*fr.SepSource Tray1/Tiroir 1: ""
+*it.SepSource Tray1/Vassoio 1: ""
+*ja.SepSource Tray1/カセット 1: ""
+*pt.SepSource Tray1/Bandeja 1: ""
+*zh_CN.SepSource Tray1/进纸匣 1: ""
+*zh_TW.SepSource Tray1/裝紙匣 1: ""
+*ko.SepSource Tray1/트레이 1: ""
+*SepSource Tray2/Tray 2:						"<< /SlipSheetDetails << /Type 96 /SlipSheetSource 1 >> >> setpagedevice"
+*de.SepSource Tray2/Fach 2: ""
+*es.SepSource Tray2/Bandeja 2: ""
+*fr.SepSource Tray2/Tiroir 2: ""
+*it.SepSource Tray2/Vassoio 2: ""
+*ja.SepSource Tray2/カセット 2: ""
+*pt.SepSource Tray2/Bandeja 2: ""
+*zh_CN.SepSource Tray2/进纸匣 2: ""
+*zh_TW.SepSource Tray2/裝紙匣 2: ""
+*ko.SepSource Tray2/트레이 2: ""
+*?SepSource:							"
+	gsave
+	currentpagedevice /SlipSheetDetails get /SlipSheetSource get
+	dup
+	1 eq {(Tray2)}{
+		0 eq {(Tray1)}{(PrinterS)}
+			ifelse}
+	ifelse
+	= flush
+	grestore"
+*End
+*CloseUI: *SepSource
+
+*DefaultOutputOrder:	Normal
+
+*CloseGroup: Finishing
+
+*%******************************************************************************
+*%	Landscape Orientation
+*%******************************************************************************
+
+
+*%******************************************************************************
+*%	Page Definitions
+*%******************************************************************************
+
+*%******************************************************************************
+*%	Page Size
+*%******************************************************************************
+
+*OpenUI *PageSize/Page Size: PickOne
+*de.Translation PageSize/Page Size: ""
+*es.Translation PageSize/Page Size: ""
+*fr.Translation PageSize/Page Size: ""
+*it.Translation PageSize/Page Size: ""
+*ja.Translation PageSize/Page Size: ""
+*pt.Translation PageSize/Page Size: ""
+*zh_CN.Translation PageSize/Page Size: ""
+*zh_TW.Translation PageSize/Page Size: ""
+*ko.Translation PageSize/Page Size: ""
+*OrderDependency: 43 AnySetup *PageSize
+*DefaultPageSize:	Letter
+*PageSize A4/A4: 					"
+	<< /Policies << /PageSize 2 >> /PageSize [595 842] /ImagingBBox null >> setpagedevice"
+*End
+*de.PageSize A4/A4: ""
+*es.PageSize A4/A4: ""
+*fr.PageSize A4/A4: ""
+*it.PageSize A4/A4: ""
+*ja.PageSize A4/A4: ""
+*pt.PageSize A4/A4: ""
+*zh_CN.PageSize A4/A4: ""
+*zh_TW.PageSize A4/A4: ""
+*ko.PageSize A4/A4: ""
+*PageSize A5/A5: 					"
+	<< /Policies << /PageSize 2 >> /PageSize [420 595] /ImagingBBox null >> setpagedevice"
+*End
+*de.PageSize A5/A5: ""
+*es.PageSize A5/A5: ""
+*fr.PageSize A5/A5: ""
+*it.PageSize A5/A5: ""
+*ja.PageSize A5/A5: ""
+*pt.PageSize A5/A5: ""
+*zh_CN.PageSize A5/A5: ""
+*zh_TW.PageSize A5/A5: ""
+*ko.PageSize A5/A5: ""
+*PageSize B5/JIS B5:					"
+	1 dict dup /Policies 1 dict dup /PageSize 2 put put setpagedevice
+	2 dict dup /PageSize [516 729]  put dup /ImagingBBox null put setpagedevice"
+*End
+*de.PageSize B5/JIS B5: ""
+*es.PageSize B5/JIS B5: ""
+*fr.PageSize B5/JIS B5: ""
+*it.PageSize B5/JIS B5: ""
+*ja.PageSize B5/JIS B5: ""
+*pt.PageSize B5/JIS B5: ""
+*zh_CN.PageSize B5/JIS B5: ""
+*zh_TW.PageSize B5/JIS B5: ""
+*ko.PageSize B5/JIS B5: ""
+*PageSize Executive/Executive: 		"
+	<< /Policies << /PageSize 2 >> /PageSize [522 756] /ImagingBBox null >> setpagedevice"
+*End
+*de.PageSize Executive/Executive: ""
+*es.PageSize Executive/Ejecutivo: ""
+*fr.PageSize Executive/Exécutive US: ""
+*it.PageSize Executive/Executive: ""
+*ja.PageSize Executive/Executive: ""
+*pt.PageSize Executive/Executivo: ""
+*zh_CN.PageSize Executive/实用纸张: ""
+*zh_TW.PageSize Executive/Executive: ""
+*ko.PageSize Executive/Executive: ""
+*PageSize Letter/Letter: 			"
+	<< /Policies << /PageSize 2 >> /PageSize [612 792] /ImagingBBox null >> setpagedevice"
+*End
+*de.PageSize Letter/Letter: ""
+*es.PageSize Letter/Carta: ""
+*fr.PageSize Letter/Lettre US: ""
+*it.PageSize Letter/Letter: ""
+*ja.PageSize Letter/レター: ""
+*pt.PageSize Letter/Carta: ""
+*zh_CN.PageSize Letter/信纸: ""
+*zh_TW.PageSize Letter/Letter: ""
+*ko.PageSize Letter/레터: ""
+*PageSize Legal/Legal: 				"
+	<< /Policies << /PageSize 2 >> /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
+*End
+*de.PageSize Legal/Legal: ""
+*es.PageSize Legal/Oficio: ""
+*fr.PageSize Legal/Légal US: ""
+*it.PageSize Legal/Legal: ""
+*ja.PageSize Legal/リーガル: ""
+*pt.PageSize Legal/Oficio: ""
+*zh_CN.PageSize Legal/标准法律用纸: ""
+*zh_TW.PageSize Legal/Legal: ""
+*ko.PageSize Legal/리갈: ""
+*PageSize Folio/Folio:		   "
+	<< /Policies << /PageSize 2 >> /PageSize [612 936] /ImagingBBox null >> setpagedevice"
+*End
+*de.PageSize Folio/Folio: ""
+*es.PageSize Folio/Folio: ""
+*fr.PageSize Folio/Folio: ""
+*it.PageSize Folio/Folio: ""
+*ja.PageSize Folio/フォリオ: ""
+*pt.PageSize Folio/Oficio 2: ""
+*zh_CN.PageSize Folio/对开纸: ""
+*zh_TW.PageSize Folio/Folio 紙張: ""
+*ko.PageSize Folio/폴리오: ""
+*PageSize Statement/Statement:  "
+	<< /Policies << /PageSize 2 >> /PageSize [396 612] /ImagingBBox null >> setpagedevice"
+*End
+*de.PageSize Statement/Statement: ""
+*es.PageSize Statement/Media carta: ""
+*fr.PageSize Statement/Statement US: ""
+*it.PageSize Statement/Statement: ""
+*ja.PageSize Statement/ステートメント: ""
+*pt.PageSize Statement/Declaração: ""
+*zh_CN.PageSize Statement/报表: ""
+*zh_TW.PageSize Statement/Statement 紙張: ""
+*ko.PageSize Statement/Statement: ""
+*PageSize C4/9 Envelope:            "
+	<< /Policies << /PageSize 2 >> /PageSize [279 639] /ImagingBBox null >> setpagedevice"
+*End
+*de.PageSize C4/C9 Briefumschlag: ""
+*es.PageSize C4/Sobres 9: ""
+*fr.PageSize C4/Enveloppe C9: ""
+*it.PageSize C4/Busta 9: ""
+*ja.PageSize C4/封筒（C9号）: ""
+*pt.PageSize C4/Envelope C9: ""
+*zh_CN.PageSize C4/C9 信封: ""
+*zh_TW.PageSize C4/C9 號信封: ""
+*ko.PageSize C4/C9 봉투: ""
+*PageSize Comm10/10 Envelope:       "
+	<< /Policies << /PageSize 2 >> /PageSize [297 684] /ImagingBBox null >> setpagedevice
+	<< /MediaType (Envelope) /Policies << /MediaType 2 >> >> setpagedevice"
+*End
+*de.PageSize Comm10/C10 Briefumschlag: ""
+*es.PageSize Comm10/Sobres 10: ""
+*fr.PageSize Comm10/Enveloppe C10: ""
+*it.PageSize Comm10/Busta 10: ""
+*ja.PageSize Comm10/封筒（C10号）: ""
+*pt.PageSize Comm10/Envelope C10: ""
+*zh_CN.PageSize Comm10/C10 信封: ""
+*zh_TW.PageSize Comm10/C10 號信封: ""
+*ko.PageSize Comm10/C10 봉투: ""
+*PageSize DL/DL Envelope:           "
+	<< /Policies << /PageSize 2 >> /PageSize [312 624] /ImagingBBox null >> setpagedevice
+   	<< /MediaType (Envelope) /Policies << /MediaType 2 >> >> setpagedevice"
+
+*End
+*de.PageSize DL/DL Briefumschlag: ""
+*es.PageSize DL/Sobres DL: ""
+*fr.PageSize DL/Enveloppe DL: ""
+*it.PageSize DL/Busta DL: ""
+*ja.PageSize DL/封筒（DL）: ""
+*pt.PageSize DL/Envelope DL: ""
+*zh_CN.PageSize DL/DL 信封: ""
+*zh_TW.PageSize DL/DL 信封: ""
+*ko.PageSize DL/DL 봉투: ""
+*PageSize C5/C5 Envelope:           "
+	<< /Policies << /PageSize 2 >> /PageSize [459 649] /ImagingBBox null >> setpagedevice
+   	<< /MediaType (Envelope) /Policies << /MediaType 2 >> >> setpagedevice"
+
+*End 
+*de.PageSize C5/C5 Briefumschlag: ""
+*es.PageSize C5/Sobres C5: ""
+*fr.PageSize C5/Enveloppe C5: ""
+*it.PageSize C5/Busta C5: ""
+*ja.PageSize C5/封筒（C5号）: ""
+*pt.PageSize C5/Envelope C5: ""
+*zh_CN.PageSize C5/C5 信封: ""
+*zh_TW.PageSize C5/C5 信封: ""
+*ko.PageSize C5/C5 봉투: ""
+*PageSize ISOB5/B5 Envelope:        "
+	<< /Policies << /PageSize 2 >> /PageSize [499 708] /ImagingBBox null >> setpagedevice
+   	<< /MediaType (Envelope) /Policies << /MediaType 2 >> >> setpagedevice"
+
+*End
+*de.PageSize ISOB5/B5 Briefumschlag: ""
+*es.PageSize ISOB5/Sobres B5: ""
+*fr.PageSize ISOB5/Enveloppe B5: ""
+*it.PageSize ISOB5/Busta B5: ""
+*ja.PageSize ISOB5/封筒（B5号）: ""
+*pt.PageSize ISOB5/Envelope B5: ""
+*zh_CN.PageSize ISOB5/B5 信封: ""
+*zh_TW.PageSize ISOB5/B5 信封: ""
+*ko.PageSize ISOB5/B5 봉투: ""
+*PageSize OthEnv/Other Envelope:    "
+	<< /Policies << /PageSize 2 >> /PageSize [612 996] /ImagingBBox null >> setpagedevice
+	<< /MediaType (Envelope) /Policies << /MediaType 2 >> >> setpagedevice"
+*End
+*de.PageSize OthEnv/Anderer Briefumschlag: ""
+*es.PageSize OthEnv/Otro Sobre: ""
+*fr.PageSize OthEnv/Autre Enveloppe: ""
+*it.PageSize OthEnv/Altre buste: ""
+*ja.PageSize OthEnv/その他: ""
+*pt.PageSize OthEnv/Outros Envelopes: ""
+*zh_CN.PageSize OthEnv/其他信封: ""
+*zh_TW.PageSize OthEnv/其它信封: ""
+*ko.PageSize OthEnv/기타 봉투: ""
+*?PageSize: 						"
+	gsave
+	15 dict
+		dup /595 (A5) put
+		dup /612 (Statement) put
+		dup /624 (DL) put
+		dup /639 (C4) put
+		dup /649 (C5) put
+		dup /684 (Comm10) put
+		dup /708 (ISOB5) put
+		dup /729 (B5) put
+		dup /756 (Executive) put
+		dup /792 (Letter) put
+		dup /842 (A4) put
+		dup /936 (Folio) put
+		dup /996 (OthEnv) put
+		dup /1008 (Legal) put
+	currentpagedevice /PageSize get 1 get
+	5 string cvs cvn get
+	= flush
+	grestore"
+*End 
+*CloseUI: *PageSize
+
+*%*****************************************************************************
+*%	Page Region
+*%*****************************************************************************
+
+*OpenUI *PageRegion/Page Region:  PickOne
+*de.Translation PageRegion/Page Region: ""
+*es.Translation PageRegion/Page Region: ""
+*fr.Translation PageRegion/Page Region: ""
+*it.Translation PageRegion/Page Region: ""
+*ja.Translation PageRegion/Page Region: ""
+*pt.Translation PageRegion/Page Region: ""
+*zh_CN.Translation PageRegion/Page Region: ""
+*zh_TW.Translation PageRegion/Page Region: ""
+*ko.Translation PageRegion/Page Region: ""
+*OrderDependency: 35 AnySetup *PageRegion
+*DefaultPageRegion:	Letter
+*PageRegion A4/A4:					"
+	<</Policies <</PageSize 2>> /PageSize [595 842]  /ImagingBBox null >> setpagedevice"
+*End
+*de.PageRegion A4/A4: ""
+*es.PageRegion A4/A4: ""
+*fr.PageRegion A4/A4: ""
+*it.PageRegion A4/A4: ""
+*ja.PageRegion A4/A4: ""
+*pt.PageRegion A4/A4: ""
+*zh_CN.PageRegion A4/A4: ""
+*zh_TW.PageRegion A4/A4: ""
+*ko.PageRegion A4/A4: ""
+*PageRegion A5/A5:					"
+	<</Policies <</PageSize 2>> /PageSize [420 595]  /ImagingBBox null >> setpagedevice"
+*End
+*de.PageRegion A5/A5: ""
+*es.PageRegion A5/A5: ""
+*fr.PageRegion A5/A5: ""
+*it.PageRegion A5/A5: ""
+*ja.PageRegion A5/A5: ""
+*pt.PageRegion A5/A5: ""
+*zh_CN.PageRegion A5/A5: ""
+*zh_TW.PageRegion A5/A5: ""
+*ko.PageRegion A5/A5: ""
+*PageRegion B5/JIS B5:				"
+	1 dict dup /Policies 1 dict dup /PageSize 2 put put setpagedevice
+	2 dict dup /PageSize [516 728]  put dup /ImagingBBox null put setpagedevice"
+*End
+*de.PageRegion B5/JIS B5: ""
+*es.PageRegion B5/JIS B5: ""
+*fr.PageRegion B5/JIS B5: ""
+*it.PageRegion B5/JIS B5: ""
+*ja.PageRegion B5/JIS B5: ""
+*pt.PageRegion B5/JIS B5: ""
+*zh_CN.PageRegion B5/JIS B5: ""
+*zh_TW.PageRegion B5/JIS B5: ""
+*ko.PageRegion B5/JIS B5: ""
+*PageRegion Executive/Executive:	"
+	<</Policies <</PageSize 2>> /PageSize [522 756] /ImagingBBox null >> setpagedevice"
+*End
+*de.PageRegion Executive/Executive: ""
+*es.PageRegion Executive/Ejecutivo: ""
+*fr.PageRegion Executive/Exécutive US: ""
+*it.PageRegion Executive/Executive: ""
+*ja.PageRegion Executive/Executive: ""
+*pt.PageRegion Executive/Executivo: ""
+*zh_CN.PageRegion Executive/实用纸张: ""
+*zh_TW.PageRegion Executive/Executive: ""
+*ko.PageRegion Executive/Executive: ""
+*PageRegion Letter/Letter:			"
+	<</Policies << /PageSize 2 >>  /PageSize [612 792]  /ImagingBBox null >> setpagedevice"
+*End
+*de.PageRegion Letter/Letter: ""
+*es.PageRegion Letter/Carta: ""
+*fr.PageRegion Letter/Lettre US: ""
+*it.PageRegion Letter/Letter: ""
+*ja.PageRegion Letter/レター: ""
+*pt.PageRegion Letter/Carta: ""
+*zh_CN.PageRegion Letter/信纸: ""
+*zh_TW.PageRegion Letter/Letter: ""
+*ko.PageRegion Letter/레터: ""
+*PageRegion Legal/Legal:			"
+	<</Policies << /PageSize 2 >>  /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
+*End
+*de.PageRegion Legal/Legal: ""
+*es.PageRegion Legal/Oficio: ""
+*fr.PageRegion Legal/Légal US: ""
+*it.PageRegion Legal/Legal: ""
+*ja.PageRegion Legal/リーガル: ""
+*pt.PageRegion Legal/Oficio: ""
+*zh_CN.PageRegion Legal/标准法律用纸: ""
+*zh_TW.PageRegion Legal/Legal: ""
+*ko.PageRegion Legal/리갈: ""
+*PageRegion Folio/Folio:		 	"
+	<< /Policies << /PageSize 2 >> /PageSize [612 936] /ImagingBBox null >> setpagedevice"
+*End
+*de.PageRegion Folio/Folio: ""
+*es.PageRegion Folio/Folio: ""
+*fr.PageRegion Folio/Folio: ""
+*it.PageRegion Folio/Folio: ""
+*ja.PageRegion Folio/フォリオ: ""
+*pt.PageRegion Folio/Oficio 2: ""
+*zh_CN.PageRegion Folio/对开纸: ""
+*zh_TW.PageRegion Folio/Folio 紙張: ""
+*ko.PageRegion Folio/폴리오: ""
+*PageRegion Statement/Statement: 	"
+	<< /Policies << /PageSize 2 >> /PageSize [396 612] /ImagingBBox null >> setpagedevice"
+*End
+*de.PageRegion Statement/Statement: ""
+*es.PageRegion Statement/Media carta: ""
+*fr.PageRegion Statement/Statement US: ""
+*it.PageRegion Statement/Statement: ""
+*ja.PageRegion Statement/ステートメント: ""
+*pt.PageRegion Statement/Declaração: ""
+*zh_CN.PageRegion Statement/报表: ""
+*zh_TW.PageRegion Statement/Statement 紙張: ""
+*ko.PageRegion Statement/Statement: ""
+*PageRegion C4/9 Envelope:            "
+	<< /Policies << /PageSize 2 >> /PageSize [279 639] /ImagingBBox null >> setpagedevice"
+*End
+*de.PageRegion C4/C9 Briefumschlag: ""
+*es.PageRegion C4/Sobres 9: ""
+*fr.PageRegion C4/Enveloppe C9: ""
+*it.PageRegion C4/Busta 9: ""
+*ja.PageRegion C4/封筒（C9号）: ""
+*pt.PageRegion C4/Envelope C9: ""
+*zh_CN.PageRegion C4/C9 信封: ""
+*zh_TW.PageRegion C4/C9 號信封: ""
+*ko.PageRegion C4/C9 봉투: ""
+*PageRegion Comm10/10 Envelope:     "
+	<< /Policies << /PageSize 2 >> /PageSize [297 684] /ImagingBBox null >> setpagedevice
+   	<< /MediaType (Envelope) /Policies << /MediaType 2 >> >> setpagedevice"
+*End
+*de.PageRegion Comm10/C10 Briefumschlag: ""
+*es.PageRegion Comm10/Sobres 10: ""
+*fr.PageRegion Comm10/Enveloppe C10: ""
+*it.PageRegion Comm10/Busta 10: ""
+*ja.PageRegion Comm10/封筒（C10号）: ""
+*pt.PageRegion Comm10/Envelope C10: ""
+*zh_CN.PageRegion Comm10/C10 信封: ""
+*zh_TW.PageRegion Comm10/C10 號信封: ""
+*ko.PageRegion Comm10/C10 봉투: ""
+*PageRegion DL/DL Envelope:         "
+	<< /Policies << /PageSize 2 >> /PageSize [312 624] /ImagingBBox null >> setpagedevice
+   	<< /MediaType (Envelope) /Policies << /MediaType 2 >> >> setpagedevice"
+*End
+*de.PageRegion DL/DL Briefumschlag: ""
+*es.PageRegion DL/Sobres DL: ""
+*fr.PageRegion DL/Enveloppe DL: ""
+*it.PageRegion DL/Busta DL: ""
+*ja.PageRegion DL/封筒（DL）: ""
+*pt.PageRegion DL/Envelope DL: ""
+*zh_CN.PageRegion DL/DL 信封: ""
+*zh_TW.PageRegion DL/DL 信封: ""
+*ko.PageRegion DL/DL 봉투: ""
+*PageRegion C5/C5 Envelope:         "
+	<< /Policies << /PageSize 2 >> /PageSize [459 649] /ImagingBBox null >> setpagedevice
+   	<< /MediaType (Envelope) /Policies << /MediaType 2 >> >> setpagedevice"
+*End 
+*de.PageRegion C5/C5 Briefumschlag: ""
+*es.PageRegion C5/Sobres C5: ""
+*fr.PageRegion C5/Enveloppe C5: ""
+*it.PageRegion C5/Busta C5: ""
+*ja.PageRegion C5/封筒（C5号）: ""
+*pt.PageRegion C5/Envelope C5: ""
+*zh_CN.PageRegion C5/C5 信封: ""
+*zh_TW.PageRegion C5/C5 信封: ""
+*ko.PageRegion C5/C5 봉투: ""
+*PageRegion ISOB5/B5 Envelope:      "
+	<< /Policies << /PageSize 2 >> /PageSize [499 708] /ImagingBBox null >> setpagedevice
+   	<< /MediaType (Envelope) /Policies << /MediaType 2 >> >> setpagedevice"
+*End 
+*de.PageRegion ISOB5/B5 Briefumschlag: ""
+*es.PageRegion ISOB5/Sobres B5: ""
+*fr.PageRegion ISOB5/Enveloppe B5: ""
+*it.PageRegion ISOB5/Busta B5: ""
+*ja.PageRegion ISOB5/封筒（B5号）: ""
+*pt.PageRegion ISOB5/Envelope B5: ""
+*zh_CN.PageRegion ISOB5/B5 信封: ""
+*zh_TW.PageRegion ISOB5/B5 信封: ""
+*ko.PageRegion ISOB5/B5 봉투: ""
+*PageRegion OthEnv/Other Envelope:        "
+	<< /Policies << /PageSize 2 >> /PageSize [612 996] /ImagingBBox null >> setpagedevice
+	<< /MediaType (Envelope) /Policies << /MediaType 2 >> >> setpagedevice"
+*End
+*de.PageRegion OthEnv/Anderer Briefumschlag: ""
+*es.PageRegion OthEnv/Otro Sobre: ""
+*fr.PageRegion OthEnv/Autre Enveloppe: ""
+*it.PageRegion OthEnv/Altre buste: ""
+*ja.PageRegion OthEnv/その他: ""
+*pt.PageRegion OthEnv/Outros Envelopes: ""
+*zh_CN.PageRegion OthEnv/其他信封: ""
+*zh_TW.PageRegion OthEnv/其它信封: ""
+*ko.PageRegion OthEnv/기타 봉투: ""
+*?PageRegion: 						"
+	gsave
+	15 dict
+		dup /595 (A5) put
+		dup /612 (Statement) put
+		dup /624 (DL) put
+		dup /639 (C4) put
+		dup /649 (C5) put
+		dup /684 (Comm10) put
+		dup /708 (ISOB5) put
+		dup /729 (B5) put
+		dup /756 (Executive) put
+		dup /792 (Letter) put
+		dup /842 (A4) put
+		dup /936 (Folio) put
+		dup /996 (OthEnv) put
+		dup /1008 (Legal) put
+	currentpagedevice /PageSize get 1 get
+	5 string cvs cvn get
+	= flush
+	grestore"
+*End 
+*CloseUI: *PageRegion
+
+*%*****************************************************************************
+*%	ImageableArea
+*%*****************************************************************************
+
+*DefaultImageableArea:	Letter
+*ImageableArea A4/A4:        				"10 12 589 830"
+*de.ImageableArea A4/A4: ""
+*es.ImageableArea A4/A4: ""
+*fr.ImageableArea A4/A4: ""
+*it.ImageableArea A4/A4: ""
+*ja.ImageableArea A4/A4: ""
+*pt.ImageableArea A4/A4: ""
+*zh_CN.ImageableArea A4/A4: ""
+*zh_TW.ImageableArea A4/A4: ""
+*ko.ImageableArea A4/A4: ""
+*ImageableArea A5/A5:          				"12 12 408 583"
+*de.ImageableArea A5/A5: ""
+*es.ImageableArea A5/A5: ""
+*fr.ImageableArea A5/A5: ""
+*it.ImageableArea A5/A5: ""
+*ja.ImageableArea A5/A5: ""
+*pt.ImageableArea A5/A5: ""
+*zh_CN.ImageableArea A5/A5: ""
+*zh_TW.ImageableArea A5/A5: ""
+*ko.ImageableArea A5/A5: ""
+*ImageableArea B5/JIS B5:      				"12 12 506 716"
+*de.ImageableArea B5/JIS B5: ""
+*es.ImageableArea B5/JIS B5: ""
+*fr.ImageableArea B5/JIS B5: ""
+*it.ImageableArea B5/JIS B5: ""
+*ja.ImageableArea B5/JIS B5: ""
+*pt.ImageableArea B5/JIS B5: ""
+*zh_CN.ImageableArea B5/JIS B5: ""
+*zh_TW.ImageableArea B5/JIS B5: ""
+*ko.ImageableArea B5/JIS B5: ""
+*ImageableArea Executive/Executive:   		"12 12 510 744"
+*de.ImageableArea Executive/Executive: ""
+*es.ImageableArea Executive/Ejecutivo: ""
+*fr.ImageableArea Executive/Exécutive US: ""
+*it.ImageableArea Executive/Executive: ""
+*ja.ImageableArea Executive/Executive: ""
+*pt.ImageableArea Executive/Executivo: ""
+*zh_CN.ImageableArea Executive/实用纸张: ""
+*zh_TW.ImageableArea Executive/Executive: ""
+*ko.ImageableArea Executive/Executive: ""
+*ImageableArea Letter/Letter:    			"12 12 600 780"
+*de.ImageableArea Letter/Letter: ""
+*es.ImageableArea Letter/Carta: ""
+*fr.ImageableArea Letter/Lettre US: ""
+*it.ImageableArea Letter/Letter: ""
+*ja.ImageableArea Letter/レター: ""
+*pt.ImageableArea Letter/Carta: ""
+*zh_CN.ImageableArea Letter/信纸: ""
+*zh_TW.ImageableArea Letter/Letter: ""
+*ko.ImageableArea Letter/레터: ""
+*ImageableArea Legal/Legal:     			"12 12 600 996"
+*de.ImageableArea Legal/Legal: ""
+*es.ImageableArea Legal/Oficio: ""
+*fr.ImageableArea Legal/Légal US: ""
+*it.ImageableArea Legal/Legal: ""
+*ja.ImageableArea Legal/リーガル: ""
+*pt.ImageableArea Legal/Oficio: ""
+*zh_CN.ImageableArea Legal/标准法律用纸: ""
+*zh_TW.ImageableArea Legal/Legal: ""
+*ko.ImageableArea Legal/리갈: ""
+*ImageableArea Folio/Folio:       			"12 12 600 924"
+*de.ImageableArea Folio/Folio: ""
+*es.ImageableArea Folio/Folio: ""
+*fr.ImageableArea Folio/Folio: ""
+*it.ImageableArea Folio/Folio: ""
+*ja.ImageableArea Folio/フォリオ: ""
+*pt.ImageableArea Folio/Oficio 2: ""
+*zh_CN.ImageableArea Folio/对开纸: ""
+*zh_TW.ImageableArea Folio/Folio 紙張: ""
+*ko.ImageableArea Folio/폴리오: ""
+*ImageableArea Statement/Statement:   		"12 12 384 600"
+*de.ImageableArea Statement/Statement: ""
+*es.ImageableArea Statement/Media carta: ""
+*fr.ImageableArea Statement/Statement US: ""
+*it.ImageableArea Statement/Statement: ""
+*ja.ImageableArea Statement/ステートメント: ""
+*pt.ImageableArea Statement/Declaração: ""
+*zh_CN.ImageableArea Statement/报表: ""
+*zh_TW.ImageableArea Statement/Statement 紙張: ""
+*ko.ImageableArea Statement/Statement: ""
+*ImageableArea C4/9 Envelope:        	    "12 12 279 627"
+*de.ImageableArea C4/C9 Briefumschlag: ""
+*es.ImageableArea C4/Sobres 9: ""
+*fr.ImageableArea C4/Enveloppe C9: ""
+*it.ImageableArea C4/Busta 9: ""
+*ja.ImageableArea C4/封筒（C9号）: ""
+*pt.ImageableArea C4/Envelope C9: ""
+*zh_CN.ImageableArea C4/C9 信封: ""
+*zh_TW.ImageableArea C4/C9 號信封: ""
+*ko.ImageableArea C4/C9 봉투: ""
+*ImageableArea Comm10/10 Envelope:      	"12 12 295 672"
+*de.ImageableArea Comm10/C10 Briefumschlag: ""
+*es.ImageableArea Comm10/Sobres 10: ""
+*fr.ImageableArea Comm10/Enveloppe C10: ""
+*it.ImageableArea Comm10/Busta 10: ""
+*ja.ImageableArea Comm10/封筒（C10号）: ""
+*pt.ImageableArea Comm10/Envelope C10: ""
+*zh_CN.ImageableArea Comm10/C10 信封: ""
+*zh_TW.ImageableArea Comm10/C10 號信封: ""
+*ko.ImageableArea Comm10/C10 봉투: ""
+*ImageableArea DL/DL Envelope:          	"12 12 310 612"
+*de.ImageableArea DL/DL Briefumschlag: ""
+*es.ImageableArea DL/Sobres DL: ""
+*fr.ImageableArea DL/Enveloppe DL: ""
+*it.ImageableArea DL/Busta DL: ""
+*ja.ImageableArea DL/封筒（DL）: ""
+*pt.ImageableArea DL/Envelope DL: ""
+*zh_CN.ImageableArea DL/DL 信封: ""
+*zh_TW.ImageableArea DL/DL 信封: ""
+*ko.ImageableArea DL/DL 봉투: ""
+*ImageableArea C5/C5 Envelope:          	"12 12 455 637"
+*de.ImageableArea C5/C5 Briefumschlag: ""
+*es.ImageableArea C5/Sobres C5: ""
+*fr.ImageableArea C5/Enveloppe C5: ""
+*it.ImageableArea C5/Busta C5: ""
+*ja.ImageableArea C5/封筒（C5号）: ""
+*pt.ImageableArea C5/Envelope C5: ""
+*zh_CN.ImageableArea C5/C5 信封: ""
+*zh_TW.ImageableArea C5/C5 信封: ""
+*ko.ImageableArea C5/C5 봉투: ""
+*ImageableArea ISOB5/B5 Envelope:       	"12 12 498 696"
+*de.ImageableArea ISOB5/B5 Briefumschlag: ""
+*es.ImageableArea ISOB5/Sobres B5: ""
+*fr.ImageableArea ISOB5/Enveloppe B5: ""
+*it.ImageableArea ISOB5/Busta B5: ""
+*ja.ImageableArea ISOB5/封筒（B5号）: ""
+*pt.ImageableArea ISOB5/Envelope B5: ""
+*zh_CN.ImageableArea ISOB5/B5 信封: ""
+*zh_TW.ImageableArea ISOB5/B5 信封: ""
+*ko.ImageableArea ISOB5/B5 봉투: ""
+*ImageableArea OthEnv/Other Envelope:       "12 12 600 996"
+*de.ImageableArea OthEnv/Anderer Briefumschlag: ""
+*es.ImageableArea OthEnv/Otro Sobre: ""
+*fr.ImageableArea OthEnv/Autre Enveloppe: ""
+*it.ImageableArea OthEnv/Altre buste: ""
+*ja.ImageableArea OthEnv/その他: ""
+*pt.ImageableArea OthEnv/Outros Envelopes: ""
+*zh_CN.ImageableArea OthEnv/其他信封: ""
+*zh_TW.ImageableArea OthEnv/其它信封: ""
+*ko.ImageableArea OthEnv/기타 봉투: ""
+
+*%*****************************************************************************
+*%	Paper Dimensions
+*%*****************************************************************************
+
+*DefaultPaperDimension:	Letter
+*PaperDimension Letter:			"612 792"
+*PaperDimension A4:				"595 842"
+*PaperDimension A5:				"420 595"
+*PaperDimension B5:				"516 728"
+*PaperDimension Executive:		"522 756"
+*PaperDimension Legal:			"612 1008"
+*PaperDimension Folio:			"612 936"
+*PaperDimension Statement:		"396 612"
+*PaperDimension C4:				"279 639"
+*PaperDimension Comm10:			"297 684"
+*PaperDimension DL:				"312 624"
+*PaperDimension C5:				"459 649"
+*PaperDimension ISOB5:			"499 708"
+*PaperDimension OthEnv:			"612 996"
+*End
+
+*%******************************************************************************
+*%	CustomPageSize
+*%******************************************************************************
+
+*CustomPageSize True:				"
+	pop pop pop
+	statusdict begin
+        2 copy
+        0 () setuniversalsize
+    end
+	<< /PageSize [5 -2 roll]
+   		/ImagingBBox null
+   		/Policies <</PageSize 2>>
+	>> setpagedevice"
+*End
+*de.CustomPageSize True: ""
+*es.CustomPageSize True: ""
+*fr.CustomPageSize True: ""
+*it.CustomPageSize True: ""
+*ja.CustomPageSize True: ""
+*pt.CustomPageSize True: ""
+*zh_CN.CustomPageSize True: ""
+*zh_TW.CustomPageSize True: ""
+*ko.CustomPageSize True: ""
+
+*MaxMediaWidth:						"612"
+*MaxMediaHeight:					"1020"
+*HWMargins:							12 12 12 12
+*ParamCustomPageSize Width:			1 points 216 612
+*ParamCustomPageSize Height:		2 points 216 1020
+*ParamCustomPageSize WidthOffset:	3 points 0 0
+*ParamCustomPageSize HeightOffset:	4 points 0 0
+*ParamCustomPageSize Orientation:	5 int 0 1
+
+*%******************************************************************************
+*%	Input/Paper Sources
+*%******************************************************************************
+
+*RequiresPageRegion All: True
+*OpenUI *InputSlot/Feeder:  PickOne
+*de.Translation InputSlot/Autom. Briefumschlag: ""
+*es.Translation InputSlot/Alimentador de Sobres: ""
+*fr.Translation InputSlot/Alimentation Enveloppe: ""
+*it.Translation InputSlot/Busta automatico: ""
+*ja.Translation InputSlot/フィーダ: ""
+*pt.Translation InputSlot/Alimentador de Envelopes: ""
+*zh_CN.Translation InputSlot/进纸器: ""
+*zh_TW.Translation InputSlot/送紙器: ""
+*ko.Translation InputSlot/급지장치: ""
+*OrderDependency: 20 AnySetup *InputSlot
+*DefaultInputSlot: Tray1
+*InputSlot Tray1/Tray 1:	"
+	1 dict dup /MediaPosition null put setpagedevice 
+	currentpagedevice /InputAttributes get 0 get setpagedevice
+	1 dict dup /InputAttributes 1 dict dup /Priority [0] put put setpagedevice
+	1 dict dup /Policies 1 dict dup /PageSize 2 put put setpagedevice
+	<< /ManualFeed false >> setpagedevice"
+*End
+*de.InputSlot Tray1/Fach 1: ""
+*es.InputSlot Tray1/Bandeja 1: ""
+*fr.InputSlot Tray1/Tiroir 1: ""
+*it.InputSlot Tray1/Vassoio 1: ""
+*ja.InputSlot Tray1/カセット 1: ""
+*pt.InputSlot Tray1/Bandeja 1: ""
+*zh_CN.InputSlot Tray1/进纸匣 1: ""
+*zh_TW.InputSlot Tray1/裝紙匣 1: ""
+*ko.InputSlot Tray1/트레이 1: ""
+*InputSlot Tray2/Tray 2:	"
+	1 dict dup /MediaPosition null put setpagedevice 
+	userdict /lms  
+	currentpagedevice /InputAttributes get 1 known { 1 }{ 0 }ifelse put
+	currentpagedevice /InputAttributes get lms get setpagedevice
+	1 dict dup /InputAttributes 1 dict dup /Priority [lms] put put setpagedevice
+	1 dict dup /Policies 1 dict dup /PageSize 2 put put setpagedevice
+	<< /ManualFeed false >> setpagedevice"
+*End
+*de.InputSlot Tray2/Fach 2: ""
+*es.InputSlot Tray2/Bandeja 2: ""
+*fr.InputSlot Tray2/Tiroir 2: ""
+*it.InputSlot Tray2/Vassoio 2: ""
+*ja.InputSlot Tray2/カセット 2: ""
+*pt.InputSlot Tray2/Bandeja 2: ""
+*zh_CN.InputSlot Tray2/进纸匣 2: ""
+*zh_TW.InputSlot Tray2/裝紙匣 2: ""
+*ko.InputSlot Tray2/트레이 2: ""
+*?InputSlot: "
+	gsave
+	[(Tray1) (Tray2)] 
+	statusdict /papertray get exec {get exec} stopped {pop pop (Unknown)}
+	if
+	= flush
+	grestore"
+*End
+*CloseUI: *InputSlot
+
+*%******************************************************************************
+*%	Duplex
+*%******************************************************************************
+
+*OpenUI *Duplex/Duplex: PickOne
+*de.Translation Duplex/Beidseitig Binderand: ""
+*es.Translation Duplex/Encuadernado Doble: ""
+*fr.Translation Duplex/Reliure Recto Verso: ""
+*it.Translation Duplex/Fronte/Retro: ""
+*ja.Translation Duplex/両面印刷: ""
+*pt.Translation Duplex/Modo Duplex: ""
+*zh_CN.Translation Duplex/双面打印: ""
+*zh_TW.Translation Duplex/雙面列印: ""
+*ko.Translation Duplex/양면: ""
+*DefaultDuplex: None
+*Duplex None/None:		"1 dict dup /Duplex false put setpagedevice"
+*de.Duplex None/Aus: ""
+*es.Duplex None/Desactivado: ""
+*fr.Duplex None/Hors Fonction: ""
+*it.Duplex None/Disabilitato: ""
+*ja.Duplex None/なし: ""
+*pt.Duplex None/Nenhum: ""
+*zh_CN.Duplex None/无: ""
+*zh_TW.Duplex None/無: ""
+*ko.Duplex None/없음: ""
+*Duplex DuplexNoTumble/Duplex - Long Edge:	"
+	statusdict /duplexer get exec
+	{ 2 dict dup /Duplex true put dup /Tumble false put setpagedevice}
+	{ 1 dict dup /Duplex false put setpagedevice}
+	ifelse"
+*End
+*de.Duplex DuplexNoTumble/Lange Kante Binden: ""
+*es.Duplex DuplexNoTumble/Borde Largo: ""
+*fr.Duplex DuplexNoTumble/Reliure Bords Longs: ""
+*it.Duplex DuplexNoTumble/Lato lungo: ""
+*ja.Duplex DuplexNoTumble/両面印刷 - 長辺: ""
+*pt.Duplex DuplexNoTumble/Margem Longa: ""
+*zh_CN.Duplex DuplexNoTumble/双面打印 - 长边: ""
+*zh_TW.Duplex DuplexNoTumble/雙面列印 - 長邊: ""
+*ko.Duplex DuplexNoTumble/양면-긴 가장자리: ""
+*Duplex DuplexTumble/Duplex - Short Edge:	"
+	statusdict /duplexer get exec
+	{ 2 dict dup /Duplex true put dup /Tumble true put setpagedevice}
+	{ 1 dict dup /Duplex false put setpagedevice}
+	ifelse"
+*End
+*de.Duplex DuplexTumble/Kurze Kante Binden: ""
+*es.Duplex DuplexTumble/Borde Corto: ""
+*fr.Duplex DuplexTumble/Reliure Bords Courts: ""
+*it.Duplex DuplexTumble/Lato corto: ""
+*ja.Duplex DuplexTumble/両面印刷 - 短辺: ""
+*pt.Duplex DuplexTumble/Duplex - Borda Curta: ""
+*zh_CN.Duplex DuplexTumble/双面打印 - 短边: ""
+*zh_TW.Duplex DuplexTumble/雙面列印 - 短邊: ""
+*ko.Duplex DuplexTumble/양면-짧은 가장자리: ""
+*?Duplex: "
+	gsave
+	currentpagedevice /Duplex get
+	{
+		currentpagedevice /Tumble get
+		{(DuplexTumble)}{(DuplexNoTumble)} ifelse
+	}{(None)} ifelse
+	= flush
+	grestore"
+*End
+*CloseUI: *Duplex
+
+*%******************************************************************************
+*%	Collation
+*%******************************************************************************
+
+*OpenUI *Collate/Collation: Boolean
+*de.Translation Collate/Sortieren: ""
+*es.Translation Collate/Clasificación: ""
+*fr.Translation Collate/Assemblage: ""
+*it.Translation Collate/Fascicolazione: ""
+*ja.Translation Collate/ソーターで印刷: ""
+*pt.Translation Collate/Agrupar: ""
+*zh_CN.Translation Collate/逐份打印: ""
+*zh_TW.Translation Collate/逐份列印: ""
+*ko.Translation Collate/콜레이트: ""
+*OrderDependency: 50 AnySetup *Collate
+*DefaultCollate: True
+*Collate False/Off: "<< /Collate false >> setpagedevice"
+*de.Collate False/Aus: ""
+*es.Collate False/Desactivado: ""
+*fr.Collate False/Hors Fonction: ""
+*it.Collate False/Disabilitato: ""
+*ja.Collate False/オフ: ""
+*pt.Collate False/Desligado: ""
+*zh_CN.Collate False/关: ""
+*zh_TW.Collate False/關: ""
+*ko.Collate False/꺼짐: ""
+*Collate True/On:   "<< /Collate true >> setpagedevice"
+*de.Collate True/Ein: ""
+*es.Collate True/Activado: ""
+*fr.Collate True/En Fonction: ""
+*it.Collate True/Abilitato: ""
+*ja.Collate True/オン: ""
+*pt.Collate True/Ativar: ""
+*zh_CN.Collate True/开: ""
+*zh_TW.Collate True/開: ""
+*ko.Collate True/켜짐: ""
+*?Collate:			"
+	gsave
+	currentpagedevice /Collate get
+	{(True)}{(False)} ifelse
+	= flush
+	grestore"
+*End
+*CloseUI: *Collate
+
+*%******************************************************************************
+*%	Fonts
+*%******************************************************************************
+
+
+*%*****************************************************************************
+*%	Printer Messages (verbatim from printer)
+*%*****************************************************************************
+
+*Message: "%%  exitserver: permanent state may be changed  %%"
+*Message: "%%  Flushing: rest of job (to end-of-file) will be ignored  %%"
+*Message: "\FontName\ not found, using Courier"
+
+*% Status (format: %%  status: <one of these> %% )
+*Status: "Printer Busy"
+*Status: "Warming Up"
+*Status: "idle"
+*Status: "busy"
+*Status: "waiting"
+*Status: "initializing"
+*Status: "not ready"
+
+*% Input Sources (format: %%  status: <stat>; source: <one of these>  %% )
+*Source: "Serial"
+*Source: "Parallel"
+*Source: "Network"
+
+*% Printer Error (format: %%  PrinterError: <one of these>  %%)
+*PrinterError: "Paper Jam"
+*PrinterError: "Wrong Paper Length"
+*PrinterError: "Invalid Manual Insertion"
+*PrinterError: "Change Size in Feeder"
+*PrinterError: "Change Size in Tray 1"
+*PrinterError: "Change Size in Tray 2"
+*PrinterError: "Paper Out or Feed Failure - Feeder"
+*PrinterError: "Paper Out or Feed Failure - Tray 1"
+*PrinterError: "Paper Out or Feed Failure - Tray 2"
+*PrinterError: "Cover Open/Cartridge Not Installed"
+*PrinterError: "Complex Page"
+*PrinterError: "Default Storage Error"
+*PrinterError: "Defective Font Card Installed"
+*PrinterError: "Flash Full"
+*PrinterError: "ioerror"
+*PrinterError: "Flash Error"
+*PrinterError: "Scheduled Maintenance"
+*PrinterError: "Toner Low"
+*PrinterError: "Service Error"
+*PrinterError: "Not Ready"
+
+*%DeviceAdjustMatrix: " 1 0 0 1 0 0 "
+
+*%*****************************************************************************
+*%	End of PPD
+*%*****************************************************************************
