@@ -681,7 +681,7 @@ things, but the two biggies are the prototype and the printers list
 # RPMs and a "_" for Debian packages.
 
 #   <packages>
-#    <package scope="general">*splix*1.[0-9].[0-9]*</package>
+#    <package scope="general">*splix[_-]1.[0-9].[0-9]*</package>
 #   </packages>
 
 # It is possible to give absolute paths which can point to external
@@ -703,11 +703,20 @@ things, but the two biggies are the prototype and the printers list
 # Note that more than one mask can be supplied separating them with
 # semicolons (";").
 
+# The masks with absolute paths must match all package files, of all
+# architectures (usually i386/i486 and amd64/x86_64) and all package
+# systems (RPM and Debian). Use more than one mask if needed. On your
+# server each directory with package files inside must be browsable,
+# so that a client can expand the wildcards. In addition the packages
+# itself need to be readable for everyone so thatthey can get
+# downloaded.
+
 # Note also that the packages on the external server must be in
 # regular package repositories, so that automatic updates with the
 # package manager tools provided by the user's Linux distribution
 # (currently apt, yum, and zypper) can be performed. The configuration
-# data for the local tools is derived from the paths in the masks.
+# data for the local tools is derived from the actual file locations,
+# which get determined by the masks.
 
 # Important is also that with paths (absolute starting with "http://",
 # "https://", or "ftp://" and relative simply having at least a slash
