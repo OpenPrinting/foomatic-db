@@ -697,8 +697,23 @@ things, but the two biggies are the prototype and the printers list
 # Example for packages provided by an external site:
 
 #   <packages>
-#    <package scope="general">http://download.example.com/printerdrivers/*canon-inkjet*</package>
+#    <package scope="general">http://download.example.com/printerdrivers/rpm/RPMS/i486/;http://download.example.com/printerdrivers/rpm/RPMS/x86_64/*splix*;http://download.example.com/printerdrivers/debian/dists/*splix*;http://download.example.com/printerdrivers/debian/dists/lsb3.2/main/binary-i386/*splix*;http://download.example.com/printerdrivers/debian/dists/lsb3.2/main/binary-amd64/*splix*</package>
 #   </packages>
+
+# Note that more than one mask can be supplied separating them with
+# semicolons (";").
+
+# Note also that the packages on the external server must be in
+# regular package repositories, so that automatic updates with the
+# package manager tools provided by the user's Linux distribution
+# (currently apt, yum, and zypper) can be performed. The configuration
+# data for the local tools is derived from the paths in the masks.
+
+# Important is also that with paths (absolute starting with "http://",
+# "https://", or "ftp://" and relative simply having at least a slash
+# somewhere) wildcards can only be used after the last slash ("/"). So
+# wildcards are only allowed for the file name and not for the
+# directory names.
 
 # The <functionality> section should make it easier for a user to
 # compare different drivers by giving some technical properties and
