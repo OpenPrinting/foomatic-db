@@ -24,7 +24,7 @@
   </functionality>
   <execution>
     <ghostscript />
-    <prototype>gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -sDEVICE=ljet4%B%A%Z -sOutputFile=-%C -f - | perl -p -0033 -e &quot; s/^&amp;l\d+[aA]/$&amp;%E/; &quot; </prototype>
+    <prototype>gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -sDEVICE=ljet4%B%A%Z -sOutputFile=-%C -f -</prototype>
   </execution>
   <comments>
     <en>
@@ -58,22 +58,23 @@
     Ghostscript driver for Duplex (double-sided printing)
     support.&lt;p&gt;
 
-    The PPDs from this site use an ugly Perl workaround to patch
-    Ghostscript's output data stream in order to make paper tray
-    selection work as the driver has a bug which breaks this
-    functionality. This &lt;a
+    A Ghostscript bug in the driver breaks paper input tray
+    selection. This &lt;a
     href=&quot;http://www.openprinting.org/download/printing/ghostscript-pcl-patches/inputslot.patch&quot;&gt;patch&lt;/a&gt;
     for GPL Ghostscript 8.63 fixes the problem and allows to set the
-    input tray with the &quot;-dMediaPosition=X&quot; commmand line option for
-    Ghostscript. &quot;X&quot; is an integer number which depends on the printer
-    model and tray. For HP &quot;0&quot; is usually the printer default, &quot;7&quot;
-    automatic selection, &quot;2&quot; manual feed, &quot;1&quot; the upper, and &quot;4&quot; the
-    lower tray. Note that for PCL 6/XL these numbers are
-    different.&lt;p&gt;
+    input tray with the &quot;-dMediaPosition=X&quot; commmand line
+    option for Ghostscript. &quot;X&quot; is an integer number which
+    depends on the printer model and tray. For HP &quot;0&quot; is
+    usually the printer default, &quot;7&quot; automatic selection,
+    &quot;2&quot; manual feed, &quot;1&quot; the upper, and
+    &quot;4&quot; the lower tray. Note that for PCL 6/XL these numbers
+    are different. The patch is required for Ghostscript 8.63 and
+    older so that tray selection with the PPDs of this site works. The
+    bug is fixed in Ghostscript 8.64 or newer.&lt;p&gt;
 
     A good PCL 5e driver is &lt;a
-    href=&quot;show_driver.cgi?driver=hpijs&quot;&gt;HPIJS&lt;/a&gt; which is
-    developed by HP to support their non-PostScript laser
+    href=&quot;show_driver.cgi?driver=hpijs-pcl5e&quot;&gt;HPIJS&lt;/a&gt;
+    which is developed by HP to support their non-PostScript laser
     printers. &lt;a
     href=&quot;show_driver.cgi?driver=gutenprint&quot;&gt;Gutenprint&lt;/a&gt;
     supports even PCL 4, 5, and 5e so that it serves as an alternative
