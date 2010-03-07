@@ -1,0 +1,150 @@
+<printer id="printer/Brother-HL-2035">
+  <make>Brother</make>
+  <model>HL-2035</model>
+  <mechanism>
+    <laser />
+    <resolution>
+      <dpi>
+        <x>1200</x>
+        <y>600</y>
+      </dpi>
+    </resolution>
+  </mechanism>
+  <url>http://solutions.brother.com/linux/en_us/index.html</url>
+  <lang>
+    <proprietary />
+    <pjl />
+    <text>
+      <charset>us-ascii</charset>
+    </text>
+  </lang>
+  <autodetect>
+    <usb>
+      <ieee1284>MFG:Brother;CMD:PJL,HBP;MDL:HL-2030 series;CLS:PRINTER;</ieee1284>
+      <commandset>PJL,HBP</commandset>
+      <manufacturer>Brother</manufacturer>
+      <model>HL-2030 series</model>
+    </usb>
+  </autodetect>
+  <functionality>B</functionality>
+  <driver>hl1250</driver>
+  <drivers>
+    <driver>
+      <id>Brother's HL-2030 driver for CUPS</id>
+      <comments>
+        <en>
+
+          This gives a choice of 300dpi, 600dpi (default) or
+          HQ1200dpi. The test page under the default 600dpi is much
+          better. This test page (Ubuntu/GPL Ghostscript Version: 3010
+          Revision: 861) has six lines as border. One gets six lines
+          at top and bottom and five of each side. Thus the printing
+          zone now leaves out 4 mm at top and bottom and 6 mm on both
+          sides.
+
+	</en>
+      </comments>
+    </driver>
+    <driver>
+      <id>gimp-print</id>
+    </driver>
+    <driver>
+      <id>gutenprint</id>
+    </driver>
+    <driver>
+      <id>hl1250</id>
+      <comments>
+        <en>
+
+	  Under Ubuntu 8.04, the printer is immediately recognized as
+	  &quot;usb://Brother HL-2030 series&quot; The configuration
+	  system (system-config-printer 0.7.81 from Red Hat, Inc.
+	  &lt;a
+	  href=&quot;http://cyberelk.net/tim/software/system-config-printer/)&quot;&gt;http://cyberelk.net/tim/software/system-config-printer/)&lt;/a&gt;
+	  proposes the choice of a lot of different drivers but
+	  recommends &quot;Brother HL-2060 Foomatic/hl1250&quot; This
+	  gives a choice of 300DPI, 600DPI or 1200x600DPI (default 300
+	  dpi). The test page under the default 300DPI is reasonably
+	  good. This test page (Ubuntu/GPL Ghostscript Version: 3010
+	  Revision: 861) has six lines as border. From these I get
+	  only three lines above and five down. The six lines are
+	  visible on the sides with equal margin outside. As such, the
+	  printing zone seems to leave out 4 mm above and 8 or 9 mm at
+	  bottom and 4 mm or less on the sides.
+
+	</en>
+      </comments>
+    </driver>
+    <driver>
+      <id>hpijs-pcl5e</id>
+    </driver>
+    <driver>
+      <id>lj4dith</id>
+    </driver>
+    <driver>
+      <id>lj5mono</id>
+    </driver>
+    <driver>
+      <id>ljet4</id>
+    </driver>
+  </drivers>
+  <contrib_url>http://www.meeus-d.be/linux/brohl2035.html</contrib_url>
+  <comments>
+    <en>
+
+      &lt;p&gt;&lt;b&gt;User comment:&lt;/b&gt; I bought this printer
+      today (22-9-2008) and I am using it at home to print text. I did
+      not test all its possibilities and I am not going to. Therefore
+      I choose &quot;Mostly&quot;, but maybe it deserves more. When
+      printing photographs à HQ1200dpi you sometimes get an second
+      page stating &quot;There is not enough memory... The printer has
+      printed at a reduced resolution&quot;. This is funny because a
+      GDI printer is supposed to have a little memory because the job
+      is done by the computer. But if you really wanted to print
+      photos, you would buy a good colour printer. Let me say that it
+      is quite noisy when printing but that this is not an issue
+      because it very soon goes back to sleep and that it is a
+      noiseless sleep. I find it a real advantage that it has a true
+      closed paper tray (250 sheets). Some printers in that category
+      have a protruding paper tray (for 100 à 150 sheets) in the good
+      old deskjet style. A closed tray under the printer lets no dust
+      in and takes less valuable real estate (as they say in American
+      computer magazines) from your desk.&lt;/p&gt;
+
+      &lt;p&gt;Brother proposes its own software on the page &lt;a
+      href=&quot;http://solutions.brother.com/linux/en_us/index.html&quot;&gt;http://solutions.brother.com/linux/en_us/index.html&lt;/a&gt;.
+      Under HL-2035, it sends back to HL-2030. I downloaded
+      &lt;code&gt;brhl2030lpr-2.0.1-1.i386.deb&lt;/code&gt; and
+      installed it by simply double clicking it (not in a terminal and
+      not with the suggested &lt;code&gt;--force-all
+      --force-architecture&lt;/code&gt;).  I downloaded
+      &lt;code&gt;cupswrapperHL2030-2.0.1-2.i386.deb&lt;/code&gt; and
+      installed it by simply double clicking it, but that gave an
+      error.  I then read and applied the &quot;pre-required
+      procedures&quot; for Ubuntu 8.04 on Brother's web site,
+      installed again (again without the suggested
+      &lt;code&gt;--force-all --force-architecture&lt;/code&gt;) and
+      that was successful. I choose the &lt;code&gt;Brother HL2030 for
+      CPUs&lt;/code&gt; driver, that I suppose was the one I just
+      installed with the Debian package.&lt;/p&gt;
+
+      &lt;p&gt;&lt;b&gt;Update.&lt;/b&gt; After I did this, I
+      discovered in the forum that Debian packages are available in
+      the Multiverse repository for Ubuntu 8.04. These are supposed to
+      be improved versions from Brother's. Therefore, under
+      Ubuntu (and maybe with Debian or other Debian derivatives),
+      simply read &lt;a
+      href=&quot;https://wiki.ubuntu.com/BrotherDriverPackaging&quot;&gt;https://wiki.ubuntu.com/BrotherDriverPackaging&lt;/a&gt;
+      and install the appropriate packages. Through Synaptic,
+      selecting &lt;code&gt;brother-cups-wrapper-laser&lt;/code&gt; is
+      sufficient, the lpr stuff being installed as a dependency. This
+      uninstalls Brother's packages. This leaves the printer
+      without any driver during installation and it could be necessary
+      to reactivate the printer after installation.&lt;/p&gt;
+
+      Consumables/Refills: Toner TN-2005 (up to 1500 pages) ; Drum
+      DR-2005 (up to 12 000 pages)&lt;/p&gt;
+
+    </en>
+  </comments>
+</printer>
