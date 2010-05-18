@@ -4,7 +4,7 @@
 *%    for "Ricoh Aficio MP 2851 PXL"
 *%
 *%    CreationDate: 2009/06/24
-*%    Modified:     2010/03/08
+*%    Modified:     2010/05/14
 *%
 *%    COPYRIGHT (C) 2009-2010 RICOH COMPANY, LTD.
 *%    
@@ -40,6 +40,7 @@
 *Manufacturer: "Ricoh"
 *Product: "(RICOH Aficio MP 2851 PS3)"
 *PSVersion: "(3017.104) 2"
+*1284DeviceID: "MFG:RICOH;MDL:Aficio MP 2851;"
 *ShortNickName: "Ricoh Aficio MP 2851 PXL"
 *NickName: "Ricoh Aficio MP 2851 PXL"
 
@@ -453,12 +454,12 @@
 *CloseUI: *JobType
 
 
-*OpenUI *Password/Locked Print Password (4-8 digits): PickOne
+*OpenUI *Password/Locked Print or Doc Server Password (4-8 digits): PickOne
 *FoomaticRIPOption Password: password JCL A
 *FoomaticRIPOptionMaxLength Password:8
 *FoomaticRIPOptionAllowedChars Password: "0-9"
 *OrderDependency: 255 AnySetup *Password
-*FoomaticRIPOptionPrototype Password: "SET JOBPASSWORD=%s"
+*FoomaticRIPOptionPrototype Password: "SET JOBPASSWORD2=&quot;%s&quot;"
 *DefaultPassword: None
 *Password None/None: ""
 *Password 4001/4001: "%% FoomaticRIPOptionSetting: Password=4001"
@@ -487,6 +488,8 @@
 *UserCode 1003/1003: "%% FoomaticRIPOptionSetting: UserCode=1003"
 *FoomaticRIPOptionSetting UserCode=1003: "SET USERCODE=&quot;1003&quot;"
 *CloseUI: *UserCode
+*CustomUserCode True/Custom UserCode: "@PJL SET USERCODE=&quot;\1&quot;<0A>"
+*ParamCustomUserCode UserCode: 1 passcode 1 8
 
 *CloseGroup: JobLog/Job Log
 
