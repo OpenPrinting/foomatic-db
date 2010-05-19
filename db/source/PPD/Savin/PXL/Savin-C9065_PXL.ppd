@@ -4,7 +4,7 @@
 *%    for "Savin C9065 PXL"
 *%
 *%    CreationDate: 2009/03/05
-*%    Modified:     2010/03/08
+*%    Modified:     2010/05/14
 *%
 *%    COPYRIGHT (C) 2009-2010 RICOH COMPANY, LTD.
 *%    
@@ -40,6 +40,7 @@
 *Manufacturer: "Savin"
 *Product: "(SAVIN C9065 PS3)"
 *PSVersion: "(3018.102) 2"
+*1284DeviceID: "MFG:SAVIN;MDL:C9065;"
 *ShortNickName: "Savin C9065 PXL"
 *NickName: "Savin C9065 PXL"
 
@@ -313,8 +314,6 @@
 *FoomaticRIPOptionSetting OutputBin=FinVICTFUpper: "SET OUTBIN=FINISHERPROOF"
 *OutputBin FinVICTFShift/Finisher SR5000 Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinVICTFShift"
 *FoomaticRIPOptionSetting OutputBin=FinVICTFShift: "SET OUTBIN=FINISHERSHIFT"
-*OutputBin FinISHIKARI/Ring Binder Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinISHIKARI"
-*FoomaticRIPOptionSetting OutputBin=FinISHIKARI: "SET OUTBIN=FINISHERBOOKLET"
 *OutputBin FinDONAUProof/Folding Unit Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinDONAUProof"
 *FoomaticRIPOptionSetting OutputBin=FinDONAUProof: "SET OUTBIN=FINISHERBOOKLET"
 *OutputBin PlockmaticTray/Booklet Processor Tray: "%% FoomaticRIPOptionSetting: OutputBin=PlockmaticTray"
@@ -503,12 +502,12 @@
 *CloseUI: *JobType
 
 
-*OpenUI *Password/Locked Print Password (4-8 digits): PickOne
+*OpenUI *Password/Locked Print or Doc Server Password (4-8 digits): PickOne
 *FoomaticRIPOption Password: password JCL A
 *FoomaticRIPOptionMaxLength Password:8
 *FoomaticRIPOptionAllowedChars Password: "0-9"
 *OrderDependency: 255 AnySetup *Password
-*FoomaticRIPOptionPrototype Password: "SET JOBPASSWORD=%s"
+*FoomaticRIPOptionPrototype Password: "SET JOBPASSWORD2=&quot;%s&quot;"
 *DefaultPassword: None
 *Password None/None: ""
 *Password 4001/4001: "%% FoomaticRIPOptionSetting: Password=4001"
@@ -537,6 +536,8 @@
 *UserCode 1003/1003: "%% FoomaticRIPOptionSetting: UserCode=1003"
 *FoomaticRIPOptionSetting UserCode=1003: "SET USERCODE=&quot;1003&quot;"
 *CloseUI: *UserCode
+*CustomUserCode True/Custom UserCode: "@PJL SET USERCODE=&quot;\1&quot;<0A>"
+*ParamCustomUserCode UserCode: 1 passcode 1 8
 
 *CloseGroup: JobLog/Job Log
 
@@ -608,8 +609,6 @@
 *UIConstraints: *Finisher NotInstalled *StapleLocation CenterW
 *UIConstraints: *StapleLocation CenterW *Finisher FinEUPHRATESD
 *UIConstraints: *Finisher FinEUPHRATESD *StapleLocation CenterW
-*UIConstraints: *OutputBin FinISHIKARI *OptionRingBind NotInstalled
-*UIConstraints: *OptionRingBind NotInstalled *OutputBin FinISHIKARI
 *UIConstraints: *InputSlot 1Tray *PageSize A5
 *UIConstraints: *PageSize A5 *InputSlot 1Tray
 *UIConstraints: *OutputBin FinEUPHDBK *PageSize A5
@@ -1439,36 +1438,6 @@
 *UIConstraints: *RIPunch UpperEU4 *OutputBin FinDONAUProof
 *UIConstraints: *OutputBin FinDONAUProof *RIPunch UpperNEU4
 *UIConstraints: *RIPunch UpperNEU4 *OutputBin FinDONAUProof
-*UIConstraints: *OutputBin FinISHIKARI *RIPunch LeftJP2
-*UIConstraints: *RIPunch LeftJP2 *OutputBin FinISHIKARI
-*UIConstraints: *OutputBin FinISHIKARI *RIPunch LeftUS2
-*UIConstraints: *RIPunch LeftUS2 *OutputBin FinISHIKARI
-*UIConstraints: *OutputBin FinISHIKARI *RIPunch LeftUS3
-*UIConstraints: *RIPunch LeftUS3 *OutputBin FinISHIKARI
-*UIConstraints: *OutputBin FinISHIKARI *RIPunch LeftEU4
-*UIConstraints: *RIPunch LeftEU4 *OutputBin FinISHIKARI
-*UIConstraints: *OutputBin FinISHIKARI *RIPunch LeftNEU4
-*UIConstraints: *RIPunch LeftNEU4 *OutputBin FinISHIKARI
-*UIConstraints: *OutputBin FinISHIKARI *RIPunch RightJP2
-*UIConstraints: *RIPunch RightJP2 *OutputBin FinISHIKARI
-*UIConstraints: *OutputBin FinISHIKARI *RIPunch RightUS2
-*UIConstraints: *RIPunch RightUS2 *OutputBin FinISHIKARI
-*UIConstraints: *OutputBin FinISHIKARI *RIPunch RightUS3
-*UIConstraints: *RIPunch RightUS3 *OutputBin FinISHIKARI
-*UIConstraints: *OutputBin FinISHIKARI *RIPunch RightEU4
-*UIConstraints: *RIPunch RightEU4 *OutputBin FinISHIKARI
-*UIConstraints: *OutputBin FinISHIKARI *RIPunch RightNEU4
-*UIConstraints: *RIPunch RightNEU4 *OutputBin FinISHIKARI
-*UIConstraints: *OutputBin FinISHIKARI *RIPunch UpperJP2
-*UIConstraints: *RIPunch UpperJP2 *OutputBin FinISHIKARI
-*UIConstraints: *OutputBin FinISHIKARI *RIPunch UpperUS2
-*UIConstraints: *RIPunch UpperUS2 *OutputBin FinISHIKARI
-*UIConstraints: *OutputBin FinISHIKARI *RIPunch UpperUS3
-*UIConstraints: *RIPunch UpperUS3 *OutputBin FinISHIKARI
-*UIConstraints: *OutputBin FinISHIKARI *RIPunch UpperEU4
-*UIConstraints: *RIPunch UpperEU4 *OutputBin FinISHIKARI
-*UIConstraints: *OutputBin FinISHIKARI *RIPunch UpperNEU4
-*UIConstraints: *RIPunch UpperNEU4 *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin PlockmaticTray *RIPunch LeftJP2
 *UIConstraints: *RIPunch LeftJP2 *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *RIPunch LeftUS2

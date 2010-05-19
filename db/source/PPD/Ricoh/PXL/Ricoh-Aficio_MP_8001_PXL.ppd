@@ -4,9 +4,9 @@
 *%    for "Ricoh Aficio MP 8001 PXL"
 *%
 *%    CreationDate: 2008/04/17
-*%    Modified:     2009/06/14
+*%    Modified:     2010/05/14
 *%
-*%    COPYRIGHT (C) 2008-2009 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2008-2010 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -40,6 +40,7 @@
 *Manufacturer: "Ricoh"
 *Product: "(RICOH Aficio MP 8001 PS3)"
 *PSVersion: "(3017.104) 2"
+*1284DeviceID: "MFG:RICOH;MDL:Aficio MP 8001;"
 *ShortNickName: "Ricoh Aficio MP 8001 PXL"
 *NickName: "Ricoh Aficio MP 8001 PXL"
 
@@ -290,6 +291,8 @@
 *FoomaticRIPOptionSetting OutputBin=FinVICTGShift: "SET OUTBIN=FINISHERSHIFT"
 *OutputBin PlockmaticTray/Booklet Processor Tray: "%% FoomaticRIPOptionSetting: OutputBin=PlockmaticTray"
 *FoomaticRIPOptionSetting OutputBin=PlockmaticTray: "SET OUTBIN=FINISHERSHIFT"
+*OutputBin FinDONAUProof/Folding Unit Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinDONAUProof"
+*FoomaticRIPOptionSetting OutputBin=FinDONAUProof: "SET OUTBIN=FINISHERBOOKLET"
 *OutputBin MailBoxBin1/Mailbox Tray 1: "%% FoomaticRIPOptionSetting: OutputBin=MailBoxBin1"
 *FoomaticRIPOptionSetting OutputBin=MailBoxBin1: "SET OUTBIN=OPTIONALOUTPUTBIN2"
 *OutputBin MailBoxBin2/Mailbox Tray 2: "%% FoomaticRIPOptionSetting: OutputBin=MailBoxBin2"
@@ -463,6 +466,7 @@
 *End
 *CloseUI: *JobType
 
+
 *OpenUI *Password/Locked Print or Doc Server Password (4-8 digits): PickOne
 *FoomaticRIPOption Password: password JCL A
 *FoomaticRIPOptionMaxLength Password:8
@@ -480,6 +484,7 @@
 *CloseUI: *Password
 *CustomPassword True/Custom Password: "@PJL SET JOBPASSWORD2=&quot;\1&quot;<0A>"
 *ParamCustomPassword Password: 1 passcode 4 8
+
 
 *OpenUI *UserCode/User Code (up to 8 digits): PickOne
 *FoomaticRIPOption UserCode: string JCL A
@@ -500,7 +505,6 @@
 *ParamCustomUserCode UserCode: 1 passcode 1 8
 
 *CloseGroup: JobLog/Job Log
-
 
 *UIConstraints: *Finisher NotInstalled *OutputBin FinEUPHDUpper
 *UIConstraints: *Finisher NotInstalled *OutputBin FinEUPHDShift
@@ -870,6 +874,18 @@
 *UIConstraints: *StapleLocation CenterW *OutputBin FinVICTGShift
 *UIConstraints: *OutputBin PlockmaticTray *StapleLocation None
 *UIConstraints: *StapleLocation None *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin FinDONAUProof *StapleLocation UpperLeft
+*UIConstraints: *OutputBin FinDONAUProof *StapleLocation UpperRight
+*UIConstraints: *OutputBin FinDONAUProof *StapleLocation LeftW
+*UIConstraints: *OutputBin FinDONAUProof *StapleLocation RightW
+*UIConstraints: *OutputBin FinDONAUProof *StapleLocation UpperW
+*UIConstraints: *OutputBin FinDONAUProof *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinDONAUProof
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinDONAUProof
+*UIConstraints: *StapleLocation LeftW *OutputBin FinDONAUProof
+*UIConstraints: *StapleLocation RightW *OutputBin FinDONAUProof
+*UIConstraints: *StapleLocation UpperW *OutputBin FinDONAUProof
+*UIConstraints: *StapleLocation CenterW *OutputBin FinDONAUProof
 *UIConstraints: *OutputBin MailBoxBin1 *StapleLocation UpperLeft
 *UIConstraints: *OutputBin MailBoxBin1 *StapleLocation UpperRight
 *UIConstraints: *OutputBin MailBoxBin1 *StapleLocation LeftW
@@ -1291,6 +1307,36 @@
 *UIConstraints: *RIPunch UpperEU4 *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *RIPunch UpperNEU4
 *UIConstraints: *RIPunch UpperNEU4 *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch LeftJP2
+*UIConstraints: *RIPunch LeftJP2 *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch LeftUS2
+*UIConstraints: *RIPunch LeftUS2 *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch LeftUS3
+*UIConstraints: *RIPunch LeftUS3 *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch LeftEU4
+*UIConstraints: *RIPunch LeftEU4 *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch LeftNEU4
+*UIConstraints: *RIPunch LeftNEU4 *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch RightJP2
+*UIConstraints: *RIPunch RightJP2 *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch RightUS2
+*UIConstraints: *RIPunch RightUS2 *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch RightUS3
+*UIConstraints: *RIPunch RightUS3 *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch RightEU4
+*UIConstraints: *RIPunch RightEU4 *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch RightNEU4
+*UIConstraints: *RIPunch RightNEU4 *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch UpperJP2
+*UIConstraints: *RIPunch UpperJP2 *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch UpperUS2
+*UIConstraints: *RIPunch UpperUS2 *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch UpperUS3
+*UIConstraints: *RIPunch UpperUS3 *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch UpperEU4
+*UIConstraints: *RIPunch UpperEU4 *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch UpperNEU4
+*UIConstraints: *RIPunch UpperNEU4 *OutputBin FinDONAUProof
 *UIConstraints: *StapleLocation CenterW *RIPunch LeftJP2
 *UIConstraints: *RIPunch LeftJP2 *StapleLocation CenterW
 *UIConstraints: *StapleLocation CenterW *RIPunch LeftUS2
