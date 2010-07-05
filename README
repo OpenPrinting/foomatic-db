@@ -695,7 +695,7 @@ things, but the two biggies are the prototype and the printers list
 # Example for packages provided by an external site:
 
 #   <packages>
-#    <package scope="general">http://download.example.com/printerdrivers/RPMS/i486/*laserstar*;http://download.example.com/printerdrivers/RPMS/x86_64/*laserstar*;http://download.example.com/printerdrivers/debian/dists/lsb3.2/main/binary-i386/*laserstar*;http://download.example.com/printerdrivers/debian/dists/lsb3.2/main/binary-amd64/*laserstar*</package>
+#    <package scope="general" fingerprint="http://download.example.com/printerdrivers/gpg/key-fingerprint.txt">http://download.example.com/printerdrivers/RPMS/i486/*laserstar*;http://download.example.com/printerdrivers/RPMS/x86_64/*laserstar*;http://download.example.com/printerdrivers/debian/dists/lsb3.2/main/binary-i386/*laserstar*;http://download.example.com/printerdrivers/debian/dists/lsb3.2/main/binary-amd64/*laserstar*</package>
 #   </packages>
 
 # Note that more than one mask can be supplied separating them with
@@ -721,6 +721,19 @@ things, but the two biggies are the prototype and the printers list
 # somewhere) wildcards can only be used after the last slash ("/"). So
 # wildcards are only allowed for the file name and not for the
 # directory names.
+
+# If the packages are signed, all packages of the same <package> entry
+# should be signed with the same key and the key should be registered
+# on the key server network. The key fingerprint should be made
+# available as a text file on the web site of the driver issuer and
+# the site should be with an SSL certificate which has been signed by
+# an official registrar. The "fingerprint=..." parameter should then
+# provide the link to the file with the key fingerprint. The link must
+# be an "https://..." URL and point to a file on a server of the
+# driver issuer. Packages must be signed for fully automatic upload by
+# default on Linux distributions. See also
+
+# https://www.linuxfoundation.org/collaborate/workgroups/openprinting/writingandpackagingprinterdrivers
 
 # The <functionality> section should make it easier for a user to
 # compare different drivers by giving some technical properties and
