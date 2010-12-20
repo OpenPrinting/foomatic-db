@@ -2071,8 +2071,8 @@ lines for the basic hardware capabilities of the printer.
 Example for a Foomatic-generated PPD file
 -----------------------------------------
 
-Below is an example PPD file, the PPD file for the Citizen printiva600U
-used with the "ppmtomd" driver. It was generated with the command line
+Below is an example PPD file, the PPD file for the HP Color LaserJet 4550
+used with the "pxlcolor" driver. It was generated with the command line
 
    ./foomatic-ppdfile -p HP-Color_LaserJet_4550 -d pxlcolor
 
@@ -2102,7 +2102,7 @@ properties are available (comma-separated):
    O: Driver marked Obsolete in the OpenPrinting database (0, 1)?
    F: Driver is Free software (0, 1)?
    P: Driver has Patent issues (0, 1)?
-   S: Support contacts (c: commercial, c: voluntary, u: unknown, more than 
+   S: Support contacts (c: commercial, v: voluntary, u: unknown, more than 
       one possible)
    T: Driver Type: G: Ghostscript built-in, C: CUPS-Raster, I: IJS,
       O: OpenPrinting Vector, F: Filter, U: Ghostscript Uniprint,
@@ -2730,6 +2730,16 @@ Foomatic keywords
             the allowed range, does not need to be
 	    one of the enumerated choices.
 
+*FoomaticRIPJobEntityMaxLength: <integer value>
+*FoomaticRIPUserEntityMaxLength: <integer value>
+*FoomaticRIPHostEntityMaxLength: <integer value>
+*FoomaticRIPTitleEntityMaxLength: <integer value>
+*FoomaticRIPOptionsEntityMaxLength: <integer value>
+    <integer value>: Maximum length for the substitution strings for
+    the special entities "&job;", "&user;", "&host;", "&title;", and
+    "&options;" which can be used in the quoted strings of all "*Foomatic..."
+    keywords (foomatic-filters 4.0.6 or newer needed).
+
 All strings in quotes (Foomatic command line, snippets to insert in
 command line, "<code>" in the keyword descriptions above) are encoded
 with the "htmlify()" function of DB.pm, so they contain no forbidden
@@ -2737,7 +2747,37 @@ characters ("<", ">", "\"") any more. In addition they are broken up
 into short lines. The filter (foomatic-rip) will put them together
 at first and then replace the HTML/XML entities by the original
 characters. If a string is split up, an "*End" line follows, as
-required by the Adobe specification.
+required by the Adobe specification. In the quoted strings also the
+following special entities can be used to insert job parameters:
+
+   Entity          Gets replaced by
+   ---------------------------------------------------------
+   &job;           Job ID
+   &user;          User name (who sent the job)
+   &host;          Job host name
+   &title;         Job title
+   &options;       Job options
+   &copies;        Number of copies
+   &rbinumcopies;  "%RBINumCopies:" of PostScript input
+   &year;          Job rendering date: 4-digit year
+   &month;         Job rendering date: 2-digit month
+   &date;          Job rendering date: 2-digit day of month
+   &hour;          Job rendering date: 2-digit hours (24 hours)
+   &min;           Job rendering date: 2-digit minutes
+   &sec;           Job rendering date: 2-digit seconds
+
+foomatic-rip substitutes these entities by the appropriate parameters
+before starting the rendering process. This way job parameters can be
+sent to the printer. From foomatic-filters 4.0.6 on the length of the
+inserted strings can be limited, either by the above-mentioned
+"*FoomaticRIP...EntityMaxLength:" keywords in the PPD or by adding the
+length to the entities (ex: "&user8;", "&title16;", ...). If the
+string to insert for the entity is longer than the limit, it gets cut
+off to the limit. Note that adding numbers to the entities makes the
+PPD incompatible with older versions of foomatic-rip. PPDs with the
+above-mentioned new keywords work with older versions of foomatic-rip,
+but limits do not get applied. Therefore I generally recommend using
+the PPD keywords for PPDs to make them publically available.
 
 All Foomatic-relevant info is stored with keywords beginning with 
 "*Foomatic...", not in comment lines. So if some program strips the 
