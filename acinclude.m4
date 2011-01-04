@@ -1,5 +1,5 @@
-dnl AC_PATH_DIR(VARIABLE, DIR-TO-CHECK-FOR [, VALUE-IF-NOT-FOUND [, PATH]])
-AC_DEFUN([AC_PATH_DIR],
+dnl FM_PATH_DIR(VARIABLE, DIR-TO-CHECK-FOR [, VALUE-IF-NOT-FOUND [, PATH]])
+AC_DEFUN([FM_PATH_DIR],
 [# Extract the first word of "$2", so it can be a program name with args.
 set dummy $2; ac_word=[$]2
 AC_MSG_CHECKING([for $ac_word/])
@@ -40,12 +40,12 @@ fi
 AC_SUBST($1)dnl
 ])
 
-dnl AC_PATH_DIRS(VARIABLE, DIRSS-TO-CHECK-FOR [, VALUE-IF-NOT-FOUND
+dnl FM_PATH_DIRS(VARIABLE, DIRSS-TO-CHECK-FOR [, VALUE-IF-NOT-FOUND
 dnl              [, PATH]])
-AC_DEFUN([AC_PATH_DIRS],
+AC_DEFUN([FM_PATH_DIRS],
 [for ac_dir in $2
 do
-AC_PATH_DIR($1, [$]ac_dir, , $4)
+FM_PATH_DIR($1, [$]ac_dir, , $4)
 test -n "[$]$1" && break
 done
 ifelse([$3], , , [test -n "[$]$1" || $1="$3"
