@@ -4,9 +4,9 @@
 *%    for "Ricoh Aficio MP 3350 PS"
 *%
 *%    CreationDate: 2007/01/09
-*%    Modified:     2010/09/14
+*%    Modified:     2011/01/05
 *%
-*%    COPYRIGHT (C) 2007-2010 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2007-2011 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -210,18 +210,18 @@ restore
 *End
 *CloseUI: *Finisher
 
-*OpenUI *DuplexUnit/Duplex Unit: PickOne
-*DefaultDuplexUnit: NotInstalled
-*DuplexUnit NotInstalled/Not Installed: ""
-*DuplexUnit Installed/Installed: ""
-*?DuplexUnit: "
+*OpenUI *OptionDuplexUnit/Duplex Unit: PickOne
+*DefaultOptionDuplexUnit: NotInstalled
+*OptionDuplexUnit NotInstalled/Not Installed: ""
+*OptionDuplexUnit Installed/Installed: ""
+*?OptionDuplexUnit: "
   save
   statusdict /duplex get
   {(Installed)}{(NotInstalled)}ifelse = flush
   restore
 "
 *End
-*CloseUI: *DuplexUnit
+*CloseUI: *OptionDuplexUnit
 *CloseGroup: InstallableOptions
 
 
@@ -234,18 +234,18 @@ restore
 *UIConstraints: *OptionTray 1Cassette *InputSlot 4Tray
 
 *%========== Duplex Unit / Bypass Tray ==========
-*UIConstraints: *DuplexUnit Installed *InputBypassTray NotInstalled
-*UIConstraints: *InputBypassTray NotInstalled *DuplexUnit Installed
+*UIConstraints: *OptionDuplexUnit Installed *InputBypassTray NotInstalled
+*UIConstraints: *InputBypassTray NotInstalled *OptionDuplexUnit Installed
 
 *%========== InputSlot / Bypass Tray ==========
 *UIConstraints: *InputSlot MultiTray *InputBypassTray NotInstalled
 *UIConstraints: *InputBypassTray NotInstalled *InputSlot MultiTray
 
 *%========== Duplex / Duplex Unit ==========
-*UIConstraints: *Duplex DuplexTumble *DuplexUnit NotInstalled
-*UIConstraints: *DuplexUnit NotInstalled *Duplex DuplexTumble
-*UIConstraints: *Duplex DuplexNoTumble *DuplexUnit NotInstalled
-*UIConstraints: *DuplexUnit NotInstalled *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexTumble *OptionDuplexUnit NotInstalled
+*UIConstraints: *OptionDuplexUnit NotInstalled *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexNoTumble *OptionDuplexUnit NotInstalled
+*UIConstraints: *OptionDuplexUnit NotInstalled *Duplex DuplexNoTumble
 
 *%========== Destination / Internal Tray 2 ==========
 *UIConstraints: *OutputBin Bin1 *InnerTray2 NotInstalled
@@ -480,8 +480,8 @@ restore
 *UIConstraints: *PageSize B6 *OutputBin FinTigLower
 *UIConstraints: *OutputBin Bin1 *PageSize B6
 *UIConstraints: *OutputBin FinTigLower *PageSize B6
-*UIConstraints: *PageSize HalfLetter *OutputBin FinTigLower
-*UIConstraints: *OutputBin FinTigLower *PageSize HalfLetter
+*UIConstraints: *PageSize Statement *OutputBin FinTigLower
+*UIConstraints: *OutputBin FinTigLower *PageSize Statement
 *UIConstraints: *PageSize F *OutputBin FinTigLower
 *UIConstraints: *OutputBin FinTigLower *PageSize F
 *UIConstraints: *PageSize Folio *OutputBin FinTigLower
@@ -685,8 +685,8 @@ restore
 *UIConstraints: *PageRegion B6 *OutputBin FinTigLower
 *UIConstraints: *OutputBin Bin1 *PageRegion B6
 *UIConstraints: *OutputBin FinTigLower *PageRegion B6
-*UIConstraints: *PageRegion HalfLetter *OutputBin FinTigLower
-*UIConstraints: *OutputBin FinTigLower *PageRegion HalfLetter
+*UIConstraints: *PageRegion Statement *OutputBin FinTigLower
+*UIConstraints: *OutputBin FinTigLower *PageRegion Statement
 *UIConstraints: *PageRegion F *OutputBin FinTigLower
 *UIConstraints: *OutputBin FinTigLower *PageRegion F
 *UIConstraints: *PageRegion Folio *OutputBin FinTigLower
@@ -1301,7 +1301,7 @@ restore
  << /PageSize [612 792] /ImagingBBox null >> setpagedevice
  false setedgetoedge"
 *End
-*PageSize HalfLetter/5.5x8.5: "
+*PageSize Statement/5.5x8.5: "
  << /PageSize [396 612] /ImagingBBox null >> setpagedevice
  false setedgetoedge"
 *End
@@ -1317,7 +1317,7 @@ restore
  << /PageSize [612 936] /ImagingBBox null>> setpagedevice
  false setedgetoedge"
 *End
-*PageSize 11x17/11x17: "
+*PageSize Tabloid/11x17: "
  << /PageSize [792 1224] /ImagingBBox null >> setpagedevice
  false setedgetoedge"
 *End
@@ -1427,7 +1427,7 @@ restore
  << /PageSize [612 792] /ImagingBBox null >> setpagedevice
  false setedgetoedge"
 *End
-*PageRegion HalfLetter/5.5x8.5: "
+*PageRegion Statement/5.5x8.5: "
  << /PageSize [396 612] /ImagingBBox null >> setpagedevice
  false setedgetoedge"
 *End
@@ -1443,7 +1443,7 @@ restore
  << /PageSize [612 936] /ImagingBBox null>> setpagedevice
  false setedgetoedge"
 *End
-*PageRegion 11x17/11x17: "
+*PageRegion Tabloid/11x17: "
  << /PageSize [792 1224] /ImagingBBox null >> setpagedevice
  false setedgetoedge"
 *End
@@ -1493,11 +1493,11 @@ restore
 *ImageableArea B6/B6 (JIS): "12 12 351 504"
 *ImageableArea Legal/Legal: "12 12 600 996"
 *ImageableArea Letter/Letter: "12 12 600 780"
-*ImageableArea HalfLetter/5.5x8.5: "12 12 384 600"
+*ImageableArea Statement/5.5x8.5: "12 12 384 600"
 *ImageableArea F/8x13: "12 12 564 924"
 *ImageableArea Folio/8.25x13: "12 12 583 923"
 *ImageableArea FanFoldGermanLegal/8.5x13: "12 12 600 924"
-*ImageableArea 11x17/11x17: "12 12 780 1212"
+*ImageableArea Tabloid/11x17: "12 12 780 1212"
 *ImageableArea Executive/Executive: "12 12 510 744"
 *ImageableArea Env10/Com10 Env.: "12 12 285 672"
 *ImageableArea EnvMonarch/Monarch Env.: "12 12 267 528"
@@ -1526,11 +1526,11 @@ restore
 *PaperDimension B6/B6 (JIS): "363 516"
 *PaperDimension Legal/Legal: "612 1008"
 *PaperDimension Letter/Letter: "612 792"
-*PaperDimension HalfLetter/5.5x8.5: "396 612"
+*PaperDimension Statement/5.5x8.5: "396 612"
 *PaperDimension F/8x13: "576 936"
 *PaperDimension Folio/8.25x13: "595 935"
 *PaperDimension FanFoldGermanLegal/8.5x13: "612 936"
-*PaperDimension 11x17/11x17: "792 1224"
+*PaperDimension Tabloid/11x17: "792 1224"
 *PaperDimension Executive/Executive: "522 756"
 *PaperDimension Env10/Com10 Env.: "297 684"
 *PaperDimension EnvMonarch/Monarch Env.: "279 540"
@@ -2283,8 +2283,10 @@ restore
 *cupsFilter: "application/vnd.cups-postscript 0 foomatic-rip"
 
 *FoomaticRIPCommandLine: "printf &quot;%%!PS-Adobe-3.0\n%%%% %%&&
-%%\n%B%C%D%A&quot;%%%%; cat;"
+%%\n%A%B%C%D&quot;%%%%; cat;"
 *End
+
+*FoomaticRIPUserEntityMaxLength: 8
 
 *OpenGroup: JobLog/Job Log
 

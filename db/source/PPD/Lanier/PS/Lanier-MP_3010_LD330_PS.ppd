@@ -4,9 +4,9 @@
 *%    for "Lanier MP 3010/LD330 PS"
 *%
 *%    CreationDate: 2005/11/21
-*%    Modified:     2010/09/14
+*%    Modified:     2011/01/05
 *%
-*%    COPYRIGHT (C) 2005-2010 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2005-2011 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -124,18 +124,18 @@ restore
 *End
 *CloseUI: *InputBypassTray
 
-*OpenUI *DuplexUnit/Duplex Unit: PickOne
-*DefaultDuplexUnit: False
-*DuplexUnit False/Not Installed: ""
-*DuplexUnit True/Installed: ""
-*?DuplexUnit: "
+*OpenUI *OptionDuplexUnit/Duplex Unit: PickOne
+*DefaultOptionDuplexUnit: False
+*OptionDuplexUnit False/Not Installed: ""
+*OptionDuplexUnit True/Installed: ""
+*?OptionDuplexUnit: "
   save
   statusdict /duplex get
   {(True)}{(False)}ifelse = flush
   restore
 "
 *End
-*CloseUI: *DuplexUnit
+*CloseUI: *OptionDuplexUnit
 
 *OpenUI *InnerTray2/Internal Tray 2: PickOne
 *DefaultInnerTray2: False
@@ -224,10 +224,10 @@ restore
 *UIConstraints: *InputBypassTray False *InputSlot MultiTray
 
 *%========== Duplex / Duplex Unit ==========
-*UIConstraints: *Duplex DuplexTumble *DuplexUnit False
-*UIConstraints: *DuplexUnit False *Duplex DuplexTumble
-*UIConstraints: *Duplex DuplexNoTumble *DuplexUnit False
-*UIConstraints: *DuplexUnit False *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexTumble *OptionDuplexUnit False
+*UIConstraints: *OptionDuplexUnit False *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexNoTumble *OptionDuplexUnit False
+*UIConstraints: *OptionDuplexUnit False *Duplex DuplexNoTumble
 
 *%========== Destination / Internal Tray 2 ==========
 *UIConstraints: *OutputBin Bin1 *InnerTray2 False
@@ -436,8 +436,8 @@ restore
 *UIConstraints: *PageSize A6 *OutputBin FujigawaShift
 *UIConstraints: *OutputBin Bin1 *PageSize A6
 *UIConstraints: *OutputBin FujigawaShift *PageSize A6
-*UIConstraints: *PageSize HalfLetter *OutputBin FujigawaShift
-*UIConstraints: *OutputBin FujigawaShift *PageSize HalfLetter
+*UIConstraints: *PageSize Statement *OutputBin FujigawaShift
+*UIConstraints: *OutputBin FujigawaShift *PageSize Statement
 *UIConstraints: *PageSize F *OutputBin FujigawaShift
 *UIConstraints: *OutputBin FujigawaShift *PageSize F
 *UIConstraints: *PageSize Folio *OutputBin FujigawaShift
@@ -504,8 +504,8 @@ restore
 *UIConstraints: *PageSize A6_ETOE *OutputBin FujigawaShift
 *UIConstraints: *OutputBin Bin1 *PageSize A6_ETOE
 *UIConstraints: *OutputBin FujigawaShift *PageSize A6_ETOE
-*UIConstraints: *PageSize HalfLetter_ETOE *OutputBin FujigawaShift
-*UIConstraints: *OutputBin FujigawaShift *PageSize HalfLetter_ETOE
+*UIConstraints: *PageSize Statement_ETOE *OutputBin FujigawaShift
+*UIConstraints: *OutputBin FujigawaShift *PageSize Statement_ETOE
 *UIConstraints: *PageSize F_ETOE *OutputBin FujigawaShift
 *UIConstraints: *OutputBin FujigawaShift *PageSize F_ETOE
 *UIConstraints: *PageSize Folio_ETOE *OutputBin FujigawaShift
@@ -714,8 +714,8 @@ restore
 *UIConstraints: *PageRegion A6 *OutputBin FujigawaShift
 *UIConstraints: *OutputBin Bin1 *PageRegion A6
 *UIConstraints: *OutputBin FujigawaShift *PageRegion A6
-*UIConstraints: *PageRegion HalfLetter *OutputBin FujigawaShift
-*UIConstraints: *OutputBin FujigawaShift *PageRegion HalfLetter
+*UIConstraints: *PageRegion Statement *OutputBin FujigawaShift
+*UIConstraints: *OutputBin FujigawaShift *PageRegion Statement
 *UIConstraints: *PageRegion F *OutputBin FujigawaShift
 *UIConstraints: *OutputBin FujigawaShift *PageRegion F
 *UIConstraints: *PageRegion Folio *OutputBin FujigawaShift
@@ -782,8 +782,8 @@ restore
 *UIConstraints: *PageRegion A6_ETOE *OutputBin FujigawaShift
 *UIConstraints: *OutputBin Bin1 *PageRegion A6_ETOE
 *UIConstraints: *OutputBin FujigawaShift *PageRegion A6_ETOE
-*UIConstraints: *PageRegion HalfLetter_ETOE *OutputBin FujigawaShift
-*UIConstraints: *OutputBin FujigawaShift *PageRegion HalfLetter_ETOE
+*UIConstraints: *PageRegion Statement_ETOE *OutputBin FujigawaShift
+*UIConstraints: *OutputBin FujigawaShift *PageRegion Statement_ETOE
 *UIConstraints: *PageRegion F_ETOE *OutputBin FujigawaShift
 *UIConstraints: *OutputBin FujigawaShift *PageRegion F_ETOE
 *UIConstraints: *PageRegion Folio_ETOE *OutputBin FujigawaShift
@@ -1114,11 +1114,11 @@ restore
  << /PageSize [612 792] /ImagingBBox null >> setpagedevice
  false setedgetoedge"
 *End
-*PageSize HalfLetter/5.5x8.5: "
+*PageSize Statement/5.5x8.5: "
  << /PageSize [396 612] /ImagingBBox null >> setpagedevice
  false setedgetoedge"
 *End
-*PageSize 11x17/11x17: "
+*PageSize Tabloid/11x17: "
  << /PageSize [792 1224] /ImagingBBox null >> setpagedevice
  false setedgetoedge"
 *End
@@ -1198,11 +1198,11 @@ restore
  << /PageSize [612 792] /ImagingBBox null >> setpagedevice
  true setedgetoedge"
 *End
-*PageSize HalfLetter_ETOE/5.5x8.5 (Full Bleed): "
+*PageSize Statement_ETOE/5.5x8.5 (Full Bleed): "
  << /PageSize [396 612] /ImagingBBox null >> setpagedevice
  true setedgetoedge"
 *End
-*PageSize 11x17_ETOE/11x17 (Full Bleed): "
+*PageSize Tabloid_ETOE/11x17 (Full Bleed): "
  << /PageSize [792 1224] /ImagingBBox null >> setpagedevice
  true setedgetoedge"
 *End
@@ -1340,11 +1340,11 @@ restore
  << /PageSize [612 792] /ImagingBBox null >> setpagedevice
  false setedgetoedge"
 *End
-*PageRegion HalfLetter/5.5x8.5: "
+*PageRegion Statement/5.5x8.5: "
  << /PageSize [396 612] /ImagingBBox null >> setpagedevice
  false setedgetoedge"
 *End
-*PageRegion 11x17/11x17: "
+*PageRegion Tabloid/11x17: "
  << /PageSize [792 1224] /ImagingBBox null >> setpagedevice
  false setedgetoedge"
 *End
@@ -1424,11 +1424,11 @@ restore
  << /PageSize [612 792] /ImagingBBox null >> setpagedevice
  true setedgetoedge"
 *End
-*PageRegion HalfLetter_ETOE/5.5x8.5 (Full Bleed): "
+*PageRegion Statement_ETOE/5.5x8.5 (Full Bleed): "
  << /PageSize [396 612] /ImagingBBox null >> setpagedevice
  true setedgetoedge"
 *End
-*PageRegion 11x17_ETOE/11x17 (Full Bleed): "
+*PageRegion Tabloid_ETOE/11x17 (Full Bleed): "
  << /PageSize [792 1224] /ImagingBBox null >> setpagedevice
  true setedgetoedge"
 *End
@@ -1489,8 +1489,8 @@ restore
 *ImageableArea B5/B5 (JIS): "12 12 504 717"
 *ImageableArea Legal/Legal: "12 12 600 996"
 *ImageableArea Letter/Letter: "12 12 600 780"
-*ImageableArea HalfLetter/5.5x8.5: "12 12 384 600"
-*ImageableArea 11x17/11x17: "12 12 780 1212"
+*ImageableArea Statement/5.5x8.5: "12 12 384 600"
+*ImageableArea Tabloid/11x17: "12 12 780 1212"
 *ImageableArea Executive/Executive: "12 12 510 744"
 *ImageableArea F/8x13: "12 12 564 924"
 *ImageableArea Folio/8.25x13: "12 12 583 923"
@@ -1510,8 +1510,8 @@ restore
 *ImageableArea B5_ETOE/B5 (JIS) (Full Bleed): "0 0 516 728"
 *ImageableArea Legal_ETOE/Legal (Full Bleed): "0 0 612 1007"
 *ImageableArea Letter_ETOE/Letter (Full Bleed): "0 0 612 791"
-*ImageableArea HalfLetter_ETOE/5.5x8.5 (Full Bleed): "0 0 396 611"
-*ImageableArea 11x17_ETOE/11x17 (Full Bleed): "0 0 792 1223"
+*ImageableArea Statement_ETOE/5.5x8.5 (Full Bleed): "0 0 396 611"
+*ImageableArea Tabloid_ETOE/11x17 (Full Bleed): "0 0 792 1223"
 *ImageableArea Executive_ETOE/Executive (Full Bleed): "0 0 522 755"
 *ImageableArea F_ETOE/8x13 (Full Bleed): "0 0 576 935"
 *ImageableArea Folio_ETOE/8.25x13 (Full Bleed): "0 0 595 934"
@@ -1542,8 +1542,8 @@ restore
 *PaperDimension B5/B5 (JIS): "516 729"
 *PaperDimension Legal/Legal: "612 1008"
 *PaperDimension Letter/Letter: "612 792"
-*PaperDimension HalfLetter/5.5x8.5: "396 612"
-*PaperDimension 11x17/11x17: "792 1224"
+*PaperDimension Statement/5.5x8.5: "396 612"
+*PaperDimension Tabloid/11x17: "792 1224"
 *PaperDimension Executive/Executive: "522 756"
 *PaperDimension F/8x13: "576 936"
 *PaperDimension Folio/8.25x13: "595 935"
@@ -1563,8 +1563,8 @@ restore
 *PaperDimension B5_ETOE/B5 (JIS) (Full Bleed): "516 728"
 *PaperDimension Legal_ETOE/Legal (Full Bleed): "612 1007"
 *PaperDimension Letter_ETOE/Letter (Full Bleed): "612 791"
-*PaperDimension HalfLetter_ETOE/5.5x8.5 (Full Bleed): "396 611"
-*PaperDimension 11x17_ETOE/11x17 (Full Bleed): "792 1223"
+*PaperDimension Statement_ETOE/5.5x8.5 (Full Bleed): "396 611"
+*PaperDimension Tabloid_ETOE/11x17 (Full Bleed): "792 1223"
 *PaperDimension Executive_ETOE/Executive (Full Bleed): "522 755"
 *PaperDimension F_ETOE/8x13 (Full Bleed): "576 935"
 *PaperDimension Folio_ETOE/8.25x13 (Full Bleed): "595 934"
@@ -2269,8 +2269,10 @@ restore
 *cupsFilter: "application/vnd.cups-postscript 0 foomatic-rip"
 
 *FoomaticRIPCommandLine: "printf &quot;%%!PS-Adobe-3.0\n%%%% %%&&
-%%\n%B%C%D%A&quot;%%%%; cat;"
+%%\n%A%B%C%D&quot;%%%%; cat;"
 *End
+
+*FoomaticRIPUserEntityMaxLength: 8
 
 *OpenGroup: JobLog/Job Log
 
