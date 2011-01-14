@@ -4,9 +4,9 @@
 *%    for "Infotec MP C6000 PXL"
 *%
 *%    CreationDate: 2006/11/08
-*%    Modified:     2010/09/14
+*%    Modified:     2011/01/05
 *%
-*%    COPYRIGHT (C) 2006-2010 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2006-2011 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -31,7 +31,6 @@
 *%
 
 
-*FileVersion: "1.1"
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
@@ -44,8 +43,9 @@
 *ShortNickName: "Infotec MP C6000 PXL"
 *NickName: "Infotec MP C6000 PXL"
 
+*FileVersion:      1.19.1
 *cupsVersion:      1.1
-*cupsManualCopies: True
+*cupsManualCopies: False
 *cupsFilter: "application/vnd.cups-postscript 100 foomatic-rip"
 *cupsFilter: "application/vnd.cups-pdf 0 foomatic-rip"
 
@@ -77,7 +77,11 @@
 
 *%========== Ghostscript Command line ==========
 
-*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE%B%A%C %D%E"
+*FoomaticRIPCommandLine: "(printf &apos;\033%%-12345X@PJL SET COPIES=&copies;\n&apos;%G|perl -p -e &quot;s/\x26copies\x3b/1/&quot;);
+(gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE %B%A%C %D%E | perl -p -e &quot;s/^\x1b\x25-12345X//&quot; | perl -p -e &quot;s/\xc1\x01\x00\xf8\x31\x44/\x44/g&quot;);"
+*End
+
+*FoomaticRIPUserEntityMaxLength: 8
 
 *OpenGroup: General
 *OpenUI *ColorModel/Color Mode: PickOne
@@ -136,8 +140,8 @@
 *FoomaticRIPOptionSetting PageSize=Legal: " -sPAPERSIZE=legal -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x01\xf8\x25/g&quot;"
 *PageSize Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
 *FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter -sOutputFile=- - "
-*PageSize 11x17/11x17: "%% FoomaticRIPOptionSetting: PageSize=11x17"
-*FoomaticRIPOptionSetting PageSize=11x17: " -sPAPERSIZE=11x17  -sOutputFile=- - "
+*PageSize Tabloid/11x17: "%% FoomaticRIPOptionSetting: PageSize=Tabloid"
+*FoomaticRIPOptionSetting PageSize=Tabloid: " -sPAPERSIZE=11x17  -sOutputFile=- - "
 *CloseUI: *PageSize
 
 *OpenUI *PageRegion: PickOne
@@ -148,7 +152,7 @@
 *PageRegion A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
 *PageRegion Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
 *PageRegion Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
-*PageRegion 11x17/11x17: "%% FoomaticRIPOptionSetting: PageSize=11x17"
+*PageRegion Tabloid/11x17: "%% FoomaticRIPOptionSetting: PageSize=Tabloid"
 *CloseUI: *PageRegion
 
 *%========== Information About Media Sizes ==========
@@ -159,7 +163,7 @@
 *ImageableArea A5/A5: "12 12 408 583"
 *ImageableArea Legal/Legal: "12 12 600 996"
 *ImageableArea Letter/Letter: "12 12 600 780"
-*ImageableArea 11x17/11x17: "12 12 780 1212"
+*ImageableArea Tabloid/11x17: "12 12 780 1212"
 
 *DefaultPaperDimension: Letter
 *PaperDimension A3/A3: "842 1191"
@@ -167,7 +171,7 @@
 *PaperDimension A5/A5: "420 595"
 *PaperDimension Legal/Legal: "612 1008"
 *PaperDimension Letter/Letter: "612 792"
-*PaperDimension 11x17/11x17: "792 1224"
+*PaperDimension Tabloid/11x17: "792 1224"
 
 *%========== Media Handling Features ==========
 
@@ -231,6 +235,18 @@
 *FoomaticRIPOptionSetting JCLDuplex=DuplexTumble: "SET DUPLEX=ON
 @PJL SET BINDING=SHORTEDGE"
 
+
+*OpenUI *Collate/Collate: Boolean
+*FoomaticRIPOption Collate: bool CmdLine G
+*OrderDependency: 110 AnySetup *Collate
+*DefaultCollate: False
+*Collate False/Off: "%% FoomaticRIPOptionSetting: Collate=False"
+*Collate True/On:   "%% FoomaticRIPOptionSetting: Collate=True"
+*CloseUI: *Collate
+
+*FoomaticRIPOptionSetting Collate=False: ""
+*FoomaticRIPOptionSetting Collate=True:  "|(perl -p -e &quot;s/\x40PJL SET COPIES=&copies;\n/\x40PJL SET QTY=&copies;\n/&quot;)"
+*FoomaticRIPOptionSetting Collate:       "|(perl -p -e &quot;s/\x40PJL SET COPIES=&copies;\n/\x40PJL SET QTY=&copies;\n/&quot;)"
 
 *OpenUI *MediaType/Paper Type: PickOne
 *FoomaticRIPOption MediaType: enum JCL A
