@@ -4,7 +4,7 @@
 *%    for "Infotec MP C7500 PXL"
 *%
 *%    CreationDate: 2006/11/08
-*%    Modified:     2011/01/05
+*%    Modified:     2011/03/05
 *%
 *%    COPYRIGHT (C) 2006-2011 RICOH COMPANY, LTD.
 *%    
@@ -43,10 +43,11 @@
 *ShortNickName: "Infotec MP C7500 PXL"
 *NickName: "Infotec MP C7500 PXL"
 
-*FileVersion:      1.19.1
+*FileVersion:      20
 *cupsVersion:      1.1
 *cupsManualCopies: False
-*cupsFilter: "application/vnd.cups-postscript 100 foomatic-rip"
+*cupsCommands:     ""
+*cupsFilter: "application/vnd.cups-postscript 0 foomatic-rip"
 *cupsFilter: "application/vnd.cups-pdf 0 foomatic-rip"
 
 *%========== Basic Device Capabilities ==========
@@ -64,6 +65,13 @@
 
 *OpenGroup: InstallableOptions/Installable Options
 
+*OpenUI *LargeCapacityTray/Large Capacity Tray: PickOne
+*DefaultLargeCapacityTray: NotInstalled
+*LargeCapacityTray NotInstalled/Not Installed: ""
+*LargeCapacityTray LCTMAUI/Large Capacity Tray: ""
+*LargeCapacityTray LCTSIBERIAB/Wide Large Capacity Tray: ""
+*CloseUI: *LargeCapacityTray
+
 *OpenUI *Finisher/Finisher: PickOne
 *DefaultFinisher: NotInstalled
 *Finisher NotInstalled/Not Installed: ""
@@ -72,6 +80,29 @@
 *Finisher FinVICTORIAF/Finisher SR5000: ""
 *CloseUI: *Finisher
 
+*OpenUI *Mailbox/Mailbox: PickOne
+*DefaultMailbox: NotInstalled
+*Mailbox NotInstalled/Not Installed: ""
+*Mailbox Installed/Installed: ""
+*CloseUI: *Mailbox
+
+*OpenUI *MultiHolePunchUnit/Multi-hole Punch Unit: PickOne
+*DefaultMultiHolePunchUnit: False
+*MultiHolePunchUnit False/Not Installed: ""
+*MultiHolePunchUnit True/Installed: ""
+*CloseUI: *MultiHolePunchUnit
+
+*OpenUI *ZfoldingUnit/Z-folding unit: PickOne
+*DefaultZfoldingUnit: False
+*ZfoldingUnit False/Not Installed: ""
+*ZfoldingUnit True/Installed: ""
+*CloseUI: *ZfoldingUnit
+
+*OpenUI *BookletProcessor/Booklet Processor: PickOne
+*DefaultBookletProcessor: False
+*BookletProcessor False/Not Installed: ""
+*BookletProcessor Plockmatic/Installed: ""
+*CloseUI: *BookletProcessor
 
 *CloseGroup: InstallableOptions
 
@@ -136,12 +167,64 @@
 *FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4 -sOutputFile=- - "
 *PageSize A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
 *FoomaticRIPOptionSetting PageSize=A5: " -sPAPERSIZE=a5 -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0f\xf8\x25/g&quot;"
+*PageSize A6/A6: "%% FoomaticRIPOptionSetting: PageSize=A6"
+*FoomaticRIPOptionSetting PageSize=A6: " -dDEVICEWIDTHPOINTS=298 -dDEVICEHEIGHTPOINTS=420 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x14\xf8\x25/g&quot;"
+*End
+*PageSize B4/B4 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B4"
+*FoomaticRIPOptionSetting PageSize=B4: " -dDEVICEWIDTHPOINTS=729 -dDEVICEHEIGHTPOINTS=1032 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0a\xf8\x25/g&quot;"
+*End
+*PageSize B5/B5 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B5"
+*FoomaticRIPOptionSetting PageSize=B5: " -dDEVICEWIDTHPOINTS=516 -dDEVICEHEIGHTPOINTS=729 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0b\xf8\x25/g&quot;"
+*End
+*PageSize B6/B6 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B6"
+*FoomaticRIPOptionSetting PageSize=B6: " -dDEVICEWIDTHPOINTS=363 -dDEVICEHEIGHTPOINTS=516 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xc9\xf8\x25/g&quot;"
+*End
 *PageSize Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
 *FoomaticRIPOptionSetting PageSize=Legal: " -sPAPERSIZE=legal -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x01\xf8\x25/g&quot;"
 *PageSize Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
 *FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter -sOutputFile=- - "
+*PageSize Statement/5.5x8.5: "%% FoomaticRIPOptionSetting: PageSize=Statement"
+*FoomaticRIPOptionSetting PageSize=Statement: " -dDEVICEWIDTHPOINTS=396 -dDEVICEHEIGHTPOINTS=612 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x13\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\xb0\x40\x00\x00\x08\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\x13\xf8\x25/g&quot;"
+*End
+*PageSize F/8x13: "%% FoomaticRIPOptionSetting: PageSize=F"
+*FoomaticRIPOptionSetting PageSize=F: " -dDEVICEWIDTHPOINTS=576 -dDEVICEHEIGHTPOINTS=936 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x12\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x00\x41\x00\x00\x50\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\x12\xf8\x25/g&quot;"
+*End
+*PageSize Folio/8.25x13: "%% FoomaticRIPOptionSetting: PageSize=Folio"
+*FoomaticRIPOptionSetting PageSize=Folio: " -dDEVICEWIDTHPOINTS=595 -dDEVICEHEIGHTPOINTS=935 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x10\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\x9d\x36\x04\x41\x63\xC9\x4f\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\x10\xf8\x25/g&quot;"
+*End
+*PageSize FanFoldGermanLegal/8.5x13: "%% FoomaticRIPOptionSetting: PageSize=FanFoldGermanLegal"
+*FoomaticRIPOptionSetting PageSize=FanFoldGermanLegal: " -dDEVICEWIDTHPOINTS=612 -dDEVICEHEIGHTPOINTS=936 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x11\xf8\x25/g&quot;"
+*End
 *PageSize Tabloid/11x17: "%% FoomaticRIPOptionSetting: PageSize=Tabloid"
 *FoomaticRIPOptionSetting PageSize=Tabloid: " -sPAPERSIZE=11x17  -sOutputFile=- - "
+*PageSize 12x18/12x18: "%% FoomaticRIPOptionSetting: PageSize=12x18"
+*FoomaticRIPOptionSetting PageSize=12x18: " -dDEVICEWIDTHPOINTS=864 -dDEVICEHEIGHTPOINTS=1296 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xcd\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x40\x41\x00\x00\x90\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xcd\xf8\x25/g&quot;"
+*End
+*PageSize Executive/Executive: "%% FoomaticRIPOptionSetting: PageSize=Executive"
+*FoomaticRIPOptionSetting PageSize=Executive: " -dDEVICEWIDTHPOINTS=522 -dDEVICEHEIGHTPOINTS=756 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x03\xf8\x25/g&quot;"
+*End
+*PageSize 8Kai/8K: "%% FoomaticRIPOptionSetting: PageSize=8Kai"
+*FoomaticRIPOptionSetting PageSize=8Kai: " -dDEVICEWIDTHPOINTS=757 -dDEVICEHEIGHTPOINTS=1106 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xcb\xf8\x25/g&quot;"
+*End
+*PageSize 16Kai/16K: "%% FoomaticRIPOptionSetting: PageSize=16Kai"
+*FoomaticRIPOptionSetting PageSize=16Kai: " -dDEVICEWIDTHPOINTS=553 -dDEVICEHEIGHTPOINTS=757 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xcc\xf8\x25/g&quot;"
+*End
 *CloseUI: *PageSize
 
 *OpenUI *PageRegion: PickOne
@@ -150,9 +233,21 @@
 *PageRegion A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
 *PageRegion A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
 *PageRegion A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
+*PageRegion A6/A6: "%% FoomaticRIPOptionSetting: PageSize=A6"
+*PageRegion B4/B4 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B4"
+*PageRegion B5/B5 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B5"
+*PageRegion B6/B6 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B6"
 *PageRegion Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
 *PageRegion Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
+*PageRegion Statement/5.5x8.5: "%% FoomaticRIPOptionSetting: PageSize=Statement"
+*PageRegion F/8x13: "%% FoomaticRIPOptionSetting: PageSize=F"
+*PageRegion Folio/8.25x13: "%% FoomaticRIPOptionSetting: PageSize=Folio"
+*PageRegion FanFoldGermanLegal/8.5x13: "%% FoomaticRIPOptionSetting: PageSize=FanFoldGermanLegal"
 *PageRegion Tabloid/11x17: "%% FoomaticRIPOptionSetting: PageSize=Tabloid"
+*PageRegion 12x18/12x18: "%% FoomaticRIPOptionSetting: PageSize=12x18"
+*PageRegion Executive/Executive: "%% FoomaticRIPOptionSetting: PageSize=Executive"
+*PageRegion 8Kai/8K: "%% FoomaticRIPOptionSetting: PageSize=8Kai"
+*PageRegion 16Kai/16K: "%% FoomaticRIPOptionSetting: PageSize=16Kai"
 *CloseUI: *PageRegion
 
 *%========== Information About Media Sizes ==========
@@ -161,17 +256,41 @@
 *ImageableArea A3/A3: "12 12 830 1179"
 *ImageableArea A4/A4: "12 12 583 830"
 *ImageableArea A5/A5: "12 12 408 583"
+*ImageableArea A6/A6: "12 12 286 408"
+*ImageableArea B4/B4 (JIS): "12 12 717 1020"
+*ImageableArea B5/B5 (JIS): "12 12 504 717"
+*ImageableArea B6/B6 (JIS): "12 12 351 504"
 *ImageableArea Legal/Legal: "12 12 600 996"
 *ImageableArea Letter/Letter: "12 12 600 780"
+*ImageableArea Statement/5.5x8.5: "12 12 384 600"
+*ImageableArea F/8x13: "12 12 564 924"
+*ImageableArea Folio/8.25x13: "12 12 583 923"
+*ImageableArea FanFoldGermanLegal/8.5x13: "12 12 600 924"
 *ImageableArea Tabloid/11x17: "12 12 780 1212"
+*ImageableArea 12x18/12x18: "12 12 852 1284"
+*ImageableArea Executive/Executive: "12 12 510 744"
+*ImageableArea 8Kai/8K: "12 12 745 1094"
+*ImageableArea 16Kai/16K: "12 12 541 745"
 
 *DefaultPaperDimension: Letter
 *PaperDimension A3/A3: "842 1191"
 *PaperDimension A4/A4: "595 842"
 *PaperDimension A5/A5: "420 595"
+*PaperDimension A6/A6: "298 420"
+*PaperDimension B4/B4 (JIS): "729 1032"
+*PaperDimension B5/B5 (JIS): "516 729"
+*PaperDimension B6/B6 (JIS): "363 516"
 *PaperDimension Legal/Legal: "612 1008"
 *PaperDimension Letter/Letter: "612 792"
+*PaperDimension Statement/5.5x8.5: "396 612"
+*PaperDimension F/8x13: "576 936"
+*PaperDimension Folio/8.25x13: "595 935"
+*PaperDimension FanFoldGermanLegal/8.5x13: "612 936"
 *PaperDimension Tabloid/11x17: "792 1224"
+*PaperDimension 12x18/12x18: "864 1296"
+*PaperDimension Executive/Executive: "522 756"
+*PaperDimension 8Kai/8K: "757 1106"
+*PaperDimension 16Kai/16K: "553 757"
 
 *%========== Media Handling Features ==========
 
@@ -197,7 +316,7 @@
 *End
 *InputSlot 5Tray/Large Capacity Tray: "%% FoomaticRIPOptionSetting: InputSlot=5Tray"
 *FoomaticRIPOptionSetting InputSlot=5Tray: "&&
- | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x09\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x15\xf8\x26/g&quot;"
 *End
 *InputSlot Auto/Auto Select: "%% FoomaticRIPOptionSetting: InputSlot=Auto"
 *FoomaticRIPOptionSetting InputSlot=Auto: ""
@@ -439,7 +558,6 @@
 @PJL SET PUNCHHOLE=NEU4"
 *End
 *CloseUI: *RIPunch
-
 *OpenUI *RIPrintMode/Toner Saving: PickOne
 *FoomaticRIPOption RIPrintMode: enum JCL A
 *OrderDependency: 45 AnySetup *RIPrintMode
@@ -541,6 +659,30 @@
 
 *CloseGroup: JobLog/Job Log
 
+*UIConstraints: *InputSlot MultiTray *LargeCapacityTray LCTSIBERIAB
+*UIConstraints: *LargeCapacityTray LCTSIBERIAB *InputSlot MultiTray
+*UIConstraints: *InputSlot 5Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *LargeCapacityTray NotInstalled *InputSlot 5Tray
+*UIConstraints: *Finisher NotInstalled *BookletProcessor Plockmatic
+*UIConstraints: *BookletProcessor Plockmatic *Finisher NotInstalled
+*UIConstraints: *Finisher FinEUPHRATESC *BookletProcessor Plockmatic
+*UIConstraints: *BookletProcessor Plockmatic *Finisher FinEUPHRATESC
+*UIConstraints: *Finisher FinEUPHRATESCBK *BookletProcessor Plockmatic
+*UIConstraints: *BookletProcessor Plockmatic *Finisher FinEUPHRATESCBK
+*UIConstraints: *Finisher NotInstalled *Mailbox Installed
+*UIConstraints: *Mailbox Installed *Finisher NotInstalled
+*UIConstraints: *Finisher FinVICTORIAF *Mailbox Installed
+*UIConstraints: *Mailbox Installed *Finisher FinVICTORIAF
+*UIConstraints: *Finisher NotInstalled *ZfoldingUnit True
+*UIConstraints: *ZfoldingUnit True *Finisher NotInstalled
+*UIConstraints: *Finisher FinEUPHRATESC *ZfoldingUnit True
+*UIConstraints: *ZfoldingUnit True *Finisher FinEUPHRATESC
+*UIConstraints: *Finisher NotInstalled *MultiHolePunchUnit True
+*UIConstraints: *MultiHolePunchUnit True *Finisher NotInstalled
+*UIConstraints: *Finisher FinEUPHRATESC *MultiHolePunchUnit True
+*UIConstraints: *MultiHolePunchUnit True *Finisher FinEUPHRATESC
+*UIConstraints: *Finisher FinEUPHRATESCBK *MultiHolePunchUnit True
+*UIConstraints: *MultiHolePunchUnit True *Finisher FinEUPHRATESCBK
 *UIConstraints: *OutputBin Standard *Finisher FinEUPHRATESC
 *UIConstraints: *OutputBin Standard *Finisher FinEUPHRATESCBK
 *UIConstraints: *OutputBin Standard *Finisher FinVICTORIAF
@@ -587,12 +729,190 @@
 *UIConstraints: *StapleLocation CenterW *Finisher FinEUPHRATESC
 *UIConstraints: *Finisher NotInstalled *StapleLocation CenterW
 *UIConstraints: *Finisher FinEUPHRATESC *StapleLocation CenterW
+*UIConstraints: *OutputBin FinVICTFShift *BookletProcessor Plockmatic
+*UIConstraints: *BookletProcessor Plockmatic *OutputBin FinVICTFShift
+*UIConstraints: *OutputBin PlockmaticTray *BookletProcessor False
+*UIConstraints: *BookletProcessor False *OutputBin PlockmaticTray
+*UIConstraints: *StapleLocation UpperLeft *BookletProcessor Plockmatic
+*UIConstraints: *BookletProcessor Plockmatic *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation UpperRight *BookletProcessor Plockmatic
+*UIConstraints: *BookletProcessor Plockmatic *StapleLocation UpperRight
+*UIConstraints: *StapleLocation LeftW *BookletProcessor Plockmatic
+*UIConstraints: *BookletProcessor Plockmatic *StapleLocation LeftW
+*UIConstraints: *StapleLocation RightW *BookletProcessor Plockmatic
+*UIConstraints: *BookletProcessor Plockmatic *StapleLocation RightW
+*UIConstraints: *StapleLocation UpperW *BookletProcessor Plockmatic
+*UIConstraints: *BookletProcessor Plockmatic *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin1 *Mailbox NotInstalled
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin1
+*UIConstraints: *OutputBin MailBoxBin2 *Mailbox NotInstalled
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin2
+*UIConstraints: *OutputBin MailBoxBin3 *Mailbox NotInstalled
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin3
+*UIConstraints: *OutputBin MailBoxBin4 *Mailbox NotInstalled
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin4
+*UIConstraints: *OutputBin MailBoxBin5 *Mailbox NotInstalled
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin5
+*UIConstraints: *OutputBin MailBoxBin6 *Mailbox NotInstalled
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin6
+*UIConstraints: *OutputBin MailBoxBin7 *Mailbox NotInstalled
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin7
+*UIConstraints: *OutputBin MailBoxBin8 *Mailbox NotInstalled
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin8
+*UIConstraints: *OutputBin MailBoxBin9 *Mailbox NotInstalled
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin9
+*UIConstraints: *RIZfold Bottom *ZfoldingUnit False
+*UIConstraints: *ZfoldingUnit False *RIZfold Bottom
+*UIConstraints: *RIZfold Right *ZfoldingUnit False
+*UIConstraints: *ZfoldingUnit False *RIZfold Right
+*UIConstraints: *RIZfold Left *ZfoldingUnit False
+*UIConstraints: *ZfoldingUnit False *RIZfold Left
 *UIConstraints: *PageSize A5 *InputSlot 1Tray
 *UIConstraints: *InputSlot 1Tray *PageSize A5
+*UIConstraints: *PageSize A6 *InputSlot 1Tray
+*UIConstraints: *PageSize A6 *InputSlot 2Tray
+*UIConstraints: *PageSize A6 *InputSlot 3Tray
+*UIConstraints: *InputSlot 1Tray *PageSize A6
+*UIConstraints: *InputSlot 2Tray *PageSize A6
+*UIConstraints: *InputSlot 3Tray *PageSize A6
+*UIConstraints: *PageSize B5 *InputSlot 1Tray
+*UIConstraints: *InputSlot 1Tray *PageSize B5
+*UIConstraints: *PageSize B6 *InputSlot 1Tray
+*UIConstraints: *PageSize B6 *InputSlot 2Tray
+*UIConstraints: *PageSize B6 *InputSlot 3Tray
+*UIConstraints: *InputSlot 1Tray *PageSize B6
+*UIConstraints: *InputSlot 2Tray *PageSize B6
+*UIConstraints: *InputSlot 3Tray *PageSize B6
+*UIConstraints: *PageSize Statement *InputSlot 1Tray
+*UIConstraints: *InputSlot 1Tray *PageSize Statement
+*UIConstraints: *PageSize F *InputSlot 1Tray
+*UIConstraints: *InputSlot 1Tray *PageSize F
+*UIConstraints: *PageSize Folio *InputSlot 1Tray
+*UIConstraints: *InputSlot 1Tray *PageSize Folio
+*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot 1Tray
+*UIConstraints: *InputSlot 1Tray *PageSize FanFoldGermanLegal
+*UIConstraints: *PageSize 12x18 *InputSlot 1Tray
+*UIConstraints: *InputSlot 1Tray *PageSize 12x18
+*UIConstraints: *PageSize Executive *InputSlot 1Tray
+*UIConstraints: *InputSlot 1Tray *PageSize Executive
+*UIConstraints: *PageSize 8Kai *InputSlot MultiTray
+*UIConstraints: *PageSize 8Kai *InputSlot 1Tray
+*UIConstraints: *InputSlot MultiTray *PageSize 8Kai
+*UIConstraints: *InputSlot 1Tray *PageSize 8Kai
+*UIConstraints: *PageSize 16Kai *InputSlot MultiTray
+*UIConstraints: *PageSize 16Kai *InputSlot 1Tray
+*UIConstraints: *InputSlot MultiTray *PageSize 16Kai
+*UIConstraints: *InputSlot 1Tray *PageSize 16Kai
+*UIConstraints: *PageSize A6 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize A6 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageSize A6
+*UIConstraints: *Duplex DuplexTumble *PageSize A6
+*UIConstraints: *PageSize B6 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize B6 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageSize B6
+*UIConstraints: *Duplex DuplexTumble *PageSize B6
 *UIConstraints: *PageSize A5 *OutputBin FinEUPHCBK
 *UIConstraints: *PageSize A5 *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin FinEUPHCBK *PageSize A5
 *UIConstraints: *OutputBin PlockmaticTray *PageSize A5
+*UIConstraints: *PageSize A6 *OutputBin FinEUPHCBK
+*UIConstraints: *PageSize A6 *OutputBin FinVICTFShift
+*UIConstraints: *PageSize A6 *OutputBin PlockmaticTray
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin1
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin2
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin3
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin4
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin5
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin6
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin7
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin8
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin9
+*UIConstraints: *OutputBin FinEUPHCBK *PageSize A6
+*UIConstraints: *OutputBin FinVICTFShift *PageSize A6
+*UIConstraints: *OutputBin PlockmaticTray *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin1 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin2 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin3 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin4 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin5 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin6 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin7 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin8 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin9 *PageSize A6
+*UIConstraints: *PageSize B5 *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin PlockmaticTray *PageSize B5
+*UIConstraints: *PageSize B6 *OutputBin FinEUPHCBK
+*UIConstraints: *PageSize B6 *OutputBin FinVICTFShift
+*UIConstraints: *PageSize B6 *OutputBin PlockmaticTray
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin1
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin2
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin3
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin4
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin5
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin6
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin7
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin8
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin9
+*UIConstraints: *OutputBin FinEUPHCBK *PageSize B6
+*UIConstraints: *OutputBin FinVICTFShift *PageSize B6
+*UIConstraints: *OutputBin PlockmaticTray *PageSize B6
+*UIConstraints: *OutputBin MailBoxBin1 *PageSize B6
+*UIConstraints: *OutputBin MailBoxBin2 *PageSize B6
+*UIConstraints: *OutputBin MailBoxBin3 *PageSize B6
+*UIConstraints: *OutputBin MailBoxBin4 *PageSize B6
+*UIConstraints: *OutputBin MailBoxBin5 *PageSize B6
+*UIConstraints: *OutputBin MailBoxBin6 *PageSize B6
+*UIConstraints: *OutputBin MailBoxBin7 *PageSize B6
+*UIConstraints: *OutputBin MailBoxBin8 *PageSize B6
+*UIConstraints: *OutputBin MailBoxBin9 *PageSize B6
+*UIConstraints: *PageSize Statement *OutputBin FinEUPHCBK
+*UIConstraints: *PageSize Statement *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin FinEUPHCBK *PageSize Statement
+*UIConstraints: *OutputBin PlockmaticTray *PageSize Statement
+*UIConstraints: *PageSize F *OutputBin FinEUPHCBK
+*UIConstraints: *PageSize F *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin FinEUPHCBK *PageSize F
+*UIConstraints: *OutputBin PlockmaticTray *PageSize F
+*UIConstraints: *PageSize Folio *OutputBin FinEUPHCBK
+*UIConstraints: *PageSize Folio *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin FinEUPHCBK *PageSize Folio
+*UIConstraints: *OutputBin PlockmaticTray *PageSize Folio
+*UIConstraints: *PageSize FanFoldGermanLegal *OutputBin FinEUPHCBK
+*UIConstraints: *PageSize FanFoldGermanLegal *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin FinEUPHCBK *PageSize FanFoldGermanLegal
+*UIConstraints: *OutputBin PlockmaticTray *PageSize FanFoldGermanLegal
+*UIConstraints: *PageSize 12x18 *OutputBin PlockmaticTray
+*UIConstraints: *PageSize 12x18 *OutputBin MailBoxBin1
+*UIConstraints: *PageSize 12x18 *OutputBin MailBoxBin2
+*UIConstraints: *PageSize 12x18 *OutputBin MailBoxBin3
+*UIConstraints: *PageSize 12x18 *OutputBin MailBoxBin4
+*UIConstraints: *PageSize 12x18 *OutputBin MailBoxBin5
+*UIConstraints: *PageSize 12x18 *OutputBin MailBoxBin6
+*UIConstraints: *PageSize 12x18 *OutputBin MailBoxBin7
+*UIConstraints: *PageSize 12x18 *OutputBin MailBoxBin8
+*UIConstraints: *PageSize 12x18 *OutputBin MailBoxBin9
+*UIConstraints: *OutputBin PlockmaticTray *PageSize 12x18
+*UIConstraints: *OutputBin MailBoxBin1 *PageSize 12x18
+*UIConstraints: *OutputBin MailBoxBin2 *PageSize 12x18
+*UIConstraints: *OutputBin MailBoxBin3 *PageSize 12x18
+*UIConstraints: *OutputBin MailBoxBin4 *PageSize 12x18
+*UIConstraints: *OutputBin MailBoxBin5 *PageSize 12x18
+*UIConstraints: *OutputBin MailBoxBin6 *PageSize 12x18
+*UIConstraints: *OutputBin MailBoxBin7 *PageSize 12x18
+*UIConstraints: *OutputBin MailBoxBin8 *PageSize 12x18
+*UIConstraints: *OutputBin MailBoxBin9 *PageSize 12x18
+*UIConstraints: *PageSize Executive *OutputBin FinEUPHCBK
+*UIConstraints: *PageSize Executive *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin FinEUPHCBK *PageSize Executive
+*UIConstraints: *OutputBin PlockmaticTray *PageSize Executive
+*UIConstraints: *PageSize 8Kai *OutputBin FinEUPHCBK
+*UIConstraints: *PageSize 8Kai *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin FinEUPHCBK *PageSize 8Kai
+*UIConstraints: *OutputBin PlockmaticTray *PageSize 8Kai
+*UIConstraints: *PageSize 16Kai *OutputBin FinEUPHCBK
+*UIConstraints: *PageSize 16Kai *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin FinEUPHCBK *PageSize 16Kai
+*UIConstraints: *OutputBin PlockmaticTray *PageSize 16Kai
 *UIConstraints: *InputSlot MultiTray *Duplex DuplexNoTumble
 *UIConstraints: *InputSlot MultiTray *Duplex DuplexTumble
 *UIConstraints: *Duplex DuplexNoTumble *InputSlot MultiTray
@@ -1166,6 +1486,36 @@
 *UIConstraints: *RIPunch UpperEU4 *Finisher NotInstalled
 *UIConstraints: *Finisher NotInstalled *RIPunch UpperNEU4
 *UIConstraints: *RIPunch UpperNEU4 *Finisher NotInstalled
+*UIConstraints: *MultiHolePunchUnit False *RIPunch LeftJP2
+*UIConstraints: *RIPunch LeftJP2 *MultiHolePunchUnit False
+*UIConstraints: *MultiHolePunchUnit False *RIPunch LeftUS2
+*UIConstraints: *RIPunch LeftUS2 *MultiHolePunchUnit False
+*UIConstraints: *MultiHolePunchUnit False *RIPunch LeftUS3
+*UIConstraints: *RIPunch LeftUS3 *MultiHolePunchUnit False
+*UIConstraints: *MultiHolePunchUnit False *RIPunch LeftEU4
+*UIConstraints: *RIPunch LeftEU4 *MultiHolePunchUnit False
+*UIConstraints: *MultiHolePunchUnit False *RIPunch LeftNEU4
+*UIConstraints: *RIPunch LeftNEU4 *MultiHolePunchUnit False
+*UIConstraints: *MultiHolePunchUnit False *RIPunch RightJP2
+*UIConstraints: *RIPunch RightJP2 *MultiHolePunchUnit False
+*UIConstraints: *MultiHolePunchUnit False *RIPunch RightUS2
+*UIConstraints: *RIPunch RightUS2 *MultiHolePunchUnit False
+*UIConstraints: *MultiHolePunchUnit False *RIPunch RightUS3
+*UIConstraints: *RIPunch RightUS3 *MultiHolePunchUnit False
+*UIConstraints: *MultiHolePunchUnit False *RIPunch RightEU4
+*UIConstraints: *RIPunch RightEU4 *MultiHolePunchUnit False
+*UIConstraints: *MultiHolePunchUnit False *RIPunch RightNEU4
+*UIConstraints: *RIPunch RightNEU4 *MultiHolePunchUnit False
+*UIConstraints: *MultiHolePunchUnit False *RIPunch UpperJP2
+*UIConstraints: *RIPunch UpperJP2 *MultiHolePunchUnit False
+*UIConstraints: *MultiHolePunchUnit False *RIPunch UpperUS2
+*UIConstraints: *RIPunch UpperUS2 *MultiHolePunchUnit False
+*UIConstraints: *MultiHolePunchUnit False *RIPunch UpperUS3
+*UIConstraints: *RIPunch UpperUS3 *MultiHolePunchUnit False
+*UIConstraints: *MultiHolePunchUnit False *RIPunch UpperEU4
+*UIConstraints: *RIPunch UpperEU4 *MultiHolePunchUnit False
+*UIConstraints: *MultiHolePunchUnit False *RIPunch UpperNEU4
+*UIConstraints: *RIPunch UpperNEU4 *MultiHolePunchUnit False
 *UIConstraints: *InputSlot MultiTray *RIPunch LeftJP2
 *UIConstraints: *RIPunch LeftJP2 *InputSlot MultiTray
 *UIConstraints: *InputSlot MultiTray *RIPunch LeftUS2

@@ -4,7 +4,7 @@
 *%    for "Infotec Pro 1357EX PXL"
 *%
 *%    CreationDate: 2008/04/10
-*%    Modified:     2011/01/05
+*%    Modified:     2011/03/05
 *%
 *%    COPYRIGHT (C) 2008-2011 RICOH COMPANY, LTD.
 *%    
@@ -43,10 +43,11 @@
 *ShortNickName: "Infotec Pro 1357EX PXL"
 *NickName: "Infotec Pro 1357EX PXL"
 
-*FileVersion:      1.19.1
+*FileVersion:      20
 *cupsVersion:      1.1
 *cupsManualCopies: False
-*cupsFilter: "application/vnd.cups-postscript 100 foomatic-rip"
+*cupsCommands:     ""
+*cupsFilter: "application/vnd.cups-postscript 0 foomatic-rip"
 *cupsFilter: "application/vnd.cups-pdf 0 foomatic-rip"
 
 *%========== Basic Device Capabilities ==========
@@ -64,12 +65,50 @@
 
 *OpenGroup: InstallableOptions/Installable Options
 
+*OpenUI *LargeCapacityTray/Large Capacity Tray: PickOne
+*DefaultLargeCapacityTray: NotInstalled
+*LargeCapacityTray NotInstalled/Not Installed: ""
+*LargeCapacityTray LCTALASKAD/Large Capacity Tray: ""
+*LargeCapacityTray LCTSIBERIAC/Wide Large Capacity Tray: ""
+*CloseUI: *LargeCapacityTray
+
 *OpenUI *Finisher/Finisher: PickOne
 *DefaultFinisher: NotInstalled
 *Finisher NotInstalled/Not Installed: ""
 *Finisher FinCOLUMBIA/Finisher SR5020: ""
 *Finisher FinVICTORIAE/Finisher SR5000: ""
 *CloseUI: *Finisher
+
+*OpenUI *MultiFold/Folding Unit: PickOne
+*DefaultMultiFold: NotInstalled
+*MultiFold NotInstalled/Not Installed: ""
+*MultiFold Installed/Installed: ""
+*CloseUI: *MultiFold
+
+*OpenUI *TrimmerUnit/Trimmer: PickOne
+*DefaultTrimmerUnit: NotInstalled
+*TrimmerUnit NotInstalled/Not Installed: ""
+*TrimmerUnit Installed/Installed: ""
+*CloseUI: *TrimmerUnit
+
+*OpenUI *Tray7/Tray 7: PickOne
+*DefaultTray7: NotInstalled
+*Tray7 NotInstalled/Not Installed: ""
+*Tray7 Installed/Installed: ""
+*CloseUI: *Tray7
+
+*OpenUI *Stacker/Stacker: PickOne
+*DefaultStacker: NotInstalled
+*Stacker NotInstalled/Not Installed: ""
+*Stacker StackerSingle/Stacker: ""
+*Stacker StackerDouble/Second Stacker: ""
+*CloseUI: *Stacker
+
+*OpenUI *MultiHolePunchUnit/Multi-hole Punch Unit: PickOne
+*DefaultMultiHolePunchUnit: NotInstalled
+*MultiHolePunchUnit NotInstalled/Not Installed: ""
+*MultiHolePunchUnit Installed/Installed: ""
+*CloseUI: *MultiHolePunchUnit
 
 *OpenUI *OptionBind/Perfect/Ring Binder Unit: PickOne
 *DefaultOptionBind: None
@@ -78,6 +117,11 @@
 *OptionBind FinTENRYU/Perfect Binder: ""
 *CloseUI: *OptionBind
 
+*OpenUI *BookletProcessor/Booklet Processor: PickOne
+*DefaultBookletProcessor: NotInstalled
+*BookletProcessor NotInstalled/Not Installed: ""
+*BookletProcessor Plockmatic/Installed: ""
+*CloseUI: *BookletProcessor
 
 *CloseGroup: InstallableOptions
 
@@ -137,12 +181,124 @@
 *FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4 -sOutputFile=- - "
 *PageSize A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
 *FoomaticRIPOptionSetting PageSize=A5: " -sPAPERSIZE=a5 -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0f\xf8\x25/g&quot;"
+*PageSize A6/A6: "%% FoomaticRIPOptionSetting: PageSize=A6"
+*FoomaticRIPOptionSetting PageSize=A6: " -dDEVICEWIDTHPOINTS=298 -dDEVICEHEIGHTPOINTS=420 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x14\xf8\x25/g&quot;"
+*End
+*PageSize B4/B4 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B4"
+*FoomaticRIPOptionSetting PageSize=B4: " -dDEVICEWIDTHPOINTS=729 -dDEVICEHEIGHTPOINTS=1032 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0a\xf8\x25/g&quot;"
+*End
+*PageSize B5/B5 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B5"
+*FoomaticRIPOptionSetting PageSize=B5: " -dDEVICEWIDTHPOINTS=516 -dDEVICEHEIGHTPOINTS=729 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0b\xf8\x25/g&quot;"
+*End
+*PageSize B6/B6 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B6"
+*FoomaticRIPOptionSetting PageSize=B6: " -dDEVICEWIDTHPOINTS=363 -dDEVICEHEIGHTPOINTS=516 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xc9\xf8\x25/g&quot;"
+*End
 *PageSize Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
 *FoomaticRIPOptionSetting PageSize=Legal: " -sPAPERSIZE=legal -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x01\xf8\x25/g&quot;"
+*PageSize GovernmentLG/8.25x14: "%% FoomaticRIPOptionSetting: PageSize=GovernmentLG"
+*FoomaticRIPOptionSetting PageSize=GovernmentLG: " -dDEVICEWIDTHPOINTS=594 -dDEVICEHEIGHTPOINTS=1008 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x15\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x04\x41\x00\x00\x60\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\x15\xf8\x25/g&quot;"
+*End
+*PageSize EngQuatro/8x10: "%% FoomaticRIPOptionSetting: PageSize=EngQuatro"
+*FoomaticRIPOptionSetting PageSize=EngQuatro: " -dDEVICEWIDTHPOINTS=576 -dDEVICEHEIGHTPOINTS=720 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xdd\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x00\x41\x00\x00\x20\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xdd\xf8\x25/g&quot;"
+*End
 *PageSize Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
 *FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter -sOutputFile=- - "
+*PageSize Statement/5.5x8.5: "%% FoomaticRIPOptionSetting: PageSize=Statement"
+*FoomaticRIPOptionSetting PageSize=Statement: " -dDEVICEWIDTHPOINTS=396 -dDEVICEHEIGHTPOINTS=612 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x13\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\xb0\x40\x00\x00\x08\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\x13\xf8\x25/g&quot;"
+*End
+*PageSize F/8x13: "%% FoomaticRIPOptionSetting: PageSize=F"
+*FoomaticRIPOptionSetting PageSize=F: " -dDEVICEWIDTHPOINTS=576 -dDEVICEHEIGHTPOINTS=936 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x12\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x00\x41\x00\x00\x50\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\x12\xf8\x25/g&quot;"
+*End
+*PageSize Folio/8.25x13: "%% FoomaticRIPOptionSetting: PageSize=Folio"
+*FoomaticRIPOptionSetting PageSize=Folio: " -dDEVICEWIDTHPOINTS=595 -dDEVICEHEIGHTPOINTS=935 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x10\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\x9d\x36\x04\x41\x63\xC9\x4f\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\x10\xf8\x25/g&quot;"
+*End
+*PageSize FanFoldGermanLegal/8.5x13: "%% FoomaticRIPOptionSetting: PageSize=FanFoldGermanLegal"
+*FoomaticRIPOptionSetting PageSize=FanFoldGermanLegal: " -dDEVICEWIDTHPOINTS=612 -dDEVICEHEIGHTPOINTS=936 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x11\xf8\x25/g&quot;"
+*End
 *PageSize Tabloid/11x17: "%% FoomaticRIPOptionSetting: PageSize=Tabloid"
 *FoomaticRIPOptionSetting PageSize=Tabloid: " -sPAPERSIZE=11x17  -sOutputFile=- - "
+*PageSize 12x18/12x18: "%% FoomaticRIPOptionSetting: PageSize=12x18"
+*FoomaticRIPOptionSetting PageSize=12x18: " -dDEVICEWIDTHPOINTS=864 -dDEVICEHEIGHTPOINTS=1296 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xcd\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x40\x41\x00\x00\x90\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xcd\xf8\x25/g&quot;"
+*End
+*PageSize 11x14/11x14: "%% FoomaticRIPOptionSetting: PageSize=11x14"
+*FoomaticRIPOptionSetting PageSize=11x14: " -dDEVICEWIDTHPOINTS=792 -dDEVICEHEIGHTPOINTS=1008 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xde\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x30\x41\x00\x00\x60\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xde\xf8\x25/g&quot;"
+*End
+*PageSize 13x19.2/13x19.2: "%% FoomaticRIPOptionSetting: PageSize=13x19.2"
+*FoomaticRIPOptionSetting PageSize=13x19.2: " -dDEVICEWIDTHPOINTS=936 -dDEVICEHEIGHTPOINTS=1382 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xd4\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x50\x41\x5c\x8f\x99\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xd4\xf8\x25/g&quot;"
+*End
+*PageSize 13x19/13x19: "%% FoomaticRIPOptionSetting: PageSize=13x19"
+*FoomaticRIPOptionSetting PageSize=13x19: " -dDEVICEWIDTHPOINTS=936 -dDEVICEHEIGHTPOINTS=1368 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xd5\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x50\x41\x00\x00\x98\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xd5\xf8\x25/g&quot;"
+*End
+*PageSize 12.6x19.2/12.6x19.2: "%% FoomaticRIPOptionSetting: PageSize=12.6x19.2"
+*FoomaticRIPOptionSetting PageSize=12.6x19.2: " -dDEVICEWIDTHPOINTS=907 -dDEVICEHEIGHTPOINTS=1382 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xd6\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\xf2\x8B\x49\x41\x5c\x8f\x99\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xd6\xf8\x25/g&quot;"
+*End
+*PageSize 12.6x18.5/12.6x18.5: "%% FoomaticRIPOptionSetting: PageSize=12.6x18.5"
+*FoomaticRIPOptionSetting PageSize=12.6x18.5: " -dDEVICEWIDTHPOINTS=907 -dDEVICEHEIGHTPOINTS=1332 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xd7\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\xf2\x8B\x49\x41\x00\x00\x94\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xd7\xf8\x25/g&quot;"
+*End
+*PageSize 13x18/13x18: "%% FoomaticRIPOptionSetting: PageSize=13x18"
+*FoomaticRIPOptionSetting PageSize=13x18: " -dDEVICEWIDTHPOINTS=936 -dDEVICEHEIGHTPOINTS=1296 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xd8\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x50\x41\x00\x00\x90\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xd8\xf8\x25/g&quot;"
+*End
+*PageSize SRA3/SRA3: "%% FoomaticRIPOptionSetting: PageSize=SRA3"
+*FoomaticRIPOptionSetting PageSize=SRA3: " -dDEVICEWIDTHPOINTS=907 -dDEVICEHEIGHTPOINTS=1276 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xd9\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\xf2\x8b\x49\x41\xf9\xc5\x8d\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xd9\xf8\x25/g&quot;"
+*End
+*PageSize SRA4/SRA4: "%% FoomaticRIPOptionSetting: PageSize=SRA4"
+*FoomaticRIPOptionSetting PageSize=SRA4: " -dDEVICEWIDTHPOINTS=638 -dDEVICEHEIGHTPOINTS=907 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xda\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\x63\xc9\x0d\x41\xf2\x8B\x49\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xda\xf8\x25/g&quot;"
+*End
+*PageSize 226x310/226x310: "%% FoomaticRIPOptionSetting: PageSize=226x310"
+*FoomaticRIPOptionSetting PageSize=226x310: " -dDEVICEWIDTHPOINTS=641 -dDEVICEHEIGHTPOINTS=879 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xdb\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\x0e\x74\x0e\x41\x55\x55\x43\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xdb\xf8\x25/g&quot;"
+*End
+*PageSize 310x432/310x432: "%% FoomaticRIPOptionSetting: PageSize=310x432"
+*FoomaticRIPOptionSetting PageSize=310x432: " -dDEVICEWIDTHPOINTS=879 -dDEVICEHEIGHTPOINTS=1225 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xdc\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\x55\x55\x43\x41\x4f\x1b\x88\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xdc\xf8\x25/g&quot;"
+*End
+*PageSize Executive/Executive: "%% FoomaticRIPOptionSetting: PageSize=Executive"
+*FoomaticRIPOptionSetting PageSize=Executive: " -dDEVICEWIDTHPOINTS=522 -dDEVICEHEIGHTPOINTS=756 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x03\xf8\x25/g&quot;"
+*End
+*PageSize 8Kai/8K: "%% FoomaticRIPOptionSetting: PageSize=8Kai"
+*FoomaticRIPOptionSetting PageSize=8Kai: " -dDEVICEWIDTHPOINTS=757 -dDEVICEHEIGHTPOINTS=1106 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xcb\xf8\x25/g&quot;"
+*End
+*PageSize 16Kai/16K: "%% FoomaticRIPOptionSetting: PageSize=16Kai"
+*FoomaticRIPOptionSetting PageSize=16Kai: " -dDEVICEWIDTHPOINTS=553 -dDEVICEHEIGHTPOINTS=757 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xcc\xf8\x25/g&quot;"
+*End
 *CloseUI: *PageSize
 
 *OpenUI *PageRegion: PickOne
@@ -151,9 +307,33 @@
 *PageRegion A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
 *PageRegion A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
 *PageRegion A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
+*PageRegion A6/A6: "%% FoomaticRIPOptionSetting: PageSize=A6"
+*PageRegion B4/B4 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B4"
+*PageRegion B5/B5 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B5"
+*PageRegion B6/B6 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B6"
 *PageRegion Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
+*PageRegion GovernmentLG/8.25x14: "%% FoomaticRIPOptionSetting: PageSize=GovernmentLG"
+*PageRegion EngQuatro/8x10: "%% FoomaticRIPOptionSetting: PageSize=EngQuatro"
 *PageRegion Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
+*PageRegion Statement/5.5x8.5: "%% FoomaticRIPOptionSetting: PageSize=Statement"
+*PageRegion F/8x13: "%% FoomaticRIPOptionSetting: PageSize=F"
+*PageRegion Folio/8.25x13: "%% FoomaticRIPOptionSetting: PageSize=Folio"
+*PageRegion FanFoldGermanLegal/8.5x13: "%% FoomaticRIPOptionSetting: PageSize=FanFoldGermanLegal"
 *PageRegion Tabloid/11x17: "%% FoomaticRIPOptionSetting: PageSize=Tabloid"
+*PageRegion 12x18/12x18: "%% FoomaticRIPOptionSetting: PageSize=12x18"
+*PageRegion 11x14/11x14: "%% FoomaticRIPOptionSetting: PageSize=11x14"
+*PageRegion 13x19.2/13x19.2: "%% FoomaticRIPOptionSetting: PageSize=13x19.2"
+*PageRegion 13x19/13x19: "%% FoomaticRIPOptionSetting: PageSize=13x19"
+*PageRegion 12.6x19.2/12.6x19.2: "%% FoomaticRIPOptionSetting: PageSize=12.6x19.2"
+*PageRegion 12.6x18.5/12.6x18.5: "%% FoomaticRIPOptionSetting: PageSize=12.6x18.5"
+*PageRegion 13x18/13x18: "%% FoomaticRIPOptionSetting: PageSize=13x18"
+*PageRegion SRA3/SRA3: "%% FoomaticRIPOptionSetting: PageSize=SRA3"
+*PageRegion SRA4/SRA4: "%% FoomaticRIPOptionSetting: PageSize=SRA4"
+*PageRegion 226x310/226x310: "%% FoomaticRIPOptionSetting: PageSize=226x310"
+*PageRegion 310x432/310x432: "%% FoomaticRIPOptionSetting: PageSize=310x432"
+*PageRegion Executive/Executive: "%% FoomaticRIPOptionSetting: PageSize=Executive"
+*PageRegion 8Kai/8K: "%% FoomaticRIPOptionSetting: PageSize=8Kai"
+*PageRegion 16Kai/16K: "%% FoomaticRIPOptionSetting: PageSize=16Kai"
 *CloseUI: *PageRegion
 
 *%========== Information About Media Sizes ==========
@@ -162,17 +342,65 @@
 *ImageableArea A3/A3: "12 12 830 1179"
 *ImageableArea A4/A4: "12 12 583 830"
 *ImageableArea A5/A5: "12 12 408 583"
+*ImageableArea A6/A6: "12 12 285 408"
+*ImageableArea B4/B4 (JIS): "12 12 717 1020"
+*ImageableArea B5/B5 (JIS): "12 12 504 717"
+*ImageableArea B6/B6 (JIS): "12 12 351 504"
 *ImageableArea Legal/Legal: "12 12 600 996"
+*ImageableArea GovernmentLG/8.25x14: "12 12 582 996"
+*ImageableArea EngQuatro/8x10: "12 12 564 708"
 *ImageableArea Letter/Letter: "12 12 600 780"
+*ImageableArea Statement/5.5x8.5: "12 12 384 600"
+*ImageableArea F/8x13: "12 12 564 924"
+*ImageableArea Folio/8.25x13: "12 12 583 923"
+*ImageableArea FanFoldGermanLegal/8.5x13: "12 12 600 924"
 *ImageableArea Tabloid/11x17: "12 12 780 1212"
+*ImageableArea 12x18/12x18: "12 12 852 1284"
+*ImageableArea 11x14/11x14: "12 12 780 996"
+*ImageableArea 13x19.2/13x19.2: "12 12 924 1370"
+*ImageableArea 13x19/13x19: "12 12 924 1356"
+*ImageableArea 12.6x19.2/12.6x19.2: "12 12 895 1370"
+*ImageableArea 12.6x18.5/12.6x18.5: "12 12 895 1320"
+*ImageableArea 13x18/13x18: "12 12 924 1284"
+*ImageableArea SRA3/SRA3: "12 12 895 1264"
+*ImageableArea SRA4/SRA4: "12 12 626 895"
+*ImageableArea 226x310/226x310: "12 12 629 867"
+*ImageableArea 310x432/310x432: "12 12 867 1213"
+*ImageableArea Executive/Executive: "12 12 510 744"
+*ImageableArea 8Kai/8K: "12 12 745 1094"
+*ImageableArea 16Kai/16K: "12 12 541 745"
 
 *DefaultPaperDimension: Letter
 *PaperDimension A3/A3: "842 1191"
 *PaperDimension A4/A4: "595 842"
 *PaperDimension A5/A5: "420 595"
+*PaperDimension A6/A6: "297 420"
+*PaperDimension B4/B4 (JIS): "729 1032"
+*PaperDimension B5/B5 (JIS): "516 729"
+*PaperDimension B6/B6 (JIS): "363 516"
 *PaperDimension Legal/Legal: "612 1008"
+*PaperDimension GovernmentLG/8.25x14: "594 1008"
+*PaperDimension EngQuatro/8x10: "576 720"
 *PaperDimension Letter/Letter: "612 792"
+*PaperDimension Statement/5.5x8.5: "396 612"
+*PaperDimension F/8x13: "576 936"
+*PaperDimension Folio/8.25x13: "595 935"
+*PaperDimension FanFoldGermanLegal/8.5x13: "612 936"
 *PaperDimension Tabloid/11x17: "792 1224"
+*PaperDimension 12x18/12x18: "864 1296"
+*PaperDimension 11x14/11x14: "792 1008"
+*PaperDimension 13x19.2/13x19.2: "936 1382"
+*PaperDimension 13x19/13x19: "936 1368"
+*PaperDimension 12.6x19.2/12.6x19.2: "907 1382"
+*PaperDimension 12.6x18.5/12.6x18.5: "907 1332"
+*PaperDimension 13x18/13x18: "936 1296"
+*PaperDimension SRA3/SRA3: "907 1276"
+*PaperDimension SRA4/SRA4: "638 907"
+*PaperDimension 226x310/226x310: "641 879"
+*PaperDimension 310x432/310x432: "879 1225"
+*PaperDimension Executive/Executive: "522 756"
+*PaperDimension 8Kai/8K: "757 1106"
+*PaperDimension 16Kai/16K: "553 757"
 
 *%========== Media Handling Features ==========
 
@@ -442,7 +670,6 @@
 @PJL SET PUNCHHOLE=NEU4"
 *End
 *CloseUI: *RIPunch
-
 *OpenUI *RIPrintMode/Toner Saving: PickOne
 *FoomaticRIPOption RIPrintMode: enum JCL A
 *OrderDependency: 45 AnySetup *RIPrintMode
@@ -534,6 +761,30 @@
 
 *CloseGroup: JobLog/Job Log
 
+*UIConstraints: *LargeCapacityTray NotInstalled *Tray7 Installed
+*UIConstraints: *Tray7 Installed *LargeCapacityTray NotInstalled
+*UIConstraints: *LargeCapacityTray NotInstalled *InputSlot 4Tray
+*UIConstraints: *LargeCapacityTray NotInstalled *InputSlot 5Tray
+*UIConstraints: *LargeCapacityTray NotInstalled *InputSlot 6Tray
+*UIConstraints: *LargeCapacityTray NotInstalled *InputSlot 7Tray
+*UIConstraints: *InputSlot 4Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *InputSlot 5Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *InputSlot 6Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *InputSlot 7Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *InputSlot 7Tray *Tray7 NotInstalled
+*UIConstraints: *Tray7 NotInstalled *InputSlot 7Tray
+*UIConstraints: *Finisher FinVICTORIAE *Stacker StackerDouble
+*UIConstraints: *Stacker StackerDouble *Finisher FinVICTORIAE
+*UIConstraints: *Finisher NotInstalled *TrimmerUnit Installed
+*UIConstraints: *Finisher FinVICTORIAE *TrimmerUnit Installed
+*UIConstraints: *TrimmerUnit Installed *Finisher NotInstalled
+*UIConstraints: *TrimmerUnit Installed *Finisher FinVICTORIAE 
+*UIConstraints: *Finisher NotInstalled *BookletProcessor Plockmatic
+*UIConstraints: *Finisher FinCOLUMBIA *BookletProcessor Plockmatic
+*UIConstraints: *BookletProcessor Plockmatic *Finisher NotInstalled
+*UIConstraints: *BookletProcessor Plockmatic *Finisher FinCOLUMBIA
+*UIConstraints: *Finisher NotInstalled *MultiFold Installed
+*UIConstraints: *MultiFold Installed *Finisher NotInstalled
 *UIConstraints: *Finisher NotInstalled *OutputBin FinCOLUMShift
 *UIConstraints: *Finisher NotInstalled *OutputBin FinCOLUMLower
 *UIConstraints: *Finisher NotInstalled *OutputBin FinVICTEShift
@@ -541,7 +792,7 @@
 *UIConstraints: *OutputBin FinCOLUMLower *Finisher NotInstalled
 *UIConstraints: *OutputBin FinVICTEShift *Finisher NotInstalled
 *UIConstraints: *Finisher FinCOLUMBIA *OutputBin FinVICTEShift
-*UIConstraints: *OutputBin FinVICTEShift *Finisher FinCOLUMBIA
+*UIConstraints: *OutputBin FinVICTEShift  *Finisher FinCOLUMBIA
 *UIConstraints: *Finisher FinVICTORIAE *OutputBin FinCOLUMShift
 *UIConstraints: *Finisher FinVICTORIAE *OutputBin FinCOLUMLower
 *UIConstraints: *OutputBin FinCOLUMShift *Finisher FinVICTORIAE
@@ -556,8 +807,92 @@
 *UIConstraints: *StapleLocation LeftW *Finisher NotInstalled
 *UIConstraints: *StapleLocation RightW *Finisher NotInstalled
 *UIConstraints: *StapleLocation UpperW *Finisher NotInstalled
+*UIConstraints: *MultiFold Installed *Stacker StackerDouble
+*UIConstraints: *Stacker StackerDouble *MultiFold Installed
+*UIConstraints: *Stacker StackerDouble *OptionBind FinISHIKARI
+*UIConstraints: *Stacker StackerDouble *OptionBind FinTENRYU
+*UIConstraints: *OptionBind FinISHIKARI *Stacker StackerDouble
+*UIConstraints: *OptionBind FinTENRYU *Stacker StackerDouble
+*UIConstraints: *BookletProcessor NotInstalled *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin PlockmaticTray *BookletProcessor NotInstalled
+*UIConstraints: *MultiFold NotInstalled *RIZfold Bottom
+*UIConstraints: *MultiFold NotInstalled *RIZfold Right
+*UIConstraints: *MultiFold NotInstalled *RIZfold Left
+*UIConstraints: *RIZfold Bottom *MultiFold NotInstalled 
+*UIConstraints: *RIZfold Right *MultiFold NotInstalled 
+*UIConstraints: *RIZfold Left *MultiFold NotInstalled 
 *UIConstraints: *InputSlot 1Tray *PageSize A5
+*UIConstraints: *InputSlot 1Tray *PageSize A6
+*UIConstraints: *InputSlot 1Tray *PageSize B5
+*UIConstraints: *InputSlot 1Tray *PageSize B6
+*UIConstraints: *InputSlot 1Tray *PageSize GovernmentLG
+*UIConstraints: *InputSlot 1Tray *PageSize EngQuatro
+*UIConstraints: *InputSlot 1Tray *PageSize Statement
+*UIConstraints: *InputSlot 1Tray *PageSize F
+*UIConstraints: *InputSlot 1Tray *PageSize Folio
+*UIConstraints: *InputSlot 1Tray *PageSize FanFoldGermanLegal
+*UIConstraints: *InputSlot 1Tray *PageSize 12x18
+*UIConstraints: *InputSlot 1Tray *PageSize Executive
+*UIConstraints: *InputSlot 1Tray *PageSize 8Kai
+*UIConstraints: *InputSlot 1Tray *PageSize 16Kai
+*UIConstraints: *InputSlot 1Tray *PageSize 11x14
+*UIConstraints: *InputSlot 1Tray *PageSize 13x19.2
+*UIConstraints: *InputSlot 1Tray *PageSize 13x19
+*UIConstraints: *InputSlot 1Tray *PageSize 12.6x19.2
+*UIConstraints: *InputSlot 1Tray *PageSize 12.6x18.5
+*UIConstraints: *InputSlot 1Tray *PageSize 13x18
+*UIConstraints: *InputSlot 1Tray *PageSize SRA3
+*UIConstraints: *InputSlot 1Tray *PageSize SRA4
+*UIConstraints: *InputSlot 1Tray *PageSize 226x310
+*UIConstraints: *InputSlot 1Tray *PageSize 310x432
+*UIConstraints: *InputSlot 2Tray *PageSize A6
+*UIConstraints: *InputSlot 2Tray *PageSize B6
+*UIConstraints: *InputSlot 2Tray *PageSize 13x19.2
+*UIConstraints: *InputSlot 2Tray *PageSize 13x19
+*UIConstraints: *InputSlot 2Tray *PageSize 12.6x19.2
+*UIConstraints: *InputSlot 2Tray *PageSize 12.6x18.5
+*UIConstraints: *InputSlot 3Tray *PageSize A6        
+*UIConstraints: *InputSlot 3Tray *PageSize B6        
+*UIConstraints: *InputSlot 3Tray *PageSize 13x19.2   
+*UIConstraints: *InputSlot 3Tray *PageSize 13x19     
+*UIConstraints: *InputSlot 3Tray *PageSize 12.6x19.2 
+*UIConstraints: *InputSlot 3Tray *PageSize 12.6x18.5 
 *UIConstraints: *PageSize A5 *InputSlot 1Tray
+*UIConstraints: *PageSize A6 *InputSlot 1Tray
+*UIConstraints: *PageSize B5 *InputSlot 1Tray
+*UIConstraints: *PageSize B6 *InputSlot 1Tray
+*UIConstraints: *PageSize GovernmentLG *InputSlot 1Tray
+*UIConstraints: *PageSize EngQuatro *InputSlot 1Tray
+*UIConstraints: *PageSize Statement *InputSlot 1Tray
+*UIConstraints: *PageSize F *InputSlot 1Tray
+*UIConstraints: *PageSize Folio *InputSlot 1Tray
+*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot 1Tray
+*UIConstraints: *PageSize 12x18 *InputSlot 1Tray
+*UIConstraints: *PageSize Executive *InputSlot 1Tray
+*UIConstraints: *PageSize 8Kai *InputSlot 1Tray
+*UIConstraints: *PageSize 16Kai *InputSlot 1Tray
+*UIConstraints: *PageSize 11x14 *InputSlot 1Tray
+*UIConstraints: *PageSize 13x19.2 *InputSlot 1Tray
+*UIConstraints: *PageSize 13x19 *InputSlot 1Tray
+*UIConstraints: *PageSize 12.6x19.2 *InputSlot 1Tray
+*UIConstraints: *PageSize 12.6x18.5 *InputSlot 1Tray
+*UIConstraints: *PageSize 13x18 *InputSlot 1Tray
+*UIConstraints: *PageSize SRA3 *InputSlot 1Tray
+*UIConstraints: *PageSize SRA4 *InputSlot 1Tray
+*UIConstraints: *PageSize 226x310 *InputSlot 1Tray
+*UIConstraints: *PageSize 310x432 *InputSlot 1Tray
+*UIConstraints: *PageSize A6 *InputSlot 2Tray
+*UIConstraints: *PageSize B6 *InputSlot 2Tray
+*UIConstraints: *PageSize 13x19.2 *InputSlot 2Tray
+*UIConstraints: *PageSize 13x19 *InputSlot 2Tray
+*UIConstraints: *PageSize 12.6x19.2 *InputSlot 2Tray
+*UIConstraints: *PageSize 12.6x18.5 *InputSlot 2Tray
+*UIConstraints: *PageSize A6 *InputSlot 3Tray        
+*UIConstraints: *PageSize B6 *InputSlot 3Tray        
+*UIConstraints: *PageSize 13x19.2 *InputSlot 3Tray   
+*UIConstraints: *PageSize 13x19 *InputSlot 3Tray     
+*UIConstraints: *PageSize 12.6x19.2 *InputSlot 3Tray 
+*UIConstraints: *PageSize 12.6x18.5 *InputSlot 3Tray
 *UIConstraints: *InputSlot 1Tray *MediaType Labels
 *UIConstraints: *InputSlot 1Tray *MediaType Coated
 *UIConstraints: *InputSlot 1Tray *MediaType OHP
@@ -909,6 +1244,36 @@
 *UIConstraints: *RIPunch UpperEU4 *Finisher NotInstalled
 *UIConstraints: *Finisher NotInstalled *RIPunch UpperNEU4
 *UIConstraints: *RIPunch UpperNEU4 *Finisher NotInstalled
+*UIConstraints: *MultiHolePunchUnit NotInstalled *RIPunch LeftJP2
+*UIConstraints: *RIPunch LeftJP2 *MultiHolePunchUnit NotInstalled
+*UIConstraints: *MultiHolePunchUnit NotInstalled *RIPunch LeftUS2
+*UIConstraints: *RIPunch LeftUS2 *MultiHolePunchUnit NotInstalled
+*UIConstraints: *MultiHolePunchUnit NotInstalled *RIPunch LeftUS3
+*UIConstraints: *RIPunch LeftUS3 *MultiHolePunchUnit NotInstalled
+*UIConstraints: *MultiHolePunchUnit NotInstalled *RIPunch LeftEU4
+*UIConstraints: *RIPunch LeftEU4 *MultiHolePunchUnit NotInstalled
+*UIConstraints: *MultiHolePunchUnit NotInstalled *RIPunch LeftNEU4
+*UIConstraints: *RIPunch LeftNEU4 *MultiHolePunchUnit NotInstalled
+*UIConstraints: *MultiHolePunchUnit NotInstalled *RIPunch RightJP2
+*UIConstraints: *RIPunch RightJP2 *MultiHolePunchUnit NotInstalled
+*UIConstraints: *MultiHolePunchUnit NotInstalled *RIPunch RightUS2
+*UIConstraints: *RIPunch RightUS2 *MultiHolePunchUnit NotInstalled
+*UIConstraints: *MultiHolePunchUnit NotInstalled *RIPunch RightUS3
+*UIConstraints: *RIPunch RightUS3 *MultiHolePunchUnit NotInstalled
+*UIConstraints: *MultiHolePunchUnit NotInstalled *RIPunch RightEU4
+*UIConstraints: *RIPunch RightEU4 *MultiHolePunchUnit NotInstalled
+*UIConstraints: *MultiHolePunchUnit NotInstalled *RIPunch RightNEU4
+*UIConstraints: *RIPunch RightNEU4 *MultiHolePunchUnit NotInstalled
+*UIConstraints: *MultiHolePunchUnit NotInstalled *RIPunch UpperJP2
+*UIConstraints: *RIPunch UpperJP2 *MultiHolePunchUnit NotInstalled
+*UIConstraints: *MultiHolePunchUnit NotInstalled *RIPunch UpperUS2
+*UIConstraints: *RIPunch UpperUS2 *MultiHolePunchUnit NotInstalled
+*UIConstraints: *MultiHolePunchUnit NotInstalled *RIPunch UpperUS3
+*UIConstraints: *RIPunch UpperUS3 *MultiHolePunchUnit NotInstalled
+*UIConstraints: *MultiHolePunchUnit NotInstalled *RIPunch UpperEU4
+*UIConstraints: *RIPunch UpperEU4 *MultiHolePunchUnit NotInstalled
+*UIConstraints: *MultiHolePunchUnit NotInstalled *RIPunch UpperNEU4
+*UIConstraints: *RIPunch UpperNEU4 *MultiHolePunchUnit NotInstalled
 *UIConstraints: *MediaType Prepunched *RIPunch LeftJP2
 *UIConstraints: *RIPunch LeftJP2 *MediaType Prepunched
 *UIConstraints: *MediaType Prepunched *RIPunch LeftUS2
