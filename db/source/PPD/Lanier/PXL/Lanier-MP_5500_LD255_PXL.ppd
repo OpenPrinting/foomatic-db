@@ -4,7 +4,7 @@
 *%    for "Lanier MP 5500/LD255 PXL"
 *%
 *%    CreationDate: 2005/06/06
-*%    Modified:     2011/01/05
+*%    Modified:     2011/03/05
 *%
 *%    COPYRIGHT (C) 2005-2011 RICOH COMPANY, LTD.
 *%    
@@ -43,10 +43,11 @@
 *ShortNickName: "Lanier MP 5500/LD255 PXL"
 *NickName: "Lanier MP 5500/LD255 PXL"
 
-*FileVersion:      1.19.1
+*FileVersion:      20
 *cupsVersion:      1.1
 *cupsManualCopies: False
-*cupsFilter: "application/vnd.cups-postscript 100 foomatic-rip"
+*cupsCommands:     ""
+*cupsFilter: "application/vnd.cups-postscript 0 foomatic-rip"
 *cupsFilter: "application/vnd.cups-pdf 0 foomatic-rip"
 
 *%========== Basic Device Capabilities ==========
@@ -78,24 +79,23 @@
 *Option_30 FinVICTORIA/Finisher SR841: ""
 *CloseUI: *Option_30
 
-*OpenUI *Option2LargeCapacityTray/Large Capacity Tray: PickOne
-*DefaultOption2LargeCapacityTray: False
-*Option2LargeCapacityTray False/Not Installed: ""
-*Option2LargeCapacityTray True/Installed: ""
-*CloseUI: *Option2LargeCapacityTray
+*OpenUI *Option2/Large Capacity Tray: PickOne
+*DefaultOption2: False
+*Option2 False/Not Installed: ""
+*Option2 True/Installed: ""
+*CloseUI: *Option2
 
-*OpenUI *Option40Mailbox/Mailbox: PickOne
-*DefaultOption40Mailbox: False
-*Option40Mailbox False/Not Installed: ""
-*Option40Mailbox True/Installed: ""
-*CloseUI: *Option40Mailbox
+*OpenUI *Option40/Mailbox: PickOne
+*DefaultOption40: False
+*Option40 False/Not Installed: ""
+*Option40 True/Installed: ""
+*CloseUI: *Option40
 
 *OpenUI *Option_50/Z-folding unit: PickOne
 *DefaultOption_50: False
 *Option_50 False/Not Installed: ""
 *Option_50 True/Installed: ""
 *CloseUI: *Option_50
-
 
 *CloseGroup: InstallableOptions
 
@@ -155,12 +155,55 @@
 *FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4 -sOutputFile=- - "
 *PageSize A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
 *FoomaticRIPOptionSetting PageSize=A5: " -sPAPERSIZE=a5 -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0f\xf8\x25/g&quot;"
+*PageSize A6/A6: "%% FoomaticRIPOptionSetting: PageSize=A6"
+*FoomaticRIPOptionSetting PageSize=A6: " -dDEVICEWIDTHPOINTS=298 -dDEVICEHEIGHTPOINTS=420 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x14\xf8\x25/g&quot;"
+*End
+*PageSize B4/B4 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B4"
+*FoomaticRIPOptionSetting PageSize=B4: " -dDEVICEWIDTHPOINTS=729 -dDEVICEHEIGHTPOINTS=1032 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0a\xf8\x25/g&quot;"
+*End
+*PageSize B5/B5 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B5"
+*FoomaticRIPOptionSetting PageSize=B5: " -dDEVICEWIDTHPOINTS=516 -dDEVICEHEIGHTPOINTS=729 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0b\xf8\x25/g&quot;"
+*End
 *PageSize Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
 *FoomaticRIPOptionSetting PageSize=Legal: " -sPAPERSIZE=legal -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x01\xf8\x25/g&quot;"
 *PageSize Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
 *FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter -sOutputFile=- - "
+*PageSize Statement/5.5x8.5: "%% FoomaticRIPOptionSetting: PageSize=Statement"
+*FoomaticRIPOptionSetting PageSize=Statement: " -dDEVICEWIDTHPOINTS=396 -dDEVICEHEIGHTPOINTS=612 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x13\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\xb0\x40\x00\x00\x08\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\x13\xf8\x25/g&quot;"
+*End
 *PageSize Tabloid/11x17: "%% FoomaticRIPOptionSetting: PageSize=Tabloid"
 *FoomaticRIPOptionSetting PageSize=Tabloid: " -sPAPERSIZE=11x17  -sOutputFile=- - "
+*PageSize Executive/Executive: "%% FoomaticRIPOptionSetting: PageSize=Executive"
+*FoomaticRIPOptionSetting PageSize=Executive: " -dDEVICEWIDTHPOINTS=522 -dDEVICEHEIGHTPOINTS=756 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x03\xf8\x25/g&quot;"
+*End
+*PageSize F/8x13: "%% FoomaticRIPOptionSetting: PageSize=F"
+*FoomaticRIPOptionSetting PageSize=F: " -dDEVICEWIDTHPOINTS=576 -dDEVICEHEIGHTPOINTS=936 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x12\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x00\x41\x00\x00\x50\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\x12\xf8\x25/g&quot;"
+*End
+*PageSize Folio/8.25x13: "%% FoomaticRIPOptionSetting: PageSize=Folio"
+*FoomaticRIPOptionSetting PageSize=Folio: " -dDEVICEWIDTHPOINTS=595 -dDEVICEHEIGHTPOINTS=935 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x10\xf8\x25/g&quot; &&
+ | perl -p -e &quot;s/\xf8\x28\xd5\x9d\x36\x04\x41\x63\xC9\x4f\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\x10\xf8\x25/g&quot;"
+*End
+*PageSize FanFoldGermanLegal/8.5x13: "%% FoomaticRIPOptionSetting: PageSize=FanFoldGermanLegal"
+*FoomaticRIPOptionSetting PageSize=FanFoldGermanLegal: " -dDEVICEWIDTHPOINTS=612 -dDEVICEHEIGHTPOINTS=936 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x11\xf8\x25/g&quot;"
+*End
+*PageSize 8Kai/8K: "%% FoomaticRIPOptionSetting: PageSize=8Kai"
+*FoomaticRIPOptionSetting PageSize=8Kai: " -dDEVICEWIDTHPOINTS=757 -dDEVICEHEIGHTPOINTS=1106 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xcb\xf8\x25/g&quot;"
+*End
+*PageSize 16Kai/16K: "%% FoomaticRIPOptionSetting: PageSize=16Kai"
+*FoomaticRIPOptionSetting PageSize=16Kai: " -dDEVICEWIDTHPOINTS=553 -dDEVICEHEIGHTPOINTS=757 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xcc\xf8\x25/g&quot;"
+*End
 *CloseUI: *PageSize
 
 *OpenUI *PageRegion: PickOne
@@ -169,9 +212,19 @@
 *PageRegion A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
 *PageRegion A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
 *PageRegion A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
+*PageRegion A6/A6: "%% FoomaticRIPOptionSetting: PageSize=A6"
+*PageRegion B4/B4 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B4"
+*PageRegion B5/B5 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B5"
 *PageRegion Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
 *PageRegion Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
+*PageRegion Statement/5.5x8.5: "%% FoomaticRIPOptionSetting: PageSize=Statement"
 *PageRegion Tabloid/11x17: "%% FoomaticRIPOptionSetting: PageSize=Tabloid"
+*PageRegion Executive/Executive: "%% FoomaticRIPOptionSetting: PageSize=Executive"
+*PageRegion F/8x13: "%% FoomaticRIPOptionSetting: PageSize=F"
+*PageRegion Folio/8.25x13: "%% FoomaticRIPOptionSetting: PageSize=Folio"
+*PageRegion FanFoldGermanLegal/8.5x13: "%% FoomaticRIPOptionSetting: PageSize=FanFoldGermanLegal"
+*PageRegion 8Kai/8K: "%% FoomaticRIPOptionSetting: PageSize=8Kai"
+*PageRegion 16Kai/16K: "%% FoomaticRIPOptionSetting: PageSize=16Kai"
 *CloseUI: *PageRegion
 
 *%========== Information About Media Sizes ==========
@@ -180,17 +233,37 @@
 *ImageableArea A3/A3: "12 12 830 1179"
 *ImageableArea A4/A4: "12 12 583 830"
 *ImageableArea A5/A5: "12 12 408 583"
+*ImageableArea A6/A6: "12 12 286 408"
+*ImageableArea B4/B4 (JIS): "12 12 717 1020"
+*ImageableArea B5/B5 (JIS): "12 12 504 717"
 *ImageableArea Legal/Legal: "12 12 600 996"
 *ImageableArea Letter/Letter: "12 12 600 780"
+*ImageableArea Statement/5.5x8.5: "12 12 384 600"
 *ImageableArea Tabloid/11x17: "12 12 780 1212"
+*ImageableArea Executive/Executive: "12 12 510 744"
+*ImageableArea F/8x13: "12 12 564 924"
+*ImageableArea Folio/8.25x13: "12 12 583 923"
+*ImageableArea FanFoldGermanLegal/8.5x13: "12 12 600 924"
+*ImageableArea 8Kai/8K: "12 12 745 1094"
+*ImageableArea 16Kai/16K: "12 12 541 745"
 
 *DefaultPaperDimension: Letter
 *PaperDimension A3/A3: "842 1191"
 *PaperDimension A4/A4: "595 842"
 *PaperDimension A5/A5: "420 595"
+*PaperDimension A6/A6: "298 420"
+*PaperDimension B4/B4 (JIS): "729 1032"
+*PaperDimension B5/B5 (JIS): "516 729"
 *PaperDimension Legal/Legal: "612 1008"
 *PaperDimension Letter/Letter: "612 792"
+*PaperDimension Statement/5.5x8.5: "396 612"
 *PaperDimension Tabloid/11x17: "792 1224"
+*PaperDimension Executive/Executive: "522 756"
+*PaperDimension F/8x13: "576 936"
+*PaperDimension Folio/8.25x13: "595 935"
+*PaperDimension FanFoldGermanLegal/8.5x13: "612 936"
+*PaperDimension 8Kai/8K: "757 1106"
+*PaperDimension 16Kai/16K: "553 757"
 
 *%========== Media Handling Features ==========
 
@@ -216,7 +289,7 @@
 *End
 *InputSlot 4Tray/Large Capacity Tray: "%% FoomaticRIPOptionSetting: InputSlot=4Tray"
 *FoomaticRIPOptionSetting InputSlot=4Tray: "&&
- | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x09\xf8\x26/g&quot;"
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x08\xf8\x26/g&quot;"
 *End
 *InputSlot Auto/Auto Select: "%% FoomaticRIPOptionSetting: InputSlot=Auto"
 *FoomaticRIPOptionSetting InputSlot=Auto: ""
@@ -446,7 +519,6 @@
 @PJL SET PUNCHHOLE=NEU4"
 *End
 *CloseUI: *RIPunch
-
 *OpenUI *RIPrintMode/Toner Saving: PickOne
 *FoomaticRIPOption RIPrintMode: enum JCL A
 *OrderDependency: 45 AnySetup *RIPrintMode
@@ -538,8 +610,8 @@
 
 *CloseGroup: JobLog/Job Log
 
-*UIConstraints: *Option2LargeCapacityTray False *InputSlot 4Tray
-*UIConstraints: *InputSlot 4Tray *Option2LargeCapacityTray False
+*UIConstraints: *Option2 False *InputSlot 4Tray
+*UIConstraints: *InputSlot 4Tray *Option2 False
 *UIConstraints: *Option_50 True *Option_30 None
 *UIConstraints: *Option_50 True *Option_30 FinEUPHIMPOS
 *UIConstraints: *Option_30 None *Option_50 True
@@ -556,10 +628,10 @@
 *UIConstraints: *OutputBin Standard *Option_30 FinEUPHPOS
 *UIConstraints: *OutputBin Standard *Option_30 FinEUPHIMPOS
 *UIConstraints: *OutputBin Standard *Option_30 FinVICTORIA
-*UIConstraints: *Option_30 None *Option40Mailbox True
-*UIConstraints: *Option_30 FinVICTORIA *Option40Mailbox True
-*UIConstraints: *Option40Mailbox True *Option_30 None
-*UIConstraints: *Option40Mailbox True *Option_30 FinVICTORIA
+*UIConstraints: *Option_30 None *Option40 True
+*UIConstraints: *Option_30 FinVICTORIA *Option40 True
+*UIConstraints: *Option40 True *Option_30 None
+*UIConstraints: *Option40 True *Option_30 FinVICTORIA
 *UIConstraints: *Option_30 None *Option_32 Plockmatic
 *UIConstraints: *Option_30 FinEUPHPOS *Option_32 Plockmatic
 *UIConstraints: *Option_30 FinEUPHIMPOS *Option_32 Plockmatic
@@ -596,24 +668,24 @@
 *UIConstraints: *OutputBin FinisherUpper *Option_30 FinVICTORIA
 *UIConstraints: *OutputBin FinisherMiddle *Option_30 FinVICTORIA
 *UIConstraints: *OutputBin FinisherLower *Option_30 FinVICTORIA
-*UIConstraints: *Option40Mailbox False *OutputBin MailBoxBin1
-*UIConstraints: *Option40Mailbox False *OutputBin MailBoxBin2
-*UIConstraints: *Option40Mailbox False *OutputBin MailBoxBin3
-*UIConstraints: *Option40Mailbox False *OutputBin MailBoxBin4
-*UIConstraints: *Option40Mailbox False *OutputBin MailBoxBin5
-*UIConstraints: *Option40Mailbox False *OutputBin MailBoxBin6
-*UIConstraints: *Option40Mailbox False *OutputBin MailBoxBin7
-*UIConstraints: *Option40Mailbox False *OutputBin MailBoxBin8
-*UIConstraints: *Option40Mailbox False *OutputBin MailBoxBin9
-*UIConstraints: *OutputBin MailBoxBin1 *Option40Mailbox False
-*UIConstraints: *OutputBin MailBoxBin2 *Option40Mailbox False
-*UIConstraints: *OutputBin MailBoxBin3 *Option40Mailbox False
-*UIConstraints: *OutputBin MailBoxBin4 *Option40Mailbox False
-*UIConstraints: *OutputBin MailBoxBin5 *Option40Mailbox False
-*UIConstraints: *OutputBin MailBoxBin6 *Option40Mailbox False
-*UIConstraints: *OutputBin MailBoxBin7 *Option40Mailbox False
-*UIConstraints: *OutputBin MailBoxBin8 *Option40Mailbox False
-*UIConstraints: *OutputBin MailBoxBin9 *Option40Mailbox False
+*UIConstraints: *Option40 False *OutputBin MailBoxBin1
+*UIConstraints: *Option40 False *OutputBin MailBoxBin2
+*UIConstraints: *Option40 False *OutputBin MailBoxBin3
+*UIConstraints: *Option40 False *OutputBin MailBoxBin4
+*UIConstraints: *Option40 False *OutputBin MailBoxBin5
+*UIConstraints: *Option40 False *OutputBin MailBoxBin6
+*UIConstraints: *Option40 False *OutputBin MailBoxBin7
+*UIConstraints: *Option40 False *OutputBin MailBoxBin8
+*UIConstraints: *Option40 False *OutputBin MailBoxBin9
+*UIConstraints: *OutputBin MailBoxBin1 *Option40 False
+*UIConstraints: *OutputBin MailBoxBin2 *Option40 False
+*UIConstraints: *OutputBin MailBoxBin3 *Option40 False
+*UIConstraints: *OutputBin MailBoxBin4 *Option40 False
+*UIConstraints: *OutputBin MailBoxBin5 *Option40 False
+*UIConstraints: *OutputBin MailBoxBin6 *Option40 False
+*UIConstraints: *OutputBin MailBoxBin7 *Option40 False
+*UIConstraints: *OutputBin MailBoxBin8 *Option40 False
+*UIConstraints: *OutputBin MailBoxBin9 *Option40 False
 *UIConstraints: *Option_30 None *StapleLocation UpperLeft
 *UIConstraints: *Option_30 None *StapleLocation UpperRight
 *UIConstraints: *Option_30 None *StapleLocation LeftW
@@ -789,13 +861,55 @@
 *UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin9
 *UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin9
 *UIConstraints: *PageSize A5 *InputSlot 1Tray
+*UIConstraints: *PageSize A6 *InputSlot 1Tray
+*UIConstraints: *PageSize B5 *InputSlot 1Tray
+*UIConstraints: *PageSize Statement *InputSlot 1Tray
+*UIConstraints: *PageSize Executive *InputSlot 1Tray
+*UIConstraints: *PageSize F *InputSlot 1Tray
+*UIConstraints: *PageSize Folio *InputSlot 1Tray
+*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot 1Tray
+*UIConstraints: *PageSize 8Kai *InputSlot 1Tray
+*UIConstraints: *PageSize 16Kai *InputSlot 1Tray
+*UIConstraints: *PageSize A6 *InputSlot 2Tray
+*UIConstraints: *PageSize A6 *InputSlot 3Tray
 *UIConstraints: *PageSize A3 *InputSlot 4Tray
 *UIConstraints: *PageSize A5 *InputSlot 4Tray
+*UIConstraints: *PageSize A6 *InputSlot 4Tray
 *UIConstraints: *PageSize Tabloid *InputSlot 4Tray
+*UIConstraints: *PageSize Statement *InputSlot 4Tray
+*UIConstraints: *PageSize Executive *InputSlot 4Tray
+*UIConstraints: *PageSize F *InputSlot 4Tray
+*UIConstraints: *PageSize Folio *InputSlot 4Tray
+*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot 4Tray
+*UIConstraints: *PageSize 8Kai *InputSlot 4Tray
+*UIConstraints: *PageSize 16Kai *InputSlot 4Tray
 *UIConstraints: *InputSlot 1Tray *PageSize A5
+*UIConstraints: *InputSlot 1Tray *PageSize A6
+*UIConstraints: *InputSlot 1Tray *PageSize B5
+*UIConstraints: *InputSlot 1Tray *PageSize Statement
+*UIConstraints: *InputSlot 1Tray *PageSize Executive
+*UIConstraints: *InputSlot 1Tray *PageSize F
+*UIConstraints: *InputSlot 1Tray *PageSize Folio
+*UIConstraints: *InputSlot 1Tray *PageSize FanFoldGermanLegal
+*UIConstraints: *InputSlot 1Tray *PageSize 8Kai
+*UIConstraints: *InputSlot 1Tray *PageSize 16Kai
+*UIConstraints: *InputSlot 2Tray *PageSize A6
+*UIConstraints: *InputSlot 3Tray *PageSize A6
 *UIConstraints: *InputSlot 4Tray *PageSize A3
 *UIConstraints: *InputSlot 4Tray *PageSize A5
+*UIConstraints: *InputSlot 4Tray *PageSize A6
 *UIConstraints: *InputSlot 4Tray *PageSize Tabloid
+*UIConstraints: *InputSlot 4Tray *PageSize Statement
+*UIConstraints: *InputSlot 4Tray *PageSize Executive
+*UIConstraints: *InputSlot 4Tray *PageSize F
+*UIConstraints: *InputSlot 4Tray *PageSize Folio
+*UIConstraints: *InputSlot 4Tray *PageSize FanFoldGermanLegal
+*UIConstraints: *InputSlot 4Tray *PageSize 8Kai
+*UIConstraints: *InputSlot 4Tray *PageSize 16Kai
+*UIConstraints: *PageSize 8Kai *InputSlot MultiTray
+*UIConstraints: *PageSize 16Kai *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *PageSize 8Kai
+*UIConstraints: *InputSlot MultiTray *PageSize 16Kai
 *UIConstraints: *MediaType Index *InputSlot MultiTray
 *UIConstraints: *MediaType Labels *InputSlot 1Tray
 *UIConstraints: *MediaType Cardstock *InputSlot 1Tray
@@ -826,12 +940,70 @@
 *UIConstraints: *InputSlot 4Tray *MediaType Cardstock
 *UIConstraints: *InputSlot 4Tray *MediaType OHP
 *UIConstraints: *InputSlot 4Tray *MediaType Index
+*UIConstraints: *PageSize A6 *Duplex DuplexTumble
+*UIConstraints: *PageSize A6 *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexTumble *PageSize A6
+*UIConstraints: *Duplex DuplexNoTumble *PageSize A6
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin1
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin2
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin3
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin4
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin5
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin6
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin7
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin8
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin9
+*UIConstraints: *OutputBin MailBoxBin1 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin2 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin3 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin4 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin5 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin6 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin7 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin8 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin9 *PageSize A6
 *UIConstraints: *OutputBin FinisherLower *PageSize A5
+*UIConstraints: *OutputBin FinisherLower *PageSize A6
+*UIConstraints: *OutputBin FinisherLower *PageSize Statement
+*UIConstraints: *OutputBin FinisherLower *PageSize Executive
+*UIConstraints: *OutputBin FinisherLower *PageSize F
+*UIConstraints: *OutputBin FinisherLower *PageSize Folio
+*UIConstraints: *OutputBin FinisherLower *PageSize FanFoldGermanLegal
+*UIConstraints: *OutputBin FinisherLower *PageSize 8Kai
+*UIConstraints: *OutputBin FinisherLower *PageSize 16Kai
 *UIConstraints: *PageSize A5 *OutputBin FinisherLower
+*UIConstraints: *PageSize A6 *OutputBin FinisherLower
+*UIConstraints: *PageSize Statement *OutputBin FinisherLower
+*UIConstraints: *PageSize Executive *OutputBin FinisherLower
+*UIConstraints: *PageSize F *OutputBin FinisherLower
+*UIConstraints: *PageSize Folio *OutputBin FinisherLower
+*UIConstraints: *PageSize FanFoldGermanLegal *OutputBin FinisherLower
+*UIConstraints: *PageSize 8Kai *OutputBin FinisherLower
+*UIConstraints: *PageSize 16Kai *OutputBin FinisherLower
 *UIConstraints: *OutputBin PlockmaticTray *PageSize A5
+*UIConstraints: *OutputBin PlockmaticTray *PageSize A6
+*UIConstraints: *OutputBin PlockmaticTray *PageSize B4
+*UIConstraints: *OutputBin PlockmaticTray *PageSize B5
 *UIConstraints: *OutputBin PlockmaticTray *PageSize Legal
+*UIConstraints: *OutputBin PlockmaticTray *PageSize Statement
+*UIConstraints: *OutputBin PlockmaticTray *PageSize Executive
+*UIConstraints: *OutputBin PlockmaticTray *PageSize F
+*UIConstraints: *OutputBin PlockmaticTray *PageSize Folio
+*UIConstraints: *OutputBin PlockmaticTray *PageSize FanFoldGermanLegal
+*UIConstraints: *OutputBin PlockmaticTray *PageSize 8Kai
+*UIConstraints: *OutputBin PlockmaticTray *PageSize 16Kai
 *UIConstraints: *PageSize A5 *OutputBin PlockmaticTray
+*UIConstraints: *PageSize A6 *OutputBin PlockmaticTray
+*UIConstraints: *PageSize B4 *OutputBin PlockmaticTray
+*UIConstraints: *PageSize B5 *OutputBin PlockmaticTray
 *UIConstraints: *PageSize Legal *OutputBin PlockmaticTray
+*UIConstraints: *PageSize Statement *OutputBin PlockmaticTray
+*UIConstraints: *PageSize Executive *OutputBin PlockmaticTray
+*UIConstraints: *PageSize F *OutputBin PlockmaticTray
+*UIConstraints: *PageSize Folio *OutputBin PlockmaticTray
+*UIConstraints: *PageSize FanFoldGermanLegal *OutputBin PlockmaticTray
+*UIConstraints: *PageSize 8Kai *OutputBin PlockmaticTray
+*UIConstraints: *PageSize 16Kai *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin FinisherLower *RIZfold Bottom
 *UIConstraints: *OutputBin FinisherLower *RIZfold Left
 *UIConstraints: *OutputBin FinisherLower *RIZfold Right
