@@ -28,17 +28,17 @@
 				</xsd:element>
 				
 				<!-- <mechanism> -->
-				<xsd:element name="mechanism">
-				<xsd:annotation>
-					<xsd:documentation>
-						The mechanism section describes the various facets of a
-						printer's operating mechanism such as the maximum resolution
-						supported, the type of the printer (supported types are inkjet,
-						dotmatrix, laser, led, impact, sublimation and transfer), the 
-						margin specifications, some comments on the consumables (like 
-						toner or ribbon etc.) and if the printer prints in color.
-					</xsd:documentation>
-				</xsd:annotation>
+				<xsd:element name="mechanism" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							The mechanism section describes the various facets of a
+							printer's operating mechanism such as the maximum resolution
+							supported, the type of the printer (supported types are inkjet,
+							dotmatrix, laser, led, impact, sublimation and transfer), the 
+							margin specifications, some comments on the consumables (like 
+							toner or ribbon etc.) and if the printer prints in color.
+						</xsd:documentation>
+					</xsd:annotation>
 					<xsd:complexType>
 						<xsd:all>
 							<xsd:element name="laser" minOccurs="0">
@@ -190,13 +190,7 @@
 							<xsd:element name="driver" maxOccurs="unbounded">
 								<xsd:complexType>
 									<xsd:all>
-										<xsd:element name="id">
-											<xsd:simpleType>
-												<xsd:restriction base="xsd:string">
-													<xsd:pattern value="[a-zA-Z0-9]([a-zA-Z0-9_\.-])*" />
-												</xsd:restriction>
-											</xsd:simpleType>
-										</xsd:element>
+										<xsd:element name="id" type="xsd:string"/>
 										<xsd:element name="ppd" type="xsd:string" minOccurs="0" />
 										<xsd:element name="comments" type="i18nString" minOccurs="0" />
 									</xsd:all>
