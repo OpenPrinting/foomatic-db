@@ -66,6 +66,7 @@ install-db:
 	install -d $(DESTDIR)$(LIBDIR)/db/source/driver
 	install -d $(DESTDIR)$(LIBDIR)/db/source/opt
 	install -d $(DESTDIR)$(LIBDIR)/db/source/PPD
+	install -d $(DESTDIR)$(LIBDIR)/xmlschema
 	cp db/oldprinterids $(DESTDIR)$(LIBDIR)/db
 	cp db/source/printer/*.xml $(DESTDIR)$(LIBDIR)/db/source/printer
 	( cd db/source/driver/; \
@@ -82,6 +83,7 @@ install-db:
 	  install -d $(DESTDIR)$(CUPS_PPDS); \
 	  ln -sf $(LIBDIR)/db/source/PPD $(DESTDIR)$(CUPS_PPDS)/foomatic-db-ppds; \
 	fi
+	cp xmlschema/*.xsd $(DESTDIR)$(LIBDIR)/xmlschema
 
 build:
 	@echo "Nothing to compile/build, use \"make install\" to install the database."
