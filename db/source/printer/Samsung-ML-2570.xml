@@ -6,8 +6,8 @@
     <postscript level="3" />
     <pcl level="6" />
   </lang>
-  <functionality>A</functionality>
-  <driver>Postscript</driver>
+  <functionality>B</functionality>
+  <driver>hpijs-pcl5e</driver>
   <drivers>
     <driver>
       <id>Postscript</id>
@@ -15,12 +15,54 @@
     <driver>
       <id>pxlmono</id>
     </driver>
+    <driver>
+      <id>lj5gray</id>
+    </driver>
+    <driver>
+      <id>hpijs-pcl5e</id>
+    </driver>
+    <driver>
+      <id>ljet4</id>
+    </driver>
+    <driver>
+      <id>lj4dith</id>
+    </driver>
+    <driver>
+      <id>gdi</id>
+    </driver>
   </drivers>
   <comments>
-    <en>
-      Bug in Samsung-supplied PPD-file: OpenOffice.org 2.0 seems to have a problem with the ML-2570ps-ppd driver - it only prints in the top right-hand quarter of the page. OOo works fine with the generic PCL6 driver (pxlmono) and Postscript driver. No other applications known to have any problems with the ML-2570ps.ppd driver. This can be fixed by editing the ML-2570ps.ppd-file, which has a bug. Simply delete or edit the first line after &quot;*DefaultPaperDimension: A4&quot;. It is saying something like *PaperDimension A4/A4: &quot;842 1191&quot;, which is defining the paper size of A3. The correct entries for A4 are some lines below. So either delete this line or replace it by *PaperDimension A3/A3: &quot;842 1191&quot;
+    <en> 
+
+      It seems that at least some copies of this printer have a firmware 
+      bug which results in problems with the PostScript and PCL-XL modes.
+      In these modes the first job after turning on the printer is printer
+      correctly but subsequent jobs come out as garbage characters in text
+      mode, as if the printer did not get the beginning of the file and
+      then prints the rest as text. Turning off the printer and turning it
+      on again allows one correct PostScript or PCL-XL job again. The
+      printer works reliably in PCL-5e mode though. Therefore the
+      "hpijs-pcl5e" driver is the recommended driver. So if your printer
+      has the described problem, switch to the hpijs-pcl5e driver and
+      turn it off and on again. See &lt;a
+      href=&quot;https://bugs.launchpad.net/ubuntu/+source/foomatic-db/+bug/855412&quot;&gt;this
+      Ubuntu bug report&lt;/a&gt;.&lt;p&gt;
+
+      Bug in Samsung-supplied PPD-file: OpenOffice.org 2.0 seems to
+      have a problem with the ML-2570ps-ppd driver - it only prints in
+      the top right-hand quarter of the page. OOo works fine with the
+      generic PCL6 driver (pxlmono) and Postscript driver. No other
+      applications known to have any problems with the ML-2570ps.ppd
+      driver. This can be fixed by editing the ML-2570ps.ppd-file, which
+      has a bug. Simply delete or edit the first line after
+      &quot;*DefaultPaperDimension: A4&quot;. It is saying something
+      like *PaperDimension A4/A4: &quot;842 1191&quot;, which is
+      defining the paper size of A3. The correct entries for A4 are some
+      lines below. So either delete this line or replace it by
+      *PaperDimension A3/A3: &quot;842 1191&quot;&lt;p&gt;
       
       Foomatic entry made by PPDtoXML T/G 0.20 on 2008-09-07
-      </en>
+
+    </en>
   </comments>
 </printer>
