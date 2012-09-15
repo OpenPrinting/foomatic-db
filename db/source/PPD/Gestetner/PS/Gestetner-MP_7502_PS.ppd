@@ -4,9 +4,9 @@
 *%    for "Gestetner MP 7502 PS"
 *%
 *%    CreationDate: 2011/03/16
-*%    Modified:     2012/08/21
+*%    Modified:     2012/09/14
 *%
-*%    java.util.zip.CRC32: cc604b00
+*%    java.util.zip.CRC32: dbc6ae3d
 *%
 *%    COPYRIGHT (C) 2011-2012 RICOH COMPANY, LTD.
 *%    
@@ -46,12 +46,14 @@
 *1284DeviceID: "MFG:Gestetner;MDL:MP 7502;CMD:POSTSCRIPT;"
 
 *cupsFilter: "application/vnd.cups-postscript 0 foomatic-rip"
+*FoomaticRIPUserEntityMaxLength: 8
+*FoomaticRIPHostEntityMaxLength: 63
+*FoomaticRIPTitleEntityMaxLength: 40
 *FoomaticRIPCommandLine: "printf &quot;%%!PS-Adobe-3.0
-%%%%Title: (&title40;)
+%%%%Title: (&title;)
 %%
 %%\n%A%B%C%D&quot;%%%%; cat;"
 *End
-*FoomaticRIPUserEntityMaxLength: 8
 
 *%========== Basic Device Capabilities ==========
 
@@ -1913,7 +1915,6 @@ userdict /RPS_BPdict get begin\n&&
 
 *%========== Job Log ==========
 
-*FoomaticRIPUserEntityMaxLength: 8
 *OpenGroup: JobLog/Job Log
 *OpenUI *JobType/JobType: PickOne
 *FoomaticRIPOption JobType: enum CmdLine A
@@ -1921,67 +1922,73 @@ userdict /RPS_BPdict get begin\n&&
 *DefaultJobType: Normal
 *JobType Normal/Normal: "%% FoomaticRIPOptionSetting: JobType=Normal"
 *FoomaticRIPOptionSetting JobType=Normal: "mark\n&&
-(&user8;) usrcode (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+/usrcode where{pop}{/usrcode()def}ifelse\n&&
+(&user;) usrcode (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
 cleartomark\n&&
 mark {\n&&
 <<\n&&
    /JobType 0\n&&
    /JobInfo <<\n&&
-      /UserID (&user8;)\n&&
+      /UserID (&user;)\n&&
       /Time (20`date +%y%m%d%R | sed 's/://'`)\n&&
-      /HostLoginName (&user20;)\n&&
-      /HostName (&host63;)\n&&
+      /HostLoginName (&user;)\n&&
+      /HostName (&host;)\n&&
    >>\n&&
 >> /RDeviceProcSet /ProcSet findresource /SetJobType get exec\n&&
 }stopped cleartomark\n"
 *End
 *JobType SamplePrint/Sample Print: "%% FoomaticRIPOptionSetting: JobType=SamplePrint"
 *FoomaticRIPOptionSetting JobType=SamplePrint: "mark\n&&
-(&user8;) usrcode (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+/usrcode where{pop}{/usrcode()def}ifelse\n&&
+(&user;) usrcode (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
 cleartomark\n&&
 mark {\n&&
  <<\n&&
    /JobType 2\n&&
    /JobInfo <<\n&&
-      /UserID (&user8;)\n&&
+      /UserID (&user;)\n&&
       /Time (20`date +%y%m%d%R | sed 's/://'`)\n&&
-      /HostLoginName (&user20;)\n&&
-      /HostName (&host63;)\n&&
+      /HostLoginName (&user;)\n&&
+      /HostName (&host;)\n&&
    >>\n&&
  >> /RDeviceProcSet /ProcSet findresource /SetJobType get exec\n&&
 }stopped cleartomark\n"
 *End
 *JobType LockedPrint/Locked Print: "%% FoomaticRIPOptionSetting: JobType=LockedPrint"
 *FoomaticRIPOptionSetting JobType=LockedPrint: "mark\n&&
-(&user8;) usrcode (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+/usrcode where{pop}{/usrcode()def}ifelse\n&&
+/lppswd where{pop}{/lppswd()def}ifelse\n&&
+(&user;) usrcode (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
 cleartomark\n&&
 mark {\n&&
  <<\n&&
    /JobType 1\n&&
    /JobInfo <<\n&&
-      /UserID (&user8;)\n&&
+      /UserID (&user;)\n&&
       /Time (20`date +%y%m%d%R | sed 's/://'`)\n&&
       /Password lppswd\n&&
-      /HostLoginName (&user20;)\n&&
-      /HostName (&host63;)\n&&
+      /HostLoginName (&user;)\n&&
+      /HostName (&host;)\n&&
    >>\n&&
  >> /RDeviceProcSet /ProcSet findresource /SetJobType get exec\n&&
 }stopped cleartomark\n"
 *End
 *JobType DocServer/Document Server: "%% FoomaticRIPOptionSetting: JobType=DocServer"
 *FoomaticRIPOptionSetting JobType=DocServer: "mark\n&&
-(&user8;) usrcode (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+/usrcode where{pop}{/usrcode()def}ifelse\n&&
+/dspswd where{pop}{/dspswd()def}ifelse\n&&
+(&user;) usrcode (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
 cleartomark\n&&
 mark {\n&&
  <<\n&&
    /JobType 4\n&&
    /JobInfo <<\n&&
-      /UserID (&user8;)\n&&
+      /UserID (&user;)\n&&
       /Time (20`date +%y%m%d%R | sed 's/://'`)\n&&
       /Password dspswd\n&&
-      /JobID (&title20;)\n&&
-      /HostLoginName (&user20;)\n&&
-      /HostName (&host63;)\n&&
+      /JobID (&title;)\n&&
+      /HostLoginName (&user;)\n&&
+      /HostName (&host;)\n&&
    >>\n&&
  >> /RDeviceProcSet /ProcSet findresource /SetJobType get exec\n&&
 }stopped cleartomark\n"
@@ -1989,7 +1996,7 @@ mark {\n&&
 *CloseUI: *JobType
 
 *OpenUI *LockedPrintPassword/Locked Print Password (4-8 digits): PickOne
-*FoomaticRIPOption LockedPrintPassword: passcode CmdLine A
+*FoomaticRIPOption LockedPrintPassword: password CmdLine A
 *FoomaticRIPOptionMaxLength LockedPrintPassword:8
 *FoomaticRIPOptionAllowedChars LockedPrintPassword: "0-9"
 *OrderDependency: 100 AnySetup *LockedPrintPassword
@@ -2002,13 +2009,13 @@ mark {\n&&
 *CloseUI: *LockedPrintPassword
 
 *CustomLockedPrintPassword True/Custom Password: ""
-*ParamCustomLockedPrintPassword Password: 1 passcode 4 8
-*NonUIOrderDependency: 100 AnySetup *CustomLockedPrintPassword True
+*ParamCustomLockedPrintPassword Password: 1 password 4 8
+*NonUIOrderDependency: 101 AnySetup *CustomLockedPrintPassword True
 *OpenUI *DocServerPassword/Document Server Password (4-8 digits): PickOne
-*FoomaticRIPOption DocServerPassword: passcode CmdLine A
+*FoomaticRIPOption DocServerPassword: password CmdLine A
 *FoomaticRIPOptionMaxLength DocServerPassword:8
 *FoomaticRIPOptionAllowedChars DocServerPassword: "0-9"
-*OrderDependency: 100 AnySetup *DocServerPassword
+*OrderDependency: 102 AnySetup *DocServerPassword
 *FoomaticRIPOptionPrototype DocServerPassword: "/dspswd(%s)"
 *DefaultDocServerPassword: None
 *DocServerPassword None/None: "/dspswd()def\n"
@@ -2018,13 +2025,13 @@ mark {\n&&
 *CloseUI: *DocServerPassword
 
 *CustomDocServerPassword True/Custom Document Server Password: ""
-*ParamCustomDocServerPassword Password: 1 passcode 4 8
-*NonUIOrderDependency: 100 AnySetup *CustomDocServerPassword True
+*ParamCustomDocServerPassword Password: 1 password 4 8
+*NonUIOrderDependency: 103 AnySetup *CustomDocServerPassword True
 *OpenUI *UserCode/User Code (up to 8 digits): PickOne
-*FoomaticRIPOption UserCode: passcode CmdLine A
+*FoomaticRIPOption UserCode: password CmdLine A
 *FoomaticRIPOptionMaxLength UserCode:8
 *FoomaticRIPOptionAllowedChars UserCode: "0-9"
-*OrderDependency: 100 AnySetup *UserCode
+*OrderDependency: 104 AnySetup *UserCode
 *FoomaticRIPOptionPrototype UserCode: "/usrcode(%s)def\n"
 *DefaultUserCode: None
 *UserCode None/None: "/usrcode()def\n"
@@ -2034,8 +2041,8 @@ mark {\n&&
 *CloseUI: *UserCode
 
 *CustomUserCode True/Custom UserCode: ""
-*ParamCustomUserCode UserCode: 1 passcode 1 8
-*NonUIOrderDependency: 100 AnySetup *CustomUserCode True
+*ParamCustomUserCode UserCode: 1 password 1 8
+*NonUIOrderDependency: 105 AnySetup *CustomUserCode True
 *CloseGroup: JobLog/Job Log
 *%========== Font ==========
 
