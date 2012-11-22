@@ -1,10 +1,10 @@
 *PPD-Adobe: "4.3"
 *%
 *%  Printer Description file
-*%    for "LANIER SG3110DN PXL"
+*%    for "SAVIN SG3100SNw PXL"
 *%
-*%    CreationDate: 2012/05/07
-*%    Modified:     2012/07/04
+*%    CreationDate: 2012/10/19
+*%    Modified:     2012/11/01
 *%
 *%    COPYRIGHT (C) 2012 RICOH COMPANY, LTD.
 *%    
@@ -30,18 +30,18 @@
 *%    [this is the MIT open source license -- please see www.opensource.org]
 *%
 
-*FileVersion:      "1.01"
+*FileVersion:      "1.00"
 *FormatVersion:    "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion:  English
-*ModelName:        "LANIER SG3110DN"
-*PCFileName:       "LN6161E3.PPD"
-*Manufacturer:     "LANIER"
-*Product:          "(LANIER SG3110DN)"
+*ModelName:        "SAVIN SG3100SNw"
+*PCFileName:       "SV6171E3.PPD"
+*Manufacturer:     "SAVIN"
+*Product:          "(SAVIN SG3100SNw)"
 *PSVersion:        "(3011.103) 2"
-*1284DeviceID:     "MFG:LANIER;MDL:SG3110DN;CMD:PCLXL;"
-*ShortNickName:    "LANIER SG3110DN PXL"
-*NickName:         "LANIER SG3110DN PXL"
+*1284DeviceID:     "MFG:SAVIN;MDL:SG3100SNw;CMD:PCLXL;"
+*ShortNickName:    "SAVIN SG3100SNw PXL"
+*NickName:         "SAVIN SG3100SNw PXL"
 
 *cupsVersion:      1.1
 *cupsFilter:       "application/vnd.cups-postscript 0 foomatic-rip"
@@ -78,9 +78,8 @@
 
 *%========== Ghostscript Command line ==========
 
-*FoomaticIDs: LANIER-SG3110DN pxlmono
-*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -dNOINTERPOLATE %B%A%C %F%D%E"
-
+*FoomaticIDs: SAVIN-SG3100SNw pxlmono
+*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -dNOINTERPOLATE %B%A%C %D%E%F"
 *OpenGroup: General
 
 *%========== Media Selection ==========
@@ -294,8 +293,8 @@
 *OpenUI *DryTime/Sheet-dry Print Delay in Duplex: PickOne
 *FoomaticRIPOption DryTime: enum JCL A
 *OrderDependency: 220 AnySetup *DryTime
-*DefaultDryTime: Off
-*DryTime Off/Off: "%% FoomaticRIPOptionSetting: DryTime=0"
+*DefaultDryTime: 0
+*DryTime 0/Off: "%% FoomaticRIPOptionSetting: DryTime=0"
 *FoomaticRIPOptionSetting DryTime=0: "SET DUPLEXDRYTIME=0"
 *DryTime 1/1: "%% FoomaticRIPOptionSetting: DryTime=1"
 *FoomaticRIPOptionSetting DryTime=1: "SET DUPLEXDRYTIME=1"
@@ -382,6 +381,25 @@
 
 
 *CloseGroup: General
+
+*%========== Job Log Section ==========
+
+*OpenGroup: JobLog
+*OpenUI *UserCode/User Code (Up to 8 digits.): PickOne
+*FoomaticRIPOption UserCode: string CmdLine F
+*FoomaticRIPOptionMaxLength UserCode:8
+*FoomaticRIPOptionAllowedChars UserCode: "0-9"
+*OrderDependency: 255 AnySetup *UserCode
+*FoomaticRIPOptionPrototype UserCode: "&&
+ | perl -p -e &quot;s/\x40PJL ENTER LANGUAGE/\x40PJL SET DATE=\x22&year;\x2F&month;\x2F&date;\x22\x0A\x40PJL SET TIME=\x22&hour;:&min;:&sec;\x22\x0A\x40PJL SET USERCODE=\x22%s\x22\x0a\x40PJL ENTER LANGUAGE/&quot;"
+*End
+*DefaultUserCode: None
+*UserCode None/None: ""
+*CloseUI: *UserCode
+*CustomUserCode True/Option: "UserCode=Custom"
+*ParamCustomUserCode Custom: 1 string 1 8
+*CloseGroup: JobLog
+
 
 *UIConstraints: *MediaType InkjetPlainPaper *PrintMode Superfine
 *UIConstraints: *MediaType InkjetPlainPaper *Density Light
