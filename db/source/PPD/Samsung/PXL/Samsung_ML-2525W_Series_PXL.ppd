@@ -1,0 +1,579 @@
+*PPD-Adobe: "4.3"
+*% ===============================================
+*% Disclaimer:  The above statement indicates
+*% that this PPD was written using the Adobe PPD
+*% File Format Specification 4.3, but does not
+*% intend to imply approval and acceptance by
+*% Adobe Systems, Inc.
+*% ===============================================
+*%
+*% ===============================================
+*% PPD for Samsung ML-2525W Series CUPS
+*% For Linux Only
+*% ===============================================
+*%
+*%
+*%
+*% Copyright (c) 2013 Samsung Electronics Co., Ltd.
+*% 
+*% Permission is hereby granted, free of charge, to any person obtaining 
+*% a copy of this software and associated documentation files (the 
+*% "Software"), to deal in the Software without restriction, including 
+*% without limitation the rights to use, copy, modify, merge, publish, 
+*% distribute, sublicense, and/or sell copies of the Software, and to 
+*% permit persons to whom the Software is furnished to do so, subject to 
+*% the following conditions:
+*% 
+*% The above copyright notice and this permission notice shall be 
+*% included in all copies or substantial portions of the Software.
+*% 
+*% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+*% EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+*% MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+*% NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
+*% LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
+*% OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
+*% WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*% 
+*% [this is the MIT open source license -- please see www.opensource.org]
+*%
+*% ===============================================
+*FormatVersion: "4.3"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+*ModelName: "Samsung ML-2525W Series"
+*PCFileName: "ML2525W.ppd"
+*Manufacturer: "Samsung"
+*Product: "(Samsung ML-2525W Series)"
+*PSVersion: "(3011.103) 2"
+*ShortNickName: "ML-2525W"
+*NickName: "Samsung ML-2525W Series PXL"
+*FileVersion:      20
+*cupsVersion:      1.1
+*cupsManualCopies: False
+*cupsCommands:     ""
+*cupsFilter: "application/vnd.cups-postscript 0 foomatic-rip"
+*cupsFilter: "application/vnd.cups-pdf 0 foomatic-rip"
+
+*%========== Basic Device Capabilities ==========
+
+*LanguageLevel: "3"
+*ColorDevice: False
+*TTRasterizer: Type42
+*FileSystem: True
+*LandscapeOrientation: Minus90
+*DefaultColorSpace: Gray
+*Throughput: "22"
+
+*%========== Ghostscript Command line ==========
+
+*FoomaticRIPCommandLine: "(printf &apos;\033%%-12345X@PJL SET COPIES=&copies;\n&apos;%G|perl -p -e &quot;s/\x26copies\x3b/1/&quot;);
+(gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -dNOINTERPOLATE %B%A%C %D%E | perl -p -e &quot;s/^\x1b\x25-12345X//&quot; | perl -p -e &quot;s/\xc1\x01\x00\xf8\x31\x44/\x44/g&quot;);"
+*End
+
+*FoomaticRIPUserEntityMaxLength: 8
+
+*OpenGroup: General
+*OpenUI *ColorModel/Color Mode: PickOne
+*FoomaticRIPOption ColorModel: enum Composite B
+*OrderDependency: 10 AnySetup *ColorModel
+*DefaultColorModel: Grayscale
+*ColorModel Grayscale/Grayscale: "%% FoomaticRIPOptionSetting: ColorModel=Grayscale"
+*FoomaticRIPOptionSetting ColorModel=Grayscale: "GSCmdLine=Grayscale"
+*CloseUI: *ColorModel
+
+*FoomaticRIPOption GSCmdLine: enum CmdLine B 10
+*FoomaticRIPOptionSetting GSCmdLine=FromColorModel: ""
+*FoomaticRIPOptionSetting GSCmdLine=Grayscale: " -sDEVICE=pxlmono"
+*End
+
+*OpenUI *Resolution/Quality: PickOne
+*FoomaticRIPOption Resolution: enum Composite A
+*OrderDependency: 15 AnySetup *Resolution
+*DefaultResolution: 600dpi
+*Resolution 600dpi:  "%% FoomaticRIPOptionSetting: Resolution=600dpi"
+*FoomaticRIPOptionSetting Resolution=600dpi: "JCLResolution=600dpi GSResolution=600dpi"
+*Resolution 1200dpi:  "%% FoomaticRIPOptionSetting: Resolution=1200dpi"
+*FoomaticRIPOptionSetting Resolution=1200dpi: "JCLResolution=1200dpi GSResolution=1200dpi"
+*CloseUI: *Resolution
+
+*FoomaticRIPOption GSResolution: enum CmdLine A 15
+*FoomaticRIPOptionSetting GSResolution=FromResolution: ""
+*FoomaticRIPOptionSetting GSResolution=600dpi: " -r600x600"
+*FoomaticRIPOptionSetting GSResolution=1200dpi: " -r1200x1200"
+
+*FoomaticRIPOption JCLResolution: enum JCL A 15
+*FoomaticRIPOptionSetting JCLResolution=FromResolution: ""
+*FoomaticRIPOptionSetting JCLResolution=600dpi: "SET RESOLUTION=600"
+*FoomaticRIPOptionSetting JCLResolution=1200dpi: "SET RESOLUTION=1200"
+
+
+*%========== Media Selection ==========
+
+*HWMargins:      12.5 12.5 12.5 12.5
+*OpenUI *PageSize/Page Size: PickOne
+*FoomaticRIPOption PageSize: enum CmdLine C
+*OrderDependency: 20 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
+*FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4 -sOutputFile=- - "
+*PageSize A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
+*FoomaticRIPOptionSetting PageSize=A5: " -sPAPERSIZE=a5 -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0f\xf8\x25/g&quot;"
+*PageSize A6/A6: "%% FoomaticRIPOptionSetting: PageSize=A6"
+*FoomaticRIPOptionSetting PageSize=A6: " -dDEVICEWIDTHPOINTS=298 -dDEVICEHEIGHTPOINTS=420 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x14\xf8\x25/g&quot;"
+*End
+*PageSize B5/JIS B5: "%% FoomaticRIPOptionSetting: PageSize=B5"
+*FoomaticRIPOptionSetting PageSize=B5: " -dDEVICEWIDTHPOINTS=516 -dDEVICEHEIGHTPOINTS=729 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0b\xf8\x25/g&quot;"
+*End
+*PageSize Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
+*FoomaticRIPOptionSetting PageSize=Legal: " -sPAPERSIZE=legal -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x01\xf8\x25/g&quot;"
+*PageSize Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
+*FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter -sOutputFile=- - "
+*PageSize Executive/Executive: "%% FoomaticRIPOptionSetting: PageSize=Executive"
+*FoomaticRIPOptionSetting PageSize=Executive: " -dDEVICEWIDTHPOINTS=522 -dDEVICEHEIGHTPOINTS=756 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x03\xf8\x25/g&quot;"
+*End
+*PageSize Env10/No.10 Env.: "%% FoomaticRIPOptionSetting: PageSize=Env10"
+*FoomaticRIPOptionSetting PageSize=Env10: " -dDEVICEWIDTHPOINTS=297 -dDEVICEHEIGHTPOINTS=684 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x06\xf8\x25/g&quot;"
+*End
+*PageSize EnvMonarch/Monarch Env.: "%% FoomaticRIPOptionSetting: PageSize=EnvMonarch"
+*FoomaticRIPOptionSetting PageSize=EnvMonarch: " -dDEVICEWIDTHPOINTS=279 -dDEVICEHEIGHTPOINTS=540 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x07\xf8\x25/g&quot;"
+*End
+*PageSize EnvC5/C5 Env.: "%% FoomaticRIPOptionSetting: PageSize=EnvC5"
+*FoomaticRIPOptionSetting PageSize=EnvC5: " -dDEVICEWIDTHPOINTS=459 -dDEVICEHEIGHTPOINTS=649 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x08\xf8\x25/g&quot;"
+*End
+*PageSize DLEnv/DL Env.: "%% FoomaticRIPOptionSetting: PageSize=DLEnv"
+*FoomaticRIPOptionSetting PageSize=DLEnv: " -dDEVICEWIDTHPOINTS=311 -dDEVICEHEIGHTPOINTS=623 -sOutputFile=- - &&
+ | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x09\xf8\x25/g&quot;"
+*End
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 25 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
+*PageRegion A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
+*PageRegion A6/A6: "%% FoomaticRIPOptionSetting: PageSize=A6"
+*PageRegion B5/JIS B5: "%% FoomaticRIPOptionSetting: PageSize=B5"
+*PageRegion Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
+*PageRegion Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
+*PageRegion Executive/Executive: "%% FoomaticRIPOptionSetting: PageSize=Executive"
+*PageRegion Env10/No.10 Env.: "%% FoomaticRIPOptionSetting: PageSize=Env10"
+*PageRegion EnvMonarch/Monarch Env.: "%% FoomaticRIPOptionSetting: PageSize=EnvMonarch"
+*PageRegion EnvC5/C5 Env.: "%% FoomaticRIPOptionSetting: PageSize=EnvC5"
+*PageRegion DLEnv/DL Env.: "%% FoomaticRIPOptionSetting: PageSize=DLEnv"
+*CloseUI: *PageRegion
+
+*%========== Information About Media Sizes ==========
+
+*DefaultImageableArea: Letter
+*ImageableArea A4/A4: "12.5 12.5 582.5 829.5"
+*ImageableArea A5/A5: "12.5 12.5 407.5 582.5"
+*ImageableArea A6/A6: "12.5 12.5 284.5 407.5"
+*ImageableArea B5/JIS B5: "12.5 12.5 486.5 696.5"
+*ImageableArea Legal/Legal: "12.5 12.5 599.5 995.5"
+*ImageableArea Letter/Letter: "12.5 12.5 599.5 779.5"
+*ImageableArea Executive/Executive: "12.5 12.5 509.5 743.5"
+*ImageableArea Env10/No.10 Env.: "12.5 12.5 284.5 671.5"
+*ImageableArea EnvMonarch/Monarch Env.: "12.5 12.5 266.5 527.5"
+*ImageableArea EnvC5/C5 Env.: "12.5 12.5 446.5 636.5"
+*ImageableArea DLEnv/DL Env.: "12.5 12.5 299.5 611.5"
+
+*DefaultPaperDimension: Letter
+*PaperDimension A4/A4: "595 842"
+*PaperDimension A5/A5: "420 595"
+*PaperDimension A6/A6: "297 420"
+*PaperDimension B5/JIS B5: "516 729"
+*PaperDimension Legal/Legal: "612 1008"
+*PaperDimension Letter/Letter: "612 792"
+*PaperDimension Executive/Executive: "522 756"
+*PaperDimension Env10/No.10 Env.: "297 684"
+*PaperDimension EnvMonarch/Monarch Env.: "279 540"
+*PaperDimension EnvC5/C5 Env.: "459 649"
+*PaperDimension DLEnv/DL Env.: "311 623"
+
+*%========== Media Handling Features ==========
+
+*OpenUI *InputSlot/Paper Source: PickOne
+*FoomaticRIPOption InputSlot: enum CmdLine E
+*OrderDependency: 30 AnySetup *InputSlot
+*DefaultInputSlot: Auto
+*InputSlot MultiTray/Manual Feeder: "%% FoomaticRIPOptionSetting: InputSlot=MultiTray"
+*FoomaticRIPOptionSetting InputSlot=MultiTray: "&&
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x02\xf8\x26/g&quot;"
+*End
+*InputSlot 1Tray/Tray 1: "%% FoomaticRIPOptionSetting: InputSlot=1Tray"
+*FoomaticRIPOptionSetting InputSlot=1Tray: "&&
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x04\xf8\x26/g&quot;"
+*End
+*InputSlot Auto/Auto Selection: "%% FoomaticRIPOptionSetting: InputSlot=Auto"
+*FoomaticRIPOptionSetting InputSlot=Auto: ""
+*CloseUI: *InputSlot
+
+
+
+
+*OpenUI *MediaType/Paper Type: PickOne
+*FoomaticRIPOption MediaType: enum JCL A
+*OrderDependency: 205 AnySetup *MediaType
+*DefaultMediaType: Plain
+*MediaType Plain/Plain: "%% FoomaticRIPOptionSetting: MediaType=Plain"
+*FoomaticRIPOptionSetting MediaType=Plain: "SET MEDIATYPE=PLAIN"
+*MediaType Recycled/Recycled: "%% FoomaticRIPOptionSetting: MediaType=Recycled"
+*FoomaticRIPOptionSetting MediaType=Recycled: "SET MEDIATYPE=RECYCLED"
+*MediaType Colored/Color: "%% FoomaticRIPOptionSetting: MediaType=Colored"
+*FoomaticRIPOptionSetting MediaType=Colored: "SET MEDIATYPE=COLOR"
+*MediaType Preprinted/Preprinted: "%% FoomaticRIPOptionSetting: MediaType=Preprinted"
+*FoomaticRIPOptionSetting MediaType=Preprinted: "SET MEDIATYPE=PREPRINTED"
+*MediaType Labels/Labels: "%% FoomaticRIPOptionSetting: MediaType=Labels"
+*FoomaticRIPOptionSetting MediaType=Labels: "SET MEDIATYPE=LABELS"
+*MediaType Bond/Bond: "%% FoomaticRIPOptionSetting: MediaType=Bond"
+*FoomaticRIPOptionSetting MediaType=Bond: "SET MEDIATYPE=BOND"
+*MediaType Cardstock/Cardstock: "%% FoomaticRIPOptionSetting: MediaType=Cardstock"
+*FoomaticRIPOptionSetting MediaType=Cardstock: "SET MEDIATYPE=CARDSTOCK"
+*MediaType OHP/Transparency: "%% FoomaticRIPOptionSetting: MediaType=OHP"
+*FoomaticRIPOptionSetting MediaType=OHP: "SET MEDIATYPE=TRANSPARENCY"
+*MediaType Thick/Thick: "%% FoomaticRIPOptionSetting: MediaType=Thick"
+*FoomaticRIPOptionSetting MediaType=Thick: "SET MEDIATYPE=THICK"
+*MediaType Thin/Thin: "%% FoomaticRIPOptionSetting: MediaType=Thin"
+*FoomaticRIPOptionSetting MediaType=Thin: "SET MEDIATYPE=THIN"
+*MediaType Envelope/Envelope: "%% FoomaticRIPOptionSetting: MediaType=Envelope"
+*FoomaticRIPOptionSetting MediaType=Envelope: "SET MEDIATYPE=ENVELOPE"
+*CloseUI: *MediaType
+
+*CloseGroup: General
+
+*% =========================================================
+*%  User Interface Constraints
+*% =========================================================
+
+*% =========================================================
+*%  Envelope(PageSize) - MediaType
+*% =========================================================
+
+
+*% =========================================================
+*%  InputSlot(Tray 1) - MediaType
+*% =========================================================
+
+*UIConstraints: *InputSlot 1Tray           *MediaType Envelope
+*UIConstraints: *InputSlot 1Tray           *MediaType OHP
+*UIConstraints: *InputSlot 1Tray           *MediaType Labels
+*UIConstraints: *InputSlot 1Tray           *MediaType Colored	                    
+*UIConstraints: *InputSlot 1Tray           *MediaType Preprinted       
+
+*UIConstraints: *MediaType Envelope         *InputSlot 1Tray
+*UIConstraints: *MediaType OHP     	    *InputSlot 1Tray
+*UIConstraints: *MediaType Labels           *InputSlot 1Tray
+*UIConstraints: *MediaType Colored            *InputSlot 1Tray
+*UIConstraints: *MediaType Preprinted       *InputSlot 1Tray
+
+
+*% =========================================================
+*%  Envelope(PageSize) - MediaType
+*% =========================================================		
+
+*% Env10
+*UIConstraints: *PageSize Env10			*MediaType Plain
+*UIConstraints: *PageSize Env10			*MediaType Thick
+*UIConstraints: *PageSize Env10			*MediaType Thin
+*UIConstraints: *PageSize Env10			*MediaType Bond
+*UIConstraints: *PageSize Env10			*MediaType Colored
+*UIConstraints: *PageSize Env10			*MediaType Cardstock
+*UIConstraints: *PageSize Env10			*MediaType Labels
+*UIConstraints: *PageSize Env10			*MediaType OHP
+*UIConstraints: *PageSize Env10			*MediaType Preprinted
+*UIConstraints: *PageSize Env10			*MediaType Recycled
+
+
+*UIConstraints: *MediaType Plain       		*PageSize Env10			
+*UIConstraints: *MediaType Thick       		*PageSize Env10			
+*UIConstraints: *MediaType Thin        		*PageSize Env10			
+*UIConstraints: *MediaType Bond        		*PageSize Env10			
+*UIConstraints: *MediaType Colored       		*PageSize Env10			
+*UIConstraints: *MediaType Cardstock        		*PageSize Env10			
+*UIConstraints: *MediaType Labels      		*PageSize Env10			
+*UIConstraints: *MediaType OHP			*PageSize Env10			
+*UIConstraints: *MediaType Preprinted  		*PageSize Env10			
+*UIConstraints: *MediaType Recycled    		*PageSize Env10			
+
+*% DL
+*UIConstraints: *PageSize DLEnv			*MediaType Plain
+*UIConstraints: *PageSize DLEnv			*MediaType Thick
+*UIConstraints: *PageSize DLEnv			*MediaType Thin
+*UIConstraints: *PageSize DLEnv			*MediaType Bond
+*UIConstraints: *PageSize DLEnv			*MediaType Colored
+*UIConstraints: *PageSize DLEnv			*MediaType Cardstock
+*UIConstraints: *PageSize DLEnv			*MediaType Labels
+*UIConstraints: *PageSize DLEnv			*MediaType OHP
+*UIConstraints: *PageSize DLEnv			*MediaType Preprinted
+*UIConstraints: *PageSize DLEnv			*MediaType Recycled
+
+*UIConstraints: *MediaType Plain       		*PageSize DLEnv			
+*UIConstraints: *MediaType Thick       		*PageSize DLEnv			
+*UIConstraints: *MediaType Thin        		*PageSize DLEnv			
+*UIConstraints: *MediaType Bond        		*PageSize DLEnv			
+*UIConstraints: *MediaType Colored       		*PageSize DLEnv			
+*UIConstraints: *MediaType Cardstock        		*PageSize DLEnv			
+*UIConstraints: *MediaType Labels      		*PageSize DLEnv			
+*UIConstraints: *MediaType OHP			*PageSize DLEnv			
+*UIConstraints: *MediaType Preprinted  		*PageSize DLEnv			
+*UIConstraints: *MediaType Recycled    		*PageSize DLEnv			
+
+*% C5
+*UIConstraints: *PageSize EnvC5			*MediaType Plain
+*UIConstraints: *PageSize EnvC5			*MediaType Thick
+*UIConstraints: *PageSize EnvC5			*MediaType Thin
+*UIConstraints: *PageSize EnvC5			*MediaType Bond
+*UIConstraints: *PageSize EnvC5			*MediaType Colored
+*UIConstraints: *PageSize EnvC5			*MediaType Cardstock
+*UIConstraints: *PageSize EnvC5			*MediaType Labels
+*UIConstraints: *PageSize EnvC5			*MediaType OHP
+*UIConstraints: *PageSize EnvC5			*MediaType Preprinted
+*UIConstraints: *PageSize EnvC5			*MediaType Recycled
+
+*UIConstraints: *MediaType Plain       		*PageSize EnvC5			
+*UIConstraints: *MediaType Thick       		*PageSize EnvC5			
+*UIConstraints: *MediaType Thin        		*PageSize EnvC5			
+*UIConstraints: *MediaType Bond        		*PageSize EnvC5			
+*UIConstraints: *MediaType Colored       		*PageSize EnvC5			
+*UIConstraints: *MediaType Cardstock        		*PageSize EnvC5			
+*UIConstraints: *MediaType Labels      		*PageSize EnvC5			
+*UIConstraints: *MediaType OHP			*PageSize EnvC5			
+*UIConstraints: *MediaType Preprinted  		*PageSize EnvC5			
+*UIConstraints: *MediaType Recycled    		*PageSize EnvC5			
+
+*% EnvMonarch
+*UIConstraints: *PageSize EnvMonarch		*MediaType Plain       	
+*UIConstraints: *PageSize EnvMonarch		*MediaType Thick       	
+*UIConstraints: *PageSize EnvMonarch		*MediaType Thin        	
+*UIConstraints: *PageSize EnvMonarch		*MediaType Bond        	
+*UIConstraints: *PageSize EnvMonarch		*MediaType Colored       	
+*UIConstraints: *PageSize EnvMonarch		*MediaType Cardstock        	
+*UIConstraints: *PageSize EnvMonarch		*MediaType Labels      	
+*UIConstraints: *PageSize EnvMonarch		*MediaType OHP	
+*UIConstraints: *PageSize EnvMonarch		*MediaType Preprinted  	
+*UIConstraints: *PageSize EnvMonarch		*MediaType Recycled    	
+
+*UIConstraints: *MediaType Plain       		*PageSize EnvMonarch	
+*UIConstraints: *MediaType Thick       		*PageSize EnvMonarch	
+*UIConstraints: *MediaType Thin        		*PageSize EnvMonarch	
+*UIConstraints: *MediaType Bond        		*PageSize EnvMonarch	
+*UIConstraints: *MediaType Colored       		*PageSize EnvMonarch	
+*UIConstraints: *MediaType Cardstock        		*PageSize EnvMonarch	
+*UIConstraints: *MediaType Labels      		*PageSize EnvMonarch	
+*UIConstraints: *MediaType OHP			*PageSize EnvMonarch	
+*UIConstraints: *MediaType Preprinted  		*PageSize EnvMonarch	
+*UIConstraints: *MediaType Recycled    		*PageSize EnvMonarch	
+
+*% =========================================================
+*%  Envelope(PageRegion) - MediaType
+*% =========================================================		
+
+*% Env10
+*UIConstraints: *PageRegion Env10		*MediaType Plain
+*UIConstraints: *PageRegion Env10		*MediaType Thick
+*UIConstraints: *PageRegion Env10		*MediaType Thin
+*UIConstraints: *PageRegion Env10		*MediaType Bond
+*UIConstraints: *PageRegion Env10		*MediaType Colored
+*UIConstraints: *PageRegion Env10		*MediaType Cardstock
+*UIConstraints: *PageRegion Env10		*MediaType Labels
+*UIConstraints: *PageRegion Env10		*MediaType OHP
+*UIConstraints: *PageRegion Env10		*MediaType Preprinted
+*UIConstraints: *PageRegion Env10		*MediaType Recycled
+
+*UIConstraints: *MediaType Plain       		*PageRegion Env10			
+*UIConstraints: *MediaType Thick       		*PageRegion Env10			
+*UIConstraints: *MediaType Thin        		*PageRegion Env10			
+*UIConstraints: *MediaType Bond        		*PageRegion Env10			
+*UIConstraints: *MediaType Colored       		*PageRegion Env10			
+*UIConstraints: *MediaType Cardstock        		*PageRegion Env10			
+*UIConstraints: *MediaType Labels      		*PageRegion Env10			
+*UIConstraints: *MediaType OHP			*PageRegion Env10			
+*UIConstraints: *MediaType Preprinted  		*PageRegion Env10			
+*UIConstraints: *MediaType Recycled    		*PageRegion Env10			
+
+*% DL
+*UIConstraints: *PageRegion DLEnv		*MediaType Plain
+*UIConstraints: *PageRegion DLEnv		*MediaType Thick
+*UIConstraints: *PageRegion DLEnv		*MediaType Thin
+*UIConstraints: *PageRegion DLEnv		*MediaType Bond
+*UIConstraints: *PageRegion DLEnv		*MediaType Colored
+*UIConstraints: *PageRegion DLEnv		*MediaType Cardstock
+*UIConstraints: *PageRegion DLEnv		*MediaType Labels
+*UIConstraints: *PageRegion DLEnv		*MediaType OHP
+*UIConstraints: *PageRegion DLEnv		*MediaType Preprinted
+*UIConstraints: *PageRegion DLEnv		*MediaType Recycled
+
+*UIConstraints: *MediaType Plain       		*PageRegion DLEnv			
+*UIConstraints: *MediaType Thick       		*PageRegion DLEnv			
+*UIConstraints: *MediaType Thin        		*PageRegion DLEnv			
+*UIConstraints: *MediaType Bond        		*PageRegion DLEnv			
+*UIConstraints: *MediaType Colored       		*PageRegion DLEnv			
+*UIConstraints: *MediaType Cardstock        		*PageRegion DLEnv			
+*UIConstraints: *MediaType Labels      		*PageRegion DLEnv			
+*UIConstraints: *MediaType OHP			*PageRegion DLEnv			
+*UIConstraints: *MediaType Preprinted  		*PageRegion DLEnv			
+*UIConstraints: *MediaType Recycled    		*PageRegion DLEnv			
+
+*% C5
+*UIConstraints: *PageRegion EnvC5		*MediaType Plain
+*UIConstraints: *PageRegion EnvC5		*MediaType Thick
+*UIConstraints: *PageRegion EnvC5		*MediaType Thin
+*UIConstraints: *PageRegion EnvC5		*MediaType Bond
+*UIConstraints: *PageRegion EnvC5		*MediaType Colored
+*UIConstraints: *PageRegion EnvC5		*MediaType Cardstock
+*UIConstraints: *PageRegion EnvC5		*MediaType Labels
+*UIConstraints: *PageRegion EnvC5		*MediaType OHP
+*UIConstraints: *PageRegion EnvC5		*MediaType Preprinted
+*UIConstraints: *PageRegion EnvC5		*MediaType Recycled
+
+*UIConstraints: *MediaType Plain       		*PageRegion EnvC5			
+*UIConstraints: *MediaType Thick       		*PageRegion EnvC5			
+*UIConstraints: *MediaType Thin        		*PageRegion EnvC5			
+*UIConstraints: *MediaType Bond        		*PageRegion EnvC5			
+*UIConstraints: *MediaType Colored       		*PageRegion EnvC5			
+*UIConstraints: *MediaType Cardstock        		*PageRegion EnvC5			
+*UIConstraints: *MediaType Labels      		*PageRegion EnvC5			
+*UIConstraints: *MediaType OHP			*PageRegion EnvC5			
+*UIConstraints: *MediaType Preprinted  		*PageRegion EnvC5			
+*UIConstraints: *MediaType Recycled    		*PageRegion EnvC5			
+
+*% EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch		*MediaType Plain       	
+*UIConstraints: *PageRegion EnvMonarch		*MediaType Thick       	
+*UIConstraints: *PageRegion EnvMonarch		*MediaType Thin        	
+*UIConstraints: *PageRegion EnvMonarch		*MediaType Bond        	
+*UIConstraints: *PageRegion EnvMonarch		*MediaType Colored       	
+*UIConstraints: *PageRegion EnvMonarch		*MediaType Cardstock        	
+*UIConstraints: *PageRegion EnvMonarch		*MediaType Labels      	
+*UIConstraints: *PageRegion EnvMonarch		*MediaType OHP	
+*UIConstraints: *PageRegion EnvMonarch		*MediaType Preprinted  	
+*UIConstraints: *PageRegion EnvMonarch		*MediaType Recycled    	
+
+*UIConstraints: *MediaType Plain       		*PageRegion EnvMonarch	
+*UIConstraints: *MediaType Thick       		*PageRegion EnvMonarch	
+*UIConstraints: *MediaType Thin        		*PageRegion EnvMonarch
+*UIConstraints: *MediaType Bond        		*PageRegion EnvMonarch	
+*UIConstraints: *MediaType Colored       		*PageRegion EnvMonarch	
+*UIConstraints: *MediaType Cardstock        		*PageRegion EnvMonarch	
+*UIConstraints: *MediaType Labels      		*PageRegion EnvMonarch	
+*UIConstraints: *MediaType OHP			*PageRegion EnvMonarch	
+*UIConstraints: *MediaType Preprinted  		*PageRegion EnvMonarch	
+*UIConstraints: *MediaType Recycled    		*PageRegion EnvMonarch	
+
+*% =========================================================
+*%  PageSize - Envelope(MediaType)
+*% =========================================================
+*UIConstraints: *PageSize Letter		*MediaType Envelope
+*UIConstraints: *PageSize Legal			*MediaType Envelope
+*UIConstraints: *PageSize A4			*MediaType Envelope
+*UIConstraints: *PageSize B5			*MediaType Envelope
+*UIConstraints: *PageSize Executive		*MediaType Envelope
+*UIConstraints: *PageSize A5                    *MediaType Envelope
+*UIConstraints: *PageSize A6                    *MediaType Envelope
+
+*UIConstraints: *MediaType Envelope		*PageSize Letter		
+*UIConstraints: *MediaType Envelope		*PageSize Legal			
+*UIConstraints: *MediaType Envelope		*PageSize A4			
+*UIConstraints: *MediaType Envelope		*PageSize B5		
+*UIConstraints: *MediaType Envelope		*PageSize Executive		
+*UIConstraints: *MediaType Envelope             *PageSize A5
+*UIConstraints: *MediaType Envelope             *PageSize A6
+
+*% =========================================================
+*%  PageRegion - Envelope(MediaType)
+*% =========================================================
+*UIConstraints: *PageRegion Letter		*MediaType Envelope
+*UIConstraints: *PageRegion Legal		*MediaType Envelope
+*UIConstraints: *PageRegion A4			*MediaType Envelope
+*UIConstraints: *PageRegion B5			*MediaType Envelope
+*UIConstraints: *PageRegion Executive		*MediaType Envelope
+*UIConstraints: *PageRegion A5                  *MediaType Envelope
+*UIConstraints: *PageRegion A6                  *MediaType Envelope
+
+*UIConstraints: *MediaType Envelope		*PageRegion Letter		
+*UIConstraints: *MediaType Envelope		*PageRegion Legal			
+*UIConstraints: *MediaType Envelope		*PageRegion A4			
+*UIConstraints: *MediaType Envelope		*PageRegion B5		
+*UIConstraints: *MediaType Envelope		*PageRegion Executive
+*UIConstraints: *MediaType Envelope             *PageRegion A5
+*UIConstraints: *MediaType Envelope             *PageRegion A6
+
+
+*% =========================================================
+*%  PageSize - OHP(MediaType)
+*% =========================================================
+*UIConstraints: *PageSize Legal			*MediaType OHP
+*UIConstraints: *PageSize A5			*MediaType OHP
+*UIConstraints: *PageSize A6			*MediaType OHP
+*UIConstraints: *PageSize B5			*MediaType OHP
+*UIConstraints: *PageSize Executive		*MediaType OHP
+
+*UIConstraints: *MediaType OHP		*PageSize Legal			
+*UIConstraints: *MediaType OHP		*PageSize A5			
+*UIConstraints: *MediaType OHP		*PageSize A6			
+*UIConstraints: *MediaType OHP		*PageSize B5		
+*UIConstraints: *MediaType OHP		*PageSize Executive		
+
+*% =========================================================
+*%  PageRegion - OHP(MediaType)
+*% =========================================================
+*UIConstraints: *PageRegion Legal		*MediaType OHP
+*UIConstraints: *PageRegion A5			*MediaType OHP
+*UIConstraints: *PageRegion A6			*MediaType OHP
+*UIConstraints: *PageRegion B5			*MediaType OHP
+*UIConstraints: *PageRegion Executive		*MediaType OHP
+
+*UIConstraints: *MediaType OHP		*PageRegion Legal			
+*UIConstraints: *MediaType OHP		*PageRegion A5			
+*UIConstraints: *MediaType OHP		*PageRegion A6			
+*UIConstraints: *MediaType OHP		*PageRegion B5		
+*UIConstraints: *MediaType OHP		*PageRegion Executive		
+
+*% Generic boilerplate PPD stuff as standard PostScript fonts and so on
+
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Standard ROM
+
+*% end of Printer Description file
+
