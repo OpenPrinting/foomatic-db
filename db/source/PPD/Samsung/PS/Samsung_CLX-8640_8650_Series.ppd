@@ -65,6 +65,26 @@
 *JCLToPSInterpreter: "@PJL ENTER LANGUAGE = POSTSCRIPT<0D0A>"
 *JCLEnd: "<1B>%-12345X"
 
+*% =========================================================
+*% Installable Options
+*% =========================================================  
+*OpenGroup: InstallableOptions/Installed Options
+
+*OpenUI *OptionalTray/Optional Tray: PickOne
+*DefaultOptionalTray: None
+*OptionalTray None/None: ""
+*OptionalTray Tray2/Tray 2: ""
+*OptionalTray Tray234/Tray 2, 3, 4: ""
+*CloseUI: *OptionalTray
+
+*OpenUI *Finisher/Finisher: PickOne
+*DefaultFinisher: None
+*Finisher None/Not Installed: ""
+*Finisher MPFinisher/2-Bin Finisher: ""
+*CloseUI: *Finisher
+
+*CloseGroup: InstallableOptions
+
 *%==========================================================
 *% Collate
 *%==========================================================
@@ -129,7 +149,7 @@
 *% =========================================================
 *%  Edge Enhance
 *% =========================================================
-*JCLOpenUI *JCLEdgeEnhance/Edge Enhance: PickOne
+*JCLOpenUI *JCLEdgeEnhance/Edge Enhancement: PickOne
 *OrderDependency: 10 JCLSetup *JCLEdgeEnhance
 *DefaultJCLEdgeEnhance: Normal
 *JCLEdgeEnhance Off/Off:								"@PJL SET EDGEENHANCE=OFF<0D0A>"
@@ -151,7 +171,7 @@
 *% =========================================================
 *% JCLScreen
 *% =========================================================
-*JCLOpenUI *JCLScreen/Screen Matching: PickOne
+*JCLOpenUI *JCLScreen/Screen: PickOne
 *DefaultJCLScreen: Enhanced
 *OrderDependency: 10 JCLSetup *JCLScreen
 *JCLScreen PrinterDefault/Printer Default:""
@@ -176,7 +196,7 @@
 *% =========================================================
 *% JCLColorAdjustment - Brightness
 *% =========================================================
-*JCLOpenUI *JCLBrightness/Brightness Level: PickOne
+*JCLOpenUI *JCLBrightness/[Adjustment Levels] Brightness: PickOne
 *DefaultJCLBrightness: 50
 *OrderDependency: 10 JCLSetup *JCLBrightness
 *JCLBrightness 0/0:						"@PJL SET ESCMSCOLORADJUSTMENT=ON<0D0A>@PJL SET ESCMSBRIGHTNESS=0<0D0A>"
@@ -196,7 +216,7 @@
 *% =========================================================
 *% JCLColorAdjustment - Contrast
 *% =========================================================
-*JCLOpenUI *JCLContrast/Contrast Level: PickOne
+*JCLOpenUI *JCLContrast/[Adjustment Levels] Contrast: PickOne
 *DefaultJCLContrast: 50
 *OrderDependency: 10 JCLSetup *JCLContrast
 *JCLContrast 0/0:						"@PJL SET ESCMSCONTRAST=0<0D0A>"
@@ -215,7 +235,7 @@
 *% =========================================================
 *% JCLColorAdjustment - Saturation
 *% =========================================================
-*JCLOpenUI *JCLSaturation/Saturation Level: PickOne
+*JCLOpenUI *JCLSaturation/[Adjustment Levels] Saturation: PickOne
 *DefaultJCLSaturation: 50
 *OrderDependency: 10 JCLSetup *JCLSaturation
 *JCLSaturation 0/0:						"@PJL SET ESCMSSATURATION=0<0D0A>"
@@ -234,7 +254,7 @@
 *% =========================================================
 *% JCLColorAdjustment - Cyan-Red
 *% =========================================================
-*JCLOpenUI *JCLCyanRed/Cyan-Red Level: PickOne
+*JCLOpenUI *JCLCyanRed/[Adjustment Levels] Cyan-Red: PickOne
 *DefaultJCLCyanRed: 50
 *OrderDependency: 10 JCLSetup *JCLCyanRed
 *JCLCyanRed 0/0:						"@PJL SET ESCMSCRBALANCE=0<0D0A>"
@@ -253,7 +273,7 @@
 *% =========================================================
 *% JCLColorAdjustment - Magenta-Green
 *% =========================================================
-*JCLOpenUI *JCLMagentaGreen/Magenta-Green Level: PickOne
+*JCLOpenUI *JCLMagentaGreen/[Adjustment Levels] Magenta-Green: PickOne
 *DefaultJCLMagentaGreen: 50
 *OrderDependency: 10 JCLSetup *JCLMagentaGreen
 *JCLMagentaGreen 0/0:						"@PJL SET ESCMSMGBALANCE=0<0D0A>"
@@ -272,7 +292,7 @@
 *% =========================================================
 *% JCLColorAdjustment - Yellow-Blue
 *% =========================================================
-*JCLOpenUI *JCLYellowBlue/Yellow-Blue Level: PickOne
+*JCLOpenUI *JCLYellowBlue/[Adjustment Levels] Yellow-Blue: PickOne
 *DefaultJCLYellowBlue: 50
 *OrderDependency: 10 JCLSetup *JCLYellowBlue
 *JCLYellowBlue 0/0:						"@PJL SET ESCMSYBBALANCE=0<0D0A>"
@@ -368,7 +388,7 @@
 *JCLOpenUI *JCLBlackOptimization/Black Optimization:  Boolean
 *OrderDependency: 70 JCLSetup *JCLBlackOptimization
 *DefaultJCLBlackOptimization: False
-*JCLBlackOptimization False/Off : ""
+*JCLBlackOptimization False/Off : "@PJL SET BLACKOPTIMIZATION=OFF<0A>"
 *JCLBlackOptimization True/On :   "@PJL SET BLACKOPTIMIZATION=ON<0A>"
 *JCLCloseUI: *JCLBlackOptimization
 
@@ -376,7 +396,7 @@
 *%========================================================
 *% JCLRGB Color Intent
 *%========================================================
-*JCLOpenUI *JCLRGBColor/RGB Color Intent: PickOne
+*JCLOpenUI *JCLRGBColor/[Samsung Color Management] Intent: PickOne
 *DefaultJCLRGBColor: Standard
 *OrderDependency: 10 JCLSetup *JCLRGBColor
 *JCLRGBColor Standard/Standard: 					 "@PJL SET RGBCOLOR=STANDARD<0A>"
@@ -388,7 +408,7 @@
 *%========================================================
 *% JCLRGB Color Simulator
 *%========================================================
-*JCLOpenUI *JCLRGBSimulator/RGB Color Simulator: PickOne
+*JCLOpenUI *JCLRGBSimulator/[Samsung Color Management] Simulator: PickOne
 *DefaultJCLRGBSimulator: PrinterDefault
 *OrderDependency: 10 JCLSetup *JCLRGBSimulator
 *JCLRGBSimulator PrinterDefault/Printer Default:  ""
@@ -430,7 +450,6 @@
 *DefaultJCLSortOptions: None
 *JCLSortOptions None/None:                         ""
 *JCLSortOptions Offset/Offset:                     "@PJL SET SORT=OFFSET<0D0A>"
-*%JCLSortOptions Rotate/Rotate:                     "@PJL SET SORT=ROTATE<0D0A>"
 *JCLCloseUI: *JCLSortOptions
 
 *% =========================================================
@@ -453,7 +472,7 @@
 *DefaultJCLFrontCoverSource: None
 *JCLFrontCoverSource None/None:          				""
 *JCLFrontCoverSource Auto/Auto Selection:     	"@PJL SET FRONT_COVER_TRAY=<22>AUTO<220D0A>"
-*JCLFrontCoverSource Upper/Multi-purpose Tray: 	"@PJL SET FRONT_COVER_TRAY=<22>MPTRAY<220D0A>"
+*JCLFrontCoverSource Upper/MP Tray: 	"@PJL SET FRONT_COVER_TRAY=<22>MPTRAY<220D0A>"
 *JCLFrontCoverSource Middle/Tray 1:        			"@PJL SET FRONT_COVER_TRAY=<22>UPPER<220D0A>"
 *JCLFrontCoverSource Lower/Tray 2:         			"@PJL SET FRONT_COVER_TRAY=<22>LOWER<220D0A>"
 *JCLFrontCoverSource Tray3/Tray 3:        		 	"@PJL SET FRONT_COVER_TRAY=<22>OPTIONTRAY3<220D0A>"
@@ -508,7 +527,7 @@
 *DefaultJCLBackCoverSource: None
 *JCLBackCoverSource None/None:          			""
 *JCLBackCoverSource Auto/Auto Selection:      "@PJL SET BACK_COVER_TRAY=<22>AUTO<220D0A>"
-*JCLBackCoverSource Upper/Multi-purpose Tray: "@PJL SET BACK_COVER_TRAY=<22>MPTRAY<220D0A>"
+*JCLBackCoverSource Upper/MP Tray: "@PJL SET BACK_COVER_TRAY=<22>MPTRAY<220D0A>"
 *JCLBackCoverSource Middle/Tray 1:        		"@PJL SET BACK_COVER_TRAY=<22>UPPER<220D0A>"
 *JCLBackCoverSource Lower/Tray 2:         		"@PJL SET BACK_COVER_TRAY=<22>LOWER<220D0A>"
 *JCLBackCoverSource Tray3/Tray 3:         		"@PJL SET BACK_COVER_TRAY=<22>OPTIONTRAY3<220D0A>"
@@ -563,7 +582,7 @@
 *DefaultJCLFrontBackCoverSource: None
 *JCLFrontBackCoverSource None/None:         				""
 *JCLFrontBackCoverSource Auto/Auto Selection:     	"@PJL SET FRONTBACK_COVER_TRAY=<22>AUTO<220D0A>"
-*JCLFrontBackCoverSource Upper/Multi-purpose Tray:  "@PJL SET FRONTBACK_COVER_TRAY=<22>MPTRAY<220D0A>"
+*JCLFrontBackCoverSource Upper/MP Tray:  "@PJL SET FRONTBACK_COVER_TRAY=<22>MPTRAY<220D0A>"
 *JCLFrontBackCoverSource Middle/Tray 1:         		"@PJL SET FRONTBACK_COVER_TRAY=<22>UPPER<220D0A>"
 *JCLFrontBackCoverSource Lower/Tray 2:          		"@PJL SET FRONTBACK_COVER_TRAY=<22>LOWER<220D0A>"
 *JCLFrontBackCoverSource Tray3/Tray 3:         		  "@PJL SET FRONTBACK_COVER_TRAY=<22>OPTIONTRAY3<220D0A>"
@@ -607,7 +626,7 @@
 *InputSlot Auto/Printer Auto Selection:"
  <</ManualFeed false /MediaPosition null>> setpagedevice"
 *End
-*InputSlot Upper/Multi-Purpose Tray:"
+*InputSlot Upper/MP Tray:"
  << /ManualFeed false /MediaPosition 2 >> setpagedevice"
 *End
 *InputSlot Middle/Tray 1:"
@@ -762,10 +781,61 @@ save currentpagedevice /PageSize get aload pop
 *% =========================================================
 *%  User Interface Constraints
 *% =========================================================
+*% =========================================================
+*% Optional Tray - InputSlot
+*% =========================================================
+*UIConstraints: *OptionalTray None   *InputSlot Lower
+*UIConstraints: *OptionalTray None   *InputSlot Tray3
+*UIConstraints: *OptionalTray None   *InputSlot Tray4
+*UIConstraints: *OptionalTray Tray2  *InputSlot Tray3
+*UIConstraints: *OptionalTray Tray2  *InputSlot Tray4
 
-*%======Color Mode - Black Optimization
+*UIConstraints: *OptionalTray None   *JCLFrontCoverSource Lower
+*UIConstraints: *OptionalTray None   *JCLFrontCoverSource Tray3
+*UIConstraints: *OptionalTray None   *JCLFrontCoverSource Tray4
+*UIConstraints: *OptionalTray Tray2  *JCLFrontCoverSource Tray3
+*UIConstraints: *OptionalTray Tray2  *JCLFrontCoverSource Tray4
+
+*UIConstraints: *OptionalTray None   *JCLBackCoverSource Lower
+*UIConstraints: *OptionalTray None   *JCLBackCoverSource Tray3
+*UIConstraints: *OptionalTray None   *JCLBackCoverSource Tray4
+*UIConstraints: *OptionalTray Tray2  *JCLBackCoverSource Tray3
+*UIConstraints: *OptionalTray Tray2  *JCLBackCoverSource Tray4
+
+*UIConstraints: *OptionalTray None   *JCLFrontBackCoverSource Lower
+*UIConstraints: *OptionalTray None   *JCLFrontBackCoverSource Tray3
+*UIConstraints: *OptionalTray None   *JCLFrontBackCoverSource Tray4
+*UIConstraints: *OptionalTray Tray2  *JCLFrontBackCoverSource Tray3
+*UIConstraints: *OptionalTray Tray2  *JCLFrontBackCoverSource Tray4
+
+*% =========================================================
+*% Finisher - JCLFinisherOutBin
+*% =========================================================
+*UIConstraints: *JCLFinisherOutBin Bin1		*Finisher MPFinisher
+*UIConstraints: *Finisher MPFinisher	*JCLFinisherOutBin Bin1
+
+*UIConstraints: *JCLFinisherOutBin Bin2		*Finisher None
+*UIConstraints: *Finisher None		*JCLFinisherOutBin Bin2
+
+*UIConstraints: *JCLFinisherOutBin Bin3		*Finisher None
+*UIConstraints: *Finisher None		*JCLFinisherOutBin Bin3
+
+*% =========================================================
+*% Color Mode - Black Optimization
+*% =========================================================
 *UIConstraints: *ColorMode False            *JCLBlackOptimization True
 *UIConstraints: *JCLBlackOptimization True  *ColorMode False
+
+*% =========================================================
+*% Finisher - Staple, Sort
+*% =========================================================
+*UIConstraints: *Finisher None *JCLStapleLocation 1Staple_P
+*UIConstraints: *Finisher None *JCLStapleLocation 1Staple_L
+*UIConstraints: *JCLStapleLocation 1Staple_P *Finisher None
+*UIConstraints: *JCLStapleLocation 1Staple_L *Finisher None
+
+*UIConstraints: *Finisher None *JCLSortOptions Offset
+*UIConstraints: *JCLSortOptions Offset *Finisher None
 
 *% =========================================================
 *%  JCLStapleLocation - PageSize
