@@ -1,0 +1,4186 @@
+*PPD-Adobe: "4.3"
+*%%%% PPD file for CX410 Series with CUPS.
+*%%%% Created by the CUPS PPD Compiler CUPS v1.4.2.
+*% ******************************************************************************
+*% *     Adobe PostScript(R) Printer Description File                           *
+*% *     Produced by Lexmark International, Inc.                                *
+*% *                                                                            *
+*% *                                                                            *
+*% *                                                                            *
+*% *     Copyright 1997-2012 Lexmark International, Inc.  All rights reserved.    *
+*% ******************************************************************************
+*%******************************************************************************
+*%      License
+*%******************************************************************************
+*%
+*%Redistribution of this file, with or without modification, is permitted
+*%provided that the following conditions are met:
+*%
+*%      Redistributions of this file must reproduce the above copyright notice,
+*%      this list of conditions and the following disclaimer in the file and
+*%      documentation and/or other materials provided with the distribution.
+*%
+*%      Neither the name of Lexmark International, Inc. nor the names of its
+*%      contributors may be used to endorse or promote products derived
+*%      from this file without specific prior written permission.
+*%
+*%THIS FILE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+*%ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+*%WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+*%DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+*%FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+*%DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+*%SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+*%CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+*%OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+*%OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*%
+*%******************************************************************************
+*%      General Information
+*%******************************************************************************
+
+*FormatVersion: "4.3"
+*FileVersion: "1.0"
+*LanguageVersion: English
+*LanguageEncoding: ISOLatin1
+*PCFileName: "LXCX410.PPD"
+*Product: "(Lexmark CX410 Series)"
+*Product: "(Lexmark CX410e)"
+*Product: "(Lexmark CX410de)"
+*Manufacturer: "Lexmark"
+*ModelName: "Lexmark CX410 Series"
+*ShortNickName: "Lexmark CX410 Series"
+*NickName: "Lexmark CX410 Series"
+*PSVersion: "(3010.010) 20040929"
+*LanguageLevel: "3"
+*ColorDevice: True
+*DefaultColorSpace: CMYK
+*FileSystem: True
+*Throughput: "36"
+*LandscapeOrientation: Plus90
+*TTRasterizer: Type42
+*% Driver-defined attributes...
+*?TTRasterizer: ""
+*LXCountPIN: "4"
+*LXlowPINchar: "0"
+*LXhiPINchar: "9"
+*LexJobNameUTF8: ""
+*LXDefaultoDuplexRegion: False
+*1284DeviceID: "MFG:Lexmark;MDL:Lexmark CX410 Series"
+*cupsCommands: "ReportLevels"
+*PrinterType: "Laser"
+*FreeVM: "252000000"
+*VMOption 256Meg: "252000000"
+*VMOption 320Meg: "312000000"
+*VMOption 384Meg: "376000000"
+*VMOption 512Meg: "512000000"
+*VMOption 576Meg: "576000000"
+*VMOption 640Meg: "640000000"
+*VMOption 768Meg: "768000000"
+*VMOption 1024Meg: "1024000000"
+*Protocols: TBCP
+*?FileSystem: ""
+*Password: "0"
+*ExitServer: "
+	count 0 eq   % is the password on the stack?
+	{ true }
+	{ dup        % potential password
+		statusdict /checkpassword get exec not
+	} ifelse
+	{  %  if no password or not valid
+		(WARNING : Cannot perform the exitserver command.) =
+		(Password supplied is not valid.) =
+		(Please contact the author of this software.) = flush
+		quit
+	} if
+	serverdict /exitserver get exec"
+*End
+*Reset: "
+	count 0 eq  % is the password on the stack?
+	{ true }
+	{ dup      % potential password
+		statusdict /checkpassword get exec not
+	} ifelse
+	{  %  if no password or not valid
+		(WARNING : Cannot reset printer.) =
+		(Password supplied is not valid.) =
+		(Please contact the author of this software.) = flush
+		quit
+	} if
+	serverdict /exitserver get exec
+	systemdict /quit get exec
+	(WARNING : Printer Reset Failed.) = flush"
+*End
+*JobPatchFile 1: "%%Lexmark Linux PPD File 1"
+*JCLBegin: "<1B>%-12345X@PJL JOB<0A>"
+*JCLToPSInterpreter: "@PJL ENTER LANGUAGE = POSTSCRIPT<0A>"
+*JCLEnd: "<1B>%-12345X@PJL EOJ <0A><1B>%-12345X"
+*OIDOptDuplex: ".1.3.6.1.2.1.43.13.4.1.10.1.2"
+*OIDOptDuplex InstalledM: "Duplex Paper Path"
+*OIDOptDuplex NotInstalledM: ".*"
+*DefaultOutputOrder: Normal
+*RequiresPageRegion All: True
+*ScreenFreq: "60.0"
+*ScreenAngle: "45.0"
+*DefaultScreenProc: Dot
+*ScreenProc Dot: "{abs exch abs 2 copy add 1 gt {1 sub dup mul exch 1 sub dup mul add 1
+sub }{dup mul exch dup mul add 1 exch sub }ifelse }"
+*End
+*ScreenProc Line: "{ pop }"
+*ScreenProc Ellipse: "{ dup 5 mul 8 div mul exch dup mul exch add sqrt 1 exch sub }"
+*DefaultTransfer: Factory
+*Transfer Factory: "{}"
+*Transfer Factory.Inverse: "{1 exch sub }"
+*Message: "%%  exitserver: permanent state may be changed  %%"
+*Message: "%%  Flushing: rest of job (to end-of-file) will be ignored  %%"
+*Message: "FontName not found, using Courier"
+*Status: "Printer Busy"
+*Status: "Warming Up"
+*Status: "idle"
+*Status: "busy"
+*Status: "waiting"
+*Status: "initializing"
+*Status: "not ready"
+*Source: "Serial"
+*Source: "Parallel"
+*Source: "Network"
+*PrinterError: "Paper Jam"
+*PrinterError: "Wrong Paper Length"
+*PrinterError: "Invalid Manual Insertion"
+*PrinterError: "Change Size in Feeder"
+*PrinterError: "Change Size in Tray 1"
+*PrinterError: "Change Size in Tray 2"
+*PrinterError: "Paper Out or Feed Failure - Feeder"
+*PrinterError: "Paper Out or Feed Failure - Tray 1"
+*PrinterError: "Paper Out or Feed Failure - Tray 2"
+*PrinterError: "Cover Open/Cartridge Not Installed"
+*PrinterError: "Complex Page"
+*PrinterError: "Default Storage Error"
+*PrinterError: "Defective Font Card Installed"
+*PrinterError: "Flash Full"
+*PrinterError: "ioerror"
+*PrinterError: "Flash Error"
+*PrinterError: "Scheduled Maintenance"
+*PrinterError: "Toner Low"
+*PrinterError: "Service Error"
+*PrinterError: "Not Ready"
+*DefaultColorSep: ProcessBlack.85lpi.600dpi/85 lpi / 600 dpi
+*InkName: ProcessBlack/Process Black
+*InkName: CustomColor/Custom Color
+*InkName: ProcessCyan/Process Cyan
+*InkName: ProcessMagenta/Process Magenta
+*InkName: ProcessYellow/Process Yellow
+*ColorSepScreenAngle ProcessBlack.85lpi.600dpi/85 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.85lpi.600dpi/85 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.85lpi.600dpi/85 lpi / 600 dpi: "71.5651"
+*ColorSepScreenAngle ProcessMagenta.85lpi.600dpi/85 lpi / 600 dpi: "18.4349"
+*ColorSepScreenAngle ProcessYellow.85lpi.600dpi/85 lpi / 600 dpi: "0.0"
+*ColorSepScreenFreq ProcessBlack.85lpi.600dpi/85 lpi / 600 dpi: "84.8528"
+*ColorSepScreenFreq CustomColor.85lpi.600dpi/85 lpi / 600 dpi: "84.8528"
+*ColorSepScreenFreq ProcessCyan.85lpi.600dpi/85 lpi / 600 dpi: "94.8683"
+*ColorSepScreenFreq ProcessMagenta.85lpi.600dpi/85 lpi / 600 dpi: "154.0"
+*ColorSepScreenFreq ProcessYellow.85lpi.600dpi/85 lpi / 600 dpi: "30.0"
+*ColorSepScreenAngle ProcessBlack.71lpi.600dpi/71 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.71lpi.600dpi/71 lpi / 600 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.71lpi.600dpi/71 lpi / 600 dpi: "71.5651"
+*ColorSepScreenAngle ProcessMagenta.71lpi.600dpi/71 lpi / 600 dpi: "18.4349"
+*ColorSepScreenAngle ProcessYellow.71lpi.600dpi/71 lpi / 600 dpi: "0.0"
+*ColorSepScreenFreq ProcessBlack.71lpi.600dpi/71 lpi / 600 dpi: "70.7107"
+*ColorSepScreenFreq CustomColor.71lpi.600dpi/71 lpi / 600 dpi: "70.7107"
+*ColorSepScreenFreq ProcessCyan.71lpi.600dpi/71 lpi / 600 dpi: "63.2456"
+*ColorSepScreenFreq ProcessMagenta.71lpi.600dpi/71 lpi / 600 dpi: "63.2456"
+*ColorSepScreenFreq ProcessYellow.71lpi.600dpi/71 lpi / 600 dpi: "66.6667"
+*ColorSepScreenAngle ProcessBlack.116lpi.1200dpi/116 lpi / 1200 dpi: "45.0"
+*ColorSepScreenAngle CustomColor.116lpi.1200dpi/116 lpi / 1200 dpi: "45.0"
+*ColorSepScreenAngle ProcessCyan.116lpi.1200dpi/116 lpi / 1200 dpi: "71.5651"
+*ColorSepScreenAngle ProcessMagenta.116lpi.1200dpi/116 lpi / 1200 dpi: "18.4349"
+*ColorSepScreenAngle ProcessYellow.116lpi.1200dpi/116 lpi / 1200 dpi: "0.0"
+*ColorSepScreenFreq ProcessBlack.116lpi.1200dpi/116 lpi / 1200 dpi: "106.066"
+*ColorSepScreenFreq CustomColor.116lpi.1200dpi/116 lpi / 1200 dpi: "106.066"
+*ColorSepScreenFreq ProcessCyan.116lpi.1200dpi/116 lpi / 1200 dpi: "94.8683"
+*ColorSepScreenFreq ProcessMagenta.116lpi.1200dpi/116 lpi / 1200 dpi: "94.8683"
+*ColorSepScreenFreq ProcessYellow.116lpi.1200dpi/116 lpi / 1200 dpi: "100.0"
+*cupsLanguages: "fr de it es ko ja ru pl pt zh_TW zh_CN"
+*UIConstraints: *Trays Tray1 *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *Trays Tray1
+*UIConstraints: *Trays Tray1 *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *Trays Tray1
+*UIConstraints: *Trays Tray12 *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *Trays Tray12
+*UIConstraints: *Trays Tray1 *InputSlot MultipurposeFeeder
+*UIConstraints: *InputSlot MultipurposeFeeder *Trays Tray1
+*UIConstraints: *Trays Tray1 *SepSource Tray2
+*UIConstraints: *SepSource Tray2 *Trays Tray1
+*UIConstraints: *Trays Tray1 *SepSource Tray3
+*UIConstraints: *SepSource Tray3 *Trays Tray1
+*UIConstraints: *Trays Tray12 *SepSource Tray3
+*UIConstraints: *SepSource Tray3 *Trays Tray12
+*UIConstraints: *Trays Tray1 *SepSource MultipurposeFeeder
+*UIConstraints: *SepSource MultipurposeFeeder *Trays Tray1
+*UIConstraints: *SepPages NoneF *SepSource Tray1
+*UIConstraints: *SepSource Tray1 *SepPages NoneF
+*UIConstraints: *SepPages NoneF *SepSource Tray2
+*UIConstraints: *SepSource Tray2 *SepPages NoneF
+*UIConstraints: *SepPages NoneF *SepSource Tray3
+*UIConstraints: *SepSource Tray3 *SepPages NoneF
+*UIConstraints: *SepPages NoneF *SepSource MultipurposeFeeder
+*UIConstraints: *SepSource MultipurposeFeeder *SepPages NoneF
+*UIConstraints: *OptDuplex NotInstalledM *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *OptDuplex NotInstalledM
+*UIConstraints: *OptDuplex NotInstalledM *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *OptDuplex NotInstalledM
+*UIConstraints: *InputSlot Tray1 *PageSize Statement
+*UIConstraints: *PageSize Statement *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *PageSize A6
+*UIConstraints: *PageSize A6 *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *PageSize Env9
+*UIConstraints: *PageSize Env9 *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *PageSize Env10
+*UIConstraints: *PageSize Env10 *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *PageSize 8.5x13.8333
+*UIConstraints: *PageSize 8.5x13.8333 *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *PageRegion Statement
+*UIConstraints: *PageRegion Statement *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *PageRegion A6
+*UIConstraints: *PageRegion A6 *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *PageRegion Env9
+*UIConstraints: *PageRegion Env9 *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *PageRegion EnvDL
+*UIConstraints: *PageRegion EnvDL *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *PageRegion ISOB5
+*UIConstraints: *PageRegion ISOB5 *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *PageRegion 8.5x13.8333
+*UIConstraints: *PageRegion 8.5x13.8333 *InputSlot Tray1
+*UIConstraints: *InputSlot Tray1 *MediaType Envelope
+*UIConstraints: *MediaType Envelope *InputSlot Tray1
+*UIConstraints: *InputSlot Tray2 *PageSize Statement
+*UIConstraints: *PageSize Statement *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageSize A6
+*UIConstraints: *PageSize A6 *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageSize Env9
+*UIConstraints: *PageSize Env9 *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageSize Env10
+*UIConstraints: *PageSize Env10 *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageSize 8.5x13.8333
+*UIConstraints: *PageSize 8.5x13.8333 *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageRegion Statement
+*UIConstraints: *PageRegion Statement *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageRegion A6
+*UIConstraints: *PageRegion A6 *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageRegion Env9
+*UIConstraints: *PageRegion Env9 *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageRegion EnvDL
+*UIConstraints: *PageRegion EnvDL *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageRegion ISOB5
+*UIConstraints: *PageRegion ISOB5 *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *PageRegion 8.5x13.8333
+*UIConstraints: *PageRegion 8.5x13.8333 *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *MediaType Envelope
+*UIConstraints: *MediaType Envelope *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *MediaType Transparency
+*UIConstraints: *MediaType Transparency *InputSlot Tray2
+*UIConstraints: *InputSlot Tray3 *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *PageSize Env10
+*UIConstraints: *PageSize Env10 *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *PageSize 8.5x13.8333
+*UIConstraints: *PageSize 8.5x13.8333 *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *PageSize Env9
+*UIConstraints: *PageSize Env9 *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *PageSize Statement
+*UIConstraints: *PageSize Statement *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *PageSize A6
+*UIConstraints: *PageSize A6 *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *PageRegion EnvDL
+*UIConstraints: *PageRegion EnvDL *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *PageRegion 8.5x13.8333
+*UIConstraints: *PageRegion 8.5x13.8333 *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *PageRegion Env9
+*UIConstraints: *PageRegion Env9 *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *PageRegion ISOB5
+*UIConstraints: *PageRegion ISOB5 *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *PageRegion Statement
+*UIConstraints: *PageRegion Statement *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *PageRegion A6
+*UIConstraints: *PageRegion A6 *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *MediaType Envelope
+*UIConstraints: *MediaType Envelope *InputSlot Tray3
+*UIConstraints: *InputSlot Tray3 *MediaType Transparency
+*UIConstraints: *MediaType Transparency *InputSlot Tray3
+*UIConstraints: *Duplex DuplexNoTumble *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageSize Env9
+*UIConstraints: *PageSize Env9 *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageSize Env10
+*UIConstraints: *PageSize Env10 *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageSize 8.5x13.8333
+*UIConstraints: *PageSize 8.5x13.8333 *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageSize A6
+*UIConstraints: *PageSize A6 *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageSize Statement
+*UIConstraints: *PageSize Statement *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageSize B5
+*UIConstraints: *PageSize B5 *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageSize A5
+*UIConstraints: *PageSize A5 *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageSize Executive
+*UIConstraints: *PageSize Executive *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion Env9
+*UIConstraints: *PageRegion Env9 *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion EnvDL
+*UIConstraints: *PageRegion EnvDL *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion ISOB5
+*UIConstraints: *PageRegion ISOB5 *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion 8.5x13.8333
+*UIConstraints: *PageRegion 8.5x13.8333 *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion A6
+*UIConstraints: *PageRegion A6 *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion Statement
+*UIConstraints: *PageRegion Statement *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion B5
+*UIConstraints: *PageRegion B5 *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion A5
+*UIConstraints: *PageRegion A5 *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion Executive
+*UIConstraints: *PageRegion Executive *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Card
+*UIConstraints: *MediaType Card *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Transparency
+*UIConstraints: *MediaType Transparency *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Labels
+*UIConstraints: *MediaType Labels *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Envelope
+*UIConstraints: *MediaType Envelope *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexNoTumble *MediaType Rough
+*UIConstraints: *MediaType Rough *Duplex DuplexNoTumble
+*UIConstraints: *Duplex DuplexTumble *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageSize Env9
+*UIConstraints: *PageSize Env9 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageSize Env10
+*UIConstraints: *PageSize Env10 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageSize 8.5x13.8333
+*UIConstraints: *PageSize 8.5x13.8333 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageSize A6
+*UIConstraints: *PageSize A6 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageSize Statement
+*UIConstraints: *PageSize Statement *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageSize B5
+*UIConstraints: *PageSize B5 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageSize A5
+*UIConstraints: *PageSize A5 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageSize Executive
+*UIConstraints: *PageSize Executive *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageRegion Env9
+*UIConstraints: *PageRegion Env9 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageRegion EnvDL
+*UIConstraints: *PageRegion EnvDL *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageRegion ISOB5
+*UIConstraints: *PageRegion ISOB5 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageRegion 8.5x13.8333
+*UIConstraints: *PageRegion 8.5x13.8333 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageRegion A6
+*UIConstraints: *PageRegion A6 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageRegion Statement
+*UIConstraints: *PageRegion Statement *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageRegion B5
+*UIConstraints: *PageRegion B5 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageRegion A5
+*UIConstraints: *PageRegion A5 *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *PageRegion Executive
+*UIConstraints: *PageRegion Executive *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *MediaType Card
+*UIConstraints: *MediaType Card *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *MediaType Transparency
+*UIConstraints: *MediaType Transparency *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *MediaType Labels
+*UIConstraints: *MediaType Labels *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *MediaType Envelope
+*UIConstraints: *MediaType Envelope *Duplex DuplexTumble
+*UIConstraints: *Duplex DuplexTumble *MediaType Rough
+*UIConstraints: *MediaType Rough *Duplex DuplexTumble
+*UIConstraints: *MediaType Envelope *PageSize Letter
+*UIConstraints: *PageSize Letter *MediaType Envelope
+*UIConstraints: *MediaType Envelope *PageSize Legal
+*UIConstraints: *PageSize Legal *MediaType Envelope
+*UIConstraints: *MediaType Envelope *PageSize 8.5x13.4028
+*UIConstraints: *PageSize 8.5x13.4028 *MediaType Envelope
+*UIConstraints: *MediaType Envelope *PageSize B5
+*UIConstraints: *PageSize B5 *MediaType Envelope
+*UIConstraints: *MediaType Envelope *PageSize A4
+*UIConstraints: *PageSize A4 *MediaType Envelope
+*UIConstraints: *MediaType Envelope *PageSize Executive
+*UIConstraints: *PageSize Executive *MediaType Envelope
+*UIConstraints: *MediaType Envelope *PageSize A5
+*UIConstraints: *PageSize A5 *MediaType Envelope
+*UIConstraints: *MediaType Envelope *PageSize A6
+*UIConstraints: *PageSize A6 *MediaType Envelope
+*UIConstraints: *MediaType Envelope *PageSize FanFoldGermanLegal
+*UIConstraints: *PageSize FanFoldGermanLegal *MediaType Envelope
+*UIConstraints: *MediaType Envelope *PageSize Statement
+*UIConstraints: *PageSize Statement *MediaType Envelope
+*UIConstraints: *PageSize EnvMonarch *MediaType Plain
+*UIConstraints: *MediaType Plain *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *MediaType Card
+*UIConstraints: *MediaType Card *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *MediaType Transparency
+*UIConstraints: *MediaType Transparency *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *MediaType Labels
+*UIConstraints: *MediaType Labels *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *MediaType Bond
+*UIConstraints: *MediaType Bond *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *MediaType Letterhead
+*UIConstraints: *MediaType Letterhead *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *MediaType Preprint
+*UIConstraints: *MediaType Preprint *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *MediaType Colored
+*UIConstraints: *MediaType Colored *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *MediaType Glossy
+*UIConstraints: *MediaType Glossy *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *MediaType Light
+*UIConstraints: *MediaType Light *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *MediaType Heavy
+*UIConstraints: *MediaType Heavy *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *MediaType Rough
+*UIConstraints: *MediaType Rough *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *MediaType Recycled
+*UIConstraints: *MediaType Recycled *PageSize EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *MediaType Plain
+*UIConstraints: *MediaType Plain *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *MediaType Card
+*UIConstraints: *MediaType Card *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *MediaType Transparency
+*UIConstraints: *MediaType Transparency *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *MediaType Labels
+*UIConstraints: *MediaType Labels *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *MediaType Bond
+*UIConstraints: *MediaType Bond *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *MediaType Letterhead
+*UIConstraints: *MediaType Letterhead *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *MediaType Preprint
+*UIConstraints: *MediaType Preprint *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *MediaType Colored
+*UIConstraints: *MediaType Colored *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *MediaType Glossy
+*UIConstraints: *MediaType Glossy *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *MediaType Light
+*UIConstraints: *MediaType Light *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *MediaType Heavy
+*UIConstraints: *MediaType Heavy *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *MediaType Rough
+*UIConstraints: *MediaType Rough *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *MediaType Recycled
+*UIConstraints: *MediaType Recycled *PageRegion EnvMonarch
+*UIConstraints: *PageSize Env10 *MediaType Plain
+*UIConstraints: *MediaType Plain *PageSize Env10
+*UIConstraints: *PageSize Env10 *MediaType Card
+*UIConstraints: *MediaType Card *PageSize Env10
+*UIConstraints: *PageSize Env10 *MediaType Transparency
+*UIConstraints: *MediaType Transparency *PageSize Env10
+*UIConstraints: *PageSize Env10 *MediaType Labels
+*UIConstraints: *MediaType Labels *PageSize Env10
+*UIConstraints: *PageSize Env10 *MediaType Bond
+*UIConstraints: *MediaType Bond *PageSize Env10
+*UIConstraints: *PageSize Env10 *MediaType Letterhead
+*UIConstraints: *MediaType Letterhead *PageSize Env10
+*UIConstraints: *PageSize Env10 *MediaType Preprint
+*UIConstraints: *MediaType Preprint *PageSize Env10
+*UIConstraints: *PageSize Env10 *MediaType Colored
+*UIConstraints: *MediaType Colored *PageSize Env10
+*UIConstraints: *PageSize Env10 *MediaType Glossy
+*UIConstraints: *MediaType Glossy *PageSize Env10
+*UIConstraints: *PageSize Env10 *MediaType Light
+*UIConstraints: *MediaType Light *PageSize Env10
+*UIConstraints: *PageSize Env10 *MediaType Heavy
+*UIConstraints: *MediaType Heavy *PageSize Env10
+*UIConstraints: *PageSize Env10 *MediaType Rough
+*UIConstraints: *MediaType Rough *PageSize Env10
+*UIConstraints: *PageSize Env10 *MediaType Recycled
+*UIConstraints: *MediaType Recycled *PageSize Env10
+*UIConstraints: *PageRegion Env10 *MediaType Plain
+*UIConstraints: *MediaType Plain *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *MediaType Card
+*UIConstraints: *MediaType Card *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *MediaType Transparency
+*UIConstraints: *MediaType Transparency *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *MediaType Labels
+*UIConstraints: *MediaType Labels *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *MediaType Bond
+*UIConstraints: *MediaType Bond *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *MediaType Letterhead
+*UIConstraints: *MediaType Letterhead *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *MediaType Preprint
+*UIConstraints: *MediaType Preprint *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *MediaType Colored
+*UIConstraints: *MediaType Colored *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *MediaType Glossy
+*UIConstraints: *MediaType Glossy *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *MediaType Light
+*UIConstraints: *MediaType Light *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *MediaType Heavy
+*UIConstraints: *MediaType Heavy *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *MediaType Rough
+*UIConstraints: *MediaType Rough *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *MediaType Recycled
+*UIConstraints: *MediaType Recycled *PageRegion Env10
+*UIConstraints: *PageSize EnvDL *MediaType Plain
+*UIConstraints: *MediaType Plain *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *MediaType Card
+*UIConstraints: *MediaType Card *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *MediaType Transparency
+*UIConstraints: *MediaType Transparency *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *MediaType Labels
+*UIConstraints: *MediaType Labels *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *MediaType Bond
+*UIConstraints: *MediaType Bond *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *MediaType Letterhead
+*UIConstraints: *MediaType Letterhead *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *MediaType Preprint
+*UIConstraints: *MediaType Preprint *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *MediaType Colored
+*UIConstraints: *MediaType Colored *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *MediaType Glossy
+*UIConstraints: *MediaType Glossy *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *MediaType Light
+*UIConstraints: *MediaType Light *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *MediaType Heavy
+*UIConstraints: *MediaType Heavy *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *MediaType Rough
+*UIConstraints: *MediaType Rough *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *MediaType Recycled
+*UIConstraints: *MediaType Recycled *PageSize EnvDL
+*UIConstraints: *PageRegion EnvDL *MediaType Plain
+*UIConstraints: *MediaType Plain *PageRegion EnvDL
+*UIConstraints: *PageRegion EnvDL *MediaType Card
+*UIConstraints: *MediaType Card *PageRegion EnvDL
+*UIConstraints: *PageRegion EnvDL *MediaType Transparency
+*UIConstraints: *MediaType Transparency *PageRegion EnvDL
+*UIConstraints: *PageRegion EnvDL *MediaType Labels
+*UIConstraints: *MediaType Labels *PageRegion EnvDL
+*UIConstraints: *PageRegion EnvDL *MediaType Bond
+*UIConstraints: *MediaType Bond *PageRegion EnvDL
+*UIConstraints: *PageRegion EnvDL *MediaType Letterhead
+*UIConstraints: *MediaType Letterhead *PageRegion EnvDL
+*UIConstraints: *PageRegion EnvDL *MediaType Preprint
+*UIConstraints: *MediaType Preprint *PageRegion EnvDL
+*UIConstraints: *PageRegion EnvDL *MediaType Colored
+*UIConstraints: *MediaType Colored *PageRegion EnvDL
+*UIConstraints: *PageRegion EnvDL *MediaType Glossy
+*UIConstraints: *MediaType Glossy *PageRegion EnvDL
+*UIConstraints: *PageRegion EnvDL *MediaType Light
+*UIConstraints: *MediaType Light *PageRegion EnvDL
+*UIConstraints: *PageRegion EnvDL *MediaType Heavy
+*UIConstraints: *MediaType Heavy *PageRegion EnvDL
+*UIConstraints: *PageRegion EnvDL *MediaType Rough
+*UIConstraints: *MediaType Rough *PageRegion EnvDL
+*UIConstraints: *PageRegion EnvDL *MediaType Recycled
+*UIConstraints: *MediaType Recycled *PageRegion EnvDL
+*UIConstraints: *PageSize EnvC5 *MediaType Plain
+*UIConstraints: *MediaType Plain *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *MediaType Card
+*UIConstraints: *MediaType Card *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *MediaType Transparency
+*UIConstraints: *MediaType Transparency *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *MediaType Labels
+*UIConstraints: *MediaType Labels *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *MediaType Bond
+*UIConstraints: *MediaType Bond *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *MediaType Letterhead
+*UIConstraints: *MediaType Letterhead *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *MediaType Preprint
+*UIConstraints: *MediaType Preprint *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *MediaType Colored
+*UIConstraints: *MediaType Colored *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *MediaType Glossy
+*UIConstraints: *MediaType Glossy *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *MediaType Light
+*UIConstraints: *MediaType Light *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *MediaType Heavy
+*UIConstraints: *MediaType Heavy *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *MediaType Rough
+*UIConstraints: *MediaType Rough *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *MediaType Recycled
+*UIConstraints: *MediaType Recycled *PageSize EnvC5
+*UIConstraints: *PageRegion EnvC5 *MediaType Plain
+*UIConstraints: *MediaType Plain *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *MediaType Card
+*UIConstraints: *MediaType Card *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *MediaType Transparency
+*UIConstraints: *MediaType Transparency *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *MediaType Labels
+*UIConstraints: *MediaType Labels *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *MediaType Bond
+*UIConstraints: *MediaType Bond *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *MediaType Letterhead
+*UIConstraints: *MediaType Letterhead *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *MediaType Preprint
+*UIConstraints: *MediaType Preprint *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *MediaType Colored
+*UIConstraints: *MediaType Colored *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *MediaType Glossy
+*UIConstraints: *MediaType Glossy *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *MediaType Light
+*UIConstraints: *MediaType Light *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *MediaType Heavy
+*UIConstraints: *MediaType Heavy *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *MediaType Rough
+*UIConstraints: *MediaType Rough *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *MediaType Recycled
+*UIConstraints: *MediaType Recycled *PageRegion EnvC5
+*UIConstraints: *PageSize ISOB5 *MediaType Plain
+*UIConstraints: *MediaType Plain *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *MediaType Card
+*UIConstraints: *MediaType Card *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *MediaType Transparency
+*UIConstraints: *MediaType Transparency *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *MediaType Labels
+*UIConstraints: *MediaType Labels *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *MediaType Bond
+*UIConstraints: *MediaType Bond *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *MediaType Letterhead
+*UIConstraints: *MediaType Letterhead *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *MediaType Preprint
+*UIConstraints: *MediaType Preprint *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *MediaType Colored
+*UIConstraints: *MediaType Colored *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *MediaType Glossy
+*UIConstraints: *MediaType Glossy *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *MediaType Light
+*UIConstraints: *MediaType Light *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *MediaType Heavy
+*UIConstraints: *MediaType Heavy *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *MediaType Rough
+*UIConstraints: *MediaType Rough *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *MediaType Recycled
+*UIConstraints: *MediaType Recycled *PageSize ISOB5
+*UIConstraints: *PageRegion ISOB5 *MediaType Plain
+*UIConstraints: *MediaType Plain *PageRegion ISOB5
+*UIConstraints: *PageRegion ISOB5 *MediaType Card
+*UIConstraints: *MediaType Card *PageRegion ISOB5
+*UIConstraints: *PageRegion ISOB5 *MediaType Transparency
+*UIConstraints: *MediaType Transparency *PageRegion ISOB5
+*UIConstraints: *PageRegion ISOB5 *MediaType Labels
+*UIConstraints: *MediaType Labels *PageRegion ISOB5
+*UIConstraints: *PageRegion ISOB5 *MediaType Bond
+*UIConstraints: *MediaType Bond *PageRegion ISOB5
+*UIConstraints: *PageRegion ISOB5 *MediaType Letterhead
+*UIConstraints: *MediaType Letterhead *PageRegion ISOB5
+*UIConstraints: *PageRegion ISOB5 *MediaType Preprint
+*UIConstraints: *MediaType Preprint *PageRegion ISOB5
+*UIConstraints: *PageRegion ISOB5 *MediaType Colored
+*UIConstraints: *MediaType Colored *PageRegion ISOB5
+*UIConstraints: *PageRegion ISOB5 *MediaType Glossy
+*UIConstraints: *MediaType Glossy *PageRegion ISOB5
+*UIConstraints: *PageRegion ISOB5 *MediaType Light
+*UIConstraints: *MediaType Light *PageRegion ISOB5
+*UIConstraints: *PageRegion ISOB5 *MediaType Heavy
+*UIConstraints: *MediaType Heavy *PageRegion ISOB5
+*UIConstraints: *PageRegion ISOB5 *MediaType Rough
+*UIConstraints: *MediaType Rough *PageRegion ISOB5
+*UIConstraints: *PageRegion ISOB5 *MediaType Recycled
+*UIConstraints: *MediaType Recycled *PageRegion ISOB5
+*UIConstraints: *PageSize Env9 *MediaType Plain
+*UIConstraints: *MediaType Plain *PageSize Env9
+*UIConstraints: *PageSize Env9 *MediaType Card
+*UIConstraints: *MediaType Card *PageSize Env9
+*UIConstraints: *PageSize Env9 *MediaType Transparency
+*UIConstraints: *MediaType Transparency *PageSize Env9
+*UIConstraints: *PageSize Env9 *MediaType Labels
+*UIConstraints: *MediaType Labels *PageSize Env9
+*UIConstraints: *PageSize Env9 *MediaType Bond
+*UIConstraints: *MediaType Bond *PageSize Env9
+*UIConstraints: *PageSize Env9 *MediaType Letterhead
+*UIConstraints: *MediaType Letterhead *PageSize Env9
+*UIConstraints: *PageSize Env9 *MediaType Preprint
+*UIConstraints: *MediaType Preprint *PageSize Env9
+*UIConstraints: *PageSize Env9 *MediaType Colored
+*UIConstraints: *MediaType Colored *PageSize Env9
+*UIConstraints: *PageSize Env9 *MediaType Glossy
+*UIConstraints: *MediaType Glossy *PageSize Env9
+*UIConstraints: *PageSize Env9 *MediaType Light
+*UIConstraints: *MediaType Light *PageSize Env9
+*UIConstraints: *PageSize Env9 *MediaType Heavy
+*UIConstraints: *MediaType Heavy *PageSize Env9
+*UIConstraints: *PageSize Env9 *MediaType Rough
+*UIConstraints: *MediaType Rough *PageSize Env9
+*UIConstraints: *PageSize Env9 *MediaType Recycled
+*UIConstraints: *MediaType Recycled *PageSize Env9
+*UIConstraints: *PageRegion Env9 *MediaType Plain
+*UIConstraints: *MediaType Plain *PageRegion Env9
+*UIConstraints: *PageRegion Env9 *MediaType Card
+*UIConstraints: *MediaType Card *PageRegion Env9
+*UIConstraints: *PageRegion Env9 *MediaType Transparency
+*UIConstraints: *MediaType Transparency *PageRegion Env9
+*UIConstraints: *PageRegion Env9 *MediaType Labels
+*UIConstraints: *MediaType Labels *PageRegion Env9
+*UIConstraints: *PageRegion Env9 *MediaType Bond
+*UIConstraints: *MediaType Bond *PageRegion Env9
+*UIConstraints: *PageRegion Env9 *MediaType Letterhead
+*UIConstraints: *MediaType Letterhead *PageRegion Env9
+*UIConstraints: *PageRegion Env9 *MediaType Preprint
+*UIConstraints: *MediaType Preprint *PageRegion Env9
+*UIConstraints: *PageRegion Env9 *MediaType Colored
+*UIConstraints: *MediaType Colored *PageRegion Env9
+*UIConstraints: *PageRegion Env9 *MediaType Glossy
+*UIConstraints: *MediaType Glossy *PageRegion Env9
+*UIConstraints: *PageRegion Env9 *MediaType Light
+*UIConstraints: *MediaType Light *PageRegion Env9
+*UIConstraints: *PageRegion Env9 *MediaType Heavy
+*UIConstraints: *MediaType Heavy *PageRegion Env9
+*UIConstraints: *PageRegion Env9 *MediaType Rough
+*UIConstraints: *MediaType Rough *PageRegion Env9
+*UIConstraints: *PageRegion Env9 *MediaType Recycled
+*UIConstraints: *MediaType Recycled *PageRegion Env9
+*UIConstraints: *PageSize 8.5x13.8333 *MediaType Plain
+*UIConstraints: *MediaType Plain *PageSize 8.5x13.8333
+*UIConstraints: *PageSize 8.5x13.8333 *MediaType Card
+*UIConstraints: *MediaType Card *PageSize 8.5x13.8333
+*UIConstraints: *PageSize 8.5x13.8333 *MediaType Transparency
+*UIConstraints: *MediaType Transparency *PageSize 8.5x13.8333
+*UIConstraints: *PageSize 8.5x13.8333 *MediaType Labels
+*UIConstraints: *MediaType Labels *PageSize 8.5x13.8333
+*UIConstraints: *PageSize 8.5x13.8333 *MediaType Bond
+*UIConstraints: *MediaType Bond *PageSize 8.5x13.8333
+*UIConstraints: *PageSize 8.5x13.8333 *MediaType Letterhead
+*UIConstraints: *MediaType Letterhead *PageSize 8.5x13.8333
+*UIConstraints: *PageSize 8.5x13.8333 *MediaType Preprint
+*UIConstraints: *MediaType Preprint *PageSize 8.5x13.8333
+*UIConstraints: *PageSize 8.5x13.8333 *MediaType Colored
+*UIConstraints: *MediaType Colored *PageSize 8.5x13.8333
+*UIConstraints: *PageSize 8.5x13.8333 *MediaType Glossy
+*UIConstraints: *MediaType Glossy *PageSize 8.5x13.8333
+*UIConstraints: *PageSize 8.5x13.8333 *MediaType Light
+*UIConstraints: *MediaType Light *PageSize 8.5x13.8333
+*UIConstraints: *PageSize 8.5x13.8333 *MediaType Heavy
+*UIConstraints: *MediaType Heavy *PageSize 8.5x13.8333
+*UIConstraints: *PageSize 8.5x13.8333 *MediaType Rough
+*UIConstraints: *MediaType Rough *PageSize 8.5x13.8333
+*UIConstraints: *PageSize 8.5x13.8333 *MediaType Recycled
+*UIConstraints: *MediaType Recycled *PageSize 8.5x13.8333
+*UIConstraints: *PageRegion 8.5x13.8333 *MediaType Plain
+*UIConstraints: *MediaType Plain *PageRegion 8.5x13.8333
+*UIConstraints: *PageRegion 8.5x13.8333 *MediaType Card
+*UIConstraints: *MediaType Card *PageRegion 8.5x13.8333
+*UIConstraints: *PageRegion 8.5x13.8333 *MediaType Transparency
+*UIConstraints: *MediaType Transparency *PageRegion 8.5x13.8333
+*UIConstraints: *PageRegion 8.5x13.8333 *MediaType Labels
+*UIConstraints: *MediaType Labels *PageRegion 8.5x13.8333
+*UIConstraints: *PageRegion 8.5x13.8333 *MediaType Bond
+*UIConstraints: *MediaType Bond *PageRegion 8.5x13.8333
+*UIConstraints: *PageRegion 8.5x13.8333 *MediaType Letterhead
+*UIConstraints: *MediaType Letterhead *PageRegion 8.5x13.8333
+*UIConstraints: *PageRegion 8.5x13.8333 *MediaType Preprint
+*UIConstraints: *MediaType Preprint *PageRegion 8.5x13.8333
+*UIConstraints: *PageRegion 8.5x13.8333 *MediaType Colored
+*UIConstraints: *MediaType Colored *PageRegion 8.5x13.8333
+*UIConstraints: *PageRegion 8.5x13.8333 *MediaType Glossy
+*UIConstraints: *MediaType Glossy *PageRegion 8.5x13.8333
+*UIConstraints: *PageRegion 8.5x13.8333 *MediaType Light
+*UIConstraints: *MediaType Light *PageRegion 8.5x13.8333
+*UIConstraints: *PageRegion 8.5x13.8333 *MediaType Heavy
+*UIConstraints: *MediaType Heavy *PageRegion 8.5x13.8333
+*UIConstraints: *PageRegion 8.5x13.8333 *MediaType Rough
+*UIConstraints: *MediaType Rough *PageRegion 8.5x13.8333
+*UIConstraints: *PageRegion 8.5x13.8333 *MediaType Recycled
+*UIConstraints: *MediaType Recycled *PageRegion 8.5x13.8333
+*UIConstraints: *MediaColor Auto *ManualRGBImage Vivid
+*UIConstraints: *ManualRGBImage Vivid *MediaColor Auto
+*UIConstraints: *MediaColor Auto *ManualRGBImage sRGBDisplay
+*UIConstraints: *ManualRGBImage sRGBDisplay *MediaColor Auto
+*UIConstraints: *MediaColor Auto *ManualRGBImage sRGBVivid
+*UIConstraints: *ManualRGBImage sRGBVivid *MediaColor Auto
+*UIConstraints: *MediaColor Auto *ManualRGBImage DisplayRealBlack
+*UIConstraints: *ManualRGBImage DisplayRealBlack *MediaColor Auto
+*UIConstraints: *MediaColor Auto *ManualRGBText Vivid
+*UIConstraints: *ManualRGBText Vivid *MediaColor Auto
+*UIConstraints: *MediaColor Auto *ManualRGBText sRGBDisplay
+*UIConstraints: *ManualRGBText sRGBDisplay *MediaColor Auto
+*UIConstraints: *MediaColor Auto *ManualRGBText sRGBVivid
+*UIConstraints: *ManualRGBText sRGBVivid *MediaColor Auto
+*UIConstraints: *MediaColor Auto *ManualRGBText DisplayRealBlack
+*UIConstraints: *ManualRGBText DisplayRealBlack *MediaColor Auto
+*UIConstraints: *MediaColor Auto *ManualRGBGraphics Vivid
+*UIConstraints: *ManualRGBGraphics Vivid *MediaColor Auto
+*UIConstraints: *MediaColor Auto *ManualRGBGraphics sRGBDisplay
+*UIConstraints: *ManualRGBGraphics sRGBDisplay *MediaColor Auto
+*UIConstraints: *MediaColor Auto *ManualRGBGraphics sRGBVivid
+*UIConstraints: *ManualRGBGraphics sRGBVivid *MediaColor Auto
+*UIConstraints: *MediaColor Auto *ManualRGBGraphics DisplayRealBlack
+*UIConstraints: *ManualRGBGraphics DisplayRealBlack *MediaColor Auto
+*UIConstraints: *MediaColor Auto *ManualCMYK USCMYK
+*UIConstraints: *ManualCMYK USCMYK *MediaColor Auto
+*UIConstraints: *MediaColor Auto *ManualCMYK EuroCMYK
+*UIConstraints: *ManualCMYK EuroCMYK *MediaColor Auto
+*UIConstraints: *MediaColor Auto *ManualCMYK VividCMYK
+*UIConstraints: *ManualCMYK VividCMYK *MediaColor Auto
+*UIConstraints: *MediaColor FalseM *ManualRGBImage Vivid
+*UIConstraints: *ManualRGBImage Vivid *MediaColor FalseM
+*UIConstraints: *MediaColor FalseM *ManualRGBImage sRGBDisplay
+*UIConstraints: *ManualRGBImage sRGBDisplay *MediaColor FalseM
+*UIConstraints: *MediaColor FalseM *ManualRGBImage sRGBVivid
+*UIConstraints: *ManualRGBImage sRGBVivid *MediaColor FalseM
+*UIConstraints: *MediaColor FalseM *ManualRGBImage DisplayRealBlack
+*UIConstraints: *ManualRGBImage DisplayRealBlack *MediaColor FalseM
+*UIConstraints: *MediaColor FalseM *ManualRGBText Vivid
+*UIConstraints: *ManualRGBText Vivid *MediaColor FalseM
+*UIConstraints: *MediaColor FalseM *ManualRGBText sRGBDisplay
+*UIConstraints: *ManualRGBText sRGBDisplay *MediaColor FalseM
+*UIConstraints: *MediaColor FalseM *ManualRGBText sRGBVivid
+*UIConstraints: *ManualRGBText sRGBVivid *MediaColor FalseM
+*UIConstraints: *MediaColor FalseM *ManualRGBText DisplayRealBlack
+*UIConstraints: *ManualRGBText DisplayRealBlack *MediaColor FalseM
+*UIConstraints: *MediaColor FalseM *ManualRGBGraphics Vivid
+*UIConstraints: *ManualRGBGraphics Vivid *MediaColor FalseM
+*UIConstraints: *MediaColor FalseM *ManualRGBGraphics sRGBDisplay
+*UIConstraints: *ManualRGBGraphics sRGBDisplay *MediaColor FalseM
+*UIConstraints: *MediaColor FalseM *ManualRGBGraphics sRGBVivid
+*UIConstraints: *ManualRGBGraphics sRGBVivid *MediaColor FalseM
+*UIConstraints: *MediaColor FalseM *ManualRGBGraphics DisplayRealBlack
+*UIConstraints: *ManualRGBGraphics DisplayRealBlack *MediaColor FalseM
+*UIConstraints: *MediaColor FalseM *ManualCMYK USCMYK
+*UIConstraints: *ManualCMYK USCMYK *MediaColor FalseM
+*UIConstraints: *MediaColor FalseM *ManualCMYK EuroCMYK
+*UIConstraints: *ManualCMYK EuroCMYK *MediaColor FalseM
+*UIConstraints: *MediaColor FalseM *ManualCMYK VividCMYK
+*UIConstraints: *ManualCMYK VividCMYK *MediaColor FalseM
+*UIConstraints: *InputSlot ManualEnv *PageSize Letter
+*UIConstraints: *PageSize Letter *InputSlot ManualEnv
+*UIConstraints: *InputSlot ManualEnv *PageSize Legal
+*UIConstraints: *PageSize Legal *InputSlot ManualEnv
+*UIConstraints: *InputSlot ManualEnv *PageSize 8.5x13.4028
+*UIConstraints: *PageSize 8.5x13.4028 *InputSlot ManualEnv
+*UIConstraints: *InputSlot ManualEnv *PageSize B5
+*UIConstraints: *PageSize B5 *InputSlot ManualEnv
+*UIConstraints: *InputSlot ManualEnv *PageSize A4
+*UIConstraints: *PageSize A4 *InputSlot ManualEnv
+*UIConstraints: *InputSlot ManualEnv *PageSize Executive
+*UIConstraints: *PageSize Executive *InputSlot ManualEnv
+*UIConstraints: *InputSlot ManualEnv *PageSize A6
+*UIConstraints: *PageSize A6 *InputSlot ManualEnv
+*UIConstraints: *InputSlot ManualEnv *PageSize A5
+*UIConstraints: *PageSize A5 *InputSlot ManualEnv
+*UIConstraints: *InputSlot ManualEnv *PageSize FanFoldGermanLegal
+*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot ManualEnv
+*UIConstraints: *InputSlot ManualEnv *PageSize Statement
+*UIConstraints: *PageSize Statement *InputSlot ManualEnv
+*UIConstraints: *InputSlot ManualPaper *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *InputSlot ManualPaper
+*UIConstraints: *InputSlot ManualPaper *PageSize Env9
+*UIConstraints: *PageSize Env9 *InputSlot ManualPaper
+*UIConstraints: *InputSlot ManualPaper *PageSize Env10
+*UIConstraints: *PageSize Env10 *InputSlot ManualPaper
+*UIConstraints: *InputSlot ManualPaper *PageSize EnvDL
+*UIConstraints: *PageSize EnvDL *InputSlot ManualPaper
+*UIConstraints: *InputSlot ManualPaper *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *InputSlot ManualPaper
+*UIConstraints: *InputSlot ManualPaper *PageSize ISOB5
+*UIConstraints: *PageSize ISOB5 *InputSlot ManualPaper
+*UIConstraints: *InputSlot ManualPaper *PageSize 8.5x13.8333
+*UIConstraints: *PageSize 8.5x13.8333 *InputSlot ManualPaper
+*UIConstraints: *InputSlot ManualPaper *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *InputSlot ManualPaper
+*UIConstraints: *InputSlot ManualPaper *PageRegion Env9
+*UIConstraints: *PageRegion Env9 *InputSlot ManualPaper
+*UIConstraints: *InputSlot ManualPaper *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *InputSlot ManualPaper
+*UIConstraints: *InputSlot ManualPaper *PageRegion EnvDL
+*UIConstraints: *PageRegion EnvDL *InputSlot ManualPaper
+*UIConstraints: *InputSlot ManualPaper *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *InputSlot ManualPaper
+*UIConstraints: *InputSlot ManualPaper *PageRegion ISOB5
+*UIConstraints: *PageRegion ISOB5 *InputSlot ManualPaper
+*UIConstraints: *InputSlot ManualPaper *PageRegion 8.5x13.8333
+*UIConstraints: *PageRegion 8.5x13.8333 *InputSlot ManualPaper
+*UIConstraints: *InputSlot ManualPaper *MediaType Envelope
+*UIConstraints: *MediaType Envelope *InputSlot ManualPaper
+*OpenUI *PageSize/Media Size: PickOne
+*OrderDependency: 30 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize Letter/Letter: "
+        << /Policies << /PageSize 2 >> /PageSize [612 792] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize Legal/Legal: "
+        << /Policies << /PageSize 2 >> /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize 8.5x13.4028/Oficio (Mexico): "
+        << /Policies << /PageSize 2 >> /PageSize [612 965] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize B5/JIS B5: "
+        1 dict dup /Policies 1 dict dup /PageSize 2 put put setpagedevice
+        2 dict dup /PageSize [516 729]  put dup /ImagingBBox null put setpagedevice"
+*End
+*PageSize A4/A4: "
+        << /Policies << /PageSize 2 >> /PageSize [595 842] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize Executive/Executive: "
+        << /Policies << /PageSize 2 >> /PageSize [522 756] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize A5/A5: "
+        << /Policies << /PageSize 2 >> /PageSize [420 595] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize A6/A6: "
+        << /Policies << /PageSize 2 >> /PageSize [297 419] /ImagingBBox null  >> setpagedevice"
+*End
+*PageSize FanFoldGermanLegal/Folio: "
+        << /Policies << /PageSize 2 >> /PageSize [612 936] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize Statement/Statement: "
+        << /Policies << /PageSize 2 >> /PageSize [396 612] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize EnvMonarch/Envelope 7 3/4: "
+        << /Policies << /PageSize 2 >> /PageSize [279 540] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize Env9/Envelope 9: "
+        << /Policies << /PageSize 2 >> /PageSize [279 639] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize Env10/Envelope 10: "
+        << /Policies << /PageSize 2 >> /PageSize [297 684] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize EnvDL/Envelope DL: "
+        << /Policies << /PageSize 2 >> /PageSize [312 624] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize EnvC5/Envelope C5: "
+        << /Policies << /PageSize 2 >> /PageSize [459 649] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize ISOB5/Envelope B5: "
+        << /Policies << /PageSize 2 >> /PageSize [499 708] /ImagingBBox null >> setpagedevice"
+*End
+*PageSize 8.5x13.8333/Other Envelope: "
+		<< /Policies << /PageSize 2 >> /PageSize [612 996] /ImagingBBox null >> setpagedevice"
+*End
+*CloseUI: *PageSize
+*OpenUI *PageRegion/Media Size: PickOne
+*OrderDependency: 35 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion Letter/Letter: "
+        <</Policies <</PageSize 2>> /PageSize [612 792]  /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion Legal/Legal: "
+        <</Policies <</PageSize 2>> /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion 8.5x13.4028/Oficio (Mexico): "
+        <</Policies <</PageSize 2>> /PageSize [612 965] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion B5/JIS B5: "
+        1 dict dup /Policies 1 dict dup /PageSize 2 put put setpagedevice
+        2 dict dup /PageSize [516 729]  put dup /ImagingBBox null put setpagedevice"
+*End
+*PageRegion A4/A4: "
+        <</Policies <</PageSize 2>> /PageSize [595 842]  /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion Executive/Executive: "
+        <</Policies <</PageSize 2>> /PageSize [522 756] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion A5/A5: "
+        <</Policies <</PageSize 2>> /PageSize [420 595]  /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion A6/A6: "
+        << /Policies << /PageSize 2 >> /PageSize [297 419] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion FanFoldGermanLegal/Folio: "
+        << /Policies << /PageSize 2 >> /PageSize [612 936] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion Statement/Statement: "
+        << /Policies << /PageSize 2 >> /PageSize [396 612] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion EnvMonarch/Envelope 7 3/4: "
+        << /Policies << /PageSize 2 >> /PageSize [279 540] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion Env9/Envelope 9: "
+        << /Policies << /PageSize 2 >> /PageSize [279 639] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion Env10/Envelope 10: "
+        << /Policies << /PageSize 2 >> /PageSize [297 684] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion EnvDL/Envelope DL: "
+        << /Policies << /PageSize 2 >> /PageSize [312 624] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion EnvC5/Envelope C5: "
+        << /Policies << /PageSize 2 >> /PageSize [459 649] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion ISOB5/Envelope B5: "
+        << /Policies << /PageSize 2 >> /PageSize [499 708] /ImagingBBox null >> setpagedevice"
+*End
+*PageRegion 8.5x13.8333/Other Envelope: "
+		<< /Policies << /PageSize 2 >> /PageSize [612 996] /ImagingBBox null >> setpagedevice"
+*End
+*CloseUI: *PageRegion
+*DefaultImageableArea: Letter
+*ImageableArea Letter/Letter: "12 12 600 780"
+*ImageableArea Legal/Legal: "12 12 600 996"
+*ImageableArea 8.5x13.4028/Oficio (Mexico): "12 12 600 953"
+*ImageableArea B5/JIS B5: "12 12 505.999990463257 716.000014305115"
+*ImageableArea A4/A4: "10 12 589 830"
+*ImageableArea Executive/Executive: "12 12 510 744"
+*ImageableArea A5/A5: "12 12 408.000009536743 583.000002861023"
+*ImageableArea A6/A6: "12 12 285 407"
+*ImageableArea FanFoldGermanLegal/Folio: "12 12 600 924"
+*ImageableArea Statement/Statement: "12 12 384 600"
+*ImageableArea EnvMonarch/Envelope 7 3/4: "12 12 279 528"
+*ImageableArea Env9/Envelope 9: "12 12 279 627"
+*ImageableArea Env10/Envelope 10: "12 12 294 672"
+*ImageableArea EnvDL/Envelope DL: "12 12 310.000009775162 612.000019073486"
+*ImageableArea EnvC5/Envelope C5: "12 12 455.999985456467 637.000002861023"
+*ImageableArea ISOB5/Envelope B5: "12 12 497.999991476536 695.999980926514"
+*ImageableArea 8.5x13.8333/Other Envelope: "12 12 600 985"
+*DefaultPaperDimension: Letter
+*PaperDimension Letter/Letter: "612 792"
+*PaperDimension Legal/Legal: "612 1008"
+*PaperDimension 8.5x13.4028/Oficio (Mexico): "612 965"
+*PaperDimension B5/JIS B5: "516.239990234375 728.640014648438"
+*PaperDimension A4/A4: "595 842"
+*PaperDimension Executive/Executive: "522 756"
+*PaperDimension A5/A5: "419.760009765625 595.440002441406"
+*PaperDimension A6/A6: "297 419"
+*PaperDimension FanFoldGermanLegal/Folio: "612 936"
+*PaperDimension Statement/Statement: "396 612"
+*PaperDimension EnvMonarch/Envelope 7 3/4: "279 540"
+*PaperDimension Env9/Envelope 9: "279 639"
+*PaperDimension Env10/Envelope 10: "297 684"
+*PaperDimension EnvDL/Envelope DL: "311.760009765625 623.52001953125"
+*PaperDimension EnvC5/Envelope C5: "459.359985351562 649.440002441406"
+*PaperDimension ISOB5/Envelope B5: "498.959991455078 708.47998046875"
+*PaperDimension 8.5x13.8333/Other Envelope: "612 996"
+*MaxMediaWidth: "612"
+*MaxMediaHeight: "612"
+*HWMargins: 0 0 0 0
+*CustomPageSize True: "pop pop pop <</PageSize[5 -2 roll]/ImagingBBox null>>setpagedevice"
+*ParamCustomPageSize Width: 1 points 216 612
+*ParamCustomPageSize Height: 2 points 360 612
+*ParamCustomPageSize WidthOffset: 3 points 0 0
+*ParamCustomPageSize HeightOffset: 4 points 0 0
+*ParamCustomPageSize Orientation: 5 int 0 0
+*RequiresPageRegion All: True
+*OpenUI *InputSlot/Media Source: PickOne
+*OrderDependency: 20 AnySetup *InputSlot
+*DefaultInputSlot: Tray1
+*InputSlot Tray1/Tray 1: "
+            1 dict dup /MediaPosition null put setpagedevice 
+            currentpagedevice /InputAttributes get 0 get setpagedevice
+            1 dict dup /InputAttributes 1 dict dup /Priority [0] put put setpagedevice
+            1 dict dup /Policies 1 dict dup /PageSize 2 put put setpagedevice
+            << /ManualFeed false >> setpagedevice"
+*End
+*InputSlot Tray2/Tray 2: "
+            1 dict dup /MediaPosition null put setpagedevice 
+            userdict /lms  
+            currentpagedevice /InputAttributes get 1 known { 1 }{ 0 }ifelse put
+            currentpagedevice /InputAttributes get lms get setpagedevice
+            1 dict dup /InputAttributes 1 dict dup /Priority [lms] put put setpagedevice
+            1 dict dup /Policies 1 dict dup /PageSize 2 put put setpagedevice
+            << /ManualFeed false >> setpagedevice"
+*End
+*InputSlot Tray3/Tray 3: "
+            1 dict dup /MediaPosition null put setpagedevice 
+            userdict /lms  
+            currentpagedevice /InputAttributes get 3 known { 3 }{ 0 }ifelse put
+            currentpagedevice /InputAttributes get lms get setpagedevice
+            1 dict dup /InputAttributes 1 dict dup /Priority [lms] put put setpagedevice
+            1 dict dup /Policies 1 dict dup /PageSize 2 put put setpagedevice
+            << /ManualFeed false >> setpagedevice"
+*End
+*InputSlot MultipurposeFeeder/Multipurpose Feeder: "
+            1 dict dup /MediaPosition null put setpagedevice
+            userdict /lms
+            currentpagedevice /InputAttributes get 4 known { 4 }{ 0 }ifelse put
+            currentpagedevice /InputAttributes get lms get setpagedevice
+            1 dict dup /InputAttributes 1 dict dup /Priority [lms] put put setpagedevice
+            1 dict dup /Policies 1 dict dup /PageSize 2 put put setpagedevice
+            << /ManualFeed false >> setpagedevice"
+*End
+*InputSlot ManualPaper/Manual Paper: "
+            1 dict dup /MediaPosition null put setpagedevice 
+            1 dict dup /ManualFeed true  put setpagedevice
+            1 dict dup /Policies 1 dict dup /PageSize 2 put put setpagedevice"
+*End
+*InputSlot ManualEnv/Manual Envelope: "
+            1 dict dup /MediaPosition null put setpagedevice
+            1 dict dup /ManualFeed true  put setpagedevice
+            1 dict dup /Policies 1 dict dup /PageSize 2 put put setpagedevice"
+*End
+*?InputSlot: "
+            gsave
+            [(Tray1) (Tray2) (ManualPaper) (ManualEnv) (Tray3) (MultipurposeFeeder) () ()] 
+            statusdict /papertray get exec {get exec} stopped {pop pop (Unknown)}
+            if
+            = flush
+            grestore"
+*End
+*CloseUI: *InputSlot
+*OpenGroup: InstallableOptions/Installable Options
+*OpenUI *OptDuplex/Duplex: PickOne
+*OrderDependency: 0 AnySetup *OptDuplex
+*DefaultOptDuplex: InstalledM
+*OptDuplex InstalledM/Installed: ""
+*OptDuplex NotInstalledM/Not Installed: ""
+*?OptDuplex: "
+			gsave
+			statusdict /duplexer get exec
+			true eq {(InstalledM)} {(NotInstalledM)} ifelse
+			= flush
+			grestore"
+*End
+*CloseUI: *OptDuplex
+*OpenUI *Trays/Trays: PickOne
+*OrderDependency: 0 AnySetup *Trays
+*DefaultTrays: Tray1
+*Trays Tray1/Tray 1: ""
+*Trays Tray12/Tray 1+2: ""
+*Trays Tray123/Tray 1+2+3: ""
+*?Trays: "
+        gsave
+        currentpagedevice /InputAttributes get
+        dup dup dup
+        3 get null eq {
+            1 get null eq 
+            {(Tray1)} {(Tray12)}
+            ifelse}
+        {(Tray123)}
+        ifelse
+        = flush
+        grestore"
+*End
+*CloseUI: *Trays
+*CloseGroup: InstallableOptions
+*OpenGroup: Quality/Quality
+*OpenUI *Resolution/Resolution: PickOne
+*OrderDependency: 11 AnySetup *Resolution
+*DefaultResolution: 2400x1200dpi
+*Resolution 2400x1200dpi/4800 Color Quality: "<< /HWResolution [600 600] >> setpagedevice"
+*Resolution 1200dpi/1200 dpi: "<< /HWResolution [1200 1200] >> setpagedevice"
+*CloseUI: *Resolution
+*OpenUI *TonerDarkness/Toner Darkness: PickOne
+*OrderDependency: 16 AnySetup *TonerDarkness
+*DefaultTonerDarkness: PrinterS
+*TonerDarkness PrinterS/Printer Setting: ""
+*TonerDarkness 1: "<< /DeviceRenderingInfo << /Type 106 /PrintDarkness 1 >> >> setpagedevice"
+*TonerDarkness 2: "<< /DeviceRenderingInfo << /Type 106 /PrintDarkness 2 >> >> setpagedevice"
+*TonerDarkness 3: "<< /DeviceRenderingInfo << /Type 106 /PrintDarkness 3 >> >> setpagedevice"
+*TonerDarkness 4: "<< /DeviceRenderingInfo << /Type 106 /PrintDarkness 4 >> >> setpagedevice"
+*TonerDarkness 5: "<< /DeviceRenderingInfo << /Type 106 /PrintDarkness 5 >> >> setpagedevice"
+*?TonerDarkness: "
+            gsave
+            currentpagedevice /DeviceRenderingInfo get dup /TonerSaver get
+            true eq {/PrintDarkness get}{/PrintDarkness get 5 add} ifelse
+            = flush
+            grestore"
+*End
+*CloseUI: *TonerDarkness
+*OpenUI *LexBrightness/Brightness: PickOne
+*OrderDependency: 185 AnySetup *LexBrightness
+*DefaultLexBrightness: PrinterS
+*LexBrightness PrinterS/Printer Setting: ""
+*LexBrightness -6/ -6: "<< /DeviceRenderingInfo << /ImageBrightness -6 >> >> setpagedevice"
+*LexBrightness -5/ -5: "<< /DeviceRenderingInfo << /ImageBrightness -5 >> >> setpagedevice"
+*LexBrightness -4/ -4: "<< /DeviceRenderingInfo << /ImageBrightness -4 >> >> setpagedevice"
+*LexBrightness -3/ -3: "<< /DeviceRenderingInfo << /ImageBrightness -3 >> >> setpagedevice"
+*LexBrightness -2/ -2: "<< /DeviceRenderingInfo << /ImageBrightness -2 >> >> setpagedevice"
+*LexBrightness -1/ -1: "<< /DeviceRenderingInfo << /ImageBrightness -1 >> >> setpagedevice"
+*LexBrightness 0/  0: "<< /DeviceRenderingInfo << /ImageBrightness 0 >> >> setpagedevice"
+*LexBrightness +1/ +1: "<< /DeviceRenderingInfo << /ImageBrightness 1 >> >> setpagedevice"
+*LexBrightness +2/ +2: "<< /DeviceRenderingInfo << /ImageBrightness 2 >> >> setpagedevice"
+*LexBrightness +3/ +3: "<< /DeviceRenderingInfo << /ImageBrightness 3 >> >> setpagedevice"
+*LexBrightness +4/ +4: "<< /DeviceRenderingInfo << /ImageBrightness 4 >> >> setpagedevice"
+*LexBrightness +5/ +5: "<< /DeviceRenderingInfo << /ImageBrightness 5 >> >> setpagedevice"
+*LexBrightness +6/ +6: "<< /DeviceRenderingInfo << /ImageBrightness 6 >> >> setpagedevice"
+*?LexBrightness: "
+            gsave
+            currentpagedevice /DeviceRenderingInfo get  /ImageBrightness get
+            = flush
+            grestore"
+*End
+*CloseUI: *LexBrightness
+*OpenUI *LexContrast/Contrast: PickOne
+*OrderDependency: 190 AnySetup *LexContrast
+*DefaultLexContrast: PrinterS
+*LexContrast PrinterS/Printer Setting: ""
+*LexContrast 0: "<< /DeviceRenderingInfo << /ImageContrast 0 >> >> setpagedevice"
+*LexContrast 1: "<< /DeviceRenderingInfo << /ImageContrast 1 >> >> setpagedevice"
+*LexContrast 2: "<< /DeviceRenderingInfo << /ImageContrast 2 >> >> setpagedevice"
+*LexContrast 3: "<< /DeviceRenderingInfo << /ImageContrast 3 >> >> setpagedevice"
+*LexContrast 4: "<< /DeviceRenderingInfo << /ImageContrast 4 >> >> setpagedevice"
+*LexContrast 5: "<< /DeviceRenderingInfo << /ImageContrast 5 >> >> setpagedevice"
+*?LexContrast: "
+            gsave
+            currentpagedevice /DeviceRenderingInfo get  /ImageContrast get
+            = flush
+            grestore"
+*End
+*CloseUI: *LexContrast
+*OpenUI *LexSaturation/Saturation: PickOne
+*OrderDependency: 195 AnySetup *LexSaturation
+*DefaultLexSaturation: PrinterS
+*LexSaturation PrinterS/Printer Setting: ""
+*LexSaturation 0: "<< /DeviceRenderingInfo << /ImageSaturation 0 >> >> setpagedevice"
+*LexSaturation 1: "<< /DeviceRenderingInfo << /ImageSaturation 1 >> >> setpagedevice"
+*LexSaturation 2: "<< /DeviceRenderingInfo << /ImageSaturation 2 >> >> setpagedevice"
+*LexSaturation 3: "<< /DeviceRenderingInfo << /ImageSaturation 3 >> >> setpagedevice"
+*LexSaturation 4: "<< /DeviceRenderingInfo << /ImageSaturation 4 >> >> setpagedevice"
+*LexSaturation 5: "<< /DeviceRenderingInfo << /ImageSaturation 5 >> >> setpagedevice"
+*?LexSaturation: "
+            gsave
+            currentpagedevice /DeviceRenderingInfo get  /ImageSaturation get
+            = flush
+            grestore"
+*End
+*CloseUI: *LexSaturation
+*OpenUI *LexLineDetail/Enhance Fine Lines: PickOne
+*OrderDependency: 180 AnySetup *LexLineDetail
+*DefaultLexLineDetail: PrinterS
+*LexLineDetail PrinterS/Printer Setting: ""
+*LexLineDetail FalseF/Off: "<< /DeviceRenderingInfo << /LineDetail /Off >> >> setpagedevice"
+*LexLineDetail TrueF/On: "<< /DeviceRenderingInfo << /LineDetail /On >> >> setpagedevice"
+*?LexLineDetail: "
+            gsave
+            2 dict
+                dup /On  (TrueF) put
+                dup /Off (FalseF) put
+
+            currentpagedevice /DeviceRenderingInfo get /LineDetail get
+            = flush
+            grestore"
+*End
+*CloseUI: *LexLineDetail
+*OpenUI *LexMirror/Mirror: Boolean
+*OrderDependency: 500 AnySetup *LexMirror
+*DefaultLexMirror: False
+*LexMirror False/Off: ""
+*LexMirror True/On: "<<   /Install { currentpagedevice /PageSize get 0 get 0 translate -1 1 scale  } >> setpagedevice"
+*CloseUI: *LexMirror
+*CloseGroup: Quality
+*OpenGroup: Color/Color
+*OpenUI *MediaColor/Color Correction: PickOne
+*OrderDependency: 12 AnySetup *MediaColor
+*DefaultMediaColor: PrinterS
+*MediaColor PrinterS/Printer Setting: ""
+*MediaColor Auto: "<< /DeviceRenderingInfo << /Type 106 /ColorCorrection /Automatic >> >> setpagedevice"
+*MediaColor FalseM/Off: "<< /DeviceRenderingInfo << /Type 106 /ColorCorrection /Off >> >> setpagedevice"
+*MediaColor Manual: "<< /DeviceRenderingInfo << /Type 106 /ColorCorrection /Manual >> >> setpagedevice"
+*?MediaColor: "
+            gsave
+            3 dict
+                dup /Automatic (Auto) put
+                dup /Manual (Manual) put
+                dup /Off (FalseM) put
+
+            currentpagedevice /DeviceRenderingInfo get /ColorCorrection get
+            get = flush
+            grestore"
+*End
+*CloseUI: *MediaColor
+*OpenUI *ColorSaver/ColorSaver: PickOne
+*OrderDependency: 14 AnySetup *ColorSaver
+*DefaultColorSaver: PrinterS
+*ColorSaver PrinterS/Printer Setting: ""
+*ColorSaver FalseM/Off: "<< /DeviceRenderingInfo << /ColorSaver /Off >> >> setpagedevice"
+*ColorSaver TrueM/On: "<< /DeviceRenderingInfo << /ColorSaver /On >> >> setpagedevice"
+*?ColorSaver: "
+            gsave
+            currentpagedevice /DeviceRenderingInfo get /ColorSaver get
+            (On) eq {(TrueM)}{(FalseM)} ifelse
+            = flush
+            grestore"
+*End
+*CloseUI: *ColorSaver
+*OpenUI *BLW/Black & White: PickOne
+*OrderDependency: 13 AnySetup *BLW
+*DefaultBLW: PrinterS
+*BLW PrinterS/Printer Setting: ""
+*BLW FalseM/Off: "<< /ProcessColorModel /DeviceCMYK >> setpagedevice"
+*BLW TrueM/On: "<< /ProcessColorModel /DeviceGray >> setpagedevice"
+*?BLW: "
+            gsave
+            currentpagedevice /ProcessColorModel get /DeviceGray 
+            (True) eq {(TrueM)}{(FalseM)} ifelse
+            = flush
+            grestore"
+*End
+*CloseUI: *BLW
+*CloseGroup: Color
+*OpenGroup: ColorBalance/Color Balance
+*OpenUI *CyanBalance/Cyan Balance: PickOne
+*OrderDependency: 71 AnySetup *CyanBalance
+*DefaultCyanBalance: PrinterS
+*CyanBalance PrinterS/Printer Setting: ""
+*CyanBalance -5/ -5: "<< /DeviceRenderingInfo << /ColorBalanceCyan -5 >> >> setpagedevice"
+*CyanBalance -4/ -4: "<< /DeviceRenderingInfo << /ColorBalanceCyan -4 >> >> setpagedevice"
+*CyanBalance -3/ -3: "<< /DeviceRenderingInfo << /ColorBalanceCyan -3 >> >> setpagedevice"
+*CyanBalance -2/ -2: "<< /DeviceRenderingInfo << /ColorBalanceCyan -2 >> >> setpagedevice"
+*CyanBalance -1/ -1: "<< /DeviceRenderingInfo << /ColorBalanceCyan -1 >> >> setpagedevice"
+*CyanBalance 0/  0: "<< /DeviceRenderingInfo << /ColorBalanceCyan 0 >> >> setpagedevice"
+*CyanBalance +1/ +1: "<< /DeviceRenderingInfo << /ColorBalanceCyan 1 >> >> setpagedevice"
+*CyanBalance +2/ +2: "<< /DeviceRenderingInfo << /ColorBalanceCyan 2 >> >> setpagedevice"
+*CyanBalance +3/ +3: "<< /DeviceRenderingInfo << /ColorBalanceCyan 3 >> >> setpagedevice"
+*CyanBalance +4/ +4: "<< /DeviceRenderingInfo << /ColorBalanceCyan 4 >> >> setpagedevice"
+*CyanBalance +5/ +5: "<< /DeviceRenderingInfo << /ColorBalanceCyan 5 >> >> setpagedevice"
+*?CyanBalance: "
+            gsave
+            currentpagedevice /DeviceRenderingInfo get /ColorBalanceCyan get = flush
+            grestore"
+*End
+*CloseUI: *CyanBalance
+*OpenUI *MagentaBalance/Magenta Balance: PickOne
+*OrderDependency: 72 AnySetup *MagentaBalance
+*DefaultMagentaBalance: PrinterS
+*MagentaBalance PrinterS/Printer Setting: ""
+*MagentaBalance -5/ -5: "<< /DeviceRenderingInfo << /ColorBalanceMagenta -5 >> >> setpagedevice"
+*MagentaBalance -4/ -4: "<< /DeviceRenderingInfo << /ColorBalanceMagenta -4 >> >> setpagedevice"
+*MagentaBalance -3/ -3: "<< /DeviceRenderingInfo << /ColorBalanceMagenta -3 >> >> setpagedevice"
+*MagentaBalance -2/ -2: "<< /DeviceRenderingInfo << /ColorBalanceMagenta -2 >> >> setpagedevice"
+*MagentaBalance -1/ -1: "<< /DeviceRenderingInfo << /ColorBalanceMagenta -1 >> >> setpagedevice"
+*MagentaBalance 0/  0: "<< /DeviceRenderingInfo << /ColorBalanceMagenta 0 >> >> setpagedevice"
+*MagentaBalance +1/ +1: "<< /DeviceRenderingInfo << /ColorBalanceMagenta 1 >> >> setpagedevice"
+*MagentaBalance +2/ +2: "<< /DeviceRenderingInfo << /ColorBalanceMagenta 2 >> >> setpagedevice"
+*MagentaBalance +3/ +3: "<< /DeviceRenderingInfo << /ColorBalanceMagenta 3 >> >> setpagedevice"
+*MagentaBalance +4/ +4: "<< /DeviceRenderingInfo << /ColorBalanceMagenta 4 >> >> setpagedevice"
+*MagentaBalance +5/ +5: "<< /DeviceRenderingInfo << /ColorBalanceMagenta 5 >> >> setpagedevice"
+*?MagentaBalance: "
+            gsave
+            currentpagedevice /DeviceRenderingInfo get /ColorBalanceMagenta get = flush
+            grestore"
+*End
+*CloseUI: *MagentaBalance
+*OpenUI *YellowBalance/Yellow Balance: PickOne
+*OrderDependency: 73 AnySetup *YellowBalance
+*DefaultYellowBalance: PrinterS
+*YellowBalance PrinterS/Printer Setting: ""
+*YellowBalance -5/ -5: "<< /DeviceRenderingInfo << /ColorBalanceYellow -5 >> >> setpagedevice"
+*YellowBalance -4/ -4: "<< /DeviceRenderingInfo << /ColorBalanceYellow -4 >> >> setpagedevice"
+*YellowBalance -3/ -3: "<< /DeviceRenderingInfo << /ColorBalanceYellow -3 >> >> setpagedevice"
+*YellowBalance -2/ -2: "<< /DeviceRenderingInfo << /ColorBalanceYellow -2 >> >> setpagedevice"
+*YellowBalance -1/ -1: "<< /DeviceRenderingInfo << /ColorBalanceYellow -1 >> >> setpagedevice"
+*YellowBalance 0/  0: "<< /DeviceRenderingInfo << /ColorBalanceYellow 0 >> >> setpagedevice"
+*YellowBalance +1/ +1: "<< /DeviceRenderingInfo << /ColorBalanceYellow 1 >> >> setpagedevice"
+*YellowBalance +2/ +2: "<< /DeviceRenderingInfo << /ColorBalanceYellow 2 >> >> setpagedevice"
+*YellowBalance +3/ +3: "<< /DeviceRenderingInfo << /ColorBalanceYellow 3 >> >> setpagedevice"
+*YellowBalance +4/ +4: "<< /DeviceRenderingInfo << /ColorBalanceYellow 4 >> >> setpagedevice"
+*YellowBalance +5/ +5: "<< /DeviceRenderingInfo << /ColorBalanceYellow 5 >> >> setpagedevice"
+*?YellowBalance: "
+            gsave
+            currentpagedevice /DeviceRenderingInfo get /ColorBalanceYellow get = flush
+            grestore"
+*End
+*CloseUI: *YellowBalance
+*OpenUI *BlackBalance/Black Balance: PickOne
+*OrderDependency: 74 AnySetup *BlackBalance
+*DefaultBlackBalance: PrinterS
+*BlackBalance PrinterS/Printer Setting: ""
+*BlackBalance -5/ -5: "<< /DeviceRenderingInfo << /ColorBalanceBlack -5 >> >> setpagedevice"
+*BlackBalance -4/ -4: "<< /DeviceRenderingInfo << /ColorBalanceBlack -4 >> >> setpagedevice"
+*BlackBalance -3/ -3: "<< /DeviceRenderingInfo << /ColorBalanceBlack -3 >> >> setpagedevice"
+*BlackBalance -2/ -2: "<< /DeviceRenderingInfo << /ColorBalanceBlack -2 >> >> setpagedevice"
+*BlackBalance -1/ -1: "<< /DeviceRenderingInfo << /ColorBalanceBlack -1 >> >> setpagedevice"
+*BlackBalance 0/  0: "<< /DeviceRenderingInfo << /ColorBalanceBlack 0 >> >> setpagedevice"
+*BlackBalance +1/ +1: "<< /DeviceRenderingInfo << /ColorBalanceBlack 1 >> >> setpagedevice"
+*BlackBalance +2/ +2: "<< /DeviceRenderingInfo << /ColorBalanceBlack 2 >> >> setpagedevice"
+*BlackBalance +3/ +3: "<< /DeviceRenderingInfo << /ColorBalanceBlack 3 >> >> setpagedevice"
+*BlackBalance +4/ +4: "<< /DeviceRenderingInfo << /ColorBalanceBlack 4 >> >> setpagedevice"
+*BlackBalance +5/ +5: "<< /DeviceRenderingInfo << /ColorBalanceBlack 5 >> >> setpagedevice"
+*?BlackBalance: "
+            gsave
+            currentpagedevice /DeviceRenderingInfo get /ColorBalanceBlack get = flush
+            grestore"
+*End
+*CloseUI: *BlackBalance
+*CloseGroup: ColorBalance
+*OpenGroup: ManualColor/Manual Color
+*OpenUI *ManualRGBImage/Manual RGB Image: PickOne
+*OrderDependency: 75 AnySetup *ManualRGBImage
+*DefaultManualRGBImage: PrinterS
+*ManualRGBImage PrinterS/Printer Setting: ""
+*ManualRGBImage Vivid: "<< /DeviceRenderingInfo << /ManualColorRGBImage /Vivid >> >> setpagedevice"
+*ManualRGBImage sRGBDisplay/sRGB Display: "<< /DeviceRenderingInfo << /ManualColorRGBImage /sRGBDisplay >> >> setpagedevice"
+*ManualRGBImage sRGBVivid/sRGB Vivid: "<< /DeviceRenderingInfo << /ManualColorRGBImage /sRGBGraphics >> >> setpagedevice"
+*ManualRGBImage DisplayRealBlack/Display<2d>True Black: "<< /DeviceRenderingInfo << /ManualColorRGBImage /DisplayRealBlack >> >> setpagedevice"
+*ManualRGBImage Off: "<< /DeviceRenderingInfo << /ManualColorRGBImage /Off >> >> setpagedevice"
+*?ManualRGBImage: "
+            gsave
+            5 dict
+                dup /Vivid (Vivid) put
+                dup /sRGBDisplay (sRGBDisplay) put
+                dup /sRGBGraphics (sRGBVivid) put
+                dup /DisplayRealBlack (DisplayRealBlack) put
+                dup /Off (Off) put
+            currentpagedevice /DeviceRenderingInfo get /ManualColorRGBImage get
+            {get} stopped {(PrinterS)} if
+            = flush
+            grestore"
+*End
+*CloseUI: *ManualRGBImage
+*OpenUI *ManualRGBText/Manual RGB Text: PickOne
+*OrderDependency: 76 AnySetup *ManualRGBText
+*DefaultManualRGBText: PrinterS
+*ManualRGBText PrinterS/Printer Setting: ""
+*ManualRGBText Vivid: "<< /DeviceRenderingInfo << /ManualColorRGBText /Vivid >> >> setpagedevice"
+*ManualRGBText sRGBDisplay/sRGB Display: "<< /DeviceRenderingInfo << /ManualColorRGBText /sRGBDisplay >> >> setpagedevice"
+*ManualRGBText sRGBVivid/sRGB Vivid: "<< /DeviceRenderingInfo << /ManualColorRGBText /sRGBGraphics >> >> setpagedevice"
+*ManualRGBText DisplayRealBlack/Display<2d>True Black: "<< /DeviceRenderingInfo << /ManualColorRGBText /DisplayRealBlack >> >> setpagedevice"
+*ManualRGBText Off: "<< /DeviceRenderingInfo << /ManualColorRGBText /Off >> >> setpagedevice"
+*?ManualRGBText: "
+            gsave
+            5 dict
+                dup /Vivid (Vivid) put
+                dup /sRGBDisplay (sRGBDisplay) put
+                dup /sRGBGraphics (sRGBVivid) put
+                dup /DisplayRealBlack (DisplayRealBlack) put
+                dup /Off (Off) put
+            currentpagedevice /DeviceRenderingInfo get /ManualColorRGBText get
+            {get} stopped {(PrinterS)} if
+            = flush
+            grestore"
+*End
+*CloseUI: *ManualRGBText
+*OpenUI *ManualRGBGraphics/Manual RGB Graphics: PickOne
+*OrderDependency: 77 AnySetup *ManualRGBGraphics
+*DefaultManualRGBGraphics: PrinterS
+*ManualRGBGraphics PrinterS/Printer Setting: ""
+*ManualRGBGraphics Vivid: "<< /DeviceRenderingInfo << /ManualColorRGBGraphics /Vivid >> >> setpagedevice"
+*ManualRGBGraphics sRGBDisplay/sRGB Display: "<< /DeviceRenderingInfo << /ManualColorRGBGraphics /sRGBDisplay >> >> setpagedevice"
+*ManualRGBGraphics sRGBVivid/sRGB Vivid: "<< /DeviceRenderingInfo << /ManualColorRGBGraphics /sRGBGraphics >> >> setpagedevice"
+*ManualRGBGraphics DisplayRealBlack/Display<2d>True Black: "<< /DeviceRenderingInfo << /ManualColorRGBGraphics /DisplayRealBlack >> >> setpagedevice"
+*ManualRGBGraphics Off: "<< /DeviceRenderingInfo << /ManualColorRGBGraphics /Off >> >> setpagedevice"
+*?ManualRGBGraphics: "
+            gsave
+            5 dict
+                dup /Vivid (Vivid) put
+                dup /sRGBDisplay (sRGBDisplay) put
+                dup /sRGBGraphics (sRGBVivid) put
+                dup /DisplayRealBlack (DisplayRealBlack) put
+                dup /Off (Off) put
+            currentpagedevice /DeviceRenderingInfo get /ManualColorRGBGraphics get
+            {get} stopped {(PrinterS)} if
+            = flush
+            grestore"
+*End
+*CloseUI: *ManualRGBGraphics
+*OpenUI *ManualCMYK/Manual CMYK: PickOne
+*OrderDependency: 78 AnySetup *ManualCMYK
+*DefaultManualCMYK: PrinterS
+*ManualCMYK PrinterS/Printer Setting: ""
+*ManualCMYK USCMYK/US CMYK: "<< /DeviceRenderingInfo << /ManualColorCMYKImage /SWOP >> >> setpagedevice
+                << /DeviceRenderingInfo << /ManualColorCMYKText /SWOP >> >> setpagedevice
+                << /DeviceRenderingInfo << /ManualColorCMYKGraphics /SWOP >> >> setpagedevice"
+*End
+*ManualCMYK EuroCMYK/Euro CMYK: "<< /DeviceRenderingInfo << /ManualColorCMYKImage /Euro >> >> setpagedevice
+                << /DeviceRenderingInfo << /ManualColorCMYKText /Euro >> >> setpagedevice
+                << /DeviceRenderingInfo << /ManualColorCMYKGraphics /Euro >> >> setpagedevice"
+*End
+*ManualCMYK VividCMYK/Vivid CMYK: "<< /DeviceRenderingInfo << /ManualColorCMYKImage /VividCMYK >> >> setpagedevice
+                << /DeviceRenderingInfo << /ManualColorCMYKText /VividCMYK >> >> setpagedevice
+                << /DeviceRenderingInfo << /ManualColorCMYKGraphics /VividCMYK >> >> setpagedevice"
+*End
+*ManualCMYK Off: "<< /DeviceRenderingInfo << /ManualColorCMYKImage /Off >> >> setpagedevice
+            << /DeviceRenderingInfo << /ManualColorCMYKText /Off >> >> setpagedevice
+            << /DeviceRenderingInfo << /ManualColorCMYKGraphics /Off >> >> setpagedevice"
+*End
+*?ManualCMYK: "
+            gsave
+            4 dict
+                dup /SWOP (USCMYK) put
+                dup /Euro (EuroCMYK) put
+                dup /Off (off) put
+                dup /VividCMYK (VividCMYK) put
+            currentpagedevice /DeviceRenderingInfo get /ManualColorCMYKImage get
+            {get} stopped {(PrinterS)} if
+            = flush
+            grestore"
+*End
+*CloseUI: *ManualCMYK
+*CloseGroup: ManualColor
+*OpenGroup: Paper/Paper
+*OpenUI *MediaType/Paper Type: PickOne
+*OrderDependency: 40 AnySetup *MediaType
+*DefaultMediaType: PrinterS
+*MediaType PrinterS/Printer Setting: ""
+*MediaType Plain/Plain Paper: "<< /MediaType (Plain) /Policies << /MediaType 2 >> >> setpagedevice"
+*MediaType Transparency: "<< /MediaType (Transparency) /Policies << /MediaType 2 >> >> setpagedevice"
+*MediaType Labels/Label (Paper): "<< /MediaType (Labels) /Policies << /MediaType 2 >> >> setpagedevice"
+*MediaType Bond: "<< /MediaType (Bond) /Policies << /MediaType 2 >> >> setpagedevice"
+*MediaType Card/Card stock/Extra heavy paper: "<< /MediaType (Card Stock) /Policies << /MediaType 2 >> >> setpagedevice"
+*MediaType Letterhead: "<< /MediaType (Letterhead) /Policies << /MediaType 2 >> >> setpagedevice"
+*MediaType Preprint/Preprinted: "<< /MediaType (Preprinted) /Policies << /MediaType 2 >> >> setpagedevice"
+*MediaType Colored/Colored Paper: "<< /MediaType (Colored Paper) /Policies << /MediaType 2 >> >> setpagedevice"
+*MediaType Glossy: "<< /MediaType (Glossy Paper) /Policies << /MediaType 2 >> >> setpagedevice"
+*MediaType Envelope: "<< /MediaType (Envelope) /Policies << /MediaType 2 >> >> setpagedevice"
+*MediaType Light/Light paper: "<< /MediaType (Light) /Policies << /MediaType 2 >> >> setpagedevice"
+*MediaType Heavy/Heavy paper: "<< /MediaType (Heavy) /Policies << /MediaType 2 >> >> setpagedevice"
+*MediaType Rough/Rough/Cotton: "<< /MediaType (Rough) /Policies << /MediaType 2 >> >> setpagedevice"
+*MediaType Recycled: "<< /MediaType (Recycled) /Policies << /MediaType 2 >> >> setpagedevice"
+*MediaType Custom1/Custom Type 1: "<< /MediaType (Custom Type 1) /Policies << /MediaType 2 >> >> setpagedevice"
+*MediaType Custom2/Custom Type 2: "<< /MediaType (Custom Type 2) /Policies << /MediaType 2 >> >> setpagedevice"
+*MediaType Custom3/Custom Type 3: "<< /MediaType (Custom Type 3) /Policies << /MediaType 2 >> >> setpagedevice"
+*MediaType Custom4/Custom Type 4: "<< /MediaType (Custom Type 4) /Policies << /MediaType 2 >> >> setpagedevice"
+*MediaType Custom5/Custom Type 5: "<< /MediaType (Custom Type 5) /Policies << /MediaType 2 >> >> setpagedevice"
+*MediaType Custom6/Custom Type 6: "<< /MediaType (Custom Type 6) /Policies << /MediaType 2 >> >> setpagedevice"
+*CloseUI: *MediaType
+*OpenUI *LexBlankPage/Print Blank Pages: PickOne
+*OrderDependency: 175 AnySetup *LexBlankPage
+*DefaultLexBlankPage: PrinterS
+*LexBlankPage PrinterS/Printer Setting: ""
+*LexBlankPage False/Off: ""
+*LexBlankPage True/On: ""
+*CloseUI: *LexBlankPage
+*CloseGroup: Paper
+*OpenGroup: Finishing/Finishing
+*OpenUI *Duplex/Duplex: PickOne
+*OrderDependency: 0 AnySetup *Duplex
+*DefaultDuplex: DuplexNoTumble
+*Duplex None: "1 dict dup /Duplex false put setpagedevice"
+*Duplex DuplexNoTumble/Duplex - Long Edge: "
+			statusdict /duplexer get exec
+			{ 2 dict dup /Duplex true put dup /Tumble false put setpagedevice}
+			{ 1 dict dup /Duplex false put setpagedevice}
+			ifelse"
+*End
+*Duplex DuplexTumble/Duplex - Short Edge: "
+			statusdict /duplexer get exec
+			{ 2 dict dup /Duplex true put dup /Tumble true put setpagedevice}
+			{ 1 dict dup /Duplex false put setpagedevice}
+			ifelse"
+*End
+*?Duplex: "	
+			gsave
+			currentpagedevice /Duplex get
+			{
+				currentpagedevice /Tumble get
+				{(DuplexTumble)}{(DuplexNoTumble)} ifelse
+			}{(None)} ifelse
+			= flush
+			grestore"
+*End
+*CloseUI: *Duplex
+*OpenUI *Collate/Collation: Boolean
+*OrderDependency: 50 AnySetup *Collate
+*DefaultCollate: True
+*Collate False/Off: "<< /Collate false >> setpagedevice"
+*Collate True/On: "<< /Collate true >> setpagedevice"
+*?Collate: "	
+			gsave
+			currentpagedevice /Collate get
+			{(True)}{(False)} ifelse
+			= flush
+			grestore"
+*End
+*CloseUI: *Collate
+*OpenUI *SepPages/Separator Pages: PickOne
+*OrderDependency: 51 AnySetup *SepPages
+*DefaultSepPages: PrinterS
+*SepPages PrinterS/Printer Setting: ""
+*SepPages NoneF/None: "<< /SlipSheet 0 >> setpagedevice"
+*SepPages Jobs/Between Jobs: "<< /SlipSheet 2 >> setpagedevice"
+*SepPages Copies/Between Copies: "<< /SlipSheet 3 >> setpagedevice"
+*SepPages Pages/Between Pages: "<< /SlipSheet 4 >> setpagedevice"
+*?SepPages: "	
+			gsave
+			currentpagedevice /SlipSheet get
+			dup dup
+			4 eq {(Pages)}{
+				3 eq {(Copies)}{
+					2 eq {(Jobs)}
+						 {(NoneF)}ifelse
+					}ifelse
+				}ifelse
+			= flush
+			grestore"
+*End
+*CloseUI: *SepPages
+*OpenUI *SepSource/Separator Source: PickOne
+*OrderDependency: 52 AnySetup *SepSource
+*DefaultSepSource: PrinterS
+*SepSource PrinterS/Printer Setting: ""
+*SepSource Tray1/Tray 1: "<< /SlipSheetDetails << /Type 96 /SlipSheetSource 0 >> >> setpagedevice"
+*SepSource Tray2/Tray 2: "<< /SlipSheetDetails << /Type 96 /SlipSheetSource 1 >> >> setpagedevice"
+*SepSource Tray3/Tray 3: "<< /SlipSheetDetails << /Type 96 /SlipSheetSource 3 >> >> setpagedevice"
+*SepSource MultipurposeFeeder/Multipurpose Feeder: "<< /SlipSheetDetails << /Type 96 /SlipSheetSource 4 >> >> setpagedevice"
+*?SepSource: "	
+			gsave
+			currentpagedevice /SlipSheetDetails get /SlipSheetSource get
+			dup dup dup dup
+			{4 eq {(MultipurposeFeeder)}
+				{3 eq {(Tray3)}
+					{1 eq {(Tray2)}	
+						{0 eq {(Tray1)}{(Off)}
+						ifelse}
+					ifelse}	
+				ifelse}	
+			ifelse
+			= flush
+			grestore"
+*End
+*CloseUI: *SepSource
+*CloseGroup: Finishing
+*fr.Translation Manufacturer/Lexmark: ""
+*fr.Translation ModelName/Lexmark CX410 Series: ""
+*fr.Translation ShortNickName/Lexmark CX410 Series: ""
+*fr.Translation NickName/Lexmark CX410 Series: ""
+*fr.Translation PageSize/Format de support: ""
+*fr.PageSize Letter/Lettre US: ""
+*fr.PageSize Legal/Légal US: ""
+*fr.PageSize 8.5x13.4028/Oficio (Mexico): ""
+*fr.PageSize B5/JIS B5: ""
+*fr.PageSize A4/A4: ""
+*fr.PageSize Executive/Exécutive US: ""
+*fr.PageSize A5/A5: ""
+*fr.PageSize A6/A6: ""
+*fr.PageSize FanFoldGermanLegal/Folio: ""
+*fr.PageSize Statement/Statement US: ""
+*fr.PageSize EnvMonarch/Enveloppe 7 3/4: ""
+*fr.PageSize Env9/Enveloppe 9: ""
+*fr.PageSize Env10/Enveloppe 10: ""
+*fr.PageSize EnvDL/Enveloppe DL: ""
+*fr.PageSize EnvC5/Enveloppe C5: ""
+*fr.PageSize ISOB5/Enveloppe B5: ""
+*fr.PageSize 8.5x13.8333/Autre Enveloppe: ""
+*fr.Translation InputSlot/Source d'alimentation du support: ""
+*fr.InputSlot Tray1/Bac 1: ""
+*fr.InputSlot Tray2/Bac 2: ""
+*fr.InputSlot Tray3/Bac 3: ""
+*fr.InputSlot MultipurposeFeeder/Bac Multifonction: ""
+*fr.InputSlot ManualPaper/Manuel papier: ""
+*fr.InputSlot ManualEnv/Enveloppe Manuel: ""
+*fr.Translation InstallableOptions/Options installables: ""
+*fr.Translation OptDuplex/Reliure Recto Verso: ""
+*fr.OptDuplex InstalledM/Installée: ""
+*fr.OptDuplex NotInstalledM/Non Installée: ""
+*fr.Translation Trays/Bacs: ""
+*fr.Trays Tray1/Bac 1: ""
+*fr.Trays Tray12/Bac 1+2: ""
+*fr.Trays Tray123/Bac 1+2+3: ""
+*fr.Translation Quality/Qualité: ""
+*fr.Translation Resolution/Résolution: ""
+*fr.Resolution 2400x1200dpi/Qualité couleur 4800: ""
+*fr.Resolution 1200dpi/1200 ppp: ""
+*fr.Translation TonerDarkness/Intensité Toner: ""
+*fr.TonerDarkness PrinterS/Paramètres de l'imprimante: ""
+*fr.TonerDarkness 1/1: ""
+*fr.TonerDarkness 2/2: ""
+*fr.TonerDarkness 3/3: ""
+*fr.TonerDarkness 4/4: ""
+*fr.TonerDarkness 5/5: ""
+*fr.Translation LexBrightness/Luminosité: ""
+*fr.LexBrightness PrinterS/Paramètres de l'imprimante: ""
+*fr.LexBrightness -6/ -6: ""
+*fr.LexBrightness -5/ -5: ""
+*fr.LexBrightness -4/ -4: ""
+*fr.LexBrightness -3/ -3: ""
+*fr.LexBrightness -2/ -2: ""
+*fr.LexBrightness -1/ -1: ""
+*fr.LexBrightness 0/  0: ""
+*fr.LexBrightness +1/ +1: ""
+*fr.LexBrightness +2/ +2: ""
+*fr.LexBrightness +3/ +3: ""
+*fr.LexBrightness +4/ +4: ""
+*fr.LexBrightness +5/ +5: ""
+*fr.LexBrightness +6/ +6: ""
+*fr.Translation LexContrast/Contraste: ""
+*fr.LexContrast PrinterS/Paramètres de l'imprimante: ""
+*fr.LexContrast 0/0: ""
+*fr.LexContrast 1/1: ""
+*fr.LexContrast 2/2: ""
+*fr.LexContrast 3/3: ""
+*fr.LexContrast 4/4: ""
+*fr.LexContrast 5/5: ""
+*fr.Translation LexSaturation/Saturation: ""
+*fr.LexSaturation PrinterS/Paramètres de l'imprimante: ""
+*fr.LexSaturation 0/0: ""
+*fr.LexSaturation 1/1: ""
+*fr.LexSaturation 2/2: ""
+*fr.LexSaturation 3/3: ""
+*fr.LexSaturation 4/4: ""
+*fr.LexSaturation 5/5: ""
+*fr.Translation LexLineDetail/Améliorer traits fins: ""
+*fr.LexLineDetail PrinterS/Paramètres de l'imprimante: ""
+*fr.LexLineDetail FalseF/Hors Fonction: ""
+*fr.LexLineDetail TrueF/En Fonction: ""
+*fr.Translation LexMirror/Miroir: ""
+*fr.LexMirror False/Hors Fonction: ""
+*fr.LexMirror True/En Fonction: ""
+*fr.Translation Color/Couleur: ""
+*fr.Translation MediaColor/Correction des Couleurs: ""
+*fr.MediaColor PrinterS/Paramètres de l'imprimante: ""
+*fr.MediaColor Auto/Automatique: ""
+*fr.MediaColor FalseM/Hors Fonction: ""
+*fr.MediaColor Manual/Manuel: ""
+*fr.Translation ColorSaver/ColorSaver: ""
+*fr.ColorSaver PrinterS/Paramètres de l'imprimante: ""
+*fr.ColorSaver FalseM/Hors Fonction: ""
+*fr.ColorSaver TrueM/En Fonction: ""
+*fr.Translation BLW/Noir & Blanc: ""
+*fr.BLW PrinterS/Paramètres de l'imprimante: ""
+*fr.BLW FalseM/Hors Fonction: ""
+*fr.BLW TrueM/En Fonction: ""
+*fr.Translation ColorBalance/Equilibre couleur.: ""
+*fr.Translation CyanBalance/Equilibre cyan: ""
+*fr.CyanBalance PrinterS/Paramètres de l'imprimante: ""
+*fr.CyanBalance -5/ -5: ""
+*fr.CyanBalance -4/ -4: ""
+*fr.CyanBalance -3/ -3: ""
+*fr.CyanBalance -2/ -2: ""
+*fr.CyanBalance -1/ -1: ""
+*fr.CyanBalance 0/  0: ""
+*fr.CyanBalance +1/ +1: ""
+*fr.CyanBalance +2/ +2: ""
+*fr.CyanBalance +3/ +3: ""
+*fr.CyanBalance +4/ +4: ""
+*fr.CyanBalance +5/ +5: ""
+*fr.Translation MagentaBalance/Equilibre magenta: ""
+*fr.MagentaBalance PrinterS/Paramètres de l'imprimante: ""
+*fr.MagentaBalance -5/ -5: ""
+*fr.MagentaBalance -4/ -4: ""
+*fr.MagentaBalance -3/ -3: ""
+*fr.MagentaBalance -2/ -2: ""
+*fr.MagentaBalance -1/ -1: ""
+*fr.MagentaBalance 0/  0: ""
+*fr.MagentaBalance +1/ +1: ""
+*fr.MagentaBalance +2/ +2: ""
+*fr.MagentaBalance +3/ +3: ""
+*fr.MagentaBalance +4/ +4: ""
+*fr.MagentaBalance +5/ +5: ""
+*fr.Translation YellowBalance/Equilibre jaune: ""
+*fr.YellowBalance PrinterS/Paramètres de l'imprimante: ""
+*fr.YellowBalance -5/ -5: ""
+*fr.YellowBalance -4/ -4: ""
+*fr.YellowBalance -3/ -3: ""
+*fr.YellowBalance -2/ -2: ""
+*fr.YellowBalance -1/ -1: ""
+*fr.YellowBalance 0/  0: ""
+*fr.YellowBalance +1/ +1: ""
+*fr.YellowBalance +2/ +2: ""
+*fr.YellowBalance +3/ +3: ""
+*fr.YellowBalance +4/ +4: ""
+*fr.YellowBalance +5/ +5: ""
+*fr.Translation BlackBalance/Equilibre noir: ""
+*fr.BlackBalance PrinterS/Paramètres de l'imprimante: ""
+*fr.BlackBalance -5/ -5: ""
+*fr.BlackBalance -4/ -4: ""
+*fr.BlackBalance -3/ -3: ""
+*fr.BlackBalance -2/ -2: ""
+*fr.BlackBalance -1/ -1: ""
+*fr.BlackBalance 0/  0: ""
+*fr.BlackBalance +1/ +1: ""
+*fr.BlackBalance +2/ +2: ""
+*fr.BlackBalance +3/ +3: ""
+*fr.BlackBalance +4/ +4: ""
+*fr.BlackBalance +5/ +5: ""
+*fr.Translation ManualColor/Couleur manuelle: ""
+*fr.Translation ManualRGBImage/Image RVB manuel: ""
+*fr.ManualRGBImage PrinterS/Paramètres de l'imprimante: ""
+*fr.ManualRGBImage Vivid/Vives: ""
+*fr.ManualRGBImage sRGBDisplay/sRVB Ecran: ""
+*fr.ManualRGBImage sRGBVivid/sRVB Vives: ""
+*fr.ManualRGBImage DisplayRealBlack/Affichage - vrai noir: ""
+*fr.ManualRGBImage Off/Hors Fonction: ""
+*fr.Translation ManualRGBText/Texte RVB manuel: ""
+*fr.ManualRGBText PrinterS/Paramètres de l'imprimante: ""
+*fr.ManualRGBText Vivid/Vives: ""
+*fr.ManualRGBText sRGBDisplay/sRVB Ecran: ""
+*fr.ManualRGBText sRGBVivid/sRVB Vives: ""
+*fr.ManualRGBText DisplayRealBlack/Affichage - vrai noir: ""
+*fr.ManualRGBText Off/Hors Fonction: ""
+*fr.Translation ManualRGBGraphics/Graphiques RVB manuel: ""
+*fr.ManualRGBGraphics PrinterS/Paramètres de l'imprimante: ""
+*fr.ManualRGBGraphics Vivid/Vives: ""
+*fr.ManualRGBGraphics sRGBDisplay/sRVB Ecran: ""
+*fr.ManualRGBGraphics sRGBVivid/sRVB Vives: ""
+*fr.ManualRGBGraphics DisplayRealBlack/Affichage - vrai noir: ""
+*fr.ManualRGBGraphics Off/Hors Fonction: ""
+*fr.Translation ManualCMYK/CMJN manuelle: ""
+*fr.ManualCMYK PrinterS/Paramètres de l'imprimante: ""
+*fr.ManualCMYK USCMYK/CMJN US: ""
+*fr.ManualCMYK EuroCMYK/CMJN euro: ""
+*fr.ManualCMYK VividCMYK/CMJN vive: ""
+*fr.ManualCMYK Off/Hors Fonction: ""
+*fr.Translation Paper/Papier: ""
+*fr.Translation MediaType/Type Papier: ""
+*fr.MediaType PrinterS/Paramètres de l'imprimante: ""
+*fr.MediaType Plain/Papier Normal: ""
+*fr.MediaType Transparency/Transparent: ""
+*fr.MediaType Labels/Etiquette (papier): ""
+*fr.MediaType Bond/Qualité: ""
+*fr.MediaType Card/Bristol/Papier extra lourd: ""
+*fr.MediaType Letterhead/En-tête: ""
+*fr.MediaType Preprint/Préimprimé: ""
+*fr.MediaType Colored/Papier couleur: ""
+*fr.MediaType Glossy/Glacé: ""
+*fr.MediaType Envelope/Enveloppe: ""
+*fr.MediaType Light/Papier léger: ""
+*fr.MediaType Heavy/Papier lourd: ""
+*fr.MediaType Rough/Grenée/Coton: ""
+*fr.MediaType Recycled/Recyclé: ""
+*fr.MediaType Custom1/Personnalisé 1: ""
+*fr.MediaType Custom2/Personnalisé 2: ""
+*fr.MediaType Custom3/Personnalisé 3: ""
+*fr.MediaType Custom4/Personnalisé 4: ""
+*fr.MediaType Custom5/Personnalisé 5: ""
+*fr.MediaType Custom6/Personnalisé 6: ""
+*fr.Translation LexBlankPage/Imprimer pages vierges: ""
+*fr.LexBlankPage PrinterS/Paramètres de l'imprimante: ""
+*fr.LexBlankPage False/Hors Fonction: ""
+*fr.LexBlankPage True/En Fonction: ""
+*fr.Translation Finishing/Finition: ""
+*fr.Translation Duplex/Reliure Recto Verso: ""
+*fr.Duplex None/Hors Fonction: ""
+*fr.Duplex DuplexNoTumble/Reliure Bords Longs: ""
+*fr.Duplex DuplexTumble/Reliure Bords Courts: ""
+*fr.Translation Collate/Assemblage: ""
+*fr.Collate False/Hors Fonction: ""
+*fr.Collate True/En Fonction: ""
+*fr.Translation SepPages/Séparateurs: ""
+*fr.SepPages PrinterS/Paramètres de l'imprimante: ""
+*fr.SepPages NoneF/Hors Fonction: ""
+*fr.SepPages Jobs/Entre les Documents: ""
+*fr.SepPages Copies/Entre les Copies: ""
+*fr.SepPages Pages/Entre les Pages: ""
+*fr.Translation SepSource/Alimentation Séparateur: ""
+*fr.SepSource PrinterS/Paramètres de l'imprimante: ""
+*fr.SepSource Tray1/Bac 1: ""
+*fr.SepSource Tray2/Bac 2: ""
+*fr.SepSource Tray3/Bac 3: ""
+*fr.SepSource MultipurposeFeeder/Bac Multifonction: ""
+*de.Translation Manufacturer/Lexmark: ""
+*de.Translation ModelName/Lexmark CX410 Series: ""
+*de.Translation ShortNickName/Lexmark CX410 Series: ""
+*de.Translation NickName/Lexmark CX410 Series: ""
+*de.Translation PageSize/Medienformat: ""
+*de.PageSize Letter/Letter: ""
+*de.PageSize Legal/Legal: ""
+*de.PageSize 8.5x13.4028/Oficio (Mexiko): ""
+*de.PageSize B5/JIS B5: ""
+*de.PageSize A4/A4: ""
+*de.PageSize Executive/Executive: ""
+*de.PageSize A5/A5: ""
+*de.PageSize A6/A6: ""
+*de.PageSize FanFoldGermanLegal/Folio: ""
+*de.PageSize Statement/Statement: ""
+*de.PageSize EnvMonarch/Umschlag 7 3/4: ""
+*de.PageSize Env9/Umschlag 9: ""
+*de.PageSize Env10/Umschlag 10: ""
+*de.PageSize EnvDL/Umschlag DL: ""
+*de.PageSize EnvC5/Umschlag C5: ""
+*de.PageSize ISOB5/Umschlag B5: ""
+*de.PageSize 8.5x13.8333/Anderer Briefumschlag: ""
+*de.Translation InputSlot/Medienzuführung: ""
+*de.InputSlot Tray1/Fach 1: ""
+*de.InputSlot Tray2/Fach 2: ""
+*de.InputSlot Tray3/Fach 3: ""
+*de.InputSlot MultipurposeFeeder/Universal: ""
+*de.InputSlot ManualPaper/Papier manuell: ""
+*de.InputSlot ManualEnv/Briefumschlag manuell: ""
+*de.Translation InstallableOptions/Installationsoptionen: ""
+*de.Translation OptDuplex/Beidseitig Binderand: ""
+*de.OptDuplex InstalledM/Eingebaut: ""
+*de.OptDuplex NotInstalledM/Nicht Eingebaut: ""
+*de.Translation Trays/Fächer: ""
+*de.Trays Tray1/Fach 1: ""
+*de.Trays Tray12/Fach 1+2: ""
+*de.Trays Tray123/Fach 1+2+3: ""
+*de.Translation Quality/Qualität: ""
+*de.Translation Resolution/Auflösung: ""
+*de.Resolution 2400x1200dpi/4800 Farbqualität: ""
+*de.Resolution 1200dpi/1200 dpi: ""
+*de.Translation TonerDarkness/Tonerdeckung: ""
+*de.TonerDarkness PrinterS/Druckereinstellung: ""
+*de.TonerDarkness 1/1: ""
+*de.TonerDarkness 2/2: ""
+*de.TonerDarkness 3/3: ""
+*de.TonerDarkness 4/4: ""
+*de.TonerDarkness 5/5: ""
+*de.Translation LexBrightness/Helligkeit: ""
+*de.LexBrightness PrinterS/Druckereinstellung: ""
+*de.LexBrightness -6/ -6: ""
+*de.LexBrightness -5/ -5: ""
+*de.LexBrightness -4/ -4: ""
+*de.LexBrightness -3/ -3: ""
+*de.LexBrightness -2/ -2: ""
+*de.LexBrightness -1/ -1: ""
+*de.LexBrightness 0/  0: ""
+*de.LexBrightness +1/ +1: ""
+*de.LexBrightness +2/ +2: ""
+*de.LexBrightness +3/ +3: ""
+*de.LexBrightness +4/ +4: ""
+*de.LexBrightness +5/ +5: ""
+*de.LexBrightness +6/ +6: ""
+*de.Translation LexContrast/Kontrast: ""
+*de.LexContrast PrinterS/Druckereinstellung: ""
+*de.LexContrast 0/0: ""
+*de.LexContrast 1/1: ""
+*de.LexContrast 2/2: ""
+*de.LexContrast 3/3: ""
+*de.LexContrast 4/4: ""
+*de.LexContrast 5/5: ""
+*de.Translation LexSaturation/Farbsättigung: ""
+*de.LexSaturation PrinterS/Druckereinstellung: ""
+*de.LexSaturation 0/0: ""
+*de.LexSaturation 1/1: ""
+*de.LexSaturation 2/2: ""
+*de.LexSaturation 3/3: ""
+*de.LexSaturation 4/4: ""
+*de.LexSaturation 5/5: ""
+*de.Translation LexLineDetail/Feine Linien verbessern: ""
+*de.LexLineDetail PrinterS/Druckereinstellung: ""
+*de.LexLineDetail FalseF/Aus: ""
+*de.LexLineDetail TrueF/Ein: ""
+*de.Translation LexMirror/Spiegeln: ""
+*de.LexMirror False/Aus: ""
+*de.LexMirror True/Ein: ""
+*de.Translation Color/Farbanpassung: ""
+*de.Translation MediaColor/Farbanpassung: ""
+*de.MediaColor PrinterS/Druckereinstellung: ""
+*de.MediaColor Auto/Automatisch: ""
+*de.MediaColor FalseM/Aus: ""
+*de.MediaColor Manual/Manuell: ""
+*de.Translation ColorSaver/ColorSaver: ""
+*de.ColorSaver PrinterS/Druckereinstellung: ""
+*de.ColorSaver FalseM/Aus: ""
+*de.ColorSaver TrueM/Ein: ""
+*de.Translation BLW/Schwarz/Weiß: ""
+*de.BLW PrinterS/Druckereinstellung: ""
+*de.BLW FalseM/Aus: ""
+*de.BLW TrueM/Ein: ""
+*de.Translation ColorBalance/Farbausgleich: ""
+*de.Translation CyanBalance/Farbausgleich cyan: ""
+*de.CyanBalance PrinterS/Druckereinstellung: ""
+*de.CyanBalance -5/ -5: ""
+*de.CyanBalance -4/ -4: ""
+*de.CyanBalance -3/ -3: ""
+*de.CyanBalance -2/ -2: ""
+*de.CyanBalance -1/ -1: ""
+*de.CyanBalance 0/  0: ""
+*de.CyanBalance +1/ +1: ""
+*de.CyanBalance +2/ +2: ""
+*de.CyanBalance +3/ +3: ""
+*de.CyanBalance +4/ +4: ""
+*de.CyanBalance +5/ +5: ""
+*de.Translation MagentaBalance/Farbausgleich magenta: ""
+*de.MagentaBalance PrinterS/Druckereinstellung: ""
+*de.MagentaBalance -5/ -5: ""
+*de.MagentaBalance -4/ -4: ""
+*de.MagentaBalance -3/ -3: ""
+*de.MagentaBalance -2/ -2: ""
+*de.MagentaBalance -1/ -1: ""
+*de.MagentaBalance 0/  0: ""
+*de.MagentaBalance +1/ +1: ""
+*de.MagentaBalance +2/ +2: ""
+*de.MagentaBalance +3/ +3: ""
+*de.MagentaBalance +4/ +4: ""
+*de.MagentaBalance +5/ +5: ""
+*de.Translation YellowBalance/Farbausgleich gelb: ""
+*de.YellowBalance PrinterS/Druckereinstellung: ""
+*de.YellowBalance -5/ -5: ""
+*de.YellowBalance -4/ -4: ""
+*de.YellowBalance -3/ -3: ""
+*de.YellowBalance -2/ -2: ""
+*de.YellowBalance -1/ -1: ""
+*de.YellowBalance 0/  0: ""
+*de.YellowBalance +1/ +1: ""
+*de.YellowBalance +2/ +2: ""
+*de.YellowBalance +3/ +3: ""
+*de.YellowBalance +4/ +4: ""
+*de.YellowBalance +5/ +5: ""
+*de.Translation BlackBalance/Farbausgleich schwarz: ""
+*de.BlackBalance PrinterS/Druckereinstellung: ""
+*de.BlackBalance -5/ -5: ""
+*de.BlackBalance -4/ -4: ""
+*de.BlackBalance -3/ -3: ""
+*de.BlackBalance -2/ -2: ""
+*de.BlackBalance -1/ -1: ""
+*de.BlackBalance 0/  0: ""
+*de.BlackBalance +1/ +1: ""
+*de.BlackBalance +2/ +2: ""
+*de.BlackBalance +3/ +3: ""
+*de.BlackBalance +4/ +4: ""
+*de.BlackBalance +5/ +5: ""
+*de.Translation ManualColor/Manuelle Farbe: ""
+*de.Translation ManualRGBImage/RGB Bild manuell: ""
+*de.ManualRGBImage PrinterS/Druckereinstellung: ""
+*de.ManualRGBImage Vivid/Leuchtend: ""
+*de.ManualRGBImage sRGBDisplay/sRGB Bildschirm: ""
+*de.ManualRGBImage sRGBVivid/sRGB Leuchtend: ""
+*de.ManualRGBImage DisplayRealBlack/Anzeige - Echtes Schwarz: ""
+*de.ManualRGBImage Off/Aus: ""
+*de.Translation ManualRGBText/RGB Text manuell: ""
+*de.ManualRGBText PrinterS/Druckereinstellung: ""
+*de.ManualRGBText Vivid/Leuchtend: ""
+*de.ManualRGBText sRGBDisplay/sRGB Bildschirm: ""
+*de.ManualRGBText sRGBVivid/sRGB Leuchtend: ""
+*de.ManualRGBText DisplayRealBlack/Anzeige - Echtes Schwarz: ""
+*de.ManualRGBText Off/Aus: ""
+*de.Translation ManualRGBGraphics/RGB Grafiken manuell: ""
+*de.ManualRGBGraphics PrinterS/Druckereinstellung: ""
+*de.ManualRGBGraphics Vivid/Leuchtend: ""
+*de.ManualRGBGraphics sRGBDisplay/sRGB Bildschirm: ""
+*de.ManualRGBGraphics sRGBVivid/sRGB Leuchtend: ""
+*de.ManualRGBGraphics DisplayRealBlack/Anzeige - Echtes Schwarz: ""
+*de.ManualRGBGraphics Off/Aus: ""
+*de.Translation ManualCMYK/Manuell CMYK: ""
+*de.ManualCMYK PrinterS/Druckereinstellung: ""
+*de.ManualCMYK USCMYK/US-CMYK: ""
+*de.ManualCMYK EuroCMYK/Euro-CMYK: ""
+*de.ManualCMYK VividCMYK/Leuchtend CMYK: ""
+*de.ManualCMYK Off/Aus: ""
+*de.Translation Paper/Papier: ""
+*de.Translation MediaType/Papiersorte: ""
+*de.MediaType PrinterS/Druckereinstellung: ""
+*de.MediaType Plain/Normalpapier: ""
+*de.MediaType Transparency/Folien: ""
+*de.MediaType Labels/Etikett (Papier): ""
+*de.MediaType Bond/Feinpostpapier: ""
+*de.MediaType Card/Karten / Extrem schweres Papier: ""
+*de.MediaType Letterhead/Briefbogen: ""
+*de.MediaType Preprint/Vorgedruckt: ""
+*de.MediaType Colored/Farbpapier: ""
+*de.MediaType Glossy/Glanz: ""
+*de.MediaType Envelope/Briefumschlag: ""
+*de.MediaType Light/Leichtes papier: ""
+*de.MediaType Heavy/Schweres papier: ""
+*de.MediaType Rough/Rau/Baumwolle: ""
+*de.MediaType Recycled/Recycling-Papier: ""
+*de.MediaType Custom1/Benutzerdef. 1: ""
+*de.MediaType Custom2/Benutzerdef. 2: ""
+*de.MediaType Custom3/Benutzerdef. 3: ""
+*de.MediaType Custom4/Benutzerdef. 4: ""
+*de.MediaType Custom5/Benutzerdef. 5: ""
+*de.MediaType Custom6/Benutzerdef. 6: ""
+*de.Translation LexBlankPage/Leere Seiten drucken: ""
+*de.LexBlankPage PrinterS/Druckereinstellung: ""
+*de.LexBlankPage False/Aus: ""
+*de.LexBlankPage True/Ein: ""
+*de.Translation Finishing/Papierausgabe: ""
+*de.Translation Duplex/Beidseitig Binderand: ""
+*de.Duplex None/Aus: ""
+*de.Duplex DuplexNoTumble/Lange Kante Binden: ""
+*de.Duplex DuplexTumble/Kurze Kante Binden: ""
+*de.Translation Collate/Sortieren: ""
+*de.Collate False/Aus: ""
+*de.Collate True/Ein: ""
+*de.Translation SepPages/Trennseiten: ""
+*de.SepPages PrinterS/Druckereinstellung: ""
+*de.SepPages NoneF/Aus: ""
+*de.SepPages Jobs/Zwischen Aufträgen: ""
+*de.SepPages Copies/Zwischen Kopien: ""
+*de.SepPages Pages/Zwischen Seiten: ""
+*de.Translation SepSource/Trennseitenzufuhr: ""
+*de.SepSource PrinterS/Druckereinstellung: ""
+*de.SepSource Tray1/Fach 1: ""
+*de.SepSource Tray2/Fach 2: ""
+*de.SepSource Tray3/Fach 3: ""
+*de.SepSource MultipurposeFeeder/Universal: ""
+*it.Translation Manufacturer/Lexmark: ""
+*it.Translation ModelName/Lexmark CX410 Series: ""
+*it.Translation ShortNickName/Lexmark CX410 Series: ""
+*it.Translation NickName/Lexmark CX410 Series: ""
+*it.Translation PageSize/Dimensioni supporto: ""
+*it.PageSize Letter/Letter: ""
+*it.PageSize Legal/Legal: ""
+*it.PageSize 8.5x13.4028/Oficio (Messico): ""
+*it.PageSize B5/JIS B5: ""
+*it.PageSize A4/A4: ""
+*it.PageSize Executive/Executive: ""
+*it.PageSize A5/A5: ""
+*it.PageSize A6/A6: ""
+*it.PageSize FanFoldGermanLegal/Folio: ""
+*it.PageSize Statement/Statement: ""
+*it.PageSize EnvMonarch/Busta 7 3/4: ""
+*it.PageSize Env9/Busta 9: ""
+*it.PageSize Env10/Busta 10: ""
+*it.PageSize EnvDL/Busta DL: ""
+*it.PageSize EnvC5/Busta C5: ""
+*it.PageSize ISOB5/Busta B5: ""
+*it.PageSize 8.5x13.8333/Altre buste: ""
+*it.Translation InputSlot/Origine supporto: ""
+*it.InputSlot Tray1/Vassoio 1: ""
+*it.InputSlot Tray2/Vassoio 2: ""
+*it.InputSlot Tray3/Vassoio 3: ""
+*it.InputSlot MultipurposeFeeder/Alimentatore multiuso: ""
+*it.InputSlot ManualPaper/Carta manuale: ""
+*it.InputSlot ManualEnv/Busta Manuale: ""
+*it.Translation InstallableOptions/Opzioni installabili: ""
+*it.Translation OptDuplex/Fronte/Retro: ""
+*it.OptDuplex InstalledM/Installato: ""
+*it.OptDuplex NotInstalledM/Non Installato: ""
+*it.Translation Trays/Vassoi: ""
+*it.Trays Tray1/Vassoio 1: ""
+*it.Trays Tray12/Vassoio 1+2: ""
+*it.Trays Tray123/Vassoio 1+2+3: ""
+*it.Translation Quality/Qualità: ""
+*it.Translation Resolution/Risoluzione: ""
+*it.Resolution 2400x1200dpi/Qualità colore 4800: ""
+*it.Resolution 1200dpi/1200 dpi: ""
+*it.Translation TonerDarkness/Intensità del toner: ""
+*it.TonerDarkness PrinterS/Impostazione stampante: ""
+*it.TonerDarkness 1/1: ""
+*it.TonerDarkness 2/2: ""
+*it.TonerDarkness 3/3: ""
+*it.TonerDarkness 4/4: ""
+*it.TonerDarkness 5/5: ""
+*it.Translation LexBrightness/Luminosità: ""
+*it.LexBrightness PrinterS/Impostazione stampante: ""
+*it.LexBrightness -6/ -6: ""
+*it.LexBrightness -5/ -5: ""
+*it.LexBrightness -4/ -4: ""
+*it.LexBrightness -3/ -3: ""
+*it.LexBrightness -2/ -2: ""
+*it.LexBrightness -1/ -1: ""
+*it.LexBrightness 0/  0: ""
+*it.LexBrightness +1/ +1: ""
+*it.LexBrightness +2/ +2: ""
+*it.LexBrightness +3/ +3: ""
+*it.LexBrightness +4/ +4: ""
+*it.LexBrightness +5/ +5: ""
+*it.LexBrightness +6/ +6: ""
+*it.Translation LexContrast/Contrasto: ""
+*it.LexContrast PrinterS/Impostazione stampante: ""
+*it.LexContrast 0/0: ""
+*it.LexContrast 1/1: ""
+*it.LexContrast 2/2: ""
+*it.LexContrast 3/3: ""
+*it.LexContrast 4/4: ""
+*it.LexContrast 5/5: ""
+*it.Translation LexSaturation/Saturazione: ""
+*it.LexSaturation PrinterS/Impostazione stampante: ""
+*it.LexSaturation 0/0: ""
+*it.LexSaturation 1/1: ""
+*it.LexSaturation 2/2: ""
+*it.LexSaturation 3/3: ""
+*it.LexSaturation 4/4: ""
+*it.LexSaturation 5/5: ""
+*it.Translation LexLineDetail/Migliora linee sottili: ""
+*it.LexLineDetail PrinterS/Impostazione stampante: ""
+*it.LexLineDetail FalseF/Disabilitato: ""
+*it.LexLineDetail TrueF/Abilitato: ""
+*it.Translation LexMirror/Speculare: ""
+*it.LexMirror False/Disabilitato: ""
+*it.LexMirror True/Abilitato: ""
+*it.Translation Color/Colore: ""
+*it.Translation MediaColor/Correzione Colore: ""
+*it.MediaColor PrinterS/Impostazione stampante: ""
+*it.MediaColor Auto/Automatico: ""
+*it.MediaColor FalseM/Disabilitato: ""
+*it.MediaColor Manual/Manuale: ""
+*it.Translation ColorSaver/ColorSaver: ""
+*it.ColorSaver PrinterS/Impostazione stampante: ""
+*it.ColorSaver FalseM/Disabilitato: ""
+*it.ColorSaver TrueM/Abilitato: ""
+*it.Translation BLW/Bianco e nero: ""
+*it.BLW PrinterS/Impostazione stampante: ""
+*it.BLW FalseM/Disabilitato: ""
+*it.BLW TrueM/Abilitato: ""
+*it.Translation ColorBalance/Bilanciamento colore: ""
+*it.Translation CyanBalance/Bilanciamento Ciano: ""
+*it.CyanBalance PrinterS/Impostazione stampante: ""
+*it.CyanBalance -5/ -5: ""
+*it.CyanBalance -4/ -4: ""
+*it.CyanBalance -3/ -3: ""
+*it.CyanBalance -2/ -2: ""
+*it.CyanBalance -1/ -1: ""
+*it.CyanBalance 0/  0: ""
+*it.CyanBalance +1/ +1: ""
+*it.CyanBalance +2/ +2: ""
+*it.CyanBalance +3/ +3: ""
+*it.CyanBalance +4/ +4: ""
+*it.CyanBalance +5/ +5: ""
+*it.Translation MagentaBalance/Bilanciamento Magenta: ""
+*it.MagentaBalance PrinterS/Impostazione stampante: ""
+*it.MagentaBalance -5/ -5: ""
+*it.MagentaBalance -4/ -4: ""
+*it.MagentaBalance -3/ -3: ""
+*it.MagentaBalance -2/ -2: ""
+*it.MagentaBalance -1/ -1: ""
+*it.MagentaBalance 0/  0: ""
+*it.MagentaBalance +1/ +1: ""
+*it.MagentaBalance +2/ +2: ""
+*it.MagentaBalance +3/ +3: ""
+*it.MagentaBalance +4/ +4: ""
+*it.MagentaBalance +5/ +5: ""
+*it.Translation YellowBalance/Bilanciamento Giallo: ""
+*it.YellowBalance PrinterS/Impostazione stampante: ""
+*it.YellowBalance -5/ -5: ""
+*it.YellowBalance -4/ -4: ""
+*it.YellowBalance -3/ -3: ""
+*it.YellowBalance -2/ -2: ""
+*it.YellowBalance -1/ -1: ""
+*it.YellowBalance 0/  0: ""
+*it.YellowBalance +1/ +1: ""
+*it.YellowBalance +2/ +2: ""
+*it.YellowBalance +3/ +3: ""
+*it.YellowBalance +4/ +4: ""
+*it.YellowBalance +5/ +5: ""
+*it.Translation BlackBalance/Bilanciamento Nero: ""
+*it.BlackBalance PrinterS/Impostazione stampante: ""
+*it.BlackBalance -5/ -5: ""
+*it.BlackBalance -4/ -4: ""
+*it.BlackBalance -3/ -3: ""
+*it.BlackBalance -2/ -2: ""
+*it.BlackBalance -1/ -1: ""
+*it.BlackBalance 0/  0: ""
+*it.BlackBalance +1/ +1: ""
+*it.BlackBalance +2/ +2: ""
+*it.BlackBalance +3/ +3: ""
+*it.BlackBalance +4/ +4: ""
+*it.BlackBalance +5/ +5: ""
+*it.Translation ManualColor/Colore manuale: ""
+*it.Translation ManualRGBImage/Immagine RGB manuale: ""
+*it.ManualRGBImage PrinterS/Impostazione stampante: ""
+*it.ManualRGBImage Vivid/Vivace: ""
+*it.ManualRGBImage sRGBDisplay/Schermo sRGB: ""
+*it.ManualRGBImage sRGBVivid/Vivace sRGB: ""
+*it.ManualRGBImage DisplayRealBlack/Schermo - Nero effettivo: ""
+*it.ManualRGBImage Off/Disabilitato: ""
+*it.Translation ManualRGBText/Testo RGB manuale: ""
+*it.ManualRGBText PrinterS/Impostazione stampante: ""
+*it.ManualRGBText Vivid/Vivace: ""
+*it.ManualRGBText sRGBDisplay/Schermo sRGB: ""
+*it.ManualRGBText sRGBVivid/Vivace sRGB: ""
+*it.ManualRGBText DisplayRealBlack/Schermo - Nero effettivo: ""
+*it.ManualRGBText Off/Disabilitato: ""
+*it.Translation ManualRGBGraphics/Grafica RGB manuale: ""
+*it.ManualRGBGraphics PrinterS/Impostazione stampante: ""
+*it.ManualRGBGraphics Vivid/Vivace: ""
+*it.ManualRGBGraphics sRGBDisplay/Schermo sRGB: ""
+*it.ManualRGBGraphics sRGBVivid/Vivace sRGB: ""
+*it.ManualRGBGraphics DisplayRealBlack/Schermo - Nero effettivo: ""
+*it.ManualRGBGraphics Off/Disabilitato: ""
+*it.Translation ManualCMYK/CMYK manuale: ""
+*it.ManualCMYK PrinterS/Impostazione stampante: ""
+*it.ManualCMYK USCMYK/CMYK US: ""
+*it.ManualCMYK EuroCMYK/CMYK Euro: ""
+*it.ManualCMYK VividCMYK/CMYK vivace: ""
+*it.ManualCMYK Off/Disabilitato: ""
+*it.Translation Paper/Carta: ""
+*it.Translation MediaType/Tipo di carta: ""
+*it.MediaType PrinterS/Impostazione stampante: ""
+*it.MediaType Plain/Carta normale: ""
+*it.MediaType Transparency/Lucidi: ""
+*it.MediaType Labels/Etichetta (Carta): ""
+*it.MediaType Bond/Carta di qualità: ""
+*it.MediaType Card/Cartoncino/Carta extra pesante: ""
+*it.MediaType Letterhead/Carta intestata: ""
+*it.MediaType Preprint/Prestampati: ""
+*it.MediaType Colored/Carta colorata: ""
+*it.MediaType Glossy/Lucida: ""
+*it.MediaType Envelope/Busta: ""
+*it.MediaType Light/Carta leggera: ""
+*it.MediaType Heavy/Carta pesante: ""
+*it.MediaType Rough/Ruvida/cotone: ""
+*it.MediaType Recycled/Carta riciclata: ""
+*it.MediaType Custom1/Carta person. tipo 1: ""
+*it.MediaType Custom2/Carta person. tipo 2: ""
+*it.MediaType Custom3/Carta person. tipo 3: ""
+*it.MediaType Custom4/Carta person. tipo 4: ""
+*it.MediaType Custom5/Carta person. tipo 5: ""
+*it.MediaType Custom6/Carta person. tipo 6: ""
+*it.Translation LexBlankPage/Stampa pagine vuote: ""
+*it.LexBlankPage PrinterS/Impostazione stampante: ""
+*it.LexBlankPage False/Disabilitato: ""
+*it.LexBlankPage True/Abilitato: ""
+*it.Translation Finishing/Fascicolazione: ""
+*it.Translation Duplex/Fronte/Retro: ""
+*it.Duplex None/Disabilitato: ""
+*it.Duplex DuplexNoTumble/Lato lungo: ""
+*it.Duplex DuplexTumble/Lato corto: ""
+*it.Translation Collate/Fascicolazione: ""
+*it.Collate False/Disabilitato: ""
+*it.Collate True/Abilitato: ""
+*it.Translation SepPages/Fogli separatori: ""
+*it.SepPages PrinterS/Impostazione stampante: ""
+*it.SepPages NoneF/Disabilitato: ""
+*it.SepPages Jobs/Tra processi: ""
+*it.SepPages Copies/Tra copie: ""
+*it.SepPages Pages/Tra pagine: ""
+*it.Translation SepSource/Origine separatore: ""
+*it.SepSource PrinterS/Impostazione stampante: ""
+*it.SepSource Tray1/Vassoio 1: ""
+*it.SepSource Tray2/Vassoio 2: ""
+*it.SepSource Tray3/Vassoio 3: ""
+*it.SepSource MultipurposeFeeder/Alimentatore multiuso: ""
+*es.Translation Manufacturer/Lexmark: ""
+*es.Translation ModelName/Lexmark CX410 Series: ""
+*es.Translation ShortNickName/Lexmark CX410 Series: ""
+*es.Translation NickName/Lexmark CX410 Series: ""
+*es.Translation PageSize/Tamaño del material: ""
+*es.PageSize Letter/Carta: ""
+*es.PageSize Legal/Oficio: ""
+*es.PageSize 8.5x13.4028/Oficio (México): ""
+*es.PageSize B5/JIS B5: ""
+*es.PageSize A4/A4: ""
+*es.PageSize Executive/Ejecutivo: ""
+*es.PageSize A5/A5: ""
+*es.PageSize A6/A6: ""
+*es.PageSize FanFoldGermanLegal/Folio: ""
+*es.PageSize Statement/Media carta: ""
+*es.PageSize EnvMonarch/Sobre 7 3/4: ""
+*es.PageSize Env9/Sobre 9: ""
+*es.PageSize Env10/Sobre 10: ""
+*es.PageSize EnvDL/Sobre DL: ""
+*es.PageSize EnvC5/Sobre C5: ""
+*es.PageSize ISOB5/Sobre B5: ""
+*es.PageSize 8.5x13.8333/Otro Sobre: ""
+*es.Translation InputSlot/Origen del material: ""
+*es.InputSlot Tray1/Bandeja 1: ""
+*es.InputSlot Tray2/Bandeja 2: ""
+*es.InputSlot Tray3/Bandeja 3: ""
+*es.InputSlot MultipurposeFeeder/Alimentador Multiuso: ""
+*es.InputSlot ManualPaper/Papel manual: ""
+*es.InputSlot ManualEnv/Sobre manual: ""
+*es.Translation InstallableOptions/Opciones instalables: ""
+*es.Translation OptDuplex/Encuadernado Doble: ""
+*es.OptDuplex InstalledM/Instalada: ""
+*es.OptDuplex NotInstalledM/No Instalado: ""
+*es.Translation Trays/Bandejas: ""
+*es.Trays Tray1/Bandeja 1: ""
+*es.Trays Tray12/Bandejas 1+2: ""
+*es.Trays Tray123/Bandejas 1+2+3: ""
+*es.Translation Quality/Calidad: ""
+*es.Translation Resolution/Resolución: ""
+*es.Resolution 2400x1200dpi/Calidad de color 4800: ""
+*es.Resolution 1200dpi/1200 ppp: ""
+*es.Translation TonerDarkness/Intensidad del tóner: ""
+*es.TonerDarkness PrinterS/Valor de la impresora: ""
+*es.TonerDarkness 1/1: ""
+*es.TonerDarkness 2/2: ""
+*es.TonerDarkness 3/3: ""
+*es.TonerDarkness 4/4: ""
+*es.TonerDarkness 5/5: ""
+*es.Translation LexBrightness/Brillo: ""
+*es.LexBrightness PrinterS/Valor de la impresora: ""
+*es.LexBrightness -6/ -6: ""
+*es.LexBrightness -5/ -5: ""
+*es.LexBrightness -4/ -4: ""
+*es.LexBrightness -3/ -3: ""
+*es.LexBrightness -2/ -2: ""
+*es.LexBrightness -1/ -1: ""
+*es.LexBrightness 0/  0: ""
+*es.LexBrightness +1/ +1: ""
+*es.LexBrightness +2/ +2: ""
+*es.LexBrightness +3/ +3: ""
+*es.LexBrightness +4/ +4: ""
+*es.LexBrightness +5/ +5: ""
+*es.LexBrightness +6/ +6: ""
+*es.Translation LexContrast/Contraste: ""
+*es.LexContrast PrinterS/Valor de la impresora: ""
+*es.LexContrast 0/0: ""
+*es.LexContrast 1/1: ""
+*es.LexContrast 2/2: ""
+*es.LexContrast 3/3: ""
+*es.LexContrast 4/4: ""
+*es.LexContrast 5/5: ""
+*es.Translation LexSaturation/Saturación: ""
+*es.LexSaturation PrinterS/Valor de la impresora: ""
+*es.LexSaturation 0/0: ""
+*es.LexSaturation 1/1: ""
+*es.LexSaturation 2/2: ""
+*es.LexSaturation 3/3: ""
+*es.LexSaturation 4/4: ""
+*es.LexSaturation 5/5: ""
+*es.Translation LexLineDetail/Mejorar líneas finas: ""
+*es.LexLineDetail PrinterS/Valor de la impresora: ""
+*es.LexLineDetail FalseF/Desactivado: ""
+*es.LexLineDetail TrueF/Activado: ""
+*es.Translation LexMirror/Espejo: ""
+*es.LexMirror False/Desactivado: ""
+*es.LexMirror True/Activado: ""
+*es.Translation Color/Color: ""
+*es.Translation MediaColor/Corrección de color: ""
+*es.MediaColor PrinterS/Valor de la impresora: ""
+*es.MediaColor Auto/Automático: ""
+*es.MediaColor FalseM/Desactivado: ""
+*es.MediaColor Manual/Manual: ""
+*es.Translation ColorSaver/ColorSaver: ""
+*es.ColorSaver PrinterS/Valor de la impresora: ""
+*es.ColorSaver FalseM/Desactivado: ""
+*es.ColorSaver TrueM/Activado: ""
+*es.Translation BLW/Blanco y negro: ""
+*es.BLW PrinterS/Valor de la impresora: ""
+*es.BLW FalseM/Desactivado: ""
+*es.BLW TrueM/Activado: ""
+*es.Translation ColorBalance/Mezcla de color: ""
+*es.Translation CyanBalance/Mezcla de cian: ""
+*es.CyanBalance PrinterS/Valor de la impresora: ""
+*es.CyanBalance -5/ -5: ""
+*es.CyanBalance -4/ -4: ""
+*es.CyanBalance -3/ -3: ""
+*es.CyanBalance -2/ -2: ""
+*es.CyanBalance -1/ -1: ""
+*es.CyanBalance 0/  0: ""
+*es.CyanBalance +1/ +1: ""
+*es.CyanBalance +2/ +2: ""
+*es.CyanBalance +3/ +3: ""
+*es.CyanBalance +4/ +4: ""
+*es.CyanBalance +5/ +5: ""
+*es.Translation MagentaBalance/Mezcla de magenta: ""
+*es.MagentaBalance PrinterS/Valor de la impresora: ""
+*es.MagentaBalance -5/ -5: ""
+*es.MagentaBalance -4/ -4: ""
+*es.MagentaBalance -3/ -3: ""
+*es.MagentaBalance -2/ -2: ""
+*es.MagentaBalance -1/ -1: ""
+*es.MagentaBalance 0/  0: ""
+*es.MagentaBalance +1/ +1: ""
+*es.MagentaBalance +2/ +2: ""
+*es.MagentaBalance +3/ +3: ""
+*es.MagentaBalance +4/ +4: ""
+*es.MagentaBalance +5/ +5: ""
+*es.Translation YellowBalance/Mezcla de amarillo: ""
+*es.YellowBalance PrinterS/Valor de la impresora: ""
+*es.YellowBalance -5/ -5: ""
+*es.YellowBalance -4/ -4: ""
+*es.YellowBalance -3/ -3: ""
+*es.YellowBalance -2/ -2: ""
+*es.YellowBalance -1/ -1: ""
+*es.YellowBalance 0/  0: ""
+*es.YellowBalance +1/ +1: ""
+*es.YellowBalance +2/ +2: ""
+*es.YellowBalance +3/ +3: ""
+*es.YellowBalance +4/ +4: ""
+*es.YellowBalance +5/ +5: ""
+*es.Translation BlackBalance/Mezcla de negro: ""
+*es.BlackBalance PrinterS/Valor de la impresora: ""
+*es.BlackBalance -5/ -5: ""
+*es.BlackBalance -4/ -4: ""
+*es.BlackBalance -3/ -3: ""
+*es.BlackBalance -2/ -2: ""
+*es.BlackBalance -1/ -1: ""
+*es.BlackBalance 0/  0: ""
+*es.BlackBalance +1/ +1: ""
+*es.BlackBalance +2/ +2: ""
+*es.BlackBalance +3/ +3: ""
+*es.BlackBalance +4/ +4: ""
+*es.BlackBalance +5/ +5: ""
+*es.Translation ManualColor/Color manual: ""
+*es.Translation ManualRGBImage/Imagen RGB manual: ""
+*es.ManualRGBImage PrinterS/Valor de la impresora: ""
+*es.ManualRGBImage Vivid/Intenso: ""
+*es.ManualRGBImage sRGBDisplay/Pantalla sRGB: ""
+*es.ManualRGBImage sRGBVivid/Intenso sRGB: ""
+*es.ManualRGBImage DisplayRealBlack/Pantalla - Negro real: ""
+*es.ManualRGBImage Off/Desactivado: ""
+*es.Translation ManualRGBText/Texto RGB manual: ""
+*es.ManualRGBText PrinterS/Valor de la impresora: ""
+*es.ManualRGBText Vivid/Intenso: ""
+*es.ManualRGBText sRGBDisplay/Pantalla sRGB: ""
+*es.ManualRGBText sRGBVivid/Intenso sRGB: ""
+*es.ManualRGBText DisplayRealBlack/Pantalla - Negro real: ""
+*es.ManualRGBText Off/Desactivado: ""
+*es.Translation ManualRGBGraphics/Gráficos RGB manual: ""
+*es.ManualRGBGraphics PrinterS/Valor de la impresora: ""
+*es.ManualRGBGraphics Vivid/Intenso: ""
+*es.ManualRGBGraphics sRGBDisplay/Pantalla sRGB: ""
+*es.ManualRGBGraphics sRGBVivid/Intenso sRGB: ""
+*es.ManualRGBGraphics DisplayRealBlack/Pantalla - Negro real: ""
+*es.ManualRGBGraphics Off/Desactivado: ""
+*es.Translation ManualCMYK/CMYK manual: ""
+*es.ManualCMYK PrinterS/Valor de la impresora: ""
+*es.ManualCMYK USCMYK/CMYK EE.UU.: ""
+*es.ManualCMYK EuroCMYK/CMYK Europa: ""
+*es.ManualCMYK VividCMYK/CMYK intenso: ""
+*es.ManualCMYK Off/Desactivado: ""
+*es.Translation Paper/Papel: ""
+*es.Translation MediaType/Tipo de papel: ""
+*es.MediaType PrinterS/Valor de la impresora: ""
+*es.MediaType Plain/Papel normal: ""
+*es.MediaType Transparency/Transparencia: ""
+*es.MediaType Labels/Etiqueta (papel): ""
+*es.MediaType Bond/Alta calidad: ""
+*es.MediaType Card/Cartulina/Papel extra pesado: ""
+*es.MediaType Letterhead/Cabecera: ""
+*es.MediaType Preprint/Preimpreso: ""
+*es.MediaType Colored/Papel color: ""
+*es.MediaType Glossy/Brillante: ""
+*es.MediaType Envelope/Sobre: ""
+*es.MediaType Light/Papel ligero: ""
+*es.MediaType Heavy/Papel pesado: ""
+*es.MediaType Rough/Rugoso/algodón: ""
+*es.MediaType Recycled/Reciclado: ""
+*es.MediaType Custom1/Tipo personalizado 1: ""
+*es.MediaType Custom2/Tipo personalizado 2: ""
+*es.MediaType Custom3/Tipo personalizado 3: ""
+*es.MediaType Custom4/Tipo personalizado 4: ""
+*es.MediaType Custom5/Tipo personalizado 5: ""
+*es.MediaType Custom6/Tipo personalizado 6: ""
+*es.Translation LexBlankPage/Imprimir páginas en blanco: ""
+*es.LexBlankPage PrinterS/Valor de la impresora: ""
+*es.LexBlankPage False/Desactivado: ""
+*es.LexBlankPage True/Activado: ""
+*es.Translation Finishing/Acabado: ""
+*es.Translation Duplex/Encuadernado Doble: ""
+*es.Duplex None/Desactivado: ""
+*es.Duplex DuplexNoTumble/Borde Largo: ""
+*es.Duplex DuplexTumble/Borde Corto: ""
+*es.Translation Collate/Clasificación: ""
+*es.Collate False/Desactivado: ""
+*es.Collate True/Activado: ""
+*es.Translation SepPages/Hojas de separación: ""
+*es.SepPages PrinterS/Valor de la impresora: ""
+*es.SepPages NoneF/Desactivado: ""
+*es.SepPages Jobs/Entre trabajos: ""
+*es.SepPages Copies/Entre copias: ""
+*es.SepPages Pages/Entre páginas: ""
+*es.Translation SepSource/Fuente de separadores: ""
+*es.SepSource PrinterS/Valor de la impresora: ""
+*es.SepSource Tray1/Bandeja 1: ""
+*es.SepSource Tray2/Bandeja 2: ""
+*es.SepSource Tray3/Bandeja 3: ""
+*es.SepSource MultipurposeFeeder/Alimentador Multiuso: ""
+*ko.Translation Manufacturer/Lexmark: ""
+*ko.Translation ModelName/Lexmark CX410 Series: ""
+*ko.Translation ShortNickName/Lexmark CX410 Series: ""
+*ko.Translation NickName/Lexmark CX410 Series: ""
+*ko.Translation PageSize/용지 크기: ""
+*ko.PageSize Letter/레터: ""
+*ko.PageSize Legal/리갈: ""
+*ko.PageSize 8.5x13.4028/Oficio (멕시코): ""
+*ko.PageSize B5/JIS B5: ""
+*ko.PageSize A4/A4: ""
+*ko.PageSize Executive/Executive: ""
+*ko.PageSize A5/A5: ""
+*ko.PageSize A6/A6: ""
+*ko.PageSize FanFoldGermanLegal/폴리오: ""
+*ko.PageSize Statement/공지: ""
+*ko.PageSize EnvMonarch/7 3/4 봉투: ""
+*ko.PageSize Env9/9 봉투: ""
+*ko.PageSize Env10/10 봉투: ""
+*ko.PageSize EnvDL/DL 봉투: ""
+*ko.PageSize EnvC5/C5 봉투: ""
+*ko.PageSize ISOB5/B5 봉투: ""
+*ko.PageSize 8.5x13.8333/기타 봉투: ""
+*ko.Translation InputSlot/용지 급지대: ""
+*ko.InputSlot Tray1/트레이 1: ""
+*ko.InputSlot Tray2/트레이 2: ""
+*ko.InputSlot Tray3/트레이 3: ""
+*ko.InputSlot MultipurposeFeeder/다용도 급지기: ""
+*ko.InputSlot ManualPaper/수동 용지: ""
+*ko.InputSlot ManualEnv/수동 봉투: ""
+*ko.Translation InstallableOptions/설치 가능한 옵션: ""
+*ko.Translation OptDuplex/양면: ""
+*ko.OptDuplex InstalledM/설치됨: ""
+*ko.OptDuplex NotInstalledM/설치 안됨: ""
+*ko.Translation Trays/트레이: ""
+*ko.Trays Tray1/트레이 1: ""
+*ko.Trays Tray12/트레이 1+2: ""
+*ko.Trays Tray123/트레이 1+2+3: ""
+*ko.Translation Quality/품질: ""
+*ko.Translation Resolution/인쇄 해상도: ""
+*ko.Resolution 2400x1200dpi/4800 색상 품질: ""
+*ko.Resolution 1200dpi/1200 dpi: ""
+*ko.Translation TonerDarkness/토너 어둡기: ""
+*ko.TonerDarkness PrinterS/프린터 설정 : ""
+*ko.TonerDarkness 1/1: ""
+*ko.TonerDarkness 2/2: ""
+*ko.TonerDarkness 3/3: ""
+*ko.TonerDarkness 4/4: ""
+*ko.TonerDarkness 5/5: ""
+*ko.Translation LexBrightness/밝기: ""
+*ko.LexBrightness PrinterS/프린터 설정 : ""
+*ko.LexBrightness -6/ -6: ""
+*ko.LexBrightness -5/ -5: ""
+*ko.LexBrightness -4/ -4: ""
+*ko.LexBrightness -3/ -3: ""
+*ko.LexBrightness -2/ -2: ""
+*ko.LexBrightness -1/ -1: ""
+*ko.LexBrightness 0/  0: ""
+*ko.LexBrightness +1/ +1: ""
+*ko.LexBrightness +2/ +2: ""
+*ko.LexBrightness +3/ +3: ""
+*ko.LexBrightness +4/ +4: ""
+*ko.LexBrightness +5/ +5: ""
+*ko.LexBrightness +6/ +6: ""
+*ko.Translation LexContrast/대비: ""
+*ko.LexContrast PrinterS/프린터 설정 : ""
+*ko.LexContrast 0/0: ""
+*ko.LexContrast 1/1: ""
+*ko.LexContrast 2/2: ""
+*ko.LexContrast 3/3: ""
+*ko.LexContrast 4/4: ""
+*ko.LexContrast 5/5: ""
+*ko.Translation LexSaturation/채도: ""
+*ko.LexSaturation PrinterS/프린터 설정 : ""
+*ko.LexSaturation 0/0: ""
+*ko.LexSaturation 1/1: ""
+*ko.LexSaturation 2/2: ""
+*ko.LexSaturation 3/3: ""
+*ko.LexSaturation 4/4: ""
+*ko.LexSaturation 5/5: ""
+*ko.Translation LexLineDetail/미세 라인 강화: ""
+*ko.LexLineDetail PrinterS/프린터 설정 : ""
+*ko.LexLineDetail FalseF/꺼짐: ""
+*ko.LexLineDetail TrueF/켜짐: ""
+*ko.Translation LexMirror/﻿미러: ""
+*ko.LexMirror False/꺼짐: ""
+*ko.LexMirror True/켜짐: ""
+*ko.Translation Color/칼라: ""
+*ko.Translation MediaColor/색상 교정: ""
+*ko.MediaColor PrinterS/프린터 설정 : ""
+*ko.MediaColor Auto/자동: ""
+*ko.MediaColor FalseM/꺼짐: ""
+*ko.MediaColor Manual/수동: ""
+*ko.Translation ColorSaver/ColorSaver: ""
+*ko.ColorSaver PrinterS/프린터 설정 : ""
+*ko.ColorSaver FalseM/꺼짐: ""
+*ko.ColorSaver TrueM/켜짐: ""
+*ko.Translation BLW/흑백: ""
+*ko.BLW PrinterS/프린터 설정 : ""
+*ko.BLW FalseM/꺼짐: ""
+*ko.BLW TrueM/켜짐: ""
+*ko.Translation ColorBalance/색상 발란스: ""
+*ko.Translation CyanBalance/청색 발란스: ""
+*ko.CyanBalance PrinterS/프린터 설정 : ""
+*ko.CyanBalance -5/ -5: ""
+*ko.CyanBalance -4/ -4: ""
+*ko.CyanBalance -3/ -3: ""
+*ko.CyanBalance -2/ -2: ""
+*ko.CyanBalance -1/ -1: ""
+*ko.CyanBalance 0/  0: ""
+*ko.CyanBalance +1/ +1: ""
+*ko.CyanBalance +2/ +2: ""
+*ko.CyanBalance +3/ +3: ""
+*ko.CyanBalance +4/ +4: ""
+*ko.CyanBalance +5/ +5: ""
+*ko.Translation MagentaBalance/적색 발란스: ""
+*ko.MagentaBalance PrinterS/프린터 설정 : ""
+*ko.MagentaBalance -5/ -5: ""
+*ko.MagentaBalance -4/ -4: ""
+*ko.MagentaBalance -3/ -3: ""
+*ko.MagentaBalance -2/ -2: ""
+*ko.MagentaBalance -1/ -1: ""
+*ko.MagentaBalance 0/  0: ""
+*ko.MagentaBalance +1/ +1: ""
+*ko.MagentaBalance +2/ +2: ""
+*ko.MagentaBalance +3/ +3: ""
+*ko.MagentaBalance +4/ +4: ""
+*ko.MagentaBalance +5/ +5: ""
+*ko.Translation YellowBalance/황색 발란스: ""
+*ko.YellowBalance PrinterS/프린터 설정 : ""
+*ko.YellowBalance -5/ -5: ""
+*ko.YellowBalance -4/ -4: ""
+*ko.YellowBalance -3/ -3: ""
+*ko.YellowBalance -2/ -2: ""
+*ko.YellowBalance -1/ -1: ""
+*ko.YellowBalance 0/  0: ""
+*ko.YellowBalance +1/ +1: ""
+*ko.YellowBalance +2/ +2: ""
+*ko.YellowBalance +3/ +3: ""
+*ko.YellowBalance +4/ +4: ""
+*ko.YellowBalance +5/ +5: ""
+*ko.Translation BlackBalance/흑색 발란스: ""
+*ko.BlackBalance PrinterS/프린터 설정 : ""
+*ko.BlackBalance -5/ -5: ""
+*ko.BlackBalance -4/ -4: ""
+*ko.BlackBalance -3/ -3: ""
+*ko.BlackBalance -2/ -2: ""
+*ko.BlackBalance -1/ -1: ""
+*ko.BlackBalance 0/  0: ""
+*ko.BlackBalance +1/ +1: ""
+*ko.BlackBalance +2/ +2: ""
+*ko.BlackBalance +3/ +3: ""
+*ko.BlackBalance +4/ +4: ""
+*ko.BlackBalance +5/ +5: ""
+*ko.Translation ManualColor/수동 색상: ""
+*ko.Translation ManualRGBImage/수동 RGB 이미지: ""
+*ko.ManualRGBImage PrinterS/프린터 설정 : ""
+*ko.ManualRGBImage Vivid/고선명: ""
+*ko.ManualRGBImage sRGBDisplay/sRGB 화면: ""
+*ko.ManualRGBImage sRGBVivid/sRGB Vivid: ""
+*ko.ManualRGBImage DisplayRealBlack/디스플레이 - 순수한 검은색: ""
+*ko.ManualRGBImage Off/꺼짐: ""
+*ko.Translation ManualRGBText/수동 RGB 문자: ""
+*ko.ManualRGBText PrinterS/프린터 설정 : ""
+*ko.ManualRGBText Vivid/고선명: ""
+*ko.ManualRGBText sRGBDisplay/sRGB 화면: ""
+*ko.ManualRGBText sRGBVivid/sRGB Vivid: ""
+*ko.ManualRGBText DisplayRealBlack/디스플레이 - 순수한 검은색: ""
+*ko.ManualRGBText Off/꺼짐: ""
+*ko.Translation ManualRGBGraphics/수동 RGB 그래픽: ""
+*ko.ManualRGBGraphics PrinterS/프린터 설정 : ""
+*ko.ManualRGBGraphics Vivid/고선명: ""
+*ko.ManualRGBGraphics sRGBDisplay/sRGB 화면: ""
+*ko.ManualRGBGraphics sRGBVivid/sRGB Vivid: ""
+*ko.ManualRGBGraphics DisplayRealBlack/디스플레이 - 순수한 검은색: ""
+*ko.ManualRGBGraphics Off/꺼짐: ""
+*ko.Translation ManualCMYK/수동 CMYK: ""
+*ko.ManualCMYK PrinterS/프린터 설정 : ""
+*ko.ManualCMYK USCMYK/US CMYK: ""
+*ko.ManualCMYK EuroCMYK/Euro CMYK: ""
+*ko.ManualCMYK VividCMYK/고선명 CMYK: ""
+*ko.ManualCMYK Off/꺼짐: ""
+*ko.Translation Paper/용지: ""
+*ko.Translation MediaType/﻿용지 유형: ""
+*ko.MediaType PrinterS/프린터 설정 : ""
+*ko.MediaType Plain/일반 용지: ""
+*ko.MediaType Transparency/﻿투명 용지: ""
+*ko.MediaType Labels/라벨(용지): ""
+*ko.MediaType Bond/본드: ""
+*ko.MediaType Card/카드 스톡/초중량 용지: ""
+*ko.MediaType Letterhead/레터헤드: ""
+*ko.MediaType Preprint/양면지: ""
+*ko.MediaType Colored/﻿컬러 용지: ""
+*ko.MediaType Glossy/광택지: ""
+*ko.MediaType Envelope/봉투: ""
+*ko.MediaType Light/가벼운 용지: ""
+*ko.MediaType Heavy/무거운 용지: ""
+*ko.MediaType Rough/거친 용지/면지: ""
+*ko.MediaType Recycled/재활용: ""
+*ko.MediaType Custom1/사용자 양식 1: ""
+*ko.MediaType Custom2/사용자 양식 2: ""
+*ko.MediaType Custom3/사용자 양식 3: ""
+*ko.MediaType Custom4/사용자 양식 4: ""
+*ko.MediaType Custom5/사용자 양식 5: ""
+*ko.MediaType Custom6/사용자 양식 6: ""
+*ko.Translation LexBlankPage/빈 페이지 인쇄: ""
+*ko.LexBlankPage PrinterS/프린터 설정 : ""
+*ko.LexBlankPage False/꺼짐: ""
+*ko.LexBlankPage True/켜짐: ""
+*ko.Translation Finishing/마무리: ""
+*ko.Translation Duplex/양면: ""
+*ko.Duplex None/없음: ""
+*ko.Duplex DuplexNoTumble/양면-긴 가장자리: ""
+*ko.Duplex DuplexTumble/양면-짧은 가장자리: ""
+*ko.Translation Collate/콜레이트: ""
+*ko.Collate False/꺼짐: ""
+*ko.Collate True/켜짐: ""
+*ko.Translation SepPages/페이지 분리기: ""
+*ko.SepPages PrinterS/프린터 설정 : ""
+*ko.SepPages NoneF/없음: ""
+*ko.SepPages Jobs/작업 사이: ""
+*ko.SepPages Copies/인쇄 사이: ""
+*ko.SepPages Pages/페이지 사이: ""
+*ko.Translation SepSource/자원 분리기: ""
+*ko.SepSource PrinterS/프린터 설정 : ""
+*ko.SepSource Tray1/트레이 1: ""
+*ko.SepSource Tray2/트레이 2: ""
+*ko.SepSource Tray3/트레이 3: ""
+*ko.SepSource MultipurposeFeeder/다용도 급지기: ""
+*ja.Translation Manufacturer/Lexmark: ""
+*ja.Translation ModelName/Lexmark CX410 Series: ""
+*ja.Translation ShortNickName/Lexmark CX410 Series: ""
+*ja.Translation NickName/Lexmark CX410 Series: ""
+*ja.Translation PageSize/用紙のサイズ: ""
+*ja.PageSize Letter/レター: ""
+*ja.PageSize Legal/リーガル: ""
+*ja.PageSize 8.5x13.4028/Oficio（メキシコ）: ""
+*ja.PageSize B5/JIS B5: ""
+*ja.PageSize A4/A4: ""
+*ja.PageSize Executive/エグゼクティブ: ""
+*ja.PageSize A5/A5: ""
+*ja.PageSize A6/A6: ""
+*ja.PageSize FanFoldGermanLegal/フォリオ: ""
+*ja.PageSize Statement/ステートメント: ""
+*ja.PageSize EnvMonarch/封筒 7 3/4: ""
+*ja.PageSize Env9/封筒 9: ""
+*ja.PageSize Env10/封筒 10: ""
+*ja.PageSize EnvDL/封筒 DL: ""
+*ja.PageSize EnvC5/封筒 C5: ""
+*ja.PageSize ISOB5/封筒 B5: ""
+*ja.PageSize 8.5x13.8333/その他: ""
+*ja.Translation InputSlot/給紙源: ""
+*ja.InputSlot Tray1/カセット 1: ""
+*ja.InputSlot Tray2/カセット 2: ""
+*ja.InputSlot Tray3/カセット 3: ""
+*ja.InputSlot MultipurposeFeeder/多目的フィーダ: ""
+*ja.InputSlot ManualPaper/手差し用紙: ""
+*ja.InputSlot ManualEnv/手差し封筒: ""
+*ja.Translation InstallableOptions/インストール可能オプション: ""
+*ja.Translation OptDuplex/両面印刷: ""
+*ja.OptDuplex InstalledM/インストール済み: ""
+*ja.OptDuplex NotInstalledM/インストールされていません: ""
+*ja.Translation Trays/給紙カセット: ""
+*ja.Trays Tray1/カセット 1: ""
+*ja.Trays Tray12/カセット 1+2: ""
+*ja.Trays Tray123/カセット 1+2+3: ""
+*ja.Translation Quality/品質: ""
+*ja.Translation Resolution/印刷品質: ""
+*ja.Resolution 2400x1200dpi/4800 色彩品質: ""
+*ja.Resolution 1200dpi/1200 DPI: ""
+*ja.Translation TonerDarkness/トナーの濃さ: ""
+*ja.TonerDarkness PrinterS/プリンタ設定: ""
+*ja.TonerDarkness 1/1: ""
+*ja.TonerDarkness 2/2: ""
+*ja.TonerDarkness 3/3: ""
+*ja.TonerDarkness 4/4: ""
+*ja.TonerDarkness 5/5: ""
+*ja.Translation LexBrightness/明度: ""
+*ja.LexBrightness PrinterS/プリンタ設定: ""
+*ja.LexBrightness -6/ -6: ""
+*ja.LexBrightness -5/ -5: ""
+*ja.LexBrightness -4/ -4: ""
+*ja.LexBrightness -3/ -3: ""
+*ja.LexBrightness -2/ -2: ""
+*ja.LexBrightness -1/ -1: ""
+*ja.LexBrightness 0/  0: ""
+*ja.LexBrightness +1/ +1: ""
+*ja.LexBrightness +2/ +2: ""
+*ja.LexBrightness +3/ +3: ""
+*ja.LexBrightness +4/ +4: ""
+*ja.LexBrightness +5/ +5: ""
+*ja.LexBrightness +6/ +6: ""
+*ja.Translation LexContrast/コントラスト: ""
+*ja.LexContrast PrinterS/プリンタ設定: ""
+*ja.LexContrast 0/0: ""
+*ja.LexContrast 1/1: ""
+*ja.LexContrast 2/2: ""
+*ja.LexContrast 3/3: ""
+*ja.LexContrast 4/4: ""
+*ja.LexContrast 5/5: ""
+*ja.Translation LexSaturation/彩度: ""
+*ja.LexSaturation PrinterS/プリンタ設定: ""
+*ja.LexSaturation 0/0: ""
+*ja.LexSaturation 1/1: ""
+*ja.LexSaturation 2/2: ""
+*ja.LexSaturation 3/3: ""
+*ja.LexSaturation 4/4: ""
+*ja.LexSaturation 5/5: ""
+*ja.Translation LexLineDetail/細かい線を強調: ""
+*ja.LexLineDetail PrinterS/プリンタ設定: ""
+*ja.LexLineDetail FalseF/オフ: ""
+*ja.LexLineDetail TrueF/オン: ""
+*ja.Translation LexMirror/﻿左右反転: ""
+*ja.LexMirror False/オフ: ""
+*ja.LexMirror True/オン: ""
+*ja.Translation Color/カラー用紙: ""
+*ja.Translation MediaColor/色補正　: ""
+*ja.MediaColor PrinterS/プリンタ設定: ""
+*ja.MediaColor Auto/自動: ""
+*ja.MediaColor FalseM/オフ: ""
+*ja.MediaColor Manual/手差し: ""
+*ja.Translation ColorSaver/ColorSaver: ""
+*ja.ColorSaver PrinterS/プリンタ設定: ""
+*ja.ColorSaver FalseM/オフ: ""
+*ja.ColorSaver TrueM/オン: ""
+*ja.Translation BLW/白黒（モノクロ）: ""
+*ja.BLW PrinterS/プリンタ設定: ""
+*ja.BLW FalseM/オフ: ""
+*ja.BLW TrueM/オン: ""
+*ja.Translation ColorBalance/カラー・バランス: ""
+*ja.Translation CyanBalance/シアン バランス: ""
+*ja.CyanBalance PrinterS/プリンタ設定: ""
+*ja.CyanBalance -5/ -5: ""
+*ja.CyanBalance -4/ -4: ""
+*ja.CyanBalance -3/ -3: ""
+*ja.CyanBalance -2/ -2: ""
+*ja.CyanBalance -1/ -1: ""
+*ja.CyanBalance 0/  0: ""
+*ja.CyanBalance +1/ +1: ""
+*ja.CyanBalance +2/ +2: ""
+*ja.CyanBalance +3/ +3: ""
+*ja.CyanBalance +4/ +4: ""
+*ja.CyanBalance +5/ +5: ""
+*ja.Translation MagentaBalance/マゼンタ バランス: ""
+*ja.MagentaBalance PrinterS/プリンタ設定: ""
+*ja.MagentaBalance -5/ -5: ""
+*ja.MagentaBalance -4/ -4: ""
+*ja.MagentaBalance -3/ -3: ""
+*ja.MagentaBalance -2/ -2: ""
+*ja.MagentaBalance -1/ -1: ""
+*ja.MagentaBalance 0/  0: ""
+*ja.MagentaBalance +1/ +1: ""
+*ja.MagentaBalance +2/ +2: ""
+*ja.MagentaBalance +3/ +3: ""
+*ja.MagentaBalance +4/ +4: ""
+*ja.MagentaBalance +5/ +5: ""
+*ja.Translation YellowBalance/イエロー バランス: ""
+*ja.YellowBalance PrinterS/プリンタ設定: ""
+*ja.YellowBalance -5/ -5: ""
+*ja.YellowBalance -4/ -4: ""
+*ja.YellowBalance -3/ -3: ""
+*ja.YellowBalance -2/ -2: ""
+*ja.YellowBalance -1/ -1: ""
+*ja.YellowBalance 0/  0: ""
+*ja.YellowBalance +1/ +1: ""
+*ja.YellowBalance +2/ +2: ""
+*ja.YellowBalance +3/ +3: ""
+*ja.YellowBalance +4/ +4: ""
+*ja.YellowBalance +5/ +5: ""
+*ja.Translation BlackBalance/ブラック　バランス: ""
+*ja.BlackBalance PrinterS/プリンタ設定: ""
+*ja.BlackBalance -5/ -5: ""
+*ja.BlackBalance -4/ -4: ""
+*ja.BlackBalance -3/ -3: ""
+*ja.BlackBalance -2/ -2: ""
+*ja.BlackBalance -1/ -1: ""
+*ja.BlackBalance 0/  0: ""
+*ja.BlackBalance +1/ +1: ""
+*ja.BlackBalance +2/ +2: ""
+*ja.BlackBalance +3/ +3: ""
+*ja.BlackBalance +4/ +4: ""
+*ja.BlackBalance +5/ +5: ""
+*ja.Translation ManualColor/手動カラー: ""
+*ja.Translation ManualRGBImage/手動 RGB 画像: ""
+*ja.ManualRGBImage PrinterS/プリンタ設定: ""
+*ja.ManualRGBImage Vivid/鮮明: ""
+*ja.ManualRGBImage sRGBDisplay/sRGB 表示: ""
+*ja.ManualRGBImage sRGBVivid/sRGB 鮮明: ""
+*ja.ManualRGBImage DisplayRealBlack/ディスプレイ - 純ブラック: ""
+*ja.ManualRGBImage Off/オフ: ""
+*ja.Translation ManualRGBText/手動 RGB テキスト: ""
+*ja.ManualRGBText PrinterS/プリンタ設定: ""
+*ja.ManualRGBText Vivid/鮮明: ""
+*ja.ManualRGBText sRGBDisplay/sRGB 表示: ""
+*ja.ManualRGBText sRGBVivid/sRGB 鮮明: ""
+*ja.ManualRGBText DisplayRealBlack/ディスプレイ - 純ブラック: ""
+*ja.ManualRGBText Off/オフ: ""
+*ja.Translation ManualRGBGraphics/手動 RGB グラフィックス: ""
+*ja.ManualRGBGraphics PrinterS/プリンタ設定: ""
+*ja.ManualRGBGraphics Vivid/鮮明: ""
+*ja.ManualRGBGraphics sRGBDisplay/sRGB 表示: ""
+*ja.ManualRGBGraphics sRGBVivid/sRGB 鮮明: ""
+*ja.ManualRGBGraphics DisplayRealBlack/ディスプレイ - 純ブラック: ""
+*ja.ManualRGBGraphics Off/オフ: ""
+*ja.Translation ManualCMYK/手動 CMYK: ""
+*ja.ManualCMYK PrinterS/プリンタ設定: ""
+*ja.ManualCMYK USCMYK/US CMYK: ""
+*ja.ManualCMYK EuroCMYK/Euro CMYK: ""
+*ja.ManualCMYK VividCMYK/鮮明 CMYK: ""
+*ja.ManualCMYK Off/オフ: ""
+*ja.Translation Paper/用紙: ""
+*ja.Translation MediaType/用紙の種類: ""
+*ja.MediaType PrinterS/プリンタ設定: ""
+*ja.MediaType Plain/普通紙: ""
+*ja.MediaType Transparency/OHPフィルム: ""
+*ja.MediaType Labels/ラベル（紙）: ""
+*ja.MediaType Bond/ボンド紙: ""
+*ja.MediaType Card/厚紙 / 重量厚紙: ""
+*ja.MediaType Letterhead/レターヘッド: ""
+*ja.MediaType Preprint/プレプリント: ""
+*ja.MediaType Colored/カラー紙: ""
+*ja.MediaType Glossy/光沢: ""
+*ja.MediaType Envelope/封筒: ""
+*ja.MediaType Light/軽量紙: ""
+*ja.MediaType Heavy/重量紙: ""
+*ja.MediaType Rough/ラフ/コットン: ""
+*ja.MediaType Recycled/再生紙: ""
+*ja.MediaType Custom1/ユーザー定義種 1: ""
+*ja.MediaType Custom2/ユーザー定義種 2: ""
+*ja.MediaType Custom3/ユーザー定義種 3: ""
+*ja.MediaType Custom4/ユーザー定義種 4: ""
+*ja.MediaType Custom5/ユーザー定義種 5: ""
+*ja.MediaType Custom6/ユーザー定義種 6: ""
+*ja.Translation LexBlankPage/空白ページを印刷: ""
+*ja.LexBlankPage PrinterS/プリンタ設定: ""
+*ja.LexBlankPage False/オフ: ""
+*ja.LexBlankPage True/オン: ""
+*ja.Translation Finishing/仕上げ: ""
+*ja.Translation Duplex/両面印刷: ""
+*ja.Duplex None/なし: ""
+*ja.Duplex DuplexNoTumble/両面印刷 - 長辺: ""
+*ja.Duplex DuplexTumble/両面印刷 - 短辺: ""
+*ja.Translation Collate/ソーターで印刷: ""
+*ja.Collate False/オフ: ""
+*ja.Collate True/オン: ""
+*ja.Translation SepPages/区切りページ: ""
+*ja.SepPages PrinterS/プリンタ設定: ""
+*ja.SepPages NoneF/なし: ""
+*ja.SepPages Jobs/ジョブの間: ""
+*ja.SepPages Copies/部の間: ""
+*ja.SepPages Pages/ページの間: ""
+*ja.Translation SepSource/区切りページ源: ""
+*ja.SepSource PrinterS/プリンタ設定: ""
+*ja.SepSource Tray1/カセット 1: ""
+*ja.SepSource Tray2/カセット 2: ""
+*ja.SepSource Tray3/カセット 3: ""
+*ja.SepSource MultipurposeFeeder/多目的フィーダ: ""
+*ru.Translation Manufacturer/Lexmark: ""
+*ru.Translation ModelName/Lexmark CX410 Series: ""
+*ru.Translation ShortNickName/Lexmark CX410 Series: ""
+*ru.Translation NickName/Lexmark CX410 Series: ""
+*ru.Translation PageSize/Размер материала: ""
+*ru.PageSize Letter/Letter: ""
+*ru.PageSize Legal/Legal: ""
+*ru.PageSize 8.5x13.4028/Oficio (Мексика): ""
+*ru.PageSize B5/JIS B5: ""
+*ru.PageSize A4/A4: ""
+*ru.PageSize Executive/Executive: ""
+*ru.PageSize A5/A5: ""
+*ru.PageSize A6/A6: ""
+*ru.PageSize FanFoldGermanLegal/Фолио: ""
+*ru.PageSize Statement/Statement: ""
+*ru.PageSize EnvMonarch/Конверт 7 3/4: ""
+*ru.PageSize Env9/Конверт 9: ""
+*ru.PageSize Env10/Конверт 10: ""
+*ru.PageSize EnvDL/Конверт DL: ""
+*ru.PageSize EnvC5/Конверт C5: ""
+*ru.PageSize ISOB5/Конверт B5: ""
+*ru.PageSize 8.5x13.8333/Другой конверт: ""
+*ru.Translation InputSlot/Источник бумаги: ""
+*ru.InputSlot Tray1/Лоток 1: ""
+*ru.InputSlot Tray2/Лоток 2: ""
+*ru.InputSlot Tray3/Лоток 3: ""
+*ru.InputSlot MultipurposeFeeder/Многоцелевое устройство подачи: ""
+*ru.InputSlot ManualPaper/Выбор бумаги вручную: ""
+*ru.InputSlot ManualEnv/Конверт вручную: ""
+*ru.Translation InstallableOptions/Installable Options: ""
+*ru.Translation OptDuplex/Двусторонняя: ""
+*ru.OptDuplex InstalledM/Установлен: ""
+*ru.OptDuplex NotInstalledM/Не установлен: ""
+*ru.Translation Trays/Лотки: ""
+*ru.Trays Tray1/Лоток 1: ""
+*ru.Trays Tray12/Лоток 1+2: ""
+*ru.Trays Tray123/Лоток 1+2+3: ""
+*ru.Translation Quality/Качество: ""
+*ru.Translation Resolution/Разрешение: ""
+*ru.Resolution 2400x1200dpi/Качество цвета 4800: ""
+*ru.Resolution 1200dpi/1200 т/д: ""
+*ru.Translation TonerDarkness/Плотность тонера: ""
+*ru.TonerDarkness PrinterS/Параметр принтера: ""
+*ru.TonerDarkness 1/1: ""
+*ru.TonerDarkness 2/2: ""
+*ru.TonerDarkness 3/3: ""
+*ru.TonerDarkness 4/4: ""
+*ru.TonerDarkness 5/5: ""
+*ru.Translation LexBrightness/Яркость: ""
+*ru.LexBrightness PrinterS/Параметр принтера: ""
+*ru.LexBrightness -6/ -6: ""
+*ru.LexBrightness -5/ -5: ""
+*ru.LexBrightness -4/ -4: ""
+*ru.LexBrightness -3/ -3: ""
+*ru.LexBrightness -2/ -2: ""
+*ru.LexBrightness -1/ -1: ""
+*ru.LexBrightness 0/  0: ""
+*ru.LexBrightness +1/ +1: ""
+*ru.LexBrightness +2/ +2: ""
+*ru.LexBrightness +3/ +3: ""
+*ru.LexBrightness +4/ +4: ""
+*ru.LexBrightness +5/ +5: ""
+*ru.LexBrightness +6/ +6: ""
+*ru.Translation LexContrast/Контрастность: ""
+*ru.LexContrast PrinterS/Параметр принтера: ""
+*ru.LexContrast 0/0: ""
+*ru.LexContrast 1/1: ""
+*ru.LexContrast 2/2: ""
+*ru.LexContrast 3/3: ""
+*ru.LexContrast 4/4: ""
+*ru.LexContrast 5/5: ""
+*ru.Translation LexSaturation/Насыщенность: ""
+*ru.LexSaturation PrinterS/Параметр принтера: ""
+*ru.LexSaturation 0/0: ""
+*ru.LexSaturation 1/1: ""
+*ru.LexSaturation 2/2: ""
+*ru.LexSaturation 3/3: ""
+*ru.LexSaturation 4/4: ""
+*ru.LexSaturation 5/5: ""
+*ru.Translation LexLineDetail/Улучшение тонких линий: ""
+*ru.LexLineDetail PrinterS/Параметр принтера: ""
+*ru.LexLineDetail FalseF/Выкл: ""
+*ru.LexLineDetail TrueF/Вкл: ""
+*ru.Translation LexMirror/Зеркальная: ""
+*ru.LexMirror False/Выкл: ""
+*ru.LexMirror True/Вкл: ""
+*ru.Translation Color/Цвет: ""
+*ru.Translation MediaColor/Цветокоррекция: ""
+*ru.MediaColor PrinterS/Параметр принтера: ""
+*ru.MediaColor Auto/Авто: ""
+*ru.MediaColor FalseM/Выкл: ""
+*ru.MediaColor Manual/Вручную: ""
+*ru.Translation ColorSaver/ColorSaver: ""
+*ru.ColorSaver PrinterS/Параметр принтера: ""
+*ru.ColorSaver FalseM/Выкл: ""
+*ru.ColorSaver TrueM/Вкл: ""
+*ru.Translation BLW/Монохромное: ""
+*ru.BLW PrinterS/Параметр принтера: ""
+*ru.BLW FalseM/Выкл: ""
+*ru.BLW TrueM/Вкл: ""
+*ru.Translation ColorBalance/Цветовой баланс: ""
+*ru.Translation CyanBalance/Баланс бирюзового: ""
+*ru.CyanBalance PrinterS/Параметр принтера: ""
+*ru.CyanBalance -5/ -5: ""
+*ru.CyanBalance -4/ -4: ""
+*ru.CyanBalance -3/ -3: ""
+*ru.CyanBalance -2/ -2: ""
+*ru.CyanBalance -1/ -1: ""
+*ru.CyanBalance 0/  0: ""
+*ru.CyanBalance +1/ +1: ""
+*ru.CyanBalance +2/ +2: ""
+*ru.CyanBalance +3/ +3: ""
+*ru.CyanBalance +4/ +4: ""
+*ru.CyanBalance +5/ +5: ""
+*ru.Translation MagentaBalance/Баланс пурпурного: ""
+*ru.MagentaBalance PrinterS/Параметр принтера: ""
+*ru.MagentaBalance -5/ -5: ""
+*ru.MagentaBalance -4/ -4: ""
+*ru.MagentaBalance -3/ -3: ""
+*ru.MagentaBalance -2/ -2: ""
+*ru.MagentaBalance -1/ -1: ""
+*ru.MagentaBalance 0/  0: ""
+*ru.MagentaBalance +1/ +1: ""
+*ru.MagentaBalance +2/ +2: ""
+*ru.MagentaBalance +3/ +3: ""
+*ru.MagentaBalance +4/ +4: ""
+*ru.MagentaBalance +5/ +5: ""
+*ru.Translation YellowBalance/Баланс желтого: ""
+*ru.YellowBalance PrinterS/Параметр принтера: ""
+*ru.YellowBalance -5/ -5: ""
+*ru.YellowBalance -4/ -4: ""
+*ru.YellowBalance -3/ -3: ""
+*ru.YellowBalance -2/ -2: ""
+*ru.YellowBalance -1/ -1: ""
+*ru.YellowBalance 0/  0: ""
+*ru.YellowBalance +1/ +1: ""
+*ru.YellowBalance +2/ +2: ""
+*ru.YellowBalance +3/ +3: ""
+*ru.YellowBalance +4/ +4: ""
+*ru.YellowBalance +5/ +5: ""
+*ru.Translation BlackBalance/Баланс черного: ""
+*ru.BlackBalance PrinterS/Параметр принтера: ""
+*ru.BlackBalance -5/ -5: ""
+*ru.BlackBalance -4/ -4: ""
+*ru.BlackBalance -3/ -3: ""
+*ru.BlackBalance -2/ -2: ""
+*ru.BlackBalance -1/ -1: ""
+*ru.BlackBalance 0/  0: ""
+*ru.BlackBalance +1/ +1: ""
+*ru.BlackBalance +2/ +2: ""
+*ru.BlackBalance +3/ +3: ""
+*ru.BlackBalance +4/ +4: ""
+*ru.BlackBalance +5/ +5: ""
+*ru.Translation ManualColor/Цвет вручную: ""
+*ru.Translation ManualRGBImage/RGB-изображение вручную: ""
+*ru.ManualRGBImage PrinterS/Параметр принтера: ""
+*ru.ManualRGBImage Vivid/Яркие: ""
+*ru.ManualRGBImage sRGBDisplay/Дисплей sRGB: ""
+*ru.ManualRGBImage sRGBVivid/Яркие цвета sRGB: ""
+*ru.ManualRGBImage DisplayRealBlack/Дисплей<2d>абсолютно черный: ""
+*ru.ManualRGBImage Off/Выкл: ""
+*ru.Translation ManualRGBText/RGB-текст вручную: ""
+*ru.ManualRGBText PrinterS/Параметр принтера: ""
+*ru.ManualRGBText Vivid/Яркие: ""
+*ru.ManualRGBText sRGBDisplay/Дисплей sRGB: ""
+*ru.ManualRGBText sRGBVivid/Яркие цвета sRGB: ""
+*ru.ManualRGBText DisplayRealBlack/Дисплей<2d>абсолютно черный: ""
+*ru.ManualRGBText Off/Выкл: ""
+*ru.Translation ManualRGBGraphics/RGB-графика вручную: ""
+*ru.ManualRGBGraphics PrinterS/Параметр принтера: ""
+*ru.ManualRGBGraphics Vivid/Яркие: ""
+*ru.ManualRGBGraphics sRGBDisplay/Дисплей sRGB: ""
+*ru.ManualRGBGraphics sRGBVivid/Яркие цвета sRGB: ""
+*ru.ManualRGBGraphics DisplayRealBlack/Дисплей<2d>абсолютно черный: ""
+*ru.ManualRGBGraphics Off/Выкл: ""
+*ru.Translation ManualCMYK/Ручные установки CMYK: ""
+*ru.ManualCMYK PrinterS/Параметр принтера: ""
+*ru.ManualCMYK USCMYK/US CMYK: ""
+*ru.ManualCMYK EuroCMYK/Euro CMYK: ""
+*ru.ManualCMYK VividCMYK/Яркие CMYK: ""
+*ru.ManualCMYK Off/Выкл: ""
+*ru.Translation Paper/Бумага: ""
+*ru.Translation MediaType/Тип бумаги: ""
+*ru.MediaType PrinterS/Параметр принтера: ""
+*ru.MediaType Plain/Обычная бумага: ""
+*ru.MediaType Transparency/Прозрач. пленка: ""
+*ru.MediaType Labels/Этикетка (бумажная): ""
+*ru.MediaType Bond/Фирменные бланки: ""
+*ru.MediaType Card/Карточки/Очень плотная бумага: ""
+*ru.MediaType Letterhead/Бланки: ""
+*ru.MediaType Preprint/Печатные бланки: ""
+*ru.MediaType Colored/Цветная бумага: ""
+*ru.MediaType Glossy/Глянцевая: ""
+*ru.MediaType Envelope/Конверт: ""
+*ru.MediaType Light/Тонкая бумага: ""
+*ru.MediaType Heavy/Плотная бумага: ""
+*ru.MediaType Rough/Шероховатая/хлопковая бумага: ""
+*ru.MediaType Recycled/Из вторсырья: ""
+*ru.MediaType Custom1/Пользовательский тип 1: ""
+*ru.MediaType Custom2/Пользовательский тип 2: ""
+*ru.MediaType Custom3/Пользовательский тип 3: ""
+*ru.MediaType Custom4/Пользовательский тип 4: ""
+*ru.MediaType Custom5/Пользовательский тип 5: ""
+*ru.MediaType Custom6/Пользовательский тип 6: ""
+*ru.Translation LexBlankPage/Печать пустых страниц: ""
+*ru.LexBlankPage PrinterS/Параметр принтера: ""
+*ru.LexBlankPage False/Выкл: ""
+*ru.LexBlankPage True/Вкл: ""
+*ru.Translation Finishing/Оформление: ""
+*ru.Translation Duplex/Двусторонняя: ""
+*ru.Duplex None/Нет: ""
+*ru.Duplex DuplexNoTumble/Двусторонняя - книга: ""
+*ru.Duplex DuplexTumble/Двусторонняя - блокнот: ""
+*ru.Translation Collate/Разбор по копиям: ""
+*ru.Collate False/Выкл: ""
+*ru.Collate True/Вкл: ""
+*ru.Translation SepPages/Страницы-разделители: ""
+*ru.SepPages PrinterS/Параметр принтера: ""
+*ru.SepPages NoneF/Нет: ""
+*ru.SepPages Jobs/Между заданиями: ""
+*ru.SepPages Copies/Между копиями: ""
+*ru.SepPages Pages/Между страницами: ""
+*ru.Translation SepSource/Источник страницы-разделителя: ""
+*ru.SepSource PrinterS/Параметр принтера: ""
+*ru.SepSource Tray1/Лоток 1: ""
+*ru.SepSource Tray2/Лоток 2: ""
+*ru.SepSource Tray3/Лоток 3: ""
+*ru.SepSource MultipurposeFeeder/Многоцелевое устройство подачи: ""
+*pl.Translation Manufacturer/Lexmark: ""
+*pl.Translation ModelName/Lexmark CX410 Series: ""
+*pl.Translation ShortNickName/Lexmark CX410 Series: ""
+*pl.Translation NickName/Lexmark CX410 Series: ""
+*pl.Translation PageSize/Rozmiar nośnika: ""
+*pl.PageSize Letter/Letter: ""
+*pl.PageSize Legal/Legal: ""
+*pl.PageSize 8.5x13.4028/Oficio (Meksyk): ""
+*pl.PageSize B5/JIS B5: ""
+*pl.PageSize A4/A4: ""
+*pl.PageSize Executive/Executive: ""
+*pl.PageSize A5/A5: ""
+*pl.PageSize A6/A6: ""
+*pl.PageSize FanFoldGermanLegal/Folio: ""
+*pl.PageSize Statement/Statement: ""
+*pl.PageSize EnvMonarch/Koperta 7 3/4: ""
+*pl.PageSize Env9/Koperta 9: ""
+*pl.PageSize Env10/Koperta 10: ""
+*pl.PageSize EnvDL/Koperta DL: ""
+*pl.PageSize EnvC5/Koperta C5: ""
+*pl.PageSize ISOB5/Koperta B5: ""
+*pl.PageSize 8.5x13.8333/Inna koperta: ""
+*pl.Translation InputSlot/Źródło nośnika: ""
+*pl.InputSlot Tray1/Zasobnik 1: ""
+*pl.InputSlot Tray2/Zasobnik 2: ""
+*pl.InputSlot Tray3/Zasobnik 3: ""
+*pl.InputSlot MultipurposeFeeder/Podajnik uniwersalny: ""
+*pl.InputSlot ManualPaper/Ręczny podajnik papieru: ""
+*pl.InputSlot ManualEnv/Ręczny kopert: ""
+*pl.Translation InstallableOptions/Opcje instalowane: ""
+*pl.Translation OptDuplex/Dwustronny: ""
+*pl.OptDuplex InstalledM/Zainstalowane: ""
+*pl.OptDuplex NotInstalledM/Nie zainstalowano: ""
+*pl.Translation Trays/Zasobniki: ""
+*pl.Trays Tray1/Zasobnik 1: ""
+*pl.Trays Tray12/Zasobnik 1+2: ""
+*pl.Trays Tray123/Zasobnik 1+2+3: ""
+*pl.Translation Quality/Jakość: ""
+*pl.Translation Resolution/Rozdzielczość: ""
+*pl.Resolution 2400x1200dpi/Jakość koloru 4800 dpi: ""
+*pl.Resolution 1200dpi/1200 dpi: ""
+*pl.Translation TonerDarkness/Intensywność toneru: ""
+*pl.TonerDarkness PrinterS/Ustawienie drukarki: ""
+*pl.TonerDarkness 1/1: ""
+*pl.TonerDarkness 2/2: ""
+*pl.TonerDarkness 3/3: ""
+*pl.TonerDarkness 4/4: ""
+*pl.TonerDarkness 5/5: ""
+*pl.Translation LexBrightness/Jasność: ""
+*pl.LexBrightness PrinterS/Ustawienie drukarki: ""
+*pl.LexBrightness -6/ -6: ""
+*pl.LexBrightness -5/ -5: ""
+*pl.LexBrightness -4/ -4: ""
+*pl.LexBrightness -3/ -3: ""
+*pl.LexBrightness -2/ -2: ""
+*pl.LexBrightness -1/ -1: ""
+*pl.LexBrightness 0/  0: ""
+*pl.LexBrightness +1/ +1: ""
+*pl.LexBrightness +2/ +2: ""
+*pl.LexBrightness +3/ +3: ""
+*pl.LexBrightness +4/ +4: ""
+*pl.LexBrightness +5/ +5: ""
+*pl.LexBrightness +6/ +6: ""
+*pl.Translation LexContrast/Kontrast: ""
+*pl.LexContrast PrinterS/Ustawienie drukarki: ""
+*pl.LexContrast 0/0: ""
+*pl.LexContrast 1/1: ""
+*pl.LexContrast 2/2: ""
+*pl.LexContrast 3/3: ""
+*pl.LexContrast 4/4: ""
+*pl.LexContrast 5/5: ""
+*pl.Translation LexSaturation/Nasycenie: ""
+*pl.LexSaturation PrinterS/Ustawienie drukarki: ""
+*pl.LexSaturation 0/0: ""
+*pl.LexSaturation 1/1: ""
+*pl.LexSaturation 2/2: ""
+*pl.LexSaturation 3/3: ""
+*pl.LexSaturation 4/4: ""
+*pl.LexSaturation 5/5: ""
+*pl.Translation LexLineDetail/Poprawa dokładności linii: ""
+*pl.LexLineDetail PrinterS/Ustawienie drukarki: ""
+*pl.LexLineDetail FalseF/Wyłączone: ""
+*pl.LexLineDetail TrueF/Włączone: ""
+*pl.Translation LexMirror/Odbicie lustrzane: ""
+*pl.LexMirror False/Wyłączone: ""
+*pl.LexMirror True/Włączone: ""
+*pl.Translation Color/Kolorowy: ""
+*pl.Translation MediaColor/Korekcja kolorów: ""
+*pl.MediaColor PrinterS/Ustawienie drukarki: ""
+*pl.MediaColor Auto/Automatycznie: ""
+*pl.MediaColor FalseM/Wyłączone: ""
+*pl.MediaColor Manual/Ręcznie: ""
+*pl.Translation ColorSaver/ColorSaver: ""
+*pl.ColorSaver PrinterS/Ustawienie drukarki: ""
+*pl.ColorSaver FalseM/Wyłączone: ""
+*pl.ColorSaver TrueM/Włączone: ""
+*pl.Translation BLW/Czarno-biały: ""
+*pl.BLW PrinterS/Ustawienie drukarki: ""
+*pl.BLW FalseM/Wyłączone: ""
+*pl.BLW TrueM/Włączone: ""
+*pl.Translation ColorBalance/Równowaga kolorów: ""
+*pl.Translation CyanBalance/Równowaga koloru Cyan: ""
+*pl.CyanBalance PrinterS/Ustawienie drukarki: ""
+*pl.CyanBalance -5/ -5: ""
+*pl.CyanBalance -4/ -4: ""
+*pl.CyanBalance -3/ -3: ""
+*pl.CyanBalance -2/ -2: ""
+*pl.CyanBalance -1/ -1: ""
+*pl.CyanBalance 0/  0: ""
+*pl.CyanBalance +1/ +1: ""
+*pl.CyanBalance +2/ +2: ""
+*pl.CyanBalance +3/ +3: ""
+*pl.CyanBalance +4/ +4: ""
+*pl.CyanBalance +5/ +5: ""
+*pl.Translation MagentaBalance/Równowaga koloru Magenta: ""
+*pl.MagentaBalance PrinterS/Ustawienie drukarki: ""
+*pl.MagentaBalance -5/ -5: ""
+*pl.MagentaBalance -4/ -4: ""
+*pl.MagentaBalance -3/ -3: ""
+*pl.MagentaBalance -2/ -2: ""
+*pl.MagentaBalance -1/ -1: ""
+*pl.MagentaBalance 0/  0: ""
+*pl.MagentaBalance +1/ +1: ""
+*pl.MagentaBalance +2/ +2: ""
+*pl.MagentaBalance +3/ +3: ""
+*pl.MagentaBalance +4/ +4: ""
+*pl.MagentaBalance +5/ +5: ""
+*pl.Translation YellowBalance/Równowaga koloru Żółty: ""
+*pl.YellowBalance PrinterS/Ustawienie drukarki: ""
+*pl.YellowBalance -5/ -5: ""
+*pl.YellowBalance -4/ -4: ""
+*pl.YellowBalance -3/ -3: ""
+*pl.YellowBalance -2/ -2: ""
+*pl.YellowBalance -1/ -1: ""
+*pl.YellowBalance 0/  0: ""
+*pl.YellowBalance +1/ +1: ""
+*pl.YellowBalance +2/ +2: ""
+*pl.YellowBalance +3/ +3: ""
+*pl.YellowBalance +4/ +4: ""
+*pl.YellowBalance +5/ +5: ""
+*pl.Translation BlackBalance/Równowaga koloru Czarny: ""
+*pl.BlackBalance PrinterS/Ustawienie drukarki: ""
+*pl.BlackBalance -5/ -5: ""
+*pl.BlackBalance -4/ -4: ""
+*pl.BlackBalance -3/ -3: ""
+*pl.BlackBalance -2/ -2: ""
+*pl.BlackBalance -1/ -1: ""
+*pl.BlackBalance 0/  0: ""
+*pl.BlackBalance +1/ +1: ""
+*pl.BlackBalance +2/ +2: ""
+*pl.BlackBalance +3/ +3: ""
+*pl.BlackBalance +4/ +4: ""
+*pl.BlackBalance +5/ +5: ""
+*pl.Translation ManualColor/Kolor ręcznie: ""
+*pl.Translation ManualRGBImage/Ręcznie obraz RGB: ""
+*pl.ManualRGBImage PrinterS/Ustawienie drukarki: ""
+*pl.ManualRGBImage Vivid/Żywe: ""
+*pl.ManualRGBImage sRGBDisplay/sRGB — wyświetlanie: ""
+*pl.ManualRGBImage sRGBVivid/sRGB — żywe: ""
+*pl.ManualRGBImage DisplayRealBlack/Wyświetlanie<2d>czarny: ""
+*pl.ManualRGBImage Off/Wyłączone: ""
+*pl.Translation ManualRGBText/Ręcznie tekst RGB: ""
+*pl.ManualRGBText PrinterS/Ustawienie drukarki: ""
+*pl.ManualRGBText Vivid/Żywe: ""
+*pl.ManualRGBText sRGBDisplay/sRGB — wyświetlanie: ""
+*pl.ManualRGBText sRGBVivid/sRGB — żywe: ""
+*pl.ManualRGBText DisplayRealBlack/Wyświetlanie<2d>czarny: ""
+*pl.ManualRGBText Off/Wyłączone: ""
+*pl.Translation ManualRGBGraphics/Ręcznie grafika RGB: ""
+*pl.ManualRGBGraphics PrinterS/Ustawienie drukarki: ""
+*pl.ManualRGBGraphics Vivid/Żywe: ""
+*pl.ManualRGBGraphics sRGBDisplay/sRGB — wyświetlanie: ""
+*pl.ManualRGBGraphics sRGBVivid/sRGB — żywe: ""
+*pl.ManualRGBGraphics DisplayRealBlack/Wyświetlanie<2d>czarny: ""
+*pl.ManualRGBGraphics Off/Wyłączone: ""
+*pl.Translation ManualCMYK/Ręcznie CMYK: ""
+*pl.ManualCMYK PrinterS/Ustawienie drukarki: ""
+*pl.ManualCMYK USCMYK/US CMYK: ""
+*pl.ManualCMYK EuroCMYK/Euro CMYK: ""
+*pl.ManualCMYK VividCMYK/CMYK — żywe: ""
+*pl.ManualCMYK Off/Wyłączone: ""
+*pl.Translation Paper/Papier: ""
+*pl.Translation MediaType/Typ papieru: ""
+*pl.MediaType PrinterS/Ustawienie drukarki: ""
+*pl.MediaType Plain/Zwykły papier: ""
+*pl.MediaType Transparency/Folia: ""
+*pl.MediaType Labels/Etykieta (papier): ""
+*pl.MediaType Bond/Papier dokumentowy: ""
+*pl.MediaType Card/Karty / Bardzo grube: ""
+*pl.MediaType Letterhead/Papier firmowy: ""
+*pl.MediaType Preprint/Formularze: ""
+*pl.MediaType Colored/Papier kolorowy: ""
+*pl.MediaType Glossy/Błyszczący: ""
+*pl.MediaType Envelope/Koperta: ""
+*pl.MediaType Light/Papier o małej gramaturze: ""
+*pl.MediaType Heavy/Papier o dużej gramaturze: ""
+*pl.MediaType Rough/Gruboziarnisty/bawełniany: ""
+*pl.MediaType Recycled/Makulaturowy: ""
+*pl.MediaType Custom1/Typ niest. 1: ""
+*pl.MediaType Custom2/Typ niest. 2: ""
+*pl.MediaType Custom3/Typ niest. 3: ""
+*pl.MediaType Custom4/Typ niest. 4: ""
+*pl.MediaType Custom5/Typ niest. 5: ""
+*pl.MediaType Custom6/Typ niest. 6: ""
+*pl.Translation LexBlankPage/Drukuj puste strony: ""
+*pl.LexBlankPage PrinterS/Ustawienie drukarki: ""
+*pl.LexBlankPage False/Wyłączone: ""
+*pl.LexBlankPage True/Włączone: ""
+*pl.Translation Finishing/Wykańczanie: ""
+*pl.Translation Duplex/Dwustronny: ""
+*pl.Duplex None/Brak: ""
+*pl.Duplex DuplexNoTumble/Dupleks — długi brzeg: ""
+*pl.Duplex DuplexTumble/Dupleks — krótki brzeg: ""
+*pl.Translation Collate/Sortowanie: ""
+*pl.Collate False/Wyłączone: ""
+*pl.Collate True/Włączone: ""
+*pl.Translation SepPages/Strony separatorów: ""
+*pl.SepPages PrinterS/Ustawienie drukarki: ""
+*pl.SepPages NoneF/Brak: ""
+*pl.SepPages Jobs/Między zadaniami: ""
+*pl.SepPages Copies/Między kopiami: ""
+*pl.SepPages Pages/Między stronami: ""
+*pl.Translation SepSource/Źródło separatorów: ""
+*pl.SepSource PrinterS/Ustawienie drukarki: ""
+*pl.SepSource Tray1/Zasobnik 1: ""
+*pl.SepSource Tray2/Zasobnik 2: ""
+*pl.SepSource Tray3/Zasobnik 3: ""
+*pl.SepSource MultipurposeFeeder/Podajnik uniwersalny: ""
+*pt.Translation Manufacturer/Lexmark: ""
+*pt.Translation ModelName/Lexmark CX410 Series: ""
+*pt.Translation ShortNickName/Lexmark CX410 Series: ""
+*pt.Translation NickName/Lexmark CX410 Series: ""
+*pt.Translation PageSize/Tamanho da mídia: ""
+*pt.PageSize Letter/Carta: ""
+*pt.PageSize Legal/Oficio: ""
+*pt.PageSize 8.5x13.4028/Oficio (México): ""
+*pt.PageSize B5/JIS B5: ""
+*pt.PageSize A4/A4: ""
+*pt.PageSize Executive/Executivo: ""
+*pt.PageSize A5/A5: ""
+*pt.PageSize A6/A6: ""
+*pt.PageSize FanFoldGermanLegal/Oficio 2: ""
+*pt.PageSize Statement/Declaração: ""
+*pt.PageSize EnvMonarch/Envelope 7 3/4: ""
+*pt.PageSize Env9/Envelope 9: ""
+*pt.PageSize Env10/Envelope 10: ""
+*pt.PageSize EnvDL/Envelope DL: ""
+*pt.PageSize EnvC5/Envelope C5: ""
+*pt.PageSize ISOB5/Envelope B5: ""
+*pt.PageSize 8.5x13.8333/Outros Envelopes: ""
+*pt.Translation InputSlot/Origem da mídia: ""
+*pt.InputSlot Tray1/Bandeja 1: ""
+*pt.InputSlot Tray2/Bandeja 2: ""
+*pt.InputSlot Tray3/Bandeja 3: ""
+*pt.InputSlot MultipurposeFeeder/Alimentador Multipropósito: ""
+*pt.InputSlot ManualPaper/Papel Manual: ""
+*pt.InputSlot ManualEnv/Envelope Manual: ""
+*pt.Translation InstallableOptions/Opções instaláveis: ""
+*pt.Translation OptDuplex/Modo Duplex: ""
+*pt.OptDuplex InstalledM/Instalada: ""
+*pt.OptDuplex NotInstalledM/Não instalado: ""
+*pt.Translation Trays/Bandejas: ""
+*pt.Trays Tray1/Bandeja 1: ""
+*pt.Trays Tray12/Bandejas 1+2: ""
+*pt.Trays Tray123/Bandejas 1+2+3: ""
+*pt.Translation Quality/Qualidade: ""
+*pt.Translation Resolution/Resolução: ""
+*pt.Resolution 2400x1200dpi/Qualidade de cores 4800: ""
+*pt.Resolution 1200dpi/1200 dpi: ""
+*pt.Translation TonerDarkness/Tonalidade de toner: ""
+*pt.TonerDarkness PrinterS/Padrao da Impressora: ""
+*pt.TonerDarkness 1/1: ""
+*pt.TonerDarkness 2/2: ""
+*pt.TonerDarkness 3/3: ""
+*pt.TonerDarkness 4/4: ""
+*pt.TonerDarkness 5/5: ""
+*pt.Translation LexBrightness/Brilho: ""
+*pt.LexBrightness PrinterS/Padrao da Impressora: ""
+*pt.LexBrightness -6/ -6: ""
+*pt.LexBrightness -5/ -5: ""
+*pt.LexBrightness -4/ -4: ""
+*pt.LexBrightness -3/ -3: ""
+*pt.LexBrightness -2/ -2: ""
+*pt.LexBrightness -1/ -1: ""
+*pt.LexBrightness 0/  0: ""
+*pt.LexBrightness +1/ +1: ""
+*pt.LexBrightness +2/ +2: ""
+*pt.LexBrightness +3/ +3: ""
+*pt.LexBrightness +4/ +4: ""
+*pt.LexBrightness +5/ +5: ""
+*pt.LexBrightness +6/ +6: ""
+*pt.Translation LexContrast/Contraste: ""
+*pt.LexContrast PrinterS/Padrao da Impressora: ""
+*pt.LexContrast 0/0: ""
+*pt.LexContrast 1/1: ""
+*pt.LexContrast 2/2: ""
+*pt.LexContrast 3/3: ""
+*pt.LexContrast 4/4: ""
+*pt.LexContrast 5/5: ""
+*pt.Translation LexSaturation/Saturação: ""
+*pt.LexSaturation PrinterS/Padrao da Impressora: ""
+*pt.LexSaturation 0/0: ""
+*pt.LexSaturation 1/1: ""
+*pt.LexSaturation 2/2: ""
+*pt.LexSaturation 3/3: ""
+*pt.LexSaturation 4/4: ""
+*pt.LexSaturation 5/5: ""
+*pt.Translation LexLineDetail/Melhorar linhas finas: ""
+*pt.LexLineDetail PrinterS/Padrao da Impressora: ""
+*pt.LexLineDetail FalseF/Desligado: ""
+*pt.LexLineDetail TrueF/Ativar: ""
+*pt.Translation LexMirror/Espelhado: ""
+*pt.LexMirror False/Desligado: ""
+*pt.LexMirror True/Ativar: ""
+*pt.Translation Color/Colorido: ""
+*pt.Translation MediaColor/Correção de Cor: ""
+*pt.MediaColor PrinterS/Padrao da Impressora: ""
+*pt.MediaColor Auto/Automático: ""
+*pt.MediaColor FalseM/Desligado: ""
+*pt.MediaColor Manual/Manual: ""
+*pt.Translation ColorSaver/ColorSaver: ""
+*pt.ColorSaver PrinterS/Padrao da Impressora: ""
+*pt.ColorSaver FalseM/Desligado: ""
+*pt.ColorSaver TrueM/Ativar: ""
+*pt.Translation BLW/Preto & Branco: ""
+*pt.BLW PrinterS/Padrao da Impressora: ""
+*pt.BLW FalseM/Desligado: ""
+*pt.BLW TrueM/Ativar: ""
+*pt.Translation ColorBalance/Balaceamento de cores: ""
+*pt.Translation CyanBalance/EquilÌbrio de ciano: ""
+*pt.CyanBalance PrinterS/Padrao da Impressora: ""
+*pt.CyanBalance -5/ -5: ""
+*pt.CyanBalance -4/ -4: ""
+*pt.CyanBalance -3/ -3: ""
+*pt.CyanBalance -2/ -2: ""
+*pt.CyanBalance -1/ -1: ""
+*pt.CyanBalance 0/  0: ""
+*pt.CyanBalance +1/ +1: ""
+*pt.CyanBalance +2/ +2: ""
+*pt.CyanBalance +3/ +3: ""
+*pt.CyanBalance +4/ +4: ""
+*pt.CyanBalance +5/ +5: ""
+*pt.Translation MagentaBalance/EquilÌbrio de magenta: ""
+*pt.MagentaBalance PrinterS/Padrao da Impressora: ""
+*pt.MagentaBalance -5/ -5: ""
+*pt.MagentaBalance -4/ -4: ""
+*pt.MagentaBalance -3/ -3: ""
+*pt.MagentaBalance -2/ -2: ""
+*pt.MagentaBalance -1/ -1: ""
+*pt.MagentaBalance 0/  0: ""
+*pt.MagentaBalance +1/ +1: ""
+*pt.MagentaBalance +2/ +2: ""
+*pt.MagentaBalance +3/ +3: ""
+*pt.MagentaBalance +4/ +4: ""
+*pt.MagentaBalance +5/ +5: ""
+*pt.Translation YellowBalance/EquilÌbrio de amarelo: ""
+*pt.YellowBalance PrinterS/Padrao da Impressora: ""
+*pt.YellowBalance -5/ -5: ""
+*pt.YellowBalance -4/ -4: ""
+*pt.YellowBalance -3/ -3: ""
+*pt.YellowBalance -2/ -2: ""
+*pt.YellowBalance -1/ -1: ""
+*pt.YellowBalance 0/  0: ""
+*pt.YellowBalance +1/ +1: ""
+*pt.YellowBalance +2/ +2: ""
+*pt.YellowBalance +3/ +3: ""
+*pt.YellowBalance +4/ +4: ""
+*pt.YellowBalance +5/ +5: ""
+*pt.Translation BlackBalance/EquilÌbrio de preto: ""
+*pt.BlackBalance PrinterS/Padrao da Impressora: ""
+*pt.BlackBalance -5/ -5: ""
+*pt.BlackBalance -4/ -4: ""
+*pt.BlackBalance -3/ -3: ""
+*pt.BlackBalance -2/ -2: ""
+*pt.BlackBalance -1/ -1: ""
+*pt.BlackBalance 0/  0: ""
+*pt.BlackBalance +1/ +1: ""
+*pt.BlackBalance +2/ +2: ""
+*pt.BlackBalance +3/ +3: ""
+*pt.BlackBalance +4/ +4: ""
+*pt.BlackBalance +5/ +5: ""
+*pt.Translation ManualColor/Cor manual: ""
+*pt.Translation ManualRGBImage/Manual Imagem RGB: ""
+*pt.ManualRGBImage PrinterS/Padrao da Impressora: ""
+*pt.ManualRGBImage Vivid/Cores vivas: ""
+*pt.ManualRGBImage sRGBDisplay/Exibir sRGB: ""
+*pt.ManualRGBImage sRGBVivid/Nítido sRGB: ""
+*pt.ManualRGBImage DisplayRealBlack/Exibir - preto real: ""
+*pt.ManualRGBImage Off/Desligado: ""
+*pt.Translation ManualRGBText/Manual Texto RGB: ""
+*pt.ManualRGBText PrinterS/Padrao da Impressora: ""
+*pt.ManualRGBText Vivid/Cores vivas: ""
+*pt.ManualRGBText sRGBDisplay/Exibir sRGB: ""
+*pt.ManualRGBText sRGBVivid/Nítido sRGB: ""
+*pt.ManualRGBText DisplayRealBlack/Exibir - preto real: ""
+*pt.ManualRGBText Off/Desligado: ""
+*pt.Translation ManualRGBGraphics/Manual Graficos RGB: ""
+*pt.ManualRGBGraphics PrinterS/Padrao da Impressora: ""
+*pt.ManualRGBGraphics Vivid/Cores vivas: ""
+*pt.ManualRGBGraphics sRGBDisplay/Exibir sRGB: ""
+*pt.ManualRGBGraphics sRGBVivid/Nítido sRGB: ""
+*pt.ManualRGBGraphics DisplayRealBlack/Exibir - preto real: ""
+*pt.ManualRGBGraphics Off/Desligado: ""
+*pt.Translation ManualCMYK/CMYK manual: ""
+*pt.ManualCMYK PrinterS/Padrao da Impressora: ""
+*pt.ManualCMYK USCMYK/US CMYK: ""
+*pt.ManualCMYK EuroCMYK/EURO CMYK: ""
+*pt.ManualCMYK VividCMYK/CMYK Vivas: ""
+*pt.ManualCMYK Off/Desligado: ""
+*pt.Translation Paper/Papel: ""
+*pt.Translation MediaType/Tipo de Papel: ""
+*pt.MediaType PrinterS/Padrao da Impressora: ""
+*pt.MediaType Plain/Papel normal: ""
+*pt.MediaType Transparency/Transparência: ""
+*pt.MediaType Labels/Etiqueta (Papel): ""
+*pt.MediaType Bond/Encorpado: ""
+*pt.MediaType Card/Cartão/Papel muito pesado: ""
+*pt.MediaType Letterhead/Timbrado: ""
+*pt.MediaType Preprint/Pré-impresso: ""
+*pt.MediaType Colored/Papel colorido: ""
+*pt.MediaType Glossy/Brilhoso: ""
+*pt.MediaType Envelope/Envelopes: ""
+*pt.MediaType Light/Papel leve: ""
+*pt.MediaType Heavy/Papel pesado: ""
+*pt.MediaType Rough/Áspero/algodão: ""
+*pt.MediaType Recycled/Reciclado: ""
+*pt.MediaType Custom1/Person tipo 1: ""
+*pt.MediaType Custom2/Person tipo 2: ""
+*pt.MediaType Custom3/Person tipo 3: ""
+*pt.MediaType Custom4/Person tipo 4: ""
+*pt.MediaType Custom5/Person tipo 5: ""
+*pt.MediaType Custom6/Person tipo 6: ""
+*pt.Translation LexBlankPage/Imprimir páginas em branco: ""
+*pt.LexBlankPage PrinterS/Padrao da Impressora: ""
+*pt.LexBlankPage False/Desligado: ""
+*pt.LexBlankPage True/Ativar: ""
+*pt.Translation Finishing/Acabamento: ""
+*pt.Translation Duplex/Modo Duplex: ""
+*pt.Duplex None/Nenhum: ""
+*pt.Duplex DuplexNoTumble/Margem Longa: ""
+*pt.Duplex DuplexTumble/Duplex - Borda Curta: ""
+*pt.Translation Collate/Agrupar: ""
+*pt.Collate False/Desligado: ""
+*pt.Collate True/Ativar: ""
+*pt.Translation SepPages/Páginas Separadoras: ""
+*pt.SepPages PrinterS/Padrao da Impressora: ""
+*pt.SepPages NoneF/Nenhum: ""
+*pt.SepPages Jobs/Entre Trabalhos: ""
+*pt.SepPages Copies/Entre Cópias: ""
+*pt.SepPages Pages/Entre Páginas: ""
+*pt.Translation SepSource/Origem do Separador: ""
+*pt.SepSource PrinterS/Padrao da Impressora: ""
+*pt.SepSource Tray1/Bandeja 1: ""
+*pt.SepSource Tray2/Bandeja 2: ""
+*pt.SepSource Tray3/Bandeja 3: ""
+*pt.SepSource MultipurposeFeeder/Alimentador Multipropósito: ""
+*zh_TW.Translation Manufacturer/Lexmark: ""
+*zh_TW.Translation ModelName/Lexmark CX410 Series: ""
+*zh_TW.Translation ShortNickName/Lexmark CX410 Series: ""
+*zh_TW.Translation NickName/Lexmark CX410 Series: ""
+*zh_TW.Translation PageSize/材質尺寸: ""
+*zh_TW.PageSize Letter/Letter: ""
+*zh_TW.PageSize Legal/Legal: ""
+*zh_TW.PageSize 8.5x13.4028/Oficio（墨西哥）: ""
+*zh_TW.PageSize B5/JIS B5: ""
+*zh_TW.PageSize A4/A4: ""
+*zh_TW.PageSize Executive/Executive: ""
+*zh_TW.PageSize A5/A5: ""
+*zh_TW.PageSize A6/A6: ""
+*zh_TW.PageSize FanFoldGermanLegal/Folio 紙張: ""
+*zh_TW.PageSize Statement/Statement 紙張: ""
+*zh_TW.PageSize EnvMonarch/7 3/4 信封: ""
+*zh_TW.PageSize Env9/9 信封: ""
+*zh_TW.PageSize Env10/10 信封: ""
+*zh_TW.PageSize EnvDL/DL 信封: ""
+*zh_TW.PageSize EnvC5/C5 信封: ""
+*zh_TW.PageSize ISOB5/B5 信封: ""
+*zh_TW.PageSize 8.5x13.8333/其它信封: ""
+*zh_TW.Translation InputSlot/材質來源: ""
+*zh_TW.InputSlot Tray1/裝紙匣 1: ""
+*zh_TW.InputSlot Tray2/送紙匣 2: ""
+*zh_TW.InputSlot Tray3/裝紙匣 3: ""
+*zh_TW.InputSlot MultipurposeFeeder/多用途送紙器: ""
+*zh_TW.InputSlot ManualPaper/手動送紙: ""
+*zh_TW.InputSlot ManualEnv/手動信封: ""
+*zh_TW.Translation InstallableOptions/可安裝的選項: ""
+*zh_TW.Translation OptDuplex/雙面列印: ""
+*zh_TW.OptDuplex InstalledM/已安裝: ""
+*zh_TW.OptDuplex NotInstalledM/未安裝: ""
+*zh_TW.Translation Trays/裝紙匣: ""
+*zh_TW.Trays Tray1/裝紙匣 1: ""
+*zh_TW.Trays Tray12/裝紙匣 1+2: ""
+*zh_TW.Trays Tray123/裝紙匣 1+2+3: ""
+*zh_TW.Translation Quality/品質: ""
+*zh_TW.Translation Resolution/列印解析度: ""
+*zh_TW.Resolution 2400x1200dpi/4800 色彩品質: ""
+*zh_TW.Resolution 1200dpi/1200 dpi: ""
+*zh_TW.Translation TonerDarkness/碳粉明暗度: ""
+*zh_TW.TonerDarkness PrinterS/印表機設置: ""
+*zh_TW.TonerDarkness 1/1: ""
+*zh_TW.TonerDarkness 2/2: ""
+*zh_TW.TonerDarkness 3/3: ""
+*zh_TW.TonerDarkness 4/4: ""
+*zh_TW.TonerDarkness 5/5: ""
+*zh_TW.Translation LexBrightness/亮度: ""
+*zh_TW.LexBrightness PrinterS/印表機設置: ""
+*zh_TW.LexBrightness -6/ -6: ""
+*zh_TW.LexBrightness -5/ -5: ""
+*zh_TW.LexBrightness -4/ -4: ""
+*zh_TW.LexBrightness -3/ -3: ""
+*zh_TW.LexBrightness -2/ -2: ""
+*zh_TW.LexBrightness -1/ -1: ""
+*zh_TW.LexBrightness 0/  0: ""
+*zh_TW.LexBrightness +1/ +1: ""
+*zh_TW.LexBrightness +2/ +2: ""
+*zh_TW.LexBrightness +3/ +3: ""
+*zh_TW.LexBrightness +4/ +4: ""
+*zh_TW.LexBrightness +5/ +5: ""
+*zh_TW.LexBrightness +6/ +6: ""
+*zh_TW.Translation LexContrast/對比: ""
+*zh_TW.LexContrast PrinterS/印表機設置: ""
+*zh_TW.LexContrast 0/0: ""
+*zh_TW.LexContrast 1/1: ""
+*zh_TW.LexContrast 2/2: ""
+*zh_TW.LexContrast 3/3: ""
+*zh_TW.LexContrast 4/4: ""
+*zh_TW.LexContrast 5/5: ""
+*zh_TW.Translation LexSaturation/飽和度: ""
+*zh_TW.LexSaturation PrinterS/印表機設置: ""
+*zh_TW.LexSaturation 0/0: ""
+*zh_TW.LexSaturation 1/1: ""
+*zh_TW.LexSaturation 2/2: ""
+*zh_TW.LexSaturation 3/3: ""
+*zh_TW.LexSaturation 4/4: ""
+*zh_TW.LexSaturation 5/5: ""
+*zh_TW.Translation LexLineDetail/美化細線: ""
+*zh_TW.LexLineDetail PrinterS/印表機設置: ""
+*zh_TW.LexLineDetail FalseF/關: ""
+*zh_TW.LexLineDetail TrueF/開: ""
+*zh_TW.Translation LexMirror/鏡映: ""
+*zh_TW.LexMirror False/關: ""
+*zh_TW.LexMirror True/開: ""
+*zh_TW.Translation Color/色彩: ""
+*zh_TW.Translation MediaColor/色彩修正: ""
+*zh_TW.MediaColor PrinterS/印表機設置: ""
+*zh_TW.MediaColor Auto/自動: ""
+*zh_TW.MediaColor FalseM/關: ""
+*zh_TW.MediaColor Manual/手動: ""
+*zh_TW.Translation ColorSaver/ColorSaver: ""
+*zh_TW.ColorSaver PrinterS/印表機設置: ""
+*zh_TW.ColorSaver FalseM/關: ""
+*zh_TW.ColorSaver TrueM/開: ""
+*zh_TW.Translation BLW/黑白: ""
+*zh_TW.BLW PrinterS/印表機設置: ""
+*zh_TW.BLW FalseM/關: ""
+*zh_TW.BLW TrueM/開: ""
+*zh_TW.Translation ColorBalance/色彩平衡: ""
+*zh_TW.Translation CyanBalance/靛青色平衡: ""
+*zh_TW.CyanBalance PrinterS/印表機設置: ""
+*zh_TW.CyanBalance -5/ -5: ""
+*zh_TW.CyanBalance -4/ -4: ""
+*zh_TW.CyanBalance -3/ -3: ""
+*zh_TW.CyanBalance -2/ -2: ""
+*zh_TW.CyanBalance -1/ -1: ""
+*zh_TW.CyanBalance 0/  0: ""
+*zh_TW.CyanBalance +1/ +1: ""
+*zh_TW.CyanBalance +2/ +2: ""
+*zh_TW.CyanBalance +3/ +3: ""
+*zh_TW.CyanBalance +4/ +4: ""
+*zh_TW.CyanBalance +5/ +5: ""
+*zh_TW.Translation MagentaBalance/洋紅色平衡: ""
+*zh_TW.MagentaBalance PrinterS/印表機設置: ""
+*zh_TW.MagentaBalance -5/ -5: ""
+*zh_TW.MagentaBalance -4/ -4: ""
+*zh_TW.MagentaBalance -3/ -3: ""
+*zh_TW.MagentaBalance -2/ -2: ""
+*zh_TW.MagentaBalance -1/ -1: ""
+*zh_TW.MagentaBalance 0/  0: ""
+*zh_TW.MagentaBalance +1/ +1: ""
+*zh_TW.MagentaBalance +2/ +2: ""
+*zh_TW.MagentaBalance +3/ +3: ""
+*zh_TW.MagentaBalance +4/ +4: ""
+*zh_TW.MagentaBalance +5/ +5: ""
+*zh_TW.Translation YellowBalance/黃色平衡: ""
+*zh_TW.YellowBalance PrinterS/印表機設置: ""
+*zh_TW.YellowBalance -5/ -5: ""
+*zh_TW.YellowBalance -4/ -4: ""
+*zh_TW.YellowBalance -3/ -3: ""
+*zh_TW.YellowBalance -2/ -2: ""
+*zh_TW.YellowBalance -1/ -1: ""
+*zh_TW.YellowBalance 0/  0: ""
+*zh_TW.YellowBalance +1/ +1: ""
+*zh_TW.YellowBalance +2/ +2: ""
+*zh_TW.YellowBalance +3/ +3: ""
+*zh_TW.YellowBalance +4/ +4: ""
+*zh_TW.YellowBalance +5/ +5: ""
+*zh_TW.Translation BlackBalance/黑色平衡: ""
+*zh_TW.BlackBalance PrinterS/印表機設置: ""
+*zh_TW.BlackBalance -5/ -5: ""
+*zh_TW.BlackBalance -4/ -4: ""
+*zh_TW.BlackBalance -3/ -3: ""
+*zh_TW.BlackBalance -2/ -2: ""
+*zh_TW.BlackBalance -1/ -1: ""
+*zh_TW.BlackBalance 0/  0: ""
+*zh_TW.BlackBalance +1/ +1: ""
+*zh_TW.BlackBalance +2/ +2: ""
+*zh_TW.BlackBalance +3/ +3: ""
+*zh_TW.BlackBalance +4/ +4: ""
+*zh_TW.BlackBalance +5/ +5: ""
+*zh_TW.Translation ManualColor/手動色彩: ""
+*zh_TW.Translation ManualRGBImage/手動 RGB 影像: ""
+*zh_TW.ManualRGBImage PrinterS/印表機設置: ""
+*zh_TW.ManualRGBImage Vivid/鮮明色彩: ""
+*zh_TW.ManualRGBImage sRGBDisplay/sRGB 顯示: ""
+*zh_TW.ManualRGBImage sRGBVivid/sRGB 鮮明色彩: ""
+*zh_TW.ManualRGBImage DisplayRealBlack/顯示-純黑色: ""
+*zh_TW.ManualRGBImage Off/關: ""
+*zh_TW.Translation ManualRGBText/手動 RGB 文字: ""
+*zh_TW.ManualRGBText PrinterS/印表機設置: ""
+*zh_TW.ManualRGBText Vivid/鮮明色彩: ""
+*zh_TW.ManualRGBText sRGBDisplay/sRGB 顯示: ""
+*zh_TW.ManualRGBText sRGBVivid/sRGB 鮮明色彩: ""
+*zh_TW.ManualRGBText DisplayRealBlack/顯示-純黑色: ""
+*zh_TW.ManualRGBText Off/關: ""
+*zh_TW.Translation ManualRGBGraphics/手動 RGB 圖形: ""
+*zh_TW.ManualRGBGraphics PrinterS/印表機設置: ""
+*zh_TW.ManualRGBGraphics Vivid/鮮明色彩: ""
+*zh_TW.ManualRGBGraphics sRGBDisplay/sRGB 顯示: ""
+*zh_TW.ManualRGBGraphics sRGBVivid/sRGB 鮮明色彩: ""
+*zh_TW.ManualRGBGraphics DisplayRealBlack/顯示-純黑色: ""
+*zh_TW.ManualRGBGraphics Off/關: ""
+*zh_TW.Translation ManualCMYK/手動 CMYK: ""
+*zh_TW.ManualCMYK PrinterS/印表機設置: ""
+*zh_TW.ManualCMYK USCMYK/US CMYK: ""
+*zh_TW.ManualCMYK EuroCMYK/Euro CMYK: ""
+*zh_TW.ManualCMYK VividCMYK/鮮明色彩 CMYK: ""
+*zh_TW.ManualCMYK Off/關: ""
+*zh_TW.Translation Paper/紙張: ""
+*zh_TW.Translation MediaType/紙張種類: ""
+*zh_TW.MediaType PrinterS/印表機設置: ""
+*zh_TW.MediaType Plain/普通紙: ""
+*zh_TW.MediaType Transparency/專用透明投影膠片: ""
+*zh_TW.MediaType Labels/標籤（紙張）: ""
+*zh_TW.MediaType Bond/無覆膜的雪銅紙: ""
+*zh_TW.MediaType Card/卡片/特別厚重紙張: ""
+*zh_TW.MediaType Letterhead/銜頭紙: ""
+*zh_TW.MediaType Preprint/預印: ""
+*zh_TW.MediaType Colored/彩色紙: ""
+*zh_TW.MediaType Glossy/光面紙: ""
+*zh_TW.MediaType Envelope/信封: ""
+*zh_TW.MediaType Light/輕薄紙張: ""
+*zh_TW.MediaType Heavy/厚重紙張: ""
+*zh_TW.MediaType Rough/粗糙/棉紙: ""
+*zh_TW.MediaType Recycled/再生紙: ""
+*zh_TW.MediaType Custom1/自訂種類 1: ""
+*zh_TW.MediaType Custom2/自訂種類 2: ""
+*zh_TW.MediaType Custom3/自訂種類 3: ""
+*zh_TW.MediaType Custom4/自訂種類 4: ""
+*zh_TW.MediaType Custom5/自訂種類 5: ""
+*zh_TW.MediaType Custom6/自訂種類 6: ""
+*zh_TW.Translation LexBlankPage/列印空白頁: ""
+*zh_TW.LexBlankPage PrinterS/印表機設置: ""
+*zh_TW.LexBlankPage False/關: ""
+*zh_TW.LexBlankPage True/開: ""
+*zh_TW.Translation Finishing/輸出處理: ""
+*zh_TW.Translation Duplex/雙面列印: ""
+*zh_TW.Duplex None/無: ""
+*zh_TW.Duplex DuplexNoTumble/雙面列印 - 長邊: ""
+*zh_TW.Duplex DuplexTumble/雙面列印 - 短邊: ""
+*zh_TW.Translation Collate/逐份列印: ""
+*zh_TW.Collate False/關: ""
+*zh_TW.Collate True/開: ""
+*zh_TW.Translation SepPages/分隔頁: ""
+*zh_TW.SepPages PrinterS/印表機設置: ""
+*zh_TW.SepPages NoneF/無: ""
+*zh_TW.SepPages Jobs/介於工作之間: ""
+*zh_TW.SepPages Copies/在列印副本之間: ""
+*zh_TW.SepPages Pages/介於頁面之間: ""
+*zh_TW.Translation SepSource/分隔頁來源: ""
+*zh_TW.SepSource PrinterS/印表機設置: ""
+*zh_TW.SepSource Tray1/裝紙匣 1: ""
+*zh_TW.SepSource Tray2/送紙匣 2: ""
+*zh_TW.SepSource Tray3/裝紙匣 3: ""
+*zh_TW.SepSource MultipurposeFeeder/多用途送紙器: ""
+*zh_CN.Translation Manufacturer/Lexmark: ""
+*zh_CN.Translation ModelName/Lexmark CX410 Series: ""
+*zh_CN.Translation ShortNickName/Lexmark CX410 Series: ""
+*zh_CN.Translation NickName/Lexmark CX410 Series: ""
+*zh_CN.Translation PageSize/介质尺寸: ""
+*zh_CN.PageSize Letter/信纸: ""
+*zh_CN.PageSize Legal/标准法律用纸: ""
+*zh_CN.PageSize 8.5x13.4028/Oficio（墨西哥）: ""
+*zh_CN.PageSize B5/JIS B5: ""
+*zh_CN.PageSize A4/A4: ""
+*zh_CN.PageSize Executive/实用纸张: ""
+*zh_CN.PageSize A5/A5: ""
+*zh_CN.PageSize A6/A6: ""
+*zh_CN.PageSize FanFoldGermanLegal/对开纸: ""
+*zh_CN.PageSize Statement/报表: ""
+*zh_CN.PageSize EnvMonarch/7 3/4信封: ""
+*zh_CN.PageSize Env9/9信封: ""
+*zh_CN.PageSize Env10/10信封: ""
+*zh_CN.PageSize EnvDL/DL信封: ""
+*zh_CN.PageSize EnvC5/C5信封: ""
+*zh_CN.PageSize ISOB5/B5信封: ""
+*zh_CN.PageSize 8.5x13.8333/其他信封: ""
+*zh_CN.Translation InputSlot/介质来源: ""
+*zh_CN.InputSlot Tray1/进纸匣 1: ""
+*zh_CN.InputSlot Tray2/进纸匣 2: ""
+*zh_CN.InputSlot Tray3/进纸匣 3: ""
+*zh_CN.InputSlot MultipurposeFeeder/多功能进纸器: ""
+*zh_CN.InputSlot ManualPaper/手动纸张: ""
+*zh_CN.InputSlot ManualEnv/手动信封: ""
+*zh_CN.Translation InstallableOptions/可安装的选项: ""
+*zh_CN.Translation OptDuplex/双面打印: ""
+*zh_CN.OptDuplex InstalledM/已安装: ""
+*zh_CN.OptDuplex NotInstalledM/未安装: ""
+*zh_CN.Translation Trays/进纸匣: ""
+*zh_CN.Trays Tray1/进纸匣 1: ""
+*zh_CN.Trays Tray12/进纸匣 1+2: ""
+*zh_CN.Trays Tray123/进纸匣 1+2+3: ""
+*zh_CN.Translation Quality/质量: ""
+*zh_CN.Translation Resolution/打印分辨率: ""
+*zh_CN.Resolution 2400x1200dpi/4800 彩色质量: ""
+*zh_CN.Resolution 1200dpi/1200 dpi: ""
+*zh_CN.Translation TonerDarkness/鼓粉浓度: ""
+*zh_CN.TonerDarkness PrinterS/打印机设置: ""
+*zh_CN.TonerDarkness 1/1: ""
+*zh_CN.TonerDarkness 2/2: ""
+*zh_CN.TonerDarkness 3/3: ""
+*zh_CN.TonerDarkness 4/4: ""
+*zh_CN.TonerDarkness 5/5: ""
+*zh_CN.Translation LexBrightness/明亮度: ""
+*zh_CN.LexBrightness PrinterS/打印机设置: ""
+*zh_CN.LexBrightness -6/ -6: ""
+*zh_CN.LexBrightness -5/ -5: ""
+*zh_CN.LexBrightness -4/ -4: ""
+*zh_CN.LexBrightness -3/ -3: ""
+*zh_CN.LexBrightness -2/ -2: ""
+*zh_CN.LexBrightness -1/ -1: ""
+*zh_CN.LexBrightness 0/  0: ""
+*zh_CN.LexBrightness +1/ +1: ""
+*zh_CN.LexBrightness +2/ +2: ""
+*zh_CN.LexBrightness +3/ +3: ""
+*zh_CN.LexBrightness +4/ +4: ""
+*zh_CN.LexBrightness +5/ +5: ""
+*zh_CN.LexBrightness +6/ +6: ""
+*zh_CN.Translation LexContrast/对比度: ""
+*zh_CN.LexContrast PrinterS/打印机设置: ""
+*zh_CN.LexContrast 0/0: ""
+*zh_CN.LexContrast 1/1: ""
+*zh_CN.LexContrast 2/2: ""
+*zh_CN.LexContrast 3/3: ""
+*zh_CN.LexContrast 4/4: ""
+*zh_CN.LexContrast 5/5: ""
+*zh_CN.Translation LexSaturation/饱和度: ""
+*zh_CN.LexSaturation PrinterS/打印机设置: ""
+*zh_CN.LexSaturation 0/0: ""
+*zh_CN.LexSaturation 1/1: ""
+*zh_CN.LexSaturation 2/2: ""
+*zh_CN.LexSaturation 3/3: ""
+*zh_CN.LexSaturation 4/4: ""
+*zh_CN.LexSaturation 5/5: ""
+*zh_CN.Translation LexLineDetail/增强细线: ""
+*zh_CN.LexLineDetail PrinterS/打印机设置: ""
+*zh_CN.LexLineDetail FalseF/关: ""
+*zh_CN.LexLineDetail TrueF/开: ""
+*zh_CN.Translation LexMirror/镜像: ""
+*zh_CN.LexMirror False/关: ""
+*zh_CN.LexMirror True/开: ""
+*zh_CN.Translation Color/颜色: ""
+*zh_CN.Translation MediaColor/颜色修正: ""
+*zh_CN.MediaColor PrinterS/打印机设置: ""
+*zh_CN.MediaColor Auto/自动: ""
+*zh_CN.MediaColor FalseM/关: ""
+*zh_CN.MediaColor Manual/手动: ""
+*zh_CN.Translation ColorSaver/ColorSaver: ""
+*zh_CN.ColorSaver PrinterS/打印机设置: ""
+*zh_CN.ColorSaver FalseM/关: ""
+*zh_CN.ColorSaver TrueM/开: ""
+*zh_CN.Translation BLW/黑色和白色: ""
+*zh_CN.BLW PrinterS/打印机设置: ""
+*zh_CN.BLW FalseM/关: ""
+*zh_CN.BLW TrueM/开: ""
+*zh_CN.Translation ColorBalance/颜色平衡: ""
+*zh_CN.Translation CyanBalance/青色平衡: ""
+*zh_CN.CyanBalance PrinterS/打印机设置: ""
+*zh_CN.CyanBalance -5/ -5: ""
+*zh_CN.CyanBalance -4/ -4: ""
+*zh_CN.CyanBalance -3/ -3: ""
+*zh_CN.CyanBalance -2/ -2: ""
+*zh_CN.CyanBalance -1/ -1: ""
+*zh_CN.CyanBalance 0/  0: ""
+*zh_CN.CyanBalance +1/ +1: ""
+*zh_CN.CyanBalance +2/ +2: ""
+*zh_CN.CyanBalance +3/ +3: ""
+*zh_CN.CyanBalance +4/ +4: ""
+*zh_CN.CyanBalance +5/ +5: ""
+*zh_CN.Translation MagentaBalance/品红色平衡: ""
+*zh_CN.MagentaBalance PrinterS/打印机设置: ""
+*zh_CN.MagentaBalance -5/ -5: ""
+*zh_CN.MagentaBalance -4/ -4: ""
+*zh_CN.MagentaBalance -3/ -3: ""
+*zh_CN.MagentaBalance -2/ -2: ""
+*zh_CN.MagentaBalance -1/ -1: ""
+*zh_CN.MagentaBalance 0/  0: ""
+*zh_CN.MagentaBalance +1/ +1: ""
+*zh_CN.MagentaBalance +2/ +2: ""
+*zh_CN.MagentaBalance +3/ +3: ""
+*zh_CN.MagentaBalance +4/ +4: ""
+*zh_CN.MagentaBalance +5/ +5: ""
+*zh_CN.Translation YellowBalance/黄色平衡: ""
+*zh_CN.YellowBalance PrinterS/打印机设置: ""
+*zh_CN.YellowBalance -5/ -5: ""
+*zh_CN.YellowBalance -4/ -4: ""
+*zh_CN.YellowBalance -3/ -3: ""
+*zh_CN.YellowBalance -2/ -2: ""
+*zh_CN.YellowBalance -1/ -1: ""
+*zh_CN.YellowBalance 0/  0: ""
+*zh_CN.YellowBalance +1/ +1: ""
+*zh_CN.YellowBalance +2/ +2: ""
+*zh_CN.YellowBalance +3/ +3: ""
+*zh_CN.YellowBalance +4/ +4: ""
+*zh_CN.YellowBalance +5/ +5: ""
+*zh_CN.Translation BlackBalance/黑色平衡: ""
+*zh_CN.BlackBalance PrinterS/打印机设置: ""
+*zh_CN.BlackBalance -5/ -5: ""
+*zh_CN.BlackBalance -4/ -4: ""
+*zh_CN.BlackBalance -3/ -3: ""
+*zh_CN.BlackBalance -2/ -2: ""
+*zh_CN.BlackBalance -1/ -1: ""
+*zh_CN.BlackBalance 0/  0: ""
+*zh_CN.BlackBalance +1/ +1: ""
+*zh_CN.BlackBalance +2/ +2: ""
+*zh_CN.BlackBalance +3/ +3: ""
+*zh_CN.BlackBalance +4/ +4: ""
+*zh_CN.BlackBalance +5/ +5: ""
+*zh_CN.Translation ManualColor/手动颜色: ""
+*zh_CN.Translation ManualRGBImage/手动 RGB 图象 : ""
+*zh_CN.ManualRGBImage PrinterS/打印机设置: ""
+*zh_CN.ManualRGBImage Vivid/生动: ""
+*zh_CN.ManualRGBImage sRGBDisplay/sRGB 显示: ""
+*zh_CN.ManualRGBImage sRGBVivid/sRGB 逼真: ""
+*zh_CN.ManualRGBImage DisplayRealBlack/显示-纯黑色: ""
+*zh_CN.ManualRGBImage Off/关: ""
+*zh_CN.Translation ManualRGBText/手动 RGB 文本: ""
+*zh_CN.ManualRGBText PrinterS/打印机设置: ""
+*zh_CN.ManualRGBText Vivid/生动: ""
+*zh_CN.ManualRGBText sRGBDisplay/sRGB 显示: ""
+*zh_CN.ManualRGBText sRGBVivid/sRGB 逼真: ""
+*zh_CN.ManualRGBText DisplayRealBlack/显示-纯黑色: ""
+*zh_CN.ManualRGBText Off/关: ""
+*zh_CN.Translation ManualRGBGraphics/手动 RGB 图形: ""
+*zh_CN.ManualRGBGraphics PrinterS/打印机设置: ""
+*zh_CN.ManualRGBGraphics Vivid/生动: ""
+*zh_CN.ManualRGBGraphics sRGBDisplay/sRGB 显示: ""
+*zh_CN.ManualRGBGraphics sRGBVivid/sRGB 逼真: ""
+*zh_CN.ManualRGBGraphics DisplayRealBlack/显示-纯黑色: ""
+*zh_CN.ManualRGBGraphics Off/关: ""
+*zh_CN.Translation ManualCMYK/手动 CMYK: ""
+*zh_CN.ManualCMYK PrinterS/打印机设置: ""
+*zh_CN.ManualCMYK USCMYK/US CMYK: ""
+*zh_CN.ManualCMYK EuroCMYK/Euro CMYK: ""
+*zh_CN.ManualCMYK VividCMYK/逼真 CMYK: ""
+*zh_CN.ManualCMYK Off/关: ""
+*zh_CN.Translation Paper/纸张: ""
+*zh_CN.Translation MediaType/纸张类型: ""
+*zh_CN.MediaType PrinterS/打印机设置: ""
+*zh_CN.MediaType Plain/﻿普通纸张: ""
+*zh_CN.MediaType Transparency/透明胶片: ""
+*zh_CN.MediaType Labels/标签（纸张）: ""
+*zh_CN.MediaType Bond/铜版纸: ""
+*zh_CN.MediaType Card/卡片纸/特重纸: ""
+*zh_CN.MediaType Letterhead/信签: ""
+*zh_CN.MediaType Preprint/预印纸: ""
+*zh_CN.MediaType Colored/彩色纸: ""
+*zh_CN.MediaType Glossy/光面纸: ""
+*zh_CN.MediaType Envelope/信封: ""
+*zh_CN.MediaType Light/轻质纸张: ""
+*zh_CN.MediaType Heavy/重质纸张: ""
+*zh_CN.MediaType Rough/粗糙/棉纸: ""
+*zh_CN.MediaType Recycled/再生纸: ""
+*zh_CN.MediaType Custom1/定制类型 1: ""
+*zh_CN.MediaType Custom2/定制类型 2: ""
+*zh_CN.MediaType Custom3/定制类型 3: ""
+*zh_CN.MediaType Custom4/定制类型 4: ""
+*zh_CN.MediaType Custom5/定制类型 5: ""
+*zh_CN.MediaType Custom6/定制类型 6: ""
+*zh_CN.Translation LexBlankPage/打印空白页: ""
+*zh_CN.LexBlankPage PrinterS/打印机设置: ""
+*zh_CN.LexBlankPage False/关: ""
+*zh_CN.LexBlankPage True/开: ""
+*zh_CN.Translation Finishing/输出: ""
+*zh_CN.Translation Duplex/双面打印: ""
+*zh_CN.Duplex None/无: ""
+*zh_CN.Duplex DuplexNoTumble/双面打印 - 长边: ""
+*zh_CN.Duplex DuplexTumble/双面打印 - 短边: ""
+*zh_CN.Translation Collate/逐份打印: ""
+*zh_CN.Collate False/关: ""
+*zh_CN.Collate True/开: ""
+*zh_CN.Translation SepPages/分隔页: ""
+*zh_CN.SepPages PrinterS/打印机设置: ""
+*zh_CN.SepPages NoneF/无: ""
+*zh_CN.SepPages Jobs/任务之间: ""
+*zh_CN.SepPages Copies/副本之间: ""
+*zh_CN.SepPages Pages/页之间: ""
+*zh_CN.Translation SepSource/分隔纸源: ""
+*zh_CN.SepSource PrinterS/打印机设置: ""
+*zh_CN.SepSource Tray1/进纸匣 1: ""
+*zh_CN.SepSource Tray2/进纸匣 2: ""
+*zh_CN.SepSource Tray3/进纸匣 3: ""
+*zh_CN.SepSource MultipurposeFeeder/多功能进纸器: ""
+*DefaultFont: Courier
+*% End of LXCX410.PPD, 179487 bytes.
+*en.PageSize 8.5x13.4028/Oficio (México): ""
