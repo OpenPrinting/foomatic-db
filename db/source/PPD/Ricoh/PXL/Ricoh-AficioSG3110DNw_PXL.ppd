@@ -1,10 +1,10 @@
 *PPD-Adobe: "4.3"
 *%
 *%  Printer Description file
-*%    for "Ricoh AficioSG3110DNw PXL"
+*%    for "RICOH AficioSG3110DNw PXL"
 *%
 *%    CreationDate: 2012/05/07
-*%    Modified:     2012/07/04
+*%    Modified:     2012/11/01
 *%
 *%    COPYRIGHT (C) 2012 RICOH COMPANY, LTD.
 *%    
@@ -30,7 +30,7 @@
 *%    [this is the MIT open source license -- please see www.opensource.org]
 *%
 
-*FileVersion:      "1.01"
+*FileVersion:      "1.02"
 *FormatVersion:    "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion:  English
@@ -39,7 +39,7 @@
 *Manufacturer:     "Ricoh"
 *Product:          "(RICOH AficioSG3110DNw)"
 *PSVersion:        "(3011.103) 2"
-*1284DeviceID:     "MFG:RICOH;MDL:AficioSG3100DNw;CMD:PCLXL;"
+*1284DeviceID:     "MFG:RICOH;MDL:AficioSG3110DNw;CMD:PCLXL;"
 *ShortNickName:    "RICOH AficioSG3110DNw PXL"
 *NickName:         "RICOH AficioSG3110DNw PXL"
 
@@ -294,8 +294,8 @@
 *OpenUI *DryTime/Sheet-dry Print Delay in Duplex: PickOne
 *FoomaticRIPOption DryTime: enum JCL A
 *OrderDependency: 220 AnySetup *DryTime
-*DefaultDryTime: Off
-*DryTime Off/Off: "%% FoomaticRIPOptionSetting: DryTime=0"
+*DefaultDryTime: 0
+*DryTime 0/Off: "%% FoomaticRIPOptionSetting: DryTime=0"
 *FoomaticRIPOptionSetting DryTime=0: "SET DUPLEXDRYTIME=0"
 *DryTime 1/1: "%% FoomaticRIPOptionSetting: DryTime=1"
 *FoomaticRIPOptionSetting DryTime=1: "SET DUPLEXDRYTIME=1"
@@ -382,6 +382,25 @@
 
 
 *CloseGroup: General
+
+*%========== Job Log Section ==========
+
+*OpenGroup: JobLog
+*OpenUI *UserCode/User Code (Up to 8 digits.): PickOne
+*FoomaticRIPOption UserCode: string CmdLine F
+*FoomaticRIPOptionMaxLength UserCode:8
+*FoomaticRIPOptionAllowedChars UserCode: "0-9"
+*OrderDependency: 255 AnySetup *UserCode
+*FoomaticRIPOptionPrototype UserCode: "&&
+ | perl -p -e &quot;s/\x40PJL ENTER LANGUAGE/\x40PJL SET DATE=\x22&year;\x2F&month;\x2F&date;\x22\x0A\x40PJL SET TIME=\x22&hour;:&min;:&sec;\x22\x0A\x40PJL SET USERCODE=\x22%s\x22\x0a\x40PJL ENTER LANGUAGE/&quot;"
+*End
+*DefaultUserCode: None
+*UserCode None/None: ""
+*CloseUI: *UserCode
+*CustomUserCode True/Option: "UserCode=Custom"
+*ParamCustomUserCode Custom: 1 string 1 8
+*CloseGroup: JobLog
+
 
 *UIConstraints: *MediaType InkjetPlainPaper *PrintMode Superfine
 *UIConstraints: *MediaType InkjetPlainPaper *Density Light
