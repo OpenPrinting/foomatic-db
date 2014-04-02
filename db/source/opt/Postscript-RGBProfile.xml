@@ -1,0 +1,60 @@
+<!-- Assign a colorspace to /DeviceRGB colors. -->
+<option type="enum" id="opt/Postscript-RGBProfile">
+  <arg_shortname>
+    <en>RGBProfile</en>
+  </arg_shortname>
+  <arg_longname>
+    <en>RGB Profile</en>
+  </arg_longname>
+  <arg_execution>
+    <arg_group>General</arg_group>
+    <arg_order>150</arg_order>
+    <arg_postscript />
+  </arg_execution>
+  <constraints>
+    <constraint sense="false">
+      <driver>Postscript</driver>
+      <arg_defval>ev/Postscript-DefaultRGB</arg_defval>
+    </constraint>
+    <constraint sense="true">
+      <driver>Postscript</driver>
+      <printer>printer/Fuji_Xerox-DocuPrint_CM305_df</printer>
+      <arg_defval>ev/Postscript-sRGB</arg_defval>
+    </constraint>
+  </constraints>
+  <enum_vals>
+    <enum_val id="ev/Postscript-DefaultRGB">
+      <ev_longname>
+        <en>Default</en>
+      </ev_longname>
+      <ev_shortname>
+        <en>default</en>
+      </ev_shortname>
+      <!-- Do not change /DeviceRGB colors. -->
+      <ev_driverval></ev_driverval>
+    </enum_val>
+    <enum_val id="ev/Postscript-sRGB">
+      <ev_longname>
+        <en>sRGB</en>
+      </ev_longname>
+      <ev_shortname>
+        <en>srgb</en>
+      </ev_shortname>
+      <!-- Remap /DeviceRGB colors to the sRGB color space -->
+      <ev_driverval>&lt;&lt; /UseCIEColor true &gt;&gt; setpagedevice
+/DefaultRGB [
+  % sRGB
+  /CIEBasedABC &lt;&lt;
+    /DecodeLMN [
+      { dup 0.03928 le {12.92321 div} {0.055 add 1.055 div 2.4 exp} ifelse } bind dup dup ]
+    /MatrixLMN [ 0.412457 0.212673 0.019334
+                 0.357576 0.715152 0.119192
+                 0.180437 0.072175 0.950301 ]
+    /WhitePoint [ 0.9505 1.0 1.0890 ]
+  &gt;&gt;
+] /ColorSpace defineresource pop
+</ev_driverval>
+    </enum_val>
+  </enum_vals>
+</option>
+
