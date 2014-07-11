@@ -1,0 +1,913 @@
+*PPD-Adobe: "4.3"
+*% =========================================
+*% Disclaimer:  The above statement indicates
+*% that this PPD was written using the Adobe PPD
+*% File Format Specification 4.3, but does not
+*% intend to imply approval and acceptance by
+*% Adobe Systems, Inc.
+*% =========================================
+*%
+*% =========================================
+*% PPD for Samsung C460 Series PS
+*% For Linux Only
+*% =========================================
+*%
+*%
+*% Copyright (c) 2014 Samsung Electronics Co., Ltd.
+*% 
+*% Permission is hereby granted, free of charge, to any person obtaining 
+*% a copy of this software and associated documentation files (the 
+*% "Software"), to deal in the Software without restriction, including 
+*% without limitation the rights to use, copy, modify, merge, publish, 
+*% distribute, sublicense, and/or sell copies of the Software, and to 
+*% permit persons to whom the Software is furnished to do so, subject to 
+*% the following conditions:
+*% 
+*% The above copyright notice and this permission notice shall be 
+*% included in all copies or substantial portions of the Software.
+*% 
+*% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+*% EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+*% MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+*% NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
+*% LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
+*% OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
+*% WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*% 
+*% [this is the MIT open source license -- please see www.opensource.org]
+*%
+*% =========================================
+*FileVersion: "1.8"
+*FormatVersion: "4.3"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+*PCFileName: "C460.ppd"
+*Product: "(Samsung C460 Series)"
+*Manufacturer:  "Samsung"
+*PSVersion: "(3015    ) 0"
+*ModelName: "Samsung C460 Series"
+*ShortNickName: "C460"
+*NickName: "Samsung C460 Series PS"
+*LanguageLevel: "3"
+*Protocols: PJL TBCP
+*FreeVM: "26800000"
+*ColorDevice: True
+*DefaultColorSpace: CMYK
+*TTRasterizer: Type42
+*?TTRasterizer: "
+  save
+       42 /FontType resourcestatus
+       { pop pop (Type42)} {pop pop (None)} ifelse = flush
+  restore
+"
+*End
+
+*JCLBegin: "<1B>%-12345X@PJL JOB<0A>"
+*JCLToPSInterpreter: "@PJL ENTER LANGUAGE = POSTSCRIPT<0A>"
+*JCLEnd: "<1B>%-12345X"
+
+*% =========================================================
+*%  Color & Gray Option
+*% =========================================================
+*OpenUI *ColorMode/Color Mode:  Boolean
+*OrderDependency: 70 AnySetup *ColorMode
+*DefaultColorMode: True
+*ColorMode False/Grayscale:  "<</ProcessColorModel /DeviceGray>> setpagedevice"
+*ColorMode True/Color:       "<</ProcessColorModel /DeviceCMYK>> setpagedevice"
+*CloseUI: *ColorMode
+
+*% =========================================================
+*%  Black Optimization
+*% =========================================================
+*JCLOpenUI *JCLBlackOptimization/Black Optimization:  Boolean
+*OrderDependency: 70 JCLSetup *JCLBlackOptimization
+*DefaultJCLBlackOptimization: False
+*JCLBlackOptimization False/Off : ""
+*JCLBlackOptimization True/On :   "@PJL SET BLACKOPTIMIZATION=ON<0A>"
+*JCLCloseUI: *JCLBlackOptimization
+
+*% =========================================================
+*%  Paper Source
+*% =========================================================
+*OpenUI *InputSlot/Paper Source: PickOne
+*OrderDependency: 20 AnySetup *InputSlot
+*DefaultInputSlot: Auto
+*InputSlot Auto/Printer Auto Selection:"
+ <</ManualFeed false /MediaPosition null>> setpagedevice"
+*End
+*InputSlot ManualFeed/Manual Feeder:"
+ << /ManualFeed true>> setpagedevice"
+*End
+*CloseUI: *InputSlot
+
+*% =========================================================
+*%  Media Type
+*% =========================================================
+*OpenUI *MediaType/Paper Type: PickOne
+*OrderDependency: 10 AnySetup *MediaType
+*DefaultMediaType: None 
+*MediaType None/Printer Default:        "<</MediaType (system-default)>> setpagedevice"
+*MediaType Plain/Plain:                 "<</MediaType (Plain)>> setpagedevice"
+*MediaType Thick/Thick:                 "<</MediaType (THICK)>> setpagedevice"
+*MediaType Thin/Thin:                   "<</MediaType (THIN)>> setpagedevice"
+*MediaType Bond/Bond:                   "<</MediaType (Bond)>> setpagedevice"
+*MediaType Color/Color:                 "<</MediaType (Color)>> setpagedevice"
+*MediaType Card/CardStock:              "<</MediaType (Card Stock)>> setpagedevice"
+*MediaType Labels/Labels:               "<</MediaType (Labels)>> setpagedevice"
+*MediaType Preprinted/Preprinted:       "<</MediaType (Preprinted)>> setpagedevice"
+*MediaType Recycled/Recycled:           "<</MediaType (Recycled)>> setpagedevice"
+*MediaType Cotton/Cotton:               "<</MediaType (COTTEN)>> setpagedevice"
+*MediaType Archive/Archive:             "<</MediaType (ARCHIVE)>> setpagedevice"
+*MediaType Photo111-130/Glossy Photo 111-130 g/m2 (Laser):     "<</MediaType (Photo111-130)>> setpagedevice"
+*MediaType Photo131-175/Glossy Photo 131-175 g/m2 (Laser):     "<</MediaType (Photo131-175)>> setpagedevice"
+*MediaType Photo176-220/Glossy Photo 176-220 g/m2 (Laser):     "<</MediaType (Photo176-220)>> setpagedevice"
+*MediaType MattePhoto111-130/Matte Photo 111-130 g/m2 (Laser): "<</MediaType (MATTEPHOTO111-130)>> setpagedevice"
+*MediaType MattePhoto131-175/Matte Photo 131-175 g/m2 (Laser): "<</MediaType (MATTEPHOTO131-175)>> setpagedevice"
+*MediaType MattePhoto176-220/Matte Photo 176-220 g/m2 (Laser): "<</MediaType (MATTEPHOTO176-220)>> setpagedevice"
+*CloseUI: *MediaType
+
+*% =========================================================
+*%  Quality Information
+*% =========================================================
+*OpenUI *Quality/Quality: PickOne
+*DefaultQuality: Best
+*OrderDependency: 10 AnySetup *Quality
+*Quality Best/Best: "<< /HWResolution [600 600] /PixelDepth 2 >> setpagedevice"
+*Quality Normal/Normal:   "<< /HWResolution [600 600]>> setpagedevice"
+*CloseUI: *Quality
+
+*DefaultResolution: 600dpi
+*DefaultHalftoneType: 9
+*ScreenFreq:  "106.0"
+*ScreenAngle: "45.0"
+
+*% =======================================================================================
+*%  Toner Save
+*% =======================================================================================
+*JCLOpenUI *JCLEconomode/Toner Save: PickOne
+*OrderDependency: 10 JCLSetup *JCLEconomode
+*DefaultJCLEconomode: Off
+*JCLEconomode Off/Off: "@PJL SET ECONOMODE = OFF<0A>"
+*JCLEconomode On/On: "@PJL SET ECONOMODE = ON<0A>"
+*JCLCloseUI: *JCLEconomode
+
+*% =========================================================
+*%  Clear Text
+*% =========================================================
+*JCLOpenUI *JCLDarkenText/Clear Text: PickOne
+*OrderDependency: 10 JCLSetup *JCLDarkenText
+*DefaultJCLDarkenText: Off
+*JCLDarkenText Off/Off:         "@PJL SET DARKENTEXT=OFF<0D0A>"
+*JCLDarkenText Normal/Medium:   "@PJL SET DARKENTEXT=ON<0D0A>"
+*JCLDarkenText Maximum/Maximum: "@PJL SET DARKENTEXT=MAXIMUM<0D0A>"
+*JCLCloseUI: *JCLDarkenText
+
+*% =========================================================
+*%  JCLSkipBlankPages
+*% =========================================================
+*JCLOpenUI *JCLSkipBlankPages/Skip Blank Pages: Boolean
+*OrderDependency: 10 JCLSetup *JCLSkipBlankPages
+*DefaultJCLSkipBlankPages: False
+*JCLSkipBlankPages False/Off:                   "@PJL SET XIGNOREFF=OFF<0D0A>"
+*JCLSkipBlankPages True/On:                     "@PJL SET XIGNOREFF=ON<0D0A>"
+*JCLCloseUI: *JCLSkipBlankPages
+
+
+*%========================================================
+*% JCLScreen
+*%========================================================
+*JCLOpenUI *JCLScreen/Screen: PickOne
+*DefaultJCLScreen: Enhanced
+*OrderDependency: 10 JCLSetup *JCLScreen
+*JCLScreen PrinterDefault/Printer Default:""
+*JCLScreen Normal/Normal:     "@PJL SET SCREENMATCHING=Normal<0A>"
+*JCLScreen Enhanced/Enhanced: "@PJL SET SCREENMATCHING=Enhanced<0A>"
+*JCLScreen Detailed/Detailed: "@PJL SET SCREENMATCHING=Detailed<0A>"
+*JCLCloseUI: *JCLScreen
+
+*%========================================================
+*% JCLRGB
+*%========================================================
+*JCLOpenUI *JCLRGB/Samsung Color Management: PickOne
+*DefaultJCLRGB: Standard
+*OrderDependency: 10 JCLSetup *JCLRGB
+*JCLRGB Standard/Standard: "@PJL SET RGBCOLOR=STANDARD<0A>"
+*JCLRGB Vivid/Vivid:       "@PJL SET RGBCOLOR=VIVID<0A>"
+*JCLRGB Device/Device:     "@PJL SET RGBCOLOR=DEVICE<0A>"
+*JCLRGB CoImaging/Corporate Imaging: "@PJL SET RGBCOLOR=CUSTOMCMS<0A>"
+*JCLCloseUI: *JCLRGB
+
+*% =========================================================
+*%  Trapping
+*% =========================================================
+*JCLOpenUI *JCLTrapping/Trapping: PickOne
+*OrderDependency: 10 JCLSetup *JCLTrapping
+*DefaultJCLTrapping: Medium
+*JCLTrapping Off/Off:					"@PJL SET TRAPPING=OFF<0D0A>"
+*JCLTrapping Medium/Normal:					"@PJL SET TRAPPING=NORMAL<0D0A>"
+*JCLTrapping Maximum/Maximum:					"@PJL SET TRAPPING=MAXIMUM<0D0A>"
+*JCLCloseUI: *JCLTrapping
+
+*% =========================================================
+*% JCLDocumentType
+*% =========================================================
+*JCLOpenUI *JCLDocumentType/Document Type: PickOne
+*DefaultJCLDocumentType: Standard
+*OrderDependency: 10 JCLSetup *JCLDocumentType
+*JCLDocumentType Standard/Standard:					"@PJL SET ESCMSDOCTYPE=STANDARD<0D0A>"
+*JCLDocumentType Photo/Photo:      					"@PJL SET ESCMSDOCTYPE=PHOTO<0D0A>"
+*JCLDocumentType Business/Business Graphic: "@PJL SET ESCMSDOCTYPE=BUSINESS<0D0A>"
+*JCLDocumentType CAD/CAD: 									"@PJL SET ESCMSDOCTYPE=CAD<0D0A>"
+*JCLDocumentType Browser/Browser: 					"@PJL SET ESCMSDOCTYPE=WEBPAGE<0D0A>"
+*JCLCloseUI: *JCLDocumentType
+
+*% =========================================================
+*% JCLColorAdjustment - Brightness
+*% =========================================================
+*JCLOpenUI *JCLBrightness/Brightness Level: PickOne
+*DefaultJCLBrightness: 50
+*OrderDependency: 10 JCLSetup *JCLBrightness
+*JCLBrightness 0/0:						"@PJL SET ESCMSCOLORADJUSTMENT=ON<0D0A>@PJL SET ESCMSBRIGHTNESS=0<0D0A>"
+*JCLBrightness 10/10:					"@PJL SET ESCMSCOLORADJUSTMENT=ON<0D0A>@PJL SET ESCMSBRIGHTNESS=10<0D0A>"
+*JCLBrightness 20/20:					"@PJL SET ESCMSCOLORADJUSTMENT=ON<0D0A>@PJL SET ESCMSBRIGHTNESS=20<0D0A>"
+*JCLBrightness 30/30:					"@PJL SET ESCMSCOLORADJUSTMENT=ON<0D0A>@PJL SET ESCMSBRIGHTNESS=30<0D0A>"
+*JCLBrightness 40/40:					"@PJL SET ESCMSCOLORADJUSTMENT=ON<0D0A>@PJL SET ESCMSBRIGHTNESS=40<0D0A>"
+*JCLBrightness 50/50:					"@PJL SET ESCMSCOLORADJUSTMENT=ON<0D0A>@PJL SET ESCMSBRIGHTNESS=50<0D0A>"
+*JCLBrightness 60/60:					"@PJL SET ESCMSCOLORADJUSTMENT=ON<0D0A>@PJL SET ESCMSBRIGHTNESS=60<0D0A>"
+*JCLBrightness 70/70:					"@PJL SET ESCMSCOLORADJUSTMENT=ON<0D0A>@PJL SET ESCMSBRIGHTNESS=70<0D0A>"
+*JCLBrightness 80/80:					"@PJL SET ESCMSCOLORADJUSTMENT=ON<0D0A>@PJL SET ESCMSBRIGHTNESS=80<0D0A>"
+*JCLBrightness 90/90:					"@PJL SET ESCMSCOLORADJUSTMENT=ON<0D0A>@PJL SET ESCMSBRIGHTNESS=90<0D0A>"
+*JCLBrightness 100/100:			  "@PJL SET ESCMSCOLORADJUSTMENT=ON<0D0A>@PJL SET ESCMSBRIGHTNESS=100<0D0A>"
+*JCLCloseUI: *JCLBrightness
+
+*% =========================================================
+*% JCLColorAdjustment - Contrast
+*% =========================================================
+*JCLOpenUI *JCLContrast/Contrast Level: PickOne
+*DefaultJCLContrast: 50
+*OrderDependency: 10 JCLSetup *JCLContrast
+*JCLContrast 0/0:						"@PJL SET ESCMSCONTRAST=0<0D0A>"
+*JCLContrast 10/10:					"@PJL SET ESCMSCONTRAST=10<0D0A>"
+*JCLContrast 20/20:					"@PJL SET ESCMSCONTRAST=20<0D0A>"
+*JCLContrast 30/30:					"@PJL SET ESCMSCONTRAST=30<0D0A>"
+*JCLContrast 40/40:					"@PJL SET ESCMSCONTRAST=40<0D0A>"
+*JCLContrast 50/50:					"@PJL SET ESCMSCONTRAST=50<0D0A>"
+*JCLContrast 60/60:					"@PJL SET ESCMSCONTRAST=60<0D0A>"
+*JCLContrast 70/70:					"@PJL SET ESCMSCONTRAST=70<0D0A>"
+*JCLContrast 80/80:					"@PJL SET ESCMSCONTRAST=80<0D0A>"
+*JCLContrast 90/90:					"@PJL SET ESCMSCONTRAST=90<0D0A>"
+*JCLContrast 100/100:			  "@PJL SET ESCMSCONTRAST=100<0D0A>"
+*JCLCloseUI: *JCLContrast
+
+*% =========================================================
+*% JCLColorAdjustment - Saturation
+*% =========================================================
+*JCLOpenUI *JCLSaturation/Saturation Level: PickOne
+*DefaultJCLSaturation: 50
+*OrderDependency: 10 JCLSetup *JCLSaturation
+*JCLSaturation 0/0:						"@PJL SET ESCMSSATURATION=0<0D0A>"
+*JCLSaturation 10/10:					"@PJL SET ESCMSSATURATION=10<0D0A>"
+*JCLSaturation 20/20:					"@PJL SET ESCMSSATURATION=20<0D0A>"
+*JCLSaturation 30/30:					"@PJL SET ESCMSSATURATION=30<0D0A>"
+*JCLSaturation 40/40:					"@PJL SET ESCMSSATURATION=40<0D0A>"
+*JCLSaturation 50/50:					"@PJL SET ESCMSSATURATION=50<0D0A>"
+*JCLSaturation 60/60:					"@PJL SET ESCMSSATURATION=60<0D0A>"
+*JCLSaturation 70/70:					"@PJL SET ESCMSSATURATION=70<0D0A>"
+*JCLSaturation 80/80:					"@PJL SET ESCMSSATURATION=80<0D0A>"
+*JCLSaturation 90/90:					"@PJL SET ESCMSSATURATION=90<0D0A>"
+*JCLSaturation 100/100:			  "@PJL SET ESCMSSATURATION=100<0D0A>"
+*JCLCloseUI: *JCLSaturation
+
+*% =========================================================
+*% JCLColorAdjustment - Cyan-Red
+*% =========================================================
+*JCLOpenUI *JCLCyanRed/Cyan-Red Level: PickOne
+*DefaultJCLCyanRed: 50
+*OrderDependency: 10 JCLSetup *JCLCyanRed
+*JCLCyanRed 0/0:						"@PJL SET ESCMSCRBALANCE=0<0D0A>"
+*JCLCyanRed 10/10:					"@PJL SET ESCMSCRBALANCE=10<0D0A>"
+*JCLCyanRed 20/20:					"@PJL SET ESCMSCRBALANCE=20<0D0A>"
+*JCLCyanRed 30/30:					"@PJL SET ESCMSCRBALANCE=30<0D0A>"
+*JCLCyanRed 40/40:					"@PJL SET ESCMSCRBALANCE=40<0D0A>"
+*JCLCyanRed 50/50:					"@PJL SET ESCMSCRBALANCE=50<0D0A>"
+*JCLCyanRed 60/60:					"@PJL SET ESCMSCRBALANCE=60<0D0A>"
+*JCLCyanRed 70/70:					"@PJL SET ESCMSCRBALANCE=70<0D0A>"
+*JCLCyanRed 80/80:					"@PJL SET ESCMSCRBALANCE=80<0D0A>"
+*JCLCyanRed 90/90:					"@PJL SET ESCMSCRBALANCE=90<0D0A>"
+*JCLCyanRed 100/100:			  "@PJL SET ESCMSCRBALANCE=100<0D0A>"
+*JCLCloseUI: *JCLCyanRed
+
+*% =========================================================
+*% JCLColorAdjustment - Magenta-Green
+*% =========================================================
+*JCLOpenUI *JCLMagentaGreen/Magenta-Green Level: PickOne
+*DefaultJCLMagentaGreen: 50
+*OrderDependency: 10 JCLSetup *JCLMagentaGreen
+*JCLMagentaGreen 0/0:						"@PJL SET ESCMSMGBALANCE=0<0D0A>"
+*JCLMagentaGreen 10/10:					"@PJL SET ESCMSMGBALANCE=10<0D0A>"
+*JCLMagentaGreen 20/20:					"@PJL SET ESCMSMGBALANCE=20<0D0A>"
+*JCLMagentaGreen 30/30:					"@PJL SET ESCMSMGBALANCE=30<0D0A>"
+*JCLMagentaGreen 40/40:					"@PJL SET ESCMSMGBALANCE=40<0D0A>"
+*JCLMagentaGreen 50/50:					"@PJL SET ESCMSMGBALANCE=50<0D0A>"
+*JCLMagentaGreen 60/60:					"@PJL SET ESCMSMGBALANCE=60<0D0A>"
+*JCLMagentaGreen 70/70:					"@PJL SET ESCMSMGBALANCE=70<0D0A>"
+*JCLMagentaGreen 80/80:					"@PJL SET ESCMSMGBALANCE=80<0D0A>"
+*JCLMagentaGreen 90/90:					"@PJL SET ESCMSMGBALANCE=90<0D0A>"
+*JCLMagentaGreen 100/100:			  "@PJL SET ESCMSMGBALANCE=100<0D0A>"
+*JCLCloseUI: *JCLMagentaGreen
+
+*% =========================================================
+*% JCLColorAdjustment - Yellow-Blue
+*% =========================================================
+*JCLOpenUI *JCLYellowBlue/Yellow-Blue Level: PickOne
+*DefaultJCLYellowBlue: 50
+*OrderDependency: 10 JCLSetup *JCLYellowBlue
+*JCLYellowBlue 0/0:						"@PJL SET ESCMSYBBALANCE=0<0D0A>"
+*JCLYellowBlue 10/10:					"@PJL SET ESCMSYBBALANCE=10<0D0A>"
+*JCLYellowBlue 20/20:					"@PJL SET ESCMSYBBALANCE=20<0D0A>"
+*JCLYellowBlue 30/30:					"@PJL SET ESCMSYBBALANCE=30<0D0A>"
+*JCLYellowBlue 40/40:					"@PJL SET ESCMSYBBALANCE=40<0D0A>"
+*JCLYellowBlue 50/50:					"@PJL SET ESCMSYBBALANCE=50<0D0A>"
+*JCLYellowBlue 60/60:					"@PJL SET ESCMSYBBALANCE=60<0D0A>"
+*JCLYellowBlue 70/70:					"@PJL SET ESCMSYBBALANCE=70<0D0A>"
+*JCLYellowBlue 80/80:					"@PJL SET ESCMSYBBALANCE=80<0D0A>"
+*JCLYellowBlue 90/90:					"@PJL SET ESCMSYBBALANCE=90<0D0A>"
+*JCLYellowBlue 100/100:			  "@PJL SET ESCMSYBBALANCE=100<0D0A>"
+*JCLCloseUI: *JCLYellowBlue
+
+*% =========================================================
+*%  Paper Handling
+*% =========================================================
+*% Use these entries to set paper size unless there is a specific
+*% reason to use PageRegion, such as when using manual feed.
+*OpenUI *PageSize/Page Size: PickOne
+*OrderDependency: 30 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize Letter/Letter: "<</PageSize [612 792] /ImagingBBox null>> setpagedevice"
+*PageSize Legal/Legal: "<</PageSize [612 1008] /ImagingBBox null>> setpagedevice"
+*PageSize Executive/Executive: "<</PageSize [522 756] /ImagingBBox null>> setpagedevice"
+*PageSize A4/A4: "<</PageSize [595 842] /ImagingBBox null>> setpagedevice"
+*PageSize A5/A5: "<</PageSize [420 595] /ImagingBBox null>> setpagedevice"
+*PageSize B5-JIS/JIS B5: "<</PageSize [516 729] /ImagingBBox null>> setpagedevice"
+*PageSize US-Folio/US Folio: "<</PageSize [612 936] /ImagingBBox null>> setpagedevice"
+*PageSize B5-ISO/ISO B5: "<</PageSize [499 709] /ImagingBBox null>> setpagedevice"
+*PageSize Oficio_S/Oficio: "<</PageSize [612 972] /ImagingBBox null>> setpagedevice"
+*PageSize A6/A6: "<</PageSize [297 420] /ImagingBBox null>> setpagedevice"
+*PageSize Postcard_S/Post Card 4x6: "<</PageSize [288 432] /ImagingBBox null>> setpagedevice"
+*?PageSize: "
+save currentpagedevice /PageSize get aload pop
+   2 copy gt {exch} if (Unknown) 11 dict
+   dup [288 432] (Postcard_S) put   
+   dup [297 420] (A6) put
+   dup [612 972] (Oficio_S) put
+   dup [499 709] (B5-ISO) put   
+   dup [612 936] (US-Folio) put
+   dup [516 729] (B5-JIS) put
+   dup [420 595] (A5) put
+   dup [595 842] (A4) put
+   dup [522 756] (Executive) put
+   dup [612 1008] (Legal) put
+   dup [612 792] (Letter) put
+ {exch aload pop 4 index sub abs 5 le exch 5 index
+ sub abs 5 le and  {exch pop exit} {pop} ifelse}
+ bind forall  = flush pop pop restore
+"
+*End
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 40 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion Letter/Letter: "<</PageSize [612 792] /ImagingBBox null>> setpagedevice"
+*PageRegion Legal/Legal: "<</PageSize [612 1008] /ImagingBBox null>> setpagedevice"
+*PageRegion Executive/Executive: "<</PageSize [522 756] /ImagingBBox null>> setpagedevice"
+*PageRegion A4/A4: "<</PageSize [595 842] /ImagingBBox null>> setpagedevice"
+*PageRegion A5/A5: "<</PageSize [420 595] /ImagingBBox null>> setpagedevice"
+*PageRegion B5-JIS/JIS B5: "<</PageSize [516 729] /ImagingBBox null>> setpagedevice"
+*PageRegion US-Folio/US Folio: "<</PageSize [612 936] /ImagingBBox null>> setpagedevice"
+*PageRegion B5-ISO/ISO B5: "<</PageSize [499 709] /ImagingBBox null>> setpagedevice"
+*PageRegion Oficio_S/Oficio: "<</PageSize [612 972] /ImagingBBox null>> setpagedevice"
+*PageRegion A6/A6: "<</PageSize [297 420] /ImagingBBox null>> setpagedevice"
+*PageRegion Postcard_S/Post Card 4x6:   "<</PageSize [288 432] /ImagingBBox null>> setpagedevice"
+*CloseUI: *PageRegion
+
+
+*% These entries provide the imageable areas of the media option keywords
+*DefaultImageableArea: Letter
+*ImageableArea Letter/Letter: "12.50 12.50 599.50 779.50"
+*ImageableArea Legal/Legal: "12.50 12.50 599.50 995.50"
+*ImageableArea Executive/Executive: "12.50 11.00 509.50 744.00"
+*ImageableArea A4/A4: "12.50 12.50 582.50 829.50"
+*ImageableArea A5/A5: "12.50 12.50 407.50 582.50"
+*ImageableArea B5-JIS/JIS B5: "12.50 12.50 503.50 715.50"
+*ImageableArea US-Folio/US Folio: "12.50 12.50 599.50 923.50"
+*ImageableArea B5-ISO/ISO B5: "12.50 12.50 485.50 695.50"
+*ImageableArea Oficio_S/Oficio: "12.50 12.50 599.50 959.50"
+*ImageableArea A6/A6: "12.50 12.50 284.50 407.50"
+*ImageableArea Postcard_S/Post Card 4x6: "12.50 12.50 275.50 419.50"
+*?ImageableArea: "
+  save /cvp { cvi (            ) cvs print ( ) print } bind def
+    newpath clippath pathbbox
+    4 -2 roll exch 2 {ceiling cvp} repeat
+   exch 2 {floor cvp} repeat flush
+   restore"
+*End
+
+
+*% These provide the physical dimensions of the media, by option keyword.
+*DefaultPaperDimension: Letter
+*PaperDimension Letter/Letter: "612 792"
+*PaperDimension Legal/Legal: "612 1008"
+*PaperDimension Executive/Executive: "522 756"
+*PaperDimension A4/A4: "595 842"
+*PaperDimension A5/A5: "420 595"
+*PaperDimension B5-JIS/JIS B5: "516 729"
+*PaperDimension US-Folio/US Folio: "612 936"
+*PaperDimension B5-ISO/ISO B5: "499 709"
+*PaperDimension Oficio_S/Oficio: "612 972"
+*PaperDimension A6/A6: "297 420"
+*PaperDimension Postcard_S/Post Card 4x6: "288 432"
+
+*RequiresPageRegion All: True
+*LandscapeOrientation: Plus90
+
+*% =========================================================
+*%  User Interface Constraints
+*% =========================================================
+
+*% =========================================================
+*%  ColorMode - BlackOptimization
+*% =========================================================
+*UIConstraints: *ColorMode False            *JCLBlackOptimization True
+*UIConstraints: *JCLBlackOptimization True  *ColorMode False
+
+*% =========================================================
+*%  PageSize PostCard 4x6 - Media Type
+*% =========================================================
+
+*% PostCard 4x6
+*UIConstraints: *PageSize Postcard_S            *MediaType None
+*UIConstraints: *PageSize Postcard_S            *MediaType Plain
+*UIConstraints: *PageSize Postcard_S            *MediaType Thick
+*UIConstraints: *PageSize Postcard_S            *MediaType Thin
+*UIConstraints: *PageSize Postcard_S            *MediaType Bond
+*UIConstraints: *PageSize Postcard_S            *MediaType Color
+*UIConstraints: *PageSize Postcard_S            *MediaType Labels
+*UIConstraints: *PageSize Postcard_S            *MediaType Preprinted
+*UIConstraints: *PageSize Postcard_S            *MediaType Recycled
+*UIConstraints: *PageSize Postcard_S            *MediaType Cotton
+*UIConstraints: *PageSize Postcard_S            *MediaType Archive
+
+*UIConstraints: *MediaType None             *PageSize Postcard_S
+*UIConstraints: *MediaType Plain            *PageSize Postcard_S
+*UIConstraints: *MediaType Thick            *PageSize Postcard_S
+*UIConstraints: *MediaType Thin             *PageSize Postcard_S
+*UIConstraints: *MediaType Bond             *PageSize Postcard_S
+*UIConstraints: *MediaType Color            *PageSize Postcard_S
+*UIConstraints: *MediaType Labels           *PageSize Postcard_S
+*UIConstraints: *MediaType Preprinted       *PageSize Postcard_S
+*UIConstraints: *MediaType Recycled         *PageSize Postcard_S
+*UIConstraints: *MediaType Cotton           *PageSize Postcard_S
+*UIConstraints: *MediaType Archive          *PageSize Postcard_S
+
+*% =========================================================
+*%  PageRegion PostCard 4x6 - Media Type
+*% =========================================================
+*% PostCard 4x6
+*UIConstraints: *PageRegion Postcard_S            *MediaType None
+*UIConstraints: *PageRegion Postcard_S            *MediaType Plain
+*UIConstraints: *PageRegion Postcard_S            *MediaType Thick
+*UIConstraints: *PageRegion Postcard_S            *MediaType Thin
+*UIConstraints: *PageRegion Postcard_S            *MediaType Bond
+*UIConstraints: *PageRegion Postcard_S            *MediaType Color
+*UIConstraints: *PageRegion Postcard_S            *MediaType Labels
+*UIConstraints: *PageRegion Postcard_S            *MediaType Preprinted
+*UIConstraints: *PageRegion Postcard_S            *MediaType Recycled
+*UIConstraints: *PageRegion Postcard_S            *MediaType Cotton
+*UIConstraints: *PageRegion Postcard_S            *MediaType Archive
+
+*UIConstraints: *MediaType None             *PageRegion Postcard_S
+*UIConstraints: *MediaType Plain            *PageRegion Postcard_S
+*UIConstraints: *MediaType Thick            *PageRegion Postcard_S
+*UIConstraints: *MediaType Thin             *PageRegion Postcard_S
+*UIConstraints: *MediaType Bond             *PageRegion Postcard_S
+*UIConstraints: *MediaType Color            *PageRegion Postcard_S
+*UIConstraints: *MediaType Labels           *PageRegion Postcard_S
+*UIConstraints: *MediaType Preprinted       *PageRegion Postcard_S
+*UIConstraints: *MediaType Recycled         *PageRegion Postcard_S
+*UIConstraints: *MediaType Cotton           *PageRegion Postcard_S
+*UIConstraints: *MediaType Archive          *PageRegion Postcard_S
+
+*% =========================================================
+*%  PageSize - Photo111-130(MediaType)
+*% =========================================================
+*UIConstraints: *PageSize Legal             *MediaType Photo111-130
+*UIConstraints: *PageSize Oficio_S          *MediaType Photo111-130
+*UIConstraints: *PageSize US-Folio          *MediaType Photo111-130
+*UIConstraints: *PageSize B5-ISO            *MediaType Photo111-130
+*UIConstraints: *PageSize B5-JIS            *MediaType Photo111-130
+*UIConstraints: *PageSize Executive         *MediaType Photo111-130
+*UIConstraints: *PageSize A5                *MediaType Photo111-130
+*UIConstraints: *PageSize A6                *MediaType Photo111-130
+
+*UIConstraints: *MediaType Photo111-130     *PageSize Legal
+*UIConstraints: *MediaType Photo111-130     *PageSize Oficio_S
+*UIConstraints: *MediaType Photo111-130     *PageSize US-Folio
+*UIConstraints: *MediaType Photo111-130     *PageSize B5-ISO
+*UIConstraints: *MediaType Photo111-130     *PageSize B5-JIS
+*UIConstraints: *MediaType Photo111-130     *PageSize Executive
+*UIConstraints: *MediaType Photo111-130     *PageSize A5
+*UIConstraints: *MediaType Photo111-130     *PageSize A6
+
+*% =========================================================
+*%  PageRegion - Photo111-130(MediaType)
+*% =========================================================
+*UIConstraints: *PageRegion Legal           *MediaType Photo111-130
+*UIConstraints: *PageRegion Oficio_S        *MediaType Photo111-130
+*UIConstraints: *PageRegion US-Folio        *MediaType Photo111-130
+*UIConstraints: *PageRegion B5-ISO          *MediaType Photo111-130
+*UIConstraints: *PageRegion B5-JIS          *MediaType Photo111-130
+*UIConstraints: *PageRegion Executive       *MediaType Photo111-130
+*UIConstraints: *PageRegion A5              *MediaType Photo111-130
+*UIConstraints: *PageRegion A6              *MediaType Photo111-130
+
+*UIConstraints: *MediaType Photo111-130     *PageRegion Legal
+*UIConstraints: *MediaType Photo111-130     *PageRegion Oficio_S
+*UIConstraints: *MediaType Photo111-130     *PageRegion US-Folio
+*UIConstraints: *MediaType Photo111-130     *PageRegion B5-ISO
+*UIConstraints: *MediaType Photo111-130     *PageRegion B5-JIS
+*UIConstraints: *MediaType Photo111-130     *PageRegion Executive
+*UIConstraints: *MediaType Photo111-130     *PageRegion A5
+*UIConstraints: *MediaType Photo111-130     *PageRegion A6
+
+*% =========================================================
+*%  PageSize - Photo131-175(MediaType)
+*% =========================================================
+*UIConstraints: *PageSize Legal             *MediaType Photo131-175
+*UIConstraints: *PageSize Oficio_S          *MediaType Photo131-175
+*UIConstraints: *PageSize US-Folio          *MediaType Photo131-175
+*UIConstraints: *PageSize B5-ISO            *MediaType Photo131-175
+*UIConstraints: *PageSize B5-JIS            *MediaType Photo131-175
+*UIConstraints: *PageSize Executive         *MediaType Photo131-175
+*UIConstraints: *PageSize A5                *MediaType Photo131-175
+*UIConstraints: *PageSize A6                *MediaType Photo131-175
+
+*UIConstraints: *MediaType Photo131-175     *PageSize Legal
+*UIConstraints: *MediaType Photo131-175     *PageSize Oficio_S
+*UIConstraints: *MediaType Photo131-175     *PageSize US-Folio
+*UIConstraints: *MediaType Photo131-175     *PageSize B5-ISO
+*UIConstraints: *MediaType Photo131-175     *PageSize B5-JIS
+*UIConstraints: *MediaType Photo131-175     *PageSize Executive
+*UIConstraints: *MediaType Photo131-175     *PageSize A5
+*UIConstraints: *MediaType Photo131-175     *PageSize A6
+
+*% =========================================================
+*%  PageRegion - Photo131-175(MediaType)
+*% =========================================================
+*UIConstraints: *PageRegion Legal           *MediaType Photo131-175
+*UIConstraints: *PageRegion Oficio_S        *MediaType Photo131-175
+*UIConstraints: *PageRegion US-Folio        *MediaType Photo131-175
+*UIConstraints: *PageRegion B5-ISO          *MediaType Photo131-175
+*UIConstraints: *PageRegion B5-JIS          *MediaType Photo131-175
+*UIConstraints: *PageRegion Executive       *MediaType Photo131-175
+*UIConstraints: *PageRegion A5              *MediaType Photo131-175
+*UIConstraints: *PageRegion A6              *MediaType Photo131-175
+
+*UIConstraints: *MediaType Photo131-175     *PageRegion Legal
+*UIConstraints: *MediaType Photo131-175     *PageRegion Oficio_S
+*UIConstraints: *MediaType Photo131-175     *PageRegion US-Folio
+*UIConstraints: *MediaType Photo131-175     *PageRegion B5-ISO
+*UIConstraints: *MediaType Photo131-175     *PageRegion B5-JIS
+*UIConstraints: *MediaType Photo131-175     *PageRegion Executive
+*UIConstraints: *MediaType Photo131-175     *PageRegion A5
+*UIConstraints: *MediaType Photo131-175     *PageRegion A6
+
+*% =========================================================
+*%  PageSize - Photo176-220(MediaType)
+*% =========================================================
+*UIConstraints: *PageSize Legal             *MediaType Photo176-220
+*UIConstraints: *PageSize Oficio_S          *MediaType Photo176-220
+*UIConstraints: *PageSize US-Folio          *MediaType Photo176-220
+*UIConstraints: *PageSize B5-ISO            *MediaType Photo176-220
+*UIConstraints: *PageSize B5-JIS            *MediaType Photo176-220
+*UIConstraints: *PageSize Executive         *MediaType Photo176-220
+*UIConstraints: *PageSize A5                *MediaType Photo176-220
+*UIConstraints: *PageSize A6                *MediaType Photo176-220
+
+*UIConstraints: *MediaType Photo176-220     *PageSize Legal
+*UIConstraints: *MediaType Photo176-220     *PageSize Oficio_S
+*UIConstraints: *MediaType Photo176-220     *PageSize US-Folio
+*UIConstraints: *MediaType Photo176-220     *PageSize B5-ISO
+*UIConstraints: *MediaType Photo176-220     *PageSize B5-JIS
+*UIConstraints: *MediaType Photo176-220     *PageSize Executive
+*UIConstraints: *MediaType Photo176-220     *PageSize A5
+*UIConstraints: *MediaType Photo176-220     *PageSize A6
+
+*% =========================================================
+*%  PageRegion - Photo176-220(MediaType)
+*% =========================================================
+*UIConstraints: *PageRegion Legal           *MediaType Photo176-220
+*UIConstraints: *PageRegion Oficio_S        *MediaType Photo176-220
+*UIConstraints: *PageRegion US-Folio        *MediaType Photo176-220
+*UIConstraints: *PageRegion B5-ISO          *MediaType Photo176-220
+*UIConstraints: *PageRegion B5-JIS          *MediaType Photo176-220
+*UIConstraints: *PageRegion Executive       *MediaType Photo176-220
+*UIConstraints: *PageRegion A5              *MediaType Photo176-220
+*UIConstraints: *PageRegion A6              *MediaType Photo176-220
+
+*UIConstraints: *MediaType Photo176-220     *PageRegion Legal
+*UIConstraints: *MediaType Photo176-220     *PageRegion Oficio_S
+*UIConstraints: *MediaType Photo176-220     *PageRegion US-Folio
+*UIConstraints: *MediaType Photo176-220     *PageRegion B5-ISO
+*UIConstraints: *MediaType Photo176-220     *PageRegion B5-JIS
+*UIConstraints: *MediaType Photo176-220     *PageRegion Executive
+*UIConstraints: *MediaType Photo176-220     *PageRegion A5
+*UIConstraints: *MediaType Photo176-220     *PageRegion A6
+
+*% =========================================================
+*%  PageSize - MattePhoto111-130(MediaType)
+*% =========================================================
+*UIConstraints: *PageSize Legal             *MediaType MattePhoto111-130
+*UIConstraints: *PageSize Oficio_S          *MediaType MattePhoto111-130
+*UIConstraints: *PageSize US-Folio          *MediaType MattePhoto111-130
+*UIConstraints: *PageSize B5-ISO            *MediaType MattePhoto111-130
+*UIConstraints: *PageSize B5-JIS            *MediaType MattePhoto111-130
+*UIConstraints: *PageSize Executive         *MediaType MattePhoto111-130
+*UIConstraints: *PageSize A5                *MediaType MattePhoto111-130
+*UIConstraints: *PageSize A6                *MediaType MattePhoto111-130
+
+*UIConstraints: *MediaType MattePhoto111-130     *PageSize Legal
+*UIConstraints: *MediaType MattePhoto111-130     *PageSize Oficio_S
+*UIConstraints: *MediaType MattePhoto111-130     *PageSize US-Folio
+*UIConstraints: *MediaType MattePhoto111-130     *PageSize B5-ISO
+*UIConstraints: *MediaType MattePhoto111-130     *PageSize B5-JIS
+*UIConstraints: *MediaType MattePhoto111-130     *PageSize Executive
+*UIConstraints: *MediaType MattePhoto111-130     *PageSize A5
+*UIConstraints: *MediaType MattePhoto111-130     *PageSize A6
+
+*% =========================================================
+*%  PageRegion - Photo111-130(MediaType)
+*% =========================================================
+*UIConstraints: *PageRegion Legal           *MediaType MattePhoto111-130
+*UIConstraints: *PageRegion Oficio_S        *MediaType MattePhoto111-130
+*UIConstraints: *PageRegion US-Folio        *MediaType MattePhoto111-130
+*UIConstraints: *PageRegion B5-ISO          *MediaType MattePhoto111-130
+*UIConstraints: *PageRegion B5-JIS          *MediaType MattePhoto111-130
+*UIConstraints: *PageRegion Executive       *MediaType MattePhoto111-130
+*UIConstraints: *PageRegion A5              *MediaType MattePhoto111-130
+*UIConstraints: *PageRegion A6              *MediaType MattePhoto111-130
+
+*UIConstraints: *MediaType MattePhoto111-130     *PageRegion Legal
+*UIConstraints: *MediaType MattePhoto111-130     *PageRegion Oficio_S
+*UIConstraints: *MediaType MattePhoto111-130     *PageRegion US-Folio
+*UIConstraints: *MediaType MattePhoto111-130     *PageRegion B5-ISO
+*UIConstraints: *MediaType MattePhoto111-130     *PageRegion B5-JIS
+*UIConstraints: *MediaType MattePhoto111-130     *PageRegion Executive
+*UIConstraints: *MediaType MattePhoto111-130     *PageRegion A5
+*UIConstraints: *MediaType MattePhoto111-130     *PageRegion A6
+
+*% =========================================================
+*%  PageSize - Photo131-175(MediaType)
+*% =========================================================
+*UIConstraints: *PageSize Legal             *MediaType MattePhoto131-175
+*UIConstraints: *PageSize Oficio_S          *MediaType MattePhoto131-175
+*UIConstraints: *PageSize US-Folio          *MediaType MattePhoto131-175
+*UIConstraints: *PageSize B5-ISO            *MediaType MattePhoto131-175
+*UIConstraints: *PageSize B5-JIS            *MediaType MattePhoto131-175
+*UIConstraints: *PageSize Executive         *MediaType MattePhoto131-175
+*UIConstraints: *PageSize A5                *MediaType MattePhoto131-175
+*UIConstraints: *PageSize A6                *MediaType MattePhoto131-175
+
+*UIConstraints: *MediaType MattePhoto131-175     *PageSize Legal
+*UIConstraints: *MediaType MattePhoto131-175     *PageSize Oficio_S
+*UIConstraints: *MediaType MattePhoto131-175     *PageSize US-Folio
+*UIConstraints: *MediaType MattePhoto131-175     *PageSize B5-ISO
+*UIConstraints: *MediaType MattePhoto131-175     *PageSize B5-JIS
+*UIConstraints: *MediaType MattePhoto131-175     *PageSize Executive
+*UIConstraints: *MediaType MattePhoto131-175     *PageSize A5
+*UIConstraints: *MediaType MattePhoto131-175     *PageSize A6
+
+*% =========================================================
+*%  PageRegion - MattePhoto131-175(MediaType)
+*% =========================================================
+*UIConstraints: *PageRegion Legal           *MediaType MattePhoto131-175
+*UIConstraints: *PageRegion Oficio_S        *MediaType MattePhoto131-175
+*UIConstraints: *PageRegion US-Folio        *MediaType MattePhoto131-175
+*UIConstraints: *PageRegion B5-ISO          *MediaType MattePhoto131-175
+*UIConstraints: *PageRegion B5-JIS          *MediaType MattePhoto131-175
+*UIConstraints: *PageRegion Executive       *MediaType MattePhoto131-175
+*UIConstraints: *PageRegion A5              *MediaType MattePhoto131-175
+*UIConstraints: *PageRegion A6              *MediaType MattePhoto131-175
+
+*UIConstraints: *MediaType MattePhoto131-175     *PageRegion Legal
+*UIConstraints: *MediaType MattePhoto131-175     *PageRegion Oficio_S
+*UIConstraints: *MediaType MattePhoto131-175     *PageRegion US-Folio
+*UIConstraints: *MediaType MattePhoto131-175     *PageRegion B5-ISO
+*UIConstraints: *MediaType MattePhoto131-175     *PageRegion B5-JIS
+*UIConstraints: *MediaType MattePhoto131-175     *PageRegion Executive
+*UIConstraints: *MediaType MattePhoto131-175     *PageRegion A5
+*UIConstraints: *MediaType MattePhoto131-175     *PageRegion A6
+
+*% =========================================================
+*%  PageSize - MattePhoto176-220(MediaType)
+*% =========================================================
+*UIConstraints: *PageSize Legal             *MediaType MattePhoto176-220
+*UIConstraints: *PageSize Oficio_S          *MediaType MattePhoto176-220
+*UIConstraints: *PageSize US-Folio          *MediaType MattePhoto176-220
+*UIConstraints: *PageSize B5-ISO            *MediaType MattePhoto176-220
+*UIConstraints: *PageSize B5-JIS            *MediaType MattePhoto176-220
+*UIConstraints: *PageSize Executive         *MediaType MattePhoto176-220
+*UIConstraints: *PageSize A5                *MediaType MattePhoto176-220
+*UIConstraints: *PageSize A6                *MediaType MattePhoto176-220
+
+*UIConstraints: *MediaType MattePhoto176-220     *PageSize Legal
+*UIConstraints: *MediaType MattePhoto176-220     *PageSize Oficio_S
+*UIConstraints: *MediaType MattePhoto176-220     *PageSize US-Folio
+*UIConstraints: *MediaType MattePhoto176-220     *PageSize B5-ISO
+*UIConstraints: *MediaType MattePhoto176-220     *PageSize B5-JIS
+*UIConstraints: *MediaType MattePhoto176-220     *PageSize Executive
+*UIConstraints: *MediaType MattePhoto176-220     *PageSize A5
+*UIConstraints: *MediaType MattePhoto176-220     *PageSize A6
+
+*% =========================================================
+*%  PageRegion - Photo176-220(MediaType)
+*% =========================================================
+*UIConstraints: *PageRegion Legal           *MediaType MattePhoto176-220
+*UIConstraints: *PageRegion Oficio_S        *MediaType MattePhoto176-220
+*UIConstraints: *PageRegion US-Folio        *MediaType MattePhoto176-220
+*UIConstraints: *PageRegion B5-ISO          *MediaType MattePhoto176-220
+*UIConstraints: *PageRegion B5-JIS          *MediaType MattePhoto176-220
+*UIConstraints: *PageRegion Executive       *MediaType MattePhoto176-220
+*UIConstraints: *PageRegion A5              *MediaType MattePhoto176-220
+*UIConstraints: *PageRegion A6              *MediaType MattePhoto176-220
+
+*UIConstraints: *MediaType MattePhoto176-220     *PageRegion Legal
+*UIConstraints: *MediaType MattePhoto176-220     *PageRegion Oficio_S
+*UIConstraints: *MediaType MattePhoto176-220     *PageRegion US-Folio
+*UIConstraints: *MediaType MattePhoto176-220     *PageRegion B5-ISO
+*UIConstraints: *MediaType MattePhoto176-220     *PageRegion B5-JIS
+*UIConstraints: *MediaType MattePhoto176-220     *PageRegion Executive
+*UIConstraints: *MediaType MattePhoto176-220     *PageRegion A5
+*UIConstraints: *MediaType MattePhoto176-220     *PageRegion A6
+
+
+
+*% ++++++++++++++++++++++
+*%  Font Information
+*% ++++++++++++++++++++++
+*DefaultFont: Courier
+*Font AlbertusMT-Italic: Standard "(001.001)" Standard ROM
+*Font AlbertusMT-Light: Standard "(001.001)" Standard ROM
+*Font AlbertusMT: Standard "(001.001)" Standard ROM
+*Font AntiqueOlive-Bold: Standard "(001.001)" Standard ROM
+*Font AntiqueOlive-Compact: Standard "(001.001)" Standard ROM
+*Font AntiqueOlive-Italic: Standard "(001.001)" Standard ROM
+*Font AntiqueOlive-Roman: Standard "(001.001)" Standard ROM
+*Font Apple-Chancery: Standard "(001.001)" ExtendedRoman ROM
+*Font Arial-BoldItalicMT: Standard "(001.001)" Standard ROM
+*Font Arial-BoldMT: Standard "(001.001)" Standard ROM
+*Font Arial-ItalicMT: Standard "(001.001)" Standard ROM
+*Font ArialMT: Standard "(001.001)" Standard ROM
+*Font AvantGarde-Book: Standard "(001.001)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.001)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.001)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.001)" Standard ROM
+*Font Bodoni-Bold: Standard "(001.001)" Standard ROM
+*Font Bodoni-BoldItalic: Standard "(001.001)" Standard ROM
+*Font Bodoni-Italic: Standard "(001.001)" Standard ROM
+*Font Bodoni-Poster: Standard "(001.001)" Standard ROM
+*Font Bodoni-PosterCompressed: Standard "(001.001)" Standard ROM
+*Font Bodoni: Standard "(001.001)" Standard ROM
+*Font Bookman-Demi: Standard "(001.001)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.001)" Standard ROM
+*Font Bookman-Light: Standard "(001.001)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.001)" Standard ROM
+*Font Candid: Special "(001.001)" Special ROM
+*Font Chicago: Standard "(001.001)" ExtendedRoman ROM
+*Font Clarendon-Bold: Standard "(001.001)" Standard ROM
+*Font Clarendon-Light: Standard "(001.001)" Standard ROM
+*Font Clarendon: Standard "(001.001)" Standard ROM
+*Font CooperBlack-Italic: Standard "(001.001)" Standard ROM
+*Font CooperBlack: Standard "(001.001)" Standard ROM
+*Font Copperplate-ThirtyThreeBC: Standard "(001.001)" Standard ROM
+*Font Copperplate-ThirtyTwoBC: Standard "(001.001)" Standard ROM
+*Font Coronet-Regular: Standard "(001.001)" Standard ROM
+*Font Courier-Bold: Standard "(001.001)" Standard ROM
+*Font Courier-BoldOblique: Standard "(001.001)" Standard ROM
+*Font Courier-Oblique: Standard "(001.001)" Standard ROM
+*Font Courier: Standard "(001.001)" Standard ROM
+*Font Eurostile-Bold: Standard "(001.001)" Standard ROM
+*Font Eurostile-BoldExtendedTwo: Standard "(001.001)" Standard ROM
+*Font Eurostile-ExtendedTwo: Standard "(001.001)" Standard ROM
+*Font Eurostile: Standard "(001.001)" Standard ROM
+*Font Geneva: Standard "(001.001)" ExtendedRoman ROM
+*Font GillSans-Bold: Standard "(001.001)" Standard ROM
+*Font GillSans-BoldCondensed: Standard "(001.001)" Standard ROM
+*Font GillSans-BoldItalic: Standard "(001.001)" Standard ROM
+*Font GillSans-Condensed: Standard "(001.001)" Standard ROM
+*Font GillSans-ExtraBold: Standard "(001.001)" Standard ROM
+*Font GillSans-Italic: Standard "(001.001)" Standard ROM
+*Font GillSans-Light: Standard "(001.001)" Standard ROM
+*Font GillSans-LightItalic: Standard "(001.001)" Standard ROM
+*Font GillSans: Standard "(001.001)" Standard ROM
+*Font Goudy-Bold: Standard "(001.001)" Standard ROM
+*Font Goudy-BoldItalic: Standard "(001.000)" Standard ROM
+*Font Goudy-ExtraBold: Standard "(001.001)" Standard ROM
+*Font Goudy-Italic: Standard "(001.001)" Standard ROM
+*Font Goudy: Standard "(001.001)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.001)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.001)" Standard ROM
+*Font Helvetica-Condensed-Bold: Standard "(001.001)" Standard ROM
+*Font Helvetica-Condensed-BoldObl: Standard "(001.001)" Standard ROM
+*Font Helvetica-Condensed-Oblique: Standard "(001.001)" Standard ROM
+*Font Helvetica-Condensed: Standard "(001.001)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.001)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.001)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.001)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.001)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.001)" Standard ROM
+*Font Helvetica: Standard "(001.001)" Standard ROM
+*Font HoeflerText-Black: Standard "(001.001)" ExtendedRoman ROM
+*Font HoeflerText-BlackItalic: Standard "(001.001)" Standard ROM
+*Font HoeflerText-Italic: Standard "(001.001)" ExtendedRoman ROM
+*Font HoeflerText-Ornaments: Special "(001.001)" Special ROM
+*Font HoeflerText-Regular: Standard "(001.001)" Standard ROM
+*Font JoannaMT-Bold: Standard "(001.001)" Standard ROM
+*Font JoannaMT-BoldItalic: Standard "(001.001)" Standard ROM
+*Font JoannaMT-Italic: Standard "(001.001)" Standard ROM
+*Font JoannaMT: Standard "(001.001)" Standard ROM
+*Font LetterGothic-Bold: Standard "(001.001)" Standard ROM
+*Font LetterGothic-BoldSlanted: Standard "(001.001)" Standard ROM
+*Font LetterGothic-Slanted: Standard "(001.001)" Standard ROM
+*Font LetterGothic: Standard "(001.001)" Standard ROM
+*Font LubalinGraph-Book: Standard "(001.001)" Standard ROM
+*Font LubalinGraph-BookOblique: Standard "(001.001)" Standard ROM
+*Font LubalinGraph-Demi: Standard "(001.001)" Standard ROM
+*Font LubalinGraph-DemiOblique: Standard "(001.001)" Standard ROM
+*Font Marigold: Standard "(001.001)" Standard ROM
+*Font Monaco: Standard "(001.001)" ExtendedRoman ROM
+*Font MonaLisa-Recut: Standard "(001.001)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.001)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.001)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.001)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.001)" Standard ROM
+*Font NewYork: Standard "(001.001)" ExtendedRoman ROM
+*Font Optima-Bold: Standard "(001.001)" Standard ROM
+*Font Optima-BoldItalic: Standard "(001.001)" Standard ROM
+*Font Optima-Italic: Standard "(001.001)" Standard ROM
+*Font Optima: Standard "(001.001)" Standard ROM
+*Font Oxford: Standard "(001.001)" Standard ROM
+*Font Palatino-Bold: Standard "(001.001)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.001)" Standard ROM
+*Font Palatino-Italic: Standard "(001.001)" Standard ROM
+*Font Palatino-Roman: Standard "(001.001)" Standard ROM
+*Font StempelGaramond-Bold: Standard "(001.001)" Standard ROM
+*Font StempelGaramond-BoldItalic: Standard "(001.001)" Standard ROM
+*Font StempelGaramond-Italic: Standard "(001.001)" Standard ROM
+*Font StempelGaramond-Roman: Standard "(001.001)" Standard ROM
+*Font Symbol: Special "(001.001)" Special ROM
+*Font Taffy: Standard "(001.001)" Standard ROM
+*Font Times-Bold: Standard "(001.001)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.001)" Standard ROM
+*Font Times-Italic: Standard "(001.001)" Standard ROM
+*Font Times-Roman: Standard "(001.001)" Standard ROM
+*Font TimesNewRomanPS-BoldItalicMT: Standard "(001.001)" Standard ROM
+*Font TimesNewRomanPS-BoldMT: Standard "(001.001)" Standard ROM
+*Font TimesNewRomanPS-ItalicMT: Standard "(001.001)" Standard ROM
+*Font TimesNewRomanPSMT: Standard "(001.001)" Standard ROM
+*Font Univers-Bold: Standard "(001.001)" Standard ROM
+*Font Univers-BoldExt: Standard "(001.001)" Standard ROM
+*Font Univers-BoldExtObl: Standard "(001.001)" Standard ROM
+*Font Univers-BoldOblique: Standard "(001.001)" Standard ROM
+*Font Univers-Condensed: Standard "(001.001)" Standard ROM
+*Font Univers-CondensedBold: Standard "(001.001)" Standard ROM
+*Font Univers-CondensedBoldOblique: Standard "(001.001)" Standard ROM
+*Font Univers-CondensedOblique: Standard "(001.001)" Standard ROM
+*Font Univers-Extended: Standard "(001.001)" Standard ROM
+*Font Univers-ExtendedObl: Standard "(001.001)" Standard ROM
+*Font Univers-Light: Standard "(001.001)" Standard ROM
+*Font Univers-LightOblique: Standard "(001.001)" Standard ROM
+*Font Univers-Oblique: Standard "(001.001)" Standard ROM
+*Font Univers: Standard "(001.001)" Standard ROM
+*Font Wingdings-Regular: Special "(001.001)" Special ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.001)" Standard ROM
+*Font ZapfDingbats: Special "(001.001)" Special ROM
+
+*?FontQuery: "save
+{count 1 gt
+  {exch dup 127 string cvs (/)print print (:)print
+   /Font resourcestatus
+   {pop pop (Yes)} {(No)} ifelse =
+  }
+  {exit}
+  ifelse
+} bind loop
+(*) = flush
+restore"
+*End
+
+*?FontList: "save
+ (*) {cvn ==} 128 string /Font resourceforall
+ (*) = flush
+restore"
+*End
