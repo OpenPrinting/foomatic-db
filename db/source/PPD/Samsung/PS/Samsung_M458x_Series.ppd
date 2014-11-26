@@ -9,8 +9,6 @@
 *% PPD for Samsung M458x Series PS
 *% For Linux
 *% =========================================
-*FileVersion: "1.8"
-*FormatVersion: "4.3"
 *%
 *%
 *% Copyright (c) 2014 Samsung Electronics Co., Ltd.
@@ -36,6 +34,7 @@
 *% 
 *% [this is the MIT open source license -- please see www.opensource.org]
 *%
+*FileVersion: "1.8"
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
@@ -84,6 +83,106 @@
 *CloseUI: *MassStorage
 
 *CloseGroup: InstallableOptions
+
+*% =========================================
+*% Job Accounting - Type
+*% =========================================
+*JCLOpenUI *JCLJACType/[Job Accounting] Type: PickOne
+*OrderDependency: 12 JCLSetup *JCLJACType
+*DefaultJCLJACType: Accounting
+*JCLJACType Accounting/Accounting: ""
+*JCLJACType IDOnly/ID Only: ""
+*JCLCloseUI: *JCLJACType
+
+*% =========================================
+*% Job Accounting - Permission
+*% =========================================
+*JCLOpenUI *JCLJACPermission/[Job Accounting] Permission: PickOne
+*OrderDependency: 12 JCLSetup *JCLJACPermission
+*DefaultJCLJACPermission: User
+*JCLJACPermission User/User permission: "@PJL SET LDAPPERMISSION=PERSONAL<0D0A>"
+*JCLJACPermission Group/Group permission: "@PJL SET LDAPPERMISSION=GROUP<0D0A>"
+*JCLCloseUI: *JCLJACPermission
+
+*% =========================================
+*% Job Accounting - User ID
+*% =========================================
+*JCLOpenUI *JCLJACUserID/[Job Accounting] User ID: PickOne
+*OrderDependency: 20 JCLSetup *JCLJACUserID
+*DefaultJCLJACUserID: None
+*JCLJACUserID None/None: ""
+*JCLJACUserID ID/User1: "@PJL SET ACCOUNTING_INFORMATION_USERID=User1<0D0A>"
+*JCLCloseUI: *JCLJACUserID
+
+*% Custom JACUserID
+*CustomJCLJACUserID True: "@PJL SET ACCOUNTING_INFORMATION_USERID=\1<0D0A>"
+*ParamCustomJCLJACUserID Custom/Custom Name: 1 string 0 129
+
+*% =========================================
+*% Job Accounting - Password 
+*% =========================================
+*JCLOpenUI *JCLJACPassword/[Job Accounting] Password (4-32 characters): PickOne
+*OrderDependency: 20 JCLSetup *JCLJACPassword
+*DefaultJCLJACPassword: None
+*JCLJACPassword None/None: ""
+*JCLJACPassword Password/1111: "@PJL SET ACCOUNTING_INFORMATION_PASSWORD=1111<0D0A>"
+*JCLCloseUI: *JCLJACPassword
+
+*% Custom JACPassword
+*CustomJCLJACPassword True: "@PJL SET ACCOUNTING_INFORMATION_PASSWORD=\1<0D0A>"
+*ParamCustomJCLJACPassword Custom/Custom Password: 1 password 4 32
+
+*% =========================================
+*% Print Mode - Type
+*% =========================================
+*JCLOpenUI *JCLCDPType/[Print Mode] Type: PickOne
+*OrderDependency: 12 JCLSetup *JCLCDPType
+*DefaultJCLCDPType: None
+*JCLCDPType None/Normal: ""
+*JCLCDPType Confidential/Confidential: "@PJL COMMENT PRIVATE PRINT<0D0A>@PJL SET HOLD = ON<0D0A>@PJL SET HOLDTYPE = PRIVATE<0D0A>@PJL SET PRINTMODE=PRINT<0D0A>"
+*JCLCloseUI: *JCLCDPType
+
+*% =========================================
+*% Print Mode - User ID
+*% =========================================
+*JCLOpenUI *JCLCDPUserID/[Print Mode] User ID: PickOne
+*OrderDependency: 15 JCLSetup *JCLCDPUserID
+*DefaultJCLCDPUserID: None
+*JCLCDPUserID None/None: ""
+*JCLCDPUserID ID/User1: "@PJL SET USERNAME = <22>User1<220A>"
+*JCLCloseUI: *JCLCDPUserID
+
+*% Custom CDPUserID
+*CustomJCLCDPUserID True:  "@PJL SET USERNAME = <22>\1<220A>"
+*ParamCustomJCLCDPUserID Custom/Custom ID: 1 string 1 64
+
+*% =========================================
+*% Print Mode - Job Name
+*% =========================================
+*JCLOpenUI *JCLCDPJobName/[Print Mode] Job Name: PickOne
+*OrderDependency: 15 JCLSetup *JCLCDPJobName
+*DefaultJCLCDPJobName: None
+*JCLCDPJobName None/None: ""
+*JCLCDPJobName JobName/Job1: "@PJL SET JOBNAME = <22>Job1<220A>"
+*JCLCloseUI: *JCLCDPJobName
+
+*% Custom CDPJobName
+*CustomJCLCDPJobName True: "@PJL SET JOBNAME = <22>\1<220A>"
+*ParamCustomJCLCDPJobName Custom/Custom Name: 1 string 0 64
+
+*% =========================================
+*% Print Mode - Password 
+*% =========================================
+*JCLOpenUI *JCLCDPPassword/[Print Mode] Password (4-8 characters): PickOne
+*OrderDependency: 20 JCLSetup *JCLCDPPassword
+*DefaultJCLCDPPassword: None
+*JCLCDPPassword None/None: ""
+*JCLCDPPassword Password/1111: "@PJL SET HOLDKEY = <22>1111<220A>"
+*JCLCloseUI: *JCLCDPPassword
+
+*% Custom CDPPassword
+*CustomJCLCDPPassword True: "@PJL SET HOLDKEY = <22>\1<220A>"
+*ParamCustomJCLCDPPassword Custom/Custom Password: 1 password 4 8
 
 *% =========================================================
 *%  Printer Features
@@ -470,7 +569,10 @@
 *?PageSize: "
 save currentpagedevice /PageSize get aload pop
    2 copy gt {exch} if (Unknown) 20 dict
+   dup [288 432] (IndexCard) put
+   dup [284 419] (JPost) put
    dup [288 432] (Postcard_S) put
+   dup [279 639] (Env9) put
    dup [396 612] (Statement) put
    dup [612 972] (Oficio_S) put
    dup [297 420] (A6) put

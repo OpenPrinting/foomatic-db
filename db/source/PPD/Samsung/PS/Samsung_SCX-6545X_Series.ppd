@@ -71,6 +71,134 @@
 *JCLToPSInterpreter: "@PJL ENTER LANGUAGE = POSTSCRIPT<0A>"
 *JCLEnd: "<1B>%-12345X"
 
+*% =========================================================
+*% Installable Options
+*% =========================================================
+*OpenGroup: InstallableOptions/Installed Options
+
+*OpenUI *OptionalTray/Optional Tray: PickOne
+*DefaultOptionalTray: None
+*OptionalTray None/None: ""
+*OptionalTray Tray2/Tray 2: ""
+*OptionalTray Tray23/Tray 2, 3: ""
+*OptionalTray Tray234/Tray 2, 3, 4: ""
+
+*CloseUI: *OptionalTray
+
+*OpenUI *OptFinisher/Optional Finisher: PickOne
+*DefaultOptFinisher: None
+*OptFinisher None/Not Installed: ""
+*OptFinisher MPFinisher/Finisher: ""
+*OptFinisher MPFinisher2/2-Bin Finisher: ""
+*CloseUI: *OptFinisher
+
+*OpenUI *OptMailbox/4-Bin Mailbox: Boolean
+*DefaultOptMailbox: False
+*OptMailbox False/Not Installed: ""
+*OptMailbox True/Installed: ""
+*CloseUI: *OptMailbox
+
+*CloseGroup: InstallableOptions
+
+*% =========================================
+*% Job Accounting - Type
+*% =========================================
+*JCLOpenUI *JCLJACType/[Job Accounting] Type: PickOne
+*OrderDependency: 12 JCLSetup *JCLJACType
+*DefaultJCLJACType: Accounting
+*JCLJACType Accounting/Accounting: ""
+*JCLJACType IDOnly/ID Only: ""
+*JCLCloseUI: *JCLJACType
+
+*% =========================================
+*% Job Accounting - Permission
+*% =========================================
+*JCLOpenUI *JCLJACPermission/[Job Accounting] Permission: PickOne
+*OrderDependency: 12 JCLSetup *JCLJACPermission
+*DefaultJCLJACPermission: User
+*JCLJACPermission User/User permission: "@PJL SET LDAPPERMISSION=PERSONAL<0D0A>"
+*JCLJACPermission Group/Group permission: "@PJL SET LDAPPERMISSION=GROUP<0D0A>"
+*JCLCloseUI: *JCLJACPermission
+
+*% =========================================
+*% Job Accounting - User ID
+*% =========================================
+*JCLOpenUI *JCLJACUserID/[Job Accounting] User ID: PickOne
+*OrderDependency: 20 JCLSetup *JCLJACUserID
+*DefaultJCLJACUserID: None
+*JCLJACUserID None/None: ""
+*JCLJACUserID ID/User1: "@PJL SET ACCOUNTING_INFORMATION_USERID=User1<0D0A>"
+*JCLCloseUI: *JCLJACUserID
+
+*% Custom JACUserID
+*CustomJCLJACUserID True: "@PJL SET ACCOUNTING_INFORMATION_USERID=\1<0D0A>"
+*ParamCustomJCLJACUserID Custom/Custom Name: 1 string 0 129
+
+*% =========================================
+*% Job Accounting - Password 
+*% =========================================
+*JCLOpenUI *JCLJACPassword/[Job Accounting] Password (4-32 Alphanumeric): PickOne
+*OrderDependency: 20 JCLSetup *JCLJACPassword
+*DefaultJCLJACPassword: None
+*JCLJACPassword None/None: ""
+*JCLJACPassword Password/1111: "@PJL SET ACCOUNTING_INFORMATION_PASSWORD=1111<0D0A>"
+*JCLCloseUI: *JCLJACPassword
+
+*% Custom JACPassword
+*CustomJCLJACPassword True: "@PJL SET ACCOUNTING_INFORMATION_PASSWORD=\1<0D0A>"
+*ParamCustomJCLJACPassword Custom/Custom Password: 1 password 4 32
+
+*% =========================================
+*% Print Mode - Type
+*% =========================================
+*JCLOpenUI *JCLCDPType/[Print Mode] Type: PickOne
+*OrderDependency: 12 JCLSetup *JCLCDPType
+*DefaultJCLCDPType: None
+*JCLCDPType None/Normal: ""
+*JCLCDPType Confidential/Confidential: "@PJL COMMENT PRIVATE PRINT<0D0A>@PJL SET HOLD = ON<0D0A>@PJL SET HOLDTYPE = PRIVATE<0D0A>@PJL SET PRINTMODE=PRINT<0D0A>"
+*JCLCloseUI: *JCLCDPType
+
+*% =========================================
+*% Print Mode - User ID
+*% =========================================
+*JCLOpenUI *JCLCDPUserID/[Print Mode] User ID: PickOne
+*OrderDependency: 15 JCLSetup *JCLCDPUserID
+*DefaultJCLCDPUserID: None
+*JCLCDPUserID None/None: ""
+*JCLCDPUserID ID/User1: "@PJL SET USERNAME = <22>User1<220A>"
+*JCLCloseUI: *JCLCDPUserID
+
+*% Custom CDPUserID
+*CustomJCLCDPUserID True:  "@PJL SET USERNAME = <22>\1<220A>"
+*ParamCustomJCLCDPUserID Custom/Custom ID: 1 string 1 64
+
+*% =========================================
+*% Print Mode - Job Name
+*% =========================================
+*JCLOpenUI *JCLCDPJobName/[Print Mode] Job Name: PickOne
+*OrderDependency: 15 JCLSetup *JCLCDPJobName
+*DefaultJCLCDPJobName: None
+*JCLCDPJobName None/None: ""
+*JCLCDPJobName JobName/Job1: "@PJL SET JOBNAME = <22>Job1<220A>"
+*JCLCloseUI: *JCLCDPJobName
+
+*% Custom CDPJobName
+*CustomJCLCDPJobName True: "@PJL SET JOBNAME = <22>\1<220A>"
+*ParamCustomJCLCDPJobName Custom/Custom Name: 1 string 0 64
+
+*% =========================================
+*% Print Mode - Password 
+*% =========================================
+*JCLOpenUI *JCLCDPPassword/[Print Mode] Password (4 Digit): PickOne
+*OrderDependency: 20 JCLSetup *JCLCDPPassword
+*DefaultJCLCDPPassword: None
+*JCLCDPPassword None/None: ""
+*JCLCDPPassword Password/1111: "@PJL SET HOLDKEY = <22>1111<220A>"
+*JCLCloseUI: *JCLCDPPassword
+
+*% Custom CDPPassword
+*CustomJCLCDPPassword True: "@PJL SET HOLDKEY = <22>\1<220A>"
+*ParamCustomJCLCDPPassword Custom/Custom Passcode: 1 passcode 4 4
 
 *%==========================================================
 *% Collate
@@ -114,22 +242,8 @@
 *CloseUI: *Duplex
 
 *% =========================================================
-*%  Fit to Page
+*%  Toner Save
 *% =========================================================
-*OpenUI *PaperPolicy/Fit to Page: PickOne
-*OrderDependency: 25 AnySetup *PaperPolicy
-*DefaultPaperPolicy: Promptuser
-*PaperPolicy Promptuser/Prompt User: "
-   <</DeferredMediaSelection true>> setpagedevice"
-*End
-*PaperPolicy NearestSizeAdjust/Nearest Size and Scale: "
-   <</DeferredMediaSelection false /Policies << /PageSize 3 >> >> setpagedevice"
-*End
-*PaperPolicy NearestSizeNoAdjust/Nearest Size and Crop: "
-   <</DeferredMediaSelection false /Policies << /PageSize 5 >> >> setpagedevice"
-*End
-*CloseUI: *PaperPolicy
-
 *JCLOpenUI *JCLEconomode/Toner Save Mode: PickOne
 *OrderDependency: 10 JCLSetup *JCLEconomode
 *DefaultJCLEconomode: Off
@@ -140,13 +254,13 @@
 *% =========================================================
 *%  StapleLocation
 *% =========================================================
-*JCLOpenUI *StapleLocation/Staple: PickOne
-*OrderDependency: 10 JCLSetup *StapleLocation
-*DefaultStapleLocation: None
-*StapleLocation None/None: ""
-*StapleLocation 1Staple_P/1 Staple (Portrait):  "@PJL SET STAPLE=PORTRAIT<0A>"
-*StapleLocation 1Staple_L/1 Staple (Landscape): "@PJL SET STAPLE=LANDSCAPE<0A>"
-*JCLCloseUI: *StapleLocation
+*JCLOpenUI *JCLStapleLocation/Staple: PickOne
+*OrderDependency: 10 JCLSetup *JCLStapleLocation
+*DefaultJCLStapleLocation: None
+*JCLStapleLocation None/None: ""
+*JCLStapleLocation 1Staple_P/1 Staple (Portrait):  "@PJL SET STAPLE=PORTRAIT<0A>"
+*JCLStapleLocation 1Staple_L/1 Stple (Landscape): "@PJL SET STAPLE=LANDSCAPE<0A>"
+*JCLCloseUI: *JCLStapleLocation
 
 *% =========================================================
 *%  Request Offset
@@ -255,10 +369,10 @@
 *InputSlot Auto/Printer Auto Selection:"
  <</ManualFeed false /MediaPosition null>> setpagedevice"
 *End
-*InputSlot Upper/Multi-Purpose Tray:"
+*InputSlot Multi/Multi-Purpose Tray:"
  << /ManualFeed false /MediaPosition 2 >> setpagedevice"
 *End
-*InputSlot Middle/Tray 1:"
+*InputSlot Upper/Tray 1:"
  << /ManualFeed false /MediaPosition 1 >> setpagedevice"
 *End
 *InputSlot Lower/Tray 2:"
@@ -402,61 +516,174 @@ save currentpagedevice /PageSize get aload pop
 *% =========================================================
 *%  User Interface Constraints
 *% =========================================================
+*% =========================================================
+*%  Optional Tray - Tray
+*% =========================================================
+*UIConstraints: *OptionalTray None   *InputSlot Lower
+*UIConstraints: *OptionalTray None   *InputSlot Tray3
+*UIConstraints: *OptionalTray None   *InputSlot Tray4
+*UIConstraints: *OptionalTray Tray2  *InputSlot Tray3
+*UIConstraints: *OptionalTray Tray2  *InputSlot Tray4
+*UIConstraints: *OptionalTray Tray23 *InputSlot Tray4
 
+*UIConstraints: *InputSlot Lower			*OptionalTray None
+*UIConstraints: *InputSlot Tray3			*OptionalTray None
+*UIConstraints: *InputSlot Tray4			*OptionalTray None
+*UIConstraints: *InputSlot Tray3			*OptionalTray Tray2
+*UIConstraints: *InputSlot Tray4			*OptionalTray Tray2
+*UIConstraints: *InputSlot Tray4			*OptionalTray Tray23
+
+*% =========================================================
+*%  Finisher - Staple
+*% =========================================================
+*UIConstraints: *OptFinisher None *JCLStapleLocation 1Staple_P
+*UIConstraints: *OptFinisher None *JCLStapleLocation 1Staple_L
+
+*UIConstraints: *JCLStapleLocation 1Staple_P *OptFinisher None
+*UIConstraints: *JCLStapleLocation 1Staple_L *OptFinisher None
+
+*% =========================================================
+*%  Finisher - Offset
+*% =========================================================
+*UIConstraints: *OptFinisher None *SECOffSet True
+*UIConstraints: *SECOffSet True *OptFinisher None
+
+*% =========================================================
+*% OptMailbox - OutputMode
+*% =========================================================
+*UIConstraints: *OptMailbox False			*JCLOutputMode Mailbox
+*UIConstraints: *OptMailbox False			*JCLOutputMode Separator
+*UIConstraints: *OptMailbox False			*JCLOutputMode Collator
+*UIConstraints: *OptMailbox False			*JCLOutputMode Stacking
+
+*UIConstraints: *JCLOutputMode Mailbox			*OptMailbox False
+*UIConstraints: *JCLOutputMode Separator			*OptMailbox False
+*UIConstraints: *JCLOutputMode Collator			*OptMailbox False
+*UIConstraints: *JCLOutputMode Stacking			*OptMailbox False
+
+*% =========================================================
+*% Finisher - OutputBin
+*% =========================================================
+*UIConstraints: *OptFinisher None			*JCLOutputBin Bin1
+*UIConstraints: *OptFinisher None			*JCLOutputBin Bin2
+*UIConstraints: *OptFinisher None			*JCLOutputBin Bin3
+*UIConstraints: *OptFinisher None			*JCLOutputBin Bin4
+*UIConstraints: *OptFinisher None			*JCLOutputBin Bin5
+*UIConstraints: *OptFinisher None			*JCLOutputBin Bin6
+
+*UIConstraints: *JCLOutputBin Bin1			*OptFinisher None
+*UIConstraints: *JCLOutputBin Bin2			*OptFinisher None
+*UIConstraints: *JCLOutputBin Bin3			*OptFinisher None
+*UIConstraints: *JCLOutputBin Bin4			*OptFinisher None
+*UIConstraints: *JCLOutputBin Bin5			*OptFinisher None
+*UIConstraints: *JCLOutputBin Bin6			*OptFinisher None
+
+*UIConstraints: *OptFinisher MPFinisher	*JCLOutputBin Bin1
+*UIConstraints: *OptFinisher MPFinisher	*JCLOutputBin Bin2
+*UIConstraints: *OptFinisher MPFinisher	*JCLOutputBin Bin3
+*UIConstraints: *OptFinisher MPFinisher	*JCLOutputBin Bin4
+*UIConstraints: *OptFinisher MPFinisher	*JCLOutputBin Bin5
+*UIConstraints: *OptFinisher MPFinisher	*JCLOutputBin Bin6
+
+*UIConstraints: *JCLOutputBin Bin1		*OptFinisher MPFinisher
+*UIConstraints: *JCLOutputBin Bin2		*OptFinisher MPFinisher
+*UIConstraints: *JCLOutputBin Bin3		*OptFinisher MPFinisher
+*UIConstraints: *JCLOutputBin Bin4		*OptFinisher MPFinisher
+*UIConstraints: *JCLOutputBin Bin5		*OptFinisher MPFinisher
+*UIConstraints: *JCLOutputBin Bin6		*OptFinisher MPFinisher
+
+*% =========================================================
+*% Finisher - OptMailBox
+*% =========================================================
+*UIConstraints: *OptFinisher None		*OptMailbox True
+*UIConstraints: *OptFinisher MPFinisher	*OptMailbox True
+
+*UIConstraints: *OptMailbox True	*OptFinisher None
+*UIConstraints: *OptMailbox True	*OptFinisher MPFinisher
+
+*% =========================================================
+*% Finisher - JCLOutputMode
+*% =========================================================
+*UIConstraints: *OptFinisher None			*JCLOutputMode Mailbox
+*UIConstraints: *OptFinisher None			*JCLOutputMode Separator
+*UIConstraints: *OptFinisher None			*JCLOutputMode Collator
+*UIConstraints: *OptFinisher None			*JCLOutputMode Stacking
+
+*UIConstraints: *OptFinisher MPFinisher		*JCLOutputMode Mailbox
+*UIConstraints: *OptFinisher MPFinisher		*JCLOutputMode Separator
+*UIConstraints: *OptFinisher MPFinisher		*JCLOutputMode Collator
+*UIConstraints: *OptFinisher MPFinisher		*JCLOutputMode Stacking
+
+*% =========================================================
+*% OptMailBox - OutputBin
+*% =========================================================
+*UIConstraints: *OptMailbox False	*JCLOutputBin Bin3		
+*UIConstraints: *OptMailbox False	*JCLOutputBin Bin4		
+*UIConstraints: *OptMailbox False	*JCLOutputBin Bin5		
+*UIConstraints: *OptMailbox False	*JCLOutputBin Bin6	
+
+*UIConstraints: *JCLOutputBin Bin3		*OptMailbox False
+*UIConstraints: *JCLOutputBin Bin4		*OptMailbox False
+*UIConstraints: *JCLOutputBin Bin5		*OptMailbox False
+*UIConstraints: *JCLOutputBin Bin6		*OptMailbox False
+
+*% =========================================================
+*%  Duplex - Reverse Duplex
+*% =========================================================
 *%======Reverse Duplex - Duplex
 *UIConstraints: *Duplex None            *SECReverseDuplex True
 *UIConstraints: *SECReverseDuplex True  *Duplex None
 
-*% =======================================================================================
+*% =========================================================
 *%  StapleLocation - PageSize
-*% =======================================================================================
-*UIConstraints: *PageSize A5           *StapleLocation 1Staple_L
-*UIConstraints: *PageSize Env10        *StapleLocation 1Staple_L
-*UIConstraints: *PageSize EnvDL        *StapleLocation 1Staple_L
-*UIConstraints: *PageSize EnvC5        *StapleLocation 1Staple_L
-*UIConstraints: *PageSize EnvC6        *StapleLocation 1Staple_L
-*UIConstraints: *PageSize B5-ISO       *StapleLocation 1Staple_L
-*UIConstraints: *PageSize EnvMonarch   *StapleLocation 1Staple_L
-*UIConstraints: *PageSize A6           *StapleLocation 1Staple_L
-*UIConstraints: *PageSize Statement    *StapleLocation 1Staple_L
-*UIConstraints: *PageSize Postcard_S   *StapleLocation 1Staple_L
+*% =========================================================
+*UIConstraints: *PageSize A5           *JCLStapleLocation 1Staple_L
+*UIConstraints: *PageSize Env10        *JCLStapleLocation 1Staple_L
+*UIConstraints: *PageSize EnvDL        *JCLStapleLocation 1Staple_L
+*UIConstraints: *PageSize EnvC5        *JCLStapleLocation 1Staple_L
+*UIConstraints: *PageSize EnvC6        *JCLStapleLocation 1Staple_L
+*UIConstraints: *PageSize B5-ISO       *JCLStapleLocation 1Staple_L
+*UIConstraints: *PageSize EnvMonarch   *JCLStapleLocation 1Staple_L
+*UIConstraints: *PageSize A6           *JCLStapleLocation 1Staple_L
+*UIConstraints: *PageSize Statement    *JCLStapleLocation 1Staple_L
+*UIConstraints: *PageSize Postcard_S   *JCLStapleLocation 1Staple_L
 
-*UIConstraints: *StapleLocation 1Staple_L      *PageSize A5
-*UIConstraints: *StapleLocation 1Staple_L      *PageSize Env10
-*UIConstraints: *StapleLocation 1Staple_L      *PageSize EnvDL
-*UIConstraints: *StapleLocation 1Staple_L      *PageSize EnvC5
-*UIConstraints: *StapleLocation 1Staple_L      *PageSize EnvC6
-*UIConstraints: *StapleLocation 1Staple_L      *PageSize B5-ISO
-*UIConstraints: *StapleLocation 1Staple_L      *PageSize EnvMonarch
-*UIConstraints: *StapleLocation 1Staple_L      *PageSize A6
-*UIConstraints: *StapleLocation 1Staple_L      *PageSize Statement
-*UIConstraints: *StapleLocation 1Staple_L      *PageSize Postcard_S
+*UIConstraints: *JCLStapleLocation 1Staple_L      *PageSize A5
+*UIConstraints: *JCLStapleLocation 1Staple_L      *PageSize Env10
+*UIConstraints: *JCLStapleLocation 1Staple_L      *PageSize EnvDL
+*UIConstraints: *JCLStapleLocation 1Staple_L      *PageSize EnvC5
+*UIConstraints: *JCLStapleLocation 1Staple_L      *PageSize EnvC6
+*UIConstraints: *JCLStapleLocation 1Staple_L      *PageSize B5-ISO
+*UIConstraints: *JCLStapleLocation 1Staple_L      *PageSize EnvMonarch
+*UIConstraints: *JCLStapleLocation 1Staple_L      *PageSize A6
+*UIConstraints: *JCLStapleLocation 1Staple_L      *PageSize Statement
+*UIConstraints: *JCLStapleLocation 1Staple_L      *PageSize Postcard_S
 
-*UIConstraints: *PageSize A5           *StapleLocation 1Staple_P
-*UIConstraints: *PageSize Env10        *StapleLocation 1Staple_P
-*UIConstraints: *PageSize EnvDL        *StapleLocation 1Staple_P
-*UIConstraints: *PageSize EnvC5        *StapleLocation 1Staple_P
-*UIConstraints: *PageSize EnvC6        *StapleLocation 1Staple_P
-*UIConstraints: *PageSize B5-ISO       *StapleLocation 1Staple_P
-*UIConstraints: *PageSize EnvMonarch   *StapleLocation 1Staple_P
-*UIConstraints: *PageSize A6           *StapleLocation 1Staple_P
-*UIConstraints: *PageSize Statement    *StapleLocation 1Staple_P
-*UIConstraints: *PageSize Postcard_S   *StapleLocation 1Staple_P
+*UIConstraints: *PageSize A5           *JCLStapleLocation 1Staple_P
+*UIConstraints: *PageSize Env10        *JCLStapleLocation 1Staple_P
+*UIConstraints: *PageSize EnvDL        *JCLStapleLocation 1Staple_P
+*UIConstraints: *PageSize EnvC5        *JCLStapleLocation 1Staple_P
+*UIConstraints: *PageSize EnvC6        *JCLStapleLocation 1Staple_P
+*UIConstraints: *PageSize B5-ISO       *JCLStapleLocation 1Staple_P
+*UIConstraints: *PageSize EnvMonarch   *JCLStapleLocation 1Staple_P
+*UIConstraints: *PageSize A6           *JCLStapleLocation 1Staple_P
+*UIConstraints: *PageSize Statement    *JCLStapleLocation 1Staple_P
+*UIConstraints: *PageSize Postcard_S   *JCLStapleLocation 1Staple_P
 
-*UIConstraints: *StapleLocation 1Staple_P      *PageSize A5
-*UIConstraints: *StapleLocation 1Staple_P      *PageSize Env10
-*UIConstraints: *StapleLocation 1Staple_P      *PageSize EnvDL
-*UIConstraints: *StapleLocation 1Staple_P      *PageSize EnvC5
-*UIConstraints: *StapleLocation 1Staple_P      *PageSize EnvC6
-*UIConstraints: *StapleLocation 1Staple_P      *PageSize B5-ISO
-*UIConstraints: *StapleLocation 1Staple_P      *PageSize EnvMonarch
-*UIConstraints: *StapleLocation 1Staple_P      *PageSize A6
-*UIConstraints: *StapleLocation 1Staple_P      *PageSize Statement
-*UIConstraints: *StapleLocation 1Staple_P      *PageSize Postcard_S
+*UIConstraints: *JCLStapleLocation 1Staple_P      *PageSize A5
+*UIConstraints: *JCLStapleLocation 1Staple_P      *PageSize Env10
+*UIConstraints: *JCLStapleLocation 1Staple_P      *PageSize EnvDL
+*UIConstraints: *JCLStapleLocation 1Staple_P      *PageSize EnvC5
+*UIConstraints: *JCLStapleLocation 1Staple_P      *PageSize EnvC6
+*UIConstraints: *JCLStapleLocation 1Staple_P      *PageSize B5-ISO
+*UIConstraints: *JCLStapleLocation 1Staple_P      *PageSize EnvMonarch
+*UIConstraints: *JCLStapleLocation 1Staple_P      *PageSize A6
+*UIConstraints: *JCLStapleLocation 1Staple_P      *PageSize Statement
+*UIConstraints: *JCLStapleLocation 1Staple_P      *PageSize Postcard_S
 
-*% =======================================================================================
+*% =========================================================
 *%  Request Offset - PageSize
-*% =======================================================================================
+*% =========================================================
 *UIConstraints: *PageSize A5           *SECOffSet True
 *UIConstraints: *PageSize Env10        *SECOffSet True
 *UIConstraints: *PageSize EnvDL        *SECOffSet True
@@ -479,9 +706,9 @@ save currentpagedevice /PageSize get aload pop
 *UIConstraints: *SECOffSet True        *PageSize Statement
 *UIConstraints: *SECOffSet True        *PageSize Postcard_S
 
-*% =======================================================================================
+*% =========================================================
 *%  Duplex - MediaType
-*% =======================================================================================
+*% =========================================================
 *UIConstraints: *MediaType Bond               *Duplex DuplexNoTumble
 *UIConstraints: *MediaType Bond               *Duplex DuplexTumble
 *UIConstraints: *MediaType Cotton             *Duplex DuplexNoTumble
@@ -516,9 +743,9 @@ save currentpagedevice /PageSize get aload pop
 *UIConstraints: *Duplex DuplexNoTumble        *MediaType Archive
 *UIConstraints: *Duplex DuplexTumble          *MediaType Archive
 
-*% =======================================================================================
+*% =========================================================
 *%  A6,PostCard (PageSize) - MediaType
-*% =======================================================================================
+*% =========================================================
 *UIConstraints: *PageSize A6              *MediaType Bond
 *UIConstraints: *PageSize A6              *MediaType Cotton
 *UIConstraints: *PageSize A6              *MediaType Thick
@@ -571,9 +798,9 @@ save currentpagedevice /PageSize get aload pop
 *UIConstraints: *MediaType Punched        *PageSize Postcard_S
 *UIConstraints: *MediaType Letterhead     *PageSize Postcard_S
 
-*% =======================================================================================
+*% =========================================================
 *%  A6,PostCard (PageRegion) - MediaType
-*% =======================================================================================
+*% =========================================================
 *UIConstraints: *PageRegion A6            *MediaType Bond
 *UIConstraints: *PageRegion A6            *MediaType Cotton
 *UIConstraints: *PageRegion A6            *MediaType Thick
@@ -626,9 +853,9 @@ save currentpagedevice /PageSize get aload pop
 *UIConstraints: *MediaType Punched        *PageRegion Postcard_S
 *UIConstraints: *MediaType Letterhead     *PageRegion Postcard_S
 
-*% =======================================================================================
+*% =========================================================
 *%  Envelope(PageSize) - MediaType
-*% =======================================================================================
+*% =========================================================
 *UIConstraints: *PageSize EnvMonarch      *MediaType None
 *UIConstraints: *PageSize EnvMonarch      *MediaType Plain
 *UIConstraints: *PageSize EnvMonarch      *MediaType Thick
@@ -789,9 +1016,9 @@ save currentpagedevice /PageSize get aload pop
 *UIConstraints: *MediaType Punched        *PageSize EnvC6
 *UIConstraints: *MediaType Letterhead     *PageSize EnvC6
 
-*% =======================================================================================
+*% =========================================================
 *%  Envelope(PageRegion) - MediaType
-*% =======================================================================================
+*% =========================================================
 *UIConstraints: *PageRegion EnvMonarch     *MediaType None
 *UIConstraints: *PageRegion EnvMonarch     *MediaType Plain
 *UIConstraints: *PageRegion EnvMonarch     *MediaType Thick
@@ -952,9 +1179,9 @@ save currentpagedevice /PageSize get aload pop
 *UIConstraints: *MediaType Punched         *PageRegion EnvC6
 *UIConstraints: *MediaType Letterhead      *PageRegion EnvC6
 
-*% =======================================================================================
+*% =========================================================
 *%  PageSize - Envelope(MediaType)
-*% =======================================================================================              
+*% =========================================================              
 *UIConstraints: *PageSize Letter           *MediaType Envelope
 *UIConstraints: *PageSize Legal            *MediaType Envelope
 *UIConstraints: *PageSize Oficio_S         *MediaType Envelope
@@ -979,9 +1206,9 @@ save currentpagedevice /PageSize get aload pop
 *UIConstraints: *MediaType Envelope        *PageSize A5
 *UIConstraints: *MediaType Envelope        *PageSize A6
 
-*% =======================================================================================
+*% =========================================================
 *%  PageRegion - Envelope(MediaType)
-*% =======================================================================================
+*% =========================================================
 *UIConstraints: *PageRegion Letter         *MediaType Envelope
 *UIConstraints: *PageRegion Legal          *MediaType Envelope
 *UIConstraints: *PageRegion Oficio_S       *MediaType Envelope
@@ -1006,9 +1233,9 @@ save currentpagedevice /PageSize get aload pop
 *UIConstraints: *MediaType Envelope        *PageRegion A5
 *UIConstraints: *MediaType Envelope        *PageRegion A6
 
-*% =======================================================================================
+*% =========================================================
 *%  PageSize - Transparency(MediaType)
-*% =======================================================================================
+*% =========================================================
 *UIConstraints: *PageSize Legal            *MediaType Transparency
 *UIConstraints: *PageSize Executive        *MediaType Transparency
 *UIConstraints: *PageSize A5               *MediaType Transparency
@@ -1039,9 +1266,9 @@ save currentpagedevice /PageSize get aload pop
 *UIConstraints: *MediaType Transparency    *PageSize Statement
 *UIConstraints: *MediaType Transparency    *PageSize Postcard_S
 
-*% =======================================================================================
+*% =========================================================
 *%  PageRegion - Transparency(MediaType)
-*% =======================================================================================
+*% =========================================================
 *UIConstraints: *PageRegion Legal          *MediaType Transparency
 *UIConstraints: *PageRegion Executive      *MediaType Transparency
 *UIConstraints: *PageRegion A5             *MediaType Transparency
@@ -1072,9 +1299,9 @@ save currentpagedevice /PageSize get aload pop
 *UIConstraints: *MediaType Transparency    *PageRegion Statement
 *UIConstraints: *MediaType Transparency    *PageRegion Postcard_S		
 
-*% =======================================================================================
+*% =========================================================
 *%  PageSize - Duplex
-*% =======================================================================================               	
+*% =========================================================               	
 *UIConstraints: *PageSize A6               *Duplex DuplexNoTumble
 *UIConstraints: *PageSize Postcard_S       *Duplex DuplexNoTumble
 *UIConstraints: *PageSize Env10            *Duplex DuplexNoTumble
@@ -1139,9 +1366,9 @@ save currentpagedevice /PageSize get aload pop
 *UIConstraints: *Duplex DuplexTumble       *PageRegion EnvC5
 *UIConstraints: *Duplex DuplexTumble       *PageRegion EnvC6
 
-*% =======================================================================================
+*% =========================================================
 *%  MultiBin - Finisher Bin/MailBox
-*% =======================================================================================
+*% =========================================================
 *UIConstraints: *JCLOutputMode Separator   *JCLOutputBin Bin1
 *UIConstraints: *JCLOutputMode Separator   *JCLOutputBin Bin2
 *UIConstraints: *JCLOutputMode Separator   *JCLOutputBin Bin3
@@ -1184,30 +1411,30 @@ save currentpagedevice /PageSize get aload pop
 *UIConstraints: *JCLOutputBin Bin5         *JCLOutputMode Stacking
 *UIConstraints: *JCLOutputBin Bin6         *JCLOutputMode Stacking
 
-*% =======================================================================================
+*% =========================================================
 *%  MultiBin - Staple:SECOffset /MailBox    	
-*% =======================================================================================
+*% =========================================================
 
 *%======StapleLocation vs OptMailbox
-*UIConstraints: *StapleLocation 1Staple_L    *JCLOutputMode Mailbox
-*UIConstraints: *StapleLocation 1Staple_L    *JCLOutputMode Separator
-*UIConstraints: *StapleLocation 1Staple_L    *JCLOutputMode Collator
-*UIConstraints: *StapleLocation 1Staple_L    *JCLOutputMode Stacking
+*UIConstraints: *JCLStapleLocation 1Staple_L    *JCLOutputMode Mailbox
+*UIConstraints: *JCLStapleLocation 1Staple_L    *JCLOutputMode Separator
+*UIConstraints: *JCLStapleLocation 1Staple_L    *JCLOutputMode Collator
+*UIConstraints: *JCLStapleLocation 1Staple_L    *JCLOutputMode Stacking
 
-*UIConstraints: *JCLOutputMode Mailbox       *StapleLocation 1Staple_L
-*UIConstraints: *JCLOutputMode Separator     *StapleLocation 1Staple_L
-*UIConstraints: *JCLOutputMode Collator      *StapleLocation 1Staple_L
-*UIConstraints: *JCLOutputMode Stacking      *StapleLocation 1Staple_L
+*UIConstraints: *JCLOutputMode Mailbox       *JCLStapleLocation 1Staple_L
+*UIConstraints: *JCLOutputMode Separator     *JCLStapleLocation 1Staple_L
+*UIConstraints: *JCLOutputMode Collator      *JCLStapleLocation 1Staple_L
+*UIConstraints: *JCLOutputMode Stacking      *JCLStapleLocation 1Staple_L
 
-*UIConstraints: *StapleLocation 1Staple_P    *JCLOutputMode Mailbox
-*UIConstraints: *StapleLocation 1Staple_P    *JCLOutputMode Separator
-*UIConstraints: *StapleLocation 1Staple_P    *JCLOutputMode Collator
-*UIConstraints: *StapleLocation 1Staple_P    *JCLOutputMode Stacking
+*UIConstraints: *JCLStapleLocation 1Staple_P    *JCLOutputMode Mailbox
+*UIConstraints: *JCLStapleLocation 1Staple_P    *JCLOutputMode Separator
+*UIConstraints: *JCLStapleLocation 1Staple_P    *JCLOutputMode Collator
+*UIConstraints: *JCLStapleLocation 1Staple_P    *JCLOutputMode Stacking
 
-*UIConstraints: *JCLOutputMode Mailbox       *StapleLocation 1Staple_P
-*UIConstraints: *JCLOutputMode Separator     *StapleLocation 1Staple_P
-*UIConstraints: *JCLOutputMode Collator      *StapleLocation 1Staple_P
-*UIConstraints: *JCLOutputMode Stacking      *StapleLocation 1Staple_P
+*UIConstraints: *JCLOutputMode Mailbox       *JCLStapleLocation 1Staple_P
+*UIConstraints: *JCLOutputMode Separator     *JCLStapleLocation 1Staple_P
+*UIConstraints: *JCLOutputMode Collator      *JCLStapleLocation 1Staple_P
+*UIConstraints: *JCLOutputMode Stacking      *JCLStapleLocation 1Staple_P
 
 
 *%======SECOffSet vs OptMailbox
