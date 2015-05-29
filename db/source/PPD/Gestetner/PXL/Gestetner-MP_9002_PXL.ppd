@@ -4,11 +4,11 @@
 *%    for "Gestetner MP 9002 PXL"
 *%
 *%    CreationDate: 2011/03/16
-*%    Modified:     2012/09/14
+*%    Modified:     2015/05/27
 *%
 *%    java.util.zip.CRC32: 62d5ed89
 *%
-*%    COPYRIGHT (C) 2011-2012 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2011-2015 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -32,7 +32,7 @@
 *%    [this is the MIT open source license -- please see www.opensource.org]
 *%
 
-*FileVersion: "2.2"
+*FileVersion: "2.3"
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
@@ -336,8 +336,8 @@
 *FoomaticRIPOptionSetting InputSlot=2Tray: " | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x05\xf8\x26/g&quot;"
 *InputSlot 3Tray/Tray 3: "%% FoomaticRIPOptionSetting: InputSlot=3Tray"
 *FoomaticRIPOptionSetting InputSlot=3Tray: " | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x07\xf8\x26/g&quot;"
-*InputSlot 5Tray/Large Capacity Tray: "%% FoomaticRIPOptionSetting: InputSlot=5Tray"
-*FoomaticRIPOptionSetting InputSlot=5Tray: " | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x15\xf8\x26/g&quot;"
+*InputSlot LCT/Large Capacity Tray: "%% FoomaticRIPOptionSetting: InputSlot=LCT"
+*FoomaticRIPOptionSetting InputSlot=LCT: " | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x09\xf8\x26/g&quot;"
 *InputSlot Auto/Auto Select: "%% FoomaticRIPOptionSetting: InputSlot=Auto"
 *FoomaticRIPOptionSetting InputSlot=Auto: ""
 *CloseUI: *InputSlot
@@ -518,8 +518,8 @@
 *FoomaticRIPOptionSetting RIBannerPageInputSlot=2Tray: "SET BANNERPAGEPRINTTRAY=TRAY2"
 *RIBannerPageInputSlot 3Tray/Tray 3: "%% FoomaticRIPOptionSetting: RIBannerPageInputSlot=3Tray"
 *FoomaticRIPOptionSetting RIBannerPageInputSlot=3Tray: "SET BANNERPAGEPRINTTRAY=TRAY3"
-*RIBannerPageInputSlot 5Tray/Large Capacity Tray: "%% FoomaticRIPOptionSetting: RIBannerPageInputSlot=5Tray"
-*FoomaticRIPOptionSetting RIBannerPageInputSlot=5Tray: "SET BANNERPAGEPRINTTRAY=TRAY5"
+*RIBannerPageInputSlot LCT/Large Capacity Tray: "%% FoomaticRIPOptionSetting: RIBannerPageInputSlot=LCT"
+*FoomaticRIPOptionSetting RIBannerPageInputSlot=LCT: "SET BANNERPAGEPRINTTRAY=LCT"
 *CloseUI: *RIBannerPageInputSlot
 
 *OpenUI *RIBannerPageMediaType/Banner Page Media Type: PickOne
@@ -868,7 +868,7 @@
 *UIConstraints: *InputSlot 3Tray *PageSize EngQuatro
 *UIConstraints: *OutputBin MailBoxBin2 *PageSize B6
 *UIConstraints: *StapleLocation CenterW *Finisher FinEUPHRATESE
-*UIConstraints: *MediaType OHP *InputSlot 5Tray
+*UIConstraints: *MediaType OHP *InputSlot LCT
 *UIConstraints: *OutputBin MailBoxBin8 *MediaType Labels
 *UIConstraints: *OutputBin MailBoxBin2 *PageSize A6
 *UIConstraints: *OutputBin MailBoxBin8 *MediaType Thick2
@@ -876,8 +876,8 @@
 *UIConstraints: *OutputBin MailBoxBin4 *MediaType Thick2
 *UIConstraints: *OutputBin MailBoxBin1 *RIBannerPageMediaType Translucent
 *UIConstraints: *Finisher FinVICTORIAI *OutputBin Standard
-*UIConstraints: *PageSize 10x14 *InputSlot 5Tray
-*UIConstraints: *InputSlot 5Tray *PageSize Statement
+*UIConstraints: *PageSize 10x14 *InputSlot LCT
+*UIConstraints: *InputSlot LCT *PageSize Statement
 *UIConstraints: *OutputBin MailBoxBin7 *RIBannerPageMediaType Envelope
 *UIConstraints: *MultiHolePunchUnit Installed *Finisher NotInstalled
 *UIConstraints: *OutputBin MailBoxBin2 *StapleLocation UpperLeft
@@ -885,10 +885,10 @@
 *UIConstraints: *PageSize B6 *InputSlot 3Tray
 *UIConstraints: *OutputBin MailBoxBin4 *StapleLocation UpperLeft
 *UIConstraints: *OutputBin MailBoxBin7 *StapleLocation UpperLeft
-*UIConstraints: *RIBannerPageInputSlot 5Tray *RIBannerPageMediaType Envelope
+*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType Envelope
 *UIConstraints: *RIZfold Right *MediaType Index
 *UIConstraints: *OutputBin MailBoxBin5 *RIBannerPageMediaType Index
-*UIConstraints: *PageSize A6 *InputSlot 5Tray
+*UIConstraints: *PageSize A6 *InputSlot LCT
 *UIConstraints: *InputSlot 2Tray *PageSize 10x14
 *UIConstraints: *RIBannerPageMediaType Thick2 *RIBannerPageInputSlot 1Tray
 *UIConstraints: *OutputBin MailBoxBin3 *StapleLocation UpperLeft
@@ -952,7 +952,7 @@
 *UIConstraints: *MediaType Thick2 *OutputBin MailBoxBin5
 *UIConstraints: *PageSize GovernmentLG *OutputBin FinDONAUProof
 *UIConstraints: *RIZfold Right *MediaType Labels
-*UIConstraints: *RIBannerPageInputSlot 5Tray *RIBannerPageMediaType OHP
+*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType OHP
 *UIConstraints: *OutputBin MailBoxBin3 *RIBannerPageMediaType Index
 *UIConstraints: *PageSize 11x14 *OutputBin FinDONAUProof
 *UIConstraints: *PageSize 10x14 *OutputBin PlockmaticTray
@@ -961,7 +961,7 @@
 *UIConstraints: *MediaType OHP *InputSlot 2Tray
 *UIConstraints: *OutputBin MailBoxBin4 *StapleLocation CenterW
 *UIConstraints: *OutputBin FinDONAUProof *MediaType Translucent
-*UIConstraints: *InputSlot 5Tray *PageSize 10x14
+*UIConstraints: *InputSlot LCT *PageSize 10x14
 *UIConstraints: *OutputBin PlockmaticTray *PageSize Statement
 *UIConstraints: *InputSlot MultiTray *PageSize 16Kai
 *UIConstraints: *InputSlot 1Tray *PageSize Executive
@@ -983,8 +983,8 @@
 *UIConstraints: *Finisher NotInstalled *StapleLocation LeftW
 *UIConstraints: *StapleLocation UpperLeft *MediaType Labels
 *UIConstraints: *OutputBin MailBoxBin6 *RIBannerPageMediaType Labels
-*UIConstraints: *InputSlot 5Tray *PageSize FanFoldGermanLegal
-*UIConstraints: *PageSize Folio *InputSlot 5Tray
+*UIConstraints: *InputSlot LCT *PageSize FanFoldGermanLegal
+*UIConstraints: *PageSize Folio *InputSlot LCT
 *UIConstraints: *RIZfold Bottom *MediaType Thick2
 *UIConstraints: *OutputBin MailBoxBin2 *StapleLocation UpperRight
 *UIConstraints: *PageSize B6 *OutputBin PlockmaticTray
@@ -992,7 +992,7 @@
 *UIConstraints: *StapleLocation UpperLeft *MediaType Envelope
 *UIConstraints: *Finisher NotInstalled *BookletProcessor Plockmatic
 *UIConstraints: *OutputBin MailBoxBin2 *RIZfold Right
-*UIConstraints: *MediaType Translucent *InputSlot 5Tray
+*UIConstraints: *MediaType Translucent *InputSlot LCT
 *UIConstraints: *RIZfold Right *MediaType OHP
 *UIConstraints: *OutputBin MailBoxBin9 *MediaType Envelope
 *UIConstraints: *OutputBin MailBoxBin3 *StapleLocation UpperRight
@@ -1015,7 +1015,7 @@
 *UIConstraints: *OutputBin MailBoxBin7 *MediaType Translucent
 *UIConstraints: *OutputBin MailBoxBin7 *RIZfold Right
 *UIConstraints: *RIZfold Left *MediaType Envelope
-*UIConstraints: *MediaType Labels *InputSlot 5Tray
+*UIConstraints: *MediaType Labels *InputSlot LCT
 *UIConstraints: *OutputBin MailBoxBin9 *RIZfold Right
 *UIConstraints: *StapleLocation UpperLeft *MediaType OHP
 *UIConstraints: *OutputBin MailBoxBin6 *StapleLocation UpperLeft
@@ -1026,7 +1026,7 @@
 *UIConstraints: *OutputBin MailBoxBin9 *MediaType Thick2
 *UIConstraints: *StapleLocation CenterW *InputSlot MultiTray
 *UIConstraints: *RIZfold Right *InputSlot MultiTray
-*UIConstraints: *InputSlot 5Tray *MediaType Translucent
+*UIConstraints: *InputSlot LCT *MediaType Translucent
 *UIConstraints: *OutputBin MailBoxBin1 *MediaType Thick2
 *UIConstraints: *OutputBin MailBoxBin5 *StapleLocation UpperRight
 *UIConstraints: *StapleLocation UpperRight *Finisher NotInstalled
@@ -1036,14 +1036,14 @@
 *UIConstraints: *RIZfold Right *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin MailBoxBin8 *MediaType Envelope
 *UIConstraints: *OutputBin FinDONAUProof *RIBannerPageMediaType Labels
-*UIConstraints: *MediaType Envelope *InputSlot 5Tray
-*UIConstraints: *PageSize Executive *InputSlot 5Tray
+*UIConstraints: *MediaType Envelope *InputSlot LCT
+*UIConstraints: *PageSize Executive *InputSlot LCT
 *UIConstraints: *MediaType OHP *StapleLocation UpperLeft
 *UIConstraints: *MediaType Index *RIZfold Right
 *UIConstraints: *StapleLocation CenterW *Finisher NotInstalled
-*UIConstraints: *InputSlot 5Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *InputSlot LCT *LargeCapacityTray NotInstalled
 *UIConstraints: *OutputBin MailBoxBin2 *RIBannerPageMediaType Thick2
-*UIConstraints: *InputSlot 5Tray *MediaType Labels
+*UIConstraints: *InputSlot LCT *MediaType Labels
 *UIConstraints: *OutputBin MailBoxBin3 *StapleLocation LeftW
 *UIConstraints: *MultiHolePunchUnit Installed *Finisher FinEUPHRATESEBK
 *UIConstraints: *MediaType Translucent *RIZfold Bottom
@@ -1062,9 +1062,9 @@
 *UIConstraints: *StapleLocation LeftW *MediaType Labels
 *UIConstraints: *OutputBin MailBoxBin5 *MediaType Labels
 *UIConstraints: *StapleLocation None *OutputBin PlockmaticTray
-*UIConstraints: *InputSlot 5Tray *PageSize 8Kai
+*UIConstraints: *InputSlot LCT *PageSize 8Kai
 *UIConstraints: *OutputBin MailBoxBin3 *MediaType Labels
-*UIConstraints: *RIBannerPageMediaType Envelope *RIBannerPageInputSlot 5Tray
+*UIConstraints: *RIBannerPageMediaType Envelope *RIBannerPageInputSlot LCT
 *UIConstraints: *RIBannerPageInputSlot 1Tray *RIBannerPageMediaType Envelope
 *UIConstraints: *OutputBin MailBoxBin8 *RIBannerPageMediaType Thick2
 *UIConstraints: *OutputBin FinDONAUProof *RIBannerPageMediaType Index
@@ -1117,7 +1117,7 @@
 *UIConstraints: *RIZfold Right *MediaType Translucent
 *UIConstraints: *OutputBin FinDONAUProof *PageSize 10x14
 *UIConstraints: *PageSize Statement *OutputBin PlockmaticTray
-*UIConstraints: *InputSlot 5Tray *PageSize Tabloid
+*UIConstraints: *InputSlot LCT *PageSize Tabloid
 *UIConstraints: *MediaType Translucent *RIZfold Left
 *UIConstraints: *Finisher NotInstalled *MultiFold Installed
 *UIConstraints: *RIBannerPageMediaType Labels *OutputBin MailBoxBin2
@@ -1126,14 +1126,14 @@
 *UIConstraints: *RIBannerPageMediaType Labels *OutputBin MailBoxBin1
 *UIConstraints: *OutputBin MailBoxBin7 *RIBannerPageMediaType Translucent
 *UIConstraints: *OutputBin MailBoxBin3 *PageSize B6
-*UIConstraints: *InputSlot 5Tray *PageSize 11x15
-*UIConstraints: *InputSlot 5Tray *PageSize 11x14
+*UIConstraints: *InputSlot LCT *PageSize 11x15
+*UIConstraints: *InputSlot LCT *PageSize 11x14
 *UIConstraints: *PageSize 11x14 *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin MailBoxBin3 *PageSize A6
 *UIConstraints: *OutputBin MailBoxBin2 *MediaType Translucent
 *UIConstraints: *OutputBin MailBoxBin6 *MediaType Index
 *UIConstraints: *StapleLocation UpperW *MediaType Envelope
-*UIConstraints: *RIBannerPageMediaType OHP *RIBannerPageInputSlot 5Tray
+*UIConstraints: *RIBannerPageMediaType OHP *RIBannerPageInputSlot LCT
 *UIConstraints: *RIBannerPageMediaType Labels *OutputBin MailBoxBin9
 *UIConstraints: *RIBannerPageMediaType Labels *OutputBin MailBoxBin8
 *UIConstraints: *RIBannerPageMediaType Labels *OutputBin MailBoxBin5
@@ -1144,13 +1144,13 @@
 *UIConstraints: *StapleLocation UpperLeft *Finisher NotInstalled
 *UIConstraints: *PageSize B5 *OutputBin PlockmaticTray
 *UIConstraints: *MediaType OHP *StapleLocation UpperRight
-*UIConstraints: *PageSize F *InputSlot 5Tray
+*UIConstraints: *PageSize F *InputSlot LCT
 *UIConstraints: *MediaType OHP *InputSlot 3Tray
 *UIConstraints: *MediaType Cardstock *OutputBin FinDONAUProof
 *UIConstraints: *OutputBin MailBoxBin1 *RIBannerPageMediaType Envelope
 *UIConstraints: *OutputBin MailBoxBin5 *RIBannerPageMediaType Envelope
 *UIConstraints: *MediaType Envelope *RIZfold Bottom
-*UIConstraints: *PageSize GovernmentLG *InputSlot 5Tray
+*UIConstraints: *PageSize GovernmentLG *InputSlot LCT
 *UIConstraints: *OutputBin MailBoxBin1 *RIBannerPageMediaType Thick2
 *UIConstraints: *RIBannerPageInputSlot 2Tray *RIBannerPageMediaType Labels
 *UIConstraints: *RIBannerPageMediaType Cardstock *OutputBin FinDONAUProof
@@ -1158,17 +1158,17 @@
 *UIConstraints: *InputSlot MultiTray *StapleLocation UpperLeft
 *UIConstraints: *OutputBin MailBoxBin6 *RIZfold Right
 *UIConstraints: *InputSlot MultiTray *StapleLocation RightW
-*UIConstraints: *RIBannerPageMediaType Index *RIBannerPageInputSlot 5Tray
+*UIConstraints: *RIBannerPageMediaType Index *RIBannerPageInputSlot LCT
 *UIConstraints: *RIZfold Right *MultiFold NotInstalled
 *UIConstraints: *OutputBin MailBoxBin7 *StapleLocation UpperW
 *UIConstraints: *OutputBin MailBoxBin1 *RIBannerPageMediaType Labels
-*UIConstraints: *PageSize 11x15 *InputSlot 5Tray
+*UIConstraints: *PageSize 11x15 *InputSlot LCT
 *UIConstraints: *RIBannerPageMediaType Index *OutputBin FinDONAUProof
 *UIConstraints: *InputSlot 1Tray *PageSize FanFoldGermanLegal
 *UIConstraints: *StapleLocation UpperRight *OutputBin PlockmaticTray
 *UIConstraints: *Mailbox Installed *Finisher FinVICTORIAI
 *UIConstraints: *OutputBin MailBoxBin3 *StapleLocation UpperW
-*UIConstraints: *RIBannerPageMediaType Translucent *RIBannerPageInputSlot 5Tray
+*UIConstraints: *RIBannerPageMediaType Translucent *RIBannerPageInputSlot LCT
 *UIConstraints: *OutputBin MailBoxBin3 *RIZfold Left
 *UIConstraints: *StapleLocation UpperW *BookletProcessor Plockmatic
 *UIConstraints: *OutputBin FinDONAUProof *PageSize GovernmentLG
@@ -1201,11 +1201,11 @@
 *UIConstraints: *RIZfold Left *MediaType Index
 *UIConstraints: *RIBannerPageInputSlot 3Tray *RIBannerPageMediaType Labels
 *UIConstraints: *Finisher FinEUPHRATESEBK *BookletProcessor Plockmatic
-*UIConstraints: *InputSlot 5Tray *PageSize Executive
+*UIConstraints: *InputSlot LCT *PageSize Executive
 *UIConstraints: *MediaType Thick2 *InputSlot 1Tray
 *UIConstraints: *RIBannerPageMediaType Index *RIBannerPageInputSlot 1Tray
 *UIConstraints: *RIBannerPageMediaType Translucent *OutputBin FinDONAUProof
-*UIConstraints: *PageSize 8Kai *InputSlot 5Tray
+*UIConstraints: *PageSize 8Kai *InputSlot LCT
 *UIConstraints: *RIZfold Left *StapleLocation CenterW
 *UIConstraints: *PageSize EngQuatro *InputSlot 1Tray
 *UIConstraints: *MediaType Envelope *InputSlot 1Tray
@@ -1220,14 +1220,14 @@
 *UIConstraints: *OutputBin MailBoxBin7 *RIZfold Bottom
 *UIConstraints: *OutputBin MailBoxBin9 *MediaType Index
 *UIConstraints: *StapleLocation UpperRight *InputSlot MultiTray
-*UIConstraints: *InputSlot 5Tray *PageSize GovernmentLG
+*UIConstraints: *InputSlot LCT *PageSize GovernmentLG
 *UIConstraints: *StapleLocation UpperRight *MediaType Labels
 *UIConstraints: *StapleLocation CenterW *RIZfold Left
 *UIConstraints: *OutputBin MailBoxBin4 *RIBannerPageMediaType OHP
 *UIConstraints: *StapleLocation UpperW *OutputBin FinDONAUProof
 *UIConstraints: *OutputBin MailBoxBin5 *StapleLocation CenterW
 *UIConstraints: *InputSlot MultiTray *RIZfold Left
-*UIConstraints: *LargeCapacityTray NotInstalled *RIBannerPageInputSlot 5Tray
+*UIConstraints: *LargeCapacityTray NotInstalled *RIBannerPageInputSlot LCT
 *UIConstraints: *MediaType Labels *InputSlot 2Tray
 *UIConstraints: *Finisher NotInstalled *StapleLocation UpperLeft
 *UIConstraints: *MediaType Letterhead *RIZfold Bottom
@@ -1236,14 +1236,14 @@
 *UIConstraints: *InputSlot 1Tray *PageSize EngQuatro
 *UIConstraints: *StapleLocation UpperRight *BookletProcessor Plockmatic
 *UIConstraints: *PageSize 8Kai *InputSlot MultiTray
-*UIConstraints: *InputSlot 5Tray *PageSize EngQuatro
+*UIConstraints: *InputSlot LCT *PageSize EngQuatro
 *UIConstraints: *Mailbox Installed *Finisher NotInstalled
 *UIConstraints: *OutputBin MailBoxBin7 *RIZfold Left
 *UIConstraints: *OutputBin MailBoxBin4 *RIZfold Bottom
 *UIConstraints: *OutputBin MailBoxBin5 *PageSize B6
-*UIConstraints: *PageSize B6 *InputSlot 5Tray
+*UIConstraints: *PageSize B6 *InputSlot LCT
 *UIConstraints: *OutputBin MailBoxBin5 *PageSize A6
-*UIConstraints: *InputSlot 5Tray *MediaType Cardstock
+*UIConstraints: *InputSlot LCT *MediaType Cardstock
 *UIConstraints: *MediaType Labels *RIZfold Left
 *UIConstraints: *OutputBin MailBoxBin9 *PageSize A6
 *UIConstraints: *OutputBin Standard *Finisher FinEUPHRATESE
@@ -1252,12 +1252,12 @@
 *UIConstraints: *OutputBin MailBoxBin7 *MediaType OHP
 *UIConstraints: *OutputBin MailBoxBin4 *RIZfold Right
 *UIConstraints: *OutputBin PlockmaticTray *PageSize Executive
-*UIConstraints: *InputSlot 5Tray *PageSize A3
+*UIConstraints: *InputSlot LCT *PageSize A3
 *UIConstraints: *OutputBin MailBoxBin9 *StapleLocation UpperLeft
-*UIConstraints: *InputSlot 5Tray *PageSize A6
-*UIConstraints: *InputSlot 5Tray *PageSize A5
+*UIConstraints: *InputSlot LCT *PageSize A6
+*UIConstraints: *InputSlot LCT *PageSize A5
 *UIConstraints: *StapleLocation LeftW *MediaType OHP
-*UIConstraints: *InputSlot 5Tray *PageSize B6
+*UIConstraints: *InputSlot LCT *PageSize B6
 *UIConstraints: *RIZfold Bottom *MediaType Index
 *UIConstraints: *StapleLocation RightW *MediaType Labels
 *UIConstraints: *PageSize A6 *OutputBin MailBoxBin5
@@ -1292,7 +1292,7 @@
 *UIConstraints: *PageSize B6 *OutputBin MailBoxBin4
 *UIConstraints: *PageSize B6 *OutputBin MailBoxBin3
 *UIConstraints: *PageSize B6 *OutputBin MailBoxBin9
-*UIConstraints: *InputSlot 5Tray *MediaType Envelope
+*UIConstraints: *InputSlot LCT *MediaType Envelope
 *UIConstraints: *OutputBin MailBoxBin4 *MediaType Index
 *UIConstraints: *PageSize EngQuatro *InputSlot 3Tray
 *UIConstraints: *MediaType Index *InputSlot 1Tray
@@ -1302,8 +1302,8 @@
 *UIConstraints: *InputSlot 3Tray *PageSize B6
 *UIConstraints: *OutputBin MailBoxBin7 *MediaType Envelope
 *UIConstraints: *InputSlot 3Tray *PageSize A6
-*UIConstraints: *MediaType Cardstock *InputSlot 5Tray
-*UIConstraints: *MediaType Thick2 *InputSlot 5Tray
+*UIConstraints: *MediaType Cardstock *InputSlot LCT
+*UIConstraints: *MediaType Thick2 *InputSlot LCT
 *UIConstraints: *RIZfold Left *MediaType Letterhead
 *UIConstraints: *OutputBin MailBoxBin4 *RIBannerPageMediaType Envelope
 *UIConstraints: *OutputBin MailBoxBin9 *RIBannerPageMediaType Thick2
@@ -1316,13 +1316,13 @@
 *UIConstraints: *MediaType Envelope *OutputBin MailBoxBin8
 *UIConstraints: *MediaType Envelope *OutputBin MailBoxBin5
 *UIConstraints: *MediaType Envelope *OutputBin MailBoxBin6
-*UIConstraints: *InputSlot 5Tray *MediaType Index
+*UIConstraints: *InputSlot LCT *MediaType Index
 *UIConstraints: *MediaType Envelope *OutputBin MailBoxBin3
 *UIConstraints: *MediaType Envelope *OutputBin MailBoxBin4
 *UIConstraints: *InputSlot 2Tray *PageSize B6
 *UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin1
 *UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin2
-*UIConstraints: *RIBannerPageInputSlot 5Tray *RIBannerPageMediaType Index
+*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType Index
 *UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin5
 *UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin6
 *UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin3
@@ -1402,18 +1402,18 @@
 *UIConstraints: *MediaType Envelope *OutputBin MailBoxBin1
 *UIConstraints: *MediaType Envelope *OutputBin MailBoxBin2
 *UIConstraints: *OutputBin PlockmaticTray *PageSize 16Kai
-*UIConstraints: *PageSize 11x14 *InputSlot 5Tray
+*UIConstraints: *PageSize 11x14 *InputSlot LCT
 *UIConstraints: *PageSize 8Kai *OutputBin PlockmaticTray
 *UIConstraints: *MediaType Labels *RIZfold Bottom
 *UIConstraints: *RIZfold Bottom *StapleLocation CenterW
-*UIConstraints: *RIBannerPageInputSlot 5Tray *RIBannerPageMediaType Labels
+*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType Labels
 *UIConstraints: *OutputBin MailBoxBin2 *MediaType Index
 *UIConstraints: *PageSize A3 *OutputBin FinDONAUProof
 *UIConstraints: *InputSlot 1Tray *PageSize B6
 *UIConstraints: *InputSlot 1Tray *PageSize B5
 *UIConstraints: *RIZfold Right *StapleLocation CenterW
-*UIConstraints: *RIBannerPageInputSlot 5Tray *RIBannerPageMediaType Cardstock
-*UIConstraints: *InputSlot 5Tray *PageSize 16Kai
+*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType Cardstock
+*UIConstraints: *InputSlot LCT *PageSize 16Kai
 *UIConstraints: *OutputBin MailBoxBin8 *PageSize B6
 *UIConstraints: *OutputBin MailBoxBin1 *MediaType Labels
 *UIConstraints: *MultiFold Installed *Finisher FinEUPHRATESE
@@ -1446,7 +1446,7 @@
 *UIConstraints: *OutputBin MailBoxBin7 *MediaType Index
 *UIConstraints: *PageSize 10x14 *InputSlot 2Tray
 *UIConstraints: *InputSlot 1Tray *PageSize 16Kai
-*UIConstraints: *InputSlot 5Tray *PageSize F
+*UIConstraints: *InputSlot LCT *PageSize F
 *UIConstraints: *PageSize 16Kai *InputSlot 1Tray
 *UIConstraints: *Finisher FinEUPHRATESE *StapleLocation CenterW
 *UIConstraints: *StapleLocation UpperW *MediaType OHP
@@ -1455,7 +1455,7 @@
 *UIConstraints: *RIBannerPageMediaType Cardstock *RIBannerPageInputSlot 2Tray
 *UIConstraints: *MediaType Envelope *RIZfold Right
 *UIConstraints: *StapleLocation LeftW *OutputBin PlockmaticTray
-*UIConstraints: *RIBannerPageMediaType Labels *RIBannerPageInputSlot 5Tray
+*UIConstraints: *RIBannerPageMediaType Labels *RIBannerPageInputSlot LCT
 *UIConstraints: *PageSize 11x15 *OutputBin FinDONAUProof
 *UIConstraints: *OutputBin MailBoxBin1 *StapleLocation UpperRight
 *UIConstraints: *InputSlot 1Tray *MediaType OHP
@@ -1488,7 +1488,7 @@
 *UIConstraints: *StapleLocation RightW *Finisher NotInstalled
 *UIConstraints: *OutputBin MailBoxBin8 *RIBannerPageMediaType OHP
 *UIConstraints: *OutputBin MailBoxBin8 *RIZfold Right
-*UIConstraints: *InputSlot 5Tray *MediaType OHP
+*UIConstraints: *InputSlot LCT *MediaType OHP
 *UIConstraints: *OutputBin MailBoxBin8 *StapleLocation UpperRight
 *UIConstraints: *PageSize GovernmentLG *InputSlot 1Tray
 *UIConstraints: *OutputBin Standard *Finisher FinVICTORIAI
@@ -1502,7 +1502,7 @@
 *UIConstraints: *PageSize B5 *InputSlot 1Tray
 *UIConstraints: *OutputBin MailBoxBin9 *RIBannerPageMediaType Translucent
 *UIConstraints: *OutputBin MailBoxBin7 *RIBannerPageMediaType OHP
-*UIConstraints: *PageSize EngQuatro *InputSlot 5Tray
+*UIConstraints: *PageSize EngQuatro *InputSlot LCT
 *UIConstraints: *StapleLocation RightW *MediaType Envelope
 *UIConstraints: *RIBannerPageInputSlot 3Tray *RIBannerPageMediaType Envelope
 *UIConstraints: *OutputBin MailBoxBin5 *RIBannerPageMediaType Thick2
@@ -1526,7 +1526,7 @@
 *UIConstraints: *StapleLocation RightW *OutputBin FinDONAUProof
 *UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin8
 *UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin9
-*UIConstraints: *RIBannerPageInputSlot 5Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *RIBannerPageInputSlot LCT *LargeCapacityTray NotInstalled
 *UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin3
 *UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin2
 *UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin1
@@ -1560,7 +1560,7 @@
 *UIConstraints: *OutputBin PlockmaticTray *StapleLocation UpperRight
 *UIConstraints: *RIBannerPageInputSlot 3Tray *RIBannerPageMediaType OHP
 *UIConstraints: *PageSize A6 *InputSlot 2Tray
-*UIConstraints: *LargeCapacityTray NotInstalled *InputSlot 5Tray
+*UIConstraints: *LargeCapacityTray NotInstalled *InputSlot LCT
 *UIConstraints: *RIBannerPageMediaType Labels *RIBannerPageInputSlot 3Tray
 *UIConstraints: *OutputBin MailBoxBin8 *RIZfold Bottom
 *UIConstraints: *OutputBin PlockmaticTray *StapleLocation RightW
@@ -1571,10 +1571,10 @@
 *UIConstraints: *OutputBin MailBoxBin6 *RIBannerPageMediaType Envelope
 *UIConstraints: *OutputBin MailBoxBin1 *StapleLocation CenterW
 *UIConstraints: *OutputBin FinDONAUProof *MediaType Cardstock
-*UIConstraints: *InputSlot 5Tray *PageSize Folio
+*UIConstraints: *InputSlot LCT *PageSize Folio
 *UIConstraints: *MediaType Labels *StapleLocation UpperRight
 *UIConstraints: *OutputBin MailBoxBin7 *RIBannerPageMediaType Index
-*UIConstraints: *MediaType Index *InputSlot 5Tray
+*UIConstraints: *MediaType Index *InputSlot LCT
 *UIConstraints: *StapleLocation LeftW *BookletProcessor Plockmatic
 *UIConstraints: *OutputBin MailBoxBin3 *RIBannerPageMediaType Translucent
 *UIConstraints: *StapleLocation UpperLeft *OutputBin PlockmaticTray
@@ -1593,9 +1593,9 @@
 *UIConstraints: *InputSlot 2Tray *MediaType Envelope
 *UIConstraints: *PageSize EngQuatro *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin MailBoxBin1 *MediaType Translucent
-*UIConstraints: *PageSize A5 *InputSlot 5Tray
+*UIConstraints: *PageSize A5 *InputSlot LCT
 *UIConstraints: *OutputBin MailBoxBin6 *PageSize B6
-*UIConstraints: *InputSlot 5Tray *MediaType Thick2
+*UIConstraints: *InputSlot LCT *MediaType Thick2
 *UIConstraints: *OutputBin FinDONAUProof *MediaType Envelope
 *UIConstraints: *MediaType Thick2 *InputSlot 2Tray
 *UIConstraints: *OutputBin MailBoxBin3 *MediaType Index
@@ -1618,12 +1618,12 @@
 *UIConstraints: *StapleLocation UpperW *InputSlot MultiTray
 *UIConstraints: *OutputBin MailBoxBin5 *MediaType OHP
 *UIConstraints: *OutputBin MailBoxBin8 *StapleLocation UpperLeft
-*UIConstraints: *RIBannerPageInputSlot 5Tray *RIBannerPageMediaType Translucent
+*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType Translucent
 *UIConstraints: *InputSlot 3Tray *MediaType Cardstock
 *UIConstraints: *StapleLocation CenterW *RIZfold Right
 *UIConstraints: *OutputBin FinDONAUProof *RIBannerPageMediaType Cardstock
 *UIConstraints: *Finisher FinEUPHRATESEBK *MultiHolePunchUnit Installed
-*UIConstraints: *PageSize Tabloid *InputSlot 5Tray
+*UIConstraints: *PageSize Tabloid *InputSlot LCT
 *UIConstraints: *OutputBin MailBoxBin1 *RIZfold Bottom
 *UIConstraints: *StapleLocation LeftW *InputSlot MultiTray
 *UIConstraints: *RIZfold Left *MediaType Labels
@@ -1652,7 +1652,7 @@
 *UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin7
 *UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin9
 *UIConstraints: *MediaType Cardstock *RIZfold Left
-*UIConstraints: *RIBannerPageMediaType Cardstock *RIBannerPageInputSlot 5Tray
+*UIConstraints: *RIBannerPageMediaType Cardstock *RIBannerPageInputSlot LCT
 *UIConstraints: *RIZfold Left *MediaType Translucent
 *UIConstraints: *OutputBin MailBoxBin4 *Mailbox NotInstalled
 *UIConstraints: *OutputBin PlockmaticTray *PageSize B6
@@ -1678,16 +1678,16 @@
 *UIConstraints: *MediaType Thick2 *RIZfold Right
 *UIConstraints: *PageSize B4 *OutputBin FinDONAUProof
 *UIConstraints: *MediaType Envelope *StapleLocation LeftW
-*UIConstraints: *RIBannerPageInputSlot 5Tray *RIBannerPageMediaType Thick2
+*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType Thick2
 *UIConstraints: *OutputBin FinDONAUProof *StapleLocation LeftW
 *UIConstraints: *StapleLocation UpperLeft *InputSlot MultiTray
 *UIConstraints: *OutputBin MailBoxBin8 *RIBannerPageMediaType Translucent
 *UIConstraints: *PageSize A6 *InputSlot 3Tray
-*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot 5Tray
+*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot LCT
 *UIConstraints: *OutputBin PlockmaticTray *StapleLocation LeftW
 *UIConstraints: *OutputBin MailBoxBin4 *RIZfold Left
 *UIConstraints: *OutputBin MailBoxBin2 *RIBannerPageMediaType Translucent
-*UIConstraints: *PageSize A3 *InputSlot 5Tray
+*UIConstraints: *PageSize A3 *InputSlot LCT
 *UIConstraints: *PageSize 8Kai *InputSlot 1Tray
 *UIConstraints: *MultiFold NotInstalled *RIZfold Right
 *UIConstraints: *OutputBin MailBoxBin2 *MediaType Envelope
@@ -1697,7 +1697,7 @@
 *UIConstraints: *RIZfold Left *MediaType OHP
 *UIConstraints: *PageSize FanFoldGermanLegal *OutputBin FinDONAUProof
 *UIConstraints: *RIBannerPageMediaType Envelope *RIBannerPageInputSlot 3Tray
-*UIConstraints: *PageSize Statement *InputSlot 5Tray
+*UIConstraints: *PageSize Statement *InputSlot LCT
 *UIConstraints: *RIZfold Right *MediaType Thick2
 *UIConstraints: *OutputBin MailBoxBin8 *RIBannerPageMediaType Index
 *UIConstraints: *OutputBin MailBoxBin6 *StapleLocation RightW
@@ -1712,7 +1712,7 @@
 *UIConstraints: *RIBannerPageInputSlot MultiTray *RIBannerPageMediaType Index
 *UIConstraints: *PageSize 10x14 *InputSlot 3Tray
 *UIConstraints: *OutputBin MailBoxBin2 *RIBannerPageMediaType Index
-*UIConstraints: *RIBannerPageMediaType Thick2 *RIBannerPageInputSlot 5Tray
+*UIConstraints: *RIBannerPageMediaType Thick2 *RIBannerPageInputSlot LCT
 *UIConstraints: *BookletProcessor Plockmatic *Finisher FinEUPHRATESE
 *UIConstraints: *RIBannerPageMediaType Labels *OutputBin FinDONAUProof
 *UIConstraints: *OutputBin MailBoxBin1 *StapleLocation LeftW
@@ -1722,7 +1722,7 @@
 *UIConstraints: *PageSize B6 *InputSlot 2Tray
 *UIConstraints: *OutputBin MailBoxBin7 *Mailbox NotInstalled
 *UIConstraints: *OutputBin MailBoxBin8 *MediaType Translucent
-*UIConstraints: *PageSize 16Kai *InputSlot 5Tray
+*UIConstraints: *PageSize 16Kai *InputSlot LCT
 *UIConstraints: *MultiFold NotInstalled *OutputBin FinDONAUProof
 *UIConstraints: *PageSize FanFoldGermanLegal *OutputBin PlockmaticTray
 *UIConstraints: *MultiFold NotInstalled *RIZfold Left

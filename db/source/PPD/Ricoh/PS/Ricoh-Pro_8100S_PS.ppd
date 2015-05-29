@@ -4,11 +4,11 @@
 *%    for "Ricoh Pro 8100S PS"
 *%
 *%    CreationDate: 2012/07/24
-*%    Modified:     2013/11/04
+*%    Modified:     2015/04/27
 *%
-*%    java.util.zip.CRC32: 33f63d8d
+*%    java.util.zip.CRC32: 39f567ab
 *%
-*%    COPYRIGHT (C) 2012-2013 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2012-2015 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -32,7 +32,7 @@
 *%    [this is the MIT open source license -- please see www.opensource.org]
 *%
 
-*FileVersion: "2.2"
+*FileVersion: "1.0"
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
@@ -54,8 +54,6 @@
 %%
 %%\n%A%B%C%D&quot;%%%%; cat;"
 *End
-
-*DocumentServerFolderNumberSupport: "true"
 
 *%========== Basic Device Capabilities ==========
 
@@ -93,19 +91,30 @@
 *LargeCapacityTray NotInstalled/Not Installed: ""
 *LargeCapacityTray LCTALASKAE/Large Capacity Tray: ""
 *LargeCapacityTray LCTSIBERIAG/Wide Large Capacity Tray: ""
+*LargeCapacityTray LCTANATOLIA1/Wide Large Capacity Tray (2-Tray): ""
+*LargeCapacityTray LCTANATOLIA2/Wide Large Capacity Tray (2-Tray and 2-Tray): ""
+*LargeCapacityTray LCTANAANDSIB/Wide Large Capacity Tray (2-Tray and 3-Tray): ""
 *?LargeCapacityTray: "
 save
 mark
 (NotInstalled)
 userdict /86f6369627 known {
-    userdict /86f6369627 get 
+    userdict /86f6369627 get
     /perifdict get /inslot get dup type /arraytype eq {
-        {
-        dup 7 eq {(LCTALASKAE) exit} if
-        dup 13 eq {(LCTSIBERIAG) exit} if
-        pop
-        } forall
-    }{pop} ifelse
+userdict /86f6369627 get begin
+    /devdict 1 dict def /ret false def {devdict exch cvlit null put}forall
+    /Isfit? {  ret  {pop pop } {
+        /ret true def
+        {devdict exch known not {/ret false def pop exit}if} forall
+    }ifelse
+    }bind def
+(LCTANAANDSIB)  [13 15]  Isfit?
+(LCTANATOLIA2)  [15 16]  Isfit?
+(LCTALASKAE)    [7]      Isfit?
+(LCTSIBERIAG)   [13]     Isfit?
+(LCTANATOLIA1)  [15]     Isfit?
+(LCTANATOLIA2)  [16]     Isfit?
+end}if
 }if
 = flush
 cleartomark
@@ -215,7 +224,8 @@ restore
 *OpenUI *MultiHolePunchUnit/Multi-hole Punch Unit: PickOne
 *DefaultMultiHolePunchUnit: NotInstalled
 *MultiHolePunchUnit NotInstalled/Not Installed: ""
-*MultiHolePunchUnit Installed/Installed: ""
+*MultiHolePunchUnit StreamPunch/Multi-hole Punch Unit: ""
+*MultiHolePunchUnit Sparta/Multi-hole Punch Ultra Unit: ""
 *?MultiHolePunchUnit: "
 save
 mark
@@ -224,7 +234,8 @@ userdict /86f6369627 known {
 	userdict /86f6369627 get 
 	/perifdict get /outslot get dup type /arraytype eq {
 	    {
-		dup 26 eq {(Installed) exit} if
+		dup 26 eq {(StreamPunch) exit} if
+		dup 46 eq {(Sparta) exit} if
 		pop
 	    } forall
 	}{pop} ifelse
@@ -285,6 +296,31 @@ restore
 "
 *End
 *CloseUI: *OptionBind
+
+*OpenUI *Stacker/Stacker: PickOne
+*DefaultStacker: NotInstalled
+*Stacker NotInstalled/Not Installed: ""
+*Stacker StackerSingle/Stacker: ""
+*Stacker StackerDouble/Second Stacker: ""
+*?Stacker: "
+save
+mark
+(NotInstalled)
+userdict /86f6369627 known {
+    userdict /86f6369627 get
+    /perifdict get /outslot get dup type /arraytype eq {
+        {
+        dup 36 eq {(StackerDouble) exit} if
+	dup 35 eq {(StackerSingle)}{pop} ifelse
+        } forall
+    }{pop} ifelse
+} if
+= flush
+cleartomark
+restore
+"
+*End
+*CloseUI: *Stacker
 
 *CloseGroup: InstallableOptions
 
@@ -1122,12 +1158,47 @@ userdict /RPS_MPdict 1 dict put
 userdict /RPS_MPdict get begin
 /RPS_MP_MEDIAPOSITION 0 def end"
 *End
+*InputSlot 8Tray/Tray T1: "<</MediaPosition 8>> setpagedevice
+userdict /RPS_MPdict 1 dict put
+userdict /RPS_MPdict get begin
+/RPS_MP_MEDIAPOSITION 8 def end"
+*End
+*InputSlot 9Tray/Tray T2: "<</MediaPosition 9>> setpagedevice
+userdict /RPS_MPdict 1 dict put
+userdict /RPS_MPdict get begin
+/RPS_MP_MEDIAPOSITION 9 def end"
+*End
+*InputSlot 10Tray/Tray T3: "<</MediaPosition 10>> setpagedevice
+userdict /RPS_MPdict 1 dict put
+userdict /RPS_MPdict get begin
+/RPS_MP_MEDIAPOSITION 10 def end"
+*End
+*InputSlot 11Tray/Tray T4: "<</MediaPosition 11>> setpagedevice
+userdict /RPS_MPdict 1 dict put
+userdict /RPS_MPdict get begin
+/RPS_MP_MEDIAPOSITION 11 def end"
+*End
 *InputSlot Auto/Auto Select: ""
 *?InputSlot: "
   save
-  [(1Tray)(2Tray)(3Tray)(4Tray)(5Tray)(6Tray)(7Tray)]
-  statusdict /papertray get exec {get}stopped
-  {pop pop (Unknown)}if = flush
+  mark
+  /UK (Unknown) def{
+  statusdict /papertray get exec
+  dup 0 eq{(7Tray) exit}if
+  dup 1 eq{(1Tray) exit}if
+  dup 2 eq{(2Tray) exit}if
+  dup 3 eq{(3Tray) exit}if
+  dup 4 eq{(4Tray) exit}if
+  dup 5 eq{(5Tray) exit}if
+  dup 6 eq{(6Tray) exit}if
+  dup 8 eq{(8Tray) exit}if
+  dup 9 eq{(9Tray) exit}if
+  dup 10 eq{(10Tray) exit}if
+  dup 11 eq{(11Tray) exit}if
+  UK exit
+  } bind loop
+  = flush
+  cleartomark
   restore
 "
 *End
@@ -1163,6 +1234,10 @@ userdict /RPS_MPdict get begin
 *RequiresPageRegion 5Tray: True
 *RequiresPageRegion 6Tray: True
 *RequiresPageRegion 7Tray: True
+*RequiresPageRegion 8Tray: True
+*RequiresPageRegion 9Tray: True
+*RequiresPageRegion 10Tray: True
+*RequiresPageRegion 11Tray: True
 
 *%========== Resolution and Appearance Control ==========
 
@@ -1214,12 +1289,19 @@ userdict /RPS_MPdict get begin
 *End
 *CloseUI: *Duplex
 
+*OpenUI *RICollateKind/Collate Type: PickOne
+*OrderDependency: 199 AnySetup *RICollateKind
+*DefaultRICollateKind: Normal
+*RICollateKind Normal/Collate: "/RICollateKindValue true def"
+*RICollateKind RotateShift/Rotating (Shift) Collate: "/RICollateKindValue false def"
+*CloseUI: *RICollateKind
+
 *OpenUI *Collate/Collate: PickOne
 *OrderDependency: 200 AnySetup *Collate
 *DefaultCollate: False
 *Collate False/Off: "<</Collate false>>setpagedevice"
 *Collate True/On: "<</Collate true
-  /CollateDetails <</Type 6 /AlignSet false>>
+  /CollateDetails <</Type 6 /AlignSet RICollateKindValue>>
   >>setpagedevice"
 *End
 *?Collate: "
@@ -1316,8 +1398,9 @@ userdict /RPS_MPdict get begin
   /UK (Unknown) def
   {
     currentpagedevice /MediaType 2 copy known not { UK exit } if
-    get dup null eq 1 index (Plain) eq or { (Plain1) exit } if
+    get
     dup (Auto) eq { dup exit } if
+    dup (Plain) eq { (Plain1) exit } if
     dup (Recycled) eq { dup exit } if
     dup (Color1) eq { (Colored1) exit } if
     dup (Color2) eq { (Colored2) exit } if
@@ -1342,6 +1425,7 @@ userdict /RPS_MPdict get begin
     dup (GlossyCoated) eq { (Glossy) exit } if
     dup (MatCoated) eq { dup exit } if
     dup (Envelope) eq { dup exit } if
+    dup null eq { (None) exit } if
     UK exit
   } bind loop
   mark count 1 sub 2 roll cleartomark
@@ -1410,9 +1494,79 @@ userdict /RPS_MPdict get begin
 <</OutputType (FinShift)>>setpagedevice\n&&
 } stopped cleartomark\n"
 *End
+*OutputBin StackerUpperTray/Stacker Upper Tray: "%% FoomaticRIPOptionSetting: OutputBin=StackerUpperTray"
+*FoomaticRIPOptionSetting OutputBin=StackerUpperTray: "mark{\n&&
+<</OutputType (StackerProof)>>setpagedevice\n&&
+} stopped cleartomark\n"
+*End
+*OutputBin StackerTray/Stacker Tray: "%% FoomaticRIPOptionSetting: OutputBin=StackerTray"
+*FoomaticRIPOptionSetting OutputBin=StackerTray: "mark{\n&&
+<</OutputType (Stacker)>>setpagedevice\n&&
+} stopped cleartomark\n"
+*End
+*OutputBin SecondStackerTray/Second Stacker Tray: "%% FoomaticRIPOptionSetting: OutputBin=SecondStackerTray"
+*FoomaticRIPOptionSetting OutputBin=SecondStackerTray: "mark{\n&&
+<</OutputType (Stacker2)>>setpagedevice\n&&
+} stopped cleartomark\n"
+*End
 *?OutputBin: "
   save
-  currentpagedevice /OutputType get = flush
+  mark
+	(NotInstalled)
+	userdict /86f6369627 known {
+		userdict /86f6369627 get
+		/perifdict get /outslot get dup type /arraytype eq {
+		    {
+			dup 37 eq {(FinCOLUMBIACBK) exit} if
+			dup 44 eq {(FinCOLUMBIAC) exit} if
+			dup 35 eq {(StackerSingle) exit} if
+			dup 36 eq {(StackerDouble) exit} if
+			dup 34 eq {(TrimmerUnit) exit} if
+			dup 19 eq {(BKLProcessor) exit} if
+			dup 33 eq {(MultiFold) exit} if
+			dup 30 eq {(FinISHIKARIC) exit} if
+			dup 31 eq {(FinTENRYUB)}{pop} ifelse
+		    } forall
+		}{pop} ifelse
+	} if
+  currentpagedevice /OutputType get
+  	dup (FinProof) eq {
+		pop
+		dup (FinCOLUMBIACBK) eq {pop (FinCOLUMBIACBKUpper)} {
+		dup (FinCOLUMBIAC)   eq {pop (FinCOLUMBIACUpper)  } {
+			}ifelse
+			}ifelse } {
+	dup (FinShift) eq {
+		pop
+		dup (FinCOLUMBIACBK) eq {pop (FinCOLUMBIACBKShift)} {
+		dup (FinCOLUMBIAC)   eq {pop (FinCOLUMBIACShift)  } {
+		dup (BKLProcessor)   eq {pop (PlockmaticTray)  } {
+			}ifelse
+			}ifelse
+			}ifelse } {
+	dup (FinBooklet) eq {
+		pop
+		dup (FinCOLUMBIACBK)   eq {pop (FinCOLUMBIACBKLower)  } {
+		dup (TrimmerUnit)   eq {pop (Trimmer)  } {
+			}ifelse
+			}ifelse } {
+	dup (FoldProof) eq { pop (FinDONAUProof)} {
+	dup (SubFinRing) eq { pop (FinISHIKARI)} {
+	dup (SubFinPerf) eq { pop (FinTENRYU)} {
+	dup (StackerProof) eq { pop (StackerUpperTray)} {
+	dup (Stacker) eq { pop (StackerTray)} {
+	dup (Stacker2) eq { pop (SecondStackerTray)} {
+	} ifelse
+	} ifelse
+	} ifelse
+	} ifelse
+	} ifelse
+	} ifelse
+	} ifelse
+	} ifelse
+	} ifelse
+  = flush
+  cleartomark
   restore
 "
 *End
@@ -1515,17 +1669,53 @@ userdict /RPS_MPdict get begin
 *RIPunch GBCTop/Multiple at top: "
   << /Punch 2 /PunchDetails << /Type 3 /Position 3>> >> setpagedevice"
 *End
+*RIPunch DoubleLeft/Multi punch - two at left: "
+  << /Punch 2 /PunchDetails << /Type 3 /Position 4>> >> setpagedevice"
+*End
+*RIPunch DoubleRight/Multi punch - two at right: "
+  << /Punch 2 /PunchDetails << /Type 3 /Position 6>> >> setpagedevice"
+*End
+*RIPunch DoubleTop/Multi punch - two at top: "
+  << /Punch 2 /PunchDetails << /Type 3 /Position 7>> >> setpagedevice"
+*End
 *?RIPunch: "
   save
   /UK (Unknown) def
   {
     currentpagedevice dup /Punch 2 copy known not { UK exit } if
     get dup 0 eq {pop (None) exit }
-    {pop /PunchDetails get dup /Position get
-    dup 0 eq {pop (Left2) exit} if
-    dup 2 eq {pop (Right2) exit} if
-    dup 3 eq {pop (Upper2) exit} if
-    UK exit
+    {pop /PunchDetails get dup /Type get
+    dup 4 eq {
+		pop dup /Position get
+		dup 0 eq{
+			pop dup /NumHoles get
+			dup 2 eq {pop (Left2) exit} if
+			dup 3 eq {pop (Left3) exit} if
+			dup 4 eq {pop (Left4) exit} if
+		}if
+		dup 2 eq{
+			pop dup /NumHoles get
+			dup 2 eq {pop (Right2) exit} if
+			dup 3 eq {pop (Right3) exit} if
+			dup 4 eq {pop (Right4) exit} if
+		}if
+		dup 3 eq{
+			pop dup /NumHoles get
+			dup 2 eq {pop (Upper2) exit} if
+			dup 3 eq {pop (Upper3) exit} if
+			dup 4 eq {pop (Upper4) exit} if
+		}if
+	} if
+    dup 3 eq {
+		pop dup /Position get
+		dup 0 eq{ pop (GBCLeft) exit }if
+		dup 2 eq{ pop (GBCRight) exit }if
+		dup 3 eq{ pop (GBCTop) exit }if
+		dup 4 eq{ pop (DoubleLeft) exit }if
+		dup 6 eq{ pop (DoubleRight) exit }if
+		dup 7 eq{ pop (DoubleTop) exit }if
+	} if
+	UK exit
     } ifelse
   } bind loop
   mark count 1 sub 2 roll cleartomark
@@ -1743,6 +1933,18 @@ userdict /RPS_BDdict get begin /RPS_BD_INSERTERTRAY 6 def end"
 *End
 *RIInserter 7Tray/Tray 7: "userdict /RPS_BDdict 12 dict put
 userdict /RPS_BDdict get begin /RPS_BD_INSERTERTRAY 0 def end"
+*End
+*RIInserter 8Tray/Tray T1: "userdict /RPS_BDdict 12 dict put
+userdict /RPS_BDdict get begin /RPS_BD_INSERTERTRAY 8 def end"
+*End
+*RIInserter 9Tray/Tray T2: "userdict /RPS_BDdict 12 dict put
+userdict /RPS_BDdict get begin /RPS_BD_INSERTERTRAY 9 def end"
+*End
+*RIInserter 10Tray/Tray T3: "userdict /RPS_BDdict 12 dict put
+userdict /RPS_BDdict get begin /RPS_BD_INSERTERTRAY 10 def end"
+*End
+*RIInserter 11Tray/Tray T4: "userdict /RPS_BDdict 12 dict put
+userdict /RPS_BDdict get begin /RPS_BD_INSERTERTRAY 11 def end"
 *End
 *RIInserter Upper/Interposer Upper Tray: "userdict /RPS_BDdict 12 dict put
 userdict /RPS_BDdict get begin
@@ -2818,6 +3020,30 @@ userdict /RPS_BPdict 2 dict put\n&&
 userdict /RPS_BPdict get begin /RPS_BP_MEDIAPOSITION 0 def end\n&&
 } stopped cleartomark\n"
 *End
+*RIBannerPageInputSlot 8Tray/Tray T1: "%% FoomaticRIPOptionSetting: RIBannerPageInputSlot=8Tray"
+*FoomaticRIPOptionSetting RIBannerPageInputSlot=8Tray: "mark{\n&&
+userdict /RPS_BPdict 2 dict put\n&&
+userdict /RPS_BPdict get begin /RPS_BP_MEDIAPOSITION 8 def end\n&&
+} stopped cleartomark\n"
+*End
+*RIBannerPageInputSlot 9Tray/Tray T2: "%% FoomaticRIPOptionSetting: RIBannerPageInputSlot=9Tray"
+*FoomaticRIPOptionSetting RIBannerPageInputSlot=9Tray: "mark{\n&&
+userdict /RPS_BPdict 2 dict put\n&&
+userdict /RPS_BPdict get begin /RPS_BP_MEDIAPOSITION 9 def end\n&&
+} stopped cleartomark\n"
+*End
+*RIBannerPageInputSlot 10Tray/Tray T3: "%% FoomaticRIPOptionSetting: RIBannerPageInputSlot=10Tray"
+*FoomaticRIPOptionSetting RIBannerPageInputSlot=10Tray: "mark{\n&&
+userdict /RPS_BPdict 2 dict put\n&&
+userdict /RPS_BPdict get begin /RPS_BP_MEDIAPOSITION 10 def end\n&&
+} stopped cleartomark\n"
+*End
+*RIBannerPageInputSlot 11Tray/Tray T4: "%% FoomaticRIPOptionSetting: RIBannerPageInputSlot=11Tray"
+*FoomaticRIPOptionSetting RIBannerPageInputSlot=11Tray: "mark{\n&&
+userdict /RPS_BPdict 2 dict put\n&&
+userdict /RPS_BPdict get begin /RPS_BP_MEDIAPOSITION 11 def end\n&&
+} stopped cleartomark\n"
+*End
 *CloseUI: *RIBannerPageInputSlot
 
 *OpenUI *RIBannerPageMediaType/Banner Page Paper Type: PickOne
@@ -3174,7 +3400,7 @@ mark {\n&&
 *ParamCustomDocServerPassword Password: 1 password 4 8
 *NonUIOrderDependency: 103 AnySetup *CustomDocServerPassword True
 *OpenUI *UserCode/User Code (up to 8 digits): PickOne
-*FoomaticRIPOption UserCode: password CmdLine A
+*FoomaticRIPOption UserCode: string CmdLine A
 *FoomaticRIPOptionMaxLength UserCode:8
 *FoomaticRIPOptionAllowedChars UserCode: "0-9"
 *OrderDependency: 104 AnySetup *UserCode
@@ -3187,7 +3413,7 @@ mark {\n&&
 *CloseUI: *UserCode
 
 *CustomUserCode True/Custom UserCode: ""
-*ParamCustomUserCode UserCode: 1 password 1 8
+*ParamCustomUserCode UserCode: 1 string 1 8
 *NonUIOrderDependency: 105 AnySetup *CustomUserCode True
 *CloseGroup: JobLog/Job Log
 *%========== Font ==========
@@ -3586,6 +3812,42 @@ mark {\n&&
 *UIConstraints: *StapleLocation RightW *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *StapleLocation UpperW
 *UIConstraints: *StapleLocation UpperW *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin StackerUpperTray *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation UpperLeft *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *StapleLocation UpperRight
+*UIConstraints: *StapleLocation UpperRight *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *StapleLocation LeftW
+*UIConstraints: *StapleLocation LeftW *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *StapleLocation RightW
+*UIConstraints: *StapleLocation RightW *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *StapleLocation UpperW
+*UIConstraints: *StapleLocation UpperW *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *StapleLocation CenterW
+*UIConstraints: *StapleLocation CenterW *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerTray *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation UpperLeft *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *StapleLocation UpperRight
+*UIConstraints: *StapleLocation UpperRight *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *StapleLocation LeftW
+*UIConstraints: *StapleLocation LeftW *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *StapleLocation RightW
+*UIConstraints: *StapleLocation RightW *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *StapleLocation UpperW
+*UIConstraints: *StapleLocation UpperW *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *StapleLocation CenterW
+*UIConstraints: *StapleLocation CenterW *OutputBin StackerTray
+*UIConstraints: *OutputBin SecondStackerTray *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation UpperLeft *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *StapleLocation UpperRight
+*UIConstraints: *StapleLocation UpperRight *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *StapleLocation LeftW
+*UIConstraints: *StapleLocation LeftW *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *StapleLocation RightW
+*UIConstraints: *StapleLocation RightW *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *StapleLocation UpperW
+*UIConstraints: *StapleLocation UpperW *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *StapleLocation CenterW
+*UIConstraints: *StapleLocation CenterW *OutputBin SecondStackerTray
 
 *%========== Punch / Staple
 *UIConstraints: *RIPunch Left2 *StapleLocation CenterW
@@ -3642,6 +3904,42 @@ mark {\n&&
 *UIConstraints: *StapleLocation UpperW *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *StapleLocation CenterW
 *UIConstraints: *StapleLocation CenterW *RIPunch GBCTop
+*UIConstraints: *RIPunch DoubleLeft *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation UpperLeft *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *StapleLocation UpperRight
+*UIConstraints: *StapleLocation UpperRight *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *StapleLocation LeftW
+*UIConstraints: *StapleLocation LeftW *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *StapleLocation RightW
+*UIConstraints: *StapleLocation RightW *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *StapleLocation UpperW
+*UIConstraints: *StapleLocation UpperW *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *StapleLocation CenterW
+*UIConstraints: *StapleLocation CenterW *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleRight *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation UpperLeft *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *StapleLocation UpperRight
+*UIConstraints: *StapleLocation UpperRight *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *StapleLocation LeftW
+*UIConstraints: *StapleLocation LeftW *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *StapleLocation RightW
+*UIConstraints: *StapleLocation RightW *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *StapleLocation UpperW
+*UIConstraints: *StapleLocation UpperW *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *StapleLocation CenterW
+*UIConstraints: *StapleLocation CenterW *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleTop *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation UpperLeft *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *StapleLocation UpperRight
+*UIConstraints: *StapleLocation UpperRight *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *StapleLocation LeftW
+*UIConstraints: *StapleLocation LeftW *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *StapleLocation RightW
+*UIConstraints: *StapleLocation RightW *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *StapleLocation UpperW
+*UIConstraints: *StapleLocation UpperW *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *StapleLocation CenterW
+*UIConstraints: *StapleLocation CenterW *RIPunch DoubleTop
 
 *%========== Fold Type / Staple
 *UIConstraints: *RIFoldType Twofold *StapleLocation UpperLeft
@@ -3818,6 +4116,18 @@ mark {\n&&
 *UIConstraints: *RIPunch GBCRight *MultiHolePunchUnit NotInstalled
 *UIConstraints: *MultiHolePunchUnit NotInstalled *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *MultiHolePunchUnit NotInstalled
+*UIConstraints: *MultiHolePunchUnit NotInstalled *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *MultiHolePunchUnit NotInstalled
+*UIConstraints: *MultiHolePunchUnit NotInstalled *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *MultiHolePunchUnit NotInstalled
+*UIConstraints: *MultiHolePunchUnit NotInstalled *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *MultiHolePunchUnit NotInstalled
+*UIConstraints: *MultiHolePunchUnit StreamPunch *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *MultiHolePunchUnit StreamPunch
+*UIConstraints: *MultiHolePunchUnit StreamPunch *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *MultiHolePunchUnit StreamPunch
+*UIConstraints: *MultiHolePunchUnit StreamPunch *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *MultiHolePunchUnit StreamPunch
 
 *%========== Finisher / Punch
 *UIConstraints: *Finisher NotInstalled *RIPunch Left2
@@ -3938,6 +4248,12 @@ mark {\n&&
 *UIConstraints: *RIPunch GBCRight *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *OutputBin FinCOLUMBIACBKLower
+*UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *OutputBin FinCOLUMBIACBKLower
+*UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *OutputBin FinCOLUMBIACBKLower
+*UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinISHIKARI *RIPunch Left2
 *UIConstraints: *RIPunch Left2 *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIPunch Left3
@@ -3962,6 +4278,12 @@ mark {\n&&
 *UIConstraints: *RIPunch GBCRight *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *OutputBin FinISHIKARI
+*UIConstraints: *OutputBin FinISHIKARI *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *OutputBin FinISHIKARI
+*UIConstraints: *OutputBin FinISHIKARI *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *OutputBin FinISHIKARI
+*UIConstraints: *OutputBin FinISHIKARI *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinTENRYU *RIPunch Left2
 *UIConstraints: *RIPunch Left2 *OutputBin FinTENRYU
 *UIConstraints: *OutputBin FinTENRYU *RIPunch Left3
@@ -3986,6 +4308,12 @@ mark {\n&&
 *UIConstraints: *RIPunch GBCRight *OutputBin FinTENRYU
 *UIConstraints: *OutputBin FinTENRYU *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *OutputBin FinTENRYU
+*UIConstraints: *OutputBin FinTENRYU *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *OutputBin FinTENRYU
+*UIConstraints: *OutputBin FinTENRYU *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *OutputBin FinTENRYU
+*UIConstraints: *OutputBin FinTENRYU *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *OutputBin FinTENRYU
 *UIConstraints: *OutputBin FinDONAUProof *RIPunch Left2
 *UIConstraints: *RIPunch Left2 *OutputBin FinDONAUProof
 *UIConstraints: *OutputBin FinDONAUProof *RIPunch Left3
@@ -4010,6 +4338,12 @@ mark {\n&&
 *UIConstraints: *RIPunch GBCRight *OutputBin FinDONAUProof
 *UIConstraints: *OutputBin FinDONAUProof *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *OutputBin FinDONAUProof
 *UIConstraints: *OutputBin Trimmer *RIPunch Left2
 *UIConstraints: *RIPunch Left2 *OutputBin Trimmer
 *UIConstraints: *OutputBin Trimmer *RIPunch Left3
@@ -4034,6 +4368,12 @@ mark {\n&&
 *UIConstraints: *RIPunch GBCRight *OutputBin Trimmer
 *UIConstraints: *OutputBin Trimmer *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *OutputBin Trimmer
+*UIConstraints: *OutputBin Trimmer *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *OutputBin Trimmer
+*UIConstraints: *OutputBin Trimmer *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *OutputBin Trimmer
+*UIConstraints: *OutputBin Trimmer *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *OutputBin Trimmer
 *UIConstraints: *OutputBin PlockmaticTray *RIPunch Left2
 *UIConstraints: *RIPunch Left2 *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *RIPunch Left3
@@ -4058,6 +4398,66 @@ mark {\n&&
 *UIConstraints: *RIPunch GBCRight *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin PlockmaticTray *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin PlockmaticTray *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin PlockmaticTray *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin StackerUpperTray *RIPunch Left2
+*UIConstraints: *RIPunch Left2 *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *RIPunch Left3
+*UIConstraints: *RIPunch Left3 *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *RIPunch Left4
+*UIConstraints: *RIPunch Left4 *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *RIPunch Right2
+*UIConstraints: *RIPunch Right2 *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *RIPunch Right3
+*UIConstraints: *RIPunch Right3 *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *RIPunch Right4
+*UIConstraints: *RIPunch Right4 *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *RIPunch Upper2
+*UIConstraints: *RIPunch Upper2 *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *RIPunch Upper3
+*UIConstraints: *RIPunch Upper3 *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *RIPunch Upper4
+*UIConstraints: *RIPunch Upper4 *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerTray *RIPunch Left2
+*UIConstraints: *RIPunch Left2 *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIPunch Left3
+*UIConstraints: *RIPunch Left3 *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIPunch Left4
+*UIConstraints: *RIPunch Left4 *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIPunch Right2
+*UIConstraints: *RIPunch Right2 *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIPunch Right3
+*UIConstraints: *RIPunch Right3 *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIPunch Right4
+*UIConstraints: *RIPunch Right4 *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIPunch Upper2
+*UIConstraints: *RIPunch Upper2 *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIPunch Upper3
+*UIConstraints: *RIPunch Upper3 *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIPunch Upper4
+*UIConstraints: *RIPunch Upper4 *OutputBin StackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIPunch Left2
+*UIConstraints: *RIPunch Left2 *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIPunch Left3
+*UIConstraints: *RIPunch Left3 *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIPunch Left4
+*UIConstraints: *RIPunch Left4 *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIPunch Right2
+*UIConstraints: *RIPunch Right2 *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIPunch Right3
+*UIConstraints: *RIPunch Right3 *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIPunch Right4
+*UIConstraints: *RIPunch Right4 *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIPunch Upper2
+*UIConstraints: *RIPunch Upper2 *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIPunch Upper3
+*UIConstraints: *RIPunch Upper3 *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIPunch Upper4
+*UIConstraints: *RIPunch Upper4 *OutputBin SecondStackerTray
 
 *%========== Fold Type / Punch
 *UIConstraints: *RIFoldType Twofold *RIPunch Left2
@@ -4084,6 +4484,12 @@ mark {\n&&
 *UIConstraints: *RIPunch GBCRight *RIFoldType Twofold
 *UIConstraints: *RIFoldType Twofold *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *RIFoldType Twofold
+*UIConstraints: *RIFoldType Twofold *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *RIFoldType Twofold
+*UIConstraints: *RIFoldType Twofold *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *RIFoldType Twofold
+*UIConstraints: *RIFoldType Twofold *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *RIFoldType Twofold
 *UIConstraints: *RIFoldType Threefold *RIPunch Left2
 *UIConstraints: *RIPunch Left2 *RIFoldType Threefold
 *UIConstraints: *RIFoldType Threefold *RIPunch Left3
@@ -4108,6 +4514,12 @@ mark {\n&&
 *UIConstraints: *RIPunch GBCRight *RIFoldType Threefold
 *UIConstraints: *RIFoldType Threefold *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *RIFoldType Threefold
+*UIConstraints: *RIFoldType Threefold *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *RIFoldType Threefold
+*UIConstraints: *RIFoldType Threefold *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *RIFoldType Threefold
+*UIConstraints: *RIFoldType Threefold *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *RIFoldType Threefold
 *UIConstraints: *RIFoldType ThreefoldOut *RIPunch Left2
 *UIConstraints: *RIPunch Left2 *RIFoldType ThreefoldOut
 *UIConstraints: *RIFoldType ThreefoldOut *RIPunch Left3
@@ -4132,6 +4544,12 @@ mark {\n&&
 *UIConstraints: *RIPunch GBCRight *RIFoldType ThreefoldOut
 *UIConstraints: *RIFoldType ThreefoldOut *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *RIFoldType ThreefoldOut
+*UIConstraints: *RIFoldType ThreefoldOut *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *RIFoldType ThreefoldOut
+*UIConstraints: *RIFoldType ThreefoldOut *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *RIFoldType ThreefoldOut
+*UIConstraints: *RIFoldType ThreefoldOut *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *RIFoldType ThreefoldOut
 *UIConstraints: *RIFoldType Quarto *RIPunch Left2
 *UIConstraints: *RIPunch Left2 *RIFoldType Quarto
 *UIConstraints: *RIFoldType Quarto *RIPunch Left3
@@ -4156,6 +4574,12 @@ mark {\n&&
 *UIConstraints: *RIPunch GBCRight *RIFoldType Quarto
 *UIConstraints: *RIFoldType Quarto *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *RIFoldType Quarto
+*UIConstraints: *RIFoldType Quarto *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *RIFoldType Quarto
+*UIConstraints: *RIFoldType Quarto *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *RIFoldType Quarto
+*UIConstraints: *RIFoldType Quarto *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *RIFoldType Quarto
 *UIConstraints: *RIFoldType Gatefold *RIPunch Left2
 *UIConstraints: *RIPunch Left2 *RIFoldType Gatefold
 *UIConstraints: *RIFoldType Gatefold *RIPunch Left3
@@ -4180,6 +4604,12 @@ mark {\n&&
 *UIConstraints: *RIPunch GBCRight *RIFoldType Gatefold
 *UIConstraints: *RIFoldType Gatefold *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Gatefold *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Gatefold *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Gatefold *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *RIFoldType Gatefold
 *UIConstraints: *RIFoldType InsideTwofold *RIPunch Left2
 *UIConstraints: *RIPunch Left2 *RIFoldType InsideTwofold
 *UIConstraints: *RIFoldType InsideTwofold *RIPunch Left3
@@ -4204,6 +4634,12 @@ mark {\n&&
 *UIConstraints: *RIPunch GBCRight *RIFoldType InsideTwofold
 *UIConstraints: *RIFoldType InsideTwofold *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *RIFoldType InsideTwofold
+*UIConstraints: *RIFoldType InsideTwofold *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *RIFoldType InsideTwofold
+*UIConstraints: *RIFoldType InsideTwofold *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *RIFoldType InsideTwofold
+*UIConstraints: *RIFoldType InsideTwofold *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *RIFoldType InsideTwofold
 *UIConstraints: *RIFoldType OutsideTwofold *RIPunch Left2
 *UIConstraints: *RIPunch Left2 *RIFoldType OutsideTwofold
 *UIConstraints: *RIFoldType OutsideTwofold *RIPunch Left3
@@ -4228,6 +4664,12 @@ mark {\n&&
 *UIConstraints: *RIPunch GBCRight *RIFoldType OutsideTwofold
 *UIConstraints: *RIFoldType OutsideTwofold *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *RIFoldType OutsideTwofold
+*UIConstraints: *RIFoldType OutsideTwofold *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *RIFoldType OutsideTwofold
+*UIConstraints: *RIFoldType OutsideTwofold *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *RIFoldType OutsideTwofold
+*UIConstraints: *RIFoldType OutsideTwofold *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *RIFoldType OutsideTwofold
 
 *%========== Z-fold / Punch
 *UIConstraints: *RIZfold Bottom *RIPunch GBCLeft
@@ -4236,18 +4678,36 @@ mark {\n&&
 *UIConstraints: *RIPunch GBCRight *RIZfold Bottom
 *UIConstraints: *RIZfold Bottom *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *RIZfold Bottom
+*UIConstraints: *RIZfold Bottom *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *RIZfold Bottom
+*UIConstraints: *RIZfold Bottom *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *RIZfold Bottom
+*UIConstraints: *RIZfold Bottom *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *RIZfold Bottom
 *UIConstraints: *RIZfold Right *RIPunch GBCLeft
 *UIConstraints: *RIPunch GBCLeft *RIZfold Right
 *UIConstraints: *RIZfold Right *RIPunch GBCRight
 *UIConstraints: *RIPunch GBCRight *RIZfold Right
 *UIConstraints: *RIZfold Right *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *RIZfold Right
+*UIConstraints: *RIZfold Right *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *RIZfold Right
+*UIConstraints: *RIZfold Right *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *RIZfold Right
+*UIConstraints: *RIZfold Right *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *RIZfold Right
 *UIConstraints: *RIZfold Left *RIPunch GBCLeft
 *UIConstraints: *RIPunch GBCLeft *RIZfold Left
 *UIConstraints: *RIZfold Left *RIPunch GBCRight
 *UIConstraints: *RIPunch GBCRight *RIZfold Left
 *UIConstraints: *RIZfold Left *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *RIZfold Left
+*UIConstraints: *RIZfold Left *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *RIZfold Left
+*UIConstraints: *RIZfold Left *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *RIZfold Left
+*UIConstraints: *RIZfold Left *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *RIZfold Left
 
 *%========== Perfect/Ring Binding / Punch
 *UIConstraints: *RIBind PerfectBind *RIPunch Left2
@@ -4274,6 +4734,12 @@ mark {\n&&
 *UIConstraints: *RIPunch GBCRight *RIBind PerfectBind
 *UIConstraints: *RIBind PerfectBind *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *RIBind PerfectBind
+*UIConstraints: *RIBind PerfectBind *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *RIBind PerfectBind
+*UIConstraints: *RIBind PerfectBind *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *RIBind PerfectBind
+*UIConstraints: *RIBind PerfectBind *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *RIBind PerfectBind
 *UIConstraints: *RIBind RingBind *RIPunch Left2
 *UIConstraints: *RIPunch Left2 *RIBind RingBind
 *UIConstraints: *RIBind RingBind *RIPunch Left3
@@ -4298,6 +4764,12 @@ mark {\n&&
 *UIConstraints: *RIPunch GBCRight *RIBind RingBind
 *UIConstraints: *RIBind RingBind *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *RIBind RingBind
+*UIConstraints: *RIBind RingBind *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *RIBind RingBind
+*UIConstraints: *RIBind RingBind *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *RIBind RingBind
+*UIConstraints: *RIBind RingBind *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *RIBind RingBind
 *UIConstraints: *RIBind RingPunch *RIPunch Left2
 *UIConstraints: *RIPunch Left2 *RIBind RingPunch
 *UIConstraints: *RIBind RingPunch *RIPunch Left3
@@ -4322,6 +4794,12 @@ mark {\n&&
 *UIConstraints: *RIPunch GBCRight *RIBind RingPunch
 *UIConstraints: *RIBind RingPunch *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *RIBind RingPunch
+*UIConstraints: *RIBind RingPunch *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *RIBind RingPunch
+*UIConstraints: *RIBind RingPunch *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *RIBind RingPunch
+*UIConstraints: *RIBind RingPunch *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *RIBind RingPunch
 
 *%========== Booklet / Punch
 *UIConstraints: *Booklet OpenToLeft *RIPunch Left2
@@ -4348,6 +4826,12 @@ mark {\n&&
 *UIConstraints: *RIPunch GBCRight *Booklet OpenToLeft
 *UIConstraints: *Booklet OpenToLeft *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *Booklet OpenToLeft
+*UIConstraints: *Booklet OpenToLeft *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *Booklet OpenToLeft
+*UIConstraints: *Booklet OpenToLeft *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *Booklet OpenToLeft
+*UIConstraints: *Booklet OpenToLeft *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *Booklet OpenToLeft
 *UIConstraints: *Booklet OpenToRight *RIPunch Left2
 *UIConstraints: *RIPunch Left2 *Booklet OpenToRight
 *UIConstraints: *Booklet OpenToRight *RIPunch Left3
@@ -4372,6 +4856,12 @@ mark {\n&&
 *UIConstraints: *RIPunch GBCRight *Booklet OpenToRight
 *UIConstraints: *Booklet OpenToRight *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *Booklet OpenToRight
+*UIConstraints: *Booklet OpenToRight *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *Booklet OpenToRight
+*UIConstraints: *Booklet OpenToRight *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *Booklet OpenToRight
+*UIConstraints: *Booklet OpenToRight *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *Booklet OpenToRight
 
 *%========== Folding Unit / Z-fold
 *UIConstraints: *MultiFold NotInstalled *RIZfold Bottom
@@ -4450,6 +4940,24 @@ mark {\n&&
 *UIConstraints: *RIZfold Right *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *RIZfold Left
 *UIConstraints: *RIZfold Left *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin StackerUpperTray *RIZfold Bottom
+*UIConstraints: *RIZfold Bottom *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *RIZfold Right
+*UIConstraints: *RIZfold Right *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *RIZfold Left
+*UIConstraints: *RIZfold Left *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerTray *RIZfold Bottom
+*UIConstraints: *RIZfold Bottom *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIZfold Right
+*UIConstraints: *RIZfold Right *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIZfold Left
+*UIConstraints: *RIZfold Left *OutputBin StackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIZfold Bottom
+*UIConstraints: *RIZfold Bottom *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIZfold Right
+*UIConstraints: *RIZfold Right *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIZfold Left
+*UIConstraints: *RIZfold Left *OutputBin SecondStackerTray
 
 *%========== Fold Type / Z-fold
 *UIConstraints: *RIFoldType Twofold *RIZfold Bottom
@@ -4760,6 +5268,48 @@ mark {\n&&
 *UIConstraints: *RIFoldType InsideTwofold *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *RIFoldType OutsideTwofold
 *UIConstraints: *RIFoldType OutsideTwofold *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin StackerUpperTray *RIFoldType Twofold
+*UIConstraints: *RIFoldType Twofold *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *RIFoldType Threefold
+*UIConstraints: *RIFoldType Threefold *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *RIFoldType ThreefoldOut
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *RIFoldType Quarto
+*UIConstraints: *RIFoldType Quarto *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Gatefold *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *RIFoldType InsideTwofold
+*UIConstraints: *RIFoldType InsideTwofold *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *RIFoldType OutsideTwofold
+*UIConstraints: *RIFoldType OutsideTwofold *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerTray *RIFoldType Twofold
+*UIConstraints: *RIFoldType Twofold *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIFoldType Threefold
+*UIConstraints: *RIFoldType Threefold *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIFoldType ThreefoldOut
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIFoldType Quarto
+*UIConstraints: *RIFoldType Quarto *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Gatefold *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIFoldType InsideTwofold
+*UIConstraints: *RIFoldType InsideTwofold *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIFoldType OutsideTwofold
+*UIConstraints: *RIFoldType OutsideTwofold *OutputBin StackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIFoldType Twofold
+*UIConstraints: *RIFoldType Twofold *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIFoldType Threefold
+*UIConstraints: *RIFoldType Threefold *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIFoldType ThreefoldOut
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIFoldType Quarto
+*UIConstraints: *RIFoldType Quarto *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Gatefold *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIFoldType InsideTwofold
+*UIConstraints: *RIFoldType InsideTwofold *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIFoldType OutsideTwofold
+*UIConstraints: *RIFoldType OutsideTwofold *OutputBin SecondStackerTray
 
 *%========== Multi-sheet Fold / Fold Type
 *UIConstraints: *OverlapFold On *RIFoldType None
@@ -4852,12 +5402,16 @@ mark {\n&&
 *UIConstraints: *OutputBin FinCOLUMBIACUpper *Finisher FinCOLUMBIACBK
 *UIConstraints: *Finisher FinCOLUMBIACBK *OutputBin FinCOLUMBIACShift
 *UIConstraints: *OutputBin FinCOLUMBIACShift *Finisher FinCOLUMBIACBK
+*UIConstraints: *Finisher FinCOLUMBIACBK *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *Finisher FinCOLUMBIACBK
 *UIConstraints: *Finisher FinCOLUMBIAC *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *Finisher FinCOLUMBIAC
 *UIConstraints: *Finisher FinCOLUMBIAC *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *Finisher FinCOLUMBIAC
 *UIConstraints: *Finisher FinCOLUMBIAC *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *Finisher FinCOLUMBIAC
+*UIConstraints: *Finisher FinCOLUMBIAC *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *Finisher FinCOLUMBIAC
 
 *%========== Trimmer Unit / Destination
 *UIConstraints: *TrimmerUnit NotInstalled *OutputBin Trimmer
@@ -4880,6 +5434,16 @@ mark {\n&&
 *UIConstraints: *OutputBin FinTENRYU *OptionBind FinISHIKARIC
 *UIConstraints: *OptionBind FinTENRYUB *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *OptionBind FinTENRYUB
+
+*%==========Stacker/Destination
+*UIConstraints: *Stacker NotInstalled *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *Stacker NotInstalled
+*UIConstraints: *Stacker NotInstalled *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *Stacker NotInstalled
+*UIConstraints: *Stacker NotInstalled *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *Stacker NotInstalled
+*UIConstraints: *Stacker StackerSingle *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *Stacker StackerSingle
 
 *%========== Media Type / Destination
 *UIConstraints: *MediaType Preprinted *OutputBin FinISHIKARI
@@ -4926,6 +5490,10 @@ mark {\n&&
 *UIConstraints: *OutputBin FinTENRYU *MediaType Index
 *UIConstraints: *MediaType Index *OutputBin FinDONAUProof
 *UIConstraints: *OutputBin FinDONAUProof *MediaType Index
+*UIConstraints: *MediaType Index *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *MediaType Index
+*UIConstraints: *MediaType Index *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *MediaType Index
 *UIConstraints: *MediaType Translucent *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *MediaType Translucent
 *UIConstraints: *MediaType Translucent *OutputBin FinCOLUMBIACBKLower
@@ -4946,6 +5514,10 @@ mark {\n&&
 *UIConstraints: *OutputBin FinTENRYU *MediaType Envelope
 *UIConstraints: *MediaType Envelope *OutputBin Trimmer
 *UIConstraints: *OutputBin Trimmer *MediaType Envelope
+*UIConstraints: *MediaType Envelope *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *MediaType Envelope
+*UIConstraints: *MediaType Envelope *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *MediaType Envelope
 
 *%========== Perfect/Ring Binding / Destination
 *UIConstraints: *RIBind PerfectBind *OutputBin FinCOLUMBIACBKUpper
@@ -4966,6 +5538,12 @@ mark {\n&&
 *UIConstraints: *OutputBin Trimmer *RIBind PerfectBind
 *UIConstraints: *RIBind PerfectBind *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *RIBind PerfectBind
+*UIConstraints: *RIBind PerfectBind *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *RIBind PerfectBind
+*UIConstraints: *RIBind PerfectBind *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIBind PerfectBind
+*UIConstraints: *RIBind PerfectBind *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIBind PerfectBind
 *UIConstraints: *RIBind RingBind *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *RIBind RingBind
 *UIConstraints: *RIBind RingBind *OutputBin FinCOLUMBIACBKShift
@@ -4984,6 +5562,12 @@ mark {\n&&
 *UIConstraints: *OutputBin Trimmer *RIBind RingBind
 *UIConstraints: *RIBind RingBind *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *RIBind RingBind
+*UIConstraints: *RIBind RingBind *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *RIBind RingBind
+*UIConstraints: *RIBind RingBind *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIBind RingBind
+*UIConstraints: *RIBind RingBind *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIBind RingBind
 *UIConstraints: *RIBind RingPunch *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *RIBind RingPunch
 *UIConstraints: *RIBind RingPunch *OutputBin FinCOLUMBIACBKShift
@@ -5002,6 +5586,12 @@ mark {\n&&
 *UIConstraints: *OutputBin Trimmer *RIBind RingPunch
 *UIConstraints: *RIBind RingPunch *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *RIBind RingPunch
+*UIConstraints: *RIBind RingPunch *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *RIBind RingPunch
+*UIConstraints: *RIBind RingPunch *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIBind RingPunch
+*UIConstraints: *RIBind RingPunch *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIBind RingPunch
 
 *%========== Paper Size / Destination
 *UIConstraints: *PageSize A3 *OutputBin FinISHIKARI
@@ -5034,6 +5624,10 @@ mark {\n&&
 *UIConstraints: *OutputBin Trimmer *PageSize A6
 *UIConstraints: *PageSize A6 *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *PageSize A6
+*UIConstraints: *PageSize A6 *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *PageSize A6
+*UIConstraints: *PageSize A6 *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *PageSize A6
 *UIConstraints: *PageSize B4 *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *PageSize B4
 *UIConstraints: *PageSize B4 *OutputBin FinTENRYU
@@ -5058,6 +5652,10 @@ mark {\n&&
 *UIConstraints: *OutputBin Trimmer *PageSize B6
 *UIConstraints: *PageSize B6 *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *PageSize B6
+*UIConstraints: *PageSize B6 *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *PageSize B6
+*UIConstraints: *PageSize B6 *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *PageSize B6
 *UIConstraints: *PageSize Legal *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *PageSize Legal
 *UIConstraints: *PageSize Legal *OutputBin FinTENRYU
@@ -5269,6 +5867,10 @@ mark {\n&&
 *UIConstraints: *OutputBin Trimmer *PageSize A6.FullBleed
 *UIConstraints: *PageSize A6.FullBleed *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *PageSize A6.FullBleed
+*UIConstraints: *PageSize A6.FullBleed *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *PageSize A6.FullBleed
+*UIConstraints: *PageSize A6.FullBleed *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *PageSize A6.FullBleed
 *UIConstraints: *PageSize B4.FullBleed *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *PageSize B4.FullBleed
 *UIConstraints: *PageSize B4.FullBleed *OutputBin FinTENRYU
@@ -5293,6 +5895,10 @@ mark {\n&&
 *UIConstraints: *OutputBin Trimmer *PageSize B6.FullBleed
 *UIConstraints: *PageSize B6.FullBleed *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *PageSize B6.FullBleed
+*UIConstraints: *PageSize B6.FullBleed *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *PageSize B6.FullBleed
+*UIConstraints: *PageSize B6.FullBleed *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *PageSize B6.FullBleed
 *UIConstraints: *PageSize Legal.FullBleed *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *PageSize Legal.FullBleed
 *UIConstraints: *PageSize Legal.FullBleed *OutputBin FinTENRYU
@@ -5504,6 +6110,10 @@ mark {\n&&
 *UIConstraints: *OutputBin Trimmer *PageRegion A6
 *UIConstraints: *PageRegion A6 *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *PageRegion A6
+*UIConstraints: *PageRegion A6 *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *PageRegion A6
+*UIConstraints: *PageRegion A6 *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *PageRegion A6
 *UIConstraints: *PageRegion B4 *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *PageRegion B4
 *UIConstraints: *PageRegion B4 *OutputBin FinTENRYU
@@ -5528,6 +6138,10 @@ mark {\n&&
 *UIConstraints: *OutputBin Trimmer *PageRegion B6
 *UIConstraints: *PageRegion B6 *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *PageRegion B6
+*UIConstraints: *PageRegion B6 *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *PageRegion B6
+*UIConstraints: *PageRegion B6 *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *PageRegion B6
 *UIConstraints: *PageRegion Legal *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *PageRegion Legal
 *UIConstraints: *PageRegion Legal *OutputBin FinTENRYU
@@ -5739,6 +6353,10 @@ mark {\n&&
 *UIConstraints: *OutputBin Trimmer *PageRegion A6.FullBleed
 *UIConstraints: *PageRegion A6.FullBleed *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *PageRegion A6.FullBleed
+*UIConstraints: *PageRegion A6.FullBleed *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *PageRegion A6.FullBleed
+*UIConstraints: *PageRegion A6.FullBleed *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *PageRegion A6.FullBleed
 *UIConstraints: *PageRegion B4.FullBleed *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *PageRegion B4.FullBleed
 *UIConstraints: *PageRegion B4.FullBleed *OutputBin FinTENRYU
@@ -5763,6 +6381,10 @@ mark {\n&&
 *UIConstraints: *OutputBin Trimmer *PageRegion B6.FullBleed
 *UIConstraints: *PageRegion B6.FullBleed *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *PageRegion B6.FullBleed
+*UIConstraints: *PageRegion B6.FullBleed *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *PageRegion B6.FullBleed
+*UIConstraints: *PageRegion B6.FullBleed *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *PageRegion B6.FullBleed
 *UIConstraints: *PageRegion Legal.FullBleed *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *PageRegion Legal.FullBleed
 *UIConstraints: *PageRegion Legal.FullBleed *OutputBin FinTENRYU
@@ -5989,6 +6611,10 @@ mark {\n&&
 *UIConstraints: *OutputBin FinTENRYU *RIBannerPageMediaType Index
 *UIConstraints: *RIBannerPageMediaType Index *OutputBin FinDONAUProof
 *UIConstraints: *OutputBin FinDONAUProof *RIBannerPageMediaType Index
+*UIConstraints: *RIBannerPageMediaType Index *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIBannerPageMediaType Index
+*UIConstraints: *RIBannerPageMediaType Index *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIBannerPageMediaType Index
 *UIConstraints: *RIBannerPageMediaType Translucent *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *RIBannerPageMediaType Translucent
 *UIConstraints: *RIBannerPageMediaType Translucent *OutputBin FinCOLUMBIACBKLower
@@ -6009,6 +6635,10 @@ mark {\n&&
 *UIConstraints: *OutputBin FinTENRYU *RIBannerPageMediaType Envelope
 *UIConstraints: *RIBannerPageMediaType Envelope *OutputBin Trimmer
 *UIConstraints: *OutputBin Trimmer *RIBannerPageMediaType Envelope
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *RIBannerPageMediaType Envelope
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *RIBannerPageMediaType Envelope
 
 *%========== Adjust Fore Edge Cut Position / Destination
 *UIConstraints: *TrimmerCutAndPosition 20mm *OutputBin FinCOLUMBIACBKUpper
@@ -6029,6 +6659,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 20mm
+*UIConstraints: *TrimmerCutAndPosition 20mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 20mm
+*UIConstraints: *TrimmerCutAndPosition 20mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 20mm
+*UIConstraints: *TrimmerCutAndPosition 20mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 30mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 30mm
 *UIConstraints: *TrimmerCutAndPosition 30mm *OutputBin FinCOLUMBIACBKShift
@@ -6047,6 +6683,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 30mm
 *UIConstraints: *TrimmerCutAndPosition 30mm *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 30mm
+*UIConstraints: *TrimmerCutAndPosition 30mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 30mm
+*UIConstraints: *TrimmerCutAndPosition 30mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 30mm
+*UIConstraints: *TrimmerCutAndPosition 30mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 30mm
 *UIConstraints: *TrimmerCutAndPosition 40mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 40mm
 *UIConstraints: *TrimmerCutAndPosition 40mm *OutputBin FinCOLUMBIACBKShift
@@ -6065,6 +6707,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 40mm
 *UIConstraints: *TrimmerCutAndPosition 40mm *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 40mm
+*UIConstraints: *TrimmerCutAndPosition 40mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 40mm
+*UIConstraints: *TrimmerCutAndPosition 40mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 40mm
+*UIConstraints: *TrimmerCutAndPosition 40mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 40mm
 *UIConstraints: *TrimmerCutAndPosition 50mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 50mm
 *UIConstraints: *TrimmerCutAndPosition 50mm *OutputBin FinCOLUMBIACBKShift
@@ -6083,6 +6731,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 50mm
 *UIConstraints: *TrimmerCutAndPosition 50mm *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 50mm
+*UIConstraints: *TrimmerCutAndPosition 50mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 50mm
+*UIConstraints: *TrimmerCutAndPosition 50mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 50mm
+*UIConstraints: *TrimmerCutAndPosition 50mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 50mm
 *UIConstraints: *TrimmerCutAndPosition 60mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 60mm
 *UIConstraints: *TrimmerCutAndPosition 60mm *OutputBin FinCOLUMBIACBKShift
@@ -6101,6 +6755,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 60mm
 *UIConstraints: *TrimmerCutAndPosition 60mm *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 60mm
+*UIConstraints: *TrimmerCutAndPosition 60mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 60mm
+*UIConstraints: *TrimmerCutAndPosition 60mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 60mm
+*UIConstraints: *TrimmerCutAndPosition 60mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 60mm
 *UIConstraints: *TrimmerCutAndPosition 70mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 70mm
 *UIConstraints: *TrimmerCutAndPosition 70mm *OutputBin FinCOLUMBIACBKShift
@@ -6119,6 +6779,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 70mm
 *UIConstraints: *TrimmerCutAndPosition 70mm *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 70mm
+*UIConstraints: *TrimmerCutAndPosition 70mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 70mm
+*UIConstraints: *TrimmerCutAndPosition 70mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 70mm
+*UIConstraints: *TrimmerCutAndPosition 70mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 70mm
 *UIConstraints: *TrimmerCutAndPosition 80mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 80mm
 *UIConstraints: *TrimmerCutAndPosition 80mm *OutputBin FinCOLUMBIACBKShift
@@ -6137,6 +6803,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 80mm
 *UIConstraints: *TrimmerCutAndPosition 80mm *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 80mm
+*UIConstraints: *TrimmerCutAndPosition 80mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 80mm
+*UIConstraints: *TrimmerCutAndPosition 80mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 80mm
+*UIConstraints: *TrimmerCutAndPosition 80mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 80mm
 *UIConstraints: *TrimmerCutAndPosition 90mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 90mm
 *UIConstraints: *TrimmerCutAndPosition 90mm *OutputBin FinCOLUMBIACBKShift
@@ -6155,6 +6827,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 90mm
 *UIConstraints: *TrimmerCutAndPosition 90mm *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 90mm
+*UIConstraints: *TrimmerCutAndPosition 90mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 90mm
+*UIConstraints: *TrimmerCutAndPosition 90mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 90mm
+*UIConstraints: *TrimmerCutAndPosition 90mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 90mm
 *UIConstraints: *TrimmerCutAndPosition 100mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 100mm
 *UIConstraints: *TrimmerCutAndPosition 100mm *OutputBin FinCOLUMBIACBKShift
@@ -6173,6 +6851,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 100mm
 *UIConstraints: *TrimmerCutAndPosition 100mm *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 100mm
+*UIConstraints: *TrimmerCutAndPosition 100mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 100mm
+*UIConstraints: *TrimmerCutAndPosition 100mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 100mm
+*UIConstraints: *TrimmerCutAndPosition 100mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 100mm
 *UIConstraints: *TrimmerCutAndPosition 110mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 110mm
 *UIConstraints: *TrimmerCutAndPosition 110mm *OutputBin FinCOLUMBIACBKShift
@@ -6191,6 +6875,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 110mm
 *UIConstraints: *TrimmerCutAndPosition 110mm *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 110mm
+*UIConstraints: *TrimmerCutAndPosition 110mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 110mm
+*UIConstraints: *TrimmerCutAndPosition 110mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 110mm
+*UIConstraints: *TrimmerCutAndPosition 110mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 110mm
 *UIConstraints: *TrimmerCutAndPosition 120mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 120mm
 *UIConstraints: *TrimmerCutAndPosition 120mm *OutputBin FinCOLUMBIACBKShift
@@ -6209,6 +6899,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 120mm
 *UIConstraints: *TrimmerCutAndPosition 120mm *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 120mm
+*UIConstraints: *TrimmerCutAndPosition 120mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 120mm
+*UIConstraints: *TrimmerCutAndPosition 120mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 120mm
+*UIConstraints: *TrimmerCutAndPosition 120mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 120mm
 *UIConstraints: *TrimmerCutAndPosition 130mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 130mm
 *UIConstraints: *TrimmerCutAndPosition 130mm *OutputBin FinCOLUMBIACBKShift
@@ -6227,6 +6923,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 130mm
 *UIConstraints: *TrimmerCutAndPosition 130mm *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 130mm
+*UIConstraints: *TrimmerCutAndPosition 130mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 130mm
+*UIConstraints: *TrimmerCutAndPosition 130mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 130mm
+*UIConstraints: *TrimmerCutAndPosition 130mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 130mm
 *UIConstraints: *TrimmerCutAndPosition 140mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 140mm
 *UIConstraints: *TrimmerCutAndPosition 140mm *OutputBin FinCOLUMBIACBKShift
@@ -6245,6 +6947,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 140mm
 *UIConstraints: *TrimmerCutAndPosition 140mm *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 140mm
+*UIConstraints: *TrimmerCutAndPosition 140mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 140mm
+*UIConstraints: *TrimmerCutAndPosition 140mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 140mm
+*UIConstraints: *TrimmerCutAndPosition 140mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 140mm
 *UIConstraints: *TrimmerCutAndPosition 150mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 150mm
 *UIConstraints: *TrimmerCutAndPosition 150mm *OutputBin FinCOLUMBIACBKShift
@@ -6263,6 +6971,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 150mm
 *UIConstraints: *TrimmerCutAndPosition 150mm *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 150mm
+*UIConstraints: *TrimmerCutAndPosition 150mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 150mm
+*UIConstraints: *TrimmerCutAndPosition 150mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 150mm
+*UIConstraints: *TrimmerCutAndPosition 150mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 150mm
 *UIConstraints: *TrimmerCutAndPosition 160mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 160mm
 *UIConstraints: *TrimmerCutAndPosition 160mm *OutputBin FinCOLUMBIACBKShift
@@ -6281,6 +6995,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 160mm
 *UIConstraints: *TrimmerCutAndPosition 160mm *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 160mm
+*UIConstraints: *TrimmerCutAndPosition 160mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 160mm
+*UIConstraints: *TrimmerCutAndPosition 160mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 160mm
+*UIConstraints: *TrimmerCutAndPosition 160mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 160mm
 *UIConstraints: *TrimmerCutAndPosition 170mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 170mm
 *UIConstraints: *TrimmerCutAndPosition 170mm *OutputBin FinCOLUMBIACBKShift
@@ -6299,6 +7019,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 170mm
 *UIConstraints: *TrimmerCutAndPosition 170mm *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 170mm
+*UIConstraints: *TrimmerCutAndPosition 170mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 170mm
+*UIConstraints: *TrimmerCutAndPosition 170mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 170mm
+*UIConstraints: *TrimmerCutAndPosition 170mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 170mm
 *UIConstraints: *TrimmerCutAndPosition 180mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 180mm
 *UIConstraints: *TrimmerCutAndPosition 180mm *OutputBin FinCOLUMBIACBKShift
@@ -6317,6 +7043,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 180mm
 *UIConstraints: *TrimmerCutAndPosition 180mm *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 180mm
+*UIConstraints: *TrimmerCutAndPosition 180mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 180mm
+*UIConstraints: *TrimmerCutAndPosition 180mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 180mm
+*UIConstraints: *TrimmerCutAndPosition 180mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 180mm
 *UIConstraints: *TrimmerCutAndPosition 190mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 190mm
 *UIConstraints: *TrimmerCutAndPosition 190mm *OutputBin FinCOLUMBIACBKShift
@@ -6335,6 +7067,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 190mm
 *UIConstraints: *TrimmerCutAndPosition 190mm *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 190mm
+*UIConstraints: *TrimmerCutAndPosition 190mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 190mm
+*UIConstraints: *TrimmerCutAndPosition 190mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 190mm
+*UIConstraints: *TrimmerCutAndPosition 190mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 190mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *OutputBin FinCOLUMBIACBKShift
@@ -6353,6 +7091,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 200mm
+*UIConstraints: *TrimmerCutAndPosition 200mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 200mm
+*UIConstraints: *TrimmerCutAndPosition 200mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 200mm
+*UIConstraints: *TrimmerCutAndPosition 200mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 200mm
 
 *%========== Perfect/Ring Binder Unit / Perfect/Ring Binding
 *UIConstraints: *OptionBind NotInstalled *RIBind PerfectBind
@@ -7347,6 +8091,50 @@ mark {\n&&
 *UIConstraints: *RIBannerPageInputSlot 5Tray *LargeCapacityTray NotInstalled
 *UIConstraints: *LargeCapacityTray NotInstalled *RIBannerPageInputSlot 6Tray
 *UIConstraints: *RIBannerPageInputSlot 6Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *LargeCapacityTray NotInstalled *RIBannerPageInputSlot 8Tray
+*UIConstraints: *RIBannerPageInputSlot 8Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *LargeCapacityTray NotInstalled *RIBannerPageInputSlot 9Tray
+*UIConstraints: *RIBannerPageInputSlot 9Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *LargeCapacityTray NotInstalled *RIBannerPageInputSlot 10Tray
+*UIConstraints: *RIBannerPageInputSlot 10Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *LargeCapacityTray NotInstalled *RIBannerPageInputSlot 11Tray
+*UIConstraints: *RIBannerPageInputSlot 11Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *LargeCapacityTray LCTALASKAE *RIBannerPageInputSlot 8Tray
+*UIConstraints: *RIBannerPageInputSlot 8Tray *LargeCapacityTray LCTALASKAE
+*UIConstraints: *LargeCapacityTray LCTALASKAE *RIBannerPageInputSlot 9Tray
+*UIConstraints: *RIBannerPageInputSlot 9Tray *LargeCapacityTray LCTALASKAE
+*UIConstraints: *LargeCapacityTray LCTALASKAE *RIBannerPageInputSlot 10Tray
+*UIConstraints: *RIBannerPageInputSlot 10Tray *LargeCapacityTray LCTALASKAE
+*UIConstraints: *LargeCapacityTray LCTALASKAE *RIBannerPageInputSlot 11Tray
+*UIConstraints: *RIBannerPageInputSlot 11Tray *LargeCapacityTray LCTALASKAE
+*UIConstraints: *LargeCapacityTray LCTSIBERIAG *RIBannerPageInputSlot 8Tray
+*UIConstraints: *RIBannerPageInputSlot 8Tray *LargeCapacityTray LCTSIBERIAG
+*UIConstraints: *LargeCapacityTray LCTSIBERIAG *RIBannerPageInputSlot 9Tray
+*UIConstraints: *RIBannerPageInputSlot 9Tray *LargeCapacityTray LCTSIBERIAG
+*UIConstraints: *LargeCapacityTray LCTSIBERIAG *RIBannerPageInputSlot 10Tray
+*UIConstraints: *RIBannerPageInputSlot 10Tray *LargeCapacityTray LCTSIBERIAG
+*UIConstraints: *LargeCapacityTray LCTSIBERIAG *RIBannerPageInputSlot 11Tray
+*UIConstraints: *RIBannerPageInputSlot 11Tray *LargeCapacityTray LCTSIBERIAG
+*UIConstraints: *LargeCapacityTray LCTANATOLIA1 *RIBannerPageInputSlot 4Tray
+*UIConstraints: *RIBannerPageInputSlot 4Tray *LargeCapacityTray LCTANATOLIA1
+*UIConstraints: *LargeCapacityTray LCTANATOLIA1 *RIBannerPageInputSlot 5Tray
+*UIConstraints: *RIBannerPageInputSlot 5Tray *LargeCapacityTray LCTANATOLIA1
+*UIConstraints: *LargeCapacityTray LCTANATOLIA1 *RIBannerPageInputSlot 6Tray
+*UIConstraints: *RIBannerPageInputSlot 6Tray *LargeCapacityTray LCTANATOLIA1
+*UIConstraints: *LargeCapacityTray LCTANATOLIA1 *RIBannerPageInputSlot 10Tray
+*UIConstraints: *RIBannerPageInputSlot 10Tray *LargeCapacityTray LCTANATOLIA1
+*UIConstraints: *LargeCapacityTray LCTANATOLIA1 *RIBannerPageInputSlot 11Tray
+*UIConstraints: *RIBannerPageInputSlot 11Tray *LargeCapacityTray LCTANATOLIA1
+*UIConstraints: *LargeCapacityTray LCTANATOLIA2 *RIBannerPageInputSlot 4Tray
+*UIConstraints: *RIBannerPageInputSlot 4Tray *LargeCapacityTray LCTANATOLIA2
+*UIConstraints: *LargeCapacityTray LCTANATOLIA2 *RIBannerPageInputSlot 5Tray
+*UIConstraints: *RIBannerPageInputSlot 5Tray *LargeCapacityTray LCTANATOLIA2
+*UIConstraints: *LargeCapacityTray LCTANATOLIA2 *RIBannerPageInputSlot 6Tray
+*UIConstraints: *RIBannerPageInputSlot 6Tray *LargeCapacityTray LCTANATOLIA2
+*UIConstraints: *LargeCapacityTray LCTANAANDSIB *RIBannerPageInputSlot 10Tray
+*UIConstraints: *RIBannerPageInputSlot 10Tray *LargeCapacityTray LCTANAANDSIB
+*UIConstraints: *LargeCapacityTray LCTANAANDSIB *RIBannerPageInputSlot 11Tray
+*UIConstraints: *RIBannerPageInputSlot 11Tray *LargeCapacityTray LCTANAANDSIB
 
 *%========== Tray7 / Banner Page Input Tray
 *UIConstraints: *Tray7 NotInstalled *RIBannerPageInputSlot 7Tray
@@ -7405,6 +8193,50 @@ mark {\n&&
 *UIConstraints: *InputSlot 5Tray *LargeCapacityTray NotInstalled
 *UIConstraints: *LargeCapacityTray NotInstalled *InputSlot 6Tray
 *UIConstraints: *InputSlot 6Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *LargeCapacityTray NotInstalled *InputSlot 8Tray
+*UIConstraints: *InputSlot 8Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *LargeCapacityTray NotInstalled *InputSlot 9Tray
+*UIConstraints: *InputSlot 9Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *LargeCapacityTray NotInstalled *InputSlot 10Tray
+*UIConstraints: *InputSlot 10Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *LargeCapacityTray NotInstalled *InputSlot 11Tray
+*UIConstraints: *InputSlot 11Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *LargeCapacityTray LCTALASKAE *InputSlot 8Tray
+*UIConstraints: *InputSlot 8Tray *LargeCapacityTray LCTALASKAE
+*UIConstraints: *LargeCapacityTray LCTALASKAE *InputSlot 9Tray
+*UIConstraints: *InputSlot 9Tray *LargeCapacityTray LCTALASKAE
+*UIConstraints: *LargeCapacityTray LCTALASKAE *InputSlot 10Tray
+*UIConstraints: *InputSlot 10Tray *LargeCapacityTray LCTALASKAE
+*UIConstraints: *LargeCapacityTray LCTALASKAE *InputSlot 11Tray
+*UIConstraints: *InputSlot 11Tray *LargeCapacityTray LCTALASKAE
+*UIConstraints: *LargeCapacityTray LCTSIBERIAG *InputSlot 8Tray
+*UIConstraints: *InputSlot 8Tray *LargeCapacityTray LCTSIBERIAG
+*UIConstraints: *LargeCapacityTray LCTSIBERIAG *InputSlot 9Tray
+*UIConstraints: *InputSlot 9Tray *LargeCapacityTray LCTSIBERIAG
+*UIConstraints: *LargeCapacityTray LCTSIBERIAG *InputSlot 10Tray
+*UIConstraints: *InputSlot 10Tray *LargeCapacityTray LCTSIBERIAG
+*UIConstraints: *LargeCapacityTray LCTSIBERIAG *InputSlot 11Tray
+*UIConstraints: *InputSlot 11Tray *LargeCapacityTray LCTSIBERIAG
+*UIConstraints: *LargeCapacityTray LCTANATOLIA1 *InputSlot 4Tray
+*UIConstraints: *InputSlot 4Tray *LargeCapacityTray LCTANATOLIA1
+*UIConstraints: *LargeCapacityTray LCTANATOLIA1 *InputSlot 5Tray
+*UIConstraints: *InputSlot 5Tray *LargeCapacityTray LCTANATOLIA1
+*UIConstraints: *LargeCapacityTray LCTANATOLIA1 *InputSlot 6Tray
+*UIConstraints: *InputSlot 6Tray *LargeCapacityTray LCTANATOLIA1
+*UIConstraints: *LargeCapacityTray LCTANATOLIA1 *InputSlot 10Tray
+*UIConstraints: *InputSlot 10Tray *LargeCapacityTray LCTANATOLIA1
+*UIConstraints: *LargeCapacityTray LCTANATOLIA1 *InputSlot 11Tray
+*UIConstraints: *InputSlot 11Tray *LargeCapacityTray LCTANATOLIA1
+*UIConstraints: *LargeCapacityTray LCTANATOLIA2 *InputSlot 4Tray
+*UIConstraints: *InputSlot 4Tray *LargeCapacityTray LCTANATOLIA2
+*UIConstraints: *LargeCapacityTray LCTANATOLIA2 *InputSlot 5Tray
+*UIConstraints: *InputSlot 5Tray *LargeCapacityTray LCTANATOLIA2
+*UIConstraints: *LargeCapacityTray LCTANATOLIA2 *InputSlot 6Tray
+*UIConstraints: *InputSlot 6Tray *LargeCapacityTray LCTANATOLIA2
+*UIConstraints: *LargeCapacityTray LCTANAANDSIB *InputSlot 10Tray
+*UIConstraints: *InputSlot 10Tray *LargeCapacityTray LCTANAANDSIB
+*UIConstraints: *LargeCapacityTray LCTANAANDSIB *InputSlot 11Tray
+*UIConstraints: *InputSlot 11Tray *LargeCapacityTray LCTANAANDSIB
 
 *%========== Tray7 / Input Tray
 *UIConstraints: *Tray7 NotInstalled *InputSlot 7Tray
@@ -7847,36 +8679,28 @@ mark {\n&&
 *UIConstraints: *BKLProcessor Plockmatic *Finisher FinCOLUMBIACBK
 *UIConstraints: *Finisher FinCOLUMBIACBK *BKLProcessor Plockmatic
 
-*%========== Multi-hole Punch Unit / Finisher
-*UIConstraints: *MultiHolePunchUnit Installed *Finisher NotInstalled
-*UIConstraints: *Finisher NotInstalled *MultiHolePunchUnit Installed
-
 *%========== Folding Unit / Finisher
 *UIConstraints: *MultiFold Installed *Finisher NotInstalled
 *UIConstraints: *Finisher NotInstalled *MultiFold Installed
 
-*%========== Perfect/Ring Binding Unit / Finisher
-*UIConstraints: *OptionBind FinISHIKARIC *Finisher NotInstalled
-*UIConstraints: *Finisher NotInstalled *OptionBind FinISHIKARIC
-*UIConstraints: *OptionBind FinTENRYUB *Finisher NotInstalled
-*UIConstraints: *Finisher NotInstalled *OptionBind FinTENRYUB
+*%==========Folding Unit/Stacker
+*UIConstraints: *MultiFold Installed *Stacker StackerDouble
+*UIConstraints: *Stacker StackerDouble *MultiFold Installed
+
+*%==========Perfect/Ring Binding Unit/Stacker
+*UIConstraints: *OptionBind FinISHIKARIC *Stacker StackerDouble
+*UIConstraints: *Stacker StackerDouble *OptionBind FinISHIKARIC
+*UIConstraints: *OptionBind FinTENRYUB *Stacker StackerDouble
+*UIConstraints: *Stacker StackerDouble *OptionBind FinTENRYUB
 
 *%========== Destination / Folding Unit
 *UIConstraints: *OutputBin FinDONAUProof *MultiFold NotInstalled
 *UIConstraints: *MultiFold NotInstalled *OutputBin FinDONAUProof
 
 *%========== Banner Page/Job Type ==========
-*UIConstraints: *RIBannerPage True *JobType SamplePrint
-*UIConstraints: *RIBannerPage True *JobType LockedPrint
-*UIConstraints: *RIBannerPage True *JobType DocServer
-
-*%============ Finishing/Duplex ============
-*UIConstraints: *RIPunch Left3 *Duplex DuplexTumble
-*UIConstraints: *Duplex DuplexTumble *RIPunch Left3
-*UIConstraints: *RIPunch Right3 *Duplex DuplexTumble
-*UIConstraints: *Duplex DuplexTumble *RIPunch Right3
-*UIConstraints: *RIPunch Upper3 *Duplex DuplexTumble
-*UIConstraints: *Duplex DuplexTumble *RIPunch Upper3
+*UIConstraints: *RIBannerPagePrint True *JobType SamplePrint
+*UIConstraints: *RIBannerPagePrint True *JobType LockedPrint
+*UIConstraints: *RIBannerPagePrint True *JobType DocServer
 
 *% end of Printer Description file
 

@@ -4,9 +4,9 @@
 *%    for "Savin C2828 PXL"
 *%
 *%    CreationDate: 2007/06/25
-*%    Modified:     2011/03/05
+*%    Modified:     2015/05/27
 *%
-*%    COPYRIGHT (C) 2007-2011 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2007-2015 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -43,7 +43,7 @@
 *ShortNickName: "Savin C2828 PXL"
 *NickName: "Savin C2828 PXL"
 
-*FileVersion:      20
+*FileVersion: "2.1"
 *cupsVersion:      1.1
 *cupsManualCopies: False
 *cupsCommands:     ""
@@ -339,9 +339,9 @@
 *FoomaticRIPOptionSetting InputSlot=4Tray: "&&
  | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x08\xf8\x26/g&quot;"
 *End
-*InputSlot 5Tray/Large Capacity Tray: "%% FoomaticRIPOptionSetting: InputSlot=5Tray"
-*FoomaticRIPOptionSetting InputSlot=5Tray: "&&
- | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x15\xf8\x26/g&quot;"
+*InputSlot LCT/Large Capacity Tray: "%% FoomaticRIPOptionSetting: InputSlot=LCT"
+*FoomaticRIPOptionSetting InputSlot=LCT: "&&
+ | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x09\xf8\x26/g&quot;"
 *End
 *InputSlot Auto/Auto Select: "%% FoomaticRIPOptionSetting: InputSlot=Auto"
 *FoomaticRIPOptionSetting InputSlot=Auto: ""
@@ -666,8 +666,8 @@
 *UIConstraints: *InputSlot 4Tray *OptionTray LCT
 *UIConstraints: *OptionTray 1Cassette *InputSlot 4Tray
 *UIConstraints: *InputSlot 4Tray *OptionTray 1Cassette
-*UIConstraints: *LargeCapacityTray NotInstalled *InputSlot 5Tray
-*UIConstraints: *InputSlot 5Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *LargeCapacityTray NotInstalled *InputSlot LCT
+*UIConstraints: *InputSlot LCT *LargeCapacityTray NotInstalled
 *UIConstraints: *InnerTray2 NotInstalled *OutputBin Bin1
 *UIConstraints: *OutputBin Bin1 *InnerTray2 NotInstalled
 *UIConstraints: *Finisher FinELBE *ShiftTray Installed
@@ -790,38 +790,38 @@
 *UIConstraints: *MediaType Labels *InputSlot 2Tray
 *UIConstraints: *MediaType Labels *InputSlot 3Tray
 *UIConstraints: *MediaType Labels *InputSlot 4Tray
-*UIConstraints: *MediaType Labels *InputSlot 5Tray
+*UIConstraints: *MediaType Labels *InputSlot LCT
 *UIConstraints: *MediaType OHP *InputSlot 1Tray
 *UIConstraints: *MediaType OHP *InputSlot 2Tray
 *UIConstraints: *MediaType OHP *InputSlot 3Tray
 *UIConstraints: *MediaType OHP *InputSlot 4Tray
-*UIConstraints: *MediaType OHP *InputSlot 5Tray
+*UIConstraints: *MediaType OHP *InputSlot LCT
 *UIConstraints: *MediaType Thin *InputSlot 1Tray
 *UIConstraints: *MediaType Thin *InputSlot 2Tray
 *UIConstraints: *MediaType Thin *InputSlot 3Tray
 *UIConstraints: *MediaType Thin *InputSlot 4Tray
-*UIConstraints: *MediaType Thin *InputSlot 5Tray
+*UIConstraints: *MediaType Thin *InputSlot LCT
 *UIConstraints: *InputSlot 1Tray *MediaType Labels
 *UIConstraints: *InputSlot 2Tray *MediaType Labels
 *UIConstraints: *InputSlot 3Tray *MediaType Labels
 *UIConstraints: *InputSlot 4Tray *MediaType Labels
-*UIConstraints: *InputSlot 5Tray *MediaType Labels
+*UIConstraints: *InputSlot LCT *MediaType Labels
 *UIConstraints: *InputSlot 1Tray *MediaType OHP
 *UIConstraints: *InputSlot 2Tray *MediaType OHP
 *UIConstraints: *InputSlot 3Tray *MediaType OHP
 *UIConstraints: *InputSlot 4Tray *MediaType OHP
-*UIConstraints: *InputSlot 5Tray *MediaType OHP
+*UIConstraints: *InputSlot LCT *MediaType OHP
 *UIConstraints: *InputSlot 1Tray *MediaType Thin
 *UIConstraints: *InputSlot 2Tray *MediaType Thin
 *UIConstraints: *InputSlot 3Tray *MediaType Thin
 *UIConstraints: *InputSlot 4Tray *MediaType Thin
-*UIConstraints: *InputSlot 5Tray *MediaType Thin
+*UIConstraints: *InputSlot LCT *MediaType Thin
 *UIConstraints: *MediaType Coated *InputSlot 1Tray
 *UIConstraints: *MediaType Envelope *InputSlot 1Tray
-*UIConstraints: *MediaType Envelope *InputSlot 5Tray
+*UIConstraints: *MediaType Envelope *InputSlot LCT
 *UIConstraints: *InputSlot 1Tray *MediaType Coated
 *UIConstraints: *InputSlot 1Tray *MediaType Envelope
-*UIConstraints: *InputSlot 5Tray *MediaType Envelope
+*UIConstraints: *InputSlot LCT *MediaType Envelope
 *UIConstraints: *MediaType Coated *InputSlot 1Tray
 *UIConstraints: *InputSlot 1Tray *MediaType Coated
 *UIConstraints: *OutputBin Bin1 *MediaType OHP
@@ -946,25 +946,25 @@
 *UIConstraints: *PageSize EnvC5 *InputSlot 4Tray
 *UIConstraints: *PageSize EnvC6 *InputSlot 4Tray
 *UIConstraints: *PageSize DLEnv *InputSlot 4Tray
-*UIConstraints: *PageSize A3 *InputSlot 5Tray
-*UIConstraints: *PageSize A5 *InputSlot 5Tray
-*UIConstraints: *PageSize A6 *InputSlot 5Tray
-*UIConstraints: *PageSize B4 *InputSlot 5Tray
-*UIConstraints: *PageSize B5 *InputSlot 5Tray
-*UIConstraints: *PageSize B6 *InputSlot 5Tray
-*UIConstraints: *PageSize Legal *InputSlot 5Tray
-*UIConstraints: *PageSize Statement *InputSlot 5Tray
-*UIConstraints: *PageSize F *InputSlot 5Tray
-*UIConstraints: *PageSize Folio *InputSlot 5Tray
-*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot 5Tray
-*UIConstraints: *PageSize Tabloid *InputSlot 5Tray
-*UIConstraints: *PageSize 12x18 *InputSlot 5Tray
-*UIConstraints: *PageSize Executive *InputSlot 5Tray
-*UIConstraints: *PageSize Env10 *InputSlot 5Tray
-*UIConstraints: *PageSize EnvMonarch *InputSlot 5Tray
-*UIConstraints: *PageSize EnvC5 *InputSlot 5Tray
-*UIConstraints: *PageSize EnvC6 *InputSlot 5Tray
-*UIConstraints: *PageSize DLEnv *InputSlot 5Tray
+*UIConstraints: *PageSize A3 *InputSlot LCT
+*UIConstraints: *PageSize A5 *InputSlot LCT
+*UIConstraints: *PageSize A6 *InputSlot LCT
+*UIConstraints: *PageSize B4 *InputSlot LCT
+*UIConstraints: *PageSize B5 *InputSlot LCT
+*UIConstraints: *PageSize B6 *InputSlot LCT
+*UIConstraints: *PageSize Legal *InputSlot LCT
+*UIConstraints: *PageSize Statement *InputSlot LCT
+*UIConstraints: *PageSize F *InputSlot LCT
+*UIConstraints: *PageSize Folio *InputSlot LCT
+*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot LCT
+*UIConstraints: *PageSize Tabloid *InputSlot LCT
+*UIConstraints: *PageSize 12x18 *InputSlot LCT
+*UIConstraints: *PageSize Executive *InputSlot LCT
+*UIConstraints: *PageSize Env10 *InputSlot LCT
+*UIConstraints: *PageSize EnvMonarch *InputSlot LCT
+*UIConstraints: *PageSize EnvC5 *InputSlot LCT
+*UIConstraints: *PageSize EnvC6 *InputSlot LCT
+*UIConstraints: *PageSize DLEnv *InputSlot LCT
 *UIConstraints: *InputSlot 1Tray *PageSize A3
 *UIConstraints: *InputSlot 1Tray *PageSize A5
 *UIConstraints: *InputSlot 1Tray *PageSize A6
@@ -1011,25 +1011,25 @@
 *UIConstraints: *InputSlot 4Tray *PageSize EnvC5
 *UIConstraints: *InputSlot 4Tray *PageSize EnvC6
 *UIConstraints: *InputSlot 4Tray *PageSize DLEnv
-*UIConstraints: *InputSlot 5Tray *PageSize A3
-*UIConstraints: *InputSlot 5Tray *PageSize A5
-*UIConstraints: *InputSlot 5Tray *PageSize A6
-*UIConstraints: *InputSlot 5Tray *PageSize B4
-*UIConstraints: *InputSlot 5Tray *PageSize B5
-*UIConstraints: *InputSlot 5Tray *PageSize B6
-*UIConstraints: *InputSlot 5Tray *PageSize Legal
-*UIConstraints: *InputSlot 5Tray *PageSize Statement
-*UIConstraints: *InputSlot 5Tray *PageSize F
-*UIConstraints: *InputSlot 5Tray *PageSize Folio
-*UIConstraints: *InputSlot 5Tray *PageSize FanFoldGermanLegal
-*UIConstraints: *InputSlot 5Tray *PageSize Tabloid
-*UIConstraints: *InputSlot 5Tray *PageSize 12x18
-*UIConstraints: *InputSlot 5Tray *PageSize Executive
-*UIConstraints: *InputSlot 5Tray *PageSize Env10
-*UIConstraints: *InputSlot 5Tray *PageSize EnvMonarch
-*UIConstraints: *InputSlot 5Tray *PageSize EnvC5
-*UIConstraints: *InputSlot 5Tray *PageSize EnvC6
-*UIConstraints: *InputSlot 5Tray *PageSize DLEnv
+*UIConstraints: *InputSlot LCT *PageSize A3
+*UIConstraints: *InputSlot LCT *PageSize A5
+*UIConstraints: *InputSlot LCT *PageSize A6
+*UIConstraints: *InputSlot LCT *PageSize B4
+*UIConstraints: *InputSlot LCT *PageSize B5
+*UIConstraints: *InputSlot LCT *PageSize B6
+*UIConstraints: *InputSlot LCT *PageSize Legal
+*UIConstraints: *InputSlot LCT *PageSize Statement
+*UIConstraints: *InputSlot LCT *PageSize F
+*UIConstraints: *InputSlot LCT *PageSize Folio
+*UIConstraints: *InputSlot LCT *PageSize FanFoldGermanLegal
+*UIConstraints: *InputSlot LCT *PageSize Tabloid
+*UIConstraints: *InputSlot LCT *PageSize 12x18
+*UIConstraints: *InputSlot LCT *PageSize Executive
+*UIConstraints: *InputSlot LCT *PageSize Env10
+*UIConstraints: *InputSlot LCT *PageSize EnvMonarch
+*UIConstraints: *InputSlot LCT *PageSize EnvC5
+*UIConstraints: *InputSlot LCT *PageSize EnvC6
+*UIConstraints: *InputSlot LCT *PageSize DLEnv
 *UIConstraints: *PageSize A6 *Duplex DuplexTumble
 *UIConstraints: *PageSize A6 *Duplex DuplexNoTumble
 *UIConstraints: *PageSize B6 *Duplex DuplexTumble

@@ -4,11 +4,11 @@
 *%    for "Gestetner MP C6003 PXL"
 *%
 *%    CreationDate: 2012/02/10
-*%    Modified:     2013/07/31
+*%    Modified:     2015/05/27
 *%
 *%    java.util.zip.CRC32: 9bb0ad6e
 *%
-*%    COPYRIGHT (C) 2012-2013 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2012-2015 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -32,7 +32,7 @@
 *%    [this is the MIT open source license -- please see www.opensource.org]
 *%
 
-*FileVersion: "2.2"
+*FileVersion: "2.3"
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
@@ -337,8 +337,8 @@
 *FoomaticRIPOptionSetting InputSlot=3Tray: " | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x07\xf8\x26/g&quot;"
 *InputSlot 4Tray/Tray 4: "%% FoomaticRIPOptionSetting: InputSlot=4Tray"
 *FoomaticRIPOptionSetting InputSlot=4Tray: " | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x08\xf8\x26/g&quot;"
-*InputSlot 5Tray/Large Capacity Tray: "%% FoomaticRIPOptionSetting: InputSlot=5Tray"
-*FoomaticRIPOptionSetting InputSlot=5Tray: " | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x15\xf8\x26/g&quot;"
+*InputSlot LCT/Large Capacity Tray: "%% FoomaticRIPOptionSetting: InputSlot=LCT"
+*FoomaticRIPOptionSetting InputSlot=LCT: " | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x09\xf8\x26/g&quot;"
 *InputSlot Auto/Auto Select: "%% FoomaticRIPOptionSetting: InputSlot=Auto"
 *FoomaticRIPOptionSetting InputSlot=Auto: ""
 *CloseUI: *InputSlot
@@ -549,8 +549,8 @@
 *FoomaticRIPOptionSetting RIBannerPageInputSlot=3Tray: "SET BANNERPAGEPRINTTRAY=TRAY3"
 *RIBannerPageInputSlot 4Tray/Tray 4: "%% FoomaticRIPOptionSetting: RIBannerPageInputSlot=4Tray"
 *FoomaticRIPOptionSetting RIBannerPageInputSlot=4Tray: "SET BANNERPAGEPRINTTRAY=TRAY4"
-*RIBannerPageInputSlot 5Tray/Large Capacity Tray: "%% FoomaticRIPOptionSetting: RIBannerPageInputSlot=5Tray"
-*FoomaticRIPOptionSetting RIBannerPageInputSlot=5Tray: "SET BANNERPAGEPRINTTRAY=TRAY5"
+*RIBannerPageInputSlot LCT/Large Capacity Tray: "%% FoomaticRIPOptionSetting: RIBannerPageInputSlot=LCT"
+*FoomaticRIPOptionSetting RIBannerPageInputSlot=LCT: "SET BANNERPAGEPRINTTRAY=LCT"
 *CloseUI: *RIBannerPageInputSlot
 
 *OpenUI *RIBannerPageMediaType/Banner Page Media Type: PickOne
@@ -916,24 +916,24 @@
 *UIConstraints: *RIBannerPageMediaType OHP *RIBannerPageInputSlot 4Tray
 *UIConstraints: *InputSlot 3Tray *PageSize B6
 *UIConstraints: *OutputBin External *ExternalTray NotInstalled
-*UIConstraints: *PageSize SRA4 *InputSlot 5Tray
+*UIConstraints: *PageSize SRA4 *InputSlot LCT
 *UIConstraints: *MediaType OHP *InputSlot 1Tray
 *UIConstraints: *InputSlot 3Tray *PageSize A6
 *UIConstraints: *PageSize EnvC6 *InputSlot 4Tray
 *UIConstraints: *InputSlot 1Tray *PageSize Folio
 *UIConstraints: *RIBannerPageMediaType Glossy *OutputBin Bin1
-*UIConstraints: *MediaType OHP *InputSlot 5Tray
+*UIConstraints: *MediaType OHP *InputSlot LCT
 *UIConstraints: *OutputBin Standard *StapleLocation UpperW
-*UIConstraints: *InputSlot 5Tray *PageSize Legal
+*UIConstraints: *InputSlot LCT *PageSize Legal
 *UIConstraints: *OutputBin Bin1 *MediaType OHP
 *UIConstraints: *Finisher FinVOLGAB *ExternalTray Installed
-*UIConstraints: *PageSize 10x14 *InputSlot 5Tray
-*UIConstraints: *InputSlot 5Tray *PageSize Statement
+*UIConstraints: *PageSize 10x14 *InputSlot LCT
+*UIConstraints: *InputSlot LCT *PageSize Statement
 *UIConstraints: *RIBannerPageInputSlot 4Tray *RIBannerPageMediaType OHP
 *UIConstraints: *InputSlot 1Tray *PageSize SRA3
 *UIConstraints: *InputSlot 1Tray *PageSize SRA4
 *UIConstraints: *StapleLocation UpperLeft *MediaType Glossy
-*UIConstraints: *PageSize Env10 *InputSlot 5Tray
+*UIConstraints: *PageSize Env10 *InputSlot LCT
 *UIConstraints: *InputSlot 3Tray *PageSize EnvC6
 *UIConstraints: *InputSlot 1Tray *PageSize EnvC5
 *UIConstraints: *InputSlot 1Tray *PageSize EnvC6
@@ -941,12 +941,12 @@
 *UIConstraints: *OutputBin Bin1 *RIBannerPageMediaType Glossy
 *UIConstraints: *OutputBin Standard *StapleLocation CenterW
 *UIConstraints: *Finisher NotInstalled *StapleLocation UpperW
-*UIConstraints: *RIBannerPageInputSlot 5Tray *RIBannerPageMediaType Envelope
-*UIConstraints: *InputSlot 5Tray *PageSize SRA4
-*UIConstraints: *InputSlot 5Tray *PageSize SRA3
+*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType Envelope
+*UIConstraints: *InputSlot LCT *PageSize SRA4
+*UIConstraints: *InputSlot LCT *PageSize SRA3
 *UIConstraints: *RIBannerPageMediaType OHP *RIBannerPageInputSlot 3Tray
 *UIConstraints: *PageSize 12x18 *InputSlot 1Tray
-*UIConstraints: *PageSize A6 *InputSlot 5Tray
+*UIConstraints: *PageSize A6 *InputSlot LCT
 *UIConstraints: *InputSlot 4Tray *MediaType Labels
 *UIConstraints: *Finisher FinVOLGABBK *ShiftTray Installed
 *UIConstraints: *MediaType Glossy *StapleLocation UpperRight
@@ -963,7 +963,7 @@
 *UIConstraints: *PageSize SRA3 *InputSlot 1Tray
 *UIConstraints: *RIBannerPageMediaType Labels *RIBannerPageInputSlot 2Tray
 *UIConstraints: *StapleLocation CenterW *OutputBin Bin1
-*UIConstraints: *InputSlot 5Tray *PageSize 12x18
+*UIConstraints: *InputSlot LCT *PageSize 12x18
 *UIConstraints: *RIBannerPageMediaType Envelope *OutputBin External
 *UIConstraints: *OptionTray 1Cassette *Finisher FinVOLGAB
 *UIConstraints: *InputSlot MultiTray *StapleLocation CenterW
@@ -988,36 +988,36 @@
 *UIConstraints: *MediaType Glossy *OutputBin External
 *UIConstraints: *ExternalTray Installed *Finisher FinVOLGAB
 *UIConstraints: *OptionTray 1Cassette *Finisher FinVOLGABBK
-*UIConstraints: *RIBannerPageInputSlot 5Tray *RIBannerPageMediaType OHP
+*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType OHP
 *UIConstraints: *StapleLocation UpperLeft *OutputBin Bin1
 *UIConstraints: *InputSlot 4Tray *MediaType OHP
 *UIConstraints: *PageSize EnvMonarch *InputSlot 1Tray
 *UIConstraints: *OutputBin External *RIBannerPageMediaType Glossy
-*UIConstraints: *InputSlot 5Tray *PageSize DLEnv
+*UIConstraints: *InputSlot LCT *PageSize DLEnv
 *UIConstraints: *MediaType OHP *InputSlot 2Tray
 *UIConstraints: *StapleLocation UpperW *OutputBin Bin1
 *UIConstraints: *PageSize EnvC5 *InputSlot 1Tray
-*UIConstraints: *PageSize SRA3 *InputSlot 5Tray
+*UIConstraints: *PageSize SRA3 *InputSlot LCT
 *UIConstraints: *InputSlot 3Tray *OptionTray NotInstalled
 *UIConstraints: *InputSlot 4Tray *PageSize DLEnv
-*UIConstraints: *InputSlot 5Tray *PageSize 10x14
+*UIConstraints: *InputSlot LCT *PageSize 10x14
 *UIConstraints: *InputSlot 1Tray *PageSize 12x18
 *UIConstraints: *InnerTray2 NotInstalled *OutputBin Bin1
 *UIConstraints: *InputSlot 1Tray *PageSize Executive
 *UIConstraints: *OptionTray LCT *RIBannerPageInputSlot 4Tray
 *UIConstraints: *InputSlot 1Tray *PageSize DLEnv
-*UIConstraints: *RIBannerPageInputSlot 5Tray *RIBannerPageMediaType Labels
+*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType Labels
 *UIConstraints: *InputSlot 1Tray *PageSize B6
 *UIConstraints: *ShiftTray Installed *ExternalTray Installed
 *UIConstraints: *InputSlot 1Tray *PageSize B4
 *UIConstraints: *InputSlot 4Tray *OptionTray LCT
-*UIConstraints: *InputSlot 5Tray *PageSize 16Kai
+*UIConstraints: *InputSlot LCT *PageSize 16Kai
 *UIConstraints: *Finisher NotInstalled *StapleLocation LeftW
 *UIConstraints: *StapleLocation UpperLeft *MediaType Labels
 *UIConstraints: *ShiftTray Installed *Finisher FinVOLGAB
-*UIConstraints: *PageSize EnvMonarch *InputSlot 5Tray
-*UIConstraints: *InputSlot 5Tray *PageSize FanFoldGermanLegal
-*UIConstraints: *PageSize Folio *InputSlot 5Tray
+*UIConstraints: *PageSize EnvMonarch *InputSlot LCT
+*UIConstraints: *InputSlot LCT *PageSize FanFoldGermanLegal
+*UIConstraints: *PageSize Folio *InputSlot LCT
 *UIConstraints: *Finisher FinAMURBK *OptionTray 1Cassette
 *UIConstraints: *StapleLocation UpperLeft *MediaType Envelope
 *UIConstraints: *ExternalTray NotInstalled *OutputBin External
@@ -1039,30 +1039,30 @@
 *UIConstraints: *StapleLocation UpperRight *MediaType OHP
 *UIConstraints: *StapleLocation CenterW *Finisher FinVOLGAB
 *UIConstraints: *ShiftTray Installed *Finisher FinVOLGABBK
-*UIConstraints: *MediaType Labels *InputSlot 5Tray
+*UIConstraints: *MediaType Labels *InputSlot LCT
 *UIConstraints: *InputSlot 3Tray *MediaType OHP
 *UIConstraints: *MediaType Labels *StapleLocation CenterW
 *UIConstraints: *StapleLocation UpperLeft *MediaType OHP
 *UIConstraints: *OptionTray 1Cassette *Finisher FinAMURBK
 *UIConstraints: *InputSlot 1Tray *PageSize 16Kai
-*UIConstraints: *InputSlot 5Tray *PageSize F
+*UIConstraints: *InputSlot LCT *PageSize F
 *UIConstraints: *PageSize 16Kai *InputSlot 1Tray
 *UIConstraints: *InputSlot 3Tray *MediaType Labels
 *UIConstraints: *Finisher FinVOLGAB *OptionTray 1Cassette
 *UIConstraints: *StapleLocation UpperW *MediaType OHP
-*UIConstraints: *RIBannerPageMediaType Labels *RIBannerPageInputSlot 5Tray
+*UIConstraints: *RIBannerPageMediaType Labels *RIBannerPageInputSlot LCT
 *UIConstraints: *StapleLocation CenterW *InputSlot MultiTray
 *UIConstraints: *InputSlot 1Tray *MediaType OHP
 *UIConstraints: *StapleLocation UpperRight *Finisher NotInstalled
 *UIConstraints: *RIBannerPageMediaType OHP *RIBannerPageInputSlot 1Tray
 *UIConstraints: *InputSlot 4Tray *PageSize SRA4
-*UIConstraints: *MediaType Envelope *InputSlot 5Tray
-*UIConstraints: *PageSize Executive *InputSlot 5Tray
+*UIConstraints: *MediaType Envelope *InputSlot LCT
+*UIConstraints: *PageSize Executive *InputSlot LCT
 *UIConstraints: *MediaType OHP *StapleLocation UpperLeft
 *UIConstraints: *StapleLocation UpperLeft *OutputBin Standard
 *UIConstraints: *StapleLocation CenterW *Finisher NotInstalled
-*UIConstraints: *InputSlot 5Tray *LargeCapacityTray NotInstalled
-*UIConstraints: *InputSlot 5Tray *MediaType Labels
+*UIConstraints: *InputSlot LCT *LargeCapacityTray NotInstalled
+*UIConstraints: *InputSlot LCT *MediaType Labels
 *UIConstraints: *InputSlot 1Tray *PageSize F
 *UIConstraints: *InputSlot 1Tray *PageSize Tabloid
 *UIConstraints: *InputSlot 1Tray *PageSize 11x15
@@ -1073,7 +1073,7 @@
 *UIConstraints: *OutputBin Bin1 *StapleLocation UpperW
 *UIConstraints: *OutputBin Bin1 *StapleLocation LeftW
 *UIConstraints: *OptionTray LCT *InputSlot 4Tray
-*UIConstraints: *InputSlot 5Tray *MediaType OHP
+*UIConstraints: *InputSlot LCT *MediaType OHP
 *UIConstraints: *PageSize GovernmentLG *InputSlot 1Tray
 *UIConstraints: *OutputBin External *MediaType Glossy
 *UIConstraints: *RIBannerPageMediaType OHP *OutputBin Bin1
@@ -1083,11 +1083,11 @@
 *UIConstraints: *OutputBin External *MediaType Envelope
 *UIConstraints: *StapleLocation LeftW *MediaType Labels
 *UIConstraints: *PageSize B4 *InputSlot 1Tray
-*UIConstraints: *InputSlot 5Tray *PageSize 8Kai
-*UIConstraints: *RIBannerPageMediaType Envelope *RIBannerPageInputSlot 5Tray
+*UIConstraints: *InputSlot LCT *PageSize 8Kai
+*UIConstraints: *RIBannerPageMediaType Envelope *RIBannerPageInputSlot LCT
 *UIConstraints: *RIBannerPageInputSlot 1Tray *RIBannerPageMediaType Envelope
 *UIConstraints: *OutputBin Bin1 *StapleLocation RightW
-*UIConstraints: *PageSize EngQuatro *InputSlot 5Tray
+*UIConstraints: *PageSize EngQuatro *InputSlot LCT
 *UIConstraints: *Finisher FinAMURBK *ExternalTray Installed
 *UIConstraints: *MediaType Glossy *StapleLocation UpperLeft
 *UIConstraints: *StapleLocation RightW *MediaType Envelope
@@ -1097,7 +1097,7 @@
 *UIConstraints: *InputSlot 3Tray *PageSize DLEnv
 *UIConstraints: *InputSlot 4Tray *PageSize EnvMonarch
 *UIConstraints: *ShiftTray Installed *Finisher FinAMURBK
-*UIConstraints: *RIBannerPageInputSlot 5Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *RIBannerPageInputSlot LCT *LargeCapacityTray NotInstalled
 *UIConstraints: *MediaType Labels *StapleLocation UpperLeft
 *UIConstraints: *MediaType Labels *StapleLocation UpperW
 *UIConstraints: *Finisher FinVOLGABBK *OptionTray 1Cassette
@@ -1112,7 +1112,7 @@
 *UIConstraints: *PageSize EnvMonarch *InputSlot 3Tray
 *UIConstraints: *StapleLocation CenterW *MediaType OHP
 *UIConstraints: *OutputBin Standard *StapleLocation LeftW
-*UIConstraints: *PageSize Legal *InputSlot 5Tray
+*UIConstraints: *PageSize Legal *InputSlot LCT
 *UIConstraints: *OutputBin Bin1 *InnerTray2 NotInstalled
 *UIConstraints: *OptionTray NotInstalled *InputSlot 3Tray
 *UIConstraints: *PageSize Statement *InputSlot 3Tray
@@ -1120,37 +1120,37 @@
 *UIConstraints: *RIBannerPageInputSlot 3Tray *RIBannerPageMediaType OHP
 *UIConstraints: *PageSize Tabloid *InputSlot 1Tray
 *UIConstraints: *PageSize EnvMonarch *InputSlot 4Tray
-*UIConstraints: *LargeCapacityTray NotInstalled *InputSlot 5Tray
+*UIConstraints: *LargeCapacityTray NotInstalled *InputSlot LCT
 *UIConstraints: *RIBannerPageMediaType Labels *RIBannerPageInputSlot 3Tray
-*UIConstraints: *PageSize EnvC5 *InputSlot 5Tray
+*UIConstraints: *PageSize EnvC5 *InputSlot LCT
 *UIConstraints: *PageSize DLEnv *InputSlot 1Tray
-*UIConstraints: *InputSlot 5Tray *PageSize Tabloid
+*UIConstraints: *InputSlot LCT *PageSize Tabloid
 *UIConstraints: *OptionTray NotInstalled *RIBannerPageInputSlot 3Tray
 *UIConstraints: *OutputBin Standard *StapleLocation UpperRight
 *UIConstraints: *OptionTray 1Cassette *Finisher FinAMUR
 *UIConstraints: *RIBannerPageMediaType Glossy *OutputBin External
-*UIConstraints: *InputSlot 5Tray *PageSize 11x15
+*UIConstraints: *InputSlot LCT *PageSize 11x15
 *UIConstraints: *PageSize DLEnv *InputSlot 4Tray
 *UIConstraints: *PageSize Legal *InputSlot 1Tray
-*UIConstraints: *InputSlot 5Tray *PageSize Folio
+*UIConstraints: *InputSlot LCT *PageSize Folio
 *UIConstraints: *InputSlot 4Tray *OptionTray NotInstalled
 *UIConstraints: *MediaType Labels *StapleLocation UpperRight
 *UIConstraints: *OptionTray NotInstalled *LargeCapacityTray Installed
 *UIConstraints: *StapleLocation UpperW *MediaType Envelope
 *UIConstraints: *Finisher FinVOLGABBK *ExternalTray Installed
-*UIConstraints: *RIBannerPageMediaType OHP *RIBannerPageInputSlot 5Tray
+*UIConstraints: *RIBannerPageMediaType OHP *RIBannerPageInputSlot LCT
 *UIConstraints: *PageSize 10x14 *InputSlot 1Tray
 *UIConstraints: *StapleLocation UpperLeft *Finisher NotInstalled
 *UIConstraints: *MediaType Glossy *StapleLocation UpperW
 *UIConstraints: *MediaType OHP *StapleLocation LeftW
 *UIConstraints: *MediaType OHP *StapleLocation UpperRight
 *UIConstraints: *Finisher NotInstalled *StapleLocation UpperRight
-*UIConstraints: *PageSize F *InputSlot 5Tray
+*UIConstraints: *PageSize F *InputSlot LCT
 *UIConstraints: *MediaType OHP *InputSlot 3Tray
 *UIConstraints: *ExternalTray Installed *Finisher FinAMURBK
-*UIConstraints: *PageSize A5 *InputSlot 5Tray
+*UIConstraints: *PageSize A5 *InputSlot LCT
 *UIConstraints: *OutputBin Bin1 *StapleLocation UpperLeft
-*UIConstraints: *PageSize GovernmentLG *InputSlot 5Tray
+*UIConstraints: *PageSize GovernmentLG *InputSlot LCT
 *UIConstraints: *RIBannerPageInputSlot 2Tray *RIBannerPageMediaType Labels
 *UIConstraints: *StapleLocation CenterW *MediaType Envelope
 *UIConstraints: *InputSlot MultiTray *StapleLocation UpperLeft
@@ -1159,12 +1159,12 @@
 *UIConstraints: *InputSlot MultiTray *StapleLocation RightW
 *UIConstraints: *InputSlot 2Tray *MediaType Labels
 *UIConstraints: *PageSize Statement *InputSlot 4Tray
-*UIConstraints: *PageSize DLEnv *InputSlot 5Tray
+*UIConstraints: *PageSize DLEnv *InputSlot LCT
 *UIConstraints: *StapleLocation UpperW *InputSlot MultiTray
-*UIConstraints: *PageSize B4 *InputSlot 5Tray
-*UIConstraints: *PageSize 11x15 *InputSlot 5Tray
-*UIConstraints: *PageSize 12x18 *InputSlot 5Tray
-*UIConstraints: *PageSize Tabloid *InputSlot 5Tray
+*UIConstraints: *PageSize B4 *InputSlot LCT
+*UIConstraints: *PageSize 11x15 *InputSlot LCT
+*UIConstraints: *PageSize 12x18 *InputSlot LCT
+*UIConstraints: *PageSize Tabloid *InputSlot LCT
 *UIConstraints: *RIBannerPageMediaType Labels *RIBannerPageInputSlot 4Tray
 *UIConstraints: *StapleLocation LeftW *InputSlot MultiTray
 *UIConstraints: *InputSlot 1Tray *PageSize FanFoldGermanLegal
@@ -1186,9 +1186,9 @@
 *UIConstraints: *InputSlot 1Tray *PageSize 10x14
 *UIConstraints: *PageSize Env10 *InputSlot 1Tray
 *UIConstraints: *InputSlot 4Tray *PageSize B6
-*UIConstraints: *InputSlot 5Tray *PageSize Executive
+*UIConstraints: *InputSlot LCT *PageSize Executive
 *UIConstraints: *PageSize Executive *InputSlot 1Tray
-*UIConstraints: *PageSize 8Kai *InputSlot 5Tray
+*UIConstraints: *PageSize 8Kai *InputSlot LCT
 *UIConstraints: *InputSlot 4Tray *PageSize A6
 *UIConstraints: *StapleLocation RightW *MediaType Glossy
 *UIConstraints: *InputSlot 3Tray *PageSize EnvMonarch
@@ -1207,29 +1207,29 @@
 *UIConstraints: *LargeCapacityTray Installed *OptionTray 1Cassette
 *UIConstraints: *StapleLocation LeftW *MediaType Glossy
 *UIConstraints: *MediaType Envelope *StapleLocation LeftW
-*UIConstraints: *PageSize EnvC6 *InputSlot 5Tray
+*UIConstraints: *PageSize EnvC6 *InputSlot LCT
 *UIConstraints: *MediaType OHP *InputSlot 4Tray
 *UIConstraints: *StapleLocation UpperLeft *InputSlot MultiTray
 *UIConstraints: *MediaType Envelope *OutputBin External
 *UIConstraints: *StapleLocation UpperRight *InputSlot MultiTray
 *UIConstraints: *PageSize A6 *InputSlot 3Tray
-*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot 5Tray
-*UIConstraints: *InputSlot 5Tray *PageSize GovernmentLG
+*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot LCT
+*UIConstraints: *InputSlot LCT *PageSize GovernmentLG
 *UIConstraints: *StapleLocation UpperRight *MediaType Labels
-*UIConstraints: *InputSlot 5Tray *PageSize Env10
+*UIConstraints: *InputSlot LCT *PageSize Env10
 *UIConstraints: *OutputBin Bin1 *StapleLocation UpperRight
-*UIConstraints: *PageSize A3 *InputSlot 5Tray
+*UIConstraints: *PageSize A3 *InputSlot LCT
 *UIConstraints: *PageSize 8Kai *InputSlot 1Tray
-*UIConstraints: *LargeCapacityTray NotInstalled *RIBannerPageInputSlot 5Tray
+*UIConstraints: *LargeCapacityTray NotInstalled *RIBannerPageInputSlot LCT
 *UIConstraints: *MediaType Labels *InputSlot 2Tray
 *UIConstraints: *Finisher NotInstalled *StapleLocation UpperLeft
 *UIConstraints: *PageSize FanFoldGermanLegal *InputSlot 1Tray
 *UIConstraints: *PageSize SRA4 *InputSlot 3Tray
 *UIConstraints: *InputSlot 1Tray *PageSize EngQuatro
 *UIConstraints: *MediaType Glossy *StapleLocation RightW
-*UIConstraints: *PageSize Statement *InputSlot 5Tray
-*UIConstraints: *InputSlot 5Tray *PageSize EngQuatro
-*UIConstraints: *PageSize B6 *InputSlot 5Tray
+*UIConstraints: *PageSize Statement *InputSlot LCT
+*UIConstraints: *InputSlot LCT *PageSize EngQuatro
+*UIConstraints: *PageSize B6 *InputSlot LCT
 *UIConstraints: *RIBannerPageInputSlot 1Tray *RIBannerPageMediaType OHP
 *UIConstraints: *Finisher FinVOLGAB *StapleLocation CenterW
 *UIConstraints: *ExternalTray Installed *ShiftTray Installed
@@ -1240,21 +1240,21 @@
 *UIConstraints: *Finisher NotInstalled *StapleLocation CenterW
 *UIConstraints: *PageSize EnvC6 *InputSlot 1Tray
 *UIConstraints: *MediaType Glossy *StapleLocation CenterW
-*UIConstraints: *InputSlot 5Tray *PageSize EnvMonarch
+*UIConstraints: *InputSlot LCT *PageSize EnvMonarch
 *UIConstraints: *MediaType OHP *OutputBin Bin1
 *UIConstraints: *Finisher FinAMURBK *ShiftTray Installed
-*UIConstraints: *InputSlot 5Tray *PageSize A3
-*UIConstraints: *InputSlot 5Tray *PageSize A6
-*UIConstraints: *InputSlot 5Tray *PageSize A5
+*UIConstraints: *InputSlot LCT *PageSize A3
+*UIConstraints: *InputSlot LCT *PageSize A6
+*UIConstraints: *InputSlot LCT *PageSize A5
 *UIConstraints: *StapleLocation LeftW *MediaType OHP
-*UIConstraints: *InputSlot 5Tray *PageSize B6
+*UIConstraints: *InputSlot LCT *PageSize B6
 *UIConstraints: *StapleLocation CenterW *Finisher FinAMUR
-*UIConstraints: *InputSlot 5Tray *PageSize B4
+*UIConstraints: *InputSlot LCT *PageSize B4
 *UIConstraints: *InputSlot 3Tray *PageSize Statement
 *UIConstraints: *OptionTray NotInstalled *InputSlot 4Tray
 *UIConstraints: *RIBannerPageInputSlot 1Tray *RIBannerPageMediaType Labels
 *UIConstraints: *OutputBin Standard *StapleLocation UpperLeft
-*UIConstraints: *PageSize 16Kai *InputSlot 5Tray
+*UIConstraints: *PageSize 16Kai *InputSlot LCT
 *UIConstraints: *StapleLocation RightW *MediaType Labels
 *UIConstraints: *LargeCapacityTray Installed *OptionTray NotInstalled
 *UIConstraints: *InputSlot 1Tray *PageSize 8Kai
@@ -1262,10 +1262,10 @@
 *UIConstraints: *InputSlot 1Tray *PageSize Env10
 *UIConstraints: *Finisher NotInstalled *StapleLocation RightW
 *UIConstraints: *StapleLocation UpperRight *OutputBin Bin1
-*UIConstraints: *InputSlot 5Tray *MediaType Envelope
+*UIConstraints: *InputSlot LCT *MediaType Envelope
 *UIConstraints: *InputSlot 2Tray *MediaType OHP
-*UIConstraints: *InputSlot 5Tray *PageSize EnvC6
-*UIConstraints: *InputSlot 5Tray *PageSize EnvC5
+*UIConstraints: *InputSlot LCT *PageSize EnvC6
+*UIConstraints: *InputSlot LCT *PageSize EnvC5
 *UIConstraints: *InputSlot 2Tray *PageSize SRA4
 *UIConstraints: *Finisher FinAMUR *ExternalTray Installed
 
