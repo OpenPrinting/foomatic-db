@@ -82,8 +82,10 @@
 
 *OpenUI *Finisher/Finisher: PickOne
 *DefaultFinisher: None
-*Finisher None/Not Installed: ""
+*Finisher None/None: ""
 *Finisher InnerFinisher/Inner Finisher: ""
+*Finisher StandardFinisher/Standard Finisher: ""
+*Finisher BookletFinisher/Booklet Finisher: ""
 *CloseUI: *Finisher
 
 *OpenUI *OptPunch/Optional Hole Punch: PickOne
@@ -185,7 +187,7 @@
 *% =========================================
 *% Print Mode - Password 
 *% =========================================
-*JCLOpenUI *JCLCDPPassword/[Print Mode] Password (4-8 characters): PickOne
+*JCLOpenUI *JCLCDPPassword/[Print Mode] Password (4-32 characters): PickOne
 *OrderDependency: 20 JCLSetup *JCLCDPPassword
 *DefaultJCLCDPPassword: None
 *JCLCDPPassword None/None: ""
@@ -194,7 +196,7 @@
 
 *% Custom CDPPassword
 *CustomJCLCDPPassword True: "@PJL SET HOLDKEY = <22>\1<220A>"
-*ParamCustomJCLCDPPassword Custom/Custom Password: 1 password 4 8
+*ParamCustomJCLCDPPassword Custom/Custom Password: 1 password 4 32
 
 *% =========================================================
 *% Collate
@@ -244,23 +246,23 @@
 *OrderDependency: 50 AnySetup *MediaType
 *DefaultMediaType: None
 *MediaType None/Printer Default:                   "<</MediaType (system-default)>> setpagedevice"
-*MediaType Plain/Plain:                            "<</MediaType (Plain)>> setpagedevice"
-*MediaType Thick/Thick:                            "<</MediaType (THICK)>> setpagedevice"
-*MediaType Thin/Thin:                              "<</MediaType (THIN)>> setpagedevice"
-*MediaType Bond/Bond:                              "<</MediaType (Bond)>> setpagedevice"
-*MediaType Color/Color:                            "<</MediaType (Color)>> setpagedevice"
-*MediaType Labels/Labels:                          "<</MediaType (Labels)>> setpagedevice"
-*MediaType Envelope/Envelope:                      "<</MediaType (Envelope)>> setpagedevice"
-*MediaType Preprinted/Preprinted:                  "<</MediaType (Preprinted)>> setpagedevice"
-*MediaType Recycled/Recycled:                      "<</MediaType (Recycled)>> setpagedevice"
-*MediaType Cotton/Cotton:                          "<</MediaType (COTTEN)>> setpagedevice"
+*MediaType Plain/Plain (70~90 g/m2):                            "<</MediaType (Plain)>> setpagedevice"
+*MediaType Thick/Thick (91~105 g/m2):                            "<</MediaType (THICK)>> setpagedevice"
+*MediaType Thin/Thin (60~69 g/m2):                              "<</MediaType (THIN)>> setpagedevice"
+*MediaType Bond/Bond (105~120 g/m2):                              "<</MediaType (Bond)>> setpagedevice"
+*MediaType Color/Color (75~90 g/m2):                            "<</MediaType (Color)>> setpagedevice"
+*MediaType Labels/Labels (120~150 g/m2):                          "<</MediaType (Labels)>> setpagedevice"
+*MediaType Envelope/Envelope (75~90 g/m2):                      "<</MediaType (Envelope)>> setpagedevice"
+*MediaType Preprinted/Preprinted (75~90 g/m2):                  "<</MediaType (Preprinted)>> setpagedevice"
+*MediaType Recycled/Recycled (60~90 g/m2):                      "<</MediaType (Recycled)>> setpagedevice"
+*MediaType Cotton/Cotton (75~90 g/m2):                          "<</MediaType (COTTEN)>> setpagedevice"
 *MediaType Archive/Archive:                        "<</MediaType (ARCHIVE)>> setpagedevice"
-*MediaType Punched/Punched:                        "<</MediaType (Prepunched)>> setpagedevice"
-*MediaType Letterhead/LetterHead:                  "<</MediaType (Letterhead)>> setpagedevice"
-*MediaType HeavyWeight/Heavy weight:               "<</MediaType (HeavyWeight)>> setpagedevice"
-*MediaType ExtraHeavyWeight/Extra Heavy weight: 	 "<</MediaType (ExtraHeavyWeight)>> setpagedevice"
-*MediaType ThinCardStock/Thin CardStock:           "<</MediaType (ThinCardStock)>> setpagedevice"
-*MediaType ThinGlossy/Thin Glossy:                 "<</MediaType (ThinGlossy)>> setpagedevice"
+*MediaType Punched/Punched (75~90 g/m2):                        "<</MediaType (Prepunched)>> setpagedevice"
+*MediaType Letterhead/LetterHead (75~90 g/m2):                  "<</MediaType (Letterhead)>> setpagedevice"
+*MediaType HeavyWeight/Heavy weight (106~176 g/m2):               "<</MediaType (HeavyWeight)>> setpagedevice"
+*MediaType ExtraHeavyWeight/Extra Heavy weight (177~220 g/m2): 	 "<</MediaType (ExtraHeavyWeight)>> setpagedevice"
+*MediaType ThinCardStock/Thin CardStock (106~163 g/m2):           "<</MediaType (ThinCardStock)>> setpagedevice"
+*MediaType ThinGlossy/Thin Glossy (106~163 g/m2):                 "<</MediaType (ThinGlossy)>> setpagedevice"
 *CloseUI: *MediaType
 
 *% =========================================================
@@ -297,7 +299,7 @@
 *DefaultJCLBlackOptimization: Auto
 *JCLBlackOptimization Auto/Auto: "@PJL SET BLACKOPTIMIZATION=OFF<0A>"
 *JCLBlackOptimization Black/K (Black):   "@PJL SET BLACKOPTIMIZATION=ON<0A>"
-*JCLBlackOptimization KCMY/K + CMY:   "@PJL SET BLACKOPTIMIZATION=K_CMY<0A>"
+*JCLBlackOptimization KCMY/K+CMY:   "@PJL SET BLACKOPTIMIZATION=K_CMY<0A>"
 *JCLCloseUI: *JCLBlackOptimization
 
 *%========================================================
@@ -354,7 +356,7 @@
 *OrderDependency: 10 JCLSetup *JCLDarkenText
 *DefaultJCLDarkenText: Off
 *JCLDarkenText Off/Off:         "@PJL SET DARKENTEXT=OFF<0D0A>"
-*JCLDarkenText Normal/Medium:   "@PJL SET DARKENTEXT=ON<0D0A>"
+*JCLDarkenText Medium/Medium:   "@PJL SET DARKENTEXT=ON<0D0A>"
 *JCLDarkenText Maximum/Maximum: "@PJL SET DARKENTEXT=MAXIMUM<0D0A>"
 *JCLCloseUI: *JCLDarkenText
 
@@ -375,7 +377,7 @@
 *JCLOpenUI *JCLScreen/Screen: PickOne
 *DefaultJCLScreen: Enhanced
 *OrderDependency: 10 JCLSetup *JCLScreen
-*JCLScreen PrinterDefault/Printer Default:""
+*JCLScreen PrinterDefault/Printer default:""
 *JCLScreen Normal/Normal:     "@PJL SET SCREENMATCHING=Normal<0D0A>"
 *JCLScreen Enhanced/Enhanced: "@PJL SET SCREENMATCHING=Enhanced<0D0A>"
 *JCLScreen Detailed/Detailed: "@PJL SET SCREENMATCHING=Detailed<0D0A>"
@@ -391,7 +393,7 @@
 *JCLDocumentType Photo/Photo:      					"@PJL SET ESCMSDOCTYPE=PHOTO<0D0A>"
 *JCLDocumentType Business/Business Graphic: "@PJL SET ESCMSDOCTYPE=BUSINESS<0D0A>"
 *JCLDocumentType CAD/CAD: 									"@PJL SET ESCMSDOCTYPE=CAD<0D0A>"
-*JCLDocumentType Browser/Browser: 					"@PJL SET ESCMSDOCTYPE=WEBPAGE<0D0A>"
+*JCLDocumentType Browser/Web Page: 					"@PJL SET ESCMSDOCTYPE=WEBPAGE<0D0A>"
 *JCLCloseUI: *JCLDocumentType
 
 *% =========================================================
@@ -412,7 +414,6 @@
 *JCLBrightness 90/90:					"@PJL SET ESCMSCOLORADJUSTMENT=ON<0D0A>@PJL SET ESCMSBRIGHTNESS=90<0D0A>"
 *JCLBrightness 100/100:			  "@PJL SET ESCMSCOLORADJUSTMENT=ON<0D0A>@PJL SET ESCMSBRIGHTNESS=100<0D0A>"
 *JCLCloseUI: *JCLBrightness
-
 
 *% =========================================================
 *% JCLColorAdjustment - Contrast
@@ -548,22 +549,22 @@
 *% =========================================================
 *%  Punching
 *% =========================================================
-*JCLOpenUI *JCLPunchLocation/Punch: PickOne
+*JCLOpenUI *JCLPunchLocation/Hole Punch: PickOne
 *OrderDependency: 10 JCLSetup *JCLPunchLocation
 *DefaultJCLPunchLocation: None
 *JCLPunchLocation None/None: ""
-*JCLPunchLocation 2Hole_P/2 Hole Punch (Portrait):  "@PJL SET PUNCH=PORTRAIT<0D0A>@PJL SET PUNCHNUM=2<0D0A>" 
-*JCLPunchLocation 2Hole_L/2 Hole Punch (Landscape): "@PJL SET PUNCH=LANDSCAPE<0D0A>@PJL SET PUNCHNUM=2<0D0A>" 
-*JCLPunchLocation 3Hole_P/3 Hole Punch (Portrait):  "@PJL SET PUNCH=PORTRAIT<0D0A>@PJL SET PUNCHNUM=3<0D0A>" 
-*JCLPunchLocation 3Hole_L/3 Hole Punch (Landscape): "@PJL SET PUNCH=LANDSCAPE<0D0A>@PJL SET PUNCHNUM=3<0D0A>" 
-*JCLPunchLocation 4Hole_P/4 Hole Punch (Portrait):  "@PJL SET PUNCH=PORTRAIT<0D0A>@PJL SET PUNCHNUM=4<0D0A>" 
-*JCLPunchLocation 4Hole_L/4 Hole Punch (Landscape): "@PJL SET PUNCH=LANDSCAPE<0D0A>@PJL SET PUNCHNUM=4<0D0A>" 
+*JCLPunchLocation 2Hole_P/2 Hole (Portrait):  "@PJL SET PUNCH=PORTRAIT<0D0A>@PJL SET PUNCHNUM=2<0D0A>" 
+*JCLPunchLocation 2Hole_L/2 Hole (Landscape): "@PJL SET PUNCH=LANDSCAPE<0D0A>@PJL SET PUNCHNUM=2<0D0A>" 
+*JCLPunchLocation 3Hole_P/3 Hole (Portrait):  "@PJL SET PUNCH=PORTRAIT<0D0A>@PJL SET PUNCHNUM=3<0D0A>" 
+*JCLPunchLocation 3Hole_L/3 Hole (Landscape): "@PJL SET PUNCH=LANDSCAPE<0D0A>@PJL SET PUNCHNUM=3<0D0A>" 
+*JCLPunchLocation 4Hole_P/4 Hole (Portrait):  "@PJL SET PUNCH=PORTRAIT<0D0A>@PJL SET PUNCHNUM=4<0D0A>" 
+*JCLPunchLocation 4Hole_L/4 Hole (Landscape): "@PJL SET PUNCH=LANDSCAPE<0D0A>@PJL SET PUNCHNUM=4<0D0A>" 
 *JCLCloseUI: *JCLPunchLocation
 
 *% =======================================================================================
 *%  PunchPosition
 *% =======================================================================================
-*JCLOpenUI *JCLPunchPosition/Punch Position: PickOne
+*JCLOpenUI *JCLPunchPosition/Hole Punch Position: PickOne
 *OrderDependency: 10 JCLSetup *JCLPunchPosition
 *DefaultJCLPunchPosition: None
 *JCLPunchPosition None/None:   ""
@@ -571,6 +572,66 @@
 *JCLPunchPosition Right/Right: "@PJL SET PUNCHPOSITION=RIGHT<0D0A>"
 *JCLPunchPosition Top/Top:     "@PJL SET PUNCHPOSITION=TOP<0D0A>"
 *JCLCloseUI: *JCLPunchPosition
+*% =========================================================
+*%  C-Folding - Folding Option
+*% =========================================================
+*JCLOpenUI *JCLFoldingOption/Fold: PickOne
+*OrderDependency: 10 JCLSetup *JCLFoldingOption
+*DefaultJCLFoldingOption: None
+*JCLFoldingOption None/None: 			  "@PJL SET CFOLDING = OFF<0D0A>"
+*JCLFoldingOption C-Folding/C-Folding: "@PJL SET CFOLDING = ON<0D0A>"
+*JCLFoldingOption V-Folding/V-Folding: "@PJL SET VFOLD = ON<0D0A>"
+*JCLCloseUI: *JCLFoldingOption
+
+*% =========================================================
+*%  C-Folding - Pattern
+*% =========================================================
+*JCLOpenUI *JCLCFoldingPattern/[C-Folding] Pattern: PickOne
+*OrderDependency: 10 JCLSetup *JCLCFoldingPattern
+*DefaultJCLCFoldingPattern: None
+*JCLCFoldingPattern None/None: 			  ""
+*JCLCFoldingPattern Pattern1/Outside, Top: "@PJL SET CFOLDINGPATTERN = 1<0D0A>"
+*JCLCFoldingPattern Pattern2/Outside, Bottom: "@PJL SET CFOLDINGPATTERN = 2<0D0A>"
+*JCLCFoldingPattern Pattern3/Inside, Top: "@PJL SET CFOLDINGPATTERN = 3<0D0A>"
+*JCLCFoldingPattern Pattern4/Inside, Bottom: "@PJL SET CFOLDINGPATTERN = 4<0D0A>"
+*JCLCloseUI: *JCLCFoldingPattern
+
+*% =========================================================
+*%  C-Folding - Divide Into Sets
+*% =========================================================
+*JCLOpenUI *JCLCFoldingDIS/[C-Folding] Divide Into Sets: PickOne
+*OrderDependency: 10 JCLSetup *JCLCFoldingDIS
+*DefaultJCLCFoldingDIS: None
+*JCLCFoldingDIS None/None: ""
+*JCLCFoldingDIS 1/1: "@PJL SET CFOLDING_DIVIDESET = 1<0D0A>"
+*JCLCFoldingDIS 2/2: "@PJL SET CFOLDING_DIVIDESET = 2<0D0A>"
+*JCLCFoldingDIS 3/3: "@PJL SET CFOLDING_DIVIDESET = 3<0D0A>"
+*JCLCloseUI: *JCLCFoldingDIS
+
+*% =========================================================
+*%  V-Folding - Pattern
+*% =========================================================
+*JCLOpenUI *JCLVFoldingPattern/[V-Folding] Pattern: PickOne
+*OrderDependency: 10 JCLSetup *JCLVFoldingPattern
+*DefaultJCLVFoldingPattern: None
+*JCLVFoldingPattern None/None:                    ""
+*JCLVFoldingPattern Inside/Inside: "@PJL SET VFOLDTYPE = INSIDE<0D0A>"
+*JCLVFoldingPattern Outside/Outside: "@PJL SET VFOLDTYPE = OUTSIDE<0D0A>"
+*JCLCloseUI: *JCLVFoldingPattern
+
+*% =========================================================
+*%  V-Folding - Divide Into Sets
+*% =========================================================
+*JCLOpenUI *JCLVFoldingDIS/[V-Folding] Divide Into Sets: PickOne
+*OrderDependency: 10 JCLSetup *JCLVFoldingDIS
+*DefaultJCLVFoldingDIS: None
+*JCLVFoldingDIS None/None: ""
+*JCLVFoldingDIS 1/1: "@PJL SET BOOKLET = ON<0D0A>@PJL SET DIVIDESET = 1<0D0A>"
+*JCLVFoldingDIS 2/2: "@PJL SET BOOKLET = ON<0D0A>@PJL SET DIVIDESET = 2<0D0A>"
+*JCLVFoldingDIS 3/3: "@PJL SET BOOKLET = ON<0D0A>@PJL SET DIVIDESET = 3<0D0A>"
+*JCLVFoldingDIS 4/4: "@PJL SET BOOKLET = ON<0D0A>@PJL SET DIVIDESET = 4<0D0A>"
+*JCLVFoldingDIS 5/5: "@PJL SET BOOKLET = ON<0D0A>@PJL SET DIVIDESET = 5<0D0A>"
+*JCLCloseUI: *JCLVFoldingDIS
 
 *% =========================================================
 *%  Finisher Output bin
@@ -579,10 +640,11 @@
 *OrderDependency: 10 JCLSetup *JCLFinisherOutBin
 *DefaultJCLFinisherOutBin: None
 *JCLFinisherOutBin None/Printer Setting:       ""
-*JCLFinisherOutBin Bin1/Standard Bin:           "@PJL SET OUTBIN=UPPER<0D0A>"
-*JCLFinisherOutBin Bin2/Top Bin:              "@PJL SET OUTBIN=UPPER<0D0A>"
-*JCLFinisherOutBin Bin3/Inner Bin:            "@PJL SET OUTBIN=INNER<0D0A>"
-*JCLFinisherOutBin Bin4/Finishing Bin:          "@PJL SET OUTBIN=FINISHERBIN<0D0A>"
+*JCLFinisherOutBin Standard/Standard Bin:           "@PJL SET OUTBIN=UPPER<0D0A>"
+*JCLFinisherOutBin Top/Top Bin:              "@PJL SET OUTBIN=UPPER<0D0A>"
+*JCLFinisherOutBin Inner/Inner Bin:            "@PJL SET OUTBIN=INNER<0D0A>"
+*JCLFinisherOutBin Finishing/Finishing Bin:          "@PJL SET OUTBIN=FINISHERBIN<0D0A>"
+*JCLFinisherOutBin Booklet/Booklet Bin:           "@PJL SET OUTBIN=BOOKLETBIN<0D0A>"
 *JCLCloseUI: *JCLFinisherOutBin
 
 *% =========================================================
@@ -605,8 +667,8 @@
 *DefaultJCLFrontCoverSource: None
 *JCLFrontCoverSource None/None:                		 ""
 *JCLFrontCoverSource Auto/Auto Select:      		 "@PJL SET FRONT_COVER_TRAY=<22>AUTO<220D0A>"
-*JCLFrontCoverSource Upper/MP Tray: 	 				 		 "@PJL SET FRONT_COVER_TRAY=<22>MPTRAY<220D0A>"
-*JCLFrontCoverSource Middle/Tray 1:            		 "@PJL SET FRONT_COVER_TRAY=<22>UPPER<220D0A>"
+*JCLFrontCoverSource Multi/MP Tray: 	 				 		 "@PJL SET FRONT_COVER_TRAY=<22>MPTRAY<220D0A>"
+*JCLFrontCoverSource Upper/Tray 1:            		 "@PJL SET FRONT_COVER_TRAY=<22>UPPER<220D0A>"
 *JCLFrontCoverSource Lower/Tray 2:             		 "@PJL SET FRONT_COVER_TRAY=<22>LOWER<220D0A>"
 *JCLFrontCoverSource Tray3/Tray 3:             		 "@PJL SET FRONT_COVER_TRAY=<22>OPTIONTRAY3<220D0A>"
 *JCLFrontCoverSource Tray4/Tray 4:	       		 		 "@PJL SET FRONT_COVER_TRAY=<22>OPTIONTRAY4<220D0A>"
@@ -620,23 +682,23 @@
 *DefaultJCLFrontCoverType: None
 *JCLFrontCoverType None/None: 				   										""
 *JCLFrontCoverType PrinterDefault/Printer Default:					"@PJL SET FRONT_COVER_TYPE=<22>OFF<220D0A>"
-*JCLFrontCoverType Plain/Plain: 														"@PJL SET FRONT_COVER_TYPE=<22>NORMAL<220D0A>"
-*JCLFrontCoverType Thick/Thick: 			   										"@PJL SET FRONT_COVER_TYPE=<22>THICK<220D0A>"
-*JCLFrontCoverType Thin/Thin: 			   											"@PJL SET FRONT_COVER_TYPE=<22>THIN<220D0A>"
-*JCLFrontCoverType Bond/Bond: 			   											"@PJL SET FRONT_COVER_TYPE=<22>BOND<220D0A>"
-*JCLFrontCoverType Color/Color: 			   										"@PJL SET FRONT_COVER_TYPE=<22>COLOR<220D0A>"
-*JCLFrontCoverType Labels/Labels: 													"@PJL SET FRONT_COVER_TYPE=<22>LABEL<220D0A>"
-*JCLFrontCoverType Envelope/Envelope: 			   							"@PJL SET FRONT_COVER_TYPE=<22>ENV<220D0A>"
-*JCLFrontCoverType Preprinted/Preprinted: 		   						"@PJL SET FRONT_COVER_TYPE=<22>USED<220D0A>"
-*JCLFrontCoverType Cotton/Cotton: 													"@PJL SET FRONT_COVER_TYPE=<22>COTTON<220D0A>"
-*JCLFrontCoverType Recycled/Recycled: 	   									"@PJL SET FRONT_COVER_TYPE=<22>RECYCLED<220D0A>"
+*JCLFrontCoverType Plain/Plain (70~90 g/m2): 														"@PJL SET FRONT_COVER_TYPE=<22>NORMAL<220D0A>"
+*JCLFrontCoverType Thick/Thick (91~105 g/m2): 			   										"@PJL SET FRONT_COVER_TYPE=<22>THICK<220D0A>"
+*JCLFrontCoverType Thin/Thin (60~69 g/m2): 			   											"@PJL SET FRONT_COVER_TYPE=<22>THIN<220D0A>"
+*JCLFrontCoverType Bond/Bond (105~120 g/m2): 			   											"@PJL SET FRONT_COVER_TYPE=<22>BOND<220D0A>"
+*JCLFrontCoverType Color/Color (75~90 g/m2): 			   										"@PJL SET FRONT_COVER_TYPE=<22>COLOR<220D0A>"
+*JCLFrontCoverType Labels/Labels (120~150 g/m2): 													"@PJL SET FRONT_COVER_TYPE=<22>LABEL<220D0A>"
+*JCLFrontCoverType Envelope/Envelope (75~90 g/m2): 			   							"@PJL SET FRONT_COVER_TYPE=<22>ENV<220D0A>"
+*JCLFrontCoverType Preprinted/Preprinted (75~90 g/m2): 		   						"@PJL SET FRONT_COVER_TYPE=<22>USED<220D0A>"
+*JCLFrontCoverType Cotton/Cotton (75~90 g/m2): 													"@PJL SET FRONT_COVER_TYPE=<22>COTTON<220D0A>"
+*JCLFrontCoverType Recycled/Recycled (60~90 g/m2): 	   									"@PJL SET FRONT_COVER_TYPE=<22>RECYCLED<220D0A>"
 *JCLFrontCoverType Archive/Archive:    	   									"@PJL SET FRONT_COVER_TYPE=<22>ARCHIVE<220D0A>"
-*JCLFrontCoverType Punched/Punched: 			   								"@PJL SET FRONT_COVER_TYPE=<22>PUNCHED<220D0A>"
-*JCLFrontCoverType Letterhead/LetterHead: 		   						"@PJL SET FRONT_COVER_TYPE=<22>LETTERHEAD<220D0A>"
-*JCLFrontCoverType HeavyWeight/Heavy weight:        				"@PJL SET FRONT_COVER_TYPE=<22>HEAVYWEIGHT<220D0A>"
-*JCLFrontCoverType ExtraHeavyWeight/Extra Heavy weight:	    "@PJL SET FRONT_COVER_TYPE=<22>EXTRAHEAVYWEIGHT<220D0A>"
-*JCLFrontCoverType ThinCardStock/Thin CardStock:					  "@PJL SET FRONT_COVER_TYPE=<22>THINCARDSTOCK<220D0A>"
-*JCLFrontCoverType ThinGlossy/Thin Glossy:									"@PJL SET FRONT_COVER_TYPE=<22>THINGLOSSY<220D0A>"
+*JCLFrontCoverType Punched/Punched (75~90 g/m2): 			   								"@PJL SET FRONT_COVER_TYPE=<22>PUNCHED<220D0A>"
+*JCLFrontCoverType Letterhead/LetterHead (75~90 g/m2): 		   						"@PJL SET FRONT_COVER_TYPE=<22>LETTERHEAD<220D0A>"
+*JCLFrontCoverType HeavyWeight/Heavy weight (106~176 g/m2):        				"@PJL SET FRONT_COVER_TYPE=<22>HEAVYWEIGHT<220D0A>"
+*JCLFrontCoverType ExtraHeavyWeight/Extra Heavy weight (177~220 g/m2):	    "@PJL SET FRONT_COVER_TYPE=<22>EXTRAHEAVYWEIGHT<220D0A>"
+*JCLFrontCoverType ThinCardStock/Thin CardStock (106~163 g/m2):					  "@PJL SET FRONT_COVER_TYPE=<22>THINCARDSTOCK<220D0A>"
+*JCLFrontCoverType ThinGlossy/Thin Glossy (106~163 g/m2):									"@PJL SET FRONT_COVER_TYPE=<22>THINGLOSSY<220D0A>"
 *JCLCloseUI: *JCLFrontCoverType
 
 *% =========================================================
@@ -659,8 +721,8 @@
 *DefaultJCLBackCoverSource: None
 *JCLBackCoverSource None/None:                		""
 *JCLBackCoverSource Auto/Auto Select:      		"@PJL SET BACK_COVER_TRAY=<22>AUTO<220D0A>"
-*JCLBackCoverSource Upper/MP Tray: 								"@PJL SET BACK_COVER_TRAY=<22>MPTRAY<220D0A>"
-*JCLBackCoverSource Middle/Tray 1:            		"@PJL SET BACK_COVER_TRAY=<22>UPPER<220D0A>"
+*JCLBackCoverSource Multi/MP Tray: 								"@PJL SET BACK_COVER_TRAY=<22>MPTRAY<220D0A>"
+*JCLBackCoverSource Upper/Tray 1:            		"@PJL SET BACK_COVER_TRAY=<22>UPPER<220D0A>"
 *JCLBackCoverSource Lower/Tray 2:             		"@PJL SET BACK_COVER_TRAY=<22>LOWER<220D0A>"
 *JCLBackCoverSource Tray3/Tray 3:             		"@PJL SET BACK_COVER_TRAY=<22>OPTIONTRAY3<220D0A>"
 *JCLBackCoverSource Tray4/Tray 4: 	      				"@PJL SET BACK_COVER_TRAY=<22>OPTIONTRAY4<220D0A>"
@@ -674,23 +736,23 @@
 *DefaultJCLBackCoverType: None
 *JCLBackCoverType None/None: 															""
 *JCLBackCoverType PrinterDefault/Printer Default:					"@PJL SET BACK_COVER_TYPE=<22>OFF<220D0A>"
-*JCLBackCoverType Plain/Plain:	 													"@PJL SET BACK_COVER_TYPE=<22>NORMAL<220D0A>"
-*JCLBackCoverType Thick/Thick: 			   										"@PJL SET BACK_COVER_TYPE=<22>THICK<220D0A>"
-*JCLBackCoverType Thin/Thin: 			   											"@PJL SET BACK_COVER_TYPE=<22>THIN<220D0A>"
-*JCLBackCoverType Bond/Bond: 			   											"@PJL SET BACK_COVER_TYPE=<22>BOND<220D0A>"
-*JCLBackCoverType Color/Color: 			   										"@PJL SET BACK_COVER_TYPE=<22>COLOR<220D0A>"
-*JCLBackCoverType Labels/Labels: 													"@PJL SET BACK_COVER_TYPE=<22>LABEL<220D0A>"
-*JCLBackCoverType Envelope/Envelope: 			   							"@PJL SET BACK_COVER_TYPE=<22>ENV<220D0A>"
-*JCLBackCoverType Preprinted/Preprinted: 		   						"@PJL SET BACK_COVER_TYPE=<22>USED<220D0A>"
-*JCLBackCoverType Cotton/Cotton: 													"@PJL SET BACK_COVER_TYPE=<22>COTTON<220D0A>"
-*JCLBackCoverType Recycled/Recycled: 	   									"@PJL SET BACK_COVER_TYPE=<22>RECYCLED<220D0A>"
+*JCLBackCoverType Plain/Plain (70~90 g/m2):	 													"@PJL SET BACK_COVER_TYPE=<22>NORMAL<220D0A>"
+*JCLBackCoverType Thick/Thick (91~105 g/m2): 			   										"@PJL SET BACK_COVER_TYPE=<22>THICK<220D0A>"
+*JCLBackCoverType Thin/Thin (60~69 g/m2): 			   											"@PJL SET BACK_COVER_TYPE=<22>THIN<220D0A>"
+*JCLBackCoverType Bond/Bond (105~120 g/m2): 			   											"@PJL SET BACK_COVER_TYPE=<22>BOND<220D0A>"
+*JCLBackCoverType Color/Color (75~90 g/m2): 			   										"@PJL SET BACK_COVER_TYPE=<22>COLOR<220D0A>"
+*JCLBackCoverType Labels/Labels (120~150 g/m2): 													"@PJL SET BACK_COVER_TYPE=<22>LABEL<220D0A>"
+*JCLBackCoverType Envelope/Envelope (75~90 g/m2): 			   							"@PJL SET BACK_COVER_TYPE=<22>ENV<220D0A>"
+*JCLBackCoverType Preprinted/Preprinted (75~90 g/m2): 		   						"@PJL SET BACK_COVER_TYPE=<22>USED<220D0A>"
+*JCLBackCoverType Cotton/Cotton (75~90 g/m2): 													"@PJL SET BACK_COVER_TYPE=<22>COTTON<220D0A>"
+*JCLBackCoverType Recycled/Recycled (60~90 g/m2): 	   									"@PJL SET BACK_COVER_TYPE=<22>RECYCLED<220D0A>"
 *JCLBackCoverType Archive/Archive:    	   								"@PJL SET BACK_COVER_TYPE=<22>ARCHIVE<220D0A>"
-*JCLBackCoverType Punched/Punched: 			   								"@PJL SET BACK_COVER_TYPE=<22>PUNCHED<220D0A>"
-*JCLBackCoverType Letterhead/LetterHead: 		   						"@PJL SET BACK_COVER_TYPE=<22>LETTERHEAD<220D0A>"
-*JCLBackCoverType HeavyWeight/Heavy weight:        				"@PJL SET BACK_COVER_TYPE=<22>HEAVYWEIGHT<220D0A>"
-*JCLBackCoverType ExtraHeavyWeight/Extra Heavy weight:	  "@PJL SET BACK_COVER_TYPE=<22>EXTRAHEAVYWEIGHT<220D0A>"
-*JCLBackCoverType ThinCardStock/Thin CardStock:						"@PJL SET BACK_COVER_TYPE=<22>THINCARDSTOCK<220D0A>"
-*JCLBackCoverType ThinGlossy/Thin Glossy:									"@PJL SET BACK_COVER_TYPE=<22>THINGLOSSY<220D0A>"
+*JCLBackCoverType Punched/Punched (75~90 g/m2): 			   								"@PJL SET BACK_COVER_TYPE=<22>PUNCHED<220D0A>"
+*JCLBackCoverType Letterhead/LetterHead (75~90 g/m2): 		   						"@PJL SET BACK_COVER_TYPE=<22>LETTERHEAD<220D0A>"
+*JCLBackCoverType HeavyWeight/Heavy weight (106~176 g/m2):        				"@PJL SET BACK_COVER_TYPE=<22>HEAVYWEIGHT<220D0A>"
+*JCLBackCoverType ExtraHeavyWeight/Extra Heavy weight (177~220 g/m2):	  "@PJL SET BACK_COVER_TYPE=<22>EXTRAHEAVYWEIGHT<220D0A>"
+*JCLBackCoverType ThinCardStock/Thin CardStock (106~163 g/m2):						"@PJL SET BACK_COVER_TYPE=<22>THINCARDSTOCK<220D0A>"
+*JCLBackCoverType ThinGlossy/Thin Glossy (106~163 g/m2):									"@PJL SET BACK_COVER_TYPE=<22>THINGLOSSY<220D0A>"
 *JCLCloseUI: *JCLBackCoverType
 
 *% =========================================================
@@ -713,8 +775,8 @@
 *DefaultJCLFrontBackCoverSource: None
 *JCLFrontBackCoverSource None/None:              			 ""
 *JCLFrontBackCoverSource Auto/Auto Select:     		 "@PJL SET FRONTBACK_COVER_TRAY=<22>AUTO<220D0A>"
-*JCLFrontBackCoverSource Upper/MP Tray: 							 "@PJL SET FRONTBACK_COVER_TRAY=<22>MPTRAY<220D0A>"
-*JCLFrontBackCoverSource Middle/Tray 1:           		 "@PJL SET FRONTBACK_COVER_TRAY=<22>UPPER<220D0A>"
+*JCLFrontBackCoverSource Multi/MP Tray: 							 "@PJL SET FRONTBACK_COVER_TRAY=<22>MPTRAY<220D0A>"
+*JCLFrontBackCoverSource Upper/Tray 1:           		 "@PJL SET FRONTBACK_COVER_TRAY=<22>UPPER<220D0A>"
 *JCLFrontBackCoverSource Lower/Tray 2:            		 "@PJL SET FRONTBACK_COVER_TRAY=<22>LOWER<220D0A>"
 *JCLFrontBackCoverSource Tray3/Tray 3:            		 "@PJL SET FRONTBACK_COVER_TRAY=<22>OPTIONTRAY3<220D0A>"
 *JCLFrontBackCoverSource Tray4/Tray 4: 		  					 "@PJL SET FRONTBACK_COVER_TRAY=<22>OPTIONTRAY4<220D0A>"
@@ -728,24 +790,25 @@
 *DefaultJCLFrontBackCoverType: None
 *JCLFrontBackCoverType None/None: 			  												""
 *JCLFrontBackCoverType PrinterDefault/Printer Default:						"@PJL SET FRONTBACK_COVER_TYPE=<22>OFF<220D0A>"
-*JCLFrontBackCoverType Plain/Plain: 															"@PJL SET FRONTBACK_COVER_TYPE=<22>NORMAL<220D0A>"
-*JCLFrontBackCoverType Thick/Thick: 															"@PJL SET FRONTBACK_COVER_TYPE=<22>THICK<220D0A>"
-*JCLFrontBackCoverType Thin/Thin: 																"@PJL SET FRONTBACK_COVER_TYPE=<22>THIN<220D0A>"
-*JCLFrontBackCoverType Bond/Bond: 																"@PJL SET FRONTBACK_COVER_TYPE=<22>BOND<220D0A>"
-*JCLFrontBackCoverType Color/Color: 															"@PJL SET FRONTBACK_COVER_TYPE=<22>COLOR<220D0A>"
-*JCLFrontBackCoverType Labels/Labels: 														"@PJL SET FRONTBACK_COVER_TYPE=<22>LABEL<220D0A>"
-*JCLFrontBackCoverType Envelope/Envelope:													"@PJL SET FRONTBACK_COVER_TYPE=<22>ENV<220D0A>"
-*JCLFrontBackCoverType Preprinted/Preprinted: 										"@PJL SET FRONTBACK_COVER_TYPE=<22>USED<220D0A>"
-*JCLFrontBackCoverType Recycled/Recycled: 	   										"@PJL SET FRONTBACK_COVER_TYPE=<22>RECYCLED<220D0A>"
-*JCLFrontBackCoverType Cotton/Cotton: 														"@PJL SET FRONTBACK_COVER_TYPE=<22>COTTON<220D0A>"
+*JCLFrontBackCoverType Plain/Plain (70~90 g/m2): 															"@PJL SET FRONTBACK_COVER_TYPE=<22>NORMAL<220D0A>"
+*JCLFrontBackCoverType Thick/Thick (91~105 g/m2): 															"@PJL SET FRONTBACK_COVER_TYPE=<22>THICK<220D0A>"
+*JCLFrontBackCoverType Thin/Thin (60~69 g/m2): 																"@PJL SET FRONTBACK_COVER_TYPE=<22>THIN<220D0A>"
+*JCLFrontBackCoverType Bond/Bond (105~120 g/m2): 																"@PJL SET FRONTBACK_COVER_TYPE=<22>BOND<220D0A>"
+*JCLFrontBackCoverType Color/Color (75~90 g/m2): 															"@PJL SET FRONTBACK_COVER_TYPE=<22>COLOR<220D0A>"
+*JCLFrontBackCoverType Labels/Labels (120~150 g/m2): 														"@PJL SET FRONTBACK_COVER_TYPE=<22>LABEL<220D0A>"
+*JCLFrontBackCoverType Envelope/Envelope (75~90 g/m2):													"@PJL SET FRONTBACK_COVER_TYPE=<22>ENV<220D0A>"
+*JCLFrontBackCoverType Preprinted/Preprinted (75~90 g/m2): 										"@PJL SET FRONTBACK_COVER_TYPE=<22>USED<220D0A>"
+*JCLFrontBackCoverType Recycled/Recycled (60~90 g/m2): 	   										"@PJL SET FRONTBACK_COVER_TYPE=<22>RECYCLED<220D0A>"
+*JCLFrontBackCoverType Cotton/Cotton (75~90 g/m2): 														"@PJL SET FRONTBACK_COVER_TYPE=<22>COTTON<220D0A>"
 *JCLFrontBackCoverType Archive/Archive:    	   										"@PJL SET FRONTBACK_COVER_TYPE=<22>ARCHIVE<220D0A>"
-*JCLFrontBackCoverType Punched/Punched: 													"@PJL SET FRONTBACK_COVER_TYPE=<22>PUNCHED<220D0A>"
-*JCLFrontBackCoverType Letterhead/LetterHead: 										"@PJL SET FRONTBACK_COVER_TYPE=<22>LETTERHEAD<220D0A>"
-*JCLFrontBackCoverType HeavyWeight/Heavy weight:	        				"@PJL SET FRONTBACK_COVER_TYPE=<22>HEAVYWEIGHT<220D0A>"
-*JCLFrontBackCoverType ExtraHeavyWeight/Extra Heavy weight:	  "@PJL SET FRONTBACK_COVER_TYPE=<22>EXTRAHEAVYWEIGHT<220D0A>"
-*JCLFrontBackCoverType ThinCardStock/Thin CardStock:							"@PJL SET FRONTBACK_COVER_TYPE=<22>THINCARDSTOCK<220D0A>"
-*JCLFrontBackCoverType ThinGlossy/Thin Glossy:										"@PJL SET FRONTBACK_COVER_TYPE=<22>THINGLOSSY<220D0A>"
+*JCLFrontBackCoverType Punched/Punched (75~90 g/m2): 													"@PJL SET FRONTBACK_COVER_TYPE=<22>PUNCHED<220D0A>"
+*JCLFrontBackCoverType Letterhead/LetterHead (75~90 g/m2): 										"@PJL SET FRONTBACK_COVER_TYPE=<22>LETTERHEAD<220D0A>"
+*JCLFrontBackCoverType HeavyWeight/Heavy weight (106~176 g/m2):	        				"@PJL SET FRONTBACK_COVER_TYPE=<22>HEAVYWEIGHT<220D0A>"
+*JCLFrontBackCoverType ExtraHeavyWeight/Extra Heavy weight (177~220 g/m2):	  "@PJL SET FRONTBACK_COVER_TYPE=<22>EXTRAHEAVYWEIGHT<220D0A>"
+*JCLFrontBackCoverType ThinCardStock/Thin CardStock (106~163 g/m2):							"@PJL SET FRONTBACK_COVER_TYPE=<22>THINCARDSTOCK<220D0A>"
+*JCLFrontBackCoverType ThinGlossy/Thin Glossy (106~163 g/m2):										"@PJL SET FRONTBACK_COVER_TYPE=<22>THINGLOSSY<220D0A>"
 *JCLCloseUI: *JCLFrontBackCoverType
+
 
 *% =========================================================
 *%  Paper Source
@@ -756,10 +819,10 @@
 *InputSlot Auto/Auto Select:"
  <</ManualFeed false /MediaPosition null>> setpagedevice"
 *End
-*InputSlot Upper/MP Tray:"
+*InputSlot Multi/MP Tray:"
  << /ManualFeed false /MediaPosition 2 >> setpagedevice"
 *End
-*InputSlot Middle/Tray 1:"
+*InputSlot Upper/Tray 1:"
  << /ManualFeed false /MediaPosition 1 >> setpagedevice"
 *End
 *InputSlot Lower/Tray 2:"
@@ -975,8 +1038,8 @@ save currentpagedevice /PageSize get aload pop
 *% ===============================================================
 *% Optional InnerOutBint - JCLFinisherOutBin
 *% ===============================================================
-*UIConstraints: *OptInnerOutBin False 		*JCLFinisherOutBin Bin3
-*UIConstraints: *JCLFinisherOutBin Bin3			*OptInnerOutBin False 	
+*UIConstraints: *OptInnerOutBin False 		*JCLFinisherOutBin Inner
+*UIConstraints: *JCLFinisherOutBin Inner			*OptInnerOutBin False 	
 
 *% ===============================================================
 *% Optional InnerOutBin - Inner Finisher
@@ -991,7 +1054,11 @@ save currentpagedevice /PageSize get aload pop
 *UIConstraints: *JCLSortOptions Offset		*Finisher None	
 
 *UIConstraints: *Finisher InnerFinisher		*JCLSortOptions Rotate
+*UIConstraints: *Finisher StandardFinisher		*JCLSortOptions Rotate
+*UIConstraints: *Finisher BookletFinisher		*JCLSortOptions Rotate
 *UIConstraints: *JCLSortOptions Rotate		*Finisher InnerFinisher
+*UIConstraints: *JCLSortOptions Rotate		*Finisher StandardFinisher
+*UIConstraints: *JCLSortOptions Rotate		*Finisher BookletFinisher
 
 *% =================================================================
 *% Finisher - StapleLocation 
@@ -1009,14 +1076,28 @@ save currentpagedevice /PageSize get aload pop
 *% ================================================================
 *%  Finisher - Outputbin
 *% ================================================================
-*UIConstraints: *Finisher None 			*JCLFinisherOutBin Bin2
-*UIConstraints: *JCLFinisherOutBin Bin2			*Finisher None
+*UIConstraints: *Finisher None 			*JCLFinisherOutBin Top
+*UIConstraints: *Finisher None 			*JCLFinisherOutBin Finishing
+*UIConstraints: *Finisher None 			*JCLFinisherOutBin Booklet
 
-*UIConstraints: *Finisher None 			*JCLFinisherOutBin Bin4
-*UIConstraints: *JCLFinisherOutBin Bin4			*Finisher None
+*UIConstraints: *JCLFinisherOutBin Top			*Finisher None
+*UIConstraints: *JCLFinisherOutBin Finishing			*Finisher None
+*UIConstraints: *JCLFinisherOutBin Booklet			*Finisher None
 
-*UIConstraints: *Finisher InnerFinisher 		*JCLFinisherOutBin Bin1
-*UIConstraints: *JCLFinisherOutBin Bin1			*Finisher InnerFinisher
+*UIConstraints: *Finisher InnerFinisher 		*JCLFinisherOutBin Standard
+*UIConstraints: *Finisher InnerFinisher 		*JCLFinisherOutBin Booklet
+
+*UIConstraints: *JCLFinisherOutBin Standard		*Finisher InnerFinisher
+*UIConstraints: *JCLFinisherOutBin Booklet		*Finisher InnerFinisher
+
+*UIConstraints: *Finisher StandardFinisher 				*JCLFinisherOutBin Standard
+*UIConstraints: *Finisher StandardFinisher 				*JCLFinisherOutBin Booklet
+
+*UIConstraints: *JCLFinisherOutBin Standard		*Finisher StandardFinisher
+*UIConstraints: *JCLFinisherOutBin Booklet		*Finisher StandardFinisher
+
+*UIConstraints: *Finisher BookletFinisher 				*JCLFinisherOutBin Standard
+*UIConstraints: *JCLFinisherOutBin Standard		*Finisher BookletFinisher
 
 *% =======================================================================================
 *%  Cosmos - OptPunch/Punch
@@ -1809,12 +1890,12 @@ save currentpagedevice /PageSize get aload pop
 *% =========================================================
 *%  MediaType Envelope - InputSlot
 *% =========================================================
-*UIConstraints: *MediaType Envelope				*InputSlot Middle
+*UIConstraints: *MediaType Envelope				*InputSlot Upper
 *UIConstraints: *MediaType Envelope				*InputSlot Lower
 *UIConstraints: *MediaType Envelope				*InputSlot Tray3
 *UIConstraints: *MediaType Envelope				*InputSlot Tray4
 
-*UIConstraints: *InputSlot Middle				*MediaType Envelope
+*UIConstraints: *InputSlot Upper				*MediaType Envelope
 *UIConstraints: *InputSlot Lower				*MediaType Envelope
 *UIConstraints: *InputSlot Tray3				*MediaType Envelope
 *UIConstraints: *InputSlot Tray4				*MediaType Envelope
@@ -1822,12 +1903,12 @@ save currentpagedevice /PageSize get aload pop
 *% =========================================================
 *%  MediaType Labels - InputSlot
 *% =========================================================
-*UIConstraints: *MediaType Labels				*InputSlot Middle
+*UIConstraints: *MediaType Labels				*InputSlot Upper
 *UIConstraints: *MediaType Labels				*InputSlot Lower
 *UIConstraints: *MediaType Labels				*InputSlot Tray3
 *UIConstraints: *MediaType Labels				*InputSlot Tray4
 
-*UIConstraints: *InputSlot Middle				*MediaType Labels
+*UIConstraints: *InputSlot Upper				*MediaType Labels
 *UIConstraints: *InputSlot Lower				*MediaType Labels
 *UIConstraints: *InputSlot Tray3				*MediaType Labels
 *UIConstraints: *InputSlot Tray4				*MediaType Labels
@@ -1835,18 +1916,18 @@ save currentpagedevice /PageSize get aload pop
 *% =========================================================
 *%  MediaType ExtraHeavyWeight1 - InputSlot
 *% =========================================================
-*UIConstraints: *MediaType ExtraHeavyWeight				*InputSlot Upper
-*UIConstraints: *InputSlot Upper				*MediaType ExtraHeavyWeight
+*UIConstraints: *MediaType ExtraHeavyWeight				*InputSlot Multi
+*UIConstraints: *InputSlot Multi				*MediaType ExtraHeavyWeight
 
 *% =========================================================
 *%  PageSize A6 - InputSlot
 *% =========================================================
-*UIConstraints: *PageSize A6				*InputSlot Middle
+*UIConstraints: *PageSize A6				*InputSlot Upper
 *UIConstraints: *PageSize A6				*InputSlot Lower
 *UIConstraints: *PageSize A6				*InputSlot Tray3
 *UIConstraints: *PageSize A6				*InputSlot Tray4
 
-*UIConstraints: *InputSlot Middle				*PageSize A6
+*UIConstraints: *InputSlot Upper				*PageSize A6
 *UIConstraints: *InputSlot Lower				*PageSize A6
 *UIConstraints: *InputSlot Tray3				*PageSize A6
 *UIConstraints: *InputSlot Tray4				*PageSize A6
@@ -1854,12 +1935,12 @@ save currentpagedevice /PageSize get aload pop
 *% =========================================================
 *%  PageRegion A6 - InputSlot
 *% =========================================================
-*UIConstraints: *PageRegion A6				*InputSlot Middle
+*UIConstraints: *PageRegion A6				*InputSlot Upper
 *UIConstraints: *PageRegion A6				*InputSlot Lower
 *UIConstraints: *PageRegion A6				*InputSlot Tray3
 *UIConstraints: *PageRegion A6				*InputSlot Tray4
 
-*UIConstraints: *InputSlot Middle				*PageRegion A6
+*UIConstraints: *InputSlot Upper				*PageRegion A6
 *UIConstraints: *InputSlot Lower				*PageRegion A6
 *UIConstraints: *InputSlot Tray3				*PageRegion A6
 *UIConstraints: *InputSlot Tray4				*PageRegion A6
@@ -1867,12 +1948,12 @@ save currentpagedevice /PageSize get aload pop
 *% =========================================================
 *%  PageSize Postcard_S - InputSlot
 *% =========================================================
-*UIConstraints: *PageSize Postcard_S				*InputSlot Middle
+*UIConstraints: *PageSize Postcard_S				*InputSlot Upper
 *UIConstraints: *PageSize Postcard_S				*InputSlot Lower
 *UIConstraints: *PageSize Postcard_S				*InputSlot Tray3
 *UIConstraints: *PageSize Postcard_S				*InputSlot Tray4
 
-*UIConstraints: *InputSlot Middle				*PageSize Postcard_S
+*UIConstraints: *InputSlot Upper				*PageSize Postcard_S
 *UIConstraints: *InputSlot Lower				*PageSize Postcard_S
 *UIConstraints: *InputSlot Tray3				*PageSize Postcard_S
 *UIConstraints: *InputSlot Tray4				*PageSize Postcard_S
@@ -1880,12 +1961,12 @@ save currentpagedevice /PageSize get aload pop
 *% =========================================================
 *%  PageRegion Postcard_S - InputSlot
 *% =========================================================
-*UIConstraints: *PageRegion Postcard_S				*InputSlot Middle
+*UIConstraints: *PageRegion Postcard_S				*InputSlot Upper
 *UIConstraints: *PageRegion Postcard_S				*InputSlot Lower
 *UIConstraints: *PageRegion Postcard_S				*InputSlot Tray3
 *UIConstraints: *PageRegion Postcard_S				*InputSlot Tray4
 
-*UIConstraints: *InputSlot Middle				*PageRegion Postcard_S
+*UIConstraints: *InputSlot Upper				*PageRegion Postcard_S
 *UIConstraints: *InputSlot Lower				*PageRegion Postcard_S
 *UIConstraints: *InputSlot Tray3				*PageRegion Postcard_S
 *UIConstraints: *InputSlot Tray4				*PageRegion Postcard_S
@@ -1893,50 +1974,50 @@ save currentpagedevice /PageSize get aload pop
 *% =========================================================
 *%  OutputBin - MediaType Envelope
 *% =========================================================
-*UIConstraints: *JCLFinisherOutBin Bin3				*MediaType Envelope
-*UIConstraints: *JCLFinisherOutBin Bin4				*MediaType Envelope
-*UIConstraints: *MediaType Envelope				*JCLFinisherOutBin Bin3
-*UIConstraints: *MediaType Envelope				*JCLFinisherOutBin Bin4
+*UIConstraints: *JCLFinisherOutBin Inner				*MediaType Envelope
+*UIConstraints: *JCLFinisherOutBin Finishing				*MediaType Envelope
+*UIConstraints: *MediaType Envelope				*JCLFinisherOutBin Inner
+*UIConstraints: *MediaType Envelope				*JCLFinisherOutBin Finishing
 
 *% =========================================================
 *%  OutputBin - MediaType Labels
 *% =========================================================
-*UIConstraints: *JCLFinisherOutBin Bin2				*MediaType Labels
-*UIConstraints: *JCLFinisherOutBin Bin3				*MediaType Labels
-*UIConstraints: *MediaType Labels				*JCLFinisherOutBin Bin2
-*UIConstraints: *MediaType Labels				*JCLFinisherOutBin Bin3
+*UIConstraints: *JCLFinisherOutBin Top				*MediaType Labels
+*UIConstraints: *JCLFinisherOutBin Inner				*MediaType Labels
+*UIConstraints: *MediaType Labels				*JCLFinisherOutBin Top
+*UIConstraints: *MediaType Labels				*JCLFinisherOutBin Inner
 
 *% =========================================================
 *%  OutputBin - PageSize Postcard_S
 *% =========================================================
-*UIConstraints: *JCLFinisherOutBin Bin3				*PageSize Postcard_S
-*UIConstraints: *JCLFinisherOutBin Bin4				*PageSize Postcard_S
-*UIConstraints: *PageSize Postcard_S				*JCLFinisherOutBin Bin3
-*UIConstraints: *PageSize Postcard_S				*JCLFinisherOutBin Bin4
+*UIConstraints: *JCLFinisherOutBin Inner				*PageSize Postcard_S
+*UIConstraints: *JCLFinisherOutBin Finishing				*PageSize Postcard_S
+*UIConstraints: *PageSize Postcard_S				*JCLFinisherOutBin Inner
+*UIConstraints: *PageSize Postcard_S				*JCLFinisherOutBin Finishing
 
 *% =========================================================
 *%  OutputBin - PageRegion Postcard_S
 *% =========================================================
-*UIConstraints: *JCLFinisherOutBin Bin3				*PageRegion Postcard_S
-*UIConstraints: *JCLFinisherOutBin Bin4				*PageRegion Postcard_S
-*UIConstraints: *PageRegion Postcard_S				*JCLFinisherOutBin Bin3
-*UIConstraints: *PageRegion Postcard_S				*JCLFinisherOutBin Bin4
+*UIConstraints: *JCLFinisherOutBin Inner				*PageRegion Postcard_S
+*UIConstraints: *JCLFinisherOutBin Finishing				*PageRegion Postcard_S
+*UIConstraints: *PageRegion Postcard_S				*JCLFinisherOutBin Inner
+*UIConstraints: *PageRegion Postcard_S				*JCLFinisherOutBin Finishing
 
 *% =========================================================
 *%  OutputBin - PageSize A6
 *% =========================================================
-*UIConstraints: *JCLFinisherOutBin Bin3				*PageSize A6
-*UIConstraints: *JCLFinisherOutBin Bin4				*PageSize A6
-*UIConstraints: *PageSize A6				*JCLFinisherOutBin Bin3
-*UIConstraints: *PageSize A6				*JCLFinisherOutBin Bin4
+*UIConstraints: *JCLFinisherOutBin Inner				*PageSize A6
+*UIConstraints: *JCLFinisherOutBin Finishing				*PageSize A6
+*UIConstraints: *PageSize A6				*JCLFinisherOutBin Inner
+*UIConstraints: *PageSize A6				*JCLFinisherOutBin Finishing
 
 *% =========================================================
 *%  OutputBin - PageRegion A6
 *% =========================================================
-*UIConstraints: *JCLFinisherOutBin Bin3				*PageRegion A6
-*UIConstraints: *JCLFinisherOutBin Bin4				*PageRegion A6
-*UIConstraints: *PageRegion A6				*JCLFinisherOutBin Bin3
-*UIConstraints: *PageRegion A6				*JCLFinisherOutBin Bin4
+*UIConstraints: *JCLFinisherOutBin Inner				*PageRegion A6
+*UIConstraints: *JCLFinisherOutBin Finishing				*PageRegion A6
+*UIConstraints: *PageRegion A6				*JCLFinisherOutBin Inner
+*UIConstraints: *PageRegion A6				*JCLFinisherOutBin Finishing
 
 *% =========================================================
 *%  Staple - MediaType Envelope / Labels
@@ -2012,14 +2093,14 @@ save currentpagedevice /PageSize get aload pop
 *%  Front CoverOption - Front CoverSource
 *% =========================================================  
 *UIConstraints: *JCLFrontCoverOption None         *JCLFrontCoverSource Auto
+*UIConstraints: *JCLFrontCoverOption None         *JCLFrontCoverSource Multi
 *UIConstraints: *JCLFrontCoverOption None         *JCLFrontCoverSource Upper
-*UIConstraints: *JCLFrontCoverOption None         *JCLFrontCoverSource Middle
 *UIConstraints: *JCLFrontCoverOption None         *JCLFrontCoverSource Lower
 *UIConstraints: *JCLFrontCoverOption None         *JCLFrontCoverSource Tray3
 
 *UIConstraints: *JCLFrontCoverSource Auto         *JCLFrontCoverOption None
-*UIConstraints: *JCLFrontCoverSource Upper        *JCLFrontCoverOption None
-*UIConstraints: *JCLFrontCoverSource Middle       *JCLFrontCoverOption None
+*UIConstraints: *JCLFrontCoverSource Multi        *JCLFrontCoverOption None
+*UIConstraints: *JCLFrontCoverSource Upper       *JCLFrontCoverOption None
 *UIConstraints: *JCLFrontCoverSource Lower        *JCLFrontCoverOption None
 *UIConstraints: *JCLFrontCoverSource Tray3        *JCLFrontCoverOption None
 
@@ -2068,14 +2149,14 @@ save currentpagedevice /PageSize get aload pop
 *%  Back CoverOption - Back CoverSource
 *% =========================================================  
 *UIConstraints: *JCLBackCoverOption None          *JCLBackCoverSource Auto
+*UIConstraints: *JCLBackCoverOption None          *JCLBackCoverSource Multi
 *UIConstraints: *JCLBackCoverOption None          *JCLBackCoverSource Upper
-*UIConstraints: *JCLBackCoverOption None          *JCLBackCoverSource Middle
 *UIConstraints: *JCLBackCoverOption None          *JCLBackCoverSource Lower
 *UIConstraints: *JCLBackCoverOption None          *JCLBackCoverSource Tray3
 
 *UIConstraints: *JCLBackCoverSource Auto          *JCLBackCoverOption None
-*UIConstraints: *JCLBackCoverSource Upper         *JCLBackCoverOption None
-*UIConstraints: *JCLBackCoverSource Middle        *JCLBackCoverOption None
+*UIConstraints: *JCLBackCoverSource Multi         *JCLBackCoverOption None
+*UIConstraints: *JCLBackCoverSource Upper        *JCLBackCoverOption None
 *UIConstraints: *JCLBackCoverSource Lower         *JCLBackCoverOption None
 *UIConstraints: *JCLBackCoverSource Tray3         *JCLBackCoverOption None
 
@@ -2124,14 +2205,14 @@ save currentpagedevice /PageSize get aload pop
 *%  FrontBack CoverOption - FrontBack CoverSource
 *% =========================================================  
 *UIConstraints: *JCLFrontBackCoverOption None     *JCLFrontBackCoverSource Auto
+*UIConstraints: *JCLFrontBackCoverOption None     *JCLFrontBackCoverSource Multi
 *UIConstraints: *JCLFrontBackCoverOption None     *JCLFrontBackCoverSource Upper
-*UIConstraints: *JCLFrontBackCoverOption None     *JCLFrontBackCoverSource Middle
 *UIConstraints: *JCLFrontBackCoverOption None     *JCLFrontBackCoverSource Lower
 *UIConstraints: *JCLFrontBackCoverOption None     *JCLFrontBackCoverSource Tray3
 
 *UIConstraints: *JCLFrontBackCoverSource Auto     *JCLFrontBackCoverOption None
-*UIConstraints: *JCLFrontBackCoverSource Upper    *JCLFrontBackCoverOption None
-*UIConstraints: *JCLFrontBackCoverSource Middle   *JCLFrontBackCoverOption None
+*UIConstraints: *JCLFrontBackCoverSource Multi    *JCLFrontBackCoverOption None
+*UIConstraints: *JCLFrontBackCoverSource Upper   *JCLFrontBackCoverOption None
 *UIConstraints: *JCLFrontBackCoverSource Lower    *JCLFrontBackCoverOption None
 *UIConstraints: *JCLFrontBackCoverSource Tray3    *JCLFrontBackCoverOption None
 
@@ -2588,6 +2669,52 @@ save currentpagedevice /PageSize get aload pop
 *UIConstraints: *PageRegion Env9					*JCLPunchLocation 4Hole_L
 *UIConstraints: *PageRegion C4						*JCLPunchLocation 4Hole_L
 
+*% =========================================================
+*% Booklet Bin - PageSize
+*% =========================================================
+*UIConstraints: *JCLFinisherOutBin Booklet					*PageSize Env10
+*UIConstraints: *JCLFinisherOutBin Booklet					*PageSize EnvDL
+*UIConstraints: *JCLFinisherOutBin Booklet					*PageSize EnvC5
+*UIConstraints: *JCLFinisherOutBin Booklet					*PageSize EnvC6
+*UIConstraints: *JCLFinisherOutBin Booklet					*PageSize EnvMonarch
+*UIConstraints: *JCLFinisherOutBin Booklet					*PageSize Env9
+*UIConstraints: *JCLFinisherOutBin Booklet					*PageSize A6
+*UIConstraints: *JCLFinisherOutBin Booklet					*PageSize Postcard_S
+*UIConstraints: *JCLFinisherOutBin Booklet					*PageSize C4
+
+*UIConstraints: *PageSize Env10					*JCLFinisherOutBin Booklet
+*UIConstraints: *PageSize EnvDL					*JCLFinisherOutBin Booklet
+*UIConstraints: *PageSize EnvC5					*JCLFinisherOutBin Booklet
+*UIConstraints: *PageSize EnvC6					*JCLFinisherOutBin Booklet
+*UIConstraints: *PageSize EnvMonarch				*JCLFinisherOutBin Booklet
+*UIConstraints: *PageSize Env9					*JCLFinisherOutBin Booklet
+*UIConstraints: *PageSize A6					*JCLFinisherOutBin Booklet
+*UIConstraints: *PageSize Postcard_S				*JCLFinisherOutBin Booklet
+*UIConstraints: *PageSize C4				*JCLFinisherOutBin Booklet
+
+*% =========================================================
+*% Booklet Bin - PageRegion
+*% =========================================================
+*UIConstraints: *JCLFinisherOutBin Booklet					*PageRegion Env10
+*UIConstraints: *JCLFinisherOutBin Booklet					*PageRegion EnvDL
+*UIConstraints: *JCLFinisherOutBin Booklet					*PageRegion EnvC5
+*UIConstraints: *JCLFinisherOutBin Booklet					*PageRegion EnvC6
+*UIConstraints: *JCLFinisherOutBin Booklet					*PageRegion EnvMonarch
+*UIConstraints: *JCLFinisherOutBin Booklet					*PageRegion Env9
+*UIConstraints: *JCLFinisherOutBin Booklet					*PageRegion A6
+*UIConstraints: *JCLFinisherOutBin Booklet					*PageRegion Postcard_S
+*UIConstraints: *JCLFinisherOutBin Booklet					*PageRegion C4
+
+*UIConstraints: *PageRegion Env10				*JCLFinisherOutBin Booklet
+*UIConstraints: *PageRegion EnvDL				*JCLFinisherOutBin Booklet
+*UIConstraints: *PageRegion EnvC5				*JCLFinisherOutBin Booklet
+*UIConstraints: *PageRegion EnvC6				*JCLFinisherOutBin Booklet
+*UIConstraints: *PageRegion EnvMonarch				*JCLFinisherOutBin Booklet
+*UIConstraints: *PageRegion Env9				*JCLFinisherOutBin Booklet
+*UIConstraints: *PageRegion A6					*JCLFinisherOutBin Booklet
+*UIConstraints: *PageRegion Postcard_S				*JCLFinisherOutBin Booklet
+*UIConstraints: *PageRegion C4				*JCLFinisherOutBin Booklet
+
 *% =======================================================================================
 *%  StapleLocation - StaplePosition
 *% =======================================================================================
@@ -2597,6 +2724,12 @@ save currentpagedevice /PageSize get aload pop
 *UIConstraints: *JCLStaplePosition Left         *JCLStapleLocation None
 *UIConstraints: *JCLStaplePosition Right        *JCLStapleLocation None
 *UIConstraints: *JCLStaplePosition Top          *JCLStapleLocation None
+
+*UIConstraints: *JCLStaplePosition Top		*JCLStapleLocation 1Staple_P
+*UIConstraints: *JCLStaplePosition Top		*JCLStapleLocation 1Staple_L
+
+*UIConstraints: *JCLStapleLocation 1Staple_P         *JCLStaplePosition Top
+*UIConstraints: *JCLStapleLocation 1Staple_L         *JCLStaplePosition Top
 
 *% =======================================================================================
 *%  PunchLocation - PunchPosition
@@ -2710,14 +2843,14 @@ save currentpagedevice /PageSize get aload pop
 *% =========================================================
 *%  Rotate  - InputSlot
 *% =========================================================
+*UIConstraints: *JCLSortOptions Rotate						*InputSlot Multi
 *UIConstraints: *JCLSortOptions Rotate						*InputSlot Upper
-*UIConstraints: *JCLSortOptions Rotate						*InputSlot Middle
 *UIConstraints: *JCLSortOptions Rotate						*InputSlot Lower
 *UIConstraints: *JCLSortOptions Rotate						*InputSlot Tray3
 *UIConstraints: *JCLSortOptions Rotate						*InputSlot Tray4
 
-*UIConstraints: *InputSlot Upper				 *JCLSortOptions Rotate		
-*UIConstraints: *InputSlot Middle				 *JCLSortOptions Rotate
+*UIConstraints: *InputSlot Multi				 *JCLSortOptions Rotate		
+*UIConstraints: *InputSlot Upper				 *JCLSortOptions Rotate
 *UIConstraints: *InputSlot Lower				 *JCLSortOptions Rotate
 *UIConstraints: *InputSlot Tray3				 *JCLSortOptions Rotate
 *UIConstraints: *InputSlot Tray4				 *JCLSortOptions Rotate
@@ -2752,78 +2885,78 @@ save currentpagedevice /PageSize get aload pop
 *% =========================================================
 *%  Staple - Finisher Output bin 1,2,3
 *% =========================================================
-*UIConstraints: *JCLStapleLocation 1Staple_P					*JCLFinisherOutBin Bin1
-*UIConstraints: *JCLStapleLocation 1Staple_P					*JCLFinisherOutBin Bin2
-*UIConstraints: *JCLStapleLocation 1Staple_P					*JCLFinisherOutBin Bin3
-*UIConstraints: *JCLStapleLocation 1Staple_L					*JCLFinisherOutBin Bin1
-*UIConstraints: *JCLStapleLocation 1Staple_L					*JCLFinisherOutBin Bin2
-*UIConstraints: *JCLStapleLocation 1Staple_L					*JCLFinisherOutBin Bin3
+*UIConstraints: *JCLStapleLocation 1Staple_P					*JCLFinisherOutBin Standard
+*UIConstraints: *JCLStapleLocation 1Staple_P					*JCLFinisherOutBin Top
+*UIConstraints: *JCLStapleLocation 1Staple_P					*JCLFinisherOutBin Inner
+*UIConstraints: *JCLStapleLocation 1Staple_L					*JCLFinisherOutBin Standard
+*UIConstraints: *JCLStapleLocation 1Staple_L					*JCLFinisherOutBin Top
+*UIConstraints: *JCLStapleLocation 1Staple_L					*JCLFinisherOutBin Inner
 
-*UIConstraints: *JCLFinisherOutBin Bin1					*JCLStapleLocation 1Staple_P
-*UIConstraints: *JCLFinisherOutBin Bin2					*JCLStapleLocation 1Staple_P
-*UIConstraints: *JCLFinisherOutBin Bin3					*JCLStapleLocation 1Staple_P
-*UIConstraints: *JCLFinisherOutBin Bin1					*JCLStapleLocation 1Staple_L
-*UIConstraints: *JCLFinisherOutBin Bin2					*JCLStapleLocation 1Staple_L
-*UIConstraints: *JCLFinisherOutBin Bin3					*JCLStapleLocation 1Staple_L
+*UIConstraints: *JCLFinisherOutBin Standard					*JCLStapleLocation 1Staple_P
+*UIConstraints: *JCLFinisherOutBin Top					*JCLStapleLocation 1Staple_P
+*UIConstraints: *JCLFinisherOutBin Inner					*JCLStapleLocation 1Staple_P
+*UIConstraints: *JCLFinisherOutBin Standard					*JCLStapleLocation 1Staple_L
+*UIConstraints: *JCLFinisherOutBin Top					*JCLStapleLocation 1Staple_L
+*UIConstraints: *JCLFinisherOutBin Inner					*JCLStapleLocation 1Staple_L
 
-*UIConstraints: *JCLStapleLocation 2Staple_P					*JCLFinisherOutBin Bin1
-*UIConstraints: *JCLStapleLocation 2Staple_P					*JCLFinisherOutBin Bin2
-*UIConstraints: *JCLStapleLocation 2Staple_P					*JCLFinisherOutBin Bin3
-*UIConstraints: *JCLStapleLocation 2Staple_L					*JCLFinisherOutBin Bin1
-*UIConstraints: *JCLStapleLocation 2Staple_L					*JCLFinisherOutBin Bin2
-*UIConstraints: *JCLStapleLocation 2Staple_L					*JCLFinisherOutBin Bin3
+*UIConstraints: *JCLStapleLocation 2Staple_P					*JCLFinisherOutBin Standard
+*UIConstraints: *JCLStapleLocation 2Staple_P					*JCLFinisherOutBin Top
+*UIConstraints: *JCLStapleLocation 2Staple_P					*JCLFinisherOutBin Inner
+*UIConstraints: *JCLStapleLocation 2Staple_L					*JCLFinisherOutBin Standard
+*UIConstraints: *JCLStapleLocation 2Staple_L					*JCLFinisherOutBin Top
+*UIConstraints: *JCLStapleLocation 2Staple_L					*JCLFinisherOutBin Inner
 
-*UIConstraints: *JCLFinisherOutBin Bin1					*JCLStapleLocation 2Staple_P
-*UIConstraints: *JCLFinisherOutBin Bin2					*JCLStapleLocation 2Staple_P
-*UIConstraints: *JCLFinisherOutBin Bin3					*JCLStapleLocation 2Staple_P
-*UIConstraints: *JCLFinisherOutBin Bin1					*JCLStapleLocation 2Staple_L
-*UIConstraints: *JCLFinisherOutBin Bin2					*JCLStapleLocation 2Staple_L
-*UIConstraints: *JCLFinisherOutBin Bin3					*JCLStapleLocation 2Staple_L
+*UIConstraints: *JCLFinisherOutBin Standard					*JCLStapleLocation 2Staple_P
+*UIConstraints: *JCLFinisherOutBin Top					*JCLStapleLocation 2Staple_P
+*UIConstraints: *JCLFinisherOutBin Inner					*JCLStapleLocation 2Staple_P
+*UIConstraints: *JCLFinisherOutBin Standard					*JCLStapleLocation 2Staple_L
+*UIConstraints: *JCLFinisherOutBin Top					*JCLStapleLocation 2Staple_L
+*UIConstraints: *JCLFinisherOutBin Inner					*JCLStapleLocation 2Staple_L
 
 *% =========================================================
 *%  Punch - Finisher Output bin 1,2,3
 *% =========================================================
-*UIConstraints: *JCLPunchLocation 2Hole_P					*JCLFinisherOutBin Bin1
-*UIConstraints: *JCLPunchLocation 2Hole_P					*JCLFinisherOutBin Bin2
-*UIConstraints: *JCLPunchLocation 2Hole_P					*JCLFinisherOutBin Bin3
-*UIConstraints: *JCLPunchLocation 2Hole_L					*JCLFinisherOutBin Bin1
-*UIConstraints: *JCLPunchLocation 2Hole_L					*JCLFinisherOutBin Bin2
-*UIConstraints: *JCLPunchLocation 2Hole_L					*JCLFinisherOutBin Bin3
+*UIConstraints: *JCLPunchLocation 2Hole_P					*JCLFinisherOutBin Standard
+*UIConstraints: *JCLPunchLocation 2Hole_P					*JCLFinisherOutBin Top
+*UIConstraints: *JCLPunchLocation 2Hole_P					*JCLFinisherOutBin Inner
+*UIConstraints: *JCLPunchLocation 2Hole_L					*JCLFinisherOutBin Standard
+*UIConstraints: *JCLPunchLocation 2Hole_L					*JCLFinisherOutBin Top
+*UIConstraints: *JCLPunchLocation 2Hole_L					*JCLFinisherOutBin Inner
 
-*UIConstraints: *JCLPunchLocation 3Hole_P					*JCLFinisherOutBin Bin1
-*UIConstraints: *JCLPunchLocation 3Hole_P					*JCLFinisherOutBin Bin2
-*UIConstraints: *JCLPunchLocation 3Hole_P					*JCLFinisherOutBin Bin3
-*UIConstraints: *JCLPunchLocation 3Hole_L					*JCLFinisherOutBin Bin1
-*UIConstraints: *JCLPunchLocation 3Hole_L					*JCLFinisherOutBin Bin2
-*UIConstraints: *JCLPunchLocation 3Hole_L					*JCLFinisherOutBin Bin3
+*UIConstraints: *JCLPunchLocation 3Hole_P					*JCLFinisherOutBin Standard
+*UIConstraints: *JCLPunchLocation 3Hole_P					*JCLFinisherOutBin Top
+*UIConstraints: *JCLPunchLocation 3Hole_P					*JCLFinisherOutBin Inner
+*UIConstraints: *JCLPunchLocation 3Hole_L					*JCLFinisherOutBin Standard
+*UIConstraints: *JCLPunchLocation 3Hole_L					*JCLFinisherOutBin Top
+*UIConstraints: *JCLPunchLocation 3Hole_L					*JCLFinisherOutBin Inner
 
-*UIConstraints: *JCLPunchLocation 4Hole_P					*JCLFinisherOutBin Bin1
-*UIConstraints: *JCLPunchLocation 4Hole_P					*JCLFinisherOutBin Bin2
-*UIConstraints: *JCLPunchLocation 4Hole_P					*JCLFinisherOutBin Bin3
-*UIConstraints: *JCLPunchLocation 4Hole_L					*JCLFinisherOutBin Bin1
-*UIConstraints: *JCLPunchLocation 4Hole_L					*JCLFinisherOutBin Bin2
-*UIConstraints: *JCLPunchLocation 4Hole_L					*JCLFinisherOutBin Bin3
+*UIConstraints: *JCLPunchLocation 4Hole_P					*JCLFinisherOutBin Standard
+*UIConstraints: *JCLPunchLocation 4Hole_P					*JCLFinisherOutBin Top
+*UIConstraints: *JCLPunchLocation 4Hole_P					*JCLFinisherOutBin Inner
+*UIConstraints: *JCLPunchLocation 4Hole_L					*JCLFinisherOutBin Standard
+*UIConstraints: *JCLPunchLocation 4Hole_L					*JCLFinisherOutBin Top
+*UIConstraints: *JCLPunchLocation 4Hole_L					*JCLFinisherOutBin Inner
 
-*UIConstraints: *JCLFinisherOutBin Bin1					*JCLPunchLocation 2Hole_P
-*UIConstraints: *JCLFinisherOutBin Bin2					*JCLPunchLocation 2Hole_P
-*UIConstraints: *JCLFinisherOutBin Bin3					*JCLPunchLocation 2Hole_P
-*UIConstraints: *JCLFinisherOutBin Bin1					*JCLPunchLocation 2Hole_L
-*UIConstraints: *JCLFinisherOutBin Bin2					*JCLPunchLocation 2Hole_L
-*UIConstraints: *JCLFinisherOutBin Bin3					*JCLPunchLocation 2Hole_L
+*UIConstraints: *JCLFinisherOutBin Standard					*JCLPunchLocation 2Hole_P
+*UIConstraints: *JCLFinisherOutBin Top					*JCLPunchLocation 2Hole_P
+*UIConstraints: *JCLFinisherOutBin Inner					*JCLPunchLocation 2Hole_P
+*UIConstraints: *JCLFinisherOutBin Standard					*JCLPunchLocation 2Hole_L
+*UIConstraints: *JCLFinisherOutBin Top					*JCLPunchLocation 2Hole_L
+*UIConstraints: *JCLFinisherOutBin Inner					*JCLPunchLocation 2Hole_L
 
-*UIConstraints: *JCLFinisherOutBin Bin1					*JCLPunchLocation 3Hole_P
-*UIConstraints: *JCLFinisherOutBin Bin2					*JCLPunchLocation 3Hole_P
-*UIConstraints: *JCLFinisherOutBin Bin3					*JCLPunchLocation 3Hole_P
-*UIConstraints: *JCLFinisherOutBin Bin1					*JCLPunchLocation 3Hole_L
-*UIConstraints: *JCLFinisherOutBin Bin2					*JCLPunchLocation 3Hole_L
-*UIConstraints: *JCLFinisherOutBin Bin3					*JCLPunchLocation 3Hole_L
+*UIConstraints: *JCLFinisherOutBin Standard					*JCLPunchLocation 3Hole_P
+*UIConstraints: *JCLFinisherOutBin Top					*JCLPunchLocation 3Hole_P
+*UIConstraints: *JCLFinisherOutBin Inner					*JCLPunchLocation 3Hole_P
+*UIConstraints: *JCLFinisherOutBin Standard					*JCLPunchLocation 3Hole_L
+*UIConstraints: *JCLFinisherOutBin Top					*JCLPunchLocation 3Hole_L
+*UIConstraints: *JCLFinisherOutBin Inner					*JCLPunchLocation 3Hole_L
 
-*UIConstraints: *JCLFinisherOutBin Bin1					*JCLPunchLocation 4Hole_P
-*UIConstraints: *JCLFinisherOutBin Bin2					*JCLPunchLocation 4Hole_P
-*UIConstraints: *JCLFinisherOutBin Bin3					*JCLPunchLocation 4Hole_P
-*UIConstraints: *JCLFinisherOutBin Bin1					*JCLPunchLocation 4Hole_L
-*UIConstraints: *JCLFinisherOutBin Bin2					*JCLPunchLocation 4Hole_L
-*UIConstraints: *JCLFinisherOutBin Bin3					*JCLPunchLocation 4Hole_L
+*UIConstraints: *JCLFinisherOutBin Standard					*JCLPunchLocation 4Hole_P
+*UIConstraints: *JCLFinisherOutBin Top					*JCLPunchLocation 4Hole_P
+*UIConstraints: *JCLFinisherOutBin Inner					*JCLPunchLocation 4Hole_P
+*UIConstraints: *JCLFinisherOutBin Standard					*JCLPunchLocation 4Hole_L
+*UIConstraints: *JCLFinisherOutBin Top					*JCLPunchLocation 4Hole_L
+*UIConstraints: *JCLFinisherOutBin Inner					*JCLPunchLocation 4Hole_L
 
 *% =========================================================
 *%  Offset - Page Size
@@ -2895,6 +3028,198 @@ save currentpagedevice /PageSize get aload pop
 *UIConstraints: *PageRegion Executive			*JCLSortOptions Offset
 *UIConstraints: *PageRegion C4			*JCLSortOptions Offset
 
+*% =========================================================
+*%  Folding - Pattern
+*% =========================================================
+*UIConstraints: *JCLFoldingOption None			*JCLCFoldingPattern Pattern1
+*UIConstraints: *JCLFoldingOption None			*JCLCFoldingPattern Pattern2
+*UIConstraints: *JCLFoldingOption None			*JCLCFoldingPattern Pattern3
+*UIConstraints: *JCLFoldingOption None			*JCLCFoldingPattern Pattern4
+
+*UIConstraints: *JCLCFoldingPattern Pattern1			*JCLFoldingOption None
+*UIConstraints: *JCLCFoldingPattern Pattern2			*JCLFoldingOption None
+*UIConstraints: *JCLCFoldingPattern Pattern3			*JCLFoldingOption None
+*UIConstraints: *JCLCFoldingPattern Pattern4			*JCLFoldingOption None
+
+*UIConstraints: *JCLFoldingOption C-Folding			*JCLCFoldingPattern None
+*UIConstraints: *JCLCFoldingPattern None			*JCLFoldingOption C-Folding
+
+*UIConstraints: *JCLFoldingOption V-Folding                     *JCLCFoldingPattern Pattern1
+*UIConstraints: *JCLFoldingOption V-Folding                     *JCLCFoldingPattern Pattern2
+*UIConstraints: *JCLFoldingOption V-Folding                     *JCLCFoldingPattern Pattern3
+*UIConstraints: *JCLFoldingOption V-Folding                     *JCLCFoldingPattern Pattern4
+
+*UIConstraints: *JCLCFoldingPattern Pattern1                     *JCLFoldingOption V-Folding
+*UIConstraints: *JCLCFoldingPattern Pattern2                     *JCLFoldingOption V-Folding
+*UIConstraints: *JCLCFoldingPattern Pattern3                     *JCLFoldingOption V-Folding
+*UIConstraints: *JCLCFoldingPattern Pattern4                     *JCLFoldingOption V-Folding
+
+*% =========================================================
+*%  Folding - Divide Into Sets
+*% =========================================================
+*UIConstraints: *JCLFoldingOption None			*JCLCFoldingDIS 1
+*UIConstraints: *JCLFoldingOption None			*JCLCFoldingDIS 2
+*UIConstraints: *JCLFoldingOption None			*JCLCFoldingDIS 3
+
+*UIConstraints: *JCLCFoldingDIS 1			*JCLFoldingOption None
+*UIConstraints: *JCLCFoldingDIS 2			*JCLFoldingOption None
+*UIConstraints: *JCLCFoldingDIS 3			*JCLFoldingOption None
+
+*UIConstraints: *JCLFoldingOption C-Folding			*JCLCFoldingDIS None
+*UIConstraints: *JCLCFoldingDIS None			*JCLFoldingOption C-Folding
+
+*UIConstraints: *JCLFoldingOption V-Folding                  *JCLCFoldingDIS 1
+*UIConstraints: *JCLFoldingOption V-Folding                  *JCLCFoldingDIS 2
+*UIConstraints: *JCLFoldingOption V-Folding                  *JCLCFoldingDIS 3
+
+*UIConstraints: *JCLCFoldingDIS 1                    *JCLFoldingOption V-Folding
+*UIConstraints: *JCLCFoldingDIS 2                    *JCLFoldingOption V-Folding
+*UIConstraints: *JCLCFoldingDIS 3                    *JCLFoldingOption V-Folding
+
+*% =========================================================
+*%  Folding - JCLFinisherOutBin
+*% =========================================================
+*UIConstraints: *JCLFoldingOption C-Folding			*JCLFinisherOutBin None
+*UIConstraints: *JCLFoldingOption C-Folding			*JCLFinisherOutBin Standard
+*UIConstraints: *JCLFoldingOption C-Folding			*JCLFinisherOutBin Top
+*UIConstraints: *JCLFoldingOption C-Folding			*JCLFinisherOutBin Inner
+*UIConstraints: *JCLFoldingOption C-Folding			*JCLFinisherOutBin Finishing
+
+*UIConstraints: *JCLFinisherOutBin None			*JCLFoldingOption C-Folding
+*UIConstraints: *JCLFinisherOutBin Standard			*JCLFoldingOption C-Folding
+*UIConstraints: *JCLFinisherOutBin Top			*JCLFoldingOption C-Folding
+*UIConstraints: *JCLFinisherOutBin Inner			*JCLFoldingOption C-Folding
+*UIConstraints: *JCLFinisherOutBin Finishing			*JCLFoldingOption C-Folding
+
+*% =========================================================
+*%  V-Folding - Pattern
+*% =========================================================
+*UIConstraints: *JCLFoldingOption None                  *JCLVFoldingPattern Inside
+*UIConstraints: *JCLFoldingOption None                  *JCLVFoldingPattern Outside
+
+*UIConstraints: *JCLVFoldingPattern Inside                     *JCLFoldingOption None
+*UIConstraints: *JCLVFoldingPattern Outside                    *JCLFoldingOption None
+
+*UIConstraints: *JCLFoldingOption V-Folding                     *JCLVFoldingPattern None
+*UIConstraints: *JCLVFoldingPattern None                        *JCLFoldingOption V-Folding
+
+*UIConstraints: *JCLFoldingOption C-Folding                     *JCLVFoldingPattern Inside
+*UIConstraints: *JCLFoldingOption C-Folding                     *JCLVFoldingPattern Outside
+
+*UIConstraints: *JCLVFoldingPattern Inside                     *JCLFoldingOption C-Folding
+*UIConstraints: *JCLVFoldingPattern Outside                    *JCLFoldingOption C-Folding
+
+*% =========================================================
+*%  V-Folding - Divide Into Sets
+*% =========================================================
+*UIConstraints: *JCLFoldingOption None                  *JCLVFoldingDIS 1
+*UIConstraints: *JCLFoldingOption None                  *JCLVFoldingDIS 2
+*UIConstraints: *JCLFoldingOption None                  *JCLVFoldingDIS 3
+*UIConstraints: *JCLFoldingOption None                  *JCLVFoldingDIS 4
+*UIConstraints: *JCLFoldingOption None                  *JCLVFoldingDIS 5
+
+*UIConstraints: *JCLVFoldingDIS 1                    *JCLFoldingOption None
+*UIConstraints: *JCLVFoldingDIS 2                    *JCLFoldingOption None
+*UIConstraints: *JCLVFoldingDIS 3                    *JCLFoldingOption None
+*UIConstraints: *JCLVFoldingDIS 4                    *JCLFoldingOption None
+*UIConstraints: *JCLVFoldingDIS 5                    *JCLFoldingOption None
+
+*UIConstraints: *JCLFoldingOption V-Folding                     *JCLVFoldingDIS None
+*UIConstraints: *JCLVFoldingDIS None                 *JCLFoldingOption V-Folding
+
+*UIConstraints: *JCLFoldingOption C-Folding                  *JCLVFoldingDIS 1
+*UIConstraints: *JCLFoldingOption C-Folding                  *JCLVFoldingDIS 2
+*UIConstraints: *JCLFoldingOption C-Folding                  *JCLVFoldingDIS 3
+*UIConstraints: *JCLFoldingOption C-Folding                  *JCLVFoldingDIS 4
+*UIConstraints: *JCLFoldingOption C-Folding                  *JCLVFoldingDIS 5
+
+*UIConstraints: *JCLVFoldingDIS 1                    *JCLFoldingOption C-Folding
+*UIConstraints: *JCLVFoldingDIS 2                    *JCLFoldingOption C-Folding
+*UIConstraints: *JCLVFoldingDIS 3                    *JCLFoldingOption C-Folding
+*UIConstraints: *JCLVFoldingDIS 4                    *JCLFoldingOption C-Folding
+*UIConstraints: *JCLVFoldingDIS 5                    *JCLFoldingOption C-Folding
+
+*% =========================================================
+*%  V-Folding - JCLFinisherOutBin
+*% =========================================================
+*UIConstraints: *JCLFoldingOption V-Folding		*JCLFinisherOutBin None
+*UIConstraints: *JCLFoldingOption V-Folding		*JCLFinisherOutBin Standard
+*UIConstraints: *JCLFoldingOption V-Folding		*JCLFinisherOutBin Top
+*UIConstraints: *JCLFoldingOption V-Folding		*JCLFinisherOutBin Inner
+*UIConstraints: *JCLFoldingOption V-Folding		*JCLFinisherOutBin Finishing
+
+*UIConstraints: *JCLFinisherOutBin None			*JCLFoldingOption V-Folding
+*UIConstraints: *JCLFinisherOutBin Standard		*JCLFoldingOption V-Folding
+*UIConstraints: *JCLFinisherOutBin Top                  *JCLFoldingOption V-Folding
+*UIConstraints: *JCLFinisherOutBin Inner		*JCLFoldingOption V-Folding
+*UIConstraints: *JCLFinisherOutBin Finishing		*JCLFoldingOption V-Folding
+
+*% =========================================================
+*%  Folding - PageSize
+*% =========================================================
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize Legal
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize Executive
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize A5
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize B5-JIS
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize US-Folio
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize Env10
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize EnvDL
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize EnvC5
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize EnvC6
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize B5-ISO
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize EnvMonarch
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize A6
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize Oficio_S
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize Statement
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize Postcard_S
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize A3
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize Env9
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize C4
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize B4
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize 8K
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize 16K
+*UIConstraints: *JCLFoldingOption C-Folding			*PageSize Tabloid
+
+*% =========================================================
+*%  Folding - PageRegion
+*% =========================================================
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion Legal
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion Executive
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion A5
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion B5-JIS
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion US-Folio
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion Env10
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion EnvDL
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion EnvC5
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion EnvC6
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion B5-ISO
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion EnvMonarch
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion A6
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion Oficio_S
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion Statement
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion Postcard_S
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion A3
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion Env9
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion C4
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion B4
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion 8K
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion 16K
+*UIConstraints: *JCLFoldingOption C-Folding			*PageRegion Tabloid
+
+*% =========================================================
+*%  Folding - MediaType
+*% =========================================================
+*UIConstraints: *JCLFoldingOption C-Folding			*MediaType Thick
+*UIConstraints: *JCLFoldingOption C-Folding			*MediaType Bond
+*UIConstraints: *JCLFoldingOption C-Folding			*MediaType Labels
+*UIConstraints: *JCLFoldingOption C-Folding			*MediaType Envelope
+*UIConstraints: *JCLFoldingOption C-Folding			*MediaType Cotton
+*UIConstraints: *JCLFoldingOption C-Folding			*MediaType Archive
+*UIConstraints: *JCLFoldingOption C-Folding			*MediaType Punched
+*UIConstraints: *JCLFoldingOption C-Folding			*MediaType Letterhead
+*UIConstraints: *JCLFoldingOption C-Folding			*MediaType HeavyWeight
+*UIConstraints: *JCLFoldingOption C-Folding			*MediaType ThinCardStock
+*UIConstraints: *JCLFoldingOption C-Folding			*MediaType ThinGlossy
 
 *% ++++++++++++++++++++++
 *%  Font Information

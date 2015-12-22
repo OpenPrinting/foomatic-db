@@ -34,7 +34,7 @@
 *% 
 *% [this is the MIT open source license -- please see www.opensource.org]
 *%
-*FileVersion: "1.8"
+*FileVersion: "1.9"
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
@@ -75,12 +75,6 @@
 *OptionalTray Tray23/Tray 2, 3: ""
 *OptionalTray Tray234/Tray 2, 3, 4: ""
 *CloseUI: *OptionalTray
-
-*OpenUI *MassStorage/Mass Storage Device: Boolean
-*DefaultMassStorage: False
-*MassStorage False/Not Installed: ""
-*MassStorage True/Installed: ""
-*CloseUI: *MassStorage
 
 *CloseGroup: InstallableOptions
 
@@ -173,7 +167,7 @@
 *% =========================================
 *% Print Mode - Password 
 *% =========================================
-*JCLOpenUI *JCLCDPPassword/[Print Mode] Password (4-8 characters): PickOne
+*JCLOpenUI *JCLCDPPassword/[Print Mode] Password (4-32 characters): PickOne
 *OrderDependency: 20 JCLSetup *JCLCDPPassword
 *DefaultJCLCDPPassword: None
 *JCLCDPPassword None/None: ""
@@ -182,7 +176,7 @@
 
 *% Custom CDPPassword
 *CustomJCLCDPPassword True: "@PJL SET HOLDKEY = <22>\1<220A>"
-*ParamCustomJCLCDPPassword Custom/Custom Password: 1 password 4 8
+*ParamCustomJCLCDPPassword Custom/Custom Password: 1 password 4 32
 
 *% =========================================================
 *%  Printer Features
@@ -192,7 +186,7 @@
 *%==========================================================
 *OpenUI *Collate/Collate:  Boolean
 *OrderDependency: 70 AnySetup *Collate
-*DefaultCollate: False
+*DefaultCollate: True
 *Collate False/Off: "<</Collate false>> setpagedevice"
 *Collate True/On: "<</Collate true>> setpagedevice"
 *?Collate: "
@@ -255,7 +249,7 @@
 *OrderDependency: 10 JCLSetup *JCLDarkenText
 *DefaultJCLDarkenText: Off
 *JCLDarkenText Off/Off:         "@PJL SET DARKENTEXT=OFF<0D0A>"
-*JCLDarkenText Normal/Medium:   "@PJL SET DARKENTEXT=ON<0D0A>"
+*JCLDarkenText Medium/Medium:   "@PJL SET DARKENTEXT=ON<0D0A>"
 *JCLDarkenText Maximum/Maximum: "@PJL SET DARKENTEXT=MAXIMUM<0D0A>"
 *JCLCloseUI: *JCLDarkenText
 
@@ -341,10 +335,10 @@
 *InputSlot Auto/Auto Select:"
  <</ManualFeed false /MediaPosition null>> setpagedevice"
 *End
-*InputSlot Upper/MP Tray:"
+*InputSlot Multi/MP Tray:"
  << /ManualFeed false /MediaPosition 2 >> setpagedevice"
 *End
-*InputSlot Middle/Tray 1:"
+*InputSlot Upper/Tray 1:"
  << /ManualFeed false /MediaPosition 1 >> setpagedevice"
 *End
 *InputSlot Lower/Tray 2:"
@@ -365,21 +359,21 @@
 *OrderDependency: 10 AnySetup *MediaType
 *DefaultMediaType: None
 *MediaType None/Printer Default:      "<</MediaType (system-default)>> setpagedevice"
-*MediaType Plain/Plain:               "<</MediaType (Plain)>> setpagedevice"
-*MediaType Thick/Thick:               "<</MediaType (THICK)>> setpagedevice"
-*MediaType Thicker/Thicker:           "<</MediaType (THICKER)>> setpagedevice"
-*MediaType Thin/Thin:                 "<</MediaType (THIN)>> setpagedevice"
-*MediaType Bond/Bond:                 "<</MediaType (Bond)>> setpagedevice"
-*MediaType Color/Color:               "<</MediaType (Color)>> setpagedevice"
-*MediaType Card/CardStock:            "<</MediaType (Card Stock)>> setpagedevice"
-*MediaType Labels/Labels:             "<</MediaType (Labels)>> setpagedevice"
-*MediaType Envelope/Envelope:         "<</MediaType (Envelope)>> setpagedevice"
-*MediaType Preprinted/Preprinted:     "<</MediaType (Preprinted)>> setpagedevice"
-*MediaType Recycled/Recycled:         "<</MediaType (Recycled)>> setpagedevice"
-*MediaType Cotton/Cotton:             "<</MediaType (COTTEN)>> setpagedevice"
+*MediaType Plain/Plain (70~90 g/m2):               "<</MediaType (Plain)>> setpagedevice"
+*MediaType Thick/Thick (91~105 g/m2):               "<</MediaType (THICK)>> setpagedevice"
+*MediaType Thicker/Thicker (164~220 g/m2):           "<</MediaType (THICKER)>> setpagedevice"
+*MediaType Thin/Thin (60~69 g/m2):                 "<</MediaType (THIN)>> setpagedevice"
+*MediaType Bond/Bond (105~120 g/m2):                 "<</MediaType (Bond)>> setpagedevice"
+*MediaType Color/Color (75~90 g/m2):               "<</MediaType (Color)>> setpagedevice"
+*MediaType Card/CardStock (106~163 g/m2):            "<</MediaType (Card Stock)>> setpagedevice"
+*MediaType Labels/Labels (120~150 g/m2):             "<</MediaType (Labels)>> setpagedevice"
+*MediaType Envelope/Envelope (75~90 g/m2):         "<</MediaType (Envelope)>> setpagedevice"
+*MediaType Preprinted/Preprinted (75~90 g/m2):     "<</MediaType (Preprinted)>> setpagedevice"
+*MediaType Recycled/Recycled (60~90 g/m2):         "<</MediaType (Recycled)>> setpagedevice"
+*MediaType Cotton/Cotton (75~90 g/m2):             "<</MediaType (COTTEN)>> setpagedevice"
 *MediaType Archive/Archive:           "<</MediaType (ARCHIVE)>> setpagedevice"
-*MediaType Punched/Punched:           "<</MediaType (Prepunched)>> setpagedevice"
-*MediaType Letterhead/LetterHead:     "<</MediaType (Letterhead)>> setpagedevice"
+*MediaType Punched/Punched (75~90 g/m2):           "<</MediaType (Prepunched)>> setpagedevice"
+*MediaType Letterhead/LetterHead (75~90 g/m2):     "<</MediaType (Letterhead)>> setpagedevice"
 *CloseUI: *MediaType
 
 *% =========================================================
@@ -402,8 +396,8 @@
 *DefaultJCLFrontCoverSource: None
 *JCLFrontCoverSource None/None:          					""
 *JCLFrontCoverSource Auto/Auto Select:     		"@PJL SET FRONT_COVER_TRAY=<22>AUTO<220D0A>"
-*JCLFrontCoverSource Upper/MP Tray: 		"@PJL SET FRONT_COVER_TRAY=<22>MPTRAY<220D0A>"
-*JCLFrontCoverSource Middle/Tray 1:        				"@PJL SET FRONT_COVER_TRAY=<22>UPPER<220D0A>"
+*JCLFrontCoverSource Multi/MP Tray: 		"@PJL SET FRONT_COVER_TRAY=<22>MPTRAY<220D0A>"
+*JCLFrontCoverSource Upper/Tray 1:        				"@PJL SET FRONT_COVER_TRAY=<22>UPPER<220D0A>"
 *JCLFrontCoverSource Lower/Tray 2:         				"@PJL SET FRONT_COVER_TRAY=<22>LOWER<220D0A>"
 *JCLFrontCoverSource Tray3/Tray 3:        		 		"@PJL SET FRONT_COVER_TRAY=<22>OPTIONTRAY3<220D0A>"
 *JCLFrontCoverSource Tray4/Tray 4:        		 		"@PJL SET FRONT_COVER_TRAY=<22>OPTIONTRAY4<220D0A>"
@@ -417,21 +411,21 @@
 *DefaultJCLFrontCoverType: None
 *JCLFrontCoverType None/None:              									""
 *JCLFrontCoverType PrinterDefault/Printer Default: 					"@PJL SET FRONT_COVER_TYPE = <22>OFF<220D0A>"
-*JCLFrontCoverType Plain/Plain:         								  	"@PJL SET FRONT_COVER_TYPE = <22>NORMAL<220D0A>"
-*JCLFrontCoverType Thick/Thick:         								  	"@PJL SET FRONT_COVER_TYPE = <22>THICK<220D0A>"
-*JCLFrontCoverType Thicker/Thicker:         								"@PJL SET FRONT_COVER_TYPE = <22>THICKER<220D0A>"
-*JCLFrontCoverType Thin/Thin:         											"@PJL SET FRONT_COVER_TYPE = <22>THIN<220D0A>"
-*JCLFrontCoverType Bond/Bond:          											"@PJL SET FRONT_COVER_TYPE = <22>BOND<220D0A>"
-*JCLFrontCoverType Color/Color:          										"@PJL SET FRONT_COVER_TYPE = <22>COLOR<220D0A>"
-*JCLFrontCoverType Card/CardStock:           								"@PJL SET FRONT_COVER_TYPE = <22>CARD<220D0A>"
-*JCLFrontCoverType Labels/Labels:            								"@PJL SET FRONT_COVER_TYPE = <22>LABEL<220D0A>"
-*JCLFrontCoverType Envelope/Envelope:          							"@PJL SET FRONT_COVER_TYPE = <22>ENV<220D0A>"
-*JCLFrontCoverType Preprinted/Preprinted:        						"@PJL SET FRONT_COVER_TYPE = <22>USED<220D0A>"
-*JCLFrontCoverType Cotton/Cotton:            								"@PJL SET FRONT_COVER_TYPE = <22>COTTON<220D0A>"
-*JCLFrontCoverType Recycled/Recycled:      									"@PJL SET FRONT_COVER_TYPE = <22>RECYCLED<220D0A>"
+*JCLFrontCoverType Plain/Plain (70~90 g/m2):         								  	"@PJL SET FRONT_COVER_TYPE = <22>NORMAL<220D0A>"
+*JCLFrontCoverType Thick/Thick (91~105 g/m2):         								  	"@PJL SET FRONT_COVER_TYPE = <22>THICK<220D0A>"
+*JCLFrontCoverType Thicker/Thicker (164~220 g/m2):         								"@PJL SET FRONT_COVER_TYPE = <22>THICKER<220D0A>"
+*JCLFrontCoverType Thin/Thin (60~69 g/m2):         											"@PJL SET FRONT_COVER_TYPE = <22>THIN<220D0A>"
+*JCLFrontCoverType Bond/Bond (105~120 g/m2):          											"@PJL SET FRONT_COVER_TYPE = <22>BOND<220D0A>"
+*JCLFrontCoverType Color/Color (75~90 g/m2):          										"@PJL SET FRONT_COVER_TYPE = <22>COLOR<220D0A>"
+*JCLFrontCoverType Card/CardStock (106~163 g/m2):           								"@PJL SET FRONT_COVER_TYPE = <22>CARD<220D0A>"
+*JCLFrontCoverType Labels/Labels (120~150 g/m2):            								"@PJL SET FRONT_COVER_TYPE = <22>LABEL<220D0A>"
+*JCLFrontCoverType Envelope/Envelope (75~90 g/m2):          							"@PJL SET FRONT_COVER_TYPE = <22>ENV<220D0A>"
+*JCLFrontCoverType Preprinted/Preprinted (75~90 g/m2):        						"@PJL SET FRONT_COVER_TYPE = <22>USED<220D0A>"
+*JCLFrontCoverType Cotton/Cotton (75~90 g/m2):            								"@PJL SET FRONT_COVER_TYPE = <22>COTTON<220D0A>"
+*JCLFrontCoverType Recycled/Recycled (60~90 g/m2):      									"@PJL SET FRONT_COVER_TYPE = <22>RECYCLED<220D0A>"
 *JCLFrontCoverType Archive/Archive:        									"@PJL SET FRONT_COVER_TYPE = <22>ARCHIVE<220D0A>"
-*JCLFrontCoverType Punched/Punched:         							  "@PJL SET FRONT_COVER_TYPE = <22>PUNCHED<220D0A>"
-*JCLFrontCoverType Letterhead/LetterHead:        						"@PJL SET FRONT_COVER_TYPE = <22>LETTERHEAD<220D0A>"
+*JCLFrontCoverType Punched/Punched (75~90 g/m2):         							  "@PJL SET FRONT_COVER_TYPE = <22>PUNCHED<220D0A>"
+*JCLFrontCoverType Letterhead/LetterHead (75~90 g/m2):        						"@PJL SET FRONT_COVER_TYPE = <22>LETTERHEAD<220D0A>"
 *JCLCloseUI: *JCLFrontCoverType
 
 *% =========================================================
@@ -454,8 +448,8 @@
 *DefaultJCLBackCoverSource: None
 *JCLBackCoverSource None/None:          					""
 *JCLBackCoverSource Auto/Auto Select:      		"@PJL SET BACK_COVER_TRAY=<22>AUTO<220D0A>"
-*JCLBackCoverSource Upper/MP Tray: 		"@PJL SET BACK_COVER_TRAY=<22>MPTRAY<220D0A>"
-*JCLBackCoverSource Middle/Tray 1:        				"@PJL SET BACK_COVER_TRAY=<22>UPPER<220D0A>"
+*JCLBackCoverSource Multi/MP Tray: 		"@PJL SET BACK_COVER_TRAY=<22>MPTRAY<220D0A>"
+*JCLBackCoverSource Upper/Tray 1:        				"@PJL SET BACK_COVER_TRAY=<22>UPPER<220D0A>"
 *JCLBackCoverSource Lower/Tray 2:         				"@PJL SET BACK_COVER_TRAY=<22>LOWER<220D0A>"
 *JCLBackCoverSource Tray3/Tray 3:         				"@PJL SET BACK_COVER_TRAY=<22>OPTIONTRAY3<220D0A>"
 *JCLBackCoverSource Tray4/Tray 4:         				"@PJL SET BACK_COVER_TRAY=<22>OPTIONTRAY4<220D0A>"
@@ -469,21 +463,21 @@
 *DefaultJCLBackCoverType: None
 *JCLBackCoverType None/None:            									""
 *JCLBackCoverType PrinterDefault/Printer Default: 				"@PJL SET BACK_COVER_TYPE = <22>OFF<220D0A>"
-*JCLBackCoverType Plain/Plain:        										"@PJL SET BACK_COVER_TYPE = <22>NORMAL<220D0A>"
-*JCLBackCoverType Thick/Thick:        										"@PJL SET BACK_COVER_TYPE = <22>THICK<220D0A>"
-*JCLBackCoverType Thicker/Thicker:        								"@PJL SET BACK_COVER_TYPE = <22>THICKER<220D0A>"
-*JCLBackCoverType Thin/Thin:          										"@PJL SET BACK_COVER_TYPE = <22>THIN<220D0A>"
-*JCLBackCoverType Bond/Bond:         											"@PJL SET BACK_COVER_TYPE = <22>BOND<220D0A>"
-*JCLBackCoverType Color/Color:        										"@PJL SET BACK_COVER_TYPE = <22>COLOR<220D0A>"
-*JCLBackCoverType Card/CardStock:           							"@PJL SET BACK_COVER_TYPE = <22>CARD<220D0A>"
-*JCLBackCoverType Labels/Labels:          								"@PJL SET BACK_COVER_TYPE = <22>LABEL<220D0A>"
-*JCLBackCoverType Envelope/Envelope:        							"@PJL SET BACK_COVER_TYPE = <22>ENV<220D0A>"
-*JCLBackCoverType Preprinted/Preprinted:      						"@PJL SET BACK_COVER_TYPE = <22>USED<220D0A>"
-*JCLBackCoverType Cotton/Cotton:          								"@PJL SET BACK_COVER_TYPE = <22>COTTON<220D0A>"
-*JCLBackCoverType Recycled/Recycled:      								"@PJL SET BACK_COVER_TYPE = <22>RECYCLED<220D0A>"
+*JCLBackCoverType Plain/Plain (70~90 g/m2):        										"@PJL SET BACK_COVER_TYPE = <22>NORMAL<220D0A>"
+*JCLBackCoverType Thick/Thick (91~105 g/m2):        										"@PJL SET BACK_COVER_TYPE = <22>THICK<220D0A>"
+*JCLBackCoverType Thicker/Thicker (164~220 g/m2):        								"@PJL SET BACK_COVER_TYPE = <22>THICKER<220D0A>"
+*JCLBackCoverType Thin/Thin (60~69 g/m2):          										"@PJL SET BACK_COVER_TYPE = <22>THIN<220D0A>"
+*JCLBackCoverType Bond/Bond (105~120 g/m2):         											"@PJL SET BACK_COVER_TYPE = <22>BOND<220D0A>"
+*JCLBackCoverType Color/Color (75~90 g/m2):        										"@PJL SET BACK_COVER_TYPE = <22>COLOR<220D0A>"
+*JCLBackCoverType Card/CardStock (106~163 g/m2):           							"@PJL SET BACK_COVER_TYPE = <22>CARD<220D0A>"
+*JCLBackCoverType Labels/Labels (120~150 g/m2):          								"@PJL SET BACK_COVER_TYPE = <22>LABEL<220D0A>"
+*JCLBackCoverType Envelope/Envelope (75~90 g/m2):        							"@PJL SET BACK_COVER_TYPE = <22>ENV<220D0A>"
+*JCLBackCoverType Preprinted/Preprinted (75~90 g/m2):      						"@PJL SET BACK_COVER_TYPE = <22>USED<220D0A>"
+*JCLBackCoverType Cotton/Cotton (75~90 g/m2):          								"@PJL SET BACK_COVER_TYPE = <22>COTTON<220D0A>"
+*JCLBackCoverType Recycled/Recycled (60~90 g/m2):      								"@PJL SET BACK_COVER_TYPE = <22>RECYCLED<220D0A>"
 *JCLBackCoverType Archive/Archive:      									"@PJL SET BACK_COVER_TYPE = <22>ARCHIVE<220D0A>"
-*JCLBackCoverType Punched/Punched:          							"@PJL SET BACK_COVER_TYPE = <22>PUNCHED<220D0A>"
-*JCLBackCoverType Letterhead/LetterHead:      						"@PJL SET BACK_COVER_TYPE = <22>LETTERHEAD<220D0A>"
+*JCLBackCoverType Punched/Punched (75~90 g/m2):          							"@PJL SET BACK_COVER_TYPE = <22>PUNCHED<220D0A>"
+*JCLBackCoverType Letterhead/LetterHead (75~90 g/m2):      						"@PJL SET BACK_COVER_TYPE = <22>LETTERHEAD<220D0A>"
 *JCLCloseUI: *JCLBackCoverType
 
 *% =========================================================
@@ -506,8 +500,8 @@
 *DefaultJCLFrontBackCoverSource: None
 *JCLFrontBackCoverSource None/None:         						""
 *JCLFrontBackCoverSource Auto/Auto Select:     			"@PJL SET FRONTBACK_COVER_TRAY=<22>AUTO<220D0A>"
-*JCLFrontBackCoverSource Upper/MP Tray:  		"@PJL SET FRONTBACK_COVER_TRAY=<22>MPTRAY<220D0A>"
-*JCLFrontBackCoverSource Middle/Tray 1:         				"@PJL SET FRONTBACK_COVER_TRAY=<22>UPPER<220D0A>"
+*JCLFrontBackCoverSource Multi/MP Tray:  		"@PJL SET FRONTBACK_COVER_TRAY=<22>MPTRAY<220D0A>"
+*JCLFrontBackCoverSource Upper/Tray 1:         				"@PJL SET FRONTBACK_COVER_TRAY=<22>UPPER<220D0A>"
 *JCLFrontBackCoverSource Lower/Tray 2:          				"@PJL SET FRONTBACK_COVER_TRAY=<22>LOWER<220D0A>"
 *JCLFrontBackCoverSource Tray3/Tray 3:         		  		"@PJL SET FRONTBACK_COVER_TRAY=<22>OPTIONTRAY3<220D0A>"
 *JCLFrontBackCoverSource Tray4/Tray 4:         		  		"@PJL SET FRONTBACK_COVER_TRAY=<22>OPTIONTRAY4<220D0A>"
@@ -521,21 +515,21 @@
 *DefaultJCLFrontBackCoverType: None
 *JCLFrontBackCoverType None/None:              										""
 *JCLFrontBackCoverType PrinterDefault/Printer Default: 						"@PJL SET FRONTBACK_COVER_TYPE = <22>OFF<220D0A>"
-*JCLFrontBackCoverType Plain/Plain:          											"@PJL SET FRONTBACK_COVER_TYPE = <22>NORMAL<220D0A>"
-*JCLFrontBackCoverType Thick/Thick:          											"@PJL SET FRONTBACK_COVER_TYPE = <22>THICK<220D0A>"
-*JCLFrontBackCoverType Thicker/Thicker:          									"@PJL SET FRONTBACK_COVER_TYPE = <22>THICKER<220D0A>"
-*JCLFrontBackCoverType Thin/Thin:          												"@PJL SET FRONTBACK_COVER_TYPE = <22>THIN<220D0A>"
-*JCLFrontBackCoverType Bond/Bond:          												"@PJL SET FRONTBACK_COVER_TYPE = <22>BOND<220D0A>"
-*JCLFrontBackCoverType Color/Color:          											"@PJL SET FRONTBACK_COVER_TYPE = <22>COLOR<220D0A>"
-*JCLFrontBackCoverType Card/CardStock:           									"@PJL SET FRONTBACK_COVER_TYPE = <22>CARD<220D0A>"
-*JCLFrontBackCoverType Labels/Labels:            									"@PJL SET FRONTBACK_COVER_TYPE = <22>LABEL<220D0A>"
-*JCLFrontBackCoverType Envelope/Envelope:          								"@PJL SET FRONTBACK_COVER_TYPE = <22>ENV<220D0A>"
-*JCLFrontBackCoverType Preprinted/Preprinted:        							"@PJL SET FRONTBACK_COVER_TYPE = <22>USED<220D0A>"
-*JCLFrontBackCoverType Cotton/Cotton:            									"@PJL SET FRONTBACK_COVER_TYPE = <22>COTTON<220D0A>"
-*JCLFrontBackCoverType Recycled/Recycled:      										"@PJL SET FRONTBACK_COVER_TYPE = <22>RECYCLED<220D0A>"
+*JCLFrontBackCoverType Plain/Plain (70~90 g/m2):          											"@PJL SET FRONTBACK_COVER_TYPE = <22>NORMAL<220D0A>"
+*JCLFrontBackCoverType Thick/Thick (91~105 g/m2):          											"@PJL SET FRONTBACK_COVER_TYPE = <22>THICK<220D0A>"
+*JCLFrontBackCoverType Thicker/Thicker (164~220 g/m2):          									"@PJL SET FRONTBACK_COVER_TYPE = <22>THICKER<220D0A>"
+*JCLFrontBackCoverType Thin/Thin (60~69 g/m2):          												"@PJL SET FRONTBACK_COVER_TYPE = <22>THIN<220D0A>"
+*JCLFrontBackCoverType Bond/Bond (105~120 g/m2):          												"@PJL SET FRONTBACK_COVER_TYPE = <22>BOND<220D0A>"
+*JCLFrontBackCoverType Color/Color (75~90 g/m2):          											"@PJL SET FRONTBACK_COVER_TYPE = <22>COLOR<220D0A>"
+*JCLFrontBackCoverType Card/CardStock (106~163 g/m2):           									"@PJL SET FRONTBACK_COVER_TYPE = <22>CARD<220D0A>"
+*JCLFrontBackCoverType Labels/Labels (120~150 g/m2):            									"@PJL SET FRONTBACK_COVER_TYPE = <22>LABEL<220D0A>"
+*JCLFrontBackCoverType Envelope/Envelope (75~90 g/m2):          								"@PJL SET FRONTBACK_COVER_TYPE = <22>ENV<220D0A>"
+*JCLFrontBackCoverType Preprinted/Preprinted (75~90 g/m2):        							"@PJL SET FRONTBACK_COVER_TYPE = <22>USED<220D0A>"
+*JCLFrontBackCoverType Cotton/Cotton (75~90 g/m2):            									"@PJL SET FRONTBACK_COVER_TYPE = <22>COTTON<220D0A>"
+*JCLFrontBackCoverType Recycled/Recycled (60~90 g/m2):      										"@PJL SET FRONTBACK_COVER_TYPE = <22>RECYCLED<220D0A>"
 *JCLFrontBackCoverType Archive/Archive:        										"@PJL SET FRONTBACK_COVER_TYPE = <22>ARCHIVE<220D0A>"
-*JCLFrontBackCoverType Punched/Punched:          									"@PJL SET FRONTBACK_COVER_TYPE = <22>PUNCHED<220D0A>"
-*JCLFrontBackCoverType Letterhead/LetterHead:        							"@PJL SET FRONTBACK_COVER_TYPE = <22>LETTERHEAD<220D0A>"
+*JCLFrontBackCoverType Punched/Punched (75~90 g/m2):          									"@PJL SET FRONTBACK_COVER_TYPE = <22>PUNCHED<220D0A>"
+*JCLFrontBackCoverType Letterhead/LetterHead (75~90 g/m2):        							"@PJL SET FRONTBACK_COVER_TYPE = <22>LETTERHEAD<220D0A>"
 *JCLCloseUI: *JCLFrontBackCoverType
 
 *% =========================================================
@@ -690,12 +684,6 @@ save currentpagedevice /PageSize get aload pop
 *% =========================================================
 *%  User Interface Constraints
 *% =========================================================
-*% =========================================================
-*%  Mass Storage - Collate
-*% =========================================================
-*UIConstraints: *MassStorage False		*Collate True
-*UIConstraints: *Collate True		*MassStorage False 
-
 *% =========================================================
 *%  Optional Tray - Tray
 *% =========================================================
@@ -1478,12 +1466,12 @@ save currentpagedevice /PageSize get aload pop
 *% ========================================================
 *% Media Type - Tray
 *% =========================================================  
-*UIConstraints: *MediaType Thicker		*InputSlot Middle
+*UIConstraints: *MediaType Thicker		*InputSlot Upper
 *UIConstraints: *MediaType Thicker		*InputSlot Lower
 *UIConstraints: *MediaType Thicker		*InputSlot Tray3
 *UIConstraints: *MediaType Thicker		*InputSlot Tray4
 
-*UIConstraints: *InputSlot Middle				*MediaType Thicker	
+*UIConstraints: *InputSlot Upper				*MediaType Thicker	
 *UIConstraints: *InputSlot Lower				*MediaType Thicker		
 *UIConstraints: *InputSlot Tray3				*MediaType Thicker
 *UIConstraints: *InputSlot Tray4				*MediaType Thicker
@@ -1517,12 +1505,12 @@ save currentpagedevice /PageSize get aload pop
 *UIConstraints: *InputSlot Tray3			*PageSize JPost			
 *UIConstraints: *InputSlot Tray4			*PageSize JPost
 
-*UIConstraints: *PageSize IndexCard						*InputSlot Middle
+*UIConstraints: *PageSize IndexCard						*InputSlot Upper
 *UIConstraints: *PageSize IndexCard						*InputSlot Lower
 *UIConstraints: *PageSize IndexCard						*InputSlot Tray3
 *UIConstraints: *PageSize IndexCard						*InputSlot Tray4
 
-*UIConstraints: *InputSlot Middle			*PageSize IndexCard	
+*UIConstraints: *InputSlot Upper			*PageSize IndexCard	
 *UIConstraints: *InputSlot Lower			*PageSize IndexCard						
 *UIConstraints: *InputSlot Tray3			*PageSize IndexCard			
 *UIConstraints: *InputSlot Tray4			*PageSize IndexCard	
@@ -1556,12 +1544,12 @@ save currentpagedevice /PageSize get aload pop
 *UIConstraints: *InputSlot Tray3			*PageRegion JPost			
 *UIConstraints: *InputSlot Tray4			*PageRegion JPost
 
-*UIConstraints: *PageRegion IndexCard						*InputSlot Middle
+*UIConstraints: *PageRegion IndexCard						*InputSlot Upper
 *UIConstraints: *PageRegion IndexCard						*InputSlot Lower
 *UIConstraints: *PageRegion IndexCard						*InputSlot Tray3
 *UIConstraints: *PageRegion IndexCard						*InputSlot Tray4
 
-*UIConstraints: *InputSlot Middle			*PageRegion IndexCard	
+*UIConstraints: *InputSlot Upper			*PageRegion IndexCard	
 *UIConstraints: *InputSlot Lower			*PageRegion IndexCard						
 *UIConstraints: *InputSlot Tray3			*PageRegion IndexCard			
 *UIConstraints: *InputSlot Tray4			*PageRegion IndexCard	
@@ -1570,15 +1558,15 @@ save currentpagedevice /PageSize get aload pop
 *%  Front CoverOption - Front CoverSource
 *% =========================================================  
 *UIConstraints: *JCLFrontCoverOption None         *JCLFrontCoverSource Auto
+*UIConstraints: *JCLFrontCoverOption None         *JCLFrontCoverSource Multi
 *UIConstraints: *JCLFrontCoverOption None         *JCLFrontCoverSource Upper
-*UIConstraints: *JCLFrontCoverOption None         *JCLFrontCoverSource Middle
 *UIConstraints: *JCLFrontCoverOption None         *JCLFrontCoverSource Lower
 *UIConstraints: *JCLFrontCoverOption None         *JCLFrontCoverSource Tray3
 *UIConstraints: *JCLFrontCoverOption None         *JCLFrontCoverSource Tray4
 
 *UIConstraints: *JCLFrontCoverSource Auto         *JCLFrontCoverOption None
-*UIConstraints: *JCLFrontCoverSource Upper        *JCLFrontCoverOption None
-*UIConstraints: *JCLFrontCoverSource Middle       *JCLFrontCoverOption None
+*UIConstraints: *JCLFrontCoverSource Multi        *JCLFrontCoverOption None
+*UIConstraints: *JCLFrontCoverSource Upper       *JCLFrontCoverOption None
 *UIConstraints: *JCLFrontCoverSource Lower        *JCLFrontCoverOption None
 *UIConstraints: *JCLFrontCoverSource Tray3        *JCLFrontCoverOption None
 *UIConstraints: *JCLFrontCoverSource Tray4        *JCLFrontCoverOption None
@@ -1624,15 +1612,15 @@ save currentpagedevice /PageSize get aload pop
 *%  Back CoverOption - Back CoverSource
 *% =========================================================  
 *UIConstraints: *JCLBackCoverOption None          *JCLBackCoverSource Auto
+*UIConstraints: *JCLBackCoverOption None          *JCLBackCoverSource Multi
 *UIConstraints: *JCLBackCoverOption None          *JCLBackCoverSource Upper
-*UIConstraints: *JCLBackCoverOption None          *JCLBackCoverSource Middle
 *UIConstraints: *JCLBackCoverOption None          *JCLBackCoverSource Lower
 *UIConstraints: *JCLBackCoverOption None          *JCLBackCoverSource Tray3
 *UIConstraints: *JCLBackCoverOption None          *JCLBackCoverSource Tray4
 
 *UIConstraints: *JCLBackCoverSource Auto          *JCLBackCoverOption None
-*UIConstraints: *JCLBackCoverSource Upper         *JCLBackCoverOption None
-*UIConstraints: *JCLBackCoverSource Middle        *JCLBackCoverOption None
+*UIConstraints: *JCLBackCoverSource Multi         *JCLBackCoverOption None
+*UIConstraints: *JCLBackCoverSource Upper        *JCLBackCoverOption None
 *UIConstraints: *JCLBackCoverSource Lower         *JCLBackCoverOption None
 *UIConstraints: *JCLBackCoverSource Tray3         *JCLBackCoverOption None
 *UIConstraints: *JCLBackCoverSource Tray4         *JCLBackCoverOption None
@@ -1678,15 +1666,15 @@ save currentpagedevice /PageSize get aload pop
 *%  FrontBack CoverOption - FrontBack CoverSource
 *% =========================================================  
 *UIConstraints: *JCLFrontBackCoverOption None     *JCLFrontBackCoverSource Auto
+*UIConstraints: *JCLFrontBackCoverOption None     *JCLFrontBackCoverSource Multi
 *UIConstraints: *JCLFrontBackCoverOption None     *JCLFrontBackCoverSource Upper
-*UIConstraints: *JCLFrontBackCoverOption None     *JCLFrontBackCoverSource Middle
 *UIConstraints: *JCLFrontBackCoverOption None     *JCLFrontBackCoverSource Lower
 *UIConstraints: *JCLFrontBackCoverOption None     *JCLFrontBackCoverSource Tray3
 *UIConstraints: *JCLFrontBackCoverOption None     *JCLFrontBackCoverSource Tray4
 
 *UIConstraints: *JCLFrontBackCoverSource Auto     *JCLFrontBackCoverOption None
-*UIConstraints: *JCLFrontBackCoverSource Upper    *JCLFrontBackCoverOption None
-*UIConstraints: *JCLFrontBackCoverSource Middle   *JCLFrontBackCoverOption None
+*UIConstraints: *JCLFrontBackCoverSource Multi    *JCLFrontBackCoverOption None
+*UIConstraints: *JCLFrontBackCoverSource Upper   *JCLFrontBackCoverOption None
 *UIConstraints: *JCLFrontBackCoverSource Lower    *JCLFrontBackCoverOption None
 *UIConstraints: *JCLFrontBackCoverSource Tray3    *JCLFrontBackCoverOption None
 *UIConstraints: *JCLFrontBackCoverSource Tray4    *JCLFrontBackCoverOption None
