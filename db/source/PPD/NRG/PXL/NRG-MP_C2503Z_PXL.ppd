@@ -4,11 +4,11 @@
 *%    for "NRG MP C2503Z PXL"
 *%
 *%    CreationDate: 2013/03/08
-*%    Modified:     2014/02/09
+*%    Modified:     2016/05/10
 *%
 *%    java.util.zip.CRC32: 244fd7e
 *%
-*%    COPYRIGHT (C) 2013-2014 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2013-2016 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -32,7 +32,7 @@
 *%    [this is the MIT open source license -- please see www.opensource.org]
 *%
 
-*FileVersion: "2.2"
+*FileVersion: "2.3"
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
@@ -54,8 +54,9 @@
 *FoomaticRIPUserEntityMaxLength: 8
 *FoomaticRIPHostEntityMaxLength: 63
 *FoomaticRIPTitleEntityMaxLength: 40
-*FoomaticRIPCommandLine: "(printf &apos;\033%%-12345X@PJL SET COPIES=&copies;\n&apos;%G|perl -p -e &quot;s/\x26copies\x3b/1/&quot;);
-(gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -dNOINTERPOLATE %B%A%C %D%E | perl -p -e &quot;s/^\x1b\x25-12345X//&quot; | perl -p -e &quot;s/\xc1\x01\x00\xf8\x31\x44/\x44/g&quot;);"
+*FoomaticRIPCommandLine: "(printf &apos;\033%%-12345X@PJL\n@PJL JOB\n@PJL SET COPIES=&copies;\n&apos;%G|perl -p -e &quot;s/\x26copies\x3b/1/&quot;);
+(gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -dNOINTERPOLATE %B%A%C %D%E | perl -p -e &quot;s/^\x1b\x25-12345X//&quot; | perl -p -e &quot;s/\xc1\x01\x00\xf8\x31\x44/\x44/g&quot;);
+(printf &apos;@PJL\n@PJL EOJ\n\033%%-12345X&apos;)"
 *End
 
 *%========== Basic Device Capabilities ==========
@@ -1205,20 +1206,8 @@
 *UIConstraints: *StapleLocation LeftW *MediaType Coated
 
 *%========== Banner Page/Job Type ==========
-*UIConstraints: *RIBannerPage True *JobType SamplePrint
-*UIConstraints: *RIBannerPage True *JobType LockedPrint
-*UIConstraints: *RIBannerPage True *JobType DocServer
-
-*%============ Finishing/Duplex ============
-*UIConstraints: *RIPunch Left2 *Duplex DuplexTumble
-*UIConstraints: *Duplex DuplexTumble *RIPunch Left2
-*UIConstraints: *RIPunch Right2 *Duplex DuplexTumble
-*UIConstraints: *Duplex DuplexTumble *RIPunch Right2
-*UIConstraints: *RIPunch Left3 *Duplex DuplexTumble
-*UIConstraints: *Duplex DuplexTumble *RIPunch Left3
-*UIConstraints: *RIPunch Right3 *Duplex DuplexTumble
-*UIConstraints: *Duplex DuplexTumble *RIPunch Right3
-*UIConstraints: *RIPunch Upper3 *Duplex DuplexTumble
-*UIConstraints: *Duplex DuplexTumble *RIPunch Upper3
+*UIConstraints: *RIBannerPagePrint True *JobType SamplePrint
+*UIConstraints: *RIBannerPagePrint True *JobType LockedPrint
+*UIConstraints: *RIBannerPagePrint True *JobType DocServer
 
 *% end of Printer Description file

@@ -4,9 +4,9 @@
 *%    for "Lanier LD120 PS"
 *%
 *%    CreationDate: 2001/06/22
-*%    Modified:     2011/01/05
+*%    Modified:     2016/04/22
 *%
-*%    COPYRIGHT (C) 2001-2011 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2001-2016 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -30,7 +30,7 @@
 *%    [this is the MIT open source license -- please see www.opensource.org]
 *%
 
-*FileVersion: "2.0"
+*FileVersion: "2.1"
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
@@ -1124,12 +1124,13 @@ restore
 *OpenGroup: JobLog/Job Log
 
 *OpenUI *JobType/JobType: PickOne
-*FoomaticRIPOption JobType: enum CmdLine B
-*OrderDependency: 255 AnySetup *JobType
+*FoomaticRIPOption JobType: enum CmdLine A
+*OrderDependency: 110 AnySetup *JobType
 *DefaultJobType: Normal
 *JobType Normal/Normal: "%% FoomaticRIPOptionSetting: JobType=Normal"
 *FoomaticRIPOptionSetting JobType=Normal: "mark\n&&
-() () (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+/usrcode where{pop}{/usrcode()def}ifelse\n&&
+(&user;) usrcode (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
 cleartomark\n"
 *End
 *CloseUI: *JobType
@@ -1138,31 +1139,17 @@ cleartomark\n"
 *FoomaticRIPOption UserCode: string CmdLine A
 *FoomaticRIPOptionMaxLength UserCode:8
 *FoomaticRIPOptionAllowedChars UserCode: "0-9"
-*OrderDependency: 255 AnySetup *UserCode
-*FoomaticRIPOptionPrototype UserCode: "mark\n&&
-() (%s) (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
-cleartomark\n"
-*End
+*OrderDependency: 104 AnySetup *UserCode
+*FoomaticRIPOptionPrototype UserCode: "/usrcode(%s)def\n"
 *DefaultUserCode: None
-*UserCode None/None: ""
-*UserCode 1001/1001: "%% FoomaticRIPOptionSetting: UserCode=1001"
-*FoomaticRIPOptionSetting UserCode=1001: "mark\n&&
-() (1001) (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
-cleartomark\n"
-*End
-*UserCode 1002/1002: "%% FoomaticRIPOptionSetting: UserCode=1002"
-*FoomaticRIPOptionSetting UserCode=1002: "mark\n&&
-() (1002) (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
-cleartomark\n"
-*End
-*UserCode 1003/1003: "%% FoomaticRIPOptionSetting: UserCode=1003"
-*FoomaticRIPOptionSetting UserCode=1003: "mark\n&&
-() (1003) (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
-cleartomark\n"
-*End
+*UserCode None/None: "/usrcode()def\n"
+*UserCode 1001/1001: "/usrcode(1001)def\n"
+*UserCode 1002/1002: "/usrcode(1002)def\n"
+*UserCode 1003/1003: "/usrcode(1003)def\n"
 *CloseUI: *UserCode
 *CustomUserCode True/Custom UserCode: ""
 *ParamCustomUserCode UserCode: 1 passcode 1 8
+*NonUIOrderDependency: 105 AnySetup *CustomUserCode True
 
 *CloseGroup: JobLog/Job Log
 

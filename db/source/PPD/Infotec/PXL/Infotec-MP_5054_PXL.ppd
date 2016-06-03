@@ -4,11 +4,11 @@
 *%    for "Infotec MP 5054 PXL"
 *%
 *%    CreationDate: 2013/06/27
-*%    Modified:     2015/05/27
+*%    Modified:     2016/05/10
 *%
 *%    java.util.zip.CRC32: b74795e3
 *%
-*%    COPYRIGHT (C) 2013-2015 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2013-2016 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -32,7 +32,7 @@
 *%    [this is the MIT open source license -- please see www.opensource.org]
 *%
 
-*FileVersion: "2.3"
+*FileVersion: "2.4"
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
@@ -54,8 +54,9 @@
 *FoomaticRIPUserEntityMaxLength: 8
 *FoomaticRIPHostEntityMaxLength: 63
 *FoomaticRIPTitleEntityMaxLength: 40
-*FoomaticRIPCommandLine: "(printf &apos;\033%%-12345X@PJL SET COPIES=&copies;\n&apos;%G|perl -p -e &quot;s/\x26copies\x3b/1/&quot;);
-(gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -dNOINTERPOLATE %B%A%C %D%E | perl -p -e &quot;s/^\x1b\x25-12345X//&quot; | perl -p -e &quot;s/\xc1\x01\x00\xf8\x31\x44/\x44/g&quot;);"
+*FoomaticRIPCommandLine: "(printf &apos;\033%%-12345X@PJL\n@PJL JOB\n@PJL SET COPIES=&copies;\n&apos;%G|perl -p -e &quot;s/\x26copies\x3b/1/&quot;);
+(gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -dNOINTERPOLATE %B%A%C %D%E | perl -p -e &quot;s/^\x1b\x25-12345X//&quot; | perl -p -e &quot;s/\xc1\x01\x00\xf8\x31\x44/\x44/g&quot;);
+(printf &apos;@PJL\n@PJL EOJ\n\033%%-12345X&apos;)"
 *End
 
 *%========== Basic Device Capabilities ==========

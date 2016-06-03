@@ -4,9 +4,9 @@
 *%    for "Savin C2824 PXL"
 *%
 *%    CreationDate: 2004/03/23
-*%    Modified:     2011/03/05
+*%    Modified:     2016/05/10
 *%
-*%    COPYRIGHT (C) 2004-2011 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2004-2016 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -43,7 +43,7 @@
 *ShortNickName: "Savin C2824 PXL"
 *NickName: "Savin C2824 PXL"
 
-*FileVersion:      20
+*FileVersion: "2.1"
 *cupsVersion:      1.1
 *cupsManualCopies: False
 *cupsCommands:     ""
@@ -89,8 +89,9 @@
 
 *%========== Ghostscript Command line ==========
 
-*FoomaticRIPCommandLine: "(printf &apos;\033%%-12345X@PJL SET COPIES=&copies;\n&apos;%G|perl -p -e &quot;s/\x26copies\x3b/1/&quot;);
-(gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -dNOINTERPOLATE %B%A%C %D%E | perl -p -e &quot;s/^\x1b\x25-12345X//&quot; | perl -p -e &quot;s/\xc1\x01\x00\xf8\x31\x44/\x44/g&quot;);"
+*FoomaticRIPCommandLine: "(printf &apos;\033%%-12345X@PJL\n@PJL JOB\n@PJL SET COPIES=&copies;\n&apos;%G|perl -p -e &quot;s/\x26copies\x3b/1/&quot;);
+(gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -dNOINTERPOLATE %B%A%C %D%E | perl -p -e &quot;s/^\x1b\x25-12345X//&quot; | perl -p -e &quot;s/\xc1\x01\x00\xf8\x31\x44/\x44/g&quot;);
+(printf &apos;@PJL\n@PJL EOJ\n\033%%-12345X&apos;)"
 *End
 
 *FoomaticRIPUserEntityMaxLength: 8

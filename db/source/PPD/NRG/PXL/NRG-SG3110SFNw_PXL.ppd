@@ -4,9 +4,9 @@
 *%    for "NRG SG3110SFNw PXL"
 *%
 *%    CreationDate: 2012/10/19
-*%    Modified:     2012/11/01
+*%    Modified:     2016/05/10
 *%
-*%    COPYRIGHT (C) 2012 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2012-2016 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -30,7 +30,7 @@
 *%    [this is the MIT open source license -- please see www.opensource.org]
 *%
 
-*FileVersion:      "1.00"
+*FileVersion:      "1.01"
 *FormatVersion:    "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion:  English
@@ -79,7 +79,11 @@
 *%========== Ghostscript Command line ==========
 
 *FoomaticIDs: NRG-SG3110SFNw pxlmono
-*FoomaticRIPCommandLine: "gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -dNOINTERPOLATE %B%A%C %D%E%F"
+*FoomaticRIPCommandLine: "(printf &apos;\033%%-12345X@PJL\n@PJL JOB\n&apos;);
+(gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -dNOINTERPOLATE %B%A%C %D%E%F);
+(printf &apos;@PJL\n@PJL EOJ\n\033%%-12345X&apos;)"
+*End
+
 *OpenGroup: General
 
 *%========== Media Selection ==========
