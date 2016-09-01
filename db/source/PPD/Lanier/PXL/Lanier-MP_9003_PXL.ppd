@@ -1,0 +1,2063 @@
+*PPD-Adobe: "4.3"
+*%
+*%  Printer Description file
+*%    for "Lanier MP 9003 PXL"
+*%
+*%    CreationDate: 2016/08/05
+*%    Modified:     2016/08/05
+*%
+*%    java.util.zip.CRC32: f295b97d
+*%
+*%    COPYRIGHT (C) 2016 RICOH COMPANY, LTD.
+*%    
+*%    Permission is hereby granted, free of charge, to any person obtaining
+*%    a copy of this software and associated documentation files (the
+*%    "Software"), to deal in the Software without restriction, including
+*%    without limitation the rights to use, copy, modify, merge, publish,
+*%    distribute, sublicense, and/or sell copies of the Software, and to
+*%    permit persons to whom the Software is furnished to do so, subject to
+*%    the following conditions:
+*%    
+*%    The above copyright notice and this permission notice shall be
+*%    included in all copies or substantial portions of the Software.
+*%    
+*%    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+*%    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+*%    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+*%    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+*%    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+*%    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+*%    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*%    
+*%    [this is the MIT open source license -- please see www.opensource.org]
+*%
+
+*FileVersion: "1.0"
+*FormatVersion: "4.3"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+*ModelName: "Lanier MP 9003"
+*PCFileName: "LN1753E3.PPD"
+*Manufacturer: "Lanier"
+*Product: "(LANIER MP 9003 PS3)"
+*PSVersion: "(3018.102) 0"
+*ShortNickName: "Lanier MP 9003 PXL"
+*NickName: "Lanier MP 9003 PXL"
+*1284DeviceID: "MFG:LANIER;MDL:MP 9003;CMD:PCLXL;"
+
+*cupsVersion:      1.1
+*cupsManualCopies: False
+*cupsCommands:     ""
+*cupsFilter: "application/vnd.cups-postscript 0 foomatic-rip"
+*cupsFilter: "application/vnd.cups-pdf 0 foomatic-rip"
+
+*FoomaticRIPUserEntityMaxLength: 8
+*FoomaticRIPHostEntityMaxLength: 63
+*FoomaticRIPTitleEntityMaxLength: 40
+*FoomaticRIPCommandLine: "(printf &apos;\033%%-12345X@PJL\n@PJL JOB\n@PJL SET COPIES=&copies;\n&apos;%G|perl -p -e &quot;s/\x26copies\x3b/1/&quot;);
+(gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -dNOMEDIAATTRS -dNOINTERPOLATE %B%A%C %D%E | perl -p -e &quot;s/^\x1b\x25-12345X//&quot; | perl -p -e &quot;s/\xc1\x01\x00\xf8\x31\x44/\x44/g&quot;);
+(printf &apos;@PJL\n@PJL EOJ\n\033%%-12345X&apos;)"
+*End
+
+*%========== Basic Device Capabilities ==========
+
+*LanguageLevel: "3"
+*ColorDevice: False
+*DefaultColorSpace: Gray
+*FileSystem: True
+*Throughput: "90"
+*LandscapeOrientation: Minus90
+*TTRasterizer: Type42
+*HWMargins: 12 12 12 12
+*%========== Installable Options ==========
+*%========== & System Management ==========
+
+*OpenGroup: InstallableOptions/Installable Options
+
+*OpenUI *LargeCapacityTray/Large Capacity Tray: PickOne
+*DefaultLargeCapacityTray: NotInstalled
+*LargeCapacityTray NotInstalled/Not Installed: ""
+*LargeCapacityTray Installed/Installed: ""
+*CloseUI: *LargeCapacityTray
+
+*OpenUI *MultiHolePunchUnit/Multi-hole Punch Unit: PickOne
+*DefaultMultiHolePunchUnit: NotInstalled
+*MultiHolePunchUnit NotInstalled/Not Installed: ""
+*MultiHolePunchUnit Installed/Installed: ""
+*CloseUI: *MultiHolePunchUnit
+
+*OpenUI *MultiFold/Folding Unit: PickOne
+*DefaultMultiFold: NotInstalled
+*MultiFold NotInstalled/Not Installed: ""
+*MultiFold Installed/Installed: ""
+*CloseUI: *MultiFold
+
+*OpenUI *Mailbox/Mailbox: PickOne
+*DefaultMailbox: NotInstalled
+*Mailbox NotInstalled/Not Installed: ""
+*Mailbox Installed/Installed: ""
+*CloseUI: *Mailbox
+
+*OpenUI *Finisher/Finisher: PickOne
+*DefaultFinisher: NotInstalled
+*Finisher NotInstalled/Not Installed: ""
+*Finisher FinVOLGAC/Finisher SR4120: ""
+*Finisher FinVOLGACBK/Finisher SR4130: ""
+*Finisher FinVICTORIAI/Finisher SR4080: ""
+*CloseUI: *Finisher
+
+*CloseGroup: InstallableOptions
+
+*OpenUI *Duplex/Duplex: PickOne
+*FoomaticRIPOption Duplex: enum Composite D
+*OrderDependency: 50 AnySetup *Duplex
+*DefaultDuplex: DuplexNoTumble
+*Duplex None/Off:  "%% FoomaticRIPOptionSetting: Duplex=None"
+*FoomaticRIPOptionSetting Duplex=None: "JCLDuplex=None GSDuplex=None"
+*Duplex DuplexNoTumble/Long Edge:  "%% FoomaticRIPOptionSetting: Duplex=DuplexNoTumble"
+*FoomaticRIPOptionSetting Duplex=DuplexNoTumble: "JCLDuplex=DuplexNoTumble GSDuplex=DuplexNoTumble"
+*Duplex DuplexTumble/Short Edge:  "%% FoomaticRIPOptionSetting: Duplex=DuplexTumble"
+*FoomaticRIPOptionSetting Duplex=DuplexTumble: "JCLDuplex=DuplexTumble GSDuplex=DuplexTumble"
+*CloseUI: *Duplex
+
+*FoomaticRIPOptionSetting Duplex=0: "JCLDuplex=None GSDuplex=None"
+*FoomaticRIPOptionSetting Duplex=LongEdge: "JCLDuplex=DuplexNoTumble GSDuplex=DuplexNoTumble"
+*FoomaticRIPOptionSetting Duplex=ShortEdge: "JCLDuplex=DuplexTumble GSDuplex=DuplexTumble"
+
+*FoomaticRIPOption GSDuplex: enum CmdLine D 50
+*FoomaticRIPOptionSetting GSDuplex=FromDuplex: ""
+*FoomaticRIPOptionSetting GSDuplex=None: ""
+*FoomaticRIPOptionSetting GSDuplex=DuplexNoTumble: "| perl -p -e &quot;s/\xf8\x26\xc0\x00\xf8\x34/\xf8\x26\xc0\x01\xf8\x35/g&quot;"
+*FoomaticRIPOptionSetting GSDuplex=DuplexTumble: "| perl -p -e &quot;s/\xf8\x26\xc0\x00\xf8\x34/\xf8\x26\xc0\x00\xf8\x35/g&quot;"
+
+*FoomaticRIPOption JCLDuplex: enum JCL D 50
+*FoomaticRIPOptionSetting JCLDuplex=FromDuplex: ""
+*FoomaticRIPOptionSetting JCLDuplex=None: "SET DUPLEX=OFF"
+*FoomaticRIPOptionSetting JCLDuplex=DuplexNoTumble: "SET DUPLEX=ON
+@PJL SET BINDING=LONGEDGE"
+*FoomaticRIPOptionSetting JCLDuplex=DuplexTumble: "SET DUPLEX=ON
+@PJL SET BINDING=SHORTEDGE"
+
+*OpenUI *Collate/Collate: Boolean
+*FoomaticRIPOption Collate: bool CmdLine G
+*OrderDependency: 110 AnySetup *Collate
+*DefaultCollate: False
+*Collate False/Off: "%% FoomaticRIPOptionSetting: Collate=False"
+*Collate True/On:   "%% FoomaticRIPOptionSetting: Collate=True"
+*CloseUI: *Collate
+
+*FoomaticRIPOptionSetting Collate=False: ""
+*FoomaticRIPOptionSetting Collate=True:  "|(perl -p -e &quot;s/\x40PJL SET COPIES=&copies;\n/\x40PJL SET QTY=&copies;\n/&quot;)"
+*FoomaticRIPOptionSetting Collate:       "|(perl -p -e &quot;s/\x40PJL SET COPIES=&copies;\n/\x40PJL SET QTY=&copies;\n/&quot;)"
+
+*OpenUI *RICollateKind/Collate Type: PickOne
+*FoomaticRIPOption RICollateKind: enum JCL G
+*OrderDependency: 120 AnySetup *RICollateKind
+*DefaultRICollateKind: Normal
+*RICollateKind Normal/Collate: "%% FoomaticRIPOptionSetting: RICollateKind=Normal"
+*FoomaticRIPOptionSetting RICollateKind=Normal: "SET JOBOFFSET=OFF"
+*RICollateKind RotateCollate/Rotating Collate: "%% FoomaticRIPOptionSetting: RICollateKind=RotateCollate"
+*FoomaticRIPOptionSetting RICollateKind=RotateCollate: "SET JOBOFFSET=ROTATE"
+*RICollateKind ShiftCollate/Shift Collate: "%% FoomaticRIPOptionSetting: RICollateKind=ShiftCollate"
+*FoomaticRIPOptionSetting RICollateKind=ShiftCollate: "SET JOBOFFSET=SHIFT"
+*CloseUI: *RICollateKind
+
+*OpenUI *PageSize/PageSize: PickOne
+*FoomaticRIPOption PageSize: enum CmdLine C
+*OrderDependency: 20 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize A3/A3 (297 x 420 mm): "%% FoomaticRIPOptionSetting: PageSize=A3"
+*FoomaticRIPOptionSetting PageSize=A3: " -sPAPERSIZE=a3 -sOutputFile=- - "
+*PageSize A4/A4 (210 x 297 mm): "%% FoomaticRIPOptionSetting: PageSize=A4"
+*FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4 -sOutputFile=- - "
+*PageSize A5/A5 (148 x 210 mm): "%% FoomaticRIPOptionSetting: PageSize=A5"
+*FoomaticRIPOptionSetting PageSize=A5: " -sPAPERSIZE=a5 -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0f\xf8\x25/g&quot;"
+*PageSize A6/A6 (105 x 148 mm): "%% FoomaticRIPOptionSetting: PageSize=A6"
+*FoomaticRIPOptionSetting PageSize=A6: " -dDEVICEWIDTHPOINTS=297 -dDEVICEHEIGHTPOINTS=420 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x14\xf8\x25/g&quot;"
+*End
+*PageSize BD/182 x 210 mm: "%% FoomaticRIPOptionSetting: PageSize=BD"
+*FoomaticRIPOptionSetting PageSize=BD: " -dDEVICEWIDTHPOINTS=516 -dDEVICEHEIGHTPOINTS=595 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xea\xf8\x25/g&quot;  | &&
+ perl -p -e &quot;s/\xf8\x28\xd5\x55\x55\xe5\x40\x9d\x36\x04\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xea\xf8\x25/g&quot;"
+*End
+*PageSize LineSlider1/170 x 210 mm: "%% FoomaticRIPOptionSetting: PageSize=LineSlider1"
+*FoomaticRIPOptionSetting PageSize=LineSlider1: " -dDEVICEWIDTHPOINTS=482 -dDEVICEHEIGHTPOINTS=595 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xeb\xf8\x25/g&quot;  | &&
+ perl -p -e &quot;s/\xf8\x28\xd5\x71\x3d\xd6\x40\x9d\x36\x04\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xeb\xf8\x25/g&quot;"
+*End
+*PageSize LineSlider2/210 x 340 mm: "%% FoomaticRIPOptionSetting: PageSize=LineSlider2"
+*FoomaticRIPOptionSetting PageSize=LineSlider2: " -dDEVICEWIDTHPOINTS=595 -dDEVICEHEIGHTPOINTS=964 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xec\xf8\x25/g&quot;  | &&
+ perl -p -e &quot;s/\xf8\x28\xd5\x9d\x36\x04\x41\x9d\x36\x56\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xec\xf8\x25/g&quot;"
+*End
+*PageSize B4/B4 JIS (257 x 364 mm): "%% FoomaticRIPOptionSetting: PageSize=B4"
+*FoomaticRIPOptionSetting PageSize=B4: " -dDEVICEWIDTHPOINTS=729 -dDEVICEHEIGHTPOINTS=1032 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0a\xf8\x25/g&quot;"
+*End
+*PageSize B5/B5 JIS (182 x 257 mm): "%% FoomaticRIPOptionSetting: PageSize=B5"
+*FoomaticRIPOptionSetting PageSize=B5: " -dDEVICEWIDTHPOINTS=516 -dDEVICEHEIGHTPOINTS=729 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0b\xf8\x25/g&quot;"
+*End
+*PageSize B6/B6 JIS (128 x 182 mm): "%% FoomaticRIPOptionSetting: PageSize=B6"
+*FoomaticRIPOptionSetting PageSize=B6: " -dDEVICEWIDTHPOINTS=363 -dDEVICEHEIGHTPOINTS=516 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xc9\xf8\x25/g&quot;"
+*End
+*PageSize Legal/Legal (8.5 x 14): "%% FoomaticRIPOptionSetting: PageSize=Legal"
+*FoomaticRIPOptionSetting PageSize=Legal: " -sPAPERSIZE=legal -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x01\xf8\x25/g&quot;"
+*PageSize GovernmentLG/8.25x14: "%% FoomaticRIPOptionSetting: PageSize=GovernmentLG"
+*FoomaticRIPOptionSetting PageSize=GovernmentLG: " -dDEVICEWIDTHPOINTS=594 -dDEVICEHEIGHTPOINTS=1008 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x15\xf8\x25/g&quot;  | &&
+ perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x04\x41\x00\x00\x60\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\x15\xf8\x25/g&quot;"
+*End
+*PageSize EngQuatro/8x10: "%% FoomaticRIPOptionSetting: PageSize=EngQuatro"
+*FoomaticRIPOptionSetting PageSize=EngQuatro: " -dDEVICEWIDTHPOINTS=576 -dDEVICEHEIGHTPOINTS=720 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xdd\xf8\x25/g&quot;  | &&
+ perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x00\x41\x00\x00\x20\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xdd\xf8\x25/g&quot;"
+*End
+*PageSize GLT/8x10.5: "%% FoomaticRIPOptionSetting: PageSize=GLT"
+*FoomaticRIPOptionSetting PageSize=GLT: " -dDEVICEWIDTHPOINTS=576 -dDEVICEHEIGHTPOINTS=756 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xe8\xf8\x25/g&quot;  | &&
+ perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x00\x41\x00\x00\x28\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xe8\xf8\x25/g&quot;"
+*End
+*PageSize Letter/Letter (8.5 x 11): "%% FoomaticRIPOptionSetting: PageSize=Letter"
+*FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter -sOutputFile=- - "
+*PageSize Statement/5.5x8.5: "%% FoomaticRIPOptionSetting: PageSize=Statement"
+*FoomaticRIPOptionSetting PageSize=Statement: " -dDEVICEWIDTHPOINTS=396 -dDEVICEHEIGHTPOINTS=612 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x13\xf8\x25/g&quot;  | &&
+ perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\xb0\x40\x00\x00\x08\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\x13\xf8\x25/g&quot;"
+*End
+*PageSize F/8x13: "%% FoomaticRIPOptionSetting: PageSize=F"
+*FoomaticRIPOptionSetting PageSize=F: " -dDEVICEWIDTHPOINTS=576 -dDEVICEHEIGHTPOINTS=936 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x12\xf8\x25/g&quot;  | &&
+ perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x00\x41\x00\x00\x50\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\x12\xf8\x25/g&quot;"
+*End
+*PageSize Folio/8.25x13: "%% FoomaticRIPOptionSetting: PageSize=Folio"
+*FoomaticRIPOptionSetting PageSize=Folio: " -dDEVICEWIDTHPOINTS=595 -dDEVICEHEIGHTPOINTS=935 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x10\xf8\x25/g&quot;  | &&
+ perl -p -e &quot;s/\xf8\x28\xd5\x9d\x36\x04\x41\x63\xC9\x4f\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\x10\xf8\x25/g&quot;"
+*End
+*PageSize FanFoldGermanLegal/8.5x13: "%% FoomaticRIPOptionSetting: PageSize=FanFoldGermanLegal"
+*FoomaticRIPOptionSetting PageSize=FanFoldGermanLegal: " -dDEVICEWIDTHPOINTS=612 -dDEVICEHEIGHTPOINTS=936 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x11\xf8\x25/g&quot;"
+*End
+*PageSize Tabloid/11x17: "%% FoomaticRIPOptionSetting: PageSize=Tabloid"
+*FoomaticRIPOptionSetting PageSize=Tabloid: " -sPAPERSIZE=11x17  -sOutputFile=- - "
+*PageSize 11x15/11x15: "%% FoomaticRIPOptionSetting: PageSize=11x15"
+*FoomaticRIPOptionSetting PageSize=11x15: " -dDEVICEWIDTHPOINTS=792 -dDEVICEHEIGHTPOINTS=1080 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xdf\xf8\x25/g&quot;  | &&
+ perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x30\x41\x00\x00\x70\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xdf\xf8\x25/g&quot;"
+*End
+*PageSize 10x14/10x14: "%% FoomaticRIPOptionSetting: PageSize=10x14"
+*FoomaticRIPOptionSetting PageSize=10x14: " -dDEVICEWIDTHPOINTS=720 -dDEVICEHEIGHTPOINTS=1008 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xe0\xf8\x25/g&quot;  | &&
+ perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x20\x41\x00\x00\x60\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xe0\xf8\x25/g&quot;"
+*End
+*PageSize 10x15/10x15: "%% FoomaticRIPOptionSetting: PageSize=10x15"
+*FoomaticRIPOptionSetting PageSize=10x15: " -dDEVICEWIDTHPOINTS=720 -dDEVICEHEIGHTPOINTS=1080 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xe9\xf8\x25/g&quot;  | &&
+ perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x20\x41\x00\x00\x70\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xe9\xf8\x25/g&quot;"
+*End
+*PageSize 11x14/11x14: "%% FoomaticRIPOptionSetting: PageSize=11x14"
+*FoomaticRIPOptionSetting PageSize=11x14: " -dDEVICEWIDTHPOINTS=792 -dDEVICEHEIGHTPOINTS=1008 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xde\xf8\x25/g&quot;  | &&
+ perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x30\x41\x00\x00\x60\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xde\xf8\x25/g&quot;"
+*End
+*PageSize Executive/Executive (7.25 x 10.5): "%% FoomaticRIPOptionSetting: PageSize=Executive"
+*FoomaticRIPOptionSetting PageSize=Executive: " -dDEVICEWIDTHPOINTS=522 -dDEVICEHEIGHTPOINTS=756 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x03\xf8\x25/g&quot;"
+*End
+*PageSize 8Kai/8K (267 x 390 mm): "%% FoomaticRIPOptionSetting: PageSize=8Kai"
+*FoomaticRIPOptionSetting PageSize=8Kai: " -dDEVICEWIDTHPOINTS=757 -dDEVICEHEIGHTPOINTS=1106 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xcb\xf8\x25/g&quot;"
+*End
+*PageSize 16Kai/16K (195 x 267 mm): "%% FoomaticRIPOptionSetting: PageSize=16Kai"
+*FoomaticRIPOptionSetting PageSize=16Kai: " -dDEVICEWIDTHPOINTS=553 -dDEVICEHEIGHTPOINTS=757 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xcc\xf8\x25/g&quot;"
+*End
+*PageSize Oficio/8.5x13.4: "%% FoomaticRIPOptionSetting: PageSize=Oficio"
+*FoomaticRIPOptionSetting PageSize=Oficio: " -dDEVICEWIDTHPOINTS=612 -dDEVICEHEIGHTPOINTS=965 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xf1\xf8\x25/g&quot;  | &&
+ perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x08\x41\x0e\x74\x56\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xf1\xf8\x25/g&quot;"
+*End
+*CloseUI: *PageSize
+
+*OpenUI *InputSlot/InputSlot: PickOne
+*FoomaticRIPOption InputSlot: enum CmdLine E
+*OrderDependency: 30 AnySetup *InputSlot
+*DefaultInputSlot: Auto
+*InputSlot MultiTray/Bypass Tray: "%% FoomaticRIPOptionSetting: InputSlot=MultiTray"
+*FoomaticRIPOptionSetting InputSlot=MultiTray: " | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x02\xf8\x26/g&quot;"
+*InputSlot 1Tray/Tray 1: "%% FoomaticRIPOptionSetting: InputSlot=1Tray"
+*FoomaticRIPOptionSetting InputSlot=1Tray: " | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x04\xf8\x26/g&quot;"
+*InputSlot 2Tray/Tray 2: "%% FoomaticRIPOptionSetting: InputSlot=2Tray"
+*FoomaticRIPOptionSetting InputSlot=2Tray: " | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x05\xf8\x26/g&quot;"
+*InputSlot 3Tray/Tray 3: "%% FoomaticRIPOptionSetting: InputSlot=3Tray"
+*FoomaticRIPOptionSetting InputSlot=3Tray: " | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x07\xf8\x26/g&quot;"
+*InputSlot LCT/Large Capacity Tray: "%% FoomaticRIPOptionSetting: InputSlot=LCT"
+*FoomaticRIPOptionSetting InputSlot=LCT: " | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x09\xf8\x26/g&quot;"
+*InputSlot Auto/Auto Select: "%% FoomaticRIPOptionSetting: InputSlot=Auto"
+*FoomaticRIPOptionSetting InputSlot=Auto: ""
+*CloseUI: *InputSlot
+
+*OpenGroup: Basic/Basic
+*OpenUI *ColorModel/Color Mode: PickOne
+*FoomaticRIPOption ColorModel: enum Composite B
+*OrderDependency: 10 AnySetup *ColorModel
+*DefaultColorModel: Grayscale
+*ColorModel Grayscale/Grayscale: "%% FoomaticRIPOptionSetting: ColorModel=Grayscale"
+*FoomaticRIPOptionSetting ColorModel=Grayscale: "GSCmdLine=Grayscale"
+*CloseUI: *ColorModel
+
+*FoomaticRIPOption GSCmdLine: enum CmdLine B 10
+*FoomaticRIPOptionSetting GSCmdLine=FromColorModel: ""
+*FoomaticRIPOptionSetting GSCmdLine=Grayscale: " -sDEVICE=pxlmono"
+*End
+
+*CloseGroup: Basic
+
+*OpenGroup: Paper/Paper
+
+*OpenUI *MediaType/Paper Type: PickOne
+*FoomaticRIPOption MediaType: enum JCL A
+*OrderDependency: 205 AnySetup *MediaType
+*DefaultMediaType: Auto
+*MediaType Auto/Plain/Recycled: "%% FoomaticRIPOptionSetting: MediaType=Auto"
+*FoomaticRIPOptionSetting MediaType=Auto: "SET MEDIATYPE=PLAINORRECYCLED"
+*MediaType Plain1/Plain 1: "%% FoomaticRIPOptionSetting: MediaType=Plain1"
+*FoomaticRIPOptionSetting MediaType=Plain1: "SET MEDIATYPE=PLAIN"
+*MediaType Recycled/Recycled: "%% FoomaticRIPOptionSetting: MediaType=Recycled"
+*FoomaticRIPOptionSetting MediaType=Recycled: "SET MEDIATYPE=RECYCLED"
+*MediaType Special1/Special: "%% FoomaticRIPOptionSetting: MediaType=Special1"
+*FoomaticRIPOptionSetting MediaType=Special1: "SET MEDIATYPE=SPECIAL"
+*MediaType Colored1/Color 1: "%% FoomaticRIPOptionSetting: MediaType=Colored1"
+*FoomaticRIPOptionSetting MediaType=Colored1: "SET MEDIATYPE=USERCOLOR1"
+*MediaType Colored2/Color 2: "%% FoomaticRIPOptionSetting: MediaType=Colored2"
+*FoomaticRIPOptionSetting MediaType=Colored2: "SET MEDIATYPE=USERCOLOR2"
+*MediaType Letterhead/Letterhead: "%% FoomaticRIPOptionSetting: MediaType=Letterhead"
+*FoomaticRIPOptionSetting MediaType=Letterhead: "SET MEDIATYPE=LETTERHEAD"
+*MediaType Preprinted/Preprinted: "%% FoomaticRIPOptionSetting: MediaType=Preprinted"
+*FoomaticRIPOptionSetting MediaType=Preprinted: "SET MEDIATYPE=PREPRINTED"
+*MediaType Prepunched/Prepunched: "%% FoomaticRIPOptionSetting: MediaType=Prepunched"
+*FoomaticRIPOptionSetting MediaType=Prepunched: "SET MEDIATYPE=PREPUNCHED"
+*MediaType Labels/Labels: "%% FoomaticRIPOptionSetting: MediaType=Labels"
+*FoomaticRIPOptionSetting MediaType=Labels: "SET MEDIATYPE=LABELS"
+*MediaType Bond/Bond: "%% FoomaticRIPOptionSetting: MediaType=Bond"
+*FoomaticRIPOptionSetting MediaType=Bond: "SET MEDIATYPE=BOND"
+*MediaType Cardstock/Cardstock: "%% FoomaticRIPOptionSetting: MediaType=Cardstock"
+*FoomaticRIPOptionSetting MediaType=Cardstock: "SET MEDIATYPE=CARDSTOCK"
+*MediaType OHP/Transparency: "%% FoomaticRIPOptionSetting: MediaType=OHP"
+*FoomaticRIPOptionSetting MediaType=OHP: "SET MEDIATYPE=TRANSPARENCY"
+*MediaType Thick1/Thick: "%% FoomaticRIPOptionSetting: MediaType=Thick1"
+*FoomaticRIPOptionSetting MediaType=Thick1: "SET MEDIATYPE=THICK"
+*MediaType Thick2/Thick 2: "%% FoomaticRIPOptionSetting: MediaType=Thick2"
+*FoomaticRIPOptionSetting MediaType=Thick2: "SET MEDIATYPE=THICK2"
+*MediaType Thick3/Thick 3: "%% FoomaticRIPOptionSetting: MediaType=Thick3"
+*FoomaticRIPOptionSetting MediaType=Thick3: "SET MEDIATYPE=THICK3"
+*MediaType Thick4/Thick 4: "%% FoomaticRIPOptionSetting: MediaType=Thick4"
+*FoomaticRIPOptionSetting MediaType=Thick4: "SET MEDIATYPE=THICK4"
+*MediaType Middlethick/Middle Thick: "%% FoomaticRIPOptionSetting: MediaType=Middlethick"
+*FoomaticRIPOptionSetting MediaType=Middlethick: "SET MEDIATYPE=MIDDLETHICK"
+*MediaType Index/Tabstock: "%% FoomaticRIPOptionSetting: MediaType=Index"
+*FoomaticRIPOptionSetting MediaType=Index: "SET MEDIATYPE=TABSTOCK"
+*MediaType Translucent/Translucent: "%% FoomaticRIPOptionSetting: MediaType=Translucent"
+*FoomaticRIPOptionSetting MediaType=Translucent: "SET MEDIATYPE=TRANSLUCENT"
+*CloseUI: *MediaType
+
+*OpenUI *OutputBin/Destination: PickOne
+*FoomaticRIPOption OutputBin: enum JCL A
+*OrderDependency: 210 AnySetup *OutputBin
+*DefaultOutputBin: Default
+*OutputBin Default/Printer Default: "%% FoomaticRIPOptionSetting: OutputBin=Default"
+*FoomaticRIPOptionSetting OutputBin=Default: "SET OUTBIN=SYSDEFAULT"
+*OutputBin Standard/Copy Tray: "%% FoomaticRIPOptionSetting: OutputBin=Standard"
+*FoomaticRIPOptionSetting OutputBin=Standard: "SET OUTBIN=UPPER"
+*OutputBin FinVOLGACUpper/Finisher SR4120 Upper Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinVOLGACUpper"
+*FoomaticRIPOptionSetting OutputBin=FinVOLGACUpper: "SET OUTBIN=FINISHERPROOF"
+*OutputBin FinVOLGACShift/Finisher SR4120 Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinVOLGACShift"
+*FoomaticRIPOptionSetting OutputBin=FinVOLGACShift: "SET OUTBIN=FINISHERSHIFT"
+*OutputBin FinVOLGACBKUpper/Finisher SR4130 Upper Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinVOLGACBKUpper"
+*FoomaticRIPOptionSetting OutputBin=FinVOLGACBKUpper: "SET OUTBIN=FINISHERPROOF"
+*OutputBin FinVOLGACBKShift/Finisher SR4130 Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinVOLGACBKShift"
+*FoomaticRIPOptionSetting OutputBin=FinVOLGACBKShift: "SET OUTBIN=FINISHERSHIFT"
+*OutputBin FinVOLGACBKLower/Finisher SR4130 Booklet Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinVOLGACBKLower"
+*FoomaticRIPOptionSetting OutputBin=FinVOLGACBKLower: "SET OUTBIN=FINISHERBOOKLET"
+*OutputBin FinVICTIUpper/Finisher SR4080 Upper Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinVICTIUpper"
+*FoomaticRIPOptionSetting OutputBin=FinVICTIUpper: "SET OUTBIN=FINISHERPROOF"
+*OutputBin FinVICTIShift/Finisher SR4080 Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinVICTIShift"
+*FoomaticRIPOptionSetting OutputBin=FinVICTIShift: "SET OUTBIN=FINISHERSHIFT"
+*OutputBin FinDONAUProof/Folding Unit Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinDONAUProof"
+*FoomaticRIPOptionSetting OutputBin=FinDONAUProof: "SET OUTBIN=FOLDPROOF"
+*OutputBin MailBoxBin1/Mailbox Tray 1: "%% FoomaticRIPOptionSetting: OutputBin=MailBoxBin1"
+*FoomaticRIPOptionSetting OutputBin=MailBoxBin1: "SET OUTBIN=OPTIONALOUTPUTBIN2"
+*OutputBin MailBoxBin2/Mailbox Tray 2: "%% FoomaticRIPOptionSetting: OutputBin=MailBoxBin2"
+*FoomaticRIPOptionSetting OutputBin=MailBoxBin2: "SET OUTBIN=OPTIONALOUTPUTBIN3"
+*OutputBin MailBoxBin3/Mailbox Tray 3: "%% FoomaticRIPOptionSetting: OutputBin=MailBoxBin3"
+*FoomaticRIPOptionSetting OutputBin=MailBoxBin3: "SET OUTBIN=OPTIONALOUTPUTBIN4"
+*OutputBin MailBoxBin4/Mailbox Tray 4: "%% FoomaticRIPOptionSetting: OutputBin=MailBoxBin4"
+*FoomaticRIPOptionSetting OutputBin=MailBoxBin4: "SET OUTBIN=OPTIONALOUTPUTBIN5"
+*OutputBin MailBoxBin5/Mailbox Tray 5: "%% FoomaticRIPOptionSetting: OutputBin=MailBoxBin5"
+*FoomaticRIPOptionSetting OutputBin=MailBoxBin5: "SET OUTBIN=OPTIONALOUTPUTBIN6"
+*OutputBin MailBoxBin6/Mailbox Tray 6: "%% FoomaticRIPOptionSetting: OutputBin=MailBoxBin6"
+*FoomaticRIPOptionSetting OutputBin=MailBoxBin6: "SET OUTBIN=OPTIONALOUTPUTBIN7"
+*OutputBin MailBoxBin7/Mailbox Tray 7: "%% FoomaticRIPOptionSetting: OutputBin=MailBoxBin7"
+*FoomaticRIPOptionSetting OutputBin=MailBoxBin7: "SET OUTBIN=OPTIONALOUTPUTBIN8"
+*OutputBin MailBoxBin8/Mailbox Tray 8: "%% FoomaticRIPOptionSetting: OutputBin=MailBoxBin8"
+*FoomaticRIPOptionSetting OutputBin=MailBoxBin8: "SET OUTBIN=OPTIONALOUTPUTBIN9"
+*OutputBin MailBoxBin9/Mailbox Tray 9: "%% FoomaticRIPOptionSetting: OutputBin=MailBoxBin9"
+*FoomaticRIPOptionSetting OutputBin=MailBoxBin9: "SET OUTBIN=OPTIONALOUTPUTBIN10"
+*CloseUI: *OutputBin
+
+*OpenUI *RIBannerPagePrint/Banner Page Print: PickOne
+*FoomaticRIPOption RIBannerPagePrint: enum JCL B
+*OrderDependency: 46 AnySetup *RIBannerPagePrint
+*DefaultRIBannerPagePrint: False
+*RIBannerPagePrint False/Off: ""
+*RIBannerPagePrint True/On: "%% FoomaticRIPOptionSetting: RIBannerPagePrint=True"
+*FoomaticRIPOptionSetting RIBannerPagePrint=True: "SET HOSTLOGINNAME=&quot;&user;&quot;
+@PJL SET HOSTNAME=&quot;&host;&quot;
+@PJL SET JOBNAME=&quot;&title;&quot;
+@PJL SET BANNERPAGEPRINT=BEFOREJOB"
+*End
+*CloseUI: *RIBannerPagePrint
+
+*OpenUI *RIBannerPageInputSlot/Banner Page Input Tray: PickOne
+*FoomaticRIPOption RIBannerPageInputSlot: enum JCL B
+*OrderDependency: 47 AnySetup *RIBannerPageInputSlot
+*DefaultRIBannerPageInputSlot: Auto
+*RIBannerPageInputSlot Auto/Auto Select: "%% FoomaticRIPOptionSetting: RIBannerPageInputSlot=Auto"
+*FoomaticRIPOptionSetting RIBannerPageInputSlot=Auto: "SET BANNERPAGEPRINTTRAY=ALL"
+*RIBannerPageInputSlot MultiTray/Bypass Tray: "%% FoomaticRIPOptionSetting: RIBannerPageInputSlot=MultiTray"
+*FoomaticRIPOptionSetting RIBannerPageInputSlot=MultiTray: "SET BANNERPAGEPRINTTRAY=BYPASS"
+*RIBannerPageInputSlot 1Tray/Tray 1: "%% FoomaticRIPOptionSetting: RIBannerPageInputSlot=1Tray"
+*FoomaticRIPOptionSetting RIBannerPageInputSlot=1Tray: "SET BANNERPAGEPRINTTRAY=TRAY1"
+*RIBannerPageInputSlot 2Tray/Tray 2: "%% FoomaticRIPOptionSetting: RIBannerPageInputSlot=2Tray"
+*FoomaticRIPOptionSetting RIBannerPageInputSlot=2Tray: "SET BANNERPAGEPRINTTRAY=TRAY2"
+*RIBannerPageInputSlot 3Tray/Tray 3: "%% FoomaticRIPOptionSetting: RIBannerPageInputSlot=3Tray"
+*FoomaticRIPOptionSetting RIBannerPageInputSlot=3Tray: "SET BANNERPAGEPRINTTRAY=TRAY3"
+*RIBannerPageInputSlot LCT/Large Capacity Tray: "%% FoomaticRIPOptionSetting: RIBannerPageInputSlot=LCT"
+*FoomaticRIPOptionSetting RIBannerPageInputSlot=LCT: "SET BANNERPAGEPRINTTRAY=LCT"
+*CloseUI: *RIBannerPageInputSlot
+
+*OpenUI *RIBannerPageMediaType/Banner Page Media Type: PickOne
+*FoomaticRIPOption RIBannerPageMediaType: enum JCL B
+*OrderDependency: 47 AnySetup *RIBannerPageMediaType
+*DefaultRIBannerPageMediaType: Auto
+*RIBannerPageMediaType Auto/Plain/Recycled: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Auto"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Auto: "SET BANNERPAGEPRINTMEDIA=PLAINORRECYCLED"
+*RIBannerPageMediaType Plain1/Plain: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Plain1"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Plain1: "SET BANNERPAGEPRINTMEDIA=PLAIN"
+*RIBannerPageMediaType Recycled/Recycled: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Recycled"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Recycled: "SET BANNERPAGEPRINTMEDIA=RECYCLED"
+*RIBannerPageMediaType Special1/Special: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Special1"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Special1: "SET BANNERPAGEPRINTMEDIA=SPECIAL"
+*RIBannerPageMediaType Colored1/Color 1: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Colored1"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Colored1: "SET BANNERPAGEPRINTMEDIA=USERCOLOR1"
+*RIBannerPageMediaType Colored2/Color 2: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Colored2"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Colored2: "SET BANNERPAGEPRINTMEDIA=USERCOLOR2"
+*RIBannerPageMediaType Letterhead/Letterhead: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Letterhead"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Letterhead: "SET BANNERPAGEPRINTMEDIA=LETTERHEAD"
+*RIBannerPageMediaType Preprinted/Preprinted: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Preprinted"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Preprinted: "SET BANNERPAGEPRINTMEDIA=PREPRINTED"
+*RIBannerPageMediaType Prepunched/Prepunched: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Prepunched"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Prepunched: "SET BANNERPAGEPRINTMEDIA=PREPUNCHED"
+*RIBannerPageMediaType Labels/Labels: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Labels"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Labels: "SET BANNERPAGEPRINTMEDIA=LABELS"
+*RIBannerPageMediaType Bond/Bond: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Bond"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Bond: "SET BANNERPAGEPRINTMEDIA=BOND"
+*RIBannerPageMediaType Cardstock/Cardstock: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Cardstock"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Cardstock: "SET BANNERPAGEPRINTMEDIA=CARDSTOCK"
+*RIBannerPageMediaType OHP/Transparency: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=OHP"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=OHP: "SET BANNERPAGEPRINTMEDIA=TRANSPARENCY"
+*RIBannerPageMediaType Thick1/Thick: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Thick1"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Thick1: "SET BANNERPAGEPRINTMEDIA=THICK"
+*RIBannerPageMediaType Thick2/Thick 2: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Thick2"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Thick2: "SET BANNERPAGEPRINTMEDIA=THICK2"
+*RIBannerPageMediaType Thick3/Thick 3: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Thick3"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Thick3: "SET BANNERPAGEPRINTMEDIA=THICK3"
+*RIBannerPageMediaType Thick4/Thick 4: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Thick4"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Thick4: "SET BANNERPAGEPRINTMEDIA=THICK4"
+*RIBannerPageMediaType Middlethick/Middle Thick: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Middlethick"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Middlethick: "SET BANNERPAGEPRINTMEDIA=MIDDLETHICK"
+*RIBannerPageMediaType Index/Tabstock: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Index"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Index: "SET BANNERPAGEPRINTMEDIA=TABSTOCK"
+*RIBannerPageMediaType Translucent/Translucent: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Translucent"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Translucent: "SET BANNERPAGEPRINTMEDIA=TRANSLUCENT"
+*CloseUI: *RIBannerPageMediaType
+
+*CloseGroup: Paper
+
+*OpenGroup: Finishing/Finishing
+
+*OpenUI *StapleLocation/Staple: PickOne
+*FoomaticRIPOption StapleLocation: enum JCL A
+*OrderDependency: 220 AnySetup *StapleLocation
+*DefaultStapleLocation: None
+*StapleLocation None/Off: "%% FoomaticRIPOptionSetting: StapleLocation=None"
+*FoomaticRIPOptionSetting StapleLocation=None: "SET STAPLE=OFF"
+*StapleLocation UpperLeft/Top left: "%% FoomaticRIPOptionSetting: StapleLocation=UpperLeft"
+*FoomaticRIPOptionSetting StapleLocation=UpperLeft: "SET STAPLE=LEFTTOP"
+*StapleLocation UpperRight/Top right: "%% FoomaticRIPOptionSetting: StapleLocation=UpperRight"
+*FoomaticRIPOptionSetting StapleLocation=UpperRight: "SET STAPLE=RIGHTTOP"
+*StapleLocation LeftW/2 at left: "%% FoomaticRIPOptionSetting: StapleLocation=LeftW"
+*FoomaticRIPOptionSetting StapleLocation=LeftW: "SET STAPLE=LEFT2PORT"
+*StapleLocation RightW/2 at right: "%% FoomaticRIPOptionSetting: StapleLocation=RightW"
+*FoomaticRIPOptionSetting StapleLocation=RightW: "SET STAPLE=RIGHT2PORT"
+*StapleLocation UpperW/2 at top: "%% FoomaticRIPOptionSetting: StapleLocation=UpperW"
+*FoomaticRIPOptionSetting StapleLocation=UpperW: "SET STAPLE=TOP2PORT"
+*StapleLocation CenterW/2 at center: "%% FoomaticRIPOptionSetting: StapleLocation=CenterW"
+*FoomaticRIPOptionSetting StapleLocation=CenterW: "SET STAPLE=BOOKLET"
+*CloseUI: *StapleLocation
+
+*OpenUI *RIPunch/Punch: PickOne
+*FoomaticRIPOption RIPunch: enum JCL A
+*OrderDependency: 230 AnySetup *RIPunch
+*DefaultRIPunch: None
+*RIPunch None/Off: "%% FoomaticRIPOptionSetting: RIPunch=None"
+*FoomaticRIPOptionSetting RIPunch=None: "SET PUNCH=OFF"
+*RIPunch LeftJP2/2 at left (Japan/Europe): "%% FoomaticRIPOptionSetting: RIPunch=LeftJP2"
+*FoomaticRIPOptionSetting RIPunch=LeftJP2: "SET PUNCH=LEFTPORT
+@PJL SET PUNCHHOLE=JP2"
+*End
+*RIPunch LeftUS2/2 at left (North America): "%% FoomaticRIPOptionSetting: RIPunch=LeftUS2"
+*FoomaticRIPOptionSetting RIPunch=LeftUS2: "SET PUNCH=LEFTPORT
+@PJL SET PUNCHHOLE=US2"
+*End
+*RIPunch LeftUS3/3 at left (North America): "%% FoomaticRIPOptionSetting: RIPunch=LeftUS3"
+*FoomaticRIPOptionSetting RIPunch=LeftUS3: "SET PUNCH=LEFTPORT
+@PJL SET PUNCHHOLE=US3"
+*End
+*RIPunch LeftEU4/4 at left (Europe): "%% FoomaticRIPOptionSetting: RIPunch=LeftEU4"
+*FoomaticRIPOptionSetting RIPunch=LeftEU4: "SET PUNCH=LEFTPORT
+@PJL SET PUNCHHOLE=EU4"
+*End
+*RIPunch LeftNEU4/4 at left (Northern Europe): "%% FoomaticRIPOptionSetting: RIPunch=LeftNEU4"
+*FoomaticRIPOptionSetting RIPunch=LeftNEU4: "SET PUNCH=LEFTPORT
+@PJL SET PUNCHHOLE=NEU4"
+*End
+*RIPunch RightJP2/2 at right (Japan/Europe): "%% FoomaticRIPOptionSetting: RIPunch=RightJP2"
+*FoomaticRIPOptionSetting RIPunch=RightJP2: "SET IMAGEDIRECTION=REVERSE
+@PJL SET PUNCH=LEFTPORT
+@PJL SET PUNCHHOLE=JP2"
+*End
+*RIPunch RightUS2/2 at right (North America): "%% FoomaticRIPOptionSetting: RIPunch=RightUS2"
+*FoomaticRIPOptionSetting RIPunch=RightUS2: "SET IMAGEDIRECTION=REVERSE
+@PJL SET PUNCH=LEFTPORT
+@PJL SET PUNCHHOLE=US2"
+*End
+*RIPunch RightUS3/3 at right (North America): "%% FoomaticRIPOptionSetting: RIPunch=RightUS3"
+*FoomaticRIPOptionSetting RIPunch=RightUS3: "SET IMAGEDIRECTION=REVERSE
+@PJL SET PUNCH=LEFTPORT
+@PJL SET PUNCHHOLE=US3"
+*End
+*RIPunch RightEU4/4 at right (Europe): "%% FoomaticRIPOptionSetting: RIPunch=RightEU4"
+*FoomaticRIPOptionSetting RIPunch=RightEU4: "SET IMAGEDIRECTION=REVERSE
+@PJL SET PUNCH=LEFTPORT
+@PJL SET PUNCHHOLE=EU4"
+*End
+*RIPunch RightNEU4/4 at right (Northern Europe): "%% FoomaticRIPOptionSetting: RIPunch=RightNEU4"
+*FoomaticRIPOptionSetting RIPunch=RightNEU4: "SET IMAGEDIRECTION=REVERSE
+@PJL SET PUNCH=LEFTPORT
+@PJL SET PUNCHHOLE=NEU4"
+*End
+*RIPunch UpperJP2/2 at top (Japan/Europe): "%% FoomaticRIPOptionSetting: RIPunch=UpperJP2"
+*FoomaticRIPOptionSetting RIPunch=UpperJP2: "SET PUNCH=TOPPORT
+@PJL SET PUNCHHOLE=JP2"
+*End
+*RIPunch UpperUS2/2 at top (North America): "%% FoomaticRIPOptionSetting: RIPunch=UpperUS2"
+*FoomaticRIPOptionSetting RIPunch=UpperUS2: "SET PUNCH=TOPPORT
+@PJL SET PUNCHHOLE=US2"
+*End
+*RIPunch UpperUS3/3 at top (North America): "%% FoomaticRIPOptionSetting: RIPunch=UpperUS3"
+*FoomaticRIPOptionSetting RIPunch=UpperUS3: "SET PUNCH=TOPPORT
+@PJL SET PUNCHHOLE=US3"
+*End
+*RIPunch UpperEU4/4 at top (Europe): "%% FoomaticRIPOptionSetting: RIPunch=UpperEU4"
+*FoomaticRIPOptionSetting RIPunch=UpperEU4: "SET PUNCH=TOPPORT
+@PJL SET PUNCHHOLE=EU4"
+*End
+*RIPunch UpperNEU4/4 at top (Northern Europe): "%% FoomaticRIPOptionSetting: RIPunch=UpperNEU4"
+*FoomaticRIPOptionSetting RIPunch=UpperNEU4: "SET PUNCH=TOPPORT
+@PJL SET PUNCHHOLE=NEU4"
+*End
+*CloseUI: *RIPunch
+
+*OpenUI *RIZfold/Z-fold: PickOne
+*FoomaticRIPOption RIZfold: enum JCL A
+*OrderDependency: 230 AnySetup *RIZfold
+*DefaultRIZfold: None
+*RIZfold None/Off: "%% FoomaticRIPOptionSetting: RIZfold=None"
+*FoomaticRIPOptionSetting RIZfold=None: "SET FOLD=OFF"
+*RIZfold Bottom/Bottom Fold: "%% FoomaticRIPOptionSetting: RIZfold=Bottom"
+*FoomaticRIPOptionSetting RIZfold=Bottom: "SET FOLD=ZBOTTOM"
+*RIZfold Right/Right Fold: "%% FoomaticRIPOptionSetting: RIZfold=Right"
+*FoomaticRIPOptionSetting RIZfold=Right: "SET FOLD=ZRIGHT"
+*RIZfold Left/Left Fold: "%% FoomaticRIPOptionSetting: RIZfold=Left"
+*FoomaticRIPOptionSetting RIZfold=Left: "SET FOLD=ZLEFT"
+*CloseUI: *RIZfold
+
+*CloseGroup: Finishing
+
+*OpenGroup: PrintQuality/Print Quality
+*OpenUI *Resolution/Resolution: PickOne
+*FoomaticRIPOption Resolution: enum Composite A
+*OrderDependency: 15 AnySetup *Resolution
+*DefaultResolution: 600dpi
+
+*Resolution 600dpi/600 dpi:  "%% FoomaticRIPOptionSetting: Resolution=600dpi"
+*FoomaticRIPOptionSetting Resolution=600dpi: "JCLResolution=600dpi GSResolution=600dpi"
+*Resolution 1200dpi/1200 dpi:  "%% FoomaticRIPOptionSetting: Resolution=1200dpi"
+*FoomaticRIPOptionSetting Resolution=1200dpi: "JCLResolution=1200dpi GSResolution=1200dpi"
+*CloseUI: *Resolution
+
+*FoomaticRIPOption GSResolution: enum CmdLine A 15
+*FoomaticRIPOptionSetting GSResolution=FromResolution: ""
+*FoomaticRIPOptionSetting GSResolution=600dpi: " -r600x600"
+*FoomaticRIPOptionSetting GSResolution=1200dpi: " -r1200x1200"
+
+*FoomaticRIPOption JCLResolution: enum JCL A 15
+*FoomaticRIPOptionSetting JCLResolution=FromResolution: ""
+*FoomaticRIPOptionSetting JCLResolution=600dpi: "SET RESOLUTION=600"
+*FoomaticRIPOptionSetting JCLResolution=1200dpi: "SET RESOLUTION=1200"
+
+*OpenUI *RIPrintMode/Print Mode: PickOne
+*FoomaticRIPOption RIPrintMode: enum JCL A
+*OrderDependency: 45 AnySetup *RIPrintMode
+*DefaultRIPrintMode: 0rhit
+*RIPrintMode 0rhit/Off: "%% FoomaticRIPOptionSetting: RIPrintMode=0rhit"
+*FoomaticRIPOptionSetting RIPrintMode=0rhit: "SET ECONOMODE=OFF"
+*RIPrintMode 1rhit/Edge Smoothing: "%% FoomaticRIPOptionSetting: RIPrintMode=1rhit"
+*FoomaticRIPOptionSetting RIPrintMode=1rhit: "SET SMOOTHING=ON"
+*RIPrintMode 3rhit/Toner Saving: "%% FoomaticRIPOptionSetting: RIPrintMode=3rhit"
+*FoomaticRIPOptionSetting RIPrintMode=3rhit: "SET ECONOMODE=ON"
+*CloseUI: *RIPrintMode
+
+*CloseGroup: PrintQuality
+
+*DefaultPaperDimension: Letter
+*PaperDimension A4/A4 (210 x 297 mm): "595 842"
+*PaperDimension F/8 x 13: "576 936"
+*PaperDimension A3/A3 (297 x 420 mm): "842 1191"
+*PaperDimension A6/A6 (105 x 148 mm): "297 420"
+*PaperDimension EngQuatro/8 x 10: "576 720"
+*PaperDimension A5/A5 (148 x 210 mm): "420 595"
+*PaperDimension Tabloid/11 x 17: "792 1224"
+*PaperDimension 11x15/11 x 15: "792 1080"
+*PaperDimension 10x15/10 x 15: "720 1080"
+*PaperDimension GovernmentLG/8.25 x 14: "594 1008"
+*PaperDimension 10x14/10 x 14: "720 1008"
+*PaperDimension 11x14/11 x 14: "792 1008"
+*PaperDimension BD/182 x 210 mm: "516 595"
+*PaperDimension 8Kai/8K (267 x 390 mm): "757 1106"
+*PaperDimension B5/B5 JIS (182 x 257 mm): "516 729"
+*PaperDimension Executive/Executive (7.25 x 10.5): "522 756"
+*PaperDimension B4/B4 JIS (257 x 364 mm): "729 1032"
+*PaperDimension 16Kai/16K (195 x 267 mm): "553 757"
+*PaperDimension Legal/Legal (8.5 x 14): "612 1008"
+*PaperDimension B6/B6 JIS (128 x 182 mm): "363 516"
+*PaperDimension Statement/5.5 x 8.5: "396 612"
+*PaperDimension LineSlider2/210 x 340 mm: "595 964"
+*PaperDimension LineSlider1/170 x 210 mm: "482 595"
+*PaperDimension FanFoldGermanLegal/8.5 x 13: "612 936"
+*PaperDimension Folio/8.25 x 13: "595 935"
+*PaperDimension GLT/8 x 10.5: "576 756"
+*PaperDimension Letter/Letter (8.5 x 11): "612 792"
+*PaperDimension Oficio/8.5 x 13.4: "612 965"
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 25 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion A4/A4 (210 x 297 mm): "%% FoomaticRIPOptionSetting: PageSize=A4"
+*PageRegion F/8x13: "%% FoomaticRIPOptionSetting: PageSize=F"
+*PageRegion A3/A3 (297 x 420 mm): "%% FoomaticRIPOptionSetting: PageSize=A3"
+*PageRegion A6/A6 (105 x 148 mm): "%% FoomaticRIPOptionSetting: PageSize=A6"
+*PageRegion EngQuatro/8x10: "%% FoomaticRIPOptionSetting: PageSize=EngQuatro"
+*PageRegion A5/A5 (148 x 210 mm): "%% FoomaticRIPOptionSetting: PageSize=A5"
+*PageRegion Tabloid/11x17: "%% FoomaticRIPOptionSetting: PageSize=Tabloid"
+*PageRegion 11x15/11x15: "%% FoomaticRIPOptionSetting: PageSize=11x15"
+*PageRegion 10x15/10x15: "%% FoomaticRIPOptionSetting: PageSize=10x15"
+*PageRegion GovernmentLG/8.25x14: "%% FoomaticRIPOptionSetting: PageSize=GovernmentLG"
+*PageRegion 10x14/10x14: "%% FoomaticRIPOptionSetting: PageSize=10x14"
+*PageRegion 11x14/11x14: "%% FoomaticRIPOptionSetting: PageSize=11x14"
+*PageRegion BD/182 x 210 mm: "%% FoomaticRIPOptionSetting: PageSize=BD"
+*PageRegion 8Kai/8K (267 x 390 mm): "%% FoomaticRIPOptionSetting: PageSize=8Kai"
+*PageRegion B5/B5 JIS (182 x 257 mm): "%% FoomaticRIPOptionSetting: PageSize=B5"
+*PageRegion Executive/Executive (7.25 x 10.5): "%% FoomaticRIPOptionSetting: PageSize=Executive"
+*PageRegion B4/B4 JIS (257 x 364 mm): "%% FoomaticRIPOptionSetting: PageSize=B4"
+*PageRegion 16Kai/16K (195 x 267 mm): "%% FoomaticRIPOptionSetting: PageSize=16Kai"
+*PageRegion Legal/Legal (8.5 x 14): "%% FoomaticRIPOptionSetting: PageSize=Legal"
+*PageRegion B6/B6 JIS (128 x 182 mm): "%% FoomaticRIPOptionSetting: PageSize=B6"
+*PageRegion Statement/5.5x8.5: "%% FoomaticRIPOptionSetting: PageSize=Statement"
+*PageRegion LineSlider2/210 x 340 mm: "%% FoomaticRIPOptionSetting: PageSize=LineSlider2"
+*PageRegion LineSlider1/170 x 210 mm: "%% FoomaticRIPOptionSetting: PageSize=LineSlider1"
+*PageRegion FanFoldGermanLegal/8.5x13: "%% FoomaticRIPOptionSetting: PageSize=FanFoldGermanLegal"
+*PageRegion Folio/8.25x13: "%% FoomaticRIPOptionSetting: PageSize=Folio"
+*PageRegion GLT/8x10.5: "%% FoomaticRIPOptionSetting: PageSize=GLT"
+*PageRegion Letter/Letter (8.5 x 11): "%% FoomaticRIPOptionSetting: PageSize=Letter"
+*PageRegion Oficio/8.5x13.4: "%% FoomaticRIPOptionSetting: PageSize=Oficio"
+*CloseUI: *PageRegion
+
+*DefaultImageableArea: Letter
+*ImageableArea A4/A4 (210 x 297 mm): "12 12 583 830"
+*ImageableArea F/8 x 13: "12 12 564 924"
+*ImageableArea A3/A3 (297 x 420 mm): "12 12 830 1179"
+*ImageableArea A6/A6 (105 x 148 mm): "12 12 285 408"
+*ImageableArea EngQuatro/8 x 10: "12 12 564 708"
+*ImageableArea A5/A5 (148 x 210 mm): "12 12 408 583"
+*ImageableArea Tabloid/11 x 17: "12 12 780 1212"
+*ImageableArea 11x15/11 x 15: "12 12 780 1068"
+*ImageableArea 10x15/10 x 15: "12 12 708 1068"
+*ImageableArea GovernmentLG/8.25 x 14: "12 12 582 996"
+*ImageableArea 10x14/10 x 14: "12 12 708 996"
+*ImageableArea 11x14/11 x 14: "12 12 780 996"
+*ImageableArea BD/182 x 210 mm: "12 12 504 583"
+*ImageableArea 8Kai/8K (267 x 390 mm): "12 12 745 1094"
+*ImageableArea B5/B5 JIS (182 x 257 mm): "12 12 504 717"
+*ImageableArea Executive/Executive (7.25 x 10.5): "12 12 510 744"
+*ImageableArea B4/B4 JIS (257 x 364 mm): "12 12 717 1020"
+*ImageableArea 16Kai/16K (195 x 267 mm): "12 12 541 745"
+*ImageableArea Legal/Legal (8.5 x 14): "12 12 600 996"
+*ImageableArea B6/B6 JIS (128 x 182 mm): "12 12 351 504"
+*ImageableArea Statement/5.5 x 8.5: "12 12 384 600"
+*ImageableArea LineSlider2/210 x 340 mm: "12 12 583 952"
+*ImageableArea LineSlider1/170 x 210 mm: "12 12 470 583"
+*ImageableArea FanFoldGermanLegal/8.5 x 13: "12 12 600 924"
+*ImageableArea Folio/8.25 x 13: "12 12 583 923"
+*ImageableArea GLT/8 x 10.5: "12 12 564 744"
+*ImageableArea Letter/Letter (8.5 x 11): "12 12 600 780"
+*ImageableArea Oficio/8.5 x 13.4: "12 12 600 953"
+
+*OpenGroup: JobLog/Job Log
+
+*OpenUI *JobType/JobType: PickOne
+*FoomaticRIPOption JobType: enum JCL A
+*OrderDependency: 255 AnySetup *JobType
+*DefaultJobType: Normal
+*JobType Normal/Normal: ""
+*JobType SamplePrint/Sample Print: "%% FoomaticRIPOptionSetting: JobType=SamplePrint"
+*FoomaticRIPOptionSetting JobType=SamplePrint: "SET HOSTLOGINNAME=&quot;&user;&quot;
+@PJL SET DATE=&quot;&year;/&month;/&date;&quot;
+@PJL SET TIME=&quot;&hour;:&min;:&sec;&quot;
+@PJL SET JOBID=&quot;&title;&quot;
+@PJL SET JOBNAME=&quot;&title;&quot;
+@PJL PROOFJOB"
+*End
+*JobType LockedPrint/Locked Print: "%% FoomaticRIPOptionSetting: JobType=LockedPrint"
+*FoomaticRIPOptionSetting JobType=LockedPrint: "SET HOSTLOGINNAME=&quot;&user;&quot;
+@PJL SET DATE=&quot;&year;/&month;/&date;&quot;
+@PJL SET TIME=&quot;&hour;:&min;:&sec;&quot;
+@PJL SET JOBID=&quot;&title;&quot;
+@PJL SET JOBNAME=&quot;&title;&quot;
+@PJL SECUREJOB"
+*End
+*JobType DocServer/Document Server: "%% FoomaticRIPOptionSetting: JobType=DocServer"
+*FoomaticRIPOptionSetting JobType=DocServer: "SET HOSTLOGINNAME=&quot;&user;&quot;
+@PJL SET DATE=&quot;&year;/&month;/&date;&quot;
+@PJL SET TIME=&quot;&hour;:&min;:&sec;&quot;
+@PJL SET JOBID=&quot;&title;&quot;
+@PJL SET JOBNAME=&quot;&title;&quot;
+@PJL SET OWNERID=&quot;&user;&quot;
+@PJL SET DISKIMAGE=ON"
+*End
+*CloseUI: *JobType
+
+*OpenUI *Password/Locked Print or Doc Server Password (4-8 digits): PickOne
+*FoomaticRIPOption Password: password JCL A
+*FoomaticRIPOptionMaxLength Password:8
+*FoomaticRIPOptionAllowedChars Password: "0-9"
+*OrderDependency: 255 AnySetup *Password
+*FoomaticRIPOptionPrototype Password: "SET JOBPASSWORD2=&quot;%s&quot;"
+*DefaultPassword: None
+*Password None/None: ""
+*Password 4001/4001: "%% FoomaticRIPOptionSetting: Password=4001"
+*FoomaticRIPOptionSetting Password=4001: "SET JOBPASSWORD2=&quot;4001&quot;"
+*Password 4002/4002: "%% FoomaticRIPOptionSetting: Password=4002"
+*FoomaticRIPOptionSetting Password=4002: "SET JOBPASSWORD2=&quot;4002&quot;"
+*Password 4003/4003: "%% FoomaticRIPOptionSetting: Password=4003"
+*FoomaticRIPOptionSetting Password=4003: "SET JOBPASSWORD2=&quot;4003&quot;"
+*CloseUI: *Password
+*CustomPassword True/Custom Password: "@PJL SET JOBPASSWORD2=&quot;\1&quot;<0A>"
+*ParamCustomPassword Password: 1 password 4 8
+
+*OpenUI *UserCode/User Code (up to 8 digits): PickOne
+*FoomaticRIPOption UserCode: string JCL A
+*FoomaticRIPOptionMaxLength UserCode:8
+*FoomaticRIPOptionAllowedChars UserCode: "0-9"
+*OrderDependency: 255 AnySetup *UserCode
+*FoomaticRIPOptionPrototype UserCode: "SET USERCODE=&quot;%s&quot;"
+*DefaultUserCode: None
+*UserCode None/None: ""
+*UserCode 1001/1001: "%% FoomaticRIPOptionSetting: UserCode=1001"
+*FoomaticRIPOptionSetting UserCode=1001: "SET USERCODE=&quot;1001&quot;"
+*UserCode 1002/1002: "%% FoomaticRIPOptionSetting: UserCode=1002"
+*FoomaticRIPOptionSetting UserCode=1002: "SET USERCODE=&quot;1002&quot;"
+*UserCode 1003/1003: "%% FoomaticRIPOptionSetting: UserCode=1003"
+*FoomaticRIPOptionSetting UserCode=1003: "SET USERCODE=&quot;1003&quot;"
+*CloseUI: *UserCode
+*CustomUserCode True/Custom UserCode: "@PJL SET USERCODE=&quot;\1&quot;<0A>"
+*ParamCustomUserCode UserCode: 1 string 1 8
+
+*OpenUI *UserId/User Id (Up to 8 alphanumeric<0A> [a-z,A-Z,0-9,<2D><2E><2F><3A><5F><5F>] characters): PickOne
+*FoomaticRIPOption UserId: string JCL A
+*FoomaticRIPOptionMaxLength UserId:8
+*FoomaticRIPOptionAllowedChars UserId: "0-9a-zA-Z-./:_"
+*OrderDependency: 255 AnySetup *UserId
+*FoomaticRIPOptionPrototype UserId: "SET USERID=&quot;%s&quot;"
+*DefaultUserId: LoginUser
+*UserId None/None: ""
+*UserId LoginUser/LoginUser: "%% FoomaticRIPOptionSetting: UserId=LoginUser"
+*FoomaticRIPOptionSetting UserId=LoginUser: "SET USERID=&quot;&user;&quot;"
+*UserId User1/User1: "%% FoomaticRIPOptionSetting: UserId=User1"
+*FoomaticRIPOptionSetting UserId=User1: "SET USERID=&quot;User1&quot;"
+*UserId User2/User2: "%% FoomaticRIPOptionSetting: UserId=User2"
+*FoomaticRIPOptionSetting UserId=User2: "SET USERID=&quot;User2&quot;"
+*UserId User3/User3: "%% FoomaticRIPOptionSetting: UserId=User3"
+*FoomaticRIPOptionSetting UserId=User3: "SET USERID=&quot;User3&quot;"
+*CloseUI: *UserId
+*CustomUserId True/Custom UserId: "@PJL SET USERID=&quot;\1&quot;<0A>"
+*ParamCustomUserId UserId: 1 string 1 8
+
+*CloseGroup: JobLog/Job Log
+
+*%========== Job Log ==========
+*%========== Font ==========
+*DefaultFont: Courier
+*Font AlbertusMT: Standard "(001.000)" Standard ROM
+*Font AlbertusMT-Italic: Standard "(001.000)" Standard ROM
+*Font AlbertusMT-Light: Standard "(001.000)" Standard ROM
+*Font AntiqueOlive-Bold: Standard "(501.009)" ExtendedRoman ROM
+*Font AntiqueOlive-Compact: Standard "(501.008)" ExtendedRoman ROM
+*Font AntiqueOlive-Italic: Standard "(501.010)" ExtendedRoman ROM
+*Font AntiqueOlive-Roman: Standard "(501.008)" ExtendedRoman ROM
+*Font Apple-Chancery: Standard "(001.001)" ExtendedRoman ROM
+*Font ArialMT: Standard "(501.009)" ExtendedRoman ROM
+*Font Arial-BoldMT: Standard "(501.009)" ExtendedRoman ROM
+*Font Arial-BoldItalicMT: Standard "(501.009)" ExtendedRoman ROM
+*Font Arial-ItalicMT: Standard "(501.012)" ExtendedRoman ROM
+*Font AvantGarde-Book: Standard "(501.009)" ExtendedRoman ROM
+*Font AvantGarde-BookOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font AvantGarde-Demi: Standard "(501.010)" ExtendedRoman ROM
+*Font AvantGarde-DemiOblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Bodoni: Standard "(501.008)" ExtendedRoman ROM
+*Font Bodoni-Bold: Standard "(501.006)" ExtendedRoman ROM
+*Font Bodoni-BoldItalic: Standard "(501.007)" ExtendedRoman ROM
+*Font Bodoni-Italic: Standard "(501.007)" ExtendedRoman ROM
+*Font Bodoni-Poster: Standard "(501.009)" ExtendedRoman ROM
+*Font Bodoni-PosterCompressed: Standard "(501.007)" ExtendedRoman ROM
+*Font Bookman-Demi: Standard "(501.007)" ExtendedRoman ROM
+*Font Bookman-DemiItalic: Standard "(501.008)" ExtendedRoman ROM
+*Font Bookman-Light: Standard "(501.006)" ExtendedRoman ROM
+*Font Bookman-LightItalic: Standard "(501.007)" ExtendedRoman ROM
+*Font Carta: Special "(001.001)" Special ROM
+*Font Chicago: Standard "(501.011)" ExtendedRoman ROM
+*Font Clarendon-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Clarendon-Light: Standard "(501.009)" ExtendedRoman ROM
+*Font Clarendon: Standard "(501.009)" ExtendedRoman ROM
+*Font CooperBlack-Italic: Standard "(001.003)" Standard ROM
+*Font CooperBlack: Standard "(001.003)" Standard ROM
+*Font Copperplate-ThirtyThreeBC: Standard "(001.002)" Standard ROM
+*Font Copperplate-ThirtyTwoBC: Standard "(001.002)" Standard ROM
+*Font Coronet-Regular: Standard "(001.000)" ExtendedRoman ROM
+*Font Courier-Bold: Standard "(501.010)" ExtendedRoman ROM
+*Font Courier-BoldOblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Courier-Oblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Courier: Standard "(501.010)" ExtendedRoman ROM
+*Font Eurostile-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Eurostile-BoldExtendedTwo: Standard "(501.008)" ExtendedRoman ROM
+*Font Eurostile-ExtendedTwo: Standard "(501.010)" ExtendedRoman ROM
+*Font Eurostile: Standard "(501.008)" ExtendedRoman ROM
+*Font Geneva: Standard "(501.007)" ExtendedRoman ROM
+*Font GillSans: Standard "(501.009)" ExtendedRoman ROM
+*Font GillSans-Bold: Standard "(501.007)" ExtendedRoman ROM
+*Font GillSans-BoldCondensed: Standard "(501.006)" ExtendedRoman ROM
+*Font GillSans-BoldItalic: Standard "(501.008)" ExtendedRoman ROM
+*Font GillSans-Condensed: Standard "(501.007)" ExtendedRoman ROM
+*Font GillSans-ExtraBold: Standard "(501.008)" ExtendedRoman ROM
+*Font GillSans-Italic: Standard "(501.008)" ExtendedRoman ROM
+*Font GillSans-Light: Standard "(501.009)" ExtendedRoman ROM
+*Font GillSans-LightItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font Goudy: Standard "(001.003)" Standard ROM
+*Font Goudy-Bold: Standard "(001.002)" Standard ROM
+*Font Goudy-BoldItalic: Standard "(001.002)" Standard ROM
+*Font Goudy-ExtraBold: Standard "(001.001)" Standard ROM
+*Font Goudy-Italic: Standard "(001.002)" Standard ROM
+*Font Helvetica: Standard "(501.008)" ExtendedRoman ROM
+*Font Helvetica-Bold: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-BoldOblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Condensed-Bold: Standard "(501.009)" ExtendedRoman ROM
+*Font Helvetica-Condensed-BoldObl: Standard "(501.009)" ExtendedRoman ROM
+*Font Helvetica-Condensed-Oblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Condensed: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Narrow-Bold: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(501.010)" ExtendedRoman ROM
+*Font Helvetica-Narrow-Oblique: Standard "(501.008)" ExtendedRoman ROM
+*Font Helvetica-Narrow: Standard "(501.008)" ExtendedRoman ROM
+*Font Helvetica-Oblique: Standard "(501.008)" ExtendedRoman ROM
+*Font HoeflerText-Black: Standard "(501.008)" ExtendedRoman ROM
+*Font HoeflerText-BlackItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font HoeflerText-Italic: Standard "(501.010)" ExtendedRoman ROM
+*Font HoeflerText-Ornaments: Special "(001.001)" Special ROM
+*Font HoeflerText-Regular: Standard "(501.009)" ExtendedRoman ROM
+*Font JoannaMT: Standard "(501.009)" ExtendedRoman ROM
+*Font JoannaMT-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font JoannaMT-BoldItalic: Standard "(501.008)" ExtendedRoman ROM
+*Font JoannaMT-Italic: Standard "(501.008)" ExtendedRoman ROM
+*Font LetterGothic: Standard "(501.009)" ExtendedRoman ROM
+*Font LetterGothic-Bold: Standard "(501.010)" ExtendedRoman ROM
+*Font LetterGothic-BoldSlanted: Standard "(501.010)" ExtendedRoman ROM
+*Font LetterGothic-Slanted: Standard "(501.010)" ExtendedRoman ROM
+*Font LubalinGraph-Book: Standard "(501.009)" ExtendedRoman ROM
+*Font LubalinGraph-BookOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font LubalinGraph-Demi: Standard "(501.009)" ExtendedRoman ROM
+*Font LubalinGraph-DemiOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font Marigold: Standard "(001.000)" Standard ROM
+*Font MonaLisa-Recut: Standard "(001.000)" Standard ROM
+*Font Monaco: Standard "(501.012)" ExtendedRoman ROM
+*Font NewCenturySchlbk-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font NewCenturySchlbk-Italic: Standard "(501.011)" ExtendedRoman ROM
+*Font NewCenturySchlbk-Roman: Standard "(501.008)" ExtendedRoman ROM
+*Font NewYork: Standard "(501.013)" ExtendedRoman ROM
+*Font Optima-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Optima-BoldItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font Optima-Italic: Standard "(501.010)" ExtendedRoman ROM
+*Font Optima: Standard "(501.010)" ExtendedRoman ROM
+*Font Oxford: Standard "(001.000)" Standard ROM
+*Font Palatino-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Palatino-BoldItalic: Standard "(501.007)" ExtendedRoman ROM
+*Font Palatino-Italic: Standard "(501.008)" ExtendedRoman ROM
+*Font Palatino-Roman: Standard "(501.006)" ExtendedRoman ROM
+*Font StempelGaramond-Bold: Standard "(501.007)" ExtendedRoman ROM
+*Font StempelGaramond-BoldItalic: Standard "(501.012)" ExtendedRoman ROM
+*Font StempelGaramond-Italic: Standard "(501.009)" ExtendedRoman ROM
+*Font StempelGaramond-Roman: Standard "(501.011)" ExtendedRoman ROM
+*Font Symbol: Special "(001.008)" Special ROM
+*Font Tekton: Standard "(001.001)" Standard ROM
+*Font Times-Bold: Standard "(501.009)" ExtendedRoman ROM
+*Font Times-BoldItalic: Standard "(501.009)" ExtendedRoman ROM
+*Font Times-Italic: Standard "(501.010)" ExtendedRoman ROM
+*Font Times-Roman: Standard "(501.010)" ExtendedRoman ROM
+*Font TimesNewRomanPS-BoldItalicMT: Standard "(501.011)" ExtendedRoman ROM
+*Font TimesNewRomanPS-BoldMT: Standard "(501.009)" ExtendedRoman ROM
+*Font TimesNewRomanPS-ItalicMT: Standard "(501.011)" ExtendedRoman ROM
+*Font TimesNewRomanPSMT: Standard "(501.010)" ExtendedRoman ROM
+*Font Univers: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-Bold: Standard "(501.008)" ExtendedRoman ROM
+*Font Univers-BoldExt: Standard "(501.010)" ExtendedRoman ROM
+*Font Univers-BoldExtObl: Standard "(501.010)" ExtendedRoman ROM
+*Font Univers-BoldOblique: Standard "(501.008)" ExtendedRoman ROM
+*Font Univers-Condensed: Standard "(501.011)" ExtendedRoman ROM
+*Font Univers-CondensedBold: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-CondensedBoldOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-CondensedOblique: Standard "(501.011)" ExtendedRoman ROM
+*Font Univers-Extended: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-ExtendedObl: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-Light: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-LightOblique: Standard "(501.009)" ExtendedRoman ROM
+*Font Univers-Oblique: Standard "(501.009)" ExtendedRoman ROM
+*Font Wingdings-Regular: Special "(001.001)" Special ROM
+*Font ZapfChancery-MediumItalic: Standard "(002.000)" ExtendedRoman ROM
+*Font ZapfDingbats: Special "(001.005S)" Special ROM
+
+*%========== UI Constraints ==========
+*UIConstraints: *RIBannerPageMediaType Translucent *OutputBin FinVICTIShift
+*UIConstraints: *OutputBin MailBoxBin5 *StapleLocation UpperW
+*UIConstraints: *StapleLocation LeftW *Finisher NotInstalled
+*UIConstraints: *OutputBin MailBoxBin4 *RIBannerPageMediaType Labels
+*UIConstraints: *OutputBin FinVOLGACBKLower *Finisher FinVOLGAC
+*UIConstraints: *RIBannerPageMediaType Cardstock *RIBannerPageInputSlot 3Tray
+*UIConstraints: *InputSlot 3Tray *PageSize B6
+*UIConstraints: *RIZfold Right *MediaType Cardstock
+*UIConstraints: *MediaType OHP *InputSlot 1Tray
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinVOLGACBKUpper
+*UIConstraints: *InputSlot 3Tray *PageSize A6
+*UIConstraints: *MediaType Cardstock *InputSlot LCT
+*UIConstraints: *OutputBin MailBoxBin9 *StapleLocation LeftW
+*UIConstraints: *RIBannerPageMediaType Labels *OutputBin FinVICTIShift
+*UIConstraints: *OutputBin FinVOLGACBKLower *StapleLocation UpperRight
+*UIConstraints: *InputSlot 1Tray *PageSize Folio
+*UIConstraints: *MediaType Thick2 *InputSlot LCT
+*UIConstraints: *RIZfold Left *MediaType Letterhead
+*UIConstraints: *StapleLocation UpperLeft *MediaType Thick4
+*UIConstraints: *InputSlot 3Tray *PageSize EngQuatro
+*UIConstraints: *MediaType Cardstock *InputSlot 1Tray
+*UIConstraints: *OutputBin MailBoxBin2 *PageSize B6
+*UIConstraints: *StapleLocation UpperRight *MediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin9 *RIBannerPageMediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin9 *RIBannerPageMediaType Thick3
+*UIConstraints: *MediaType OHP *InputSlot LCT
+*UIConstraints: *OutputBin MailBoxBin8 *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin9 *RIBannerPageMediaType Thick4
+*UIConstraints: *InputSlot 3Tray *MediaType Thick4
+*UIConstraints: *OutputBin MailBoxBin2 *StapleLocation CenterW
+*UIConstraints: *OutputBin MailBoxBin2 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin4 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin8 *MediaType Thick4
+*UIConstraints: *OutputBin MailBoxBin8 *MediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin8 *MediaType Thick3
+*UIConstraints: *OutputBin MailBoxBin8 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin1 *RIZfold Right
+*UIConstraints: *InputSlot 2Tray *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin4 *MediaType Thick4
+*UIConstraints: *OutputBin FinVOLGACBKLower *PageSize GLT
+*UIConstraints: *InputSlot LCT *MediaType Index
+*UIConstraints: *InputSlot 2Tray *PageSize B6
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin1
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin2
+*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType Index
+*UIConstraints: *PageSize 10x15 *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin MailBoxBin4 *MediaType Thick3
+*UIConstraints: *OutputBin MailBoxBin4 *MediaType Thick2
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin5
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin6
+*UIConstraints: *MediaType Thick4 *StapleLocation CenterW
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin3
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin4
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin9
+*UIConstraints: *OutputBin MailBoxBin1 *RIBannerPageMediaType Translucent
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin7
+*UIConstraints: *StapleLocation LeftW *OutputBin MailBoxBin8
+*UIConstraints: *Finisher FinVICTORIAI *OutputBin Standard
+*UIConstraints: *RIBannerPageInputSlot 2Tray *RIBannerPageMediaType Thick4
+*UIConstraints: *PageSize 10x14 *InputSlot LCT
+*UIConstraints: *InputSlot LCT *PageSize Statement
+*UIConstraints: *InputSlot 1Tray *MediaType Cardstock
+*UIConstraints: *InputSlot MultiTray *PageSize LineSlider2
+*UIConstraints: *MediaType Thick3 *OutputBin FinVICTIUpper
+*UIConstraints: *InputSlot MultiTray *PageSize LineSlider1
+*UIConstraints: *StapleLocation UpperW *MediaType Translucent
+*UIConstraints: *MultiHolePunchUnit Installed *Finisher NotInstalled
+*UIConstraints: *OutputBin MailBoxBin2 *StapleLocation UpperLeft
+*UIConstraints: *InputSlot 2Tray *MediaType Cardstock
+*UIConstraints: *RIBannerPageInputSlot 1Tray *RIBannerPageMediaType Cardstock
+*UIConstraints: *OutputBin FinVICTIShift *MediaType OHP
+*UIConstraints: *OutputBin FinDONAUProof *RIBannerPageMediaType Translucent
+*UIConstraints: *OutputBin FinVOLGACBKLower *Finisher FinVICTORIAI
+*UIConstraints: *PageSize B6 *InputSlot 3Tray
+*UIConstraints: *OutputBin FinVOLGACBKLower *PageSize A5
+*UIConstraints: *OutputBin MailBoxBin7 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin4 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin9 *StapleLocation UpperW
+*UIConstraints: *OutputBin FinVOLGACBKLower *PageSize Statement
+*UIConstraints: *MediaType Translucent *StapleLocation RightW
+*UIConstraints: *Finisher NotInstalled *StapleLocation UpperW
+*UIConstraints: *OutputBin FinVOLGACBKLower *PageSize B6
+*UIConstraints: *RIZfold Right *MediaType Index
+*UIConstraints: *OutputBin FinVOLGACBKLower *PageSize A6
+*UIConstraints: *RIBannerPageMediaType OHP *RIBannerPageInputSlot 3Tray
+*UIConstraints: *OutputBin FinVOLGACBKLower *PageSize 16Kai
+*UIConstraints: *OutputBin FinVICTIUpper *StapleLocation RightW
+*UIConstraints: *StapleLocation CenterW *RIZfold Bottom
+*UIConstraints: *OutputBin MailBoxBin5 *RIBannerPageMediaType Index
+*UIConstraints: *PageSize A6 *InputSlot LCT
+*UIConstraints: *Finisher NotInstalled *OutputBin FinVOLGACUpper
+*UIConstraints: *OutputBin FinVOLGACBKLower *PageSize BD
+*UIConstraints: *InputSlot 2Tray *PageSize 10x14
+*UIConstraints: *OutputBin FinVOLGACBKUpper *StapleLocation UpperW
+*UIConstraints: *OutputBin FinVOLGACBKShift *Finisher FinVICTORIAI
+*UIConstraints: *OutputBin MailBoxBin8 *RIZfold Left
+*UIConstraints: *OutputBin MailBoxBin3 *StapleLocation UpperLeft
+*UIConstraints: *RIBannerPageMediaType OHP *OutputBin FinVOLGACBKLower
+*UIConstraints: *Finisher NotInstalled *MultiHolePunchUnit Installed
+*UIConstraints: *InputSlot MultiTray *PageSize BD
+*UIConstraints: *PageSize 11x15 *InputSlot 1Tray
+*UIConstraints: *OutputBin MailBoxBin5 *StapleLocation LeftW
+*UIConstraints: *MediaType Thick3 *OutputBin FinVOLGACBKUpper
+*UIConstraints: *OutputBin MailBoxBin2 *MediaType OHP
+*UIConstraints: *RIBannerPageInputSlot 2Tray *RIBannerPageMediaType OHP
+*UIConstraints: *OutputBin FinVOLGACBKUpper *MediaType Thick4
+*UIConstraints: *MediaType Index *OutputBin FinVOLGACBKLower
+*UIConstraints: *OutputBin FinVOLGACBKUpper *MediaType Thick3
+*UIConstraints: *StapleLocation UpperW *Finisher NotInstalled
+*UIConstraints: *MediaType Index *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperRight *MediaType Thick4
+*UIConstraints: *OutputBin FinVOLGACBKLower *PageSize F
+*UIConstraints: *OutputBin MailBoxBin5 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin FinDONAUProof *StapleLocation UpperLeft
+*UIConstraints: *OutputBin Standard *Mailbox Installed
+*UIConstraints: *OutputBin MailBoxBin1 *MediaType OHP
+*UIConstraints: *OutputBin FinDONAUProof *PageSize FanFoldGermanLegal
+*UIConstraints: *Finisher FinVOLGAC *OutputBin Standard
+*UIConstraints: *MediaType Labels *RIZfold Right
+*UIConstraints: *PageSize 10x15 *InputSlot LCT
+*UIConstraints: *OutputBin MailBoxBin5 *RIBannerPageMediaType OHP
+*UIConstraints: *OutputBin MailBoxBin9 *MediaType Translucent
+*UIConstraints: *RIZfold Right *OutputBin MailBoxBin9
+*UIConstraints: *OutputBin MailBoxBin5 *MediaType Translucent
+*UIConstraints: *RIZfold Right *OutputBin MailBoxBin6
+*UIConstraints: *RIZfold Right *OutputBin MailBoxBin5
+*UIConstraints: *RIZfold Right *OutputBin MailBoxBin8
+*UIConstraints: *RIZfold Right *OutputBin MailBoxBin7
+*UIConstraints: *RIZfold Right *OutputBin MailBoxBin2
+*UIConstraints: *RIZfold Right *OutputBin MailBoxBin1
+*UIConstraints: *RIZfold Right *OutputBin MailBoxBin4
+*UIConstraints: *RIZfold Right *OutputBin MailBoxBin3
+*UIConstraints: *Finisher FinVICTORIAI *Mailbox Installed
+*UIConstraints: *RIZfold Left *MediaType Thick4
+*UIConstraints: *RIBannerPageMediaType Labels *RIBannerPageInputSlot 2Tray
+*UIConstraints: *OutputBin MailBoxBin6 *MediaType OHP
+*UIConstraints: *MediaType Prepunched *OutputBin FinVOLGACBKLower
+*UIConstraints: *MediaType Translucent *OutputBin FinVOLGACBKLower
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin MailBoxBin1
+*UIConstraints: *RIZfold Bottom *MultiFold NotInstalled
+*UIConstraints: *PageSize 10x14 *OutputBin FinDONAUProof
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin MailBoxBin3
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin MailBoxBin2
+*UIConstraints: *OutputBin MailBoxBin7 *StapleLocation UpperRight
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin MailBoxBin5
+*UIConstraints: *RIZfold Left *MediaType Thick2
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin MailBoxBin4
+*UIConstraints: *RIZfold Left *MediaType Thick3
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin MailBoxBin7
+*UIConstraints: *MediaType Thick4 *InputSlot 2Tray
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin MailBoxBin6
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin MailBoxBin9
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin MailBoxBin8
+*UIConstraints: *MediaType Index *InputSlot MultiTray
+*UIConstraints: *InputSlot MultiTray *StapleLocation CenterW
+*UIConstraints: *MediaType Translucent *StapleLocation UpperLeft
+*UIConstraints: *OutputBin FinVOLGACBKLower *MediaType OHP
+*UIConstraints: *RIBannerPageMediaType Prepunched *OutputBin FinVOLGACBKLower
+*UIConstraints: *MediaType Index *RIZfold Left
+*UIConstraints: *StapleLocation RightW *InputSlot MultiTray
+*UIConstraints: *OutputBin MailBoxBin2 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin4 *MediaType Labels
+*UIConstraints: *InputSlot MultiTray *StapleLocation LeftW
+*UIConstraints: *OutputBin FinDONAUProof *RIBannerPageMediaType OHP
+*UIConstraints: *OutputBin MailBoxBin8 *Mailbox NotInstalled
+*UIConstraints: *InputSlot MultiTray *StapleLocation UpperW
+*UIConstraints: *PageSize EngQuatro *InputSlot 2Tray
+*UIConstraints: *PageSize A5 *OutputBin FinVOLGACBKLower
+*UIConstraints: *OutputBin MailBoxBin9 *RIZfold Left
+*UIConstraints: *OutputBin MailBoxBin2 *MediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin2 *MediaType Thick3
+*UIConstraints: *OutputBin MailBoxBin2 *MediaType Thick4
+*UIConstraints: *PageSize F *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin MailBoxBin9 *StapleLocation UpperRight
+*UIConstraints: *OutputBin FinVICTIShift *MediaType Translucent
+*UIConstraints: *MediaType Labels *InputSlot 3Tray
+*UIConstraints: *OutputBin MailBoxBin1 *Mailbox NotInstalled
+*UIConstraints: *OutputBin MailBoxBin3 *RIBannerPageMediaType Thick4
+*UIConstraints: *MediaType Thick3 *StapleLocation CenterW
+*UIConstraints: *OutputBin MailBoxBin3 *RIBannerPageMediaType Thick3
+*UIConstraints: *MediaType Thick2 *OutputBin MailBoxBin8
+*UIConstraints: *MediaType Thick2 *OutputBin MailBoxBin9
+*UIConstraints: *RIBannerPageMediaType Thick2 *OutputBin MailBoxBin1
+*UIConstraints: *RIBannerPageMediaType Index *OutputBin MailBoxBin2
+*UIConstraints: *RIBannerPageMediaType Index *OutputBin MailBoxBin1
+*UIConstraints: *RIBannerPageMediaType Index *OutputBin MailBoxBin4
+*UIConstraints: *RIBannerPageMediaType Thick2 *OutputBin MailBoxBin4
+*UIConstraints: *RIBannerPageMediaType Thick2 *OutputBin MailBoxBin5
+*UIConstraints: *RIBannerPageMediaType Index *OutputBin MailBoxBin3
+*UIConstraints: *RIBannerPageMediaType Index *OutputBin MailBoxBin6
+*UIConstraints: *RIBannerPageMediaType Thick2 *OutputBin MailBoxBin2
+*UIConstraints: *RIBannerPageMediaType Index *OutputBin MailBoxBin5
+*UIConstraints: *RIBannerPageMediaType Thick2 *OutputBin MailBoxBin3
+*UIConstraints: *OutputBin MailBoxBin3 *RIBannerPageMediaType Thick2
+*UIConstraints: *RIBannerPageMediaType Index *OutputBin MailBoxBin8
+*UIConstraints: *RIBannerPageMediaType Thick2 *OutputBin MailBoxBin8
+*UIConstraints: *RIBannerPageMediaType Thick2 *OutputBin MailBoxBin9
+*UIConstraints: *RIBannerPageMediaType Index *OutputBin MailBoxBin7
+*UIConstraints: *RIBannerPageMediaType Thick2 *OutputBin MailBoxBin6
+*UIConstraints: *RIBannerPageMediaType Index *OutputBin MailBoxBin9
+*UIConstraints: *RIBannerPageMediaType Thick2 *OutputBin MailBoxBin7
+*UIConstraints: *MediaType Thick2 *OutputBin MailBoxBin2
+*UIConstraints: *MediaType Thick2 *OutputBin MailBoxBin3
+*UIConstraints: *MediaType Thick2 *OutputBin MailBoxBin1
+*UIConstraints: *InputSlot 1Tray *PageSize A6
+*UIConstraints: *MediaType Thick2 *OutputBin MailBoxBin6
+*UIConstraints: *MediaType Thick2 *OutputBin MailBoxBin7
+*UIConstraints: *PageSize 16Kai *InputSlot MultiTray
+*UIConstraints: *MediaType Thick2 *OutputBin MailBoxBin4
+*UIConstraints: *InputSlot 1Tray *PageSize A5
+*UIConstraints: *MediaType Thick2 *OutputBin MailBoxBin5
+*UIConstraints: *PageSize GovernmentLG *OutputBin FinDONAUProof
+*UIConstraints: *PageSize F *OutputBin FinVOLGACBKLower
+*UIConstraints: *OutputBin MailBoxBin9 *MediaType OHP
+*UIConstraints: *OutputBin FinVICTIShift *PageSize A6
+*UIConstraints: *PageSize Folio *InputSlot 1Tray
+*UIConstraints: *RIZfold Right *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin1 *RIBannerPageMediaType OHP
+*UIConstraints: *OutputBin MailBoxBin7 *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin2 *Mailbox NotInstalled
+*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType OHP
+*UIConstraints: *OutputBin MailBoxBin3 *RIBannerPageMediaType Index
+*UIConstraints: *Finisher FinVICTORIAI *StapleLocation CenterW
+*UIConstraints: *OutputBin FinVOLGACBKLower *MediaType Thick3
+*UIConstraints: *OutputBin FinVOLGACBKLower *RIBannerPageMediaType Labels
+*UIConstraints: *OutputBin FinVOLGACShift *Finisher FinVICTORIAI
+*UIConstraints: *OutputBin FinVOLGACBKLower *MediaType Thick4
+*UIConstraints: *OutputBin MailBoxBin6 *RIBannerPageMediaType Thick4
+*UIConstraints: *OutputBin FinDONAUProof *MediaType OHP
+*UIConstraints: *InputSlot 2Tray *MediaType Thick4
+*UIConstraints: *OutputBin MailBoxBin6 *RIBannerPageMediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin6 *RIBannerPageMediaType Thick3
+*UIConstraints: *OutputBin FinVOLGACBKLower *PageSize LineSlider1
+*UIConstraints: *OutputBin FinVOLGACBKLower *PageSize LineSlider2
+*UIConstraints: *OutputBin FinVICTIUpper *Finisher NotInstalled
+*UIConstraints: *OutputBin FinDONAUProof *StapleLocation UpperRight
+*UIConstraints: *Mailbox Installed *OutputBin Standard
+*UIConstraints: *Finisher FinVICTORIAI *OutputBin FinVOLGACBKUpper
+*UIConstraints: *PageSize 11x14 *OutputBin FinDONAUProof
+*UIConstraints: *PageSize Statement *OutputBin FinVOLGACBKLower
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinVOLGACBKLower
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin FinVICTIUpper
+*UIConstraints: *OutputBin MailBoxBin4 *RIBannerPageMediaType Translucent
+*UIConstraints: *OutputBin FinVICTIShift *PageSize B6
+*UIConstraints: *OutputBin MailBoxBin4 *StapleLocation LeftW
+*UIConstraints: *OutputBin FinVOLGACBKLower *RIBannerPageMediaType Prepunched
+*UIConstraints: *MediaType OHP *InputSlot 2Tray
+*UIConstraints: *RIBannerPageInputSlot 3Tray *RIBannerPageMediaType Thick4
+*UIConstraints: *PageSize 11x14 *InputSlot LCT
+*UIConstraints: *MediaType Labels *RIZfold Bottom
+*UIConstraints: *InputSlot LCT *PageSize 10x15
+*UIConstraints: *OutputBin MailBoxBin4 *StapleLocation CenterW
+*UIConstraints: *OutputBin FinDONAUProof *MediaType Translucent
+*UIConstraints: *InputSlot LCT *PageSize 10x14
+*UIConstraints: *InputSlot MultiTray *PageSize 16Kai
+*UIConstraints: *PageSize LineSlider2 *InputSlot LCT
+*UIConstraints: *RIZfold Bottom *StapleLocation CenterW
+*UIConstraints: *InputSlot 1Tray *PageSize Executive
+*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType Labels
+*UIConstraints: *OutputBin MailBoxBin2 *MediaType Index
+*UIConstraints: *MediaType Thick4 *StapleLocation UpperW
+*UIConstraints: *PageSize BD *InputSlot 1Tray
+*UIConstraints: *OutputBin FinVOLGACBKLower *RIBannerPageMediaType OHP
+*UIConstraints: *InputSlot 1Tray *PageSize BD
+*UIConstraints: *RIBannerPageMediaType OHP *OutputBin MailBoxBin9
+*UIConstraints: *RIBannerPageMediaType OHP *OutputBin MailBoxBin8
+*UIConstraints: *OutputBin MailBoxBin3 *RIBannerPageMediaType Labels
+*UIConstraints: *RIZfold Left *InputSlot MultiTray
+*UIConstraints: *RIBannerPageMediaType OHP *OutputBin MailBoxBin1
+*UIConstraints: *InputSlot 1Tray *PageSize B6
+*UIConstraints: *InputSlot 1Tray *PageSize B5
+*UIConstraints: *RIBannerPageMediaType OHP *OutputBin MailBoxBin3
+*UIConstraints: *RIBannerPageMediaType OHP *OutputBin MailBoxBin2
+*UIConstraints: *RIBannerPageMediaType OHP *OutputBin MailBoxBin5
+*UIConstraints: *RIBannerPageMediaType OHP *OutputBin MailBoxBin4
+*UIConstraints: *RIBannerPageMediaType OHP *OutputBin MailBoxBin7
+*UIConstraints: *RIBannerPageMediaType OHP *OutputBin MailBoxBin6
+*UIConstraints: *MediaType Letterhead *RIZfold Right
+*UIConstraints: *RIZfold Right *StapleLocation CenterW
+*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType Cardstock
+*UIConstraints: *InputSlot LCT *PageSize 16Kai
+*UIConstraints: *OutputBin MailBoxBin8 *PageSize B6
+*UIConstraints: *OutputBin FinVOLGACShift *Finisher FinVOLGACBK
+*UIConstraints: *OutputBin MailBoxBin1 *MediaType Labels
+*UIConstraints: *MediaType Labels *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin MailBoxBin8 *StapleLocation CenterW
+*UIConstraints: *OutputBin MailBoxBin6 *RIZfold Bottom
+*UIConstraints: *Finisher NotInstalled *StapleLocation LeftW
+*UIConstraints: *StapleLocation UpperLeft *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin6 *RIBannerPageMediaType Labels
+*UIConstraints: *PageSize Folio *InputSlot LCT
+*UIConstraints: *InputSlot LCT *PageSize FanFoldGermanLegal
+*UIConstraints: *OutputBin MailBoxBin2 *StapleLocation UpperRight
+*UIConstraints: *RIZfold Bottom *MediaType Thick2
+*UIConstraints: *RIZfold Bottom *MediaType Thick3
+*UIConstraints: *RIZfold Bottom *MediaType Thick4
+*UIConstraints: *OutputBin MailBoxBin6 *StapleLocation LeftW
+*UIConstraints: *MediaType Thick4 *RIZfold Bottom
+*UIConstraints: *OutputBin MailBoxBin8 *RIBannerPageMediaType Labels
+*UIConstraints: *OutputBin FinVICTIShift *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin5 *RIZfold Right
+*UIConstraints: *OutputBin MailBoxBin2 *RIBannerPageMediaType Labels
+*UIConstraints: *PageSize B6 *InputSlot 1Tray
+*UIConstraints: *OutputBin FinDONAUProof *StapleLocation CenterW
+*UIConstraints: *MediaType Thick3 *OutputBin FinVOLGACUpper
+*UIConstraints: *StapleLocation RightW *OutputBin FinVICTIUpper
+*UIConstraints: *OutputBin MailBoxBin2 *RIZfold Right
+*UIConstraints: *OutputBin MailBoxBin3 *RIZfold Bottom
+*UIConstraints: *OutputBin FinVOLGACUpper *Finisher FinVICTORIAI
+*UIConstraints: *MediaType Translucent *InputSlot LCT
+*UIConstraints: *RIZfold Bottom *MediaType Labels
+*UIConstraints: *RIZfold Right *MediaType OHP
+*UIConstraints: *StapleLocation CenterW *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinVICTIUpper *StapleLocation UpperLeft
+*UIConstraints: *InputSlot LCT *PageSize GLT
+*UIConstraints: *OutputBin FinDONAUProof *PageSize F
+*UIConstraints: *OutputBin FinVICTIUpper *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin4 *PageSize B6
+*UIConstraints: *OutputBin FinVICTIUpper *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin3 *StapleLocation UpperRight
+*UIConstraints: *PageSize F *InputSlot 1Tray
+*UIConstraints: *OutputBin MailBoxBin8 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin3 *MediaType Thick4
+*UIConstraints: *OutputBin MailBoxBin3 *MediaType Thick3
+*UIConstraints: *OutputBin FinVICTIUpper *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin3 *MediaType Thick2
+*UIConstraints: *MediaType Labels *InputSlot 1Tray
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin6
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin7
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin8
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin9
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin2
+*UIConstraints: *OutputBin MailBoxBin5 *MediaType Thick3
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin3
+*UIConstraints: *OutputBin MailBoxBin5 *MediaType Thick4
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin4
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin5
+*UIConstraints: *StapleLocation RightW *OutputBin MailBoxBin1
+*UIConstraints: *StapleLocation LeftW *OutputBin FinVOLGACBKUpper
+*UIConstraints: *InputSlot 1Tray *MediaType Labels
+*UIConstraints: *MediaType Labels *StapleLocation LeftW
+*UIConstraints: *OutputBin MailBoxBin4 *MediaType OHP
+*UIConstraints: *PageSize A6 *InputSlot 1Tray
+*UIConstraints: *Finisher FinVOLGACBK *OutputBin FinVOLGACShift
+*UIConstraints: *Finisher NotInstalled *OutputBin FinVICTIShift
+*UIConstraints: *OutputBin MailBoxBin4 *RIBannerPageMediaType Thick4
+*UIConstraints: *OutputBin MailBoxBin4 *RIBannerPageMediaType Thick2
+*UIConstraints: *PageSize GLT *InputSlot 1Tray
+*UIConstraints: *OutputBin MailBoxBin4 *RIBannerPageMediaType Thick3
+*UIConstraints: *PageSize GLT *OutputBin FinVOLGACBKLower
+*UIConstraints: *OutputBin MailBoxBin7 *MediaType Translucent
+*UIConstraints: *OutputBin FinVOLGACBKLower *PageSize 8Kai
+*UIConstraints: *OutputBin MailBoxBin5 *MediaType Thick2
+*UIConstraints: *StapleLocation UpperW *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin7 *RIZfold Right
+*UIConstraints: *Finisher FinVOLGAC *StapleLocation CenterW
+*UIConstraints: *OutputBin MailBoxBin8 *MediaType Index
+*UIConstraints: *StapleLocation UpperRight *MediaType OHP
+*UIConstraints: *StapleLocation CenterW *Finisher FinVOLGAC
+*UIConstraints: *MediaType Labels *InputSlot LCT
+*UIConstraints: *Finisher FinVOLGACBK *OutputBin FinVOLGACUpper
+*UIConstraints: *OutputBin MailBoxBin9 *RIZfold Right
+*UIConstraints: *InputSlot 3Tray *MediaType OHP
+*UIConstraints: *MediaType Labels *StapleLocation CenterW
+*UIConstraints: *RIZfold Bottom *MediaType Translucent
+*UIConstraints: *OutputBin FinVOLGACBKUpper *StapleLocation UpperLeft
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin FinVOLGACUpper
+*UIConstraints: *OutputBin MailBoxBin3 *MediaType OHP
+*UIConstraints: *StapleLocation UpperLeft *MediaType OHP
+*UIConstraints: *OutputBin FinVOLGACBKLower *MediaType Labels
+*UIConstraints: *MediaType Thick4 *InputSlot 1Tray
+*UIConstraints: *OutputBin MailBoxBin6 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin FinVICTIUpper *Finisher FinVOLGAC
+*UIConstraints: *OutputBin MailBoxBin7 *MediaType Index
+*UIConstraints: *MediaType Thick3 *RIZfold Bottom
+*UIConstraints: *PageSize 10x14 *InputSlot 2Tray
+*UIConstraints: *InputSlot 1Tray *PageSize 16Kai
+*UIConstraints: *InputSlot LCT *PageSize F
+*UIConstraints: *PageSize 16Kai *InputSlot 1Tray
+*UIConstraints: *InputSlot 3Tray *MediaType Labels
+*UIConstraints: *OutputBin FinVOLGACBKLower *PageSize FanFoldGermanLegal
+*UIConstraints: *OutputBin FinVOLGACBKUpper *StapleLocation RightW
+*UIConstraints: *MediaType Thick3 *RIZfold Left
+*UIConstraints: *OutputBin MailBoxBin4 *RIBannerPageMediaType Index
+*UIConstraints: *Finisher FinVOLGAC *OutputBin FinVICTIShift
+*UIConstraints: *StapleLocation UpperW *MediaType OHP
+*UIConstraints: *StapleLocation LeftW *MediaType Thick4
+*UIConstraints: *OutputBin MailBoxBin2 *RIZfold Bottom
+*UIConstraints: *PageSize Folio *OutputBin FinDONAUProof
+*UIConstraints: *RIBannerPageMediaType Cardstock *RIBannerPageInputSlot 2Tray
+*UIConstraints: *InputSlot 1Tray *MediaType Thick4
+*UIConstraints: *OutputBin MailBoxBin9 *MediaType Thick3
+*UIConstraints: *OutputBin MailBoxBin9 *MediaType Thick4
+*UIConstraints: *OutputBin MailBoxBin9 *MediaType Thick2
+*UIConstraints: *RIBannerPageMediaType Labels *RIBannerPageInputSlot LCT
+*UIConstraints: *StapleLocation CenterW *InputSlot MultiTray
+*UIConstraints: *PageSize 11x15 *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinVOLGACUpper *Finisher NotInstalled
+*UIConstraints: *RIZfold Right *InputSlot MultiTray
+*UIConstraints: *InputSlot LCT *MediaType Translucent
+*UIConstraints: *StapleLocation UpperW *MediaType Thick4
+*UIConstraints: *OutputBin MailBoxBin1 *MediaType Thick4
+*UIConstraints: *OutputBin MailBoxBin1 *MediaType Thick3
+*UIConstraints: *OutputBin MailBoxBin1 *MediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin1 *StapleLocation UpperRight
+*UIConstraints: *InputSlot 1Tray *MediaType OHP
+*UIConstraints: *OutputBin MailBoxBin5 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin2 *StapleLocation LeftW
+*UIConstraints: *StapleLocation UpperRight *Finisher NotInstalled
+*UIConstraints: *StapleLocation CenterW *Finisher FinVICTORIAI
+*UIConstraints: *RIZfold Bottom *InputSlot MultiTray
+*UIConstraints: *OutputBin MailBoxBin6 *RIZfold Left
+*UIConstraints: *PageSize 11x14 *InputSlot 1Tray
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin FinVOLGACUpper
+*UIConstraints: *OutputBin FinVOLGACBKLower *StapleLocation RightW
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin FinVICTIUpper
+*UIConstraints: *OutputBin MailBoxBin1 *MediaType Index
+*UIConstraints: *OutputBin MailBoxBin9 *StapleLocation CenterW
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin FinVOLGACBKUpper
+*UIConstraints: *RIBannerPageMediaType OHP *RIBannerPageInputSlot 1Tray
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin9
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin8
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin5
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin4
+*UIConstraints: *OutputBin FinDONAUProof *RIBannerPageMediaType Labels
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin7
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin6
+*UIConstraints: *MediaType Cardstock *RIZfold Right
+*UIConstraints: *OutputBin FinVOLGACBKUpper *Finisher FinVOLGAC
+*UIConstraints: *MultiHolePunchUnit Installed *Finisher FinVOLGAC
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin1
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin2
+*UIConstraints: *PageSize Executive *InputSlot LCT
+*UIConstraints: *MediaType Translucent *OutputBin MailBoxBin3
+*UIConstraints: *OutputBin FinDONAUProof *StapleLocation RightW
+*UIConstraints: *MediaType OHP *StapleLocation UpperLeft
+*UIConstraints: *MediaType Index *RIZfold Right
+*UIConstraints: *OutputBin MailBoxBin2 *RIBannerPageMediaType Thick4
+*UIConstraints: *StapleLocation CenterW *Finisher NotInstalled
+*UIConstraints: *OutputBin MailBoxBin4 *StapleLocation UpperW
+*UIConstraints: *InputSlot LCT *LargeCapacityTray NotInstalled
+*UIConstraints: *OutputBin MailBoxBin2 *RIBannerPageMediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin2 *RIBannerPageMediaType Thick3
+*UIConstraints: *InputSlot LCT *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin3 *StapleLocation LeftW
+*UIConstraints: *RIBannerPageMediaType Thick4 *RIBannerPageInputSlot 1Tray
+*UIConstraints: *InputSlot 1Tray *PageSize F
+*UIConstraints: *StapleLocation CenterW *MediaType Translucent
+*UIConstraints: *InputSlot 1Tray *PageSize 11x15
+*UIConstraints: *InputSlot 1Tray *PageSize 11x14
+*UIConstraints: *StapleLocation RightW *MediaType Translucent
+*UIConstraints: *MediaType Translucent *RIZfold Bottom
+*UIConstraints: *RIZfold Bottom *MediaType OHP
+*UIConstraints: *InputSlot MultiTray *RIZfold Bottom
+*UIConstraints: *MediaType Translucent *StapleLocation UpperRight
+*UIConstraints: *StapleLocation CenterW *OutputBin FinVOLGACBKUpper
+*UIConstraints: *OutputBin MailBoxBin9 *RIBannerPageMediaType Labels
+*UIConstraints: *MediaType Thick2 *RIZfold Bottom
+*UIConstraints: *OutputBin FinVICTIUpper *RIBannerPageMediaType Thick3
+*UIConstraints: *OutputBin FinVICTIUpper *RIBannerPageMediaType Thick4
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinDONAUProof
+*UIConstraints: *MediaType Thick2 *RIZfold Left
+*UIConstraints: *InputSlot 1Tray *PageSize LineSlider2
+*UIConstraints: *InputSlot 1Tray *PageSize LineSlider1
+*UIConstraints: *StapleLocation RightW *Finisher NotInstalled
+*UIConstraints: *RIBannerPageMediaType Index *OutputBin FinVOLGACBKLower
+*UIConstraints: *OutputBin MailBoxBin8 *RIBannerPageMediaType OHP
+*UIConstraints: *OutputBin FinVOLGACBKLower *RIZfold Left
+*UIConstraints: *RIBannerPageMediaType Thick3 *RIBannerPageInputSlot LCT
+*UIConstraints: *OutputBin FinVOLGACUpper *StapleLocation UpperRight
+*UIConstraints: *RIBannerPageInputSlot 3Tray *RIBannerPageMediaType Cardstock
+*UIConstraints: *StapleLocation UpperLeft *MediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin6 *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin8 *RIZfold Right
+*UIConstraints: *Finisher FinVOLGAC *OutputBin FinVICTIUpper
+*UIConstraints: *InputSlot LCT *MediaType OHP
+*UIConstraints: *OutputBin MailBoxBin8 *StapleLocation UpperRight
+*UIConstraints: *PageSize A5 *InputSlot 1Tray
+*UIConstraints: *PageSize GovernmentLG *InputSlot 1Tray
+*UIConstraints: *MediaType Thick4 *StapleLocation UpperLeft
+*UIConstraints: *MediaType OHP *OutputBin FinVOLGACBKLower
+*UIConstraints: *OutputBin Standard *Finisher FinVICTORIAI
+*UIConstraints: *OutputBin MailBoxBin5 *RIBannerPageMediaType Labels
+*UIConstraints: *OutputBin MailBoxBin5 *RIBannerPageMediaType Translucent
+*UIConstraints: *OutputBin FinVOLGACUpper *Finisher FinVOLGACBK
+*UIConstraints: *OutputBin FinVOLGACBKUpper *Finisher FinVICTORIAI
+*UIConstraints: *InputSlot MultiTray *PageSize 8Kai
+*UIConstraints: *Finisher FinVOLGACBK *OutputBin Standard
+*UIConstraints: *OutputBin MailBoxBin6 *RIBannerPageMediaType Index
+*UIConstraints: *StapleLocation LeftW *MediaType Translucent
+*UIConstraints: *InputSlot 3Tray *PageSize 10x14
+*UIConstraints: *MediaType OHP *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin2 *MediaType Labels
+*UIConstraints: *MediaType Index *RIZfold Bottom
+*UIConstraints: *OutputBin MailBoxBin1 *StapleLocation RightW
+*UIConstraints: *MultiFold Installed *OutputBin Standard
+*UIConstraints: *StapleLocation LeftW *MediaType Labels
+*UIConstraints: *PageSize LineSlider1 *InputSlot 1Tray
+*UIConstraints: *MediaType Index *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin MailBoxBin5 *MediaType Labels
+*UIConstraints: *Finisher FinVICTORIAI *OutputBin FinVOLGACUpper
+*UIConstraints: *RIBannerPageMediaType Thick4 *RIBannerPageInputSlot LCT
+*UIConstraints: *PageSize B5 *InputSlot 1Tray
+*UIConstraints: *InputSlot LCT *PageSize 8Kai
+*UIConstraints: *OutputBin MailBoxBin3 *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin9 *RIBannerPageMediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin7 *RIBannerPageMediaType OHP
+*UIConstraints: *PageSize EngQuatro *InputSlot LCT
+*UIConstraints: *OutputBin Standard *Finisher FinVOLGACBK
+*UIConstraints: *OutputBin MailBoxBin8 *RIBannerPageMediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin8 *RIBannerPageMediaType Thick3
+*UIConstraints: *OutputBin MailBoxBin8 *RIBannerPageMediaType Thick4
+*UIConstraints: *OutputBin MailBoxBin5 *RIBannerPageMediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin5 *RIBannerPageMediaType Thick3
+*UIConstraints: *OutputBin MailBoxBin5 *RIBannerPageMediaType Thick4
+*UIConstraints: *OutputBin FinDONAUProof *RIBannerPageMediaType Index
+*UIConstraints: *OutputBin MailBoxBin7 *PageSize A6
+*UIConstraints: *MediaType OHP *OutputBin FinDONAUProof
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin FinVOLGACBKLower
+*UIConstraints: *RIZfold Left *OutputBin MailBoxBin8
+*UIConstraints: *RIZfold Left *OutputBin MailBoxBin9
+*UIConstraints: *RIZfold Left *OutputBin MailBoxBin6
+*UIConstraints: *RIZfold Left *OutputBin MailBoxBin7
+*UIConstraints: *RIZfold Left *OutputBin MailBoxBin4
+*UIConstraints: *StapleLocation LeftW *OutputBin FinVOLGACBKLower
+*UIConstraints: *RIZfold Left *OutputBin MailBoxBin5
+*UIConstraints: *OutputBin MailBoxBin4 *StapleLocation RightW
+*UIConstraints: *MultiFold Installed *Finisher NotInstalled
+*UIConstraints: *MediaType OHP *RIZfold Bottom
+*UIConstraints: *RIZfold Left *OutputBin MailBoxBin3
+*UIConstraints: *RIZfold Left *OutputBin MailBoxBin2
+*UIConstraints: *RIZfold Left *OutputBin MailBoxBin1
+*UIConstraints: *OutputBin FinDONAUProof *PageSize Folio
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin5
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin4
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin7
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin6
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin9
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin8
+*UIConstraints: *StapleLocation RightW *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin MailBoxBin7 *PageSize B6
+*UIConstraints: *PageSize A6 *OutputBin FinVOLGACBKLower
+*UIConstraints: *OutputBin MailBoxBin3 *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin8
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin9
+*UIConstraints: *RIBannerPageInputSlot LCT *LargeCapacityTray NotInstalled
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin3
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin2
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin1
+*UIConstraints: *OutputBin MailBoxBin2 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin9 *RIBannerPageMediaType OHP
+*UIConstraints: *OutputBin MailBoxBin8 *MediaType OHP
+*UIConstraints: *MediaType Labels *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin7
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin6
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin5
+*UIConstraints: *StapleLocation UpperLeft *OutputBin MailBoxBin4
+*UIConstraints: *OutputBin FinVOLGACBKLower *StapleLocation UpperW
+*UIConstraints: *MediaType Labels *StapleLocation UpperW
+*UIConstraints: *OutputBin FinVOLGACUpper *StapleLocation RightW
+*UIConstraints: *RIZfold Bottom *OutputBin MailBoxBin1
+*UIConstraints: *RIZfold Bottom *OutputBin MailBoxBin2
+*UIConstraints: *MediaType Cardstock *InputSlot 2Tray
+*UIConstraints: *OutputBin MailBoxBin6 *MediaType Labels
+*UIConstraints: *RIZfold Bottom *OutputBin MailBoxBin3
+*UIConstraints: *RIZfold Bottom *OutputBin MailBoxBin4
+*UIConstraints: *RIZfold Bottom *OutputBin MailBoxBin5
+*UIConstraints: *RIZfold Bottom *OutputBin MailBoxBin6
+*UIConstraints: *RIZfold Bottom *OutputBin MailBoxBin7
+*UIConstraints: *OutputBin MailBoxBin1 *StapleLocation UpperLeft
+*UIConstraints: *MediaType Thick4 *OutputBin FinVOLGACBKUpper
+*UIConstraints: *MediaType Cardstock *InputSlot 3Tray
+*UIConstraints: *RIZfold Bottom *OutputBin MailBoxBin9
+*UIConstraints: *RIZfold Bottom *OutputBin MailBoxBin8
+*UIConstraints: *StapleLocation CenterW *MediaType Index
+*UIConstraints: *StapleLocation RightW *MediaType Thick4
+*UIConstraints: *MediaType Translucent *RIZfold Right
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin3
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin2
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin5
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin4
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin7
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin6
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin9
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin8
+*UIConstraints: *OutputBin MailBoxBin3 *RIBannerPageMediaType OHP
+*UIConstraints: *MediaType OHP *OutputBin MailBoxBin1
+*UIConstraints: *InputSlot 1Tray *PageSize Statement
+*UIConstraints: *OutputBin FinVICTIShift *Finisher FinVOLGACBK
+*UIConstraints: *OutputBin MailBoxBin1 *RIBannerPageMediaType Index
+*UIConstraints: *OutputBin FinVOLGACUpper *MediaType Thick4
+*UIConstraints: *OutputBin Standard *Finisher FinVOLGAC
+*UIConstraints: *OutputBin MailBoxBin3 *StapleLocation RightW
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin9
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinVOLGACBKUpper
+*UIConstraints: *OutputBin FinVOLGACUpper *MediaType Thick3
+*UIConstraints: *OutputBin MailBoxBin9 *MediaType Labels
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin2
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin1
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin4
+*UIConstraints: *RIZfold Bottom *MediaType Letterhead
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin3
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin6
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin5
+*UIConstraints: *OutputBin FinDONAUProof *MediaType Index
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin8
+*UIConstraints: *StapleLocation UpperRight *OutputBin MailBoxBin7
+*UIConstraints: *OutputBin MailBoxBin6 *MediaType Translucent
+*UIConstraints: *OutputBin FinVOLGACBKUpper *StapleLocation LeftW
+*UIConstraints: *StapleLocation CenterW *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin6 *StapleLocation CenterW
+*UIConstraints: *StapleLocation LeftW *OutputBin FinDONAUProof
+*UIConstraints: *PageSize LineSlider1 *InputSlot MultiTray
+*UIConstraints: *StapleLocation CenterW *MediaType OHP
+*UIConstraints: *OutputBin FinVOLGACUpper *StapleLocation LeftW
+*UIConstraints: *RIBannerPageInputSlot 1Tray *RIBannerPageMediaType Index
+*UIConstraints: *OutputBin MailBoxBin7 *StapleLocation CenterW
+*UIConstraints: *OutputBin MailBoxBin5 *RIZfold Bottom
+*UIConstraints: *RIBannerPageMediaType OHP *OutputBin FinDONAUProof
+*UIConstraints: *InputSlot 1Tray *PageSize GLT
+*UIConstraints: *OutputBin MailBoxBin5 *Mailbox NotInstalled
+*UIConstraints: *MediaType Translucent *StapleLocation LeftW
+*UIConstraints: *RIZfold Bottom *MediaType Cardstock
+*UIConstraints: *RIBannerPageMediaType Index *RIBannerPageInputSlot MultiTray
+*UIConstraints: *PageSize FanFoldGermanLegal *OutputBin FinVOLGACBKLower
+*UIConstraints: *InputSlot LCT *PageSize LineSlider1
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinVOLGACBKLower
+*UIConstraints: *OutputBin MailBoxBin1 *PageSize A6
+*UIConstraints: *MediaType Thick4 *OutputBin FinVOLGACUpper
+*UIConstraints: *OutputBin FinVOLGACUpper *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin3 *RIZfold Right
+*UIConstraints: *OutputBin MailBoxBin8 *StapleLocation UpperW
+*UIConstraints: *StapleLocation UpperW *OutputBin FinVOLGACBKUpper
+*UIConstraints: *RIBannerPageInputSlot 3Tray *RIBannerPageMediaType OHP
+*UIConstraints: *RIZfold Right *MediaType Translucent
+*UIConstraints: *PageSize A6 *InputSlot 2Tray
+*UIConstraints: *Finisher FinVOLGAC *MultiHolePunchUnit Installed
+*UIConstraints: *LargeCapacityTray NotInstalled *InputSlot LCT
+*UIConstraints: *RIBannerPageMediaType Labels *RIBannerPageInputSlot 3Tray
+*UIConstraints: *OutputBin FinDONAUProof *PageSize 10x15
+*UIConstraints: *OutputBin FinDONAUProof *PageSize 10x14
+*UIConstraints: *OutputBin MailBoxBin8 *RIZfold Bottom
+*UIConstraints: *InputSlot LCT *PageSize Tabloid
+*UIConstraints: *MediaType Translucent *RIZfold Left
+*UIConstraints: *Finisher NotInstalled *MultiFold Installed
+*UIConstraints: *OutputBin MailBoxBin1 *PageSize B6
+*UIConstraints: *RIBannerPageMediaType Labels *OutputBin MailBoxBin2
+*UIConstraints: *RIBannerPageMediaType Labels *OutputBin MailBoxBin3
+*UIConstraints: *MultiFold NotInstalled *RIZfold Bottom
+*UIConstraints: *RIBannerPageMediaType Labels *OutputBin MailBoxBin1
+*UIConstraints: *OutputBin MailBoxBin7 *RIBannerPageMediaType Translucent
+*UIConstraints: *MediaType Translucent *OutputBin FinVICTIShift
+*UIConstraints: *OutputBin MailBoxBin1 *StapleLocation CenterW
+*UIConstraints: *OutputBin MailBoxBin3 *PageSize B6
+*UIConstraints: *OutputBin FinDONAUProof *MediaType Cardstock
+*UIConstraints: *InputSlot LCT *PageSize 11x15
+*UIConstraints: *InputSlot LCT *PageSize 11x14
+*UIConstraints: *InputSlot LCT *PageSize Folio
+*UIConstraints: *OutputBin MailBoxBin3 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin2 *MediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin6 *MediaType Index
+*UIConstraints: *OutputBin FinDONAUProof *PageSize LineSlider2
+*UIConstraints: *MediaType Labels *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin7 *RIBannerPageMediaType Index
+*UIConstraints: *MediaType Labels *OutputBin FinVICTIShift
+*UIConstraints: *MediaType Index *InputSlot LCT
+*UIConstraints: *Finisher FinVOLGAC *OutputBin FinVOLGACBKUpper
+*UIConstraints: *StapleLocation UpperW *OutputBin FinVOLGACUpper
+*UIConstraints: *OutputBin MailBoxBin3 *RIBannerPageMediaType Translucent
+*UIConstraints: *RIBannerPageMediaType OHP *RIBannerPageInputSlot LCT
+*UIConstraints: *InputSlot LCT *PageSize LineSlider2
+*UIConstraints: *OutputBin FinVOLGACBKLower *PageSize EngQuatro
+*UIConstraints: *MediaType Thick4 *InputSlot LCT
+*UIConstraints: *RIBannerPageMediaType Labels *OutputBin MailBoxBin9
+*UIConstraints: *RIBannerPageMediaType Labels *OutputBin MailBoxBin8
+*UIConstraints: *PageSize 10x14 *InputSlot 1Tray
+*UIConstraints: *RIBannerPageMediaType Labels *OutputBin MailBoxBin5
+*UIConstraints: *RIBannerPageMediaType Labels *OutputBin MailBoxBin4
+*UIConstraints: *RIBannerPageMediaType Labels *OutputBin MailBoxBin7
+*UIConstraints: *RIBannerPageMediaType Labels *OutputBin MailBoxBin6
+*UIConstraints: *RIZfold Right *MediaType Letterhead
+*UIConstraints: *OutputBin MailBoxBin3 *MediaType Translucent
+*UIConstraints: *StapleLocation UpperLeft *Finisher NotInstalled
+*UIConstraints: *RIZfold Left *MediaType Cardstock
+*UIConstraints: *PageSize Oficio *InputSlot LCT
+*UIConstraints: *PageSize BD *InputSlot MultiTray
+*UIConstraints: *MediaType OHP *StapleLocation LeftW
+*UIConstraints: *Finisher NotInstalled *StapleLocation UpperRight
+*UIConstraints: *MediaType OHP *StapleLocation UpperRight
+*UIConstraints: *PageSize F *InputSlot LCT
+*UIConstraints: *InputSlot 1Tray *MediaType Index
+*UIConstraints: *OutputBin MailBoxBin4 *MediaType Translucent
+*UIConstraints: *MediaType OHP *InputSlot 3Tray
+*UIConstraints: *PageSize B6 *OutputBin FinVICTIShift
+*UIConstraints: *MediaType Cardstock *OutputBin FinDONAUProof
+*UIConstraints: *StapleLocation RightW *OutputBin FinVOLGACUpper
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinVICTIUpper
+*UIConstraints: *OutputBin MailBoxBin1 *MediaType Translucent
+*UIConstraints: *PageSize A5 *InputSlot LCT
+*UIConstraints: *OutputBin MailBoxBin6 *PageSize B6
+*UIConstraints: *InputSlot LCT *MediaType Thick3
+*UIConstraints: *InputSlot LCT *MediaType Thick2
+*UIConstraints: *InputSlot LCT *MediaType Thick4
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinVOLGACUpper
+*UIConstraints: *PageSize GovernmentLG *InputSlot LCT
+*UIConstraints: *OutputBin MailBoxBin1 *RIBannerPageMediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin1 *RIBannerPageMediaType Thick4
+*UIConstraints: *OutputBin MailBoxBin1 *RIBannerPageMediaType Thick3
+*UIConstraints: *RIBannerPageInputSlot 2Tray *RIBannerPageMediaType Labels
+*UIConstraints: *StapleLocation UpperW *OutputBin FinVOLGACBKLower
+*UIConstraints: *OutputBin MailBoxBin3 *MediaType Index
+*UIConstraints: *MediaType Thick4 *OutputBin MailBoxBin9
+*UIConstraints: *MediaType Thick4 *OutputBin MailBoxBin8
+*UIConstraints: *RIBannerPageMediaType Thick4 *RIBannerPageInputSlot 3Tray
+*UIConstraints: *MediaType Thick4 *OutputBin MailBoxBin7
+*UIConstraints: *MediaType Thick4 *OutputBin MailBoxBin6
+*UIConstraints: *MediaType Thick4 *OutputBin MailBoxBin5
+*UIConstraints: *MediaType Thick4 *OutputBin MailBoxBin4
+*UIConstraints: *MediaType Thick4 *OutputBin MailBoxBin3
+*UIConstraints: *MediaType Thick4 *OutputBin MailBoxBin2
+*UIConstraints: *PageSize A6 *OutputBin FinVICTIShift
+*UIConstraints: *MediaType Thick4 *OutputBin MailBoxBin1
+*UIConstraints: *OutputBin FinVOLGACBKUpper *StapleLocation CenterW
+*UIConstraints: *RIBannerPageMediaType Cardstock *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinVOLGACBKShift *StapleLocation CenterW
+*UIConstraints: *PageSize LineSlider1 *InputSlot LCT
+*UIConstraints: *InputSlot MultiTray *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin6 *RIZfold Right
+*UIConstraints: *MediaType OHP *StapleLocation CenterW
+*UIConstraints: *InputSlot MultiTray *StapleLocation RightW
+*UIConstraints: *RIZfold Bottom *OutputBin FinVOLGACBKLower
+*UIConstraints: *InputSlot 2Tray *MediaType Labels
+*UIConstraints: *OutputBin MailBoxBin6 *Mailbox NotInstalled
+*UIConstraints: *Finisher FinVOLGAC *OutputBin FinVOLGACBKShift
+*UIConstraints: *OutputBin MailBoxBin6 *PageSize A6
+*UIConstraints: *OutputBin FinVOLGACBKShift *Finisher NotInstalled
+*UIConstraints: *RIBannerPageMediaType Index *RIBannerPageInputSlot LCT
+*UIConstraints: *MediaType OHP *RIZfold Right
+*UIConstraints: *MediaType Thick3 *OutputBin MailBoxBin9
+*UIConstraints: *MediaType Translucent *OutputBin FinDONAUProof
+*UIConstraints: *Finisher NotInstalled *OutputBin FinVOLGACShift
+*UIConstraints: *OutputBin FinDONAUProof *StapleLocation UpperW
+*UIConstraints: *OutputBin FinVOLGACUpper *StapleLocation UpperLeft
+*UIConstraints: *RIZfold Right *MultiFold NotInstalled
+*UIConstraints: *OutputBin MailBoxBin7 *MediaType Labels
+*UIConstraints: *StapleLocation UpperW *InputSlot MultiTray
+*UIConstraints: *OutputBin MailBoxBin5 *MediaType OHP
+*UIConstraints: *OutputBin MailBoxBin8 *StapleLocation UpperLeft
+*UIConstraints: *OutputBin MailBoxBin7 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin1 *RIBannerPageMediaType Labels
+*UIConstraints: *MediaType Thick3 *OutputBin MailBoxBin1
+*UIConstraints: *MediaType Thick3 *OutputBin MailBoxBin2
+*UIConstraints: *MediaType Thick3 *OutputBin MailBoxBin3
+*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType Translucent
+*UIConstraints: *MediaType Thick3 *OutputBin MailBoxBin4
+*UIConstraints: *MediaType Thick3 *OutputBin MailBoxBin5
+*UIConstraints: *MediaType Thick3 *OutputBin MailBoxBin6
+*UIConstraints: *MediaType Thick3 *OutputBin MailBoxBin7
+*UIConstraints: *MediaType Thick3 *OutputBin MailBoxBin8
+*UIConstraints: *InputSlot 3Tray *MediaType Cardstock
+*UIConstraints: *PageSize GLT *InputSlot LCT
+*UIConstraints: *PageSize 11x15 *InputSlot LCT
+*UIConstraints: *RIBannerPageMediaType Index *OutputBin FinDONAUProof
+*UIConstraints: *StapleLocation CenterW *RIZfold Right
+*UIConstraints: *OutputBin FinDONAUProof *RIBannerPageMediaType Cardstock
+*UIConstraints: *Finisher NotInstalled *OutputBin FinVOLGACBKUpper
+*UIConstraints: *MediaType Thick4 *StapleLocation UpperRight
+*UIConstraints: *PageSize Tabloid *InputSlot LCT
+*UIConstraints: *OutputBin MailBoxBin1 *RIZfold Bottom
+*UIConstraints: *StapleLocation LeftW *InputSlot MultiTray
+*UIConstraints: *InputSlot 1Tray *PageSize FanFoldGermanLegal
+*UIConstraints: *RIZfold Left *MediaType Labels
+*UIConstraints: *Mailbox Installed *Finisher FinVICTORIAI
+*UIConstraints: *RIBannerPageInputSlot 1Tray *RIBannerPageMediaType Thick4
+*UIConstraints: *RIBannerPageMediaType Cardstock *RIBannerPageInputSlot 1Tray
+*UIConstraints: *OutputBin MailBoxBin3 *StapleLocation UpperW
+*UIConstraints: *InputSlot 2Tray *PageSize EngQuatro
+*UIConstraints: *RIBannerPageMediaType Translucent *RIBannerPageInputSlot LCT
+*UIConstraints: *OutputBin MailBoxBin3 *RIZfold Left
+*UIConstraints: *OutputBin FinVOLGACBKLower *RIBannerPageMediaType Translucent
+*UIConstraints: *OutputBin FinVOLGACBKLower *PageSize Executive
+*UIConstraints: *MediaType Thick3 *InputSlot LCT
+*UIConstraints: *OutputBin MailBoxBin7 *RIBannerPageMediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin7 *RIBannerPageMediaType Thick4
+*UIConstraints: *OutputBin FinDONAUProof *PageSize GovernmentLG
+*UIConstraints: *OutputBin MailBoxBin7 *RIBannerPageMediaType Thick3
+*UIConstraints: *Finisher FinVICTORIAI *OutputBin FinVOLGACBKShift
+*UIConstraints: *OutputBin MailBoxBin9 *RIZfold Bottom
+*UIConstraints: *OutputBin FinVOLGACBKLower *RIBannerPageMediaType Index
+*UIConstraints: *OutputBin FinVOLGACBKLower *MediaType Index
+*UIConstraints: *Finisher FinVOLGACBK *OutputBin FinVICTIUpper
+*UIConstraints: *OutputBin FinDONAUProof *MultiFold NotInstalled
+*UIConstraints: *OutputBin MailBoxBin4 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin9 *StapleLocation RightW
+*UIConstraints: *InputSlot 1Tray *PageSize GovernmentLG
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin1
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin3
+*UIConstraints: *Mailbox NotInstalled *OutputBin MailBoxBin2
+*UIConstraints: *RIBannerPageMediaType Labels *RIBannerPageInputSlot 1Tray
+*UIConstraints: *OutputBin MailBoxBin1 *RIZfold Left
+*UIConstraints: *StapleLocation UpperW *OutputBin FinVICTIUpper
+*UIConstraints: *PageSize 10x15 *InputSlot 1Tray
+*UIConstraints: *RIBannerPageMediaType Translucent *OutputBin MailBoxBin4
+*UIConstraints: *RIBannerPageMediaType Translucent *OutputBin MailBoxBin5
+*UIConstraints: *RIBannerPageMediaType Translucent *OutputBin MailBoxBin2
+*UIConstraints: *RIBannerPageMediaType Translucent *OutputBin MailBoxBin3
+*UIConstraints: *RIBannerPageMediaType Translucent *OutputBin MailBoxBin8
+*UIConstraints: *RIBannerPageMediaType Translucent *OutputBin MailBoxBin9
+*UIConstraints: *RIBannerPageMediaType Translucent *OutputBin MailBoxBin6
+*UIConstraints: *RIBannerPageMediaType Translucent *OutputBin MailBoxBin7
+*UIConstraints: *InputSlot LCT *PageSize Oficio
+*UIConstraints: *StapleLocation CenterW *MediaType Thick4
+*UIConstraints: *StapleLocation CenterW *MediaType Thick3
+*UIConstraints: *MediaType OHP *OutputBin FinVICTIShift
+*UIConstraints: *StapleLocation RightW *MediaType OHP
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin2
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin1
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin4
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin3
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin6
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin5
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin8
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin7
+*UIConstraints: *StapleLocation CenterW *OutputBin MailBoxBin9
+*UIConstraints: *StapleLocation LeftW *OutputBin FinVOLGACUpper
+*UIConstraints: *RIBannerPageMediaType Translucent *OutputBin MailBoxBin1
+*UIConstraints: *MediaType Cardstock *RIZfold Left
+*UIConstraints: *RIBannerPageMediaType OHP *RIBannerPageInputSlot 2Tray
+*UIConstraints: *Finisher NotInstalled *OutputBin FinVOLGACBKShift
+*UIConstraints: *RIBannerPageMediaType Cardstock *RIBannerPageInputSlot LCT
+*UIConstraints: *RIZfold Left *MediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin4 *Mailbox NotInstalled
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinVOLGACUpper
+*UIConstraints: *Finisher FinVICTORIAI *OutputBin FinVOLGACBKLower
+*UIConstraints: *PageSize 16Kai *OutputBin FinVOLGACBKLower
+*UIConstraints: *PageSize Statement *InputSlot 1Tray
+*UIConstraints: *MediaType OHP *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin8 *StapleLocation LeftW
+*UIConstraints: *RIZfold Left *MediaType Index
+*UIConstraints: *PageSize BD *OutputBin FinVOLGACBKLower
+*UIConstraints: *OutputBin FinVOLGACBKLower *RIZfold Bottom
+*UIConstraints: *RIBannerPageInputSlot 3Tray *RIBannerPageMediaType Labels
+*UIConstraints: *OutputBin MailBoxBin6 *RIBannerPageMediaType OHP
+*UIConstraints: *InputSlot 1Tray *PageSize 10x14
+*UIConstraints: *InputSlot 1Tray *PageSize 10x15
+*UIConstraints: *InputSlot LCT *PageSize Executive
+*UIConstraints: *Finisher FinVOLGACBK *OutputBin FinVICTIShift
+*UIConstraints: *RIBannerPageMediaType Index *RIBannerPageInputSlot 1Tray
+*UIConstraints: *RIBannerPageMediaType Translucent *OutputBin FinDONAUProof
+*UIConstraints: *MediaType Thick4 *StapleLocation LeftW
+*UIConstraints: *PageSize Executive *InputSlot 1Tray
+*UIConstraints: *MediaType Thick4 *OutputBin FinVOLGACBKLower
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin1
+*UIConstraints: *PageSize 8Kai *InputSlot LCT
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin2
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin3
+*UIConstraints: *OutputBin MailBoxBin6 *RIBannerPageMediaType Translucent
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin4
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin5
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin6
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin7
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin8
+*UIConstraints: *MediaType OHP *RIZfold Left
+*UIConstraints: *MediaType Labels *OutputBin MailBoxBin9
+*UIConstraints: *RIBannerPageMediaType Thick4 *RIBannerPageInputSlot 2Tray
+*UIConstraints: *RIZfold Left *StapleLocation CenterW
+*UIConstraints: *OutputBin FinVICTIUpper *Finisher FinVOLGACBK
+*UIConstraints: *OutputBin FinVICTIShift *Finisher NotInstalled
+*UIConstraints: *PageSize EngQuatro *InputSlot 1Tray
+*UIConstraints: *OutputBin FinVOLGACBKLower *StapleLocation UpperLeft
+*UIConstraints: *MediaType Translucent *StapleLocation CenterW
+*UIConstraints: *PageSize BD *InputSlot LCT
+*UIConstraints: *OutputBin MailBoxBin5 *MediaType Index
+*UIConstraints: *StapleLocation LeftW *OutputBin FinVICTIUpper
+*UIConstraints: *RIBannerPageMediaType OHP *OutputBin FinVICTIShift
+*UIConstraints: *OutputBin FinDONAUProof *PageSize 11x15
+*UIConstraints: *OutputBin FinDONAUProof *PageSize 11x14
+*UIConstraints: *OutputBin MailBoxBin5 *RIZfold Left
+*UIConstraints: *PageSize LineSlider1 *OutputBin FinVOLGACBKLower
+*UIConstraints: *MediaType Thick4 *OutputBin FinVICTIUpper
+*UIConstraints: *MediaType Labels *StapleLocation RightW
+*UIConstraints: *RIZfold Left *OutputBin FinVOLGACBKLower
+*UIConstraints: *OutputBin MailBoxBin9 *Mailbox NotInstalled
+*UIConstraints: *PageSize LineSlider2 *OutputBin FinVOLGACBKLower
+*UIConstraints: *InputSlot MultiTray *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin7 *RIBannerPageMediaType Labels
+*UIConstraints: *RIBannerPageMediaType Translucent *OutputBin FinVOLGACBKLower
+*UIConstraints: *Finisher FinVICTORIAI *OutputBin FinVOLGACShift
+*UIConstraints: *MediaType Thick2 *RIZfold Right
+*UIConstraints: *OutputBin MailBoxBin2 *RIZfold Left
+*UIConstraints: *MediaType Labels *OutputBin FinVOLGACBKLower
+*UIConstraints: *MediaType Thick4 *StapleLocation RightW
+*UIConstraints: *OutputBin FinVICTIShift *Finisher FinVOLGAC
+*UIConstraints: *OutputBin MailBoxBin7 *RIZfold Bottom
+*UIConstraints: *OutputBin FinVOLGACBKUpper *RIBannerPageMediaType Thick4
+*UIConstraints: *OutputBin FinVOLGACBKUpper *RIBannerPageMediaType Thick3
+*UIConstraints: *OutputBin FinVOLGACBKUpper *StapleLocation UpperRight
+*UIConstraints: *OutputBin MailBoxBin9 *MediaType Index
+*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType Thick3
+*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType Thick2
+*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType Thick4
+*UIConstraints: *Finisher FinVOLGAC *OutputBin FinVOLGACBKLower
+*UIConstraints: *PageSize Executive *OutputBin FinVOLGACBKLower
+*UIConstraints: *OutputBin FinDONAUProof *StapleLocation LeftW
+*UIConstraints: *StapleLocation UpperLeft *InputSlot MultiTray
+*UIConstraints: *StapleLocation UpperRight *InputSlot MultiTray
+*UIConstraints: *OutputBin MailBoxBin8 *RIBannerPageMediaType Translucent
+*UIConstraints: *OutputBin FinVICTIShift *RIBannerPageMediaType Translucent
+*UIConstraints: *PageSize A6 *InputSlot 3Tray
+*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot LCT
+*UIConstraints: *InputSlot LCT *PageSize GovernmentLG
+*UIConstraints: *OutputBin MailBoxBin4 *RIZfold Left
+*UIConstraints: *OutputBin FinVOLGACBKLower *MediaType Translucent
+*UIConstraints: *OutputBin FinVICTIShift *RIBannerPageMediaType OHP
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin FinVOLGACBKLower
+*UIConstraints: *StapleLocation UpperRight *MediaType Labels
+*UIConstraints: *StapleLocation CenterW *RIZfold Left
+*UIConstraints: *RIZfold Right *OutputBin FinVOLGACBKLower
+*UIConstraints: *OutputBin MailBoxBin2 *RIBannerPageMediaType Translucent
+*UIConstraints: *OutputBin MailBoxBin4 *RIBannerPageMediaType OHP
+*UIConstraints: *PageSize A3 *InputSlot LCT
+*UIConstraints: *StapleLocation UpperW *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinVICTIShift *RIBannerPageMediaType Labels
+*UIConstraints: *PageSize LineSlider2 *InputSlot MultiTray
+*UIConstraints: *StapleLocation RightW *OutputBin FinVOLGACBKUpper
+*UIConstraints: *PageSize 8Kai *InputSlot 1Tray
+*UIConstraints: *OutputBin MailBoxBin5 *StapleLocation CenterW
+*UIConstraints: *InputSlot MultiTray *RIZfold Left
+*UIConstraints: *OutputBin FinVOLGACBKLower *StapleLocation LeftW
+*UIConstraints: *LargeCapacityTray NotInstalled *RIBannerPageInputSlot LCT
+*UIConstraints: *MediaType Labels *InputSlot 2Tray
+*UIConstraints: *Finisher NotInstalled *StapleLocation UpperLeft
+*UIConstraints: *MediaType Letterhead *RIZfold Bottom
+*UIConstraints: *MultiFold NotInstalled *RIZfold Right
+*UIConstraints: *MediaType Translucent *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin7 *MediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin7 *MediaType Thick4
+*UIConstraints: *OutputBin MailBoxBin7 *MediaType Thick3
+*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot 1Tray
+*UIConstraints: *OutputBin FinVOLGACShift *Finisher NotInstalled
+*UIConstraints: *InputSlot 1Tray *PageSize EngQuatro
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin MailBoxBin8
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin MailBoxBin7
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin MailBoxBin9
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin MailBoxBin4
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin MailBoxBin3
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin MailBoxBin6
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin MailBoxBin5
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin MailBoxBin2
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin MailBoxBin1
+*UIConstraints: *PageSize 8Kai *InputSlot MultiTray
+*UIConstraints: *PageSize LineSlider2 *InputSlot 1Tray
+*UIConstraints: *RIZfold Left *MediaType OHP
+*UIConstraints: *PageSize FanFoldGermanLegal *OutputBin FinDONAUProof
+*UIConstraints: *StapleLocation CenterW *OutputBin FinVOLGACBKShift
+*UIConstraints: *PageSize Statement *InputSlot LCT
+*UIConstraints: *InputSlot LCT *PageSize EngQuatro
+*UIConstraints: *Mailbox Installed *Finisher NotInstalled
+*UIConstraints: *StapleLocation RightW *OutputBin FinVOLGACBKLower
+*UIConstraints: *RIZfold Right *MediaType Thick4
+*UIConstraints: *RIZfold Right *MediaType Thick3
+*UIConstraints: *RIZfold Right *MediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin7 *RIZfold Left
+*UIConstraints: *OutputBin MailBoxBin6 *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin8 *RIBannerPageMediaType Index
+*UIConstraints: *OutputBin MailBoxBin4 *RIZfold Bottom
+*UIConstraints: *OutputBin MailBoxBin5 *PageSize B6
+*UIConstraints: *MediaType Cardstock *RIZfold Bottom
+*UIConstraints: *PageSize B6 *InputSlot LCT
+*UIConstraints: *PageSize LineSlider2 *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin MailBoxBin6 *StapleLocation UpperW
+*UIConstraints: *OutputBin MailBoxBin5 *PageSize A6
+*UIConstraints: *InputSlot LCT *MediaType Cardstock
+*UIConstraints: *MediaType Labels *RIZfold Left
+*UIConstraints: *RIBannerPageInputSlot 1Tray *RIBannerPageMediaType OHP
+*UIConstraints: *InputSlot MultiTray *MediaType Index
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin FinVOLGACBKUpper
+*UIConstraints: *OutputBin MailBoxBin9 *PageSize A6
+*UIConstraints: *OutputBin MailBoxBin2 *RIBannerPageMediaType OHP
+*UIConstraints: *OutputBin FinVOLGACBKLower *MediaType Prepunched
+*UIConstraints: *Finisher NotInstalled *OutputBin FinVICTIUpper
+*UIConstraints: *OutputBin MailBoxBin9 *PageSize B6
+*UIConstraints: *Finisher NotInstalled *StapleLocation CenterW
+*UIConstraints: *RIBannerPageInputSlot MultiTray *RIBannerPageMediaType Index
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin1
+*UIConstraints: *PageSize 10x14 *InputSlot 3Tray
+*UIConstraints: *OutputBin MailBoxBin7 *MediaType OHP
+*UIConstraints: *Finisher NotInstalled *OutputBin FinVOLGACBKLower
+*UIConstraints: *OutputBin MailBoxBin4 *RIZfold Right
+*UIConstraints: *MediaType Thick3 *OutputBin FinVOLGACBKLower
+*UIConstraints: *OutputBin MailBoxBin2 *RIBannerPageMediaType Index
+*UIConstraints: *MultiHolePunchUnit Installed *Finisher FinVOLGACBK
+*UIConstraints: *OutputBin FinVICTIUpper *MediaType Thick4
+*UIConstraints: *OutputBin FinVICTIUpper *MediaType Thick3
+*UIConstraints: *RIBannerPageMediaType Thick2 *RIBannerPageInputSlot LCT
+*UIConstraints: *PageSize 8Kai *OutputBin FinVOLGACBKLower
+*UIConstraints: *InputSlot LCT *PageSize A3
+*UIConstraints: *OutputBin MailBoxBin9 *StapleLocation UpperLeft
+*UIConstraints: *InputSlot LCT *PageSize A6
+*UIConstraints: *InputSlot LCT *PageSize A5
+*UIConstraints: *StapleLocation LeftW *MediaType OHP
+*UIConstraints: *OutputBin FinVOLGACBKLower *RIZfold Right
+*UIConstraints: *InputSlot LCT *PageSize BD
+*UIConstraints: *MediaType Thick4 *InputSlot 3Tray
+*UIConstraints: *InputSlot LCT *PageSize B6
+*UIConstraints: *OutputBin MailBoxBin1 *StapleLocation LeftW
+*UIConstraints: *RIBannerPageMediaType Labels *OutputBin FinDONAUProof
+*UIConstraints: *PageSize EngQuatro *OutputBin FinVOLGACBKLower
+*UIConstraints: *OutputBin MailBoxBin5 *StapleLocation RightW
+*UIConstraints: *RIBannerPageInputSlot 1Tray *RIBannerPageMediaType Labels
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinVICTIUpper
+*UIConstraints: *RIZfold Bottom *MediaType Index
+*UIConstraints: *MediaType Letterhead *RIZfold Left
+*UIConstraints: *PageSize B6 *InputSlot 2Tray
+*UIConstraints: *OutputBin MailBoxBin7 *Mailbox NotInstalled
+*UIConstraints: *OutputBin MailBoxBin8 *MediaType Translucent
+*UIConstraints: *PageSize 16Kai *InputSlot LCT
+*UIConstraints: *OutputBin FinVOLGACBKUpper *Finisher NotInstalled
+*UIConstraints: *StapleLocation RightW *MediaType Labels
+*UIConstraints: *MediaType Thick3 *RIZfold Right
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin5
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin4
+*UIConstraints: *MultiFold NotInstalled *OutputBin FinDONAUProof
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin3
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin2
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin9
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin8
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin7
+*UIConstraints: *PageSize A6 *OutputBin MailBoxBin6
+*UIConstraints: *MediaType Thick4 *RIZfold Right
+*UIConstraints: *MultiFold NotInstalled *RIZfold Left
+*UIConstraints: *RIBannerPageInputSlot 2Tray *RIBannerPageMediaType Cardstock
+*UIConstraints: *RIZfold Left *MultiFold NotInstalled
+*UIConstraints: *OutputBin FinVOLGACBKLower *Finisher NotInstalled
+*UIConstraints: *Finisher NotInstalled *Mailbox Installed
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin6
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin7
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin9
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin4
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin5
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin6
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin5
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin8
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin8
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin9
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin7
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin2
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin1
+*UIConstraints: *Finisher FinVOLGACBK *MultiHolePunchUnit Installed
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin4
+*UIConstraints: *MediaType Index *OutputBin MailBoxBin3
+*UIConstraints: *OutputBin FinDONAUProof *MediaType Labels
+*UIConstraints: *InputSlot 1Tray *PageSize 8Kai
+*UIConstraints: *OutputBin Standard *MultiFold Installed
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin3
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin2
+*UIConstraints: *StapleLocation UpperW *OutputBin MailBoxBin1
+*UIConstraints: *Finisher NotInstalled *StapleLocation RightW
+*UIConstraints: *OutputBin MailBoxBin1 *StapleLocation UpperW
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin6
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin5
+*UIConstraints: *InputSlot MultiTray *RIZfold Right
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin8
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin7
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin2
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin1
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin4
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinDONAUProof
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin3
+*UIConstraints: *OutputBin MailBoxBin7 *StapleLocation RightW
+*UIConstraints: *PageSize B6 *OutputBin MailBoxBin9
+*UIConstraints: *OutputBin FinVOLGACBKLower *RIBannerPageMediaType Thick4
+*UIConstraints: *OutputBin MailBoxBin6 *MediaType Thick2
+*UIConstraints: *OutputBin MailBoxBin6 *MediaType Thick3
+*UIConstraints: *OutputBin FinVOLGACBKShift *Finisher FinVOLGAC
+*UIConstraints: *OutputBin MailBoxBin6 *MediaType Thick4
+*UIConstraints: *OutputBin MailBoxBin3 *Mailbox NotInstalled
+*UIConstraints: *InputSlot 2Tray *MediaType OHP
+*UIConstraints: *RIBannerPageMediaType Labels *OutputBin FinVOLGACBKLower
+*UIConstraints: *PageSize B6 *OutputBin FinVOLGACBKLower
+*UIConstraints: *OutputBin MailBoxBin4 *MediaType Index
+*UIConstraints: *OutputBin FinVOLGACBKLower *RIBannerPageMediaType Thick3
+*UIConstraints: *PageSize EngQuatro *InputSlot 3Tray
+*UIConstraints: *OutputBin FinVOLGACUpper *RIBannerPageMediaType Thick4
+*UIConstraints: *OutputBin FinVOLGACUpper *RIBannerPageMediaType Thick3
+*UIConstraints: *MediaType Index *InputSlot 1Tray
+*UIConstraints: *OutputBin MailBoxBin9 *RIBannerPageMediaType Index
+*UIConstraints: *MediaType Thick4 *RIZfold Left
+
+*%========== Banner Page/Job Type ==========
+*UIConstraints: *RIBannerPagePrint True *JobType SamplePrint
+*UIConstraints: *RIBannerPagePrint True *JobType LockedPrint
+*UIConstraints: *RIBannerPagePrint True *JobType DocServer
+
+*%========== User Id / Job Type ==========
+*UIConstraints: *UserId None *JobType SamplePrint
+*UIConstraints: *JobType SamplePrint *UserId None
+*UIConstraints: *UserId None *JobType LockedPrint
+*UIConstraints: *JobType LockedPrint *UserId None
+
+*% end of Printer Description file
