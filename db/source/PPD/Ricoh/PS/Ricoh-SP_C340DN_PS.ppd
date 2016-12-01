@@ -4,7 +4,7 @@
 *%    for "Ricoh SP C340DN PS"
 *%
 *%    CreationDate: 2016/08/05
-*%    Modified:     2016/08/05
+*%    Modified:     2016/10/27
 *%
 *%    java.util.zip.CRC32: 252e58dc
 *%
@@ -32,7 +32,7 @@
 *%    [this is the MIT open source license -- please see www.opensource.org]
 *%
 
-*FileVersion: "1.0"
+*FileVersion: "1.1"
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
@@ -1412,62 +1412,7 @@ mark {\n&&
 >> /RDeviceProcSet /ProcSet findresource /SetJobType get exec\n&&
 }stopped cleartomark\n"
 *End
-*JobType SamplePrint/Sample Print: "%% FoomaticRIPOptionSetting: JobType=SamplePrint"
-*FoomaticRIPOptionSetting JobType=SamplePrint: "mark\n&&
-/usrcode where{pop}{/usrcode()def}ifelse\n&&
-/usrid where{pop}{/usrid()def}ifelse\n&&
-(&user;) usrcode (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
-cleartomark\n&&
-mark {\n&&
- <<\n&&
-   /JobType 2\n&&
-   /JobInfo <<\n&&
-      /UserID usrid\n&&
-      /Time (20`date +%y%m%d%R | sed 's/://'`)\n&&
-      /HostLoginName (&user;)\n&&
-      /HostName (&host;)\n&&
-   >>\n&&
- >> /RDeviceProcSet /ProcSet findresource /SetJobType get exec\n&&
-}stopped cleartomark\n"
-*End
-*JobType LockedPrint/Locked Print: "%% FoomaticRIPOptionSetting: JobType=LockedPrint"
-*FoomaticRIPOptionSetting JobType=LockedPrint: "mark\n&&
-/usrcode where{pop}{/usrcode()def}ifelse\n&&
-/usrid where{pop}{/usrid()def}ifelse\n&&
-/lppswd where{pop}{/lppswd()def}ifelse\n&&
-(&user;) usrcode (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
-cleartomark\n&&
-mark {\n&&
- <<\n&&
-   /JobType 1\n&&
-   /JobInfo <<\n&&
-      /UserID usrid\n&&
-      /Time (20`date +%y%m%d%R | sed 's/://'`)\n&&
-      /Password lppswd\n&&
-      /HostLoginName (&user;)\n&&
-      /HostName (&host;)\n&&
-   >>\n&&
- >> /RDeviceProcSet /ProcSet findresource /SetJobType get exec\n&&
-}stopped cleartomark\n"
-*End
 *CloseUI: *JobType
-
-*OpenUI *LockedPrintPassword/Locked Print Password (4-8 digits): PickOne
-*FoomaticRIPOption LockedPrintPassword: password CmdLine A
-*FoomaticRIPOptionMaxLength LockedPrintPassword:8
-*FoomaticRIPOptionAllowedChars LockedPrintPassword: "0-9"
-*OrderDependency: 100 AnySetup *LockedPrintPassword
-*FoomaticRIPOptionPrototype LockedPrintPassword: "/lppswd(%s)def\n"
-*DefaultLockedPrintPassword: None
-*LockedPrintPassword None/None: "/lppswd()def\n"
-*LockedPrintPassword 4001/4001: "/lppswd(4001)def\n"
-*LockedPrintPassword 4002/4002: "/lppswd(4002)def\n"
-*LockedPrintPassword 4003/4003: "/lppswd(4003)def\n"
-*CloseUI: *LockedPrintPassword
-
-*CustomLockedPrintPassword True/Custom Password: ""
-*ParamCustomLockedPrintPassword Password: 1 password 4 8
-*NonUIOrderDependency: 101 AnySetup *CustomLockedPrintPassword True
 
 *OpenUI *UserCode/User Code (up to 8 digits): PickOne
 *FoomaticRIPOption UserCode: string CmdLine A
@@ -2248,16 +2193,6 @@ mark {\n&&
 *UIConstraints: *RPSRGBcorrect None *RPSColorRendDict User
 *UIConstraints: *RPSColorRendDict User *RPSRGBcorrect DetailNormal
 *UIConstraints: *RPSRGBcorrect DetailNormal *RPSColorRendDict User
-
-*%============ User Id / Job Type ============
-*UIConstraints: *UserId None *JobType SamplePrint
-*UIConstraints: *JobType SamplePrint *UserId None
-*UIConstraints: *UserId None *JobType LockedPrint
-*UIConstraints: *JobType LockedPrint *UserId None
-
-*%========== Banner Page/Job Type ==========
-*UIConstraints: *RIBannerPagePrint True *JobType SamplePrint
-*UIConstraints: *RIBannerPagePrint True *JobType LockedPrint
 
 *% end of Printer Description file
 
