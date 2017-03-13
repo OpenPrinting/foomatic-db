@@ -4,11 +4,11 @@
 *%    for "NRG MP C2503Z PXL"
 *%
 *%    CreationDate: 2013/03/08
-*%    Modified:     2016/07/13
+*%    Modified:     2017/02/07
 *%
-*%    java.util.zip.CRC32: 244fd7e
+*%    java.util.zip.CRC32: 29d80faf
 *%
-*%    COPYRIGHT (C) 2013-2016 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2013-2017 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -32,7 +32,7 @@
 *%    [this is the MIT open source license -- please see www.opensource.org]
 *%
 
-*FileVersion: "2.4"
+*FileVersion: "2.5"
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
@@ -55,7 +55,7 @@
 *FoomaticRIPHostEntityMaxLength: 63
 *FoomaticRIPTitleEntityMaxLength: 40
 *FoomaticRIPCommandLine: "(printf &apos;\033%%-12345X@PJL\n@PJL JOB\n@PJL SET COPIES=&copies;\n&apos;%G|perl -p -e &quot;s/\x26copies\x3b/1/&quot;);
-(gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -dNOINTERPOLATE %B%A%C %D%E | perl -p -e &quot;s/^\x1b\x25-12345X//&quot; | perl -p -e &quot;s/\xc1\x01\x00\xf8\x31\x44/\x44/g&quot;);
+(gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -dNOMEDIAATTRS -dNOINTERPOLATE %B%A%C %D%E | perl -p -e &quot;s/^\x1b\x25-12345X//&quot; | perl -p -e &quot;s/\xc1\x01\x00\xf8\x31\x44/\x44/g&quot;);
 (printf &apos;@PJL\n@PJL EOJ\n\033%%-12345X&apos;)"
 *End
 
@@ -136,9 +136,9 @@
 *OrderDependency: 15 AnySetup *Resolution
 *DefaultResolution: 600dpi
 
-*Resolution 600dpi:  "%% FoomaticRIPOptionSetting: Resolution=600dpi"
+*Resolution 600dpi/600 dpi:  "%% FoomaticRIPOptionSetting: Resolution=600dpi"
 *FoomaticRIPOptionSetting Resolution=600dpi: "JCLResolution=600dpi GSResolution=600dpi"
-*Resolution 1200dpi:  "%% FoomaticRIPOptionSetting: Resolution=1200dpi"
+*Resolution 1200dpi/1200 dpi:  "%% FoomaticRIPOptionSetting: Resolution=1200dpi"
 *FoomaticRIPOptionSetting Resolution=1200dpi: "JCLResolution=1200dpi GSResolution=1200dpi"
 *CloseUI: *Resolution
 
@@ -194,33 +194,45 @@
 *FoomaticRIPOptionSetting Collate=True:  "|(perl -p -e &quot;s/\x40PJL SET COPIES=&copies;\n/\x40PJL SET QTY=&copies;\n/&quot;)"
 *FoomaticRIPOptionSetting Collate:       "|(perl -p -e &quot;s/\x40PJL SET COPIES=&copies;\n/\x40PJL SET QTY=&copies;\n/&quot;)"
 
+*OpenUI *RICollateKind/Collate Type: PickOne
+*FoomaticRIPOption RICollateKind: enum JCL G
+*OrderDependency: 120 AnySetup *RICollateKind
+*DefaultRICollateKind: Normal
+*RICollateKind Normal/Collate: "%% FoomaticRIPOptionSetting: RICollateKind=Normal"
+*FoomaticRIPOptionSetting RICollateKind=Normal: "SET JOBOFFSET=OFF"
+*RICollateKind RotateCollate/Rotating Collate: "%% FoomaticRIPOptionSetting: RICollateKind=RotateCollate"
+*FoomaticRIPOptionSetting RICollateKind=RotateCollate: "SET JOBOFFSET=ROTATE"
+*RICollateKind ShiftCollate/Shift Collate: "%% FoomaticRIPOptionSetting: RICollateKind=ShiftCollate"
+*FoomaticRIPOptionSetting RICollateKind=ShiftCollate: "SET JOBOFFSET=SHIFT"
+*CloseUI: *RICollateKind
+
 *OpenUI *PageSize/PageSize: PickOne
 *FoomaticRIPOption PageSize: enum CmdLine C
 *OrderDependency: 20 AnySetup *PageSize
 *DefaultPageSize: Letter
-*PageSize A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
+*PageSize A3/A3 (297 x 420 mm): "%% FoomaticRIPOptionSetting: PageSize=A3"
 *FoomaticRIPOptionSetting PageSize=A3: " -sPAPERSIZE=a3 -sOutputFile=- - "
-*PageSize A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
+*PageSize A4/A4 (210 x 297 mm): "%% FoomaticRIPOptionSetting: PageSize=A4"
 *FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4 -sOutputFile=- - "
-*PageSize A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
+*PageSize A5/A5 (148 x 210 mm): "%% FoomaticRIPOptionSetting: PageSize=A5"
 *FoomaticRIPOptionSetting PageSize=A5: " -sPAPERSIZE=a5 -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0f\xf8\x25/g&quot;"
-*PageSize A6/A6: "%% FoomaticRIPOptionSetting: PageSize=A6"
-*FoomaticRIPOptionSetting PageSize=A6: " -dDEVICEWIDTHPOINTS=298 -dDEVICEHEIGHTPOINTS=420 -sOutputFile=- -  | &&
+*PageSize A6/A6 (105 x 148 mm): "%% FoomaticRIPOptionSetting: PageSize=A6"
+*FoomaticRIPOptionSetting PageSize=A6: " -dDEVICEWIDTHPOINTS=297 -dDEVICEHEIGHTPOINTS=420 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x14\xf8\x25/g&quot;"
 *End
-*PageSize B4/B4 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B4"
+*PageSize B4/B4 JIS (257 x 364 mm): "%% FoomaticRIPOptionSetting: PageSize=B4"
 *FoomaticRIPOptionSetting PageSize=B4: " -dDEVICEWIDTHPOINTS=729 -dDEVICEHEIGHTPOINTS=1032 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0a\xf8\x25/g&quot;"
 *End
-*PageSize B5/B5 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B5"
+*PageSize B5/B5 JIS (182 x 257 mm): "%% FoomaticRIPOptionSetting: PageSize=B5"
 *FoomaticRIPOptionSetting PageSize=B5: " -dDEVICEWIDTHPOINTS=516 -dDEVICEHEIGHTPOINTS=729 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0b\xf8\x25/g&quot;"
 *End
-*PageSize B6/B6 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B6"
+*PageSize B6/B6 JIS (128 x 182 mm): "%% FoomaticRIPOptionSetting: PageSize=B6"
 *FoomaticRIPOptionSetting PageSize=B6: " -dDEVICEWIDTHPOINTS=363 -dDEVICEHEIGHTPOINTS=516 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xc9\xf8\x25/g&quot;"
 *End
-*PageSize Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
+*PageSize Legal/Legal (8.5 x 14): "%% FoomaticRIPOptionSetting: PageSize=Legal"
 *FoomaticRIPOptionSetting PageSize=Legal: " -sPAPERSIZE=legal -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x01\xf8\x25/g&quot;"
 *PageSize GovernmentLG/8.25x14: "%% FoomaticRIPOptionSetting: PageSize=GovernmentLG"
 *FoomaticRIPOptionSetting PageSize=GovernmentLG: " -dDEVICEWIDTHPOINTS=594 -dDEVICEHEIGHTPOINTS=1008 -sOutputFile=- -  | &&
@@ -232,7 +244,7 @@
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xdd\xf8\x25/g&quot;  | &&
  perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x00\x41\x00\x00\x20\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xdd\xf8\x25/g&quot;"
 *End
-*PageSize Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
+*PageSize Letter/Letter (8.5 x 11): "%% FoomaticRIPOptionSetting: PageSize=Letter"
 *FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter -sOutputFile=- - "
 *PageSize Statement/5.5x8.5: "%% FoomaticRIPOptionSetting: PageSize=Statement"
 *FoomaticRIPOptionSetting PageSize=Statement: " -dDEVICEWIDTHPOINTS=396 -dDEVICEHEIGHTPOINTS=612 -sOutputFile=- -  | &&
@@ -270,46 +282,46 @@
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xe0\xf8\x25/g&quot;  | &&
  perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x20\x41\x00\x00\x60\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xe0\xf8\x25/g&quot;"
 *End
-*PageSize SRA3/SRA3: "%% FoomaticRIPOptionSetting: PageSize=SRA3"
+*PageSize SRA3/SRA3 (320 x 450 mm): "%% FoomaticRIPOptionSetting: PageSize=SRA3"
 *FoomaticRIPOptionSetting PageSize=SRA3: " -dDEVICEWIDTHPOINTS=907 -dDEVICEHEIGHTPOINTS=1276 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xd9\xf8\x25/g&quot;  | &&
  perl -p -e &quot;s/\xf8\x28\xd5\xf2\x8b\x49\x41\xf9\xc5\x8d\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xd9\xf8\x25/g&quot;"
 *End
-*PageSize SRA4/SRA4: "%% FoomaticRIPOptionSetting: PageSize=SRA4"
+*PageSize SRA4/SRA4 (225 x 320 mm): "%% FoomaticRIPOptionSetting: PageSize=SRA4"
 *FoomaticRIPOptionSetting PageSize=SRA4: " -dDEVICEWIDTHPOINTS=638 -dDEVICEHEIGHTPOINTS=907 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xda\xf8\x25/g&quot;  | &&
  perl -p -e &quot;s/\xf8\x28\xd5\x63\xc9\x0d\x41\xf2\x8B\x49\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xda\xf8\x25/g&quot;"
 *End
-*PageSize Executive/Executive: "%% FoomaticRIPOptionSetting: PageSize=Executive"
+*PageSize Executive/Executive (7.25 x 10.5): "%% FoomaticRIPOptionSetting: PageSize=Executive"
 *FoomaticRIPOptionSetting PageSize=Executive: " -dDEVICEWIDTHPOINTS=522 -dDEVICEHEIGHTPOINTS=756 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x03\xf8\x25/g&quot;"
 *End
-*PageSize Env10/Com10 Env.: "%% FoomaticRIPOptionSetting: PageSize=Env10"
+*PageSize Env10/Com10 Env. (4.125 x 9.5): "%% FoomaticRIPOptionSetting: PageSize=Env10"
 *FoomaticRIPOptionSetting PageSize=Env10: " -dDEVICEWIDTHPOINTS=297 -dDEVICEHEIGHTPOINTS=684 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x06\xf8\x25/g&quot;"
 *End
-*PageSize EnvMonarch/Monarch Env.: "%% FoomaticRIPOptionSetting: PageSize=EnvMonarch"
+*PageSize EnvMonarch/Monarch Env. (3.875 x 7.5): "%% FoomaticRIPOptionSetting: PageSize=EnvMonarch"
 *FoomaticRIPOptionSetting PageSize=EnvMonarch: " -dDEVICEWIDTHPOINTS=279 -dDEVICEHEIGHTPOINTS=540 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x07\xf8\x25/g&quot;"
 *End
-*PageSize EnvC5/C5 Env.: "%% FoomaticRIPOptionSetting: PageSize=EnvC5"
+*PageSize EnvC5/C5 Env. (162 x 229 mm): "%% FoomaticRIPOptionSetting: PageSize=EnvC5"
 *FoomaticRIPOptionSetting PageSize=EnvC5: " -dDEVICEWIDTHPOINTS=459 -dDEVICEHEIGHTPOINTS=649 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x08\xf8\x25/g&quot;"
 *End
-*PageSize EnvC6/C6 Env.: "%% FoomaticRIPOptionSetting: PageSize=EnvC6"
+*PageSize EnvC6/C6 Env. (114 x 162 mm): "%% FoomaticRIPOptionSetting: PageSize=EnvC6"
 *FoomaticRIPOptionSetting PageSize=EnvC6: " -dDEVICEWIDTHPOINTS=323 -dDEVICEHEIGHTPOINTS=459 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xca\xf8\x25/g&quot;  | &&
  perl -p -e &quot;s/\xf8\x28\xd5\xc6\x92\x8f\x40\x00\x00\xcc\x40\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xca\xf8\x25/g&quot;"
 *End
-*PageSize DLEnv/DL Env.: "%% FoomaticRIPOptionSetting: PageSize=DLEnv"
+*PageSize DLEnv/DL Env. (110 x 220 mm): "%% FoomaticRIPOptionSetting: PageSize=DLEnv"
 *FoomaticRIPOptionSetting PageSize=DLEnv: " -dDEVICEWIDTHPOINTS=311 -dDEVICEHEIGHTPOINTS=623 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x09\xf8\x25/g&quot;"
 *End
-*PageSize 8Kai/8K: "%% FoomaticRIPOptionSetting: PageSize=8Kai"
+*PageSize 8Kai/8K (267 x 390 mm): "%% FoomaticRIPOptionSetting: PageSize=8Kai"
 *FoomaticRIPOptionSetting PageSize=8Kai: " -dDEVICEWIDTHPOINTS=757 -dDEVICEHEIGHTPOINTS=1106 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xcb\xf8\x25/g&quot;"
 *End
-*PageSize 16Kai/16K: "%% FoomaticRIPOptionSetting: PageSize=16Kai"
+*PageSize 16Kai/16K (195 x 267 mm): "%% FoomaticRIPOptionSetting: PageSize=16Kai"
 *FoomaticRIPOptionSetting PageSize=16Kai: " -dDEVICEWIDTHPOINTS=553 -dDEVICEHEIGHTPOINTS=757 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xcc\xf8\x25/g&quot;"
 *End
@@ -351,18 +363,32 @@
 *FoomaticRIPOptionSetting RPSBitsPerPixel=2BitsPerPixel: "SET BITSPERPIXEL=2"
 *RPSBitsPerPixel 1BitsPerPixel/Fast: "%% FoomaticRIPOptionSetting: RPSBitsPerPixel=1BitsPerPixel"
 *FoomaticRIPOptionSetting RPSBitsPerPixel=1BitsPerPixel: "SET BITSPERPIXEL=1"
+*RPSBitsPerPixel 4BitsPerPixel/Fine: "%% FoomaticRIPOptionSetting: RPSBitsPerPixel=4BitsPerPixel"
+*FoomaticRIPOptionSetting RPSBitsPerPixel=4BitsPerPixel: "SET BITSPERPIXEL=4"
 *CloseUI: *RPSBitsPerPixel
+
+*OpenUI *RPSBlackOverPrint/Black Over Print: PickOne
+*FoomaticRIPOption RPSBlackOverPrint: enum JCL A
+*OrderDependency: 145 AnySetup *RPSBlackOverPrint
+*DefaultRPSBlackOverPrint: False
+*RPSBlackOverPrint False/Off: "%% FoomaticRIPOptionSetting: RPSBlackOverPrint=False"
+*FoomaticRIPOptionSetting RPSBlackOverPrint=False: "SET BLACKOVERPRINT=OFF"
+*RPSBlackOverPrint True/On: "%% FoomaticRIPOptionSetting: RPSBlackOverPrint=True"
+*FoomaticRIPOptionSetting RPSBlackOverPrint=True: "SET BLACKOVERPRINT=ON"
+*CloseUI: *RPSBlackOverPrint
 
 *OpenUI *MediaType/Paper Type: PickOne
 *FoomaticRIPOption MediaType: enum JCL A
 *OrderDependency: 205 AnySetup *MediaType
-*DefaultMediaType: Plain
+*DefaultMediaType: Auto
 *MediaType Auto/Plain/Recycled: "%% FoomaticRIPOptionSetting: MediaType=Auto"
 *FoomaticRIPOptionSetting MediaType=Auto: "SET MEDIATYPE=PLAINORRECYCLED"
 *MediaType Plain1/Plain 1: "%% FoomaticRIPOptionSetting: MediaType=Plain1"
 *FoomaticRIPOptionSetting MediaType=Plain1: "SET MEDIATYPE=PLAIN"
 *MediaType Recycled/Recycled: "%% FoomaticRIPOptionSetting: MediaType=Recycled"
 *FoomaticRIPOptionSetting MediaType=Recycled: "SET MEDIATYPE=RECYCLED"
+*MediaType Special1/Special: "%% FoomaticRIPOptionSetting: MediaType=Special1"
+*FoomaticRIPOptionSetting MediaType=Special1: "SET MEDIATYPE=SPECIAL"
 *MediaType Special2/Special 2: "%% FoomaticRIPOptionSetting: MediaType=Special2"
 *FoomaticRIPOptionSetting MediaType=Special2: "SET MEDIATYPE=SPECIAL2"
 *MediaType Special3/Special 3: "%% FoomaticRIPOptionSetting: MediaType=Special3"
@@ -389,6 +415,8 @@
 *FoomaticRIPOptionSetting MediaType=Thick2: "SET MEDIATYPE=THICK2"
 *MediaType Thick3/Thick 3: "%% FoomaticRIPOptionSetting: MediaType=Thick3"
 *FoomaticRIPOptionSetting MediaType=Thick3: "SET MEDIATYPE=THICK3"
+*MediaType Thick4/Thick 4: "%% FoomaticRIPOptionSetting: MediaType=Thick4"
+*FoomaticRIPOptionSetting MediaType=Thick4: "SET MEDIATYPE=THICK4"
 *MediaType Thin/Thin: "%% FoomaticRIPOptionSetting: MediaType=Thin"
 *FoomaticRIPOptionSetting MediaType=Thin: "SET MEDIATYPE=THIN"
 *MediaType Middlethick/Middle Thick: "%% FoomaticRIPOptionSetting: MediaType=Middlethick"
@@ -397,8 +425,6 @@
 *FoomaticRIPOptionSetting MediaType=Glossy: "SET MEDIATYPE=GLOSSY"
 *MediaType Envelope/Envelope: "%% FoomaticRIPOptionSetting: MediaType=Envelope"
 *FoomaticRIPOptionSetting MediaType=Envelope: "SET MEDIATYPE=ENVELOPE"
-*MediaType Plain/Plain: "%% FoomaticRIPOptionSetting: MediaType=Plain"
-*FoomaticRIPOptionSetting MediaType=Plain: "SET MEDIATYPE=PLAIN"
 *CloseUI: *MediaType
 
 *OpenUI *OutputBin/Destination: PickOne
@@ -407,14 +433,18 @@
 *DefaultOutputBin: Default
 *OutputBin Default/Printer Default: "%% FoomaticRIPOptionSetting: OutputBin=Default"
 *FoomaticRIPOptionSetting OutputBin=Default: "SET OUTBIN=SYSDEFAULT"
-*OutputBin Standard/Standard Tray: "%% FoomaticRIPOptionSetting: OutputBin=Standard"
+*OutputBin Standard/Internal Tray 1: "%% FoomaticRIPOptionSetting: OutputBin=Standard"
 *FoomaticRIPOptionSetting OutputBin=Standard: "SET OUTBIN=UPPER"
-*OutputBin Bin1/Upper Tray: "%% FoomaticRIPOptionSetting: OutputBin=Bin1"
+*OutputBin Bin1/Internal Tray 2: "%% FoomaticRIPOptionSetting: OutputBin=Bin1"
 *FoomaticRIPOptionSetting OutputBin=Bin1: "SET OUTBIN=INNER"
-*OutputBin Shift/Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=Shift"
+*OutputBin Shift/Internal Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=Shift"
 *FoomaticRIPOptionSetting OutputBin=Shift: "SET OUTBIN=UPPER"
 *OutputBin External/External Tray: "%% FoomaticRIPOptionSetting: OutputBin=External"
 *FoomaticRIPOptionSetting OutputBin=External: "SET OUTBIN=LOWER"
+*OutputBin FinRUBICONBShift/Finisher SR3130 Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinRUBICONBShift"
+*FoomaticRIPOptionSetting OutputBin=FinRUBICONBShift: "SET OUTBIN=FINISHERSHIFT"
+*OutputBin FinUYUNIShift/Finisher SR3180 Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinUYUNIShift"
+*FoomaticRIPOptionSetting OutputBin=FinUYUNIShift: "SET OUTBIN=FINISHERSHIFT"
 *CloseUI: *OutputBin
 
 *OpenUI *StapleLocation/Staple: PickOne
@@ -545,8 +575,12 @@
 *DefaultRIBannerPageMediaType: Auto
 *RIBannerPageMediaType Auto/Plain/Recycled: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Auto"
 *FoomaticRIPOptionSetting RIBannerPageMediaType=Auto: "SET BANNERPAGEPRINTMEDIA=PLAINORRECYCLED"
+*RIBannerPageMediaType Plain1/Plain: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Plain1"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Plain1: "SET BANNERPAGEPRINTMEDIA=PLAIN"
 *RIBannerPageMediaType Recycled/Recycled: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Recycled"
 *FoomaticRIPOptionSetting RIBannerPageMediaType=Recycled: "SET BANNERPAGEPRINTMEDIA=RECYCLED"
+*RIBannerPageMediaType Special1/Special: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Special1"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Special1: "SET BANNERPAGEPRINTMEDIA=SPECIAL"
 *RIBannerPageMediaType Special2/Special 2: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Special2"
 *FoomaticRIPOptionSetting RIBannerPageMediaType=Special2: "SET BANNERPAGEPRINTMEDIA=SPECIAL2"
 *RIBannerPageMediaType Special3/Special 3: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Special3"
@@ -567,6 +601,8 @@
 *FoomaticRIPOptionSetting RIBannerPageMediaType=Cardstock: "SET BANNERPAGEPRINTMEDIA=CARDSTOCK"
 *RIBannerPageMediaType OHP/Transparency: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=OHP"
 *FoomaticRIPOptionSetting RIBannerPageMediaType=OHP: "SET BANNERPAGEPRINTMEDIA=TRANSPARENCY"
+*RIBannerPageMediaType Thick1/Thick: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Thick1"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Thick1: "SET BANNERPAGEPRINTMEDIA=THICK"
 *RIBannerPageMediaType Thick2/Thick 2: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Thick2"
 *FoomaticRIPOptionSetting RIBannerPageMediaType=Thick2: "SET BANNERPAGEPRINTMEDIA=THICK2"
 *RIBannerPageMediaType Thick3/Thick 3: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Thick3"
@@ -617,35 +653,35 @@
 *OpenUI *PageRegion: PickOne
 *OrderDependency: 25 AnySetup *PageRegion
 *DefaultPageRegion: Letter
-*PageRegion A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
+*PageRegion A4/A4 (210 x 297 mm): "%% FoomaticRIPOptionSetting: PageSize=A4"
 *PageRegion F/8x13: "%% FoomaticRIPOptionSetting: PageSize=F"
-*PageRegion A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
-*PageRegion A6/A6: "%% FoomaticRIPOptionSetting: PageSize=A6"
+*PageRegion A3/A3 (297 x 420 mm): "%% FoomaticRIPOptionSetting: PageSize=A3"
+*PageRegion A6/A6 (105 x 148 mm): "%% FoomaticRIPOptionSetting: PageSize=A6"
 *PageRegion EngQuatro/8x10: "%% FoomaticRIPOptionSetting: PageSize=EngQuatro"
-*PageRegion A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
-*PageRegion EnvC6/C6 Env.: "%% FoomaticRIPOptionSetting: PageSize=EnvC6"
+*PageRegion A5/A5 (148 x 210 mm): "%% FoomaticRIPOptionSetting: PageSize=A5"
+*PageRegion EnvC6/C6 Env. (114 x 162 mm): "%% FoomaticRIPOptionSetting: PageSize=EnvC6"
 *PageRegion Tabloid/11x17: "%% FoomaticRIPOptionSetting: PageSize=Tabloid"
 *PageRegion 11x15/11x15: "%% FoomaticRIPOptionSetting: PageSize=11x15"
 *PageRegion GovernmentLG/8.25x14: "%% FoomaticRIPOptionSetting: PageSize=GovernmentLG"
 *PageRegion 10x14/10x14: "%% FoomaticRIPOptionSetting: PageSize=10x14"
-*PageRegion 8Kai/8K: "%% FoomaticRIPOptionSetting: PageSize=8Kai"
-*PageRegion B5/B5 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B5"
-*PageRegion Executive/Executive: "%% FoomaticRIPOptionSetting: PageSize=Executive"
-*PageRegion B4/B4 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B4"
-*PageRegion 16Kai/16K: "%% FoomaticRIPOptionSetting: PageSize=16Kai"
-*PageRegion Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
-*PageRegion EnvMonarch/Monarch Env.: "%% FoomaticRIPOptionSetting: PageSize=EnvMonarch"
-*PageRegion B6/B6 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B6"
+*PageRegion 8Kai/8K (267 x 390 mm): "%% FoomaticRIPOptionSetting: PageSize=8Kai"
+*PageRegion B5/B5 JIS (182 x 257 mm): "%% FoomaticRIPOptionSetting: PageSize=B5"
+*PageRegion Executive/Executive (7.25 x 10.5): "%% FoomaticRIPOptionSetting: PageSize=Executive"
+*PageRegion B4/B4 JIS (257 x 364 mm): "%% FoomaticRIPOptionSetting: PageSize=B4"
+*PageRegion 16Kai/16K (195 x 267 mm): "%% FoomaticRIPOptionSetting: PageSize=16Kai"
+*PageRegion Legal/Legal (8.5 x 14): "%% FoomaticRIPOptionSetting: PageSize=Legal"
+*PageRegion EnvMonarch/Monarch Env. (3.875 x 7.5): "%% FoomaticRIPOptionSetting: PageSize=EnvMonarch"
+*PageRegion B6/B6 JIS (128 x 182 mm): "%% FoomaticRIPOptionSetting: PageSize=B6"
 *PageRegion Statement/5.5x8.5: "%% FoomaticRIPOptionSetting: PageSize=Statement"
 *PageRegion FanFoldGermanLegal/8.5x13: "%% FoomaticRIPOptionSetting: PageSize=FanFoldGermanLegal"
 *PageRegion Folio/8.25x13: "%% FoomaticRIPOptionSetting: PageSize=Folio"
-*PageRegion EnvC5/C5 Env.: "%% FoomaticRIPOptionSetting: PageSize=EnvC5"
-*PageRegion SRA3/SRA3: "%% FoomaticRIPOptionSetting: PageSize=SRA3"
-*PageRegion DLEnv/DL Env.: "%% FoomaticRIPOptionSetting: PageSize=DLEnv"
+*PageRegion EnvC5/C5 Env. (162 x 229 mm): "%% FoomaticRIPOptionSetting: PageSize=EnvC5"
+*PageRegion SRA3/SRA3 (320 x 450 mm): "%% FoomaticRIPOptionSetting: PageSize=SRA3"
+*PageRegion DLEnv/DL Env. (110 x 220 mm): "%% FoomaticRIPOptionSetting: PageSize=DLEnv"
 *PageRegion 12x18/12x18: "%% FoomaticRIPOptionSetting: PageSize=12x18"
-*PageRegion SRA4/SRA4: "%% FoomaticRIPOptionSetting: PageSize=SRA4"
-*PageRegion Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
-*PageRegion Env10/Com10 Env.: "%% FoomaticRIPOptionSetting: PageSize=Env10"
+*PageRegion SRA4/SRA4 (225 x 320 mm): "%% FoomaticRIPOptionSetting: PageSize=SRA4"
+*PageRegion Letter/Letter (8.5 x 11): "%% FoomaticRIPOptionSetting: PageSize=Letter"
+*PageRegion Env10/Com10 Env. (4.125 x 9.5): "%% FoomaticRIPOptionSetting: PageSize=Env10"
 *CloseUI: *PageRegion
 
 *DefaultImageableArea: Letter
@@ -705,6 +741,37 @@
 @PJL SET JOBNAME=&quot;&title;&quot;
 @PJL SECUREJOB"
 *End
+*JobType HoldPrint/Hold Print: "%% FoomaticRIPOptionSetting: JobType=HoldPrint"
+*FoomaticRIPOptionSetting JobType=HoldPrint: "SET USERID=&quot;&user;&quot;
+@PJL SET HOSTLOGINNAME=&quot;&user;&quot;
+@PJL SET DATE=&quot;&year;/&month;/&date;&quot;
+@PJL SET TIME=&quot;&hour;:&min;:&sec;&quot;
+@PJL SET JOBID=&quot;&title;&quot;
+@PJL SET JOBNAME=&quot;&title;&quot;
+@PJL SET SAVEMODE=OFF
+@PJL PAUSEDJOB"
+*End
+*JobType StoredPrint/Stored Print: "%% FoomaticRIPOptionSetting: JobType=StoredPrint"
+*FoomaticRIPOptionSetting JobType=StoredPrint: "SET USERID=&quot;&user;&quot;
+@PJL SET HOSTLOGINNAME=&quot;&user;&quot;
+@PJL SET DATE=&quot;&year;/&month;/&date;&quot;
+@PJL SET TIME=&quot;&hour;:&min;:&sec;&quot;
+@PJL SET JOBID=&quot;&title;&quot;
+@PJL SET JOBNAME=&quot;&title;&quot;
+@PJL SET ACCESSMODE=PRIVATE
+@PJL SET SAVEMODE=ON
+@PJL PAUSEDJOB"
+*End
+*JobType StoreandPrint/Store and Print: "%% FoomaticRIPOptionSetting: JobType=StoreandPrint"
+*FoomaticRIPOptionSetting JobType=StoreandPrint: "SET USERID=&quot;&user;&quot;
+@PJL SET HOSTLOGINNAME=&quot;&user;&quot;
+@PJL SET DATE=&quot;&year;/&month;/&date;&quot;
+@PJL SET TIME=&quot;&hour;:&min;:&sec;&quot;
+@PJL SET JOBID=&quot;&title;&quot;
+@PJL SET JOBNAME=&quot;&title;&quot;
+@PJL SET ACCESSMODE=PRIVATE
+@PJL SET SAVEMODE=ON"
+*End
 *JobType DocServer/Document Server: "%% FoomaticRIPOptionSetting: JobType=DocServer"
 *FoomaticRIPOptionSetting JobType=DocServer: "SET USERID=&quot;&user;&quot;
 @PJL SET HOSTLOGINNAME=&quot;&user;&quot;
@@ -717,7 +784,7 @@
 *End
 *CloseUI: *JobType
 
-*OpenUI *Password/Locked Print or Doc Server Password (4-8 digits): PickOne
+*OpenUI *Password/Locked Print or Doc Server or Stored Print Password (4-8 digits): PickOne
 *FoomaticRIPOption Password: password JCL A
 *FoomaticRIPOptionMaxLength Password:8
 *FoomaticRIPOptionAllowedChars Password: "0-9"
@@ -751,7 +818,7 @@
 *FoomaticRIPOptionSetting UserCode=1003: "SET USERCODE=&quot;1003&quot;"
 *CloseUI: *UserCode
 *CustomUserCode True/Custom UserCode: "@PJL SET USERCODE=&quot;\1&quot;<0A>"
-*ParamCustomUserCode UserCode: 1 password 1 8
+*ParamCustomUserCode UserCode: 1 string 1 8
 
 *CloseGroup: JobLog/Job Log
 
@@ -918,6 +985,8 @@
 *UIConstraints: *StapleLocation RightW *MediaType Thick3
 *UIConstraints: *MediaType Thin *InputSlot 2Tray
 *UIConstraints: *StapleLocation RightW *MediaType Thick2
+*UIConstraints: *StapleLocation UpperLeft *MediaType Thick4
+*UIConstraints: *StapleLocation RightW *MediaType Thick4
 *UIConstraints: *StapleLocation UpperLeft *MediaType Thick2
 *UIConstraints: *StapleLocation UpperLeft *MediaType Thick3
 *UIConstraints: *StapleLocation RightW *MediaType Thick1
@@ -926,6 +995,7 @@
 *UIConstraints: *StapleLocation RightW *OutputBin Standard
 *UIConstraints: *MediaType Coated *StapleLocation LeftW
 *UIConstraints: *PageSize DLEnv *InputSlot 3Tray
+*UIConstraints: *Finisher FinUYUNI *OutputBin FinRUBICONBShift
 *UIConstraints: *InputSlot 1Tray *PageSize Statement
 *UIConstraints: *MediaType Thin *InputSlot 1Tray
 *UIConstraints: *OutputBin Standard *StapleLocation UpperW
@@ -941,6 +1011,7 @@
 *UIConstraints: *InputSlot 1Tray *PageSize SRA4
 *UIConstraints: *StapleLocation UpperLeft *MediaType Glossy
 *UIConstraints: *OptionTray NotInstalled *InputSlot 3Tray
+*UIConstraints: *OutputBin FinUYUNIShift *Finisher FinRUBICONB
 *UIConstraints: *RIBannerPageInputSlot 3Tray *RIBannerPageMediaType Thin
 *UIConstraints: *InputSlot 3Tray *PageSize EnvC6
 *UIConstraints: *InputSlot 1Tray *PageSize EnvC5
@@ -976,6 +1047,7 @@
 *UIConstraints: *StapleLocation UpperRight *MediaType Glossy
 *UIConstraints: *StapleLocation UpperRight *MediaType Thick2
 *UIConstraints: *StapleLocation UpperRight *MediaType Thick1
+*UIConstraints: *StapleLocation UpperRight *MediaType Thick4
 *UIConstraints: *StapleLocation UpperRight *MediaType Thick3
 *UIConstraints: *MediaType Glossy *StapleLocation LeftW
 *UIConstraints: *OutputBin Bin1 *RIBannerPageMediaType OHP
@@ -999,13 +1071,16 @@
 *UIConstraints: *InputSlot MultiTray *StapleLocation LeftW
 *UIConstraints: *MediaType Envelope *StapleLocation UpperW
 *UIConstraints: *InputSlot MultiTray *StapleLocation UpperW
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinUYUNIShift
 *UIConstraints: *MediaType Thick1 *StapleLocation UpperRight
 *UIConstraints: *OutputBin Bin1 *StapleLocation UpperLeft
 *UIConstraints: *ShiftTray Installed *OutputBin Standard
+*UIConstraints: *Finisher NotInstalled *OutputBin FinRUBICONBShift
 *UIConstraints: *PageSize SRA4 *InputSlot 4Tray
 *UIConstraints: *RIBannerPageInputSlot 2Tray *RIBannerPageMediaType Labels
 *UIConstraints: *MediaType Thick3 *StapleLocation LeftW
 *UIConstraints: *MediaType Labels *InputSlot 3Tray
+*UIConstraints: *OutputBin FinUYUNIShift *Finisher NotInstalled
 *UIConstraints: *MediaType Coated *StapleLocation UpperRight
 *UIConstraints: *InputSlot MultiTray *StapleLocation UpperLeft
 *UIConstraints: *RIBannerPageMediaType Envelope *RIBannerPageInputSlot 1Tray
@@ -1027,6 +1102,7 @@
 *UIConstraints: *StapleLocation UpperLeft *OutputBin Bin1
 *UIConstraints: *MediaType Thick1 *StapleLocation UpperW
 *UIConstraints: *OutputBin Standard *Finisher FinRUBICONB
+*UIConstraints: *MediaType Thick4 *StapleLocation UpperRight
 *UIConstraints: *InputSlot 4Tray *MediaType OHP
 *UIConstraints: *RIBannerPageMediaType Labels *RIBannerPageInputSlot 4Tray
 *UIConstraints: *StapleLocation LeftW *InputSlot MultiTray
@@ -1045,6 +1121,7 @@
 *UIConstraints: *InnerTray2 NotInstalled *OutputBin Bin1
 *UIConstraints: *InputSlot 1Tray *PageSize Executive
 *UIConstraints: *InputSlot 1Tray *PageSize DLEnv
+*UIConstraints: *MediaType Thick4 *StapleLocation UpperW
 *UIConstraints: *InputSlot 1Tray *PageSize GovernmentLG
 *UIConstraints: *InputSlot 1Tray *PageSize B6
 *UIConstraints: *ShiftTray Installed *ExternalTray Installed
@@ -1068,17 +1145,20 @@
 *UIConstraints: *ExternalTray NotInstalled *OutputBin External
 *UIConstraints: *RIBannerPageInputSlot 3Tray *RIBannerPageMediaType Labels
 *UIConstraints: *InputSlot 1Tray *PageSize 10x14
+*UIConstraints: *OutputBin FinRUBICONBShift *Finisher NotInstalled
 *UIConstraints: *PageSize B6 *InputSlot 1Tray
 *UIConstraints: *PageSize Env10 *InputSlot 1Tray
 *UIConstraints: *PageSize B6 *InputSlot 4Tray
 *UIConstraints: *InputSlot 4Tray *PageSize B6
 *UIConstraints: *Finisher FinRUBICONB *OutputBin Standard
+*UIConstraints: *MediaType Thick4 *StapleLocation LeftW
 *UIConstraints: *PageSize Executive *InputSlot 1Tray
 *UIConstraints: *RIBannerPageInputSlot 4Tray *OptionTray 1Cassette
 *UIConstraints: *InputSlot 4Tray *PageSize A6
 *UIConstraints: *StapleLocation RightW *MediaType Glossy
 *UIConstraints: *InputSlot 3Tray *PageSize EnvMonarch
 *UIConstraints: *MediaType Thick3 *StapleLocation UpperRight
+*UIConstraints: *Finisher NotInstalled *OutputBin FinUYUNIShift
 *UIConstraints: *ShiftTray NotInstalled *OutputBin Shift
 *UIConstraints: *PageSize EngQuatro *InputSlot 1Tray
 *UIConstraints: *MediaType Envelope *InputSlot 1Tray
@@ -1101,6 +1181,7 @@
 *UIConstraints: *PageSize A6 *InputSlot 1Tray
 *UIConstraints: *StapleLocation LeftW *MediaType Glossy
 *UIConstraints: *MediaType Thick2 *StapleLocation UpperW
+*UIConstraints: *MediaType Thick4 *StapleLocation RightW
 *UIConstraints: *StapleLocation UpperW *MediaType Labels
 *UIConstraints: *MediaType Envelope *StapleLocation LeftW
 *UIConstraints: *RIBannerPageInputSlot 2Tray *RIBannerPageMediaType Thin
@@ -1112,6 +1193,7 @@
 *UIConstraints: *StapleLocation UpperRight *InputSlot MultiTray
 *UIConstraints: *StapleLocation UpperRight *MediaType Coated
 *UIConstraints: *PageSize A6 *InputSlot 3Tray
+*UIConstraints: *OutputBin FinRUBICONBShift *Finisher FinUYUNI
 *UIConstraints: *StapleLocation UpperLeft *MediaType OHP
 *UIConstraints: *StapleLocation UpperRight *MediaType Labels
 *UIConstraints: *InputSlot 1Tray *MediaType Thin
@@ -1128,6 +1210,7 @@
 *UIConstraints: *Finisher FinUYUNI *OutputBin Standard
 *UIConstraints: *RIBannerPageMediaType Thin *RIBannerPageInputSlot 3Tray
 *UIConstraints: *StapleLocation UpperW *MediaType OHP
+*UIConstraints: *StapleLocation LeftW *MediaType Thick4
 *UIConstraints: *StapleLocation LeftW *MediaType Thick3
 *UIConstraints: *PageSize FanFoldGermanLegal *InputSlot 1Tray
 *UIConstraints: *StapleLocation LeftW *MediaType Thick2
@@ -1140,6 +1223,7 @@
 *UIConstraints: *MediaType Coated *StapleLocation RightW
 *UIConstraints: *MediaType Thin *InputSlot 3Tray
 *UIConstraints: *Finisher FinUYUNI *StapleLocation RightW
+*UIConstraints: *StapleLocation UpperW *MediaType Thick4
 *UIConstraints: *MediaType Thick2 *StapleLocation UpperLeft
 *UIConstraints: *Finisher FinRUBICONB *ShiftTray Installed
 *UIConstraints: *InputSlot 1Tray *MediaType OHP
@@ -1180,6 +1264,7 @@
 *UIConstraints: *MediaType Coated *StapleLocation UpperW
 *UIConstraints: *PageSize GovernmentLG *InputSlot 1Tray
 *UIConstraints: *ShiftTray Installed *Finisher FinUYUNI
+*UIConstraints: *MediaType Thick4 *StapleLocation UpperLeft
 *UIConstraints: *MediaType Coated *StapleLocation UpperLeft
 *UIConstraints: *RIBannerPageInputSlot 4Tray *RIBannerPageMediaType Thin
 *UIConstraints: *StapleLocation RightW *MediaType Labels
@@ -1208,6 +1293,9 @@
 *%========== Banner Page/Job Type ==========
 *UIConstraints: *RIBannerPagePrint True *JobType SamplePrint
 *UIConstraints: *RIBannerPagePrint True *JobType LockedPrint
+*UIConstraints: *RIBannerPagePrint True *JobType HoldPrint
+*UIConstraints: *RIBannerPagePrint True *JobType StoredPrint
+*UIConstraints: *RIBannerPagePrint True *JobType StoreandPrint
 *UIConstraints: *RIBannerPagePrint True *JobType DocServer
 
 *% end of Printer Description file

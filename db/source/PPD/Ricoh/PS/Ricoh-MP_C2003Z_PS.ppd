@@ -4,11 +4,11 @@
 *%    for "Ricoh MP C2003Z PS"
 *%
 *%    CreationDate: 2013/03/08
-*%    Modified:     2014/02/09
+*%    Modified:     2017/02/07
 *%
-*%    java.util.zip.CRC32: 24ed5fc0
+*%    java.util.zip.CRC32: 9b0bd5da
 *%
-*%    COPYRIGHT (C) 2013-2014 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2013-2017 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -32,7 +32,7 @@
 *%    [this is the MIT open source license -- please see www.opensource.org]
 *%
 
-*FileVersion: "2.2"
+*FileVersion: "2.3"
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
@@ -54,8 +54,6 @@
 %%
 %%\n%A%B%C%D&quot;%%%%; cat;"
 *End
-
-*DocumentServerFolderNumberSupport: "true"
 
 *%========== Basic Device Capabilities ==========
 
@@ -518,7 +516,7 @@ restore
     dup [576 936]  (F) put
     dup [595 935]  (Folio) put
     dup [612 936]  (FanFoldGermanLegal) put
-    dup [792 1224] (11x17) put
+    dup [792 1224] (Tabloid) put
     dup [864 1296] (12x18) put
     dup [792 1080] (11x15) put
     dup [720 1008] (10x14) put
@@ -547,7 +545,7 @@ restore
     dup [576 936]  (F.FullBleed) put
     dup [595 935]  (Folio.FullBleed) put
     dup [612 936]  (FanFoldGermanLegal.FullBleed) put
-    dup [792 1224] (11x17.FullBleed) put
+    dup [792 1224] (Tabloid.FullBleed) put
     dup [864 1296] (12x18.FullBleed) put
     dup [792 1080] (11x15.FullBleed) put
     dup [720 1008] (10x14.FullBleed) put
@@ -1121,13 +1119,6 @@ restore
 *RPSColorRendDict Clpsimulation4/Vivid: "(hybrid16) RCsetcolorprofile"
 *RPSColorRendDict Clpsimulation/CLP Simulation: "(hybrid11) RCsetcolorprofile"
 *CloseUI: *RPSColorRendDict
-
-*OpenUI *RPSColorUniversalDesign/Barrier-free Color Management: PickOne
-*OrderDependency: 135 AnySetup *RPSColorUniversalDesign
-*DefaultRPSColorUniversalDesign: False
-*RPSColorUniversalDesign False/Off: "0 /RDeviceProcSet /ProcSet findresource /SetBFCMode get exec"
-*RPSColorUniversalDesign True/On: "1 /RDeviceProcSet /ProcSet findresource /SetBFCMode get exec"
-*CloseUI: *RPSColorUniversalDesign
 
 *OpenUI *RPSDitherType/Dithering: PickOne
 *OrderDependency: 130 AnySetup *RPSDitherType
@@ -1948,6 +1939,66 @@ mark {\n&&
  >> /RDeviceProcSet /ProcSet findresource /SetJobType get exec\n&&
 }stopped cleartomark\n"
 *End
+*JobType HoldPrint/Hold Print: "%% FoomaticRIPOptionSetting: JobType=HoldPrint"
+*FoomaticRIPOptionSetting JobType=HoldPrint: "mark\n&&
+/usrcode where{pop}{/usrcode()def}ifelse\n&&
+(&user;) usrcode (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+cleartomark\n&&
+mark {\n&&
+ <<\n&&
+   /JobType 3\n&&
+   /JobInfo <<\n&&
+      /UserID (&user;)\n&&
+      /Time (20`date +%y%m%d%R | sed 's/://'`)\n&&
+      /JobID (&title;)\n&&
+      /HostLoginName (&user;)\n&&
+      /HostName (&host;)\n&&
+   >>\n&&
+ >> /RDeviceProcSet /ProcSet findresource /SetJobType get exec\n&&
+}stopped cleartomark\n"
+*End
+*JobType StoredPrint/Stored Print: "%% FoomaticRIPOptionSetting: JobType=StoredPrint"
+*FoomaticRIPOptionSetting JobType=StoredPrint: "mark\n&&
+/usrcode where{pop}{/usrcode()def}ifelse\n&&
+/sppswd where{pop}{/sppswd()def}ifelse\n&&
+(&user;) usrcode (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+cleartomark\n&&
+mark {\n&&
+ <<\n&&
+   /JobType 3\n&&
+   /JobInfo <<\n&&
+      /UserID (&user;)\n&&
+      /Time (20`date +%y%m%d%R | sed 's/://'`)\n&&
+      /Password sppswd\n&&
+      /JobID (&title;)\n&&
+      /HostLoginName (&user;)\n&&
+      /HostName (&host;)\n&&
+   >>\n&&
+   /JobAttr << /Save 1 /Public false >>\n&&
+ >> /RDeviceProcSet /ProcSet findresource /SetJobType get exec\n&&
+}stopped cleartomark\n"
+*End
+*JobType StoreandPrint/Store and Print: "%% FoomaticRIPOptionSetting: JobType=StoreandPrint"
+*FoomaticRIPOptionSetting JobType=StoreandPrint: "mark\n&&
+/usrcode where{pop}{/usrcode()def}ifelse\n&&
+/sppswd where{pop}{/sppswd()def}ifelse\n&&
+(&user;) usrcode (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+cleartomark\n&&
+mark {\n&&
+ <<\n&&
+   /JobType 3\n&&
+   /JobInfo <<\n&&
+      /UserID (&user;)\n&&
+      /Time (20`date +%y%m%d%R | sed 's/://'`)\n&&
+      /Password sppswd\n&&
+      /JobID (&title;)\n&&
+      /HostLoginName (&user;)\n&&
+      /HostName (&host;)\n&&
+   >>\n&&
+   /JobAttr << /Save 2 /Public false >>\n&&
+ >> /RDeviceProcSet /ProcSet findresource /SetJobType get exec\n&&
+}stopped cleartomark\n"
+*End
 *JobType DocServer/Document Server: "%% FoomaticRIPOptionSetting: JobType=DocServer"
 *FoomaticRIPOptionSetting JobType=DocServer: "mark\n&&
 /usrcode where{pop}{/usrcode()def}ifelse\n&&
@@ -1986,6 +2037,24 @@ mark {\n&&
 *CustomLockedPrintPassword True/Custom Password: ""
 *ParamCustomLockedPrintPassword Password: 1 password 4 8
 *NonUIOrderDependency: 101 AnySetup *CustomLockedPrintPassword True
+
+*OpenUI *StoredPrintPassword/Stored Print Password (4-8 digits): PickOne
+*FoomaticRIPOption StoredPrintPassword: password CmdLine A
+*FoomaticRIPOptionMaxLength StoredPrintPassword:8
+*FoomaticRIPOptionAllowedChars StoredPrintPassword: "0-9"
+*OrderDependency: 106 AnySetup *StoredPrintPassword
+*FoomaticRIPOptionPrototype StoredPrintPassword: "/sppswd(%s)def\n"
+*DefaultStoredPrintPassword: None
+*StoredPrintPassword None/None: "/sppswd()def\n"
+*StoredPrintPassword 2001/2001: "/sppswd(2001)def\n"
+*StoredPrintPassword 2002/2002: "/sppswd(2002)def\n"
+*StoredPrintPassword 2003/2003: "/sppswd(2003)def\n"
+*CloseUI: *StoredPrintPassword
+
+*CustomStoredPrintPassword True/Custom Stored Print Password: ""
+*ParamCustomStoredPrintPassword Password: 1 password 4 8
+*NonUIOrderDependency: 107 AnySetup *CustomStoredPrintPassword True
+
 *OpenUI *DocServerPassword/Document Server Password (4-8 digits): PickOne
 *FoomaticRIPOption DocServerPassword: password CmdLine A
 *FoomaticRIPOptionMaxLength DocServerPassword:8
@@ -2002,8 +2071,9 @@ mark {\n&&
 *CustomDocServerPassword True/Custom Document Server Password: ""
 *ParamCustomDocServerPassword Password: 1 password 4 8
 *NonUIOrderDependency: 103 AnySetup *CustomDocServerPassword True
+
 *OpenUI *UserCode/User Code (up to 8 digits): PickOne
-*FoomaticRIPOption UserCode: password CmdLine A
+*FoomaticRIPOption UserCode: string CmdLine A
 *FoomaticRIPOptionMaxLength UserCode:8
 *FoomaticRIPOptionAllowedChars UserCode: "0-9"
 *OrderDependency: 104 AnySetup *UserCode
@@ -2016,8 +2086,9 @@ mark {\n&&
 *CloseUI: *UserCode
 
 *CustomUserCode True/Custom UserCode: ""
-*ParamCustomUserCode UserCode: 1 password 1 8
+*ParamCustomUserCode UserCode: 1 string 1 8
 *NonUIOrderDependency: 105 AnySetup *CustomUserCode True
+
 *CloseGroup: JobLog/Job Log
 *%========== Font ==========
 
@@ -3420,404 +3491,10 @@ mark {\n&&
 *UIConstraints: *RPSColorRendDict User *RPSRGBcorrect DetailNormal
 *UIConstraints: *RPSRGBcorrect DetailNormal *RPSColorRendDict User
 
-*%========== Color Setting / Color Universal Design ========== 
-*UIConstraints: *RPSColorUniversalDesign True *RPSRGBcorrect None
-*UIConstraints: *RPSRGBcorrect None *RPSColorUniversalDesign True
-*UIConstraints: *RPSColorUniversalDesign True *RPSRGBcorrect DetailNormal
-*UIConstraints: *RPSRGBcorrect DetailNormal *RPSColorUniversalDesign True
-
-*%========== Color Profile / Color Universal Design ========== 
-*UIConstraints: *RPSColorUniversalDesign True *RPSColorRendDict Photograph
-*UIConstraints: *RPSColorRendDict Photograph *RPSColorUniversalDesign True
-*UIConstraints: *RPSColorUniversalDesign True *RPSColorRendDict Business
-*UIConstraints: *RPSColorRendDict Business *RPSColorUniversalDesign True
-*UIConstraints: *RPSColorUniversalDesign True *RPSColorRendDict Colorimetric
-*UIConstraints: *RPSColorRendDict Colorimetric *RPSColorUniversalDesign True
-*UIConstraints: *RPSColorUniversalDesign True *RPSColorRendDict User
-*UIConstraints: *RPSColorRendDict User *RPSColorUniversalDesign True
-*UIConstraints: *RPSColorUniversalDesign True *RPSColorRendDict Clpsimulation1
-*UIConstraints: *RPSColorRendDict Clpsimulation1 *RPSColorUniversalDesign True
-*UIConstraints: *RPSColorUniversalDesign True *RPSColorRendDict Clpsimulation2
-*UIConstraints: *RPSColorRendDict Clpsimulation2 *RPSColorUniversalDesign True
-*UIConstraints: *RPSColorUniversalDesign True *RPSColorRendDict ICMprocess
-*UIConstraints: *RPSColorRendDict ICMprocess *RPSColorUniversalDesign True
-
 *%========== Banner Page/Job Type ==========
-*UIConstraints: *RIBannerPage True *JobType SamplePrint
-*UIConstraints: *RIBannerPage True *JobType LockedPrint
-*UIConstraints: *RIBannerPage True *JobType DocServer
-
-*%============ Finishing/Duplex ============
-*UIConstraints: *RIPunch Left3 *Duplex DuplexTumble
-*UIConstraints: *Duplex DuplexTumble *RIPunch Left3
-*UIConstraints: *RIPunch Right3 *Duplex DuplexTumble
-*UIConstraints: *Duplex DuplexTumble *RIPunch Right3
-*UIConstraints: *RIPunch Upper3 *Duplex DuplexTumble
-*UIConstraints: *Duplex DuplexTumble *RIPunch Upper3
+*UIConstraints: *RIBannerPagePrint True *JobType SamplePrint
+*UIConstraints: *RIBannerPagePrint True *JobType LockedPrint
+*UIConstraints: *RIBannerPagePrint True *JobType DocServer
 
 *% end of Printer Description file
 
-*% Korean localization
-*ko.Translation ModelName/RICOH MP C2003Z: ""
-*ko.Translation InstallableOptions/?¤?˜ê°?Š¥ú±??µ?? ""
-*ko.Translation OptionTray/?µ???©??•¨: ""
-*ko.OptionTray NotInstalled/?¤?????¨: ""
-*ko.OptionTray 1Cassette/ú±˜ë‹¨ ?©??•¨: ""
-*ko.OptionTray 2Cassette/ú±˜ë‹¨ ?©??•¨: ""
-*ko.Translation InnerTray2/?´???©??•¨ 2: ""
-*ko.InnerTray2 NotInstalled/?¤?????¨: ""
-*ko.InnerTray2 Installed/?¤?˜ë¨: ""
-*ko.Translation ShiftTray/?´???´???©??•¨: ""
-*ko.ShiftTray NotInstalled/?¤?????¨: ""
-*ko.ShiftTray Installed/?¤?˜ë¨: ""
-*ko.Translation ExternalTray/?¸???©??•¨: ""
-*ko.ExternalTray NotInstalled/?¤?????¨: ""
-*ko.ExternalTray Installed/?¤?˜ë¨: ""
-*ko.Translation Finisher/?ˆë¬´?¬ ?¥?? ""
-*ko.Finisher NotInstalled/?¤?????¨: ""
-*ko.Finisher FinRUBICONB/?ˆë¬´?¬ ?¥??SR3130: ""
-*ko.Finisher FinUYUNI/?ˆë¬´?¬ ?¥??SR3180: ""
-*ko.Translation General/General: ""
-*ko.Translation RIPaperPolicy/?©??— ?ì¶¤: ""
-*ko.RIPaperPolicy PromptUser/?¬?©?ì—??úµ•ì¸: ""
-*ko.RIPaperPolicy NearestSizeAdjust/??¥ ??¹Œìš´ ú¬?° ???°?¨: ""
-*ko.RIPaperPolicy NearestSizeNoAdjust/??¥ ??¹Œìš´ ú¬?° ???ë¥´?°: ""
-*ko.Translation PageSize/Media Size: ""
-*ko.PageSize A3/A3: ""
-*ko.PageSize A4/A4: ""
-*ko.PageSize A5/A5: ""
-*ko.PageSize A6/A6: ""
-*ko.PageSize B4/B4 (JIS): ""
-*ko.PageSize B5/B5 (JIS): ""
-*ko.PageSize B6/B6 (JIS): ""
-*ko.PageSize Legal/?¬?¸: ""
-*ko.PageSize GovernmentLG/8.25x14: ""
-*ko.PageSize EngQuatro/8x10: ""
-*ko.PageSize Letter/?ˆí„°: ""
-*ko.PageSize Statement/5.5x8.5: ""
-*ko.PageSize F/8x13: ""
-*ko.PageSize Folio/8.25x13: ""
-*ko.PageSize FanFoldGermanLegal/8.5x13: ""
-*ko.PageSize Tabloid/11x17: ""
-*ko.PageSize 12x18/12x18: ""
-*ko.PageSize 11x15/11x15: ""
-*ko.PageSize 10x14/10x14: ""
-*ko.PageSize SRA3/SRA3: ""
-*ko.PageSize SRA4/SRA4: ""
-*ko.PageSize Executive/?µ?¤úí‹°?? ""
-*ko.PageSize Env10/Com10 ?‰íˆ¬: ""
-*ko.PageSize EnvMonarch/Monarch ?‰íˆ¬: ""
-*ko.PageSize EnvC5/C5 ?‰íˆ¬: ""
-*ko.PageSize EnvC6/C6 ?‰íˆ¬: ""
-*ko.PageSize DLEnv/DL ?‰íˆ¬: ""
-*ko.PageSize 8Kai/8K: ""
-*ko.PageSize 16Kai/16K: ""
-*ko.PageSize A3.FullBleed/A3 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize A4.FullBleed/A4 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize A5.FullBleed/A5 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize A6.FullBleed/A6 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize B4.FullBleed/B4 (JIS) (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize B5.FullBleed/B5 (JIS) (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize B6.FullBleed/B6 (JIS) (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize Legal.FullBleed/?¬?¸ (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize GovernmentLG.FullBleed/8.25x14 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize EngQuatro.FullBleed/8x10 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize Letter.FullBleed/?ˆí„° (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize Statement.FullBleed/5.5x8.5 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize F.FullBleed/8x13 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize Folio.FullBleed/8.25x13 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize FanFoldGermanLegal.FullBleed/8.5x13 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize Tabloid.FullBleed/11x17 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize 12x18.FullBleed/12x18 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize 11x15.FullBleed/11x15 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize 10x14.FullBleed/10x14 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize SRA3.FullBleed/SRA3 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize SRA4.FullBleed/SRA4 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize Executive.FullBleed/?µ?¤úí‹°??(?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize Env10.FullBleed/Com10 ?‰íˆ¬ (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize EnvMonarch.FullBleed/Monarch ?‰íˆ¬ (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize EnvC5.FullBleed/C5 ?‰íˆ¬ (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize EnvC6.FullBleed/C6 ?‰íˆ¬ (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize DLEnv.FullBleed/DL ?‰íˆ¬ (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize 8Kai.FullBleed/8K (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize 16Kai.FullBleed/16K (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageSize Custom/Custom: ""
-*ko.CustomPageSize True/: ""
-*ko.ParamCustomPageSize Width/Width: ""
-*ko.ParamCustomPageSize Height/Height: ""
-*ko.ParamCustomPageSize WidthOffset/WidthOffset: ""
-*ko.ParamCustomPageSize HeightOffset/HeightOffset: ""
-*ko.ParamCustomPageSize Orientation/Orientation: ""
-*ko.Translation PageRegion/PageRegion: ""
-*ko.PageRegion A3/A3: ""
-*ko.PageRegion A4/A4: ""
-*ko.PageRegion A5/A5: ""
-*ko.PageRegion A6/A6: ""
-*ko.PageRegion B4/B4 (JIS): ""
-*ko.PageRegion B5/B5 (JIS): ""
-*ko.PageRegion B6/B6 (JIS): ""
-*ko.PageRegion Legal/?¬?¸: ""
-*ko.PageRegion GovernmentLG/8.25x14: ""
-*ko.PageRegion EngQuatro/8x10: ""
-*ko.PageRegion Letter/?ˆí„°: ""
-*ko.PageRegion Statement/5.5x8.5: ""
-*ko.PageRegion F/8x13: ""
-*ko.PageRegion Folio/8.25x13: ""
-*ko.PageRegion FanFoldGermanLegal/8.5x13: ""
-*ko.PageRegion Tabloid/11x17: ""
-*ko.PageRegion 12x18/12x18: ""
-*ko.PageRegion 11x15/11x15: ""
-*ko.PageRegion 10x14/10x14: ""
-*ko.PageRegion SRA3/SRA3: ""
-*ko.PageRegion SRA4/SRA4: ""
-*ko.PageRegion Executive/?µ?¤úí‹°?? ""
-*ko.PageRegion Env10/Com10 ?‰íˆ¬: ""
-*ko.PageRegion EnvMonarch/Monarch ?‰íˆ¬: ""
-*ko.PageRegion EnvC5/C5 ?‰íˆ¬: ""
-*ko.PageRegion EnvC6/C6 ?‰íˆ¬: ""
-*ko.PageRegion DLEnv/DL ?‰íˆ¬: ""
-*ko.PageRegion 8Kai/8K: ""
-*ko.PageRegion 16Kai/16K: ""
-*ko.PageRegion A3.FullBleed/A3 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion A4.FullBleed/A4 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion A5.FullBleed/A5 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion A6.FullBleed/A6 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion B4.FullBleed/B4 (JIS) (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion B5.FullBleed/B5 (JIS) (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion B6.FullBleed/B6 (JIS) (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion Legal.FullBleed/?¬?¸ (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion GovernmentLG.FullBleed/8.25x14 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion EngQuatro.FullBleed/8x10 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion Letter.FullBleed/?ˆí„° (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion Statement.FullBleed/5.5x8.5 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion F.FullBleed/8x13 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion Folio.FullBleed/8.25x13 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion FanFoldGermanLegal.FullBleed/8.5x13 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion Tabloid.FullBleed/11x17 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion 12x18.FullBleed/12x18 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion 11x15.FullBleed/11x15 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion 10x14.FullBleed/10x14 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion SRA3.FullBleed/SRA3 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion SRA4.FullBleed/SRA4 (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion Executive.FullBleed/?µ?¤úí‹°??(?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion Env10.FullBleed/Com10 ?‰íˆ¬ (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion EnvMonarch.FullBleed/Monarch ?‰íˆ¬ (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion EnvC5.FullBleed/C5 ?‰íˆ¬ (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion EnvC6.FullBleed/C6 ?‰íˆ¬ (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion DLEnv.FullBleed/DL ?‰íˆ¬ (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion 8Kai.FullBleed/8K (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion 16Kai.FullBleed/16K (?¬?± ??Š” ??©´ ?¸??: ""
-*ko.PageRegion Custom/Custom: ""
-*ko.Translation InputSlot/Media Source: ""
-*ko.InputSlot MultiTray/?”ì´ú¨¨?¤ ?©??•¨: ""
-*ko.InputSlot 1Tray/?©??•¨ 1: ""
-*ko.InputSlot 2Tray/?©??•¨ 2: ""
-*ko.InputSlot 3Tray/?©??•¨ 3: ""
-*ko.InputSlot 4Tray/?©??•¨ 4: ""
-*ko.Translation Duplex/?‘ë©´: ""
-*ko.Duplex None/ú±´?? ""
-*ko.Duplex DuplexNoTumble/?´ ?½: ""
-*ko.Duplex DuplexTumble/?§???½: ""
-*ko.Translation Resolution/ú±´??„: ""
-*ko.Resolution 600dpi/600 dpi: ""
-*ko.Resolution 1200dpi/1200 dpi: ""
-*ko.Translation RICollateKind/?•ë? ???: ""
-*ko.RICollateKind Normal/?•ë?: ""
-*ko.RICollateKind RotateShift/ú¶Œì?(?´?? ?•ë?: ""
-*ko.Translation Collate/?•ë?: ""
-*ko.Collate False/ú±´?? ""
-*ko.Collate True/?¤?? ""
-*ko.Translation RIPrintMode/?¸???¨?? ""
-*ko.RIPrintMode 0rhit/ú±´?? ""
-*ko.RIPrintMode 3rhit/ú¢?„ˆ ?ˆì•½: ""
-*ko.Translation Rimagesm/?´?¸???¤?¬?°: ""
-*ko.Rimagesm Off/ú±´?? ""
-*ko.Rimagesm On/?¤?? ""
-*ko.Rimagesm Auto/?ë™: ""
-*ko.Rimagesm 90ppi/90 ppi ?¸?? ""
-*ko.Rimagesm 150ppi/150 ppi ?¸?? ""
-*ko.Rimagesm 200ppi/200 ppi ?¸?? ""
-*ko.Rimagesm 300ppi/300 ppi ?¸?? ""
-*ko.Translation ColorModel/?¬?¬ ?¨?? ""
-*ko.ColorModel CMYK/?? ""
-*ko.ColorModel Gray/ú¹‘ë°±: ""
-*ko.Translation RPSBitsPerPixel/?¸?¼?°?´?? ""
-*ko.RPSBitsPerPixel 2BitsPerPixel/ú­œì¤? ""
-*ko.RPSBitsPerPixel 1BitsPerPixel/??¥´?? ""
-*ko.RPSBitsPerPixel 4BitsPerPixel/?¸?? ""
-*ko.Translation RPSRGBcorrect/?‰ìƒ ?¤?? ""
-*ko.RPSRGBcorrect None/ú±´?? ""
-*ko.RPSRGBcorrect DetailNormal/?¸?? ""
-*ko.RPSRGBcorrect DetailBright/?¤?° ?¸?? ""
-*ko.Translation RPSColorRendDict/?¬?¬ ú°?¡œíŒŒ?¼: ""
-*ko.RPSColorRendDict Auto/?ë™: ""
-*ko.RPSColorRendDict Photograph/?¬?? ""
-*ko.RPSColorRendDict Business/ú°??????´?? ""
-*ko.RPSColorRendDict Colorimetric/?¨?? ""
-*ko.RPSColorRendDict POP/POP ú­œì‹œ: ""
-*ko.RPSColorRendDict User/?¬?©???¤?? ""
-*ko.RPSColorRendDict Clpsimulation1/??“œ?½?? ""
-*ko.RPSColorRendDict Clpsimulation2/??ª?•˜?? ""
-*ko.RPSColorRendDict Clpsimulation4/?ì?ú±˜ê²? ""
-*ko.RPSColorRendDict Clpsimulation/CLP ?œë®¬?ˆì´?? ""
-*ko.Translation RPSDitherType/?”ë”?? ""
-*ko.RPSDitherType Auto/?ë™: ""
-*ko.RPSDitherType Photo/?¬?? ""
-*ko.RPSDitherType Letter/ú¡ìŠ¤ú¦¸: ""
-*ko.RPSDitherType User/?¬?©???¤?? ""
-*ko.RPSDitherType Dispersion/????½ ???ˆì§??ì?: ""
-*ko.Translation RPSBlackMode/ú¶Œìƒ‰ ?¬ú´?(ú¡ìŠ¤ú¦¸/??‘œ): ""
-*ko.RPSBlackMode gray/K?????/ú¶Œìƒ‰ ?¸?? ""
-*ko.RPSBlackMode 1Color/K????? ?¸?? ""
-*ko.RPSBlackMode 4Color/CMY+K: ""
-*ko.RPSBlackMode grayText/K?????/ú¶Œìƒ‰ ?¸??(ú¡ìŠ¤ú¦¸??: ""
-*ko.RPSBlackMode 1ColorText/K????? ?¸??(ú¡ìŠ¤ú¦¸??: ""
-*ko.Translation RPSBlackOverPrint/????¼???¸?? ""
-*ko.RPSBlackOverPrint False/ú±´?? ""
-*ko.RPSBlackOverPrint True/?¤?? ""
-*ko.Translation RPSColorSep/CMYK????¦¬: ""
-*ko.RPSColorSep None/??¦¬ ??ú±¨: ""
-*ko.RPSColorSep Cyan/?¹?­: ""
-*ko.RPSColorSep Magenta/?í™: ""
-*ko.RPSColorSep Yellow/?¸?? ""
-*ko.RPSColorSep Black/???: ""
-*ko.RPSColorSep Red/?í™?¼ ?¸?? ""
-*ko.RPSColorSep Green/?¹?­?¼ ?¸?? ""
-*ko.RPSColorSep Blue/?¹?­?¼ ?í™: ""
-*ko.RPSColorSep KCyan/????¼ ?¹?­: ""
-*ko.RPSColorSep KMagenta/????¼ ?í™: ""
-*ko.RPSColorSep KYellow/????¼ ?¸?? ""
-*ko.Translation Rcmyksimulation/CMYK ?œë®¬?ˆì´??ú°?¡œíŒŒ?¼: ""
-*ko.Rcmyksimulation Off/ú±´?? ""
-*ko.Rcmyksimulation USOffsetPrint/US OffsetPrint: ""
-*ko.Rcmyksimulation Euroscale/Euroscale: ""
-*ko.Rcmyksimulation JapanColor/JapanColor2001: ""
-*ko.Rcmyksimulation PANTONE/PaletteColor: ""
-*ko.Translation MediaType/?©????¥? ""
-*ko.MediaType Auto/?¼???©???¬úµœìš© ?©?? ""
-*ko.MediaType Plain1/?¼???©??(60 ~ 81 g/m2): ""
-*ko.MediaType Recycled/?¬úµœìš© ?©?? ""
-*ko.MediaType Special1/ú¦¹???©??1: ""
-*ko.MediaType Special2/ú¦¹???©??2: ""
-*ko.MediaType Special3/ú¦¹???©??3: ""
-*ko.MediaType Colored/?? ""
-*ko.MediaType Letterhead/?ˆí„°ú³¤?? ""
-*ko.MediaType Preprinted/?¬???¸???©?? ""
-*ko.MediaType Labels/?¼?¨: ""
-*ko.MediaType Coated/?”íŒ…?? ""
-*ko.MediaType Bond/?¸?œì§? ""
-*ko.MediaType Cardstock/?´?œì§? ""
-*ko.MediaType OHP/ú¤¬???©?? ""
-*ko.MediaType Thick1/?êº¼?´ ?©??1 (106 - 169 g/m2): ""
-*ko.MediaType Thick2/?êº¼?´ ?©??2 (170 - 220 g/m2): ""
-*ko.MediaType Thick3/?êº¼?´ ?©??3 (221 - 256 g/m2): ""
-*ko.MediaType Thick4/?êº¼?´ ?©??4 (257 - 300 g/m2): ""
-*ko.MediaType Thin/?êº¼?´ ?©??(52 - 59 g/m2): ""
-*ko.MediaType Middlethick/?‘ê°??ê»??©??(82 ~ 105 g/m2): ""
-*ko.MediaType Glossy/?”íŒ…??- ?‘í? ?¸?? ""
-*ko.MediaType Envelope/?‰íˆ¬: ""
-*ko.MediaType None/??Œ: ""
-*ko.Translation OutputBin/?˜ì‹ ?? ""
-*ko.OutputBin Default/ú°?¦°ú ° ?°?¸?? ""
-*ko.OutputBin Standard/?´???©??•¨ 1: ""
-*ko.OutputBin Bin1/?´???©??•¨ 2: ""
-*ko.OutputBin Shift/?´???´???©??•¨: ""
-*ko.OutputBin External/?¸???©??•¨: ""
-*ko.OutputBin FinRUBICONBShift/?ˆë¬´?¬ ?¥??SR3130 ?´???©??•¨: ""
-*ko.OutputBin FinUYUNIShift/?ˆë¬´?¬ ?¥??SR3180 ?´???©??•¨: ""
-*ko.Translation StapleLocation/?¤ú¡Œì´ú°? ""
-*ko.StapleLocation None/ú±´?? ""
-*ko.StapleLocation UpperLeft/??‹¨ ?Œì¸¡: ""
-*ko.StapleLocation UpperRight/??‹¨ ?°?¡: ""
-*ko.StapleLocation LeftW/?¼?½??2?? ""
-*ko.StapleLocation RightW/?¤?¸?½??2?? ""
-*ko.StapleLocation UpperW/??ª½??2?? ""
-*ko.Translation RIPunch/úª?¹? ""
-*ko.RIPunch None/ú±´?? ""
-*ko.RIPunch Left2/?¼?½??2?? ""
-*ko.RIPunch Left3/?¼?½??3?? ""
-*ko.RIPunch Left4/?¼?½??4?? ""
-*ko.RIPunch Right2/?¤?¸?½??2?? ""
-*ko.RIPunch Right3/?¤?¸?½??3?? ""
-*ko.RIPunch Right4/?¤?¸?½??4?? ""
-*ko.RIPunch Upper2/??ª½??2?? ""
-*ko.RIPunch Upper3/??ª½??3?? ""
-*ko.RIPunch Upper4/??ª½??4?? ""
-*ko.Translation RIRotateBy180/180??ú¶Œì?: ""
-*ko.RIRotateBy180 Off/ú±´?? ""
-*ko.RIRotateBy180 On/?¤?? ""
-*ko.Translation RIOrientOvr/?©ú²¥ ?´?? ""
-*ko.RIOrientOvr Off/ú±´?? ""
-*ko.RIOrientOvr Landscape/??¡??©ú²¥: ""
-*ko.RIOrientOvr Portrait/?¸???©ú²¥: ""
-*ko.Translation RIWatermark/?Œí„°?ˆí¬: ""
-*ko.RIWatermark Off/ú±´?? ""
-*ko.RIWatermark On/?¤?? ""
-*ko.Translation RIWMText/?Œí„°?ˆí¬ ú¡ìŠ¤ú¦¸: ""
-*ko.RIWMText Confidential/CONFIDENTIAL: ""
-*ko.RIWMText Copy/COPY: ""
-*ko.RIWMText Copyright/DRAFT: ""
-*ko.RIWMText Final/FINAL: ""
-*ko.RIWMText FileCopy/FILE COPY: ""
-*ko.RIWMText Proof/PROOF: ""
-*ko.RIWMText TopSecret/TOP SECRET: ""
-*ko.Translation RIwmFont/?Œí„°?ˆí¬ ??¼´: ""
-*ko.RIwmFont CourierB/Courier ?µ????¼´: ""
-*ko.RIwmFont TimesB/Times ?µ????¼´: ""
-*ko.RIwmFont HelveticaB/Helvetica ?µ????¼´: ""
-*ko.Translation RIwmSize/?Œí„°?ˆí¬ ú¬?°: ""
-*ko.RIwmSize 24/24 ú«¬?¸ú¦¸: ""
-*ko.RIwmSize 36/36 ú«¬?¸ú¦¸: ""
-*ko.RIwmSize 48/48 ú«¬?¸ú¦¸: ""
-*ko.RIwmSize 60/60 ú«¬?¸ú¦¸: ""
-*ko.RIwmSize 72/72 ú«¬?¸ú¦¸: ""
-*ko.Translation RIwmAngle/?Œí„°?ˆí¬ ??„: ""
-*ko.RIwmAngle 180Deg/180?? ""
-*ko.RIwmAngle 135Deg/135?? ""
-*ko.RIwmAngle 90Deg/90?? ""
-*ko.RIwmAngle 45Deg/45?? ""
-*ko.RIwmAngle 0Deg/0?? ""
-*ko.RIwmAngle M45Deg/-45?? ""
-*ko.RIwmAngle M90Deg/-90?? ""
-*ko.RIwmAngle M135Deg/-135?? ""
-*ko.RIwmAngle M180Deg/-180?? ""
-*ko.Translation RIwmTextStyle/?Œí„°?ˆí¬ ?¤úŸ?¼: ""
-*ko.RIwmTextStyle Gray/ú¶Œìƒ‰: ""
-*ko.RIwmTextStyle Outline/?¤?½?? ""
-*ko.Translation RIBannerPagePrint/?°??úª˜ì´?? ""
-*ko.RIBannerPagePrint False/ú±´?? ""
-*ko.RIBannerPagePrint True/?¤?? ""
-*ko.Translation RIBannerPageInputSlot/?°??úª˜ì´????? ?©??•¨: ""
-*ko.RIBannerPageInputSlot Auto/?ë™ ?©??•¨ ???: ""
-*ko.RIBannerPageInputSlot MultiTray/?”ì´ú¨¨?¤ ?©??•¨: ""
-*ko.RIBannerPageInputSlot 1Tray/?©??•¨ 1: ""
-*ko.RIBannerPageInputSlot 2Tray/?©??•¨ 2: ""
-*ko.RIBannerPageInputSlot 3Tray/?©??•¨ 3: ""
-*ko.RIBannerPageInputSlot 4Tray/?©??•¨ 4: ""
-*ko.Translation RIBannerPageMediaType/?°??úª˜ì´???©??•¨: ""
-*ko.RIBannerPageMediaType Auto/?¼???©???¬úµœìš© ?©?? ""
-*ko.RIBannerPageMediaType Plain1/?¼???©??(60 ~ 81 g/m2): ""
-*ko.RIBannerPageMediaType Recycled/?¬úµœìš© ?©?? ""
-*ko.RIBannerPageMediaType Special1/ú¦¹???©??1: ""
-*ko.RIBannerPageMediaType Special2/ú¦¹???©??2: ""
-*ko.RIBannerPageMediaType Special3/ú¦¹???©??3: ""
-*ko.RIBannerPageMediaType Colored/?? ""
-*ko.RIBannerPageMediaType Letterhead/?ˆí„°ú³¤?? ""
-*ko.RIBannerPageMediaType Preprinted/?¬???¸???©?? ""
-*ko.RIBannerPageMediaType Labels/?¼?¨: ""
-*ko.RIBannerPageMediaType Coated/?”íŒ…?? ""
-*ko.RIBannerPageMediaType Bond/?¸?œì§? ""
-*ko.RIBannerPageMediaType Cardstock/?´?œì§? ""
-*ko.RIBannerPageMediaType OHP/ú¤¬???©?? ""
-*ko.RIBannerPageMediaType Thick1/?êº¼?´ ?©??1 (106 - 169 g/m2): ""
-*ko.RIBannerPageMediaType Thick2/?êº¼?´ ?©??2 (170 - 220 g/m2): ""
-*ko.RIBannerPageMediaType Thick3/?êº¼?´ ?©??3 (221 - 256 g/m2): ""
-*ko.RIBannerPageMediaType Thick4/?êº¼?´ ?©??4 (257 - 300 g/m2): ""
-*ko.RIBannerPageMediaType Thin/?êº¼?´ ?©??(52 - 59 g/m2): ""
-*ko.RIBannerPageMediaType Middlethick/?‘ê°??ê»??©??(82 ~ 105 g/m2): ""
-*ko.RIBannerPageMediaType Glossy/?”íŒ…??- ?‘í? ?¸?? ""
-*ko.RIBannerPageMediaType Envelope/?‰íˆ¬: ""
-*ko.Translation Booklet/?Œì±?: ""
-*ko.Booklet None/ú±´?? ""
-*ko.Booklet OpenToLeft/?¼?½/??‹¨?¼???´?°: ""
-*ko.Booklet OpenToRight/?¤?¸?½/ú±˜ë‹¨?¼???´?°: ""

@@ -4,11 +4,11 @@
 *%    for "Lanier MP 2001 PS"
 *%
 *%    CreationDate: 2011/12/29
-*%    Modified:     2013/05/03
+*%    Modified:     2017/02/07
 *%
-*%    java.util.zip.CRC32: dd7d7aaa
+*%    java.util.zip.CRC32: 8b46e42f
 *%
-*%    COPYRIGHT (C) 2011-2013 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2011-2017 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -32,7 +32,7 @@
 *%    [this is the MIT open source license -- please see www.opensource.org]
 *%
 
-*FileVersion: "2.2"
+*FileVersion: "2.3"
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
@@ -460,7 +460,7 @@ true setedgetoedge"
     dup [576 936] (F) put
     dup [595 935] (Folio) put
     dup [612 936] (FanFoldGermanLegal) put
-    dup [792 1224] (11x17) put
+    dup [792 1224] (Tabloid) put
     dup [864 1296] (12x18) put
     dup [792 1080] (11x15) put
     dup [720 1008] (10x14) put
@@ -490,7 +490,7 @@ true setedgetoedge"
     dup [576 936] (F.FullBleed) put
     dup [595 935] (Folio.FullBleed) put
     dup [612 936] (FanFoldGermanLegal.FullBleed) put
-    dup [792 1224] (11x17.FullBleed) put
+    dup [792 1224] (Tabloid.FullBleed) put
     dup [864 1296] (12x18.FullBleed) put
     dup [792 1080] (11x15.FullBleed) put
     dup [720 1008] (10x14.FullBleed) put
@@ -1584,6 +1584,66 @@ mark {\n&&
  >> /RDeviceProcSet /ProcSet findresource /SetJobType get exec\n&&
 }stopped cleartomark\n"
 *End
+*JobType HoldPrint/Hold Print: "%% FoomaticRIPOptionSetting: JobType=HoldPrint"
+*FoomaticRIPOptionSetting JobType=HoldPrint: "mark\n&&
+/usrcode where{pop}{/usrcode()def}ifelse\n&&
+(&user;) usrcode (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+cleartomark\n&&
+mark {\n&&
+ <<\n&&
+   /JobType 3\n&&
+   /JobInfo <<\n&&
+      /UserID (&user;)\n&&
+      /Time (20`date +%y%m%d%R | sed 's/://'`)\n&&
+      /JobID (&title;)\n&&
+      /HostLoginName (&user;)\n&&
+      /HostName (&host;)\n&&
+   >>\n&&
+ >> /RDeviceProcSet /ProcSet findresource /SetJobType get exec\n&&
+}stopped cleartomark\n"
+*End
+*JobType StoredPrint/Stored Print: "%% FoomaticRIPOptionSetting: JobType=StoredPrint"
+*FoomaticRIPOptionSetting JobType=StoredPrint: "mark\n&&
+/usrcode where{pop}{/usrcode()def}ifelse\n&&
+/sppswd where{pop}{/sppswd()def}ifelse\n&&
+(&user;) usrcode (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+cleartomark\n&&
+mark {\n&&
+ <<\n&&
+   /JobType 3\n&&
+   /JobInfo <<\n&&
+      /UserID (&user;)\n&&
+      /Time (20`date +%y%m%d%R | sed 's/://'`)\n&&
+      /Password sppswd\n&&
+      /JobID (&title;)\n&&
+      /HostLoginName (&user;)\n&&
+      /HostName (&host;)\n&&
+   >>\n&&
+   /JobAttr << /Save 1 /Public false >>\n&&
+ >> /RDeviceProcSet /ProcSet findresource /SetJobType get exec\n&&
+}stopped cleartomark\n"
+*End
+*JobType StoreandPrint/Store and Print: "%% FoomaticRIPOptionSetting: JobType=StoreandPrint"
+*FoomaticRIPOptionSetting JobType=StoreandPrint: "mark\n&&
+/usrcode where{pop}{/usrcode()def}ifelse\n&&
+/sppswd where{pop}{/sppswd()def}ifelse\n&&
+(&user;) usrcode (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+cleartomark\n&&
+mark {\n&&
+ <<\n&&
+   /JobType 3\n&&
+   /JobInfo <<\n&&
+      /UserID (&user;)\n&&
+      /Time (20`date +%y%m%d%R | sed 's/://'`)\n&&
+      /Password sppswd\n&&
+      /JobID (&title;)\n&&
+      /HostLoginName (&user;)\n&&
+      /HostName (&host;)\n&&
+   >>\n&&
+   /JobAttr << /Save 2 /Public false >>\n&&
+ >> /RDeviceProcSet /ProcSet findresource /SetJobType get exec\n&&
+}stopped cleartomark\n"
+*End
 *JobType DocServer/Document Server: "%% FoomaticRIPOptionSetting: JobType=DocServer"
 *FoomaticRIPOptionSetting JobType=DocServer: "mark\n&&
 /usrcode where{pop}{/usrcode()def}ifelse\n&&
@@ -1622,6 +1682,24 @@ mark {\n&&
 *CustomLockedPrintPassword True/Custom Password: ""
 *ParamCustomLockedPrintPassword Password: 1 password 4 8
 *NonUIOrderDependency: 101 AnySetup *CustomLockedPrintPassword True
+
+*OpenUI *StoredPrintPassword/Stored Print Password (4-8 digits): PickOne
+*FoomaticRIPOption StoredPrintPassword: password CmdLine A
+*FoomaticRIPOptionMaxLength StoredPrintPassword:8
+*FoomaticRIPOptionAllowedChars StoredPrintPassword: "0-9"
+*OrderDependency: 106 AnySetup *StoredPrintPassword
+*FoomaticRIPOptionPrototype StoredPrintPassword: "/sppswd(%s)def\n"
+*DefaultStoredPrintPassword: None
+*StoredPrintPassword None/None: "/sppswd()def\n"
+*StoredPrintPassword 2001/2001: "/sppswd(2001)def\n"
+*StoredPrintPassword 2002/2002: "/sppswd(2002)def\n"
+*StoredPrintPassword 2003/2003: "/sppswd(2003)def\n"
+*CloseUI: *StoredPrintPassword
+
+*CustomStoredPrintPassword True/Custom Stored Print Password: ""
+*ParamCustomStoredPrintPassword Password: 1 password 4 8
+*NonUIOrderDependency: 107 AnySetup *CustomStoredPrintPassword True
+
 *OpenUI *DocServerPassword/Document Server Password (4-8 digits): PickOne
 *FoomaticRIPOption DocServerPassword: password CmdLine A
 *FoomaticRIPOptionMaxLength DocServerPassword:8
@@ -1638,8 +1716,9 @@ mark {\n&&
 *CustomDocServerPassword True/Custom Document Server Password: ""
 *ParamCustomDocServerPassword Password: 1 password 4 8
 *NonUIOrderDependency: 103 AnySetup *CustomDocServerPassword True
+
 *OpenUI *UserCode/User Code (up to 8 digits): PickOne
-*FoomaticRIPOption UserCode: password CmdLine A
+*FoomaticRIPOption UserCode: string CmdLine A
 *FoomaticRIPOptionMaxLength UserCode:8
 *FoomaticRIPOptionAllowedChars UserCode: "0-9"
 *OrderDependency: 104 AnySetup *UserCode
@@ -1652,8 +1731,9 @@ mark {\n&&
 *CloseUI: *UserCode
 
 *CustomUserCode True/Custom UserCode: ""
-*ParamCustomUserCode UserCode: 1 password 1 8
+*ParamCustomUserCode UserCode: 1 string 1 8
 *NonUIOrderDependency: 105 AnySetup *CustomUserCode True
+
 *CloseGroup: JobLog/Job Log
 *%========== Font ==========
 
@@ -2330,8 +2410,9 @@ mark {\n&&
 *UIConstraints: *MediaType None *RIPaperPolicy PromptUser
 
 *%========== Banner Page/Job Type ==========
-*UIConstraints: *RIBannerPage True *JobType SamplePrint
-*UIConstraints: *RIBannerPage True *JobType LockedPrint
-*UIConstraints: *RIBannerPage True *JobType DocServer
+*UIConstraints: *RIBannerPagePrint True *JobType SamplePrint
+*UIConstraints: *RIBannerPagePrint True *JobType LockedPrint
+*UIConstraints: *RIBannerPagePrint True *JobType DocServer
 
 *% end of Printer Description file
+

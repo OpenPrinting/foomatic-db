@@ -4,11 +4,11 @@
 *%    for "Lanier MP 6054 PXL"
 *%
 *%    CreationDate: 2013/06/27
-*%    Modified:     2016/05/10
+*%    Modified:     2017/02/07
 *%
-*%    java.util.zip.CRC32: 7ad66274
+*%    java.util.zip.CRC32: 9384060b
 *%
-*%    COPYRIGHT (C) 2013-2016 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2013-2017 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -32,7 +32,7 @@
 *%    [this is the MIT open source license -- please see www.opensource.org]
 *%
 
-*FileVersion: "2.4"
+*FileVersion: "2.5"
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
@@ -111,8 +111,11 @@
 *Finisher NotInstalled/Not Installed: ""
 *Finisher FinRUBICONB/Finisher SR3130: ""
 *Finisher FinVOLGABBK/Finisher SR3170: ""
+*Finisher FinVOLGADBK/Finisher SR3240: ""
 *Finisher FinVOLGAB/Finisher SR3160: ""
+*Finisher FinVOLGAD/Finisher SR3230: ""
 *Finisher FinAMURBK/Finisher SR3150: ""
+*Finisher FinAMURBBK/Finisher SR3220: ""
 *Finisher FinAMUR/Finisher SR3140: ""
 *CloseUI: *Finisher
 
@@ -160,33 +163,45 @@
 *FoomaticRIPOptionSetting Collate=True:  "|(perl -p -e &quot;s/\x40PJL SET COPIES=&copies;\n/\x40PJL SET QTY=&copies;\n/&quot;)"
 *FoomaticRIPOptionSetting Collate:       "|(perl -p -e &quot;s/\x40PJL SET COPIES=&copies;\n/\x40PJL SET QTY=&copies;\n/&quot;)"
 
+*OpenUI *RICollateKind/Collate Type: PickOne
+*FoomaticRIPOption RICollateKind: enum JCL G
+*OrderDependency: 120 AnySetup *RICollateKind
+*DefaultRICollateKind: Normal
+*RICollateKind Normal/Collate: "%% FoomaticRIPOptionSetting: RICollateKind=Normal"
+*FoomaticRIPOptionSetting RICollateKind=Normal: "SET JOBOFFSET=OFF"
+*RICollateKind RotateCollate/Rotating Collate: "%% FoomaticRIPOptionSetting: RICollateKind=RotateCollate"
+*FoomaticRIPOptionSetting RICollateKind=RotateCollate: "SET JOBOFFSET=ROTATE"
+*RICollateKind ShiftCollate/Shift Collate: "%% FoomaticRIPOptionSetting: RICollateKind=ShiftCollate"
+*FoomaticRIPOptionSetting RICollateKind=ShiftCollate: "SET JOBOFFSET=SHIFT"
+*CloseUI: *RICollateKind
+
 *OpenUI *PageSize/PageSize: PickOne
 *FoomaticRIPOption PageSize: enum CmdLine C
 *OrderDependency: 20 AnySetup *PageSize
 *DefaultPageSize: Letter
-*PageSize A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
+*PageSize A3/A3 (297 x 420 mm): "%% FoomaticRIPOptionSetting: PageSize=A3"
 *FoomaticRIPOptionSetting PageSize=A3: " -sPAPERSIZE=a3 -sOutputFile=- - "
-*PageSize A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
+*PageSize A4/A4 (210 x 297 mm): "%% FoomaticRIPOptionSetting: PageSize=A4"
 *FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4 -sOutputFile=- - "
-*PageSize A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
+*PageSize A5/A5 (148 x 210 mm): "%% FoomaticRIPOptionSetting: PageSize=A5"
 *FoomaticRIPOptionSetting PageSize=A5: " -sPAPERSIZE=a5 -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0f\xf8\x25/g&quot;"
-*PageSize A6/A6: "%% FoomaticRIPOptionSetting: PageSize=A6"
-*FoomaticRIPOptionSetting PageSize=A6: " -dDEVICEWIDTHPOINTS=298 -dDEVICEHEIGHTPOINTS=420 -sOutputFile=- -  | &&
+*PageSize A6/A6 (105 x 148 mm): "%% FoomaticRIPOptionSetting: PageSize=A6"
+*FoomaticRIPOptionSetting PageSize=A6: " -dDEVICEWIDTHPOINTS=297 -dDEVICEHEIGHTPOINTS=420 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x14\xf8\x25/g&quot;"
 *End
-*PageSize B4/B4 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B4"
+*PageSize B4/B4 JIS (257 x 364 mm): "%% FoomaticRIPOptionSetting: PageSize=B4"
 *FoomaticRIPOptionSetting PageSize=B4: " -dDEVICEWIDTHPOINTS=729 -dDEVICEHEIGHTPOINTS=1032 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0a\xf8\x25/g&quot;"
 *End
-*PageSize B5/B5 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B5"
+*PageSize B5/B5 JIS (182 x 257 mm): "%% FoomaticRIPOptionSetting: PageSize=B5"
 *FoomaticRIPOptionSetting PageSize=B5: " -dDEVICEWIDTHPOINTS=516 -dDEVICEHEIGHTPOINTS=729 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0b\xf8\x25/g&quot;"
 *End
-*PageSize B6/B6 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B6"
+*PageSize B6/B6 JIS (128 x 182 mm): "%% FoomaticRIPOptionSetting: PageSize=B6"
 *FoomaticRIPOptionSetting PageSize=B6: " -dDEVICEWIDTHPOINTS=363 -dDEVICEHEIGHTPOINTS=516 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xc9\xf8\x25/g&quot;"
 *End
-*PageSize Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
+*PageSize Legal/Legal (8.5 x 14): "%% FoomaticRIPOptionSetting: PageSize=Legal"
 *FoomaticRIPOptionSetting PageSize=Legal: " -sPAPERSIZE=legal -sOutputFile=- - | perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x01\xf8\x25/g&quot;"
 *PageSize GovernmentLG/8.25x14: "%% FoomaticRIPOptionSetting: PageSize=GovernmentLG"
 *FoomaticRIPOptionSetting PageSize=GovernmentLG: " -dDEVICEWIDTHPOINTS=594 -dDEVICEHEIGHTPOINTS=1008 -sOutputFile=- -  | &&
@@ -198,7 +213,7 @@
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xdd\xf8\x25/g&quot;  | &&
  perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x00\x41\x00\x00\x20\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xdd\xf8\x25/g&quot;"
 *End
-*PageSize Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
+*PageSize Letter/Letter (8.5 x 11): "%% FoomaticRIPOptionSetting: PageSize=Letter"
 *FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter -sOutputFile=- - "
 *PageSize Statement/5.5x8.5: "%% FoomaticRIPOptionSetting: PageSize=Statement"
 *FoomaticRIPOptionSetting PageSize=Statement: " -dDEVICEWIDTHPOINTS=396 -dDEVICEHEIGHTPOINTS=612 -sOutputFile=- -  | &&
@@ -236,36 +251,36 @@
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xe0\xf8\x25/g&quot;  | &&
  perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x20\x41\x00\x00\x60\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xe0\xf8\x25/g&quot;"
 *End
-*PageSize Executive/Executive: "%% FoomaticRIPOptionSetting: PageSize=Executive"
+*PageSize Executive/Executive (7.25 x 10.5): "%% FoomaticRIPOptionSetting: PageSize=Executive"
 *FoomaticRIPOptionSetting PageSize=Executive: " -dDEVICEWIDTHPOINTS=522 -dDEVICEHEIGHTPOINTS=756 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x03\xf8\x25/g&quot;"
 *End
-*PageSize Env10/Com10 Env.: "%% FoomaticRIPOptionSetting: PageSize=Env10"
+*PageSize Env10/Com10 Env. (4.125 x 9.5): "%% FoomaticRIPOptionSetting: PageSize=Env10"
 *FoomaticRIPOptionSetting PageSize=Env10: " -dDEVICEWIDTHPOINTS=297 -dDEVICEHEIGHTPOINTS=684 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x06\xf8\x25/g&quot;"
 *End
-*PageSize EnvMonarch/Monarch Env.: "%% FoomaticRIPOptionSetting: PageSize=EnvMonarch"
+*PageSize EnvMonarch/Monarch Env. (3.875 x 7.5): "%% FoomaticRIPOptionSetting: PageSize=EnvMonarch"
 *FoomaticRIPOptionSetting PageSize=EnvMonarch: " -dDEVICEWIDTHPOINTS=279 -dDEVICEHEIGHTPOINTS=540 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x07\xf8\x25/g&quot;"
 *End
-*PageSize EnvC5/C5 Env.: "%% FoomaticRIPOptionSetting: PageSize=EnvC5"
+*PageSize EnvC5/C5 Env. (162 x 229 mm): "%% FoomaticRIPOptionSetting: PageSize=EnvC5"
 *FoomaticRIPOptionSetting PageSize=EnvC5: " -dDEVICEWIDTHPOINTS=459 -dDEVICEHEIGHTPOINTS=649 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x08\xf8\x25/g&quot;"
 *End
-*PageSize EnvC6/C6 Env.: "%% FoomaticRIPOptionSetting: PageSize=EnvC6"
+*PageSize EnvC6/C6 Env. (114 x 162 mm): "%% FoomaticRIPOptionSetting: PageSize=EnvC6"
 *FoomaticRIPOptionSetting PageSize=EnvC6: " -dDEVICEWIDTHPOINTS=323 -dDEVICEHEIGHTPOINTS=459 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xca\xf8\x25/g&quot;  | &&
  perl -p -e &quot;s/\xf8\x28\xd5\xc6\x92\x8f\x40\x00\x00\xcc\x40\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xca\xf8\x25/g&quot;"
 *End
-*PageSize DLEnv/DL Env.: "%% FoomaticRIPOptionSetting: PageSize=DLEnv"
+*PageSize DLEnv/DL Env. (110 x 220 mm): "%% FoomaticRIPOptionSetting: PageSize=DLEnv"
 *FoomaticRIPOptionSetting PageSize=DLEnv: " -dDEVICEWIDTHPOINTS=311 -dDEVICEHEIGHTPOINTS=623 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x09\xf8\x25/g&quot;"
 *End
-*PageSize 8Kai/8K: "%% FoomaticRIPOptionSetting: PageSize=8Kai"
+*PageSize 8Kai/8K (267 x 390 mm): "%% FoomaticRIPOptionSetting: PageSize=8Kai"
 *FoomaticRIPOptionSetting PageSize=8Kai: " -dDEVICEWIDTHPOINTS=757 -dDEVICEHEIGHTPOINTS=1106 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xcb\xf8\x25/g&quot;"
 *End
-*PageSize 16Kai/16K: "%% FoomaticRIPOptionSetting: PageSize=16Kai"
+*PageSize 16Kai/16K (195 x 267 mm): "%% FoomaticRIPOptionSetting: PageSize=16Kai"
 *FoomaticRIPOptionSetting PageSize=16Kai: " -dDEVICEWIDTHPOINTS=553 -dDEVICEHEIGHTPOINTS=757 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xcc\xf8\x25/g&quot;"
 *End
@@ -285,8 +300,8 @@
 *FoomaticRIPOptionSetting InputSlot=3Tray: " | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x07\xf8\x26/g&quot;"
 *InputSlot 4Tray/Tray 4: "%% FoomaticRIPOptionSetting: InputSlot=4Tray"
 *FoomaticRIPOptionSetting InputSlot=4Tray: " | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x08\xf8\x26/g&quot;"
-*InputSlot LCT/Large Capacity Tray: "%% FoomaticRIPOptionSetting: InputSlot=LCT"
-*FoomaticRIPOptionSetting InputSlot=LCT: " | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x09\xf8\x26/g&quot;"
+*InputSlot 5Tray/Large Capacity Tray: "%% FoomaticRIPOptionSetting: InputSlot=5Tray"
+*FoomaticRIPOptionSetting InputSlot=5Tray: " | perl -p -e &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x09\xf8\x26/g&quot;"
 *InputSlot Auto/Auto Select: "%% FoomaticRIPOptionSetting: InputSlot=Auto"
 *FoomaticRIPOptionSetting InputSlot=Auto: ""
 *CloseUI: *InputSlot
@@ -312,13 +327,15 @@
 *OpenUI *MediaType/Paper Type: PickOne
 *FoomaticRIPOption MediaType: enum JCL A
 *OrderDependency: 205 AnySetup *MediaType
-*DefaultMediaType: Plain
+*DefaultMediaType: Auto
 *MediaType Auto/Plain/Recycled: "%% FoomaticRIPOptionSetting: MediaType=Auto"
 *FoomaticRIPOptionSetting MediaType=Auto: "SET MEDIATYPE=PLAINORRECYCLED"
 *MediaType Plain1/Plain 1: "%% FoomaticRIPOptionSetting: MediaType=Plain1"
 *FoomaticRIPOptionSetting MediaType=Plain1: "SET MEDIATYPE=PLAIN"
 *MediaType Recycled/Recycled: "%% FoomaticRIPOptionSetting: MediaType=Recycled"
 *FoomaticRIPOptionSetting MediaType=Recycled: "SET MEDIATYPE=RECYCLED"
+*MediaType Special1/Special: "%% FoomaticRIPOptionSetting: MediaType=Special1"
+*FoomaticRIPOptionSetting MediaType=Special1: "SET MEDIATYPE=SPECIAL"
 *MediaType Special2/Special 2: "%% FoomaticRIPOptionSetting: MediaType=Special2"
 *FoomaticRIPOptionSetting MediaType=Special2: "SET MEDIATYPE=SPECIAL2"
 *MediaType Special3/Special 3: "%% FoomaticRIPOptionSetting: MediaType=Special3"
@@ -343,14 +360,14 @@
 *FoomaticRIPOptionSetting MediaType=Thick2: "SET MEDIATYPE=THICK2"
 *MediaType Thick3/Thick 3: "%% FoomaticRIPOptionSetting: MediaType=Thick3"
 *FoomaticRIPOptionSetting MediaType=Thick3: "SET MEDIATYPE=THICK3"
+*MediaType Thick4/Thick 4: "%% FoomaticRIPOptionSetting: MediaType=Thick4"
+*FoomaticRIPOptionSetting MediaType=Thick4: "SET MEDIATYPE=THICK4"
 *MediaType Thin/Thin: "%% FoomaticRIPOptionSetting: MediaType=Thin"
 *FoomaticRIPOptionSetting MediaType=Thin: "SET MEDIATYPE=THIN"
 *MediaType Middlethick/Middle Thick: "%% FoomaticRIPOptionSetting: MediaType=Middlethick"
 *FoomaticRIPOptionSetting MediaType=Middlethick: "SET MEDIATYPE=MIDDLETHICK"
 *MediaType Envelope/Envelope: "%% FoomaticRIPOptionSetting: MediaType=Envelope"
 *FoomaticRIPOptionSetting MediaType=Envelope: "SET MEDIATYPE=ENVELOPE"
-*MediaType Plain/Plain: "%% FoomaticRIPOptionSetting: MediaType=Plain"
-*FoomaticRIPOptionSetting MediaType=Plain: "SET MEDIATYPE=PLAIN"
 *CloseUI: *MediaType
 
 *OpenUI *OutputBin/Destination: PickOne
@@ -359,14 +376,52 @@
 *DefaultOutputBin: Default
 *OutputBin Default/Printer Default: "%% FoomaticRIPOptionSetting: OutputBin=Default"
 *FoomaticRIPOptionSetting OutputBin=Default: "SET OUTBIN=SYSDEFAULT"
-*OutputBin Standard/Standard Tray: "%% FoomaticRIPOptionSetting: OutputBin=Standard"
+*OutputBin Standard/Internal Tray 1: "%% FoomaticRIPOptionSetting: OutputBin=Standard"
 *FoomaticRIPOptionSetting OutputBin=Standard: "SET OUTBIN=UPPER"
-*OutputBin Bin1/Upper Tray: "%% FoomaticRIPOptionSetting: OutputBin=Bin1"
+*OutputBin Bin1/Internal Tray 2: "%% FoomaticRIPOptionSetting: OutputBin=Bin1"
 *FoomaticRIPOptionSetting OutputBin=Bin1: "SET OUTBIN=INNER"
-*OutputBin Shift/Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=Shift"
+*OutputBin Shift/Internal Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=Shift"
 *FoomaticRIPOptionSetting OutputBin=Shift: "SET OUTBIN=UPPER"
 *OutputBin External/External Tray: "%% FoomaticRIPOptionSetting: OutputBin=External"
 *FoomaticRIPOptionSetting OutputBin=External: "SET OUTBIN=LOWER"
+*OutputBin FinRUBICONBShift/Finisher SR3130 Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinRUBICONBShift"
+*FoomaticRIPOptionSetting OutputBin=FinRUBICONBShift: "SET OUTBIN=FINISHERSHIFT"
+*OutputBin FinVOLGABBKUpper/Finisher SR3170 Upper Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinVOLGABBKUpper"
+*FoomaticRIPOptionSetting OutputBin=FinVOLGABBKUpper: "SET OUTBIN=FINISHERPROOF"
+*OutputBin FinVOLGABBKShift/Finisher SR3170 Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinVOLGABBKShift"
+*FoomaticRIPOptionSetting OutputBin=FinVOLGABBKShift: "SET OUTBIN=FINISHERSHIFT"
+*OutputBin FinVOLGABBKLower/Finisher SR3170 Booklet Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinVOLGABBKLower"
+*FoomaticRIPOptionSetting OutputBin=FinVOLGABBKLower: "SET OUTBIN=FINISHERBOOKLET"
+*OutputBin FinVOLGADBKUpper/Finisher SR3240 Upper Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinVOLGADBKUpper"
+*FoomaticRIPOptionSetting OutputBin=FinVOLGADBKUpper: "SET OUTBIN=FINISHERPROOF"
+*OutputBin FinVOLGADBKShift/Finisher SR3240 Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinVOLGADBKShift"
+*FoomaticRIPOptionSetting OutputBin=FinVOLGADBKShift: "SET OUTBIN=FINISHERSHIFT"
+*OutputBin FinVOLGADBKLower/Finisher SR3240 Booklet Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinVOLGADBKLower"
+*FoomaticRIPOptionSetting OutputBin=FinVOLGADBKLower: "SET OUTBIN=FINISHERBOOKLET"
+*OutputBin FinVOLGABUpper/Finisher SR3160 Upper Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinVOLGABUpper"
+*FoomaticRIPOptionSetting OutputBin=FinVOLGABUpper: "SET OUTBIN=FINISHERPROOF"
+*OutputBin FinVOLGABShift/Finisher SR3160 Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinVOLGABShift"
+*FoomaticRIPOptionSetting OutputBin=FinVOLGABShift: "SET OUTBIN=FINISHERSHIFT"
+*OutputBin FinVOLGADUpper/Finisher SR3230 Upper Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinVOLGADUpper"
+*FoomaticRIPOptionSetting OutputBin=FinVOLGADUpper: "SET OUTBIN=FINISHERPROOF"
+*OutputBin FinVOLGADShift/Finisher SR3230 Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinVOLGADShift"
+*FoomaticRIPOptionSetting OutputBin=FinVOLGADShift: "SET OUTBIN=FINISHERSHIFT"
+*OutputBin FinAMURBKUpper/Finisher SR3150 Upper Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinAMURBKUpper"
+*FoomaticRIPOptionSetting OutputBin=FinAMURBKUpper: "SET OUTBIN=FINISHERPROOF"
+*OutputBin FinAMURBKShift/Finisher SR3150 Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinAMURBKShift"
+*FoomaticRIPOptionSetting OutputBin=FinAMURBKShift: "SET OUTBIN=FINISHERSHIFT"
+*OutputBin FinAMURBKLower/Finisher SR3150 Booklet Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinAMURBKLower"
+*FoomaticRIPOptionSetting OutputBin=FinAMURBKLower: "SET OUTBIN=FINISHERBOOKLET"
+*OutputBin FinAMURBBKUpper/Finisher SR3220 Upper Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinAMURBBKUpper"
+*FoomaticRIPOptionSetting OutputBin=FinAMURBBKUpper: "SET OUTBIN=FINISHERPROOF"
+*OutputBin FinAMURBBKShift/Finisher SR3220 Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinAMURBBKShift"
+*FoomaticRIPOptionSetting OutputBin=FinAMURBBKShift: "SET OUTBIN=FINISHERSHIFT"
+*OutputBin FinAMURBBKLower/Finisher SR3220 Booklet Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinAMURBBKLower"
+*FoomaticRIPOptionSetting OutputBin=FinAMURBBKLower: "SET OUTBIN=FINISHERBOOKLET"
+*OutputBin FinAMURUpper/Finisher SR3140 Upper Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinAMURUpper"
+*FoomaticRIPOptionSetting OutputBin=FinAMURUpper: "SET OUTBIN=FINISHERPROOF"
+*OutputBin FinAMURShift/Finisher SR3140 Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinAMURShift"
+*FoomaticRIPOptionSetting OutputBin=FinAMURShift: "SET OUTBIN=FINISHERSHIFT"
 *CloseUI: *OutputBin
 
 *OpenUI *RIBannerPagePrint/Banner Page Print: PickOne
@@ -398,8 +453,8 @@
 *FoomaticRIPOptionSetting RIBannerPageInputSlot=3Tray: "SET BANNERPAGEPRINTTRAY=TRAY3"
 *RIBannerPageInputSlot 4Tray/Tray 4: "%% FoomaticRIPOptionSetting: RIBannerPageInputSlot=4Tray"
 *FoomaticRIPOptionSetting RIBannerPageInputSlot=4Tray: "SET BANNERPAGEPRINTTRAY=TRAY4"
-*RIBannerPageInputSlot LCT/Large Capacity Tray: "%% FoomaticRIPOptionSetting: RIBannerPageInputSlot=LCT"
-*FoomaticRIPOptionSetting RIBannerPageInputSlot=LCT: "SET BANNERPAGEPRINTTRAY=LCT"
+*RIBannerPageInputSlot 5Tray/Large Capacity Tray: "%% FoomaticRIPOptionSetting: RIBannerPageInputSlot=5Tray"
+*FoomaticRIPOptionSetting RIBannerPageInputSlot=5Tray: "SET BANNERPAGEPRINTTRAY=LCT"
 *CloseUI: *RIBannerPageInputSlot
 
 *OpenUI *RIBannerPageMediaType/Banner Page Media Type: PickOne
@@ -408,8 +463,12 @@
 *DefaultRIBannerPageMediaType: Auto
 *RIBannerPageMediaType Auto/Plain/Recycled: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Auto"
 *FoomaticRIPOptionSetting RIBannerPageMediaType=Auto: "SET BANNERPAGEPRINTMEDIA=PLAINORRECYCLED"
+*RIBannerPageMediaType Plain1/Plain: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Plain1"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Plain1: "SET BANNERPAGEPRINTMEDIA=PLAIN"
 *RIBannerPageMediaType Recycled/Recycled: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Recycled"
 *FoomaticRIPOptionSetting RIBannerPageMediaType=Recycled: "SET BANNERPAGEPRINTMEDIA=RECYCLED"
+*RIBannerPageMediaType Special1/Special: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Special1"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Special1: "SET BANNERPAGEPRINTMEDIA=SPECIAL"
 *RIBannerPageMediaType Special2/Special 2: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Special2"
 *FoomaticRIPOptionSetting RIBannerPageMediaType=Special2: "SET BANNERPAGEPRINTMEDIA=SPECIAL2"
 *RIBannerPageMediaType Special3/Special 3: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Special3"
@@ -428,6 +487,8 @@
 *FoomaticRIPOptionSetting RIBannerPageMediaType=Cardstock: "SET BANNERPAGEPRINTMEDIA=CARDSTOCK"
 *RIBannerPageMediaType OHP/Transparency: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=OHP"
 *FoomaticRIPOptionSetting RIBannerPageMediaType=OHP: "SET BANNERPAGEPRINTMEDIA=TRANSPARENCY"
+*RIBannerPageMediaType Thick1/Thick: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Thick1"
+*FoomaticRIPOptionSetting RIBannerPageMediaType=Thick1: "SET BANNERPAGEPRINTMEDIA=THICK"
 *RIBannerPageMediaType Thick2/Thick 2: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Thick2"
 *FoomaticRIPOptionSetting RIBannerPageMediaType=Thick2: "SET BANNERPAGEPRINTMEDIA=THICK2"
 *RIBannerPageMediaType Thick3/Thick 3: "%% FoomaticRIPOptionSetting: RIBannerPageMediaType=Thick3"
@@ -547,9 +608,9 @@
 *OrderDependency: 15 AnySetup *Resolution
 *DefaultResolution: 600dpi
 
-*Resolution 600dpi:  "%% FoomaticRIPOptionSetting: Resolution=600dpi"
+*Resolution 600dpi/600 dpi:  "%% FoomaticRIPOptionSetting: Resolution=600dpi"
 *FoomaticRIPOptionSetting Resolution=600dpi: "JCLResolution=600dpi GSResolution=600dpi"
-*Resolution 1200dpi:  "%% FoomaticRIPOptionSetting: Resolution=1200dpi"
+*Resolution 1200dpi/1200 dpi:  "%% FoomaticRIPOptionSetting: Resolution=1200dpi"
 *FoomaticRIPOptionSetting Resolution=1200dpi: "JCLResolution=1200dpi GSResolution=1200dpi"
 *CloseUI: *Resolution
 
@@ -569,6 +630,8 @@
 *DefaultRIPrintMode: 0rhit
 *RIPrintMode 0rhit/Off: "%% FoomaticRIPOptionSetting: RIPrintMode=0rhit"
 *FoomaticRIPOptionSetting RIPrintMode=0rhit: "SET ECONOMODE=OFF"
+*RIPrintMode 1rhit/Edge Smoothing: "%% FoomaticRIPOptionSetting: RIPrintMode=1rhit"
+*FoomaticRIPOptionSetting RIPrintMode=1rhit: "SET SMOOTHING=ON"
 *RIPrintMode 3rhit/Toner Saving: "%% FoomaticRIPOptionSetting: RIPrintMode=3rhit"
 *FoomaticRIPOptionSetting RIPrintMode=3rhit: "SET ECONOMODE=ON"
 *RIPrintMode 4rhit/Toner Saving 2: "%% FoomaticRIPOptionSetting: RIPrintMode=4rhit"
@@ -609,33 +672,33 @@
 *OpenUI *PageRegion: PickOne
 *OrderDependency: 25 AnySetup *PageRegion
 *DefaultPageRegion: Letter
-*PageRegion A4/A4: "%% FoomaticRIPOptionSetting: PageSize=A4"
+*PageRegion A4/A4 (210 x 297 mm): "%% FoomaticRIPOptionSetting: PageSize=A4"
 *PageRegion F/8x13: "%% FoomaticRIPOptionSetting: PageSize=F"
-*PageRegion A3/A3: "%% FoomaticRIPOptionSetting: PageSize=A3"
-*PageRegion A6/A6: "%% FoomaticRIPOptionSetting: PageSize=A6"
+*PageRegion A3/A3 (297 x 420 mm): "%% FoomaticRIPOptionSetting: PageSize=A3"
+*PageRegion A6/A6 (105 x 148 mm): "%% FoomaticRIPOptionSetting: PageSize=A6"
 *PageRegion EngQuatro/8x10: "%% FoomaticRIPOptionSetting: PageSize=EngQuatro"
-*PageRegion A5/A5: "%% FoomaticRIPOptionSetting: PageSize=A5"
-*PageRegion EnvC6/C6 Env.: "%% FoomaticRIPOptionSetting: PageSize=EnvC6"
+*PageRegion A5/A5 (148 x 210 mm): "%% FoomaticRIPOptionSetting: PageSize=A5"
+*PageRegion EnvC6/C6 Env. (114 x 162 mm): "%% FoomaticRIPOptionSetting: PageSize=EnvC6"
 *PageRegion Tabloid/11x17: "%% FoomaticRIPOptionSetting: PageSize=Tabloid"
 *PageRegion 11x15/11x15: "%% FoomaticRIPOptionSetting: PageSize=11x15"
 *PageRegion GovernmentLG/8.25x14: "%% FoomaticRIPOptionSetting: PageSize=GovernmentLG"
 *PageRegion 10x14/10x14: "%% FoomaticRIPOptionSetting: PageSize=10x14"
-*PageRegion 8Kai/8K: "%% FoomaticRIPOptionSetting: PageSize=8Kai"
-*PageRegion B5/B5 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B5"
-*PageRegion Executive/Executive: "%% FoomaticRIPOptionSetting: PageSize=Executive"
-*PageRegion B4/B4 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B4"
-*PageRegion 16Kai/16K: "%% FoomaticRIPOptionSetting: PageSize=16Kai"
-*PageRegion Legal/Legal: "%% FoomaticRIPOptionSetting: PageSize=Legal"
-*PageRegion EnvMonarch/Monarch Env.: "%% FoomaticRIPOptionSetting: PageSize=EnvMonarch"
-*PageRegion B6/B6 (JIS): "%% FoomaticRIPOptionSetting: PageSize=B6"
+*PageRegion 8Kai/8K (267 x 390 mm): "%% FoomaticRIPOptionSetting: PageSize=8Kai"
+*PageRegion B5/B5 JIS (182 x 257 mm): "%% FoomaticRIPOptionSetting: PageSize=B5"
+*PageRegion Executive/Executive (7.25 x 10.5): "%% FoomaticRIPOptionSetting: PageSize=Executive"
+*PageRegion B4/B4 JIS (257 x 364 mm): "%% FoomaticRIPOptionSetting: PageSize=B4"
+*PageRegion 16Kai/16K (195 x 267 mm): "%% FoomaticRIPOptionSetting: PageSize=16Kai"
+*PageRegion Legal/Legal (8.5 x 14): "%% FoomaticRIPOptionSetting: PageSize=Legal"
+*PageRegion EnvMonarch/Monarch Env. (3.875 x 7.5): "%% FoomaticRIPOptionSetting: PageSize=EnvMonarch"
+*PageRegion B6/B6 JIS (128 x 182 mm): "%% FoomaticRIPOptionSetting: PageSize=B6"
 *PageRegion Statement/5.5x8.5: "%% FoomaticRIPOptionSetting: PageSize=Statement"
 *PageRegion FanFoldGermanLegal/8.5x13: "%% FoomaticRIPOptionSetting: PageSize=FanFoldGermanLegal"
 *PageRegion Folio/8.25x13: "%% FoomaticRIPOptionSetting: PageSize=Folio"
-*PageRegion EnvC5/C5 Env.: "%% FoomaticRIPOptionSetting: PageSize=EnvC5"
-*PageRegion DLEnv/DL Env.: "%% FoomaticRIPOptionSetting: PageSize=DLEnv"
+*PageRegion EnvC5/C5 Env. (162 x 229 mm): "%% FoomaticRIPOptionSetting: PageSize=EnvC5"
+*PageRegion DLEnv/DL Env. (110 x 220 mm): "%% FoomaticRIPOptionSetting: PageSize=DLEnv"
 *PageRegion 12x18/12x18: "%% FoomaticRIPOptionSetting: PageSize=12x18"
-*PageRegion Letter/Letter: "%% FoomaticRIPOptionSetting: PageSize=Letter"
-*PageRegion Env10/Com10 Env.: "%% FoomaticRIPOptionSetting: PageSize=Env10"
+*PageRegion Letter/Letter (8.5 x 11): "%% FoomaticRIPOptionSetting: PageSize=Letter"
+*PageRegion Env10/Com10 Env. (4.125 x 9.5): "%% FoomaticRIPOptionSetting: PageSize=Env10"
 *CloseUI: *PageRegion
 
 *DefaultImageableArea: Letter
@@ -692,6 +755,37 @@
 @PJL SET JOBNAME=&quot;&title;&quot;
 @PJL SECUREJOB"
 *End
+*JobType HoldPrint/Hold Print: "%% FoomaticRIPOptionSetting: JobType=HoldPrint"
+*FoomaticRIPOptionSetting JobType=HoldPrint: "SET USERID=&quot;&user;&quot;
+@PJL SET HOSTLOGINNAME=&quot;&user;&quot;
+@PJL SET DATE=&quot;&year;/&month;/&date;&quot;
+@PJL SET TIME=&quot;&hour;:&min;:&sec;&quot;
+@PJL SET JOBID=&quot;&title;&quot;
+@PJL SET JOBNAME=&quot;&title;&quot;
+@PJL SET SAVEMODE=OFF
+@PJL PAUSEDJOB"
+*End
+*JobType StoredPrint/Stored Print: "%% FoomaticRIPOptionSetting: JobType=StoredPrint"
+*FoomaticRIPOptionSetting JobType=StoredPrint: "SET USERID=&quot;&user;&quot;
+@PJL SET HOSTLOGINNAME=&quot;&user;&quot;
+@PJL SET DATE=&quot;&year;/&month;/&date;&quot;
+@PJL SET TIME=&quot;&hour;:&min;:&sec;&quot;
+@PJL SET JOBID=&quot;&title;&quot;
+@PJL SET JOBNAME=&quot;&title;&quot;
+@PJL SET ACCESSMODE=PRIVATE
+@PJL SET SAVEMODE=ON
+@PJL PAUSEDJOB"
+*End
+*JobType StoreandPrint/Store and Print: "%% FoomaticRIPOptionSetting: JobType=StoreandPrint"
+*FoomaticRIPOptionSetting JobType=StoreandPrint: "SET USERID=&quot;&user;&quot;
+@PJL SET HOSTLOGINNAME=&quot;&user;&quot;
+@PJL SET DATE=&quot;&year;/&month;/&date;&quot;
+@PJL SET TIME=&quot;&hour;:&min;:&sec;&quot;
+@PJL SET JOBID=&quot;&title;&quot;
+@PJL SET JOBNAME=&quot;&title;&quot;
+@PJL SET ACCESSMODE=PRIVATE
+@PJL SET SAVEMODE=ON"
+*End
 *JobType DocServer/Document Server: "%% FoomaticRIPOptionSetting: JobType=DocServer"
 *FoomaticRIPOptionSetting JobType=DocServer: "SET USERID=&quot;&user;&quot;
 @PJL SET HOSTLOGINNAME=&quot;&user;&quot;
@@ -704,7 +798,7 @@
 *End
 *CloseUI: *JobType
 
-*OpenUI *Password/Locked Print or Doc Server Password (4-8 digits): PickOne
+*OpenUI *Password/Locked Print or Doc Server or Stored Print Password (4-8 digits): PickOne
 *FoomaticRIPOption Password: password JCL A
 *FoomaticRIPOptionMaxLength Password:8
 *FoomaticRIPOptionAllowedChars Password: "0-9"
@@ -883,294 +977,1285 @@
 *Font ZapfDingbats: Special "(001.005S)" Special ROM
 
 *%========== UI Constraints ==========
+*UIConstraints: *OutputBin FinVOLGADUpper *MediaType Envelope
+*UIConstraints: *PageSize Env10 *OutputBin FinAMURBBKUpper
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinAMURShift
 *UIConstraints: *StapleLocation LeftW *Finisher NotInstalled
+*UIConstraints: *Finisher FinVOLGADBK *OutputBin FinAMURUpper
+*UIConstraints: *OutputBin FinVOLGADBKLower *Finisher FinAMURBBK
+*UIConstraints: *Finisher FinVOLGAB *OutputBin FinAMURBKShift
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinVOLGABBKUpper
 *UIConstraints: *StapleLocation LeftW *OutputBin Bin1
+*UIConstraints: *PageSize EnvC5 *OutputBin FinAMURBBKShift
 *UIConstraints: *RIBannerPageMediaType OHP *RIBannerPageInputSlot 4Tray
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin FinVOLGABBKLower
+*UIConstraints: *PageSize DLEnv *OutputBin FinVOLGABBKLower
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinAMURBKLower
+*UIConstraints: *Finisher NotInstalled *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin External *ExternalTray NotInstalled
+*UIConstraints: *Finisher FinVOLGABBK *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinVOLGADBKUpper *StapleLocation UpperRight
+*UIConstraints: *OutputBin FinVOLGABBKLower *MediaType Thick4
+*UIConstraints: *OutputBin FinAMURBKLower *StapleLocation UpperRight
+*UIConstraints: *OutputBin FinVOLGABBKLower *MediaType Thick3
 *UIConstraints: *MediaType OHP *InputSlot 1Tray
+*UIConstraints: *OutputBin FinVOLGADUpper *Finisher FinVOLGABBK
+*UIConstraints: *OutputBin FinVOLGABUpper *StapleLocation UpperLeft
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize FanFoldGermanLegal
 *UIConstraints: *MediaType Thin *InputSlot 2Tray
-*UIConstraints: *MediaType OHP *InputSlot LCT
+*UIConstraints: *OutputBin FinVOLGABBKLower *PageSize F
+*UIConstraints: *StapleLocation UpperLeft *MediaType Thick4
+*UIConstraints: *Finisher FinVOLGAB *OutputBin FinVOLGADShift
+*UIConstraints: *OutputBin FinAMURBKShift *Finisher NotInstalled
+*UIConstraints: *OutputBin FinVOLGABBKLower *Finisher FinAMURBBK
+*UIConstraints: *Finisher FinAMURBK *OutputBin FinVOLGABBKLower
+*UIConstraints: *Finisher FinAMURBK *OutputBin FinVOLGADUpper
+*UIConstraints: *MediaType OHP *InputSlot 5Tray
+*UIConstraints: *Finisher FinVOLGAD *OutputBin FinVOLGABBKLower
+*UIConstraints: *OutputBin FinVOLGABBKShift *MediaType Envelope
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinVOLGABBKUpper
 *UIConstraints: *MediaType Thin *InputSlot 1Tray
+*UIConstraints: *PageSize Env10 *OutputBin FinAMURBBKShift
 *UIConstraints: *OutputBin Standard *StapleLocation UpperW
-*UIConstraints: *InputSlot LCT *PageSize Legal
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinVOLGABBKShift *RIBannerPageMediaType Envelope
+*UIConstraints: *PageSize Env10 *OutputBin FinAMURBKShift
+*UIConstraints: *InputSlot 5Tray *PageSize Legal
+*UIConstraints: *MediaType Envelope *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinVOLGABUpper *RIBannerPageMediaType Envelope
 *UIConstraints: *OutputBin Bin1 *MediaType OHP
+*UIConstraints: *OutputBin FinAMURShift *Finisher FinVOLGABBK
+*UIConstraints: *Finisher FinAMUR *OutputBin FinVOLGADShift
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinAMURUpper
+*UIConstraints: *OutputBin FinAMURBBKShift *PageSize Env10
+*UIConstraints: *OutputBin FinAMURBBKUpper *RIBannerPageMediaType Envelope
+*UIConstraints: *MediaType Thick4 *StapleLocation CenterW
 *UIConstraints: *Finisher FinVOLGAB *ExternalTray Installed
-*UIConstraints: *PageSize 10x14 *InputSlot LCT
-*UIConstraints: *InputSlot LCT *PageSize Statement
+*UIConstraints: *PageSize Env10 *OutputBin FinVOLGABBKShift
+*UIConstraints: *PageSize DLEnv *OutputBin FinVOLGABBKShift
+*UIConstraints: *Finisher FinVOLGAD *ShiftTray Installed
+*UIConstraints: *OutputBin FinAMURUpper *Finisher FinAMURBBK
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinVOLGABBKLower
+*UIConstraints: *PageSize 10x14 *InputSlot 5Tray
+*UIConstraints: *OutputBin FinAMURBKLower *Finisher FinRUBICONB
+*UIConstraints: *PageSize EnvC6 *OutputBin FinAMURUpper
+*UIConstraints: *OutputBin FinAMURBBKLower *Finisher FinVOLGADBK
+*UIConstraints: *InputSlot 5Tray *PageSize Statement
+*UIConstraints: *StapleLocation CenterW *OutputBin FinAMURUpper
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin FinAMURBBKLower
+*UIConstraints: *Finisher FinAMURBBK *OptionTray 1Cassette
 *UIConstraints: *RIBannerPageInputSlot 4Tray *RIBannerPageMediaType OHP
-*UIConstraints: *PageSize Env10 *InputSlot LCT
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize EnvC6
+*UIConstraints: *PageSize EnvC6 *OutputBin FinVOLGABBKShift
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize EnvC5
+*UIConstraints: *OutputBin FinVOLGABBKUpper *Finisher FinVOLGAB
+*UIConstraints: *MediaType Envelope *OutputBin FinVOLGABBKShift
+*UIConstraints: *OutputBin FinVOLGABUpper *StapleLocation LeftW
+*UIConstraints: *PageSize DLEnv *OutputBin FinAMURBBKUpper
+*UIConstraints: *StapleLocation CenterW *OutputBin FinAMURBKUpper
+*UIConstraints: *OutputBin FinVOLGABBKUpper *Finisher FinVOLGAD
+*UIConstraints: *PageSize Env10 *InputSlot 5Tray
+*UIConstraints: *OutputBin FinVOLGADBKLower *Finisher FinVOLGABBK
 *UIConstraints: *RIBannerPageInputSlot 3Tray *RIBannerPageMediaType Thin
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinVOLGABUpper *PageSize EnvMonarch
+*UIConstraints: *PageSize DLEnv *OutputBin FinAMURShift
+*UIConstraints: *RIBannerPageMediaType Thick2 *OutputBin FinAMURBBKLower
 *UIConstraints: *Finisher FinRUBICONB *StapleLocation CenterW
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinVOLGABBKShift
+*UIConstraints: *Finisher FinVOLGAD *OutputBin FinAMURBBKLower
 *UIConstraints: *OutputBin Standard *StapleLocation CenterW
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize Folio
+*UIConstraints: *OutputBin FinAMURBKLower *StapleLocation UpperW
+*UIConstraints: *StapleLocation CenterW *OutputBin FinVOLGABShift
+*UIConstraints: *OutputBin FinVOLGADUpper *MediaType Thick3
+*UIConstraints: *OutputBin FinAMURBBKLower *StapleLocation UpperW
+*UIConstraints: *OutputBin FinVOLGADUpper *MediaType Thick4
+*UIConstraints: *OutputBin FinAMURBKShift *Finisher FinRUBICONB
+*UIConstraints: *MediaType Thick4 *OutputBin FinAMURBBKLower
+*UIConstraints: *StapleLocation RightW *OutputBin FinVOLGADBKLower
+*UIConstraints: *PageSize Executive *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinAMURShift *Finisher FinRUBICONB
+*UIConstraints: *OutputBin FinVOLGABBKLower *MediaType Envelope
 *UIConstraints: *Finisher NotInstalled *StapleLocation UpperW
-*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType Envelope
+*UIConstraints: *OutputBin FinVOLGADBKShift *Finisher NotInstalled
+*UIConstraints: *PageSize FanFoldGermanLegal *OutputBin FinVOLGABBKLower
+*UIConstraints: *MediaType Thick3 *OutputBin FinVOLGADBKUpper
+*UIConstraints: *RIBannerPageInputSlot 5Tray *RIBannerPageMediaType Envelope
+*UIConstraints: *StapleLocation RightW *OutputBin FinAMURBBKLower
+*UIConstraints: *Finisher FinVOLGAD *StapleLocation CenterW
+*UIConstraints: *OutputBin FinAMURBKLower *MediaType OHP
+*UIConstraints: *OutputBin FinVOLGABBKShift *StapleLocation CenterW
 *UIConstraints: *RIBannerPageMediaType OHP *RIBannerPageInputSlot 3Tray
-*UIConstraints: *RIBannerPageMediaType Thin *RIBannerPageInputSlot LCT
+*UIConstraints: *OutputBin FinAMURUpper *Finisher FinVOLGABBK
+*UIConstraints: *RIBannerPageMediaType Thin *RIBannerPageInputSlot 5Tray
 *UIConstraints: *PageSize 12x18 *InputSlot 1Tray
-*UIConstraints: *PageSize A6 *InputSlot LCT
+*UIConstraints: *PageSize A6 *InputSlot 5Tray
 *UIConstraints: *InputSlot 4Tray *MediaType Labels
+*UIConstraints: *OutputBin FinVOLGADShift *PageSize EnvMonarch
 *UIConstraints: *Finisher FinVOLGABBK *ShiftTray Installed
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinVOLGABUpper
+*UIConstraints: *Finisher FinAMURBK *OutputBin FinAMURBBKShift
+*UIConstraints: *MediaType Thick3 *OutputBin FinVOLGADUpper
+*UIConstraints: *OutputBin FinAMURUpper *StapleLocation LeftW
 *UIConstraints: *Finisher FinVOLGAB *ShiftTray Installed
+*UIConstraints: *MediaType Thin *OutputBin FinVOLGABBKLower
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin FinVOLGADBKLower
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinVOLGABShift
 *UIConstraints: *RIBannerPageInputSlot 2Tray *RIBannerPageMediaType OHP
-*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType Thin
+*UIConstraints: *Finisher NotInstalled *OutputBin FinAMURBBKShift
+*UIConstraints: *Finisher FinVOLGAD *OutputBin FinVOLGABBKUpper
+*UIConstraints: *OutputBin FinVOLGADBKShift *PageSize EnvMonarch
+*UIConstraints: *ShiftTray Installed *Finisher FinAMURBBK
+*UIConstraints: *RIBannerPageInputSlot 5Tray *RIBannerPageMediaType Thin
 *UIConstraints: *StapleLocation UpperW *Finisher NotInstalled
+*UIConstraints: *OutputBin FinVOLGABBKShift *Finisher FinVOLGADBK
+*UIConstraints: *OutputBin FinAMURBBKUpper *RIBannerPageMediaType Thick3
+*UIConstraints: *OutputBin FinAMURBBKUpper *RIBannerPageMediaType Thick4
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinAMURBKLower
+*UIConstraints: *StapleLocation UpperRight *MediaType Thick4
+*UIConstraints: *PageSize A6 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBKLower *PageSize 16Kai
 *UIConstraints: *OutputBin Bin1 *RIBannerPageMediaType OHP
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinVOLGABShift
+*UIConstraints: *PageSize DLEnv *OutputBin FinAMURBBKShift
 *UIConstraints: *ExternalTray Installed *Finisher FinRUBICONB
+*UIConstraints: *OutputBin FinVOLGABUpper *Finisher FinAMURBK
+*UIConstraints: *Finisher NotInstalled *OutputBin FinVOLGADUpper
+*UIConstraints: *OutputBin FinVOLGABBKLower *Finisher FinAMUR
+*UIConstraints: *OutputBin FinAMURBKLower *StapleLocation RightW
+*UIConstraints: *OutputBin FinVOLGADShift *RIBannerPageMediaType Envelope
+*UIConstraints: *OutputBin FinVOLGADBKUpper *PageSize EnvMonarch
+*UIConstraints: *MediaType Thick3 *OutputBin FinVOLGABBKUpper
+*UIConstraints: *OutputBin FinVOLGADBKShift *Finisher FinAMURBBK
+*UIConstraints: *Finisher FinVOLGADBK *ShiftTray Installed
+*UIConstraints: *OutputBin FinAMURShift *PageSize Env10
+*UIConstraints: *OutputBin FinVOLGADBKLower *RIBannerPageMediaType Thin
+*UIConstraints: *OutputBin FinAMURBKLower *PageSize 10x14
+*UIConstraints: *Finisher FinVOLGADBK *OutputBin FinAMURBBKLower
 *UIConstraints: *StapleLocation UpperRight *MediaType Envelope
+*UIConstraints: *OutputBin FinVOLGADUpper *Finisher FinAMUR
+*UIConstraints: *OptionTray 1Cassette *Finisher FinVOLGAD
 *UIConstraints: *OptionTray 1Cassette *RIBannerPageInputSlot 4Tray
+*UIConstraints: *Finisher FinAMURBK *OutputBin FinVOLGADShift
 *UIConstraints: *RIBannerPageMediaType Labels *RIBannerPageInputSlot 2Tray
 *UIConstraints: *StapleLocation CenterW *OutputBin Bin1
-*UIConstraints: *InputSlot LCT *PageSize 12x18
+*UIConstraints: *Finisher FinVOLGAB *OutputBin FinAMURBBKUpper
+*UIConstraints: *InputSlot 5Tray *PageSize 12x18
 *UIConstraints: *RIBannerPageMediaType Envelope *OutputBin External
+*UIConstraints: *Finisher NotInstalled *OutputBin FinVOLGABUpper
+*UIConstraints: *OutputBin FinAMURBKLower *RIBannerPageMediaType Envelope
+*UIConstraints: *Finisher FinAMURBK *OutputBin FinVOLGADBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize Env10
 *UIConstraints: *OptionTray 1Cassette *Finisher FinVOLGAB
 *UIConstraints: *InputSlot MultiTray *StapleLocation CenterW
 *UIConstraints: *Finisher FinAMUR *ShiftTray Installed
+*UIConstraints: *Finisher FinVOLGABBK *OutputBin FinAMURShift
+*UIConstraints: *MediaType Thin *OutputBin FinVOLGADBKLower
+*UIConstraints: *OutputBin FinVOLGABBKLower *RIBannerPageMediaType OHP
+*UIConstraints: *Finisher FinAMUR *OutputBin FinAMURBKUpper
+*UIConstraints: *PageSize Folio *OutputBin FinAMURBBKLower
+*UIConstraints: *StapleLocation UpperW *OutputBin FinAMURBBKUpper
 *UIConstraints: *PageSize 12x18 *InputSlot 4Tray
+*UIConstraints: *OutputBin FinVOLGABBKLower *RIBannerPageMediaType Thin
+*UIConstraints: *PageSize DLEnv *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinVOLGADBKLower *Finisher NotInstalled
 *UIConstraints: *StapleLocation RightW *InputSlot MultiTray
 *UIConstraints: *InputSlot MultiTray *StapleLocation LeftW
+*UIConstraints: *OutputBin FinAMURBKUpper *Finisher FinVOLGAD
+*UIConstraints: *OutputBin FinAMURBKUpper *Finisher FinVOLGAB
 *UIConstraints: *MediaType Envelope *StapleLocation UpperW
+*UIConstraints: *PageSize Env10 *OutputBin FinAMURShift
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinAMURBKUpper
 *UIConstraints: *InputSlot MultiTray *StapleLocation UpperW
+*UIConstraints: *OutputBin FinAMURBKLower *PageSize Env10
 *UIConstraints: *ShiftTray Installed *OutputBin Standard
+*UIConstraints: *PageSize A6 *OutputBin FinVOLGADBKLower
+*UIConstraints: *Finisher NotInstalled *OutputBin FinRUBICONBShift
+*UIConstraints: *OutputBin FinVOLGABUpper *StapleLocation CenterW
 *UIConstraints: *ExternalTray Installed *Finisher FinVOLGABBK
+*UIConstraints: *OutputBin FinVOLGADBKLower *Finisher FinAMURBK
+*UIConstraints: *OutputBin FinRUBICONBShift *Finisher FinAMUR
+*UIConstraints: *OutputBin FinAMURBBKLower *Finisher FinRUBICONB
+*UIConstraints: *PageSize EnvC5 *OutputBin FinVOLGABBKUpper
 *UIConstraints: *MediaType Labels *InputSlot 3Tray
+*UIConstraints: *Finisher FinVOLGAB *OutputBin FinRUBICONBShift
+*UIConstraints: *PageSize F *OutputBin FinVOLGADBKLower
+*UIConstraints: *OutputBin FinVOLGABBKUpper *StapleLocation RightW
+*UIConstraints: *OutputBin FinAMURBBKLower *MediaType Envelope
+*UIConstraints: *PageSize DLEnv *OutputBin FinVOLGADUpper
+*UIConstraints: *OutputBin FinVOLGABBKShift *PageSize EnvMonarch
+*UIConstraints: *OutputBin FinAMURBKLower *RIBannerPageMediaType OHP
+*UIConstraints: *Finisher FinAMURBK *OutputBin FinAMURBBKUpper
 *UIConstraints: *MediaType Thick3 *StapleLocation CenterW
+*UIConstraints: *OutputBin FinVOLGADBKLower *MediaType Thick4
+*UIConstraints: *OutputBin FinVOLGABShift *Finisher FinAMURBBK
+*UIConstraints: *OutputBin FinVOLGADBKLower *MediaType Thick3
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin FinAMURUpper
+*UIConstraints: *MediaType Thick4 *OutputBin FinVOLGADUpper
+*UIConstraints: *OutputBin FinAMURBBKLower *StapleLocation RightW
+*UIConstraints: *PageSize EnvC6 *OutputBin FinAMURBBKShift
 *UIConstraints: *OutputBin External *RIBannerPageMediaType Envelope
+*UIConstraints: *PageSize 11x15 *OutputBin FinAMURBKLower
+*UIConstraints: *MediaType Thick3 *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin Shift *ShiftTray NotInstalled
+*UIConstraints: *Finisher FinVOLGABBK *OutputBin FinAMURBKLower
+*UIConstraints: *PageSize 10x14 *OutputBin FinAMURBKLower
 *UIConstraints: *OptionTray NotInstalled *RIBannerPageInputSlot 4Tray
+*UIConstraints: *OutputBin FinVOLGADBKLower *StapleLocation LeftW
+*UIConstraints: *Finisher FinAMUR *OutputBin FinVOLGABShift
+*UIConstraints: *Finisher FinVOLGAB *OutputBin FinAMURUpper
+*UIConstraints: *PageSize EnvC5 *OutputBin FinAMURBBKLower
+*UIConstraints: *PageSize EnvC5 *OutputBin FinAMURUpper
 *UIConstraints: *ExternalTray Installed *Finisher FinVOLGAB
 *UIConstraints: *OptionTray 1Cassette *Finisher FinVOLGABBK
-*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType OHP
+*UIConstraints: *OutputBin FinVOLGABBKUpper *StapleLocation CenterW
+*UIConstraints: *RIBannerPageInputSlot 5Tray *RIBannerPageMediaType OHP
+*UIConstraints: *OutputBin FinVOLGADUpper *PageSize EnvMonarch
+*UIConstraints: *StapleLocation LeftW *OutputBin FinVOLGABBKUpper
 *UIConstraints: *StapleLocation UpperLeft *OutputBin Bin1
+*UIConstraints: *OutputBin FinAMURShift *StapleLocation CenterW
+*UIConstraints: *PageSize F *OutputBin FinAMURBKLower
+*UIConstraints: *Finisher NotInstalled *OutputBin FinVOLGABBKLower
+*UIConstraints: *OutputBin FinAMURBBKUpper *Finisher FinRUBICONB
+*UIConstraints: *ExternalTray Installed *Finisher FinVOLGAD
 *UIConstraints: *OutputBin Standard *Finisher FinRUBICONB
+*UIConstraints: *OutputBin FinAMURBBKShift *MediaType Envelope
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinVOLGADBKShift
+*UIConstraints: *MediaType Envelope *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *StapleLocation LeftW
+*UIConstraints: *OutputBin FinAMURBKShift *Finisher FinVOLGAB
+*UIConstraints: *Finisher FinVOLGAD *OutputBin FinAMURBKUpper
+*UIConstraints: *OutputBin FinAMURBKShift *Finisher FinVOLGAD
+*UIConstraints: *Finisher FinVOLGAD *OptionTray 1Cassette
+*UIConstraints: *OutputBin FinVOLGABBKShift *Finisher FinAMURBK
+*UIConstraints: *Finisher FinAMUR *OutputBin FinRUBICONBShift
 *UIConstraints: *InputSlot 4Tray *MediaType OHP
-*UIConstraints: *InputSlot LCT *PageSize DLEnv
+*UIConstraints: *OutputBin FinAMURShift *Finisher FinAMURBK
+*UIConstraints: *OptionTray 1Cassette *Finisher FinAMURBBK
+*UIConstraints: *OutputBin FinAMURBKLower *PageSize EnvMonarch
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin FinVOLGABBKLower
+*UIConstraints: *PageSize Executive *OutputBin FinVOLGABBKLower
+*UIConstraints: *OutputBin FinAMURShift *MediaType Envelope
+*UIConstraints: *InputSlot 5Tray *PageSize DLEnv
 *UIConstraints: *MediaType OHP *InputSlot 2Tray
+*UIConstraints: *Finisher FinAMUR *OutputBin FinVOLGADUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *StapleLocation RightW
+*UIConstraints: *OutputBin FinVOLGABShift *Finisher FinVOLGADBK
+*UIConstraints: *OutputBin FinVOLGADShift *PageSize EnvC6
+*UIConstraints: *OutputBin FinVOLGADShift *PageSize EnvC5
+*UIConstraints: *MediaType Thick4 *OutputBin FinAMURUpper
+*UIConstraints: *PageSize EngQuatro *OutputBin FinAMURBBKLower
+*UIConstraints: *Finisher NotInstalled *OutputBin FinVOLGADBKShift
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinAMURUpper
+*UIConstraints: *PageSize Env10 *OutputBin FinVOLGABBKUpper
+*UIConstraints: *OutputBin FinVOLGABUpper *PageSize EnvC6
+*UIConstraints: *Finisher FinAMURBK *OutputBin FinVOLGABUpper
 *UIConstraints: *StapleLocation UpperW *OutputBin Bin1
 *UIConstraints: *InputSlot 3Tray *OptionTray NotInstalled
-*UIConstraints: *InputSlot LCT *PageSize 10x14
+*UIConstraints: *InputSlot 5Tray *PageSize 10x14
+*UIConstraints: *Finisher FinAMURBK *OutputBin FinVOLGADBKUpper
+*UIConstraints: *PageSize Env10 *OutputBin FinAMURBKUpper
+*UIConstraints: *OutputBin FinAMURUpper *StapleLocation UpperRight
+*UIConstraints: *StapleLocation CenterW *OutputBin FinVOLGADShift
+*UIConstraints: *PageSize GovernmentLG *OutputBin FinAMURBBKLower
 *UIConstraints: *InputSlot 1Tray *PageSize 12x18
 *UIConstraints: *InnerTray2 NotInstalled *OutputBin Bin1
 *UIConstraints: *OptionTray LCT *RIBannerPageInputSlot 4Tray
-*UIConstraints: *RIBannerPageInputSlot LCT *RIBannerPageMediaType Labels
+*UIConstraints: *RIBannerPageInputSlot 5Tray *RIBannerPageMediaType Labels
+*UIConstraints: *MediaType Envelope *OutputBin FinVOLGABBKUpper
+*UIConstraints: *MediaType Thick4 *StapleLocation UpperW
+*UIConstraints: *OutputBin FinVOLGABUpper *PageSize DLEnv
+*UIConstraints: *MediaType Thick3 *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinVOLGABUpper *PageSize EnvC5
 *UIConstraints: *InputSlot 3Tray *PageSize 12x18
+*UIConstraints: *Finisher FinAMUR *OutputBin FinVOLGADBKUpper
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize 10x14
+*UIConstraints: *OutputBin FinAMURBKLower *PageSize Executive
 *UIConstraints: *ShiftTray Installed *ExternalTray Installed
+*UIConstraints: *PageSize B6 *OutputBin FinAMURBBKLower
+*UIConstraints: *PageSize EnvC6 *OutputBin FinVOLGABUpper
 *UIConstraints: *InputSlot 4Tray *OptionTray LCT
-*UIConstraints: *InputSlot LCT *PageSize 16Kai
+*UIConstraints: *OutputBin FinAMURBBKUpper *StapleLocation CenterW
+*UIConstraints: *InputSlot 5Tray *PageSize 16Kai
+*UIConstraints: *Finisher FinAMURBK *OutputBin FinAMURBBKLower
+*UIConstraints: *PageSize EnvC6 *OutputBin FinVOLGADShift
+*UIConstraints: *Finisher FinVOLGADBK *OutputBin FinVOLGABShift
+*UIConstraints: *OutputBin FinVOLGADBKShift *Finisher FinVOLGAD
+*UIConstraints: *OutputBin FinVOLGADBKShift *Finisher FinVOLGAB
+*UIConstraints: *StapleLocation UpperW *OutputBin FinVOLGADBKLower
+*UIConstraints: *Finisher NotInstalled *OutputBin FinAMURBKUpper
+*UIConstraints: *OutputBin FinVOLGADBKLower *PageSize Env10
+*UIConstraints: *OutputBin FinVOLGADShift *MediaType Envelope
 *UIConstraints: *Finisher NotInstalled *StapleLocation LeftW
 *UIConstraints: *StapleLocation UpperLeft *MediaType Labels
+*UIConstraints: *ShiftTray Installed *Finisher FinVOLGAD
+*UIConstraints: *PageSize EnvC5 *OutputBin FinAMURShift
 *UIConstraints: *ShiftTray Installed *Finisher FinVOLGAB
-*UIConstraints: *PageSize EnvMonarch *InputSlot LCT
-*UIConstraints: *InputSlot LCT *PageSize FanFoldGermanLegal
-*UIConstraints: *PageSize Folio *InputSlot LCT
+*UIConstraints: *PageSize EnvMonarch *InputSlot 5Tray
+*UIConstraints: *Finisher FinVOLGABBK *OutputBin FinVOLGADBKUpper
+*UIConstraints: *InputSlot 5Tray *PageSize FanFoldGermanLegal
+*UIConstraints: *PageSize Folio *InputSlot 5Tray
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinVOLGABBKShift
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinVOLGABUpper
+*UIConstraints: *OutputBin FinAMURBKUpper *StapleLocation LeftW
+*UIConstraints: *OutputBin FinVOLGADBKLower *PageSize FanFoldGermanLegal
+*UIConstraints: *OutputBin FinAMURUpper *PageSize EnvMonarch
+*UIConstraints: *StapleLocation LeftW *OutputBin FinAMURBBKLower
+*UIConstraints: *PageSize 12x18 *OutputBin FinVOLGADBKLower
+*UIConstraints: *PageSize EnvC6 *OutputBin FinAMURShift
 *UIConstraints: *Finisher FinAMURBK *OptionTray 1Cassette
 *UIConstraints: *StapleLocation UpperLeft *MediaType Envelope
+*UIConstraints: *OutputBin FinAMURUpper *PageSize DLEnv
 *UIConstraints: *PageSize 12x18 *InputSlot 2Tray
 *UIConstraints: *InputSlot 3Tray *MediaType Thin
+*UIConstraints: *RIBannerPageMediaType Thin *OutputBin FinVOLGABBKLower
+*UIConstraints: *StapleLocation CenterW *OutputBin FinVOLGABBKShift
+*UIConstraints: *OutputBin FinVOLGADBKLower *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinVOLGADBKLower
+*UIConstraints: *PageSize A6 *OutputBin FinAMURBKLower
 *UIConstraints: *ExternalTray NotInstalled *OutputBin External
+*UIConstraints: *OutputBin FinRUBICONBShift *Finisher FinVOLGABBK
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinVOLGABBKUpper
+*UIConstraints: *OutputBin FinAMURBBKLower *StapleLocation UpperRight
+*UIConstraints: *OutputBin FinAMURBBKUpper *StapleLocation UpperLeft
+*UIConstraints: *Finisher FinAMURBK *OutputBin FinVOLGADBKShift
+*UIConstraints: *OutputBin FinAMURBBKUpper *StapleLocation UpperRight
+*UIConstraints: *Finisher FinVOLGABBK *OutputBin FinAMURBKShift
+*UIConstraints: *Finisher FinVOLGAB *OutputBin FinVOLGABBKUpper
+*UIConstraints: *OutputBin FinAMURBKUpper *PageSize DLEnv
 *UIConstraints: *Finisher FinRUBICONB *OutputBin Standard
+*UIConstraints: *OutputBin FinAMURBBKShift *Finisher FinRUBICONB
+*UIConstraints: *OutputBin FinVOLGABUpper *Finisher FinVOLGABBK
 *UIConstraints: *RIBannerPageInputSlot 4Tray *OptionTray 1Cassette
-*UIConstraints: *InputSlot LCT *MediaType Thin
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageSize Env10
+*UIConstraints: *OutputBin FinAMURShift *PageSize EnvC5
+*UIConstraints: *OutputBin FinAMURShift *PageSize EnvC6
+*UIConstraints: *Finisher FinVOLGADBK *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinAMURBBKShift *Finisher FinVOLGABBK
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBKShift *Finisher FinAMURBBK
+*UIConstraints: *OutputBin FinAMURBBKLower *MediaType Thick2
+*UIConstraints: *PageSize EnvC6 *OutputBin FinVOLGABShift
+*UIConstraints: *InputSlot 5Tray *MediaType Thin
+*UIConstraints: *OutputBin FinAMURBBKLower *MediaType Thick1
+*UIConstraints: *OutputBin FinAMURBBKLower *MediaType Thick4
+*UIConstraints: *OutputBin FinAMURBBKLower *MediaType Thick3
+*UIConstraints: *PageSize B6 *OutputBin FinAMURBKLower
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinVOLGADBKUpper
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize A6
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize A5
+*UIConstraints: *OutputBin FinVOLGADBKLower *RIBannerPageMediaType Envelope
+*UIConstraints: *OutputBin FinVOLGADBKUpper *StapleLocation UpperW
+*UIConstraints: *StapleLocation CenterW *OutputBin FinVOLGADBKShift
+*UIConstraints: *Finisher FinVOLGAD *OutputBin FinVOLGABBKShift
+*UIConstraints: *Finisher FinAMURBK *OutputBin FinVOLGABShift
 *UIConstraints: *MediaType Envelope *StapleLocation CenterW
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize B6
+*UIConstraints: *MediaType Thick4 *OutputBin FinVOLGADBKLower
 *UIConstraints: *MediaType Labels *InputSlot 1Tray
 *UIConstraints: *RIBannerPageInputSlot 3Tray *OptionTray NotInstalled
 *UIConstraints: *StapleLocation UpperW *OutputBin Standard
+*UIConstraints: *Finisher NotInstalled *OutputBin FinAMURBKShift
+*UIConstraints: *OutputBin FinVOLGABBKUpper *RIBannerPageMediaType Thick4
+*UIConstraints: *OutputBin FinVOLGABBKUpper *RIBannerPageMediaType Thick3
 *UIConstraints: *InputSlot 1Tray *MediaType Labels
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinAMURBBKUpper
 *UIConstraints: *MediaType Labels *StapleLocation LeftW
+*UIConstraints: *PageSize EnvC5 *OutputBin FinVOLGABBKShift
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin FinAMURBKUpper
+*UIConstraints: *OutputBin FinVOLGABBKUpper *Finisher FinAMUR
+*UIConstraints: *PageSize Executive *OutputBin FinAMURBBKLower
+*UIConstraints: *StapleLocation LeftW *OutputBin FinAMURUpper
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinAMURBBKUpper
+*UIConstraints: *MediaType Envelope *OutputBin FinAMURBKUpper
 *UIConstraints: *StapleLocation UpperW *MediaType Labels
+*UIConstraints: *OutputBin FinVOLGABBKLower *StapleLocation UpperLeft
+*UIConstraints: *MediaType Labels *OutputBin FinVOLGADBKLower
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin FinVOLGADBKUpper
+*UIConstraints: *MediaType Envelope *OutputBin FinVOLGABShift
+*UIConstraints: *PageSize DLEnv *OutputBin FinVOLGADBKUpper
 *UIConstraints: *RIBannerPageInputSlot 2Tray *RIBannerPageMediaType Thin
+*UIConstraints: *MediaType Envelope *OutputBin FinVOLGADBKUpper
+*UIConstraints: *PageSize 12x18 *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinVOLGADBKLower *MediaType Thin
+*UIConstraints: *OutputBin FinVOLGADUpper *Finisher FinVOLGAB
+*UIConstraints: *OutputBin FinVOLGABBKLower *PageSize EnvMonarch
+*UIConstraints: *OutputBin FinAMURBKShift *PageSize Env10
+*UIConstraints: *StapleLocation CenterW *Finisher FinVOLGAD
 *UIConstraints: *StapleLocation UpperRight *MediaType OHP
 *UIConstraints: *StapleLocation CenterW *Finisher FinVOLGAB
+*UIConstraints: *PageSize EnvC5 *OutputBin FinAMURBKLower
 *UIConstraints: *ShiftTray Installed *Finisher FinVOLGABBK
-*UIConstraints: *MediaType Labels *InputSlot LCT
+*UIConstraints: *MediaType Labels *InputSlot 5Tray
+*UIConstraints: *Finisher FinVOLGADBK *OutputBin FinVOLGADShift
+*UIConstraints: *PageSize EnvC6 *OutputBin FinVOLGADUpper
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinAMURBBKShift
 *UIConstraints: *InputSlot 3Tray *MediaType OHP
+*UIConstraints: *PageSize 12x18 *OutputBin FinVOLGABBKLower
 *UIConstraints: *MediaType Labels *StapleLocation CenterW
+*UIConstraints: *OutputBin FinVOLGADBKLower *PageSize EnvMonarch
+*UIConstraints: *OutputBin FinVOLGABBKLower *MediaType Thin
+*UIConstraints: *OutputBin FinAMURBKLower *Finisher FinAMUR
+*UIConstraints: *OutputBin FinVOLGABUpper *Finisher FinRUBICONB
+*UIConstraints: *PageSize Env10 *OutputBin FinVOLGADBKLower
+*UIConstraints: *Finisher FinVOLGAB *OutputBin FinAMURBBKShift
+*UIConstraints: *StapleLocation LeftW *OutputBin FinVOLGADUpper
 *UIConstraints: *StapleLocation UpperLeft *MediaType OHP
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin FinAMURBKLower
+*UIConstraints: *Finisher NotInstalled *OutputBin FinAMURBBKLower
+*UIConstraints: *StapleLocation UpperW *OutputBin FinAMURBBKLower
+*UIConstraints: *Finisher FinVOLGADBK *OutputBin FinAMURBBKShift
+*UIConstraints: *Finisher FinVOLGABBK *OutputBin FinAMURBKUpper
+*UIConstraints: *Finisher FinVOLGAB *OutputBin FinAMURBKUpper
+*UIConstraints: *OutputBin FinVOLGABShift *StapleLocation CenterW
 *UIConstraints: *OptionTray 1Cassette *Finisher FinAMURBK
+*UIConstraints: *Finisher FinVOLGADBK *OutputBin FinAMURBKUpper
 *UIConstraints: *ShiftTray Installed *Finisher FinRUBICONB
-*UIConstraints: *InputSlot LCT *PageSize F
+*UIConstraints: *OutputBin FinAMURShift *RIBannerPageMediaType Envelope
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin FinVOLGADBKUpper
+*UIConstraints: *OutputBin FinAMURBKUpper *StapleLocation UpperW
+*UIConstraints: *InputSlot 5Tray *PageSize F
+*UIConstraints: *OutputBin FinAMURBKUpper *MediaType Envelope
+*UIConstraints: *PageSize A5 *OutputBin FinVOLGABBKLower
 *UIConstraints: *InputSlot 3Tray *MediaType Labels
+*UIConstraints: *OutputBin FinAMURBKUpper *Finisher FinAMURBBK
+*UIConstraints: *OutputBin FinVOLGABBKUpper *Finisher FinVOLGADBK
+*UIConstraints: *MediaType Thick4 *OutputBin FinVOLGADBKUpper
+*UIConstraints: *OutputBin FinVOLGABBKUpper *MediaType Thick3
+*UIConstraints: *PageSize Folio *OutputBin FinAMURBKLower
 *UIConstraints: *Finisher FinVOLGAB *OptionTray 1Cassette
+*UIConstraints: *OutputBin FinAMURBKLower *Finisher FinVOLGAD
+*UIConstraints: *OutputBin FinAMURBKLower *Finisher FinVOLGAB
+*UIConstraints: *OutputBin FinAMURUpper *StapleLocation CenterW
+*UIConstraints: *MediaType Thick2 *OutputBin FinAMURBKLower
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinAMURUpper
+*UIConstraints: *OutputBin FinAMURBBKLower *Finisher NotInstalled
 *UIConstraints: *StapleLocation UpperW *MediaType OHP
+*UIConstraints: *StapleLocation LeftW *MediaType Thick4
+*UIConstraints: *OutputBin FinVOLGADBKLower *PageSize DLEnv
+*UIConstraints: *StapleLocation UpperW *OutputBin FinVOLGABBKLower
 *UIConstraints: *InputSlot 4Tray *MediaType Thin
-*UIConstraints: *RIBannerPageMediaType Labels *RIBannerPageInputSlot LCT
+*UIConstraints: *OutputBin FinAMURBKLower *PageSize FanFoldGermanLegal
+*UIConstraints: *OutputBin FinVOLGABBKUpper *MediaType Thick4
+*UIConstraints: *OutputBin FinAMURBKShift *Finisher FinVOLGABBK
+*UIConstraints: *StapleLocation CenterW *OutputBin FinVOLGABUpper
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinAMURShift
+*UIConstraints: *PageSize Env10 *OutputBin FinVOLGADBKUpper
+*UIConstraints: *StapleLocation UpperW *OutputBin FinVOLGADBKUpper
+*UIConstraints: *PageSize DLEnv *OutputBin FinAMURBKUpper
+*UIConstraints: *PageSize 16Kai *OutputBin FinAMURBKLower
+*UIConstraints: *MediaType Labels *OutputBin FinVOLGABBKLower
+*UIConstraints: *RIBannerPageMediaType Labels *RIBannerPageInputSlot 5Tray
 *UIConstraints: *StapleLocation CenterW *InputSlot MultiTray
+*UIConstraints: *OutputBin FinVOLGADBKUpper *MediaType Thick3
+*UIConstraints: *StapleLocation UpperW *MediaType Thick4
+*UIConstraints: *OutputBin FinVOLGADBKUpper *MediaType Thick4
+*UIConstraints: *OutputBin FinAMURBKUpper *Finisher NotInstalled
+*UIConstraints: *OutputBin FinAMURShift *Finisher FinVOLGAD
 *UIConstraints: *Finisher FinRUBICONB *ShiftTray Installed
+*UIConstraints: *OutputBin FinVOLGADBKShift *StapleLocation CenterW
+*UIConstraints: *OutputBin FinAMURShift *Finisher FinVOLGAB
 *UIConstraints: *InputSlot 1Tray *MediaType OHP
+*UIConstraints: *PageSize Env10 *OutputBin FinAMURBKLower
 *UIConstraints: *StapleLocation UpperRight *Finisher NotInstalled
+*UIConstraints: *Finisher FinAMUR *OutputBin FinVOLGABUpper
+*UIConstraints: *Finisher FinVOLGAD *OutputBin FinAMURBKShift
+*UIConstraints: *OutputBin FinAMURBKLower *MediaType Thick4
+*UIConstraints: *OutputBin FinAMURBKLower *MediaType Thick3
+*UIConstraints: *OutputBin FinAMURBKLower *MediaType Thick2
+*UIConstraints: *OutputBin FinAMURBKLower *MediaType Thick1
+*UIConstraints: *OutputBin FinVOLGADBKUpper *Finisher FinAMURBK
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize DLEnv
+*UIConstraints: *OutputBin FinVOLGADBKLower *PageSize Executive
+*UIConstraints: *OutputBin FinVOLGABBKLower *StapleLocation LeftW
+*UIConstraints: *OutputBin FinAMURBKShift *RIBannerPageMediaType Envelope
 *UIConstraints: *RIBannerPageMediaType OHP *RIBannerPageInputSlot 1Tray
-*UIConstraints: *MediaType Envelope *InputSlot LCT
-*UIConstraints: *PageSize Executive *InputSlot LCT
+*UIConstraints: *Finisher FinVOLGAD *OutputBin FinVOLGABUpper
+*UIConstraints: *RIBannerPageMediaType OHP *OutputBin FinVOLGADBKLower
+*UIConstraints: *OutputBin FinVOLGABShift *Finisher FinVOLGAD
+*UIConstraints: *PageSize FanFoldGermanLegal *OutputBin FinVOLGADBKLower
+*UIConstraints: *StapleLocation UpperW *OutputBin FinAMURBKUpper
+*UIConstraints: *Finisher FinVOLGADBK *OutputBin FinVOLGADUpper
+*UIConstraints: *OutputBin FinVOLGABBKLower *PageSize FanFoldGermanLegal
+*UIConstraints: *MediaType Envelope *InputSlot 5Tray
+*UIConstraints: *PageSize Executive *InputSlot 5Tray
+*UIConstraints: *OutputBin FinAMURBKLower *StapleLocation UpperLeft
+*UIConstraints: *OutputBin FinAMURShift *Finisher FinAMURBBK
 *UIConstraints: *MediaType OHP *StapleLocation UpperLeft
 *UIConstraints: *StapleLocation UpperLeft *OutputBin Standard
 *UIConstraints: *StapleLocation CenterW *Finisher NotInstalled
-*UIConstraints: *InputSlot LCT *LargeCapacityTray NotInstalled
+*UIConstraints: *OutputBin FinVOLGABUpper *StapleLocation UpperW
+*UIConstraints: *OutputBin FinVOLGADBKLower *RIBannerPageMediaType OHP
+*UIConstraints: *MediaType OHP *OutputBin FinAMURBKLower
+*UIConstraints: *InputSlot 5Tray *LargeCapacityTray NotInstalled
 *UIConstraints: *StapleLocation CenterW *Finisher FinRUBICONB
-*UIConstraints: *InputSlot LCT *MediaType Labels
+*UIConstraints: *OutputBin FinAMURBKLower *PageSize DLEnv
+*UIConstraints: *OutputBin FinVOLGABBKShift *Finisher FinRUBICONB
+*UIConstraints: *InputSlot 5Tray *MediaType Labels
+*UIConstraints: *OutputBin FinVOLGADBKLower *PageSize 12x18
+*UIConstraints: *Finisher FinAMUR *OutputBin FinVOLGABBKUpper
 *UIConstraints: *InputSlot 2Tray *MediaType Thin
+*UIConstraints: *ExternalTray Installed *Finisher FinAMURBBK
+*UIConstraints: *Finisher NotInstalled *OutputBin FinVOLGADShift
+*UIConstraints: *OutputBin FinAMURBBKShift *Finisher FinAMUR
+*UIConstraints: *OutputBin FinVOLGADBKUpper *Finisher FinAMURBBK
+*UIConstraints: *OutputBin FinAMURBBKLower *RIBannerPageMediaType Envelope
+*UIConstraints: *StapleLocation RightW *OutputBin FinVOLGABBKLower
+*UIConstraints: *OutputBin FinVOLGADShift *Finisher FinVOLGABBK
+*UIConstraints: *OutputBin FinAMURUpper *PageSize Env10
+*UIConstraints: *PageSize EnvC5 *OutputBin FinVOLGABShift
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinVOLGABUpper
+*UIConstraints: *OutputBin FinVOLGADBKUpper *StapleLocation CenterW
+*UIConstraints: *StapleLocation UpperW *OutputBin FinVOLGABUpper
+*UIConstraints: *OutputBin FinAMURUpper *RIBannerPageMediaType Envelope
+*UIConstraints: *OutputBin FinVOLGABBKLower *PageSize Executive
+*UIConstraints: *PageSize B6 *OutputBin FinVOLGABBKLower
+*UIConstraints: *OutputBin FinAMURBKUpper *StapleLocation RightW
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageSize EnvC6
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageSize EnvC5
 *UIConstraints: *MediaType Envelope *StapleLocation UpperRight
+*UIConstraints: *Finisher FinAMUR *OutputBin FinAMURBBKLower
 *UIConstraints: *StapleLocation RightW *Finisher NotInstalled
+*UIConstraints: *PageSize 11x15 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinVOLGABBKLower *Finisher FinVOLGAD
+*UIConstraints: *OutputBin FinVOLGABBKLower *PageSize DLEnv
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinAMURBKShift
+*UIConstraints: *MediaType Envelope *OutputBin FinVOLGADShift
+*UIConstraints: *OutputBin FinAMURUpper *PageSize EnvC6
+*UIConstraints: *OutputBin FinVOLGABBKLower *Finisher FinVOLGAB
+*UIConstraints: *OutputBin FinAMURUpper *PageSize EnvC5
+*UIConstraints: *OutputBin FinVOLGADBKLower *StapleLocation RightW
+*UIConstraints: *OutputBin FinVOLGADBKLower *MediaType Envelope
+*UIConstraints: *RIBannerPageMediaType Labels *OutputBin FinVOLGADBKLower
+*UIConstraints: *OutputBin FinAMURBKLower *PageSize Statement
 *UIConstraints: *OutputBin Bin1 *StapleLocation UpperW
+*UIConstraints: *PageSize DLEnv *OutputBin FinVOLGABShift
+*UIConstraints: *PageSize EnvC6 *OutputBin FinVOLGADBKLower
 *UIConstraints: *OutputBin Bin1 *StapleLocation LeftW
+*UIConstraints: *MediaType Thick3 *OutputBin FinAMURBBKLower
+*UIConstraints: *Finisher FinVOLGAD *OutputBin FinVOLGADBKUpper
+*UIConstraints: *OutputBin FinVOLGABBKUpper *Finisher NotInstalled
 *UIConstraints: *OptionTray LCT *InputSlot 4Tray
-*UIConstraints: *InputSlot LCT *MediaType OHP
+*UIConstraints: *InputSlot 5Tray *MediaType OHP
+*UIConstraints: *PageSize 12x18 *OutputBin FinAMURBBKLower
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinVOLGABBKShift
+*UIConstraints: *Finisher FinVOLGAB *OutputBin FinVOLGADUpper
+*UIConstraints: *PageSize DLEnv *OutputBin FinVOLGADShift
+*UIConstraints: *MediaType Thick4 *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation LeftW *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *MediaType Labels
+*UIConstraints: *OutputBin FinVOLGABBKLower *MediaType Labels
+*UIConstraints: *OutputBin FinVOLGABUpper *Finisher FinAMURBBK
+*UIConstraints: *OutputBin FinAMURBKUpper *Finisher FinVOLGABBK
+*UIConstraints: *OutputBin FinVOLGADBKLower *PageSize B6
+*UIConstraints: *OutputBin FinVOLGABUpper *Finisher FinVOLGAD
+*UIConstraints: *OutputBin FinAMURShift *PageSize 12x18
 *UIConstraints: *RIBannerPageMediaType OHP *OutputBin Bin1
+*UIConstraints: *PageSize Env10 *OutputBin FinAMURUpper
+*UIConstraints: *OutputBin FinAMURShift *Finisher FinVOLGADBK
+*UIConstraints: *OutputBin FinVOLGABBKUpper *Finisher FinAMURBBK
+*UIConstraints: *OutputBin FinVOLGABShift *PageSize DLEnv
+*UIConstraints: *OutputBin FinVOLGABShift *Finisher FinAMURBK
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinAMURBKShift
+*UIConstraints: *OutputBin FinVOLGADBKLower *PageSize A5
+*UIConstraints: *OutputBin FinVOLGADBKLower *PageSize A6
+*UIConstraints: *OutputBin FinVOLGADBKUpper *StapleLocation LeftW
+*UIConstraints: *OutputBin FinAMURUpper *RIBannerPageMediaType Thick3
+*UIConstraints: *OutputBin FinAMURUpper *RIBannerPageMediaType Thick4
 *UIConstraints: *MediaType Envelope *StapleLocation RightW
 *UIConstraints: *MediaType OHP *StapleLocation RightW
+*UIConstraints: *MediaType Thick3 *OutputBin FinVOLGABBKLower
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinVOLGADUpper
 *UIConstraints: *OutputBin External *MediaType Envelope
+*UIConstraints: *OutputBin FinVOLGADUpper *StapleLocation UpperRight
+*UIConstraints: *StapleLocation CenterW *OutputBin FinAMURBKShift
+*UIConstraints: *OutputBin FinVOLGABBKLower *Finisher FinVOLGADBK
+*UIConstraints: *OutputBin FinAMURBBKShift *Finisher FinVOLGAD
+*UIConstraints: *MediaType Envelope *OutputBin FinVOLGADUpper
+*UIConstraints: *OutputBin FinAMURBBKShift *Finisher FinVOLGAB
 *UIConstraints: *StapleLocation LeftW *MediaType Labels
+*UIConstraints: *Finisher FinVOLGADBK *OutputBin FinVOLGABBKLower
+*UIConstraints: *OutputBin FinVOLGADBKShift *PageSize EnvC6
+*UIConstraints: *OutputBin FinVOLGADBKShift *PageSize EnvC5
 *UIConstraints: *InputSlot 4Tray *PageSize 12x18
+*UIConstraints: *OutputBin FinAMURBKLower *PageSize B6
 *UIConstraints: *InputSlot 2Tray *PageSize 12x18
-*UIConstraints: *InputSlot LCT *PageSize 8Kai
-*UIConstraints: *RIBannerPageMediaType Envelope *RIBannerPageInputSlot LCT
+*UIConstraints: *OutputBin FinAMURBKLower *Finisher FinVOLGADBK
+*UIConstraints: *OutputBin FinVOLGADUpper *StapleLocation UpperLeft
+*UIConstraints: *InputSlot 5Tray *PageSize 8Kai
+*UIConstraints: *Finisher FinVOLGAD *OutputBin FinRUBICONBShift
+*UIConstraints: *PageSize EnvC5 *OutputBin FinAMURBKShift
+*UIConstraints: *RIBannerPageMediaType Envelope *RIBannerPageInputSlot 5Tray
 *UIConstraints: *OutputBin Bin1 *StapleLocation RightW
-*UIConstraints: *PageSize EngQuatro *InputSlot LCT
+*UIConstraints: *MediaType Thick4 *OutputBin FinAMURBKUpper
+*UIConstraints: *PageSize EngQuatro *InputSlot 5Tray
+*UIConstraints: *OutputBin FinVOLGADBKLower *StapleLocation UpperW
+*UIConstraints: *Finisher FinVOLGAD *OutputBin FinVOLGABShift
 *UIConstraints: *Finisher FinAMURBK *ExternalTray Installed
+*UIConstraints: *OutputBin FinVOLGADBKShift *RIBannerPageMediaType Envelope
+*UIConstraints: *PageSize Statement *OutputBin FinVOLGADBKLower
+*UIConstraints: *Finisher NotInstalled *OutputBin FinVOLGABShift
+*UIConstraints: *OutputBin FinAMURBKLower *PageSize A6
+*UIConstraints: *OutputBin FinVOLGADBKLower *PageSize EngQuatro
+*UIConstraints: *OutputBin FinAMURBKLower *PageSize A5
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinVOLGABBKShift
+*UIConstraints: *OutputBin FinVOLGADBKUpper *Finisher FinAMUR
 *UIConstraints: *StapleLocation RightW *MediaType Envelope
+*UIConstraints: *StapleLocation RightW *OutputBin FinAMURUpper
+*UIConstraints: *Finisher FinAMURBK *OutputBin FinAMURShift
+*UIConstraints: *OutputBin FinAMURBBKUpper *Finisher FinVOLGAB
+*UIConstraints: *OutputBin FinAMURBBKUpper *Finisher FinVOLGAD
+*UIConstraints: *StapleLocation CenterW *OutputBin FinVOLGADBKUpper
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinVOLGADShift
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin FinVOLGABBKUpper
 *UIConstraints: *StapleLocation CenterW *OutputBin Standard
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin FinAMURUpper
+*UIConstraints: *OutputBin FinVOLGABUpper *MediaType Envelope
+*UIConstraints: *Finisher FinVOLGAD *OutputBin FinVOLGADBKShift
+*UIConstraints: *OutputBin FinVOLGABShift *MediaType Envelope
+*UIConstraints: *PageSize 16Kai *OutputBin FinAMURBBKLower
+*UIConstraints: *PageSize GovernmentLG *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinVOLGABBKLower *PageSize A6
+*UIConstraints: *OutputBin FinVOLGABBKLower *PageSize A5
+*UIConstraints: *OutputBin FinAMURBBKLower *Finisher FinAMUR
 *UIConstraints: *ShiftTray Installed *Finisher FinAMURBK
-*UIConstraints: *RIBannerPageInputSlot LCT *LargeCapacityTray NotInstalled
+*UIConstraints: *RIBannerPageInputSlot 5Tray *LargeCapacityTray NotInstalled
 *UIConstraints: *MediaType Labels *StapleLocation UpperLeft
+*UIConstraints: *OutputBin FinAMURBBKUpper *StapleLocation UpperW
+*UIConstraints: *Finisher NotInstalled *OutputBin FinVOLGABBKUpper
+*UIConstraints: *PageSize EngQuatro *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinVOLGABBKUpper *PageSize EnvMonarch
+*UIConstraints: *Finisher FinVOLGAB *OutputBin FinAMURBBKLower
 *UIConstraints: *MediaType Labels *StapleLocation UpperW
+*UIConstraints: *Finisher FinVOLGAD *OutputBin FinAMURUpper
+*UIConstraints: *Finisher NotInstalled *OutputBin FinAMURShift
+*UIConstraints: *OutputBin FinVOLGADBKUpper *PageSize Env10
+*UIConstraints: *OutputBin FinVOLGADBKShift *PageSize Env10
+*UIConstraints: *OutputBin FinVOLGABBKLower *PageSize B6
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize 16Kai
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinAMURBKUpper
+*UIConstraints: *OutputBin FinVOLGABBKShift *Finisher FinAMURBBK
 *UIConstraints: *RIBannerPageMediaType Thin *RIBannerPageInputSlot 2Tray
+*UIConstraints: *OutputBin FinAMURUpper *StapleLocation RightW
+*UIConstraints: *Finisher FinAMURBBK *ExternalTray Installed
+*UIConstraints: *StapleLocation RightW *MediaType Thick4
 *UIConstraints: *Finisher FinVOLGABBK *OptionTray 1Cassette
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageSize EnvMonarch
+*UIConstraints: *OutputBin FinAMURBKShift *PageSize EnvC6
+*UIConstraints: *OutputBin FinAMURBKShift *PageSize EnvC5
 *UIConstraints: *StapleLocation RightW *OutputBin Standard
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinAMURBKUpper
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinAMURUpper
+*UIConstraints: *RIBannerPageMediaType Thick1 *OutputBin FinAMURBBKLower
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinAMURShift
+*UIConstraints: *OutputBin FinAMURBKLower *PageSize 12x18
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize EngQuatro
 *UIConstraints: *RIBannerPageInputSlot 4Tray *OptionTray LCT
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinVOLGADBKUpper *Finisher NotInstalled
 *UIConstraints: *StapleLocation CenterW *MediaType Labels
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinVOLGADBKUpper
+*UIConstraints: *OutputBin FinAMURShift *PageSize DLEnv
+*UIConstraints: *OutputBin FinAMURBKLower *PageSize EngQuatro
+*UIConstraints: *OutputBin FinVOLGABBKLower *PageSize EnvC6
+*UIConstraints: *OutputBin FinVOLGABBKLower *PageSize EnvC5
 *UIConstraints: *StapleLocation LeftW *OutputBin Standard
+*UIConstraints: *MediaType Thick3 *OutputBin FinAMURBKUpper
+*UIConstraints: *MediaType Labels *OutputBin FinAMURBBKLower
 *UIConstraints: *ExternalTray Installed *Finisher FinAMUR
 *UIConstraints: *OutputBin Standard *StapleLocation LeftW
 *UIConstraints: *StapleLocation CenterW *MediaType OHP
-*UIConstraints: *PageSize Legal *InputSlot LCT
+*UIConstraints: *PageSize Legal *InputSlot 5Tray
+*UIConstraints: *Finisher NotInstalled *OutputBin FinVOLGADBKLower
+*UIConstraints: *Finisher FinVOLGADBK *OutputBin FinRUBICONBShift
 *UIConstraints: *OutputBin Bin1 *InnerTray2 NotInstalled
+*UIConstraints: *OutputBin FinVOLGABBKLower *StapleLocation UpperW
+*UIConstraints: *OutputBin FinVOLGADShift *PageSize DLEnv
+*UIConstraints: *OutputBin FinVOLGABShift *PageSize Env10
+*UIConstraints: *PageSize EnvC5 *OutputBin FinVOLGADBKUpper
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinVOLGABUpper
+*UIConstraints: *OutputBin FinAMURBBKLower *Finisher FinVOLGABBK
+*UIConstraints: *OutputBin FinVOLGABBKUpper *StapleLocation LeftW
+*UIConstraints: *PageSize DLEnv *OutputBin FinVOLGABUpper
+*UIConstraints: *OutputBin FinAMURBKUpper *MediaType Thick4
+*UIConstraints: *OutputBin FinAMURBKUpper *MediaType Thick3
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinAMURBKLower
 *UIConstraints: *OptionTray NotInstalled *InputSlot 3Tray
+*UIConstraints: *Finisher FinVOLGADBK *OutputBin FinAMURBBKUpper
+*UIConstraints: *MediaType Envelope *OutputBin FinVOLGABBKLower
+*UIConstraints: *OutputBin FinVOLGADUpper *StapleLocation CenterW
+*UIConstraints: *RIBannerPageMediaType Thick1 *OutputBin FinAMURBKLower
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinVOLGADBKUpper
+*UIConstraints: *PageSize Env10 *OutputBin FinVOLGADShift
+*UIConstraints: *PageSize EnvC6 *OutputBin FinVOLGABBKLower
+*UIConstraints: *OutputBin FinAMURBKShift *PageSize EnvMonarch
+*UIConstraints: *MediaType Envelope *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *Finisher FinAMURBK
+*UIConstraints: *PageSize 12x18 *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinVOLGADBKLower *StapleLocation UpperRight
+*UIConstraints: *MediaType Labels *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin Standard *StapleLocation RightW
+*UIConstraints: *OutputBin FinVOLGADUpper *StapleLocation LeftW
 *UIConstraints: *RIBannerPageInputSlot 3Tray *RIBannerPageMediaType OHP
-*UIConstraints: *LargeCapacityTray NotInstalled *InputSlot LCT
+*UIConstraints: *OutputBin FinVOLGADBKShift *Finisher FinRUBICONB
+*UIConstraints: *MediaType Thick4 *OutputBin FinVOLGABUpper
+*UIConstraints: *OutputBin FinVOLGABBKLower *PageSize 12x18
+*UIConstraints: *PageSize Env10 *OutputBin FinVOLGABBKLower
+*UIConstraints: *OutputBin FinAMURBKUpper *Finisher FinAMUR
+*UIConstraints: *LargeCapacityTray NotInstalled *InputSlot 5Tray
 *UIConstraints: *RIBannerPageMediaType Labels *RIBannerPageInputSlot 3Tray
-*UIConstraints: *PageSize EnvC5 *InputSlot LCT
-*UIConstraints: *InputSlot LCT *PageSize Tabloid
+*UIConstraints: *PageSize EnvC5 *InputSlot 5Tray
+*UIConstraints: *OutputBin FinVOLGABBKUpper *PageSize Env10
+*UIConstraints: *OutputBin FinVOLGABBKUpper *PageSize DLEnv
+*UIConstraints: *Finisher FinVOLGADBK *OutputBin FinAMURBKShift
+*UIConstraints: *OutputBin FinVOLGABBKLower *StapleLocation UpperRight
+*UIConstraints: *InputSlot 5Tray *PageSize Tabloid
+*UIConstraints: *StapleLocation CenterW *OutputBin FinAMURShift
+*UIConstraints: *PageSize EnvC5 *OutputBin FinVOLGADBKLower
+*UIConstraints: *OutputBin FinVOLGADUpper *StapleLocation UpperW
+*UIConstraints: *OutputBin FinVOLGABBKLower *PageSize 16Kai
 *UIConstraints: *OptionTray NotInstalled *RIBannerPageInputSlot 3Tray
 *UIConstraints: *OutputBin Standard *StapleLocation UpperRight
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinVOLGADUpper
+*UIConstraints: *OutputBin FinVOLGADBKUpper *MediaType Envelope
+*UIConstraints: *OutputBin FinAMURBKUpper *Finisher FinRUBICONB
 *UIConstraints: *OptionTray 1Cassette *Finisher FinAMUR
-*UIConstraints: *InputSlot LCT *PageSize 11x15
-*UIConstraints: *InputSlot LCT *PageSize Folio
+*UIConstraints: *OutputBin FinVOLGABBKLower *RIBannerPageMediaType Envelope
+*UIConstraints: *Finisher FinAMUR *OutputBin FinAMURBKLower
+*UIConstraints: *RIBannerPageMediaType Thin *OutputBin FinVOLGADBKLower
+*UIConstraints: *Finisher FinVOLGAD *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinVOLGADShift *Finisher FinAMUR
+*UIConstraints: *OutputBin FinVOLGADBKUpper *Finisher FinVOLGAD
+*UIConstraints: *OutputBin FinVOLGADUpper *PageSize EnvC6
+*UIConstraints: *OutputBin FinVOLGADBKUpper *Finisher FinVOLGAB
+*UIConstraints: *OutputBin FinVOLGADUpper *PageSize EnvC5
+*UIConstraints: *InputSlot 5Tray *PageSize 11x15
+*UIConstraints: *MediaType Envelope *OutputBin FinAMURShift
+*UIConstraints: *OutputBin FinVOLGABBKLower *RIBannerPageMediaType Thick3
+*UIConstraints: *OutputBin FinVOLGABBKLower *RIBannerPageMediaType Thick4
+*UIConstraints: *StapleLocation RightW *OutputBin FinVOLGABUpper
+*UIConstraints: *OutputBin FinVOLGABBKLower *MediaType OHP
+*UIConstraints: *PageSize DLEnv *OutputBin FinAMURBKShift
+*UIConstraints: *OutputBin FinVOLGABBKLower *Finisher FinRUBICONB
+*UIConstraints: *OutputBin FinVOLGABBKShift *PageSize EnvC6
+*UIConstraints: *OutputBin FinVOLGABBKShift *PageSize EnvC5
+*UIConstraints: *InputSlot 5Tray *PageSize Folio
+*UIConstraints: *PageSize F *OutputBin FinAMURBBKLower
 *UIConstraints: *InputSlot 4Tray *OptionTray NotInstalled
 *UIConstraints: *MediaType Labels *StapleLocation UpperRight
+*UIConstraints: *OutputBin FinAMURUpper *Finisher NotInstalled
+*UIConstraints: *Finisher FinAMURBBK *ShiftTray Installed
 *UIConstraints: *OptionTray NotInstalled *LargeCapacityTray Installed
+*UIConstraints: *MediaType Thick4 *OutputBin FinAMURBBKUpper
+*UIConstraints: *PageSize DLEnv *OutputBin FinAMURUpper
 *UIConstraints: *StapleLocation UpperW *MediaType Envelope
 *UIConstraints: *Finisher FinVOLGABBK *ExternalTray Installed
-*UIConstraints: *RIBannerPageMediaType OHP *RIBannerPageInputSlot LCT
+*UIConstraints: *OutputBin FinVOLGADBKLower *MediaType OHP
+*UIConstraints: *MediaType OHP *OutputBin FinVOLGADBKLower
+*UIConstraints: *OutputBin FinAMURBBKShift *RIBannerPageMediaType Envelope
+*UIConstraints: *OutputBin FinVOLGABBKShift *Finisher NotInstalled
+*UIConstraints: *OutputBin FinVOLGADUpper *Finisher NotInstalled
+*UIConstraints: *OutputBin FinAMURUpper *MediaType Thick4
+*UIConstraints: *OutputBin FinAMURUpper *MediaType Thick3
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinAMURBKShift
+*UIConstraints: *RIBannerPageMediaType OHP *RIBannerPageInputSlot 5Tray
+*UIConstraints: *OutputBin FinAMURBBKUpper *MediaType Envelope
+*UIConstraints: *OutputBin FinVOLGABShift *Finisher FinVOLGABBK
+*UIConstraints: *OutputBin FinVOLGADBKLower *PageSize Statement
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinAMURBKLower
+*UIConstraints: *StapleLocation CenterW *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageSize EnvMonarch
+*UIConstraints: *OutputBin FinVOLGABShift *Finisher FinAMUR
+*UIConstraints: *OutputBin FinAMURBKShift *PageSize 12x18
+*UIConstraints: *OutputBin FinVOLGADBKLower *RIBannerPageMediaType Labels
+*UIConstraints: *OutputBin FinVOLGABUpper *StapleLocation UpperRight
+*UIConstraints: *OutputBin FinAMURUpper *Finisher FinVOLGAB
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinVOLGABBKLower
+*UIConstraints: *OutputBin FinAMURUpper *Finisher FinVOLGAD
+*UIConstraints: *OutputBin FinVOLGADBKUpper *RIBannerPageMediaType Envelope
 *UIConstraints: *StapleLocation UpperLeft *Finisher NotInstalled
+*UIConstraints: *OutputBin FinAMURShift *PageSize EnvMonarch
+*UIConstraints: *PageSize Env10 *OutputBin FinVOLGABShift
+*UIConstraints: *RIBannerPageMediaType OHP *OutputBin FinVOLGABBKLower
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinAMURBBKShift
+*UIConstraints: *Finisher FinVOLGADBK *OutputBin FinVOLGABBKShift
+*UIConstraints: *OutputBin FinAMURBKLower *Finisher FinAMURBBK
+*UIConstraints: *OptionTray 1Cassette *Finisher FinVOLGADBK
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinVOLGABShift
+*UIConstraints: *OutputBin FinAMURBKLower *PageSize Folio
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinVOLGADBKShift
 *UIConstraints: *MediaType OHP *StapleLocation LeftW
+*UIConstraints: *OutputBin FinAMURBKLower *MediaType Envelope
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinVOLGADBKShift *PageSize DLEnv
+*UIConstraints: *Finisher FinAMUR *OutputBin FinVOLGABBKShift
 *UIConstraints: *MediaType OHP *StapleLocation UpperRight
 *UIConstraints: *Finisher NotInstalled *StapleLocation UpperRight
-*UIConstraints: *PageSize F *InputSlot LCT
+*UIConstraints: *PageSize 16Kai *OutputBin FinVOLGABBKLower
+*UIConstraints: *PageSize F *InputSlot 5Tray
 *UIConstraints: *MediaType OHP *InputSlot 3Tray
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize Statement
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinVOLGADUpper
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinVOLGADUpper *StapleLocation RightW
 *UIConstraints: *ExternalTray Installed *Finisher FinAMURBK
+*UIConstraints: *StapleLocation LeftW *OutputBin FinVOLGADBKUpper
+*UIConstraints: *PageSize FanFoldGermanLegal *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinVOLGADBKUpper *PageSize DLEnv
+*UIConstraints: *OutputBin FinVOLGADBKUpper *Finisher FinRUBICONB
+*UIConstraints: *Finisher FinAMURBK *OutputBin FinAMURUpper
+*UIConstraints: *StapleLocation UpperW *OutputBin FinVOLGADUpper
+*UIConstraints: *PageSize EnvC6 *OutputBin FinAMURBKUpper
+*UIConstraints: *Finisher NotInstalled *OutputBin FinVOLGADBKUpper
 *UIConstraints: *RIBannerPageMediaType Thin *RIBannerPageInputSlot 4Tray
-*UIConstraints: *PageSize A5 *InputSlot LCT
+*UIConstraints: *OutputBin FinVOLGABShift *Finisher NotInstalled
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize 12x18
+*UIConstraints: *PageSize 8Kai *OutputBin FinAMURBKLower
+*UIConstraints: *PageSize A5 *InputSlot 5Tray
+*UIConstraints: *MediaType Envelope *OutputBin FinAMURBKShift
+*UIConstraints: *ExternalTray Installed *Finisher FinVOLGADBK
+*UIConstraints: *OutputBin FinVOLGABBKUpper *PageSize EnvC6
+*UIConstraints: *OutputBin FinVOLGABBKUpper *PageSize EnvC5
 *UIConstraints: *OutputBin Bin1 *StapleLocation UpperLeft
-*UIConstraints: *PageSize GovernmentLG *InputSlot LCT
+*UIConstraints: *PageSize EnvC5 *OutputBin FinVOLGADUpper
+*UIConstraints: *PageSize GovernmentLG *InputSlot 5Tray
+*UIConstraints: *OutputBin FinVOLGABShift *RIBannerPageMediaType Envelope
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinVOLGADUpper
+*UIConstraints: *StapleLocation CenterW *OutputBin FinRUBICONBShift
+*UIConstraints: *OutputBin FinVOLGADShift *Finisher NotInstalled
+*UIConstraints: *PageSize 10x14 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBKUpper *PageSize EnvMonarch
+*UIConstraints: *PageSize DLEnv *OutputBin FinVOLGADBKShift
+*UIConstraints: *OutputBin FinVOLGABBKLower *PageSize Env10
 *UIConstraints: *RIBannerPageInputSlot 2Tray *RIBannerPageMediaType Labels
+*UIConstraints: *Finisher FinAMUR *OutputBin FinAMURBKShift
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBKUpper *RIBannerPageMediaType Envelope
+*UIConstraints: *OutputBin FinVOLGABBKLower *RIBannerPageMediaType Labels
+*UIConstraints: *MediaType Envelope *OutputBin FinVOLGABUpper
 *UIConstraints: *StapleLocation CenterW *MediaType Envelope
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinVOLGADBKUpper
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin FinVOLGABUpper
+*UIConstraints: *OutputBin FinAMURBKShift *Finisher FinVOLGADBK
+*UIConstraints: *Finisher FinVOLGADBK *OutputBin FinVOLGABBKUpper
+*UIConstraints: *OutputBin FinVOLGADBKShift *Finisher FinAMUR
+*UIConstraints: *PageSize A5 *OutputBin FinVOLGADBKLower
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinVOLGADShift
+*UIConstraints: *Finisher FinVOLGABBK *OutputBin FinAMURUpper
+*UIConstraints: *PageSize 8Kai *OutputBin FinAMURBBKLower
 *UIConstraints: *InputSlot MultiTray *StapleLocation UpperLeft
+*UIConstraints: *OutputBin FinVOLGADShift *StapleLocation CenterW
 *UIConstraints: *OutputBin Standard *ShiftTray Installed
 *UIConstraints: *MediaType OHP *StapleLocation CenterW
 *UIConstraints: *InputSlot MultiTray *StapleLocation RightW
+*UIConstraints: *OutputBin FinVOLGADShift *Finisher FinVOLGAB
+*UIConstraints: *OutputBin FinAMURBBKUpper *Finisher NotInstalled
 *UIConstraints: *InputSlot 2Tray *MediaType Labels
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinVOLGADBKLower
+*UIConstraints: *MediaType Thick3 *OutputBin FinVOLGADBKLower
+*UIConstraints: *MediaType Thick3 *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinVOLGABBKShift *PageSize DLEnv
+*UIConstraints: *PageSize F *OutputBin FinVOLGABBKLower
+*UIConstraints: *StapleLocation LeftW *OutputBin FinAMURBKUpper
+*UIConstraints: *OutputBin FinVOLGADBKLower *PageSize 8Kai
+*UIConstraints: *PageSize EnvC5 *OutputBin FinVOLGABUpper
+*UIConstraints: *OutputBin FinAMURBKShift *Finisher FinAMUR
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinVOLGADBKUpper
 *UIConstraints: *Finisher FinRUBICONB *ExternalTray Installed
-*UIConstraints: *PageSize DLEnv *InputSlot LCT
+*UIConstraints: *PageSize DLEnv *InputSlot 5Tray
+*UIConstraints: *Finisher FinVOLGAB *OutputBin FinVOLGABBKLower
 *UIConstraints: *StapleLocation UpperW *InputSlot MultiTray
-*UIConstraints: *PageSize B4 *InputSlot LCT
-*UIConstraints: *PageSize 11x15 *InputSlot LCT
-*UIConstraints: *PageSize 12x18 *InputSlot LCT
+*UIConstraints: *PageSize A5 *OutputBin FinAMURBBKLower
+*UIConstraints: *PageSize B4 *InputSlot 5Tray
+*UIConstraints: *OutputBin FinVOLGADBKShift *Finisher FinVOLGABBK
+*UIConstraints: *StapleLocation UpperW *OutputBin FinAMURBKLower
+*UIConstraints: *Finisher FinAMUR *OutputBin FinVOLGADBKShift
+*UIConstraints: *OutputBin FinAMURBKUpper *RIBannerPageMediaType Thick4
+*UIConstraints: *StapleLocation RightW *OutputBin FinAMURBBKUpper
+*UIConstraints: *PageSize 11x15 *InputSlot 5Tray
+*UIConstraints: *OutputBin FinAMURBKUpper *RIBannerPageMediaType Thick3
+*UIConstraints: *PageSize 12x18 *InputSlot 5Tray
 *UIConstraints: *PageSize 12x18 *InputSlot 3Tray
-*UIConstraints: *PageSize Tabloid *InputSlot LCT
+*UIConstraints: *MediaType Thick4 *StapleLocation UpperRight
+*UIConstraints: *OutputBin FinVOLGABBKShift *Finisher FinVOLGAD
+*UIConstraints: *PageSize Tabloid *InputSlot 5Tray
 *UIConstraints: *RIBannerPageMediaType Labels *RIBannerPageInputSlot 4Tray
+*UIConstraints: *OutputBin FinAMURBKLower *Finisher NotInstalled
+*UIConstraints: *OutputBin FinVOLGABBKShift *Finisher FinVOLGAB
 *UIConstraints: *StapleLocation LeftW *InputSlot MultiTray
+*UIConstraints: *OutputBin FinAMURBKUpper *PageSize EnvC6
+*UIConstraints: *OutputBin FinAMURBKUpper *PageSize EnvC5
+*UIConstraints: *StapleLocation LeftW *OutputBin FinVOLGABBKLower
+*UIConstraints: *PageSize A6 *OutputBin FinVOLGABBKLower
+*UIConstraints: *PageSize EngQuatro *OutputBin FinVOLGABBKLower
+*UIConstraints: *OutputBin FinRUBICONBShift *Finisher FinAMURBK
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin FinVOLGABUpper
+*UIConstraints: *PageSize EngQuatro *OutputBin FinVOLGADBKLower
+*UIConstraints: *Finisher FinVOLGABBK *OutputBin FinVOLGABShift
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin FinAMURBKUpper
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin FinVOLGADUpper
+*UIConstraints: *Finisher FinAMURBK *OutputBin FinVOLGABBKShift
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinVOLGABShift
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinAMURBBKLower
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinVOLGABBKUpper
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize F
+*UIConstraints: *StapleLocation LeftW *OutputBin FinVOLGABUpper
+*UIConstraints: *PageSize EnvC5 *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *Finisher FinVOLGABBK
+*UIConstraints: *OutputBin FinAMURBBKUpper *MediaType Thick4
+*UIConstraints: *OutputBin FinAMURBBKUpper *MediaType Thick3
+*UIConstraints: *Finisher FinVOLGABBK *OutputBin FinAMURBBKShift
+*UIConstraints: *MediaType OHP *OutputBin FinVOLGABBKLower
+*UIConstraints: *OutputBin FinVOLGABBKShift *PageSize Env10
+*UIConstraints: *OutputBin FinVOLGADBKLower *PageSize F
+*UIConstraints: *OutputBin FinVOLGADBKLower *PageSize EnvC6
+*UIConstraints: *OutputBin FinVOLGABBKLower *StapleLocation RightW
+*UIConstraints: *OutputBin FinVOLGADBKLower *PageSize EnvC5
+*UIConstraints: *OutputBin FinAMURBKLower *RIBannerPageMediaType Labels
 *UIConstraints: *Finisher FinAMUR *OptionTray 1Cassette
+*UIConstraints: *Finisher NotInstalled *OutputBin FinAMURBBKUpper
+*UIConstraints: *PageSize Env10 *OutputBin FinAMURBBKLower
+*UIConstraints: *PageSize 8Kai *OutputBin FinVOLGABBKLower
+*UIConstraints: *PageSize FanFoldGermanLegal *OutputBin FinAMURBBKLower
 *UIConstraints: *RIBannerPageMediaType Labels *RIBannerPageInputSlot 1Tray
+*UIConstraints: *OutputBin FinAMURBBKLower *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation RightW *OutputBin FinVOLGADUpper
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinVOLGADBKLower
 *UIConstraints: *RIBannerPageMediaType Thin *RIBannerPageInputSlot 1Tray
+*UIConstraints: *Finisher FinVOLGADBK *OptionTray 1Cassette
 *UIConstraints: *MediaType Thin *InputSlot 4Tray
+*UIConstraints: *PageSize Statement *OutputBin FinAMURBBKLower
+*UIConstraints: *Finisher FinVOLGAB *OutputBin FinVOLGADBKLower
+*UIConstraints: *PageSize DLEnv *OutputBin FinVOLGADBKLower
+*UIConstraints: *Finisher FinVOLGADBK *OutputBin FinVOLGABUpper
+*UIConstraints: *StapleLocation CenterW *MediaType Thick4
 *UIConstraints: *StapleLocation CenterW *MediaType Thick3
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinVOLGADBKLower
+*UIConstraints: *OutputBin FinAMURBKUpper *PageSize 12x18
+*UIConstraints: *OutputBin FinAMURBKShift *StapleLocation CenterW
+*UIConstraints: *OutputBin FinAMURUpper *MediaType Envelope
 *UIConstraints: *StapleLocation UpperRight *OutputBin Standard
 *UIConstraints: *StapleLocation RightW *OutputBin Bin1
+*UIConstraints: *PageSize EnvC6 *OutputBin FinVOLGADBKUpper
 *UIConstraints: *StapleLocation RightW *MediaType OHP
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinAMURBBKLower
+*UIConstraints: *MediaType Thick4 *OutputBin FinVOLGABBKLower
+*UIConstraints: *OutputBin FinVOLGABShift *Finisher FinRUBICONB
+*UIConstraints: *OutputBin FinVOLGABBKLower *Finisher NotInstalled
+*UIConstraints: *OutputBin FinVOLGABBKUpper *RIBannerPageMediaType Envelope
+*UIConstraints: *OutputBin FinAMURBBKShift *Finisher NotInstalled
+*UIConstraints: *OutputBin FinVOLGABShift *PageSize EnvMonarch
+*UIConstraints: *RIBannerPageMediaType OHP *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinVOLGADShift *PageSize Env10
 *UIConstraints: *RIBannerPageMediaType OHP *RIBannerPageInputSlot 2Tray
+*UIConstraints: *Finisher NotInstalled *OutputBin FinVOLGABBKShift
+*UIConstraints: *PageSize 16Kai *OutputBin FinVOLGADBKLower
+*UIConstraints: *OutputBin FinVOLGADBKLower *Finisher FinVOLGAD
+*UIConstraints: *OutputBin FinVOLGADBKLower *Finisher FinVOLGAB
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinVOLGADUpper
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize EnvMonarch
+*UIConstraints: *PageSize Executive *OutputBin FinVOLGADBKLower
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinVOLGADShift
 *UIConstraints: *MediaType OHP *StapleLocation UpperW
+*UIConstraints: *OutputBin FinVOLGADBKLower *Finisher FinRUBICONB
+*UIConstraints: *OutputBin FinVOLGADBKUpper *Finisher FinVOLGABBK
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinVOLGABBKUpper
 *UIConstraints: *MediaType Envelope *StapleLocation UpperLeft
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinVOLGADBKShift
+*UIConstraints: *MediaType OHP *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBKUpper *Finisher FinVOLGADBK
 *UIConstraints: *RIBannerPageInputSlot 3Tray *RIBannerPageMediaType Labels
-*UIConstraints: *InputSlot LCT *PageSize Executive
-*UIConstraints: *PageSize 8Kai *InputSlot LCT
+*UIConstraints: *StapleLocation RightW *OutputBin FinAMURBKLower
+*UIConstraints: *RIBannerPageMediaType Labels *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinVOLGABUpper *Finisher FinVOLGADBK
+*UIConstraints: *Finisher FinAMUR *OutputBin FinAMURBBKUpper
+*UIConstraints: *MediaType Envelope *OutputBin FinAMURUpper
+*UIConstraints: *OutputBin FinRUBICONBShift *Finisher NotInstalled
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinVOLGADShift
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinVOLGABBKLower
+*UIConstraints: *OutputBin FinAMURBBKShift *Finisher FinAMURBK
+*UIConstraints: *OutputBin FinAMURBBKShift *PageSize EnvC5
+*UIConstraints: *OutputBin FinAMURBBKShift *PageSize EnvC6
+*UIConstraints: *StapleLocation RightW *OutputBin FinVOLGADBKUpper
+*UIConstraints: *OutputBin FinVOLGADUpper *PageSize DLEnv
+*UIConstraints: *InputSlot 5Tray *PageSize Executive
+*UIConstraints: *OutputBin FinVOLGABBKShift *Finisher FinAMUR
+*UIConstraints: *OutputBin FinVOLGADBKLower *MediaType Labels
+*UIConstraints: *MediaType Envelope *OutputBin FinVOLGADBKLower
+*UIConstraints: *MediaType Thick4 *StapleLocation LeftW
+*UIConstraints: *PageSize A5 *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinAMURUpper *PageSize 12x18
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin FinVOLGADUpper
+*UIConstraints: *PageSize 8Kai *InputSlot 5Tray
+*UIConstraints: *PageSize 12x18 *OutputBin FinAMURBKShift
+*UIConstraints: *Finisher FinVOLGAD *OutputBin FinVOLGADBKLower
+*UIConstraints: *OutputBin FinAMURBKLower *PageSize EnvC5
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinVOLGABBKLower
+*UIConstraints: *PageSize Env10 *OutputBin FinVOLGADUpper
+*UIConstraints: *OutputBin FinAMURBKLower *PageSize EnvC6
+*UIConstraints: *StapleLocation LeftW *OutputBin FinVOLGADBKLower
+*UIConstraints: *RIBannerPageMediaType OHP *OutputBin FinAMURBBKLower
 *UIConstraints: *ShiftTray NotInstalled *OutputBin Shift
+*UIConstraints: *PageSize B6 *OutputBin FinVOLGADBKLower
 *UIConstraints: *ShiftTray Installed *Finisher FinAMUR
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinVOLGADBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize 8Kai
 *UIConstraints: *RIBannerPageInputSlot 4Tray *OptionTray NotInstalled
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinVOLGABUpper
+*UIConstraints: *PageSize 12x18 *OutputBin FinAMURUpper
+*UIConstraints: *OutputBin FinVOLGADBKUpper *StapleLocation RightW
 *UIConstraints: *RIBannerPageInputSlot 4Tray *RIBannerPageMediaType Labels
 *UIConstraints: *InputSlot 4Tray *OptionTray 1Cassette
 *UIConstraints: *MediaType Labels *StapleLocation RightW
+*UIConstraints: *OutputBin FinVOLGADUpper *RIBannerPageMediaType Thick4
+*UIConstraints: *Finisher NotInstalled *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize GovernmentLG
+*UIConstraints: *OutputBin FinVOLGADUpper *RIBannerPageMediaType Thick3
 *UIConstraints: *StapleLocation LeftW *MediaType Envelope
+*UIConstraints: *PageSize DLEnv *OutputBin FinVOLGABBKUpper
 *UIConstraints: *InputSlot MultiTray *StapleLocation UpperRight
+*UIConstraints: *OutputBin FinVOLGABBKLower *PageSize Statement
 *UIConstraints: *OptionTray 1Cassette *InputSlot 4Tray
+*UIConstraints: *PageSize EnvC6 *OutputBin FinAMURBKShift
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin FinAMURBBKUpper
+*UIConstraints: *MediaType Thick4 *OutputBin FinVOLGABBKUpper
+*UIConstraints: *OutputBin FinAMURBKLower *PageSize F
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinAMURBBKLower
+*UIConstraints: *PageSize Statement *OutputBin FinAMURBKLower
+*UIConstraints: *ShiftTray Installed *Finisher FinVOLGADBK
 *UIConstraints: *LargeCapacityTray Installed *OptionTray 1Cassette
+*UIConstraints: *StapleLocation CenterW *OutputBin FinAMURBBKUpper
+*UIConstraints: *MediaType Envelope *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKLower *RIBannerPageMediaType OHP
+*UIConstraints: *OutputBin FinVOLGABUpper *PageSize Env10
+*UIConstraints: *MediaType Thick4 *StapleLocation RightW
+*UIConstraints: *Finisher FinVOLGAB *OutputBin FinVOLGABBKShift
+*UIConstraints: *OutputBin FinAMURBBKLower *RIBannerPageMediaType Thick3
+*UIConstraints: *OutputBin FinAMURBBKLower *RIBannerPageMediaType Thick4
+*UIConstraints: *OutputBin FinAMURBBKLower *RIBannerPageMediaType Thick1
+*UIConstraints: *OutputBin FinAMURBBKLower *RIBannerPageMediaType Thick2
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinAMURBKUpper
+*UIConstraints: *OutputBin FinAMURBKUpper *StapleLocation UpperLeft
+*UIConstraints: *OutputBin FinAMURBBKUpper *Finisher FinVOLGADBK
 *UIConstraints: *MediaType Envelope *StapleLocation LeftW
-*UIConstraints: *PageSize EnvC6 *InputSlot LCT
+*UIConstraints: *OutputBin FinRUBICONBShift *Finisher FinVOLGADBK
+*UIConstraints: *PageSize Statement *OutputBin FinVOLGABBKLower
+*UIConstraints: *OutputBin FinRUBICONBShift *Finisher FinAMURBBK
+*UIConstraints: *Finisher FinVOLGABBK *OutputBin FinVOLGADUpper
+*UIConstraints: *PageSize 8Kai *OutputBin FinVOLGADBKLower
+*UIConstraints: *PageSize EnvC6 *InputSlot 5Tray
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinAMURBKShift
 *UIConstraints: *MediaType OHP *InputSlot 4Tray
+*UIConstraints: *StapleLocation RightW *OutputBin FinAMURBKUpper
+*UIConstraints: *OutputBin FinVOLGABBKLower *PageSize 8Kai
+*UIConstraints: *OutputBin FinAMURBKLower *StapleLocation LeftW
+*UIConstraints: *OutputBin FinVOLGADBKLower *RIBannerPageMediaType Thick4
+*UIConstraints: *OutputBin FinVOLGADBKLower *RIBannerPageMediaType Thick3
 *UIConstraints: *StapleLocation UpperLeft *InputSlot MultiTray
 *UIConstraints: *MediaType Envelope *OutputBin External
 *UIConstraints: *StapleLocation UpperRight *InputSlot MultiTray
-*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot LCT
-*UIConstraints: *InputSlot LCT *PageSize GovernmentLG
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinAMURBBKLower
+*UIConstraints: *PageSize FanFoldGermanLegal *InputSlot 5Tray
+*UIConstraints: *Finisher FinVOLGAB *OutputBin FinVOLGADBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *Finisher FinVOLGADBK
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKShift *StapleLocation CenterW
+*UIConstraints: *OutputBin FinVOLGADUpper *Finisher FinAMURBBK
+*UIConstraints: *PageSize EnvC6 *OutputBin FinAMURBKLower
+*UIConstraints: *InputSlot 5Tray *PageSize GovernmentLG
 *UIConstraints: *StapleLocation UpperRight *MediaType Labels
-*UIConstraints: *InputSlot LCT *PageSize Env10
+*UIConstraints: *OutputBin FinRUBICONBShift *StapleLocation CenterW
+*UIConstraints: *InputSlot 5Tray *PageSize Env10
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinVOLGADBKUpper
+*UIConstraints: *OutputBin FinVOLGADBKUpper *RIBannerPageMediaType Thick4
+*UIConstraints: *OutputBin FinAMURBKShift *MediaType Envelope
+*UIConstraints: *PageSize 12x18 *OutputBin FinAMURBBKUpper
 *UIConstraints: *InputSlot 1Tray *MediaType Thin
+*UIConstraints: *StapleLocation RightW *OutputBin FinVOLGABBKUpper
 *UIConstraints: *OutputBin Bin1 *StapleLocation UpperRight
-*UIConstraints: *PageSize A3 *InputSlot LCT
-*UIConstraints: *LargeCapacityTray NotInstalled *RIBannerPageInputSlot LCT
+*UIConstraints: *PageSize A3 *InputSlot 5Tray
+*UIConstraints: *OutputBin FinVOLGADBKUpper *RIBannerPageMediaType Thick3
+*UIConstraints: *Finisher FinVOLGADBK *ExternalTray Installed
+*UIConstraints: *Finisher FinAMUR *OutputBin FinVOLGADBKLower
+*UIConstraints: *StapleLocation UpperW *OutputBin FinVOLGABBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *StapleLocation LeftW
+*UIConstraints: *OutputBin FinVOLGABUpper *RIBannerPageMediaType Thick4
+*UIConstraints: *LargeCapacityTray NotInstalled *RIBannerPageInputSlot 5Tray
+*UIConstraints: *OutputBin FinVOLGABUpper *RIBannerPageMediaType Thick3
 *UIConstraints: *MediaType Labels *InputSlot 2Tray
 *UIConstraints: *Finisher NotInstalled *StapleLocation UpperLeft
+*UIConstraints: *PageSize 12x18 *OutputBin FinAMURBKUpper
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinAMURBKUpper
+*UIConstraints: *OutputBin FinAMURShift *Finisher NotInstalled
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageSize DLEnv
 *UIConstraints: *RIBannerPageMediaType Thin *RIBannerPageInputSlot 3Tray
+*UIConstraints: *OutputBin FinVOLGADShift *Finisher FinAMURBBK
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinAMURUpper
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinVOLGABBKLower
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin FinVOLGABBKUpper
+*UIConstraints: *OutputBin FinAMURBKLower *MediaType Labels
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinVOLGABBKLower
+*UIConstraints: *StapleLocation LeftW *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBKLower *PageSize GovernmentLG
+*UIConstraints: *StapleLocation CenterW *OutputBin FinVOLGADUpper
+*UIConstraints: *PageSize EnvC6 *OutputBin FinAMURBBKLower
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinAMURBKUpper
+*UIConstraints: *OutputBin FinAMURUpper *StapleLocation UpperW
+*UIConstraints: *OutputBin FinVOLGADShift *Finisher FinAMURBK
 *UIConstraints: *MediaType Thin *InputSlot 3Tray
-*UIConstraints: *PageSize Statement *InputSlot LCT
-*UIConstraints: *InputSlot LCT *PageSize EngQuatro
-*UIConstraints: *PageSize B6 *InputSlot LCT
+*UIConstraints: *PageSize Statement *InputSlot 5Tray
+*UIConstraints: *InputSlot 5Tray *PageSize EngQuatro
+*UIConstraints: *Finisher FinVOLGAD *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinVOLGADUpper *Finisher FinRUBICONB
+*UIConstraints: *OutputBin FinAMURUpper *StapleLocation UpperLeft
+*UIConstraints: *OutputBin FinAMURBKShift *PageSize DLEnv
+*UIConstraints: *OutputBin FinVOLGABShift *PageSize EnvC5
+*UIConstraints: *MediaType Thick4 *OutputBin FinAMURBKLower
+*UIConstraints: *PageSize B6 *InputSlot 5Tray
+*UIConstraints: *Finisher FinVOLGABBK *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinVOLGADBKUpper *PageSize EnvC5
+*UIConstraints: *OutputBin FinVOLGADBKUpper *PageSize EnvC6
+*UIConstraints: *OutputBin FinVOLGABShift *PageSize EnvC6
 *UIConstraints: *RIBannerPageInputSlot 1Tray *RIBannerPageMediaType OHP
+*UIConstraints: *Finisher FinAMURBK *OutputBin FinVOLGABBKUpper
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize 11x15
 *UIConstraints: *Finisher FinVOLGAB *StapleLocation CenterW
 *UIConstraints: *ExternalTray Installed *ShiftTray Installed
 *UIConstraints: *Finisher FinAMUR *StapleLocation CenterW
 *UIConstraints: *MediaType Labels *InputSlot 4Tray
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageSize 12x18
+*UIConstraints: *PageSize Env10 *OutputBin FinVOLGABUpper
+*UIConstraints: *Finisher FinAMUR *OutputBin FinVOLGABBKLower
 *UIConstraints: *OutputBin Bin1 *StapleLocation CenterW
+*UIConstraints: *Finisher FinAMURBK *OutputBin FinRUBICONBShift
+*UIConstraints: *OutputBin FinVOLGABBKUpper *MediaType Envelope
+*UIConstraints: *RIBannerPageMediaType Thick2 *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinVOLGABBKUpper *StapleLocation UpperW
 *UIConstraints: *Finisher NotInstalled *StapleLocation CenterW
-*UIConstraints: *InputSlot LCT *PageSize EnvMonarch
+*UIConstraints: *OutputBin FinVOLGADShift *Finisher FinVOLGADBK
+*UIConstraints: *OutputBin FinAMURBKLower *Finisher FinVOLGABBK
+*UIConstraints: *OutputBin FinVOLGADBKUpper *StapleLocation UpperLeft
+*UIConstraints: *OutputBin FinVOLGABBKUpper *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKLower *Finisher FinVOLGAD
+*UIConstraints: *MediaType Thick1 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *Finisher FinVOLGAB
+*UIConstraints: *InputSlot 5Tray *PageSize EnvMonarch
 *UIConstraints: *MediaType OHP *OutputBin Bin1
 *UIConstraints: *Finisher FinAMURBK *ShiftTray Installed
-*UIConstraints: *InputSlot LCT *PageSize A3
-*UIConstraints: *InputSlot LCT *PageSize A6
-*UIConstraints: *InputSlot LCT *PageSize A5
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinAMURShift
+*UIConstraints: *OutputBin FinVOLGABUpper *Finisher NotInstalled
+*UIConstraints: *RIBannerPageMediaType Labels *OutputBin FinVOLGABBKLower
+*UIConstraints: *StapleLocation CenterW *OutputBin FinVOLGABBKUpper
+*UIConstraints: *OutputBin FinVOLGADBKShift *MediaType Envelope
+*UIConstraints: *MediaType Thick3 *OutputBin FinVOLGABUpper
+*UIConstraints: *PageSize EnvC5 *OutputBin FinVOLGABBKLower
+*UIConstraints: *InputSlot 5Tray *PageSize A3
+*UIConstraints: *OutputBin FinVOLGADShift *Finisher FinRUBICONB
+*UIConstraints: *OutputBin FinAMURBKUpper *PageSize Env10
+*UIConstraints: *OutputBin FinRUBICONBShift *Finisher FinVOLGAD
+*UIConstraints: *MediaType Envelope *OutputBin FinVOLGADBKShift
+*UIConstraints: *InputSlot 5Tray *PageSize A6
+*UIConstraints: *InputSlot 5Tray *PageSize A5
+*UIConstraints: *OutputBin FinRUBICONBShift *Finisher FinVOLGAB
 *UIConstraints: *StapleLocation LeftW *MediaType OHP
-*UIConstraints: *InputSlot LCT *PageSize B6
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinVOLGADBKLower
+*UIConstraints: *OutputBin FinVOLGADBKShift *Finisher FinAMURBK
+*UIConstraints: *OutputBin FinAMURBBKShift *PageSize 12x18
+*UIConstraints: *InputSlot 5Tray *PageSize B6
+*UIConstraints: *OutputBin FinVOLGABBKUpper *Finisher FinRUBICONB
+*UIConstraints: *StapleLocation UpperW *OutputBin FinAMURUpper
+*UIConstraints: *Finisher FinVOLGABBK *OutputBin FinVOLGADBKLower
+*UIConstraints: *Finisher FinVOLGAD *OutputBin FinAMURBBKUpper
 *UIConstraints: *StapleLocation CenterW *Finisher FinAMUR
-*UIConstraints: *InputSlot LCT *PageSize B4
+*UIConstraints: *InputSlot 5Tray *PageSize B4
+*UIConstraints: *MediaType Thick1 *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinVOLGABBKLower *Finisher FinAMURBK
 *UIConstraints: *OptionTray NotInstalled *InputSlot 4Tray
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinRUBICONBShift
+*UIConstraints: *OutputBin FinAMURBKLower *PageSize 8Kai
+*UIConstraints: *PageSize EnvC5 *OutputBin FinAMURBKUpper
 *UIConstraints: *RIBannerPageInputSlot 1Tray *RIBannerPageMediaType Labels
+*UIConstraints: *OutputBin FinAMURUpper *Finisher FinVOLGADBK
+*UIConstraints: *OutputBin FinVOLGABBKUpper *Finisher FinAMURBK
+*UIConstraints: *Finisher FinVOLGABBK *OutputBin FinRUBICONBShift
 *UIConstraints: *OutputBin Standard *StapleLocation UpperLeft
+*UIConstraints: *Finisher FinVOLGADBK *OutputBin FinAMURShift
+*UIConstraints: *OutputBin FinVOLGADUpper *Finisher FinAMURBK
+*UIConstraints: *MediaType Thick2 *OutputBin FinAMURBBKLower
+*UIConstraints: *PageSize EnvC5 *OutputBin FinVOLGADShift
 *UIConstraints: *RIBannerPageInputSlot 4Tray *RIBannerPageMediaType Thin
-*UIConstraints: *PageSize 16Kai *InputSlot LCT
+*UIConstraints: *PageSize 16Kai *InputSlot 5Tray
 *UIConstraints: *StapleLocation RightW *MediaType Labels
+*UIConstraints: *PageSize EnvC6 *OutputBin FinVOLGABBKUpper
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinVOLGABUpper
+*UIConstraints: *Finisher FinVOLGAD *OutputBin FinAMURShift
+*UIConstraints: *PageSize DLEnv *OutputBin FinAMURBBKLower
+*UIConstraints: *RIBannerPageMediaType Labels *OutputBin FinAMURBBKLower
+*UIConstraints: *Finisher FinVOLGAD *ExternalTray Installed
+*UIConstraints: *Finisher FinVOLGABBK *OutputBin FinVOLGADShift
+*UIConstraints: *OutputBin FinVOLGABBKUpper *StapleLocation UpperRight
+*UIConstraints: *PageSize EnvC6 *OutputBin FinVOLGADBKShift
+*UIConstraints: *OutputBin FinVOLGADUpper *RIBannerPageMediaType Envelope
+*UIConstraints: *OutputBin FinAMURBKUpper *StapleLocation UpperRight
+*UIConstraints: *Finisher FinVOLGAB *OutputBin FinVOLGADBKUpper
+*UIConstraints: *Finisher FinVOLGAB *OutputBin FinAMURBKLower
 *UIConstraints: *LargeCapacityTray Installed *OptionTray NotInstalled
+*UIConstraints: *OutputBin FinVOLGABBKLower *PageSize EngQuatro
+*UIConstraints: *OutputBin FinAMURUpper *Finisher FinRUBICONB
 *UIConstraints: *OptionTray 1Cassette *LargeCapacityTray Installed
+*UIConstraints: *OutputBin FinAMURBKLower *RIBannerPageMediaType Thick1
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinVOLGADUpper
+*UIConstraints: *OutputBin FinAMURBKLower *RIBannerPageMediaType Thick2
+*UIConstraints: *OutputBin FinAMURBKLower *RIBannerPageMediaType Thick3
+*UIConstraints: *OutputBin FinVOLGADBKLower *PageSize 16Kai
+*UIConstraints: *OutputBin FinAMURBKLower *RIBannerPageMediaType Thick4
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinVOLGADBKShift
 *UIConstraints: *Finisher NotInstalled *StapleLocation RightW
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize Executive
+*UIConstraints: *OutputBin FinAMURBBKShift *PageSize DLEnv
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinVOLGABBKUpper
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinAMURUpper
+*UIConstraints: *OutputBin FinVOLGADBKLower *Finisher FinAMUR
+*UIConstraints: *Finisher FinAMUR *OutputBin FinAMURBBKShift
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin FinVOLGADBKLower
+*UIConstraints: *PageSize 12x18 *OutputBin FinAMURShift
+*UIConstraints: *OutputBin FinVOLGADUpper *Finisher FinVOLGADBK
+*UIConstraints: *OutputBin FinAMURBKUpper *StapleLocation CenterW
+*UIConstraints: *OutputBin FinVOLGABUpper *Finisher FinAMUR
 *UIConstraints: *StapleLocation UpperRight *OutputBin Bin1
-*UIConstraints: *MediaType Thin *InputSlot LCT
-*UIConstraints: *InputSlot LCT *MediaType Envelope
+*UIConstraints: *OutputBin FinAMURBBKLower *MediaType OHP
+*UIConstraints: *MediaType Thin *InputSlot 5Tray
+*UIConstraints: *OutputBin FinAMURBBKLower *RIBannerPageMediaType Labels
+*UIConstraints: *InputSlot 5Tray *MediaType Envelope
+*UIConstraints: *Finisher FinVOLGABBK *OutputBin FinVOLGADBKShift
+*UIConstraints: *OutputBin FinVOLGABUpper *MediaType Thick3
+*UIConstraints: *OutputBin FinVOLGABUpper *MediaType Thick4
+*UIConstraints: *PageSize EnvC5 *OutputBin FinVOLGADBKShift
 *UIConstraints: *InputSlot 2Tray *MediaType OHP
-*UIConstraints: *InputSlot LCT *PageSize EnvC6
-*UIConstraints: *InputSlot LCT *PageSize EnvC5
+*UIConstraints: *OutputBin FinVOLGADUpper *PageSize Env10
+*UIConstraints: *InputSlot 5Tray *PageSize EnvC6
+*UIConstraints: *InputSlot 5Tray *PageSize EnvC5
 *UIConstraints: *Finisher FinAMUR *ExternalTray Installed
+*UIConstraints: *OutputBin FinVOLGABUpper *StapleLocation RightW
+*UIConstraints: *OutputBin FinAMURBKLower *PageSize 11x15
+*UIConstraints: *OutputBin FinAMURUpper *Finisher FinAMURBK
+*UIConstraints: *Finisher FinVOLGABBK *OutputBin FinVOLGABUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *Finisher FinAMURBK
 *UIConstraints: *RIBannerPageInputSlot 1Tray *RIBannerPageMediaType Thin
+*UIConstraints: *PageSize Env10 *OutputBin FinVOLGADBKShift
+*UIConstraints: *PageSize EnvC6 *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *Finisher FinAMUR
+*UIConstraints: *Finisher FinVOLGAB *OutputBin FinAMURShift
 
 *%========== Banner Page/Job Type ==========
 *UIConstraints: *RIBannerPagePrint True *JobType SamplePrint
 *UIConstraints: *RIBannerPagePrint True *JobType LockedPrint
+*UIConstraints: *RIBannerPagePrint True *JobType HoldPrint
+*UIConstraints: *RIBannerPagePrint True *JobType StoredPrint
+*UIConstraints: *RIBannerPagePrint True *JobType StoreandPrint
 *UIConstraints: *RIBannerPagePrint True *JobType DocServer
 
 *% end of Printer Description file

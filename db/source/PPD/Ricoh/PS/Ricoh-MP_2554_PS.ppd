@@ -4,11 +4,11 @@
 *%    for "Ricoh MP 2554 PS"
 *%
 *%    CreationDate: 2013/06/27
-*%    Modified:     2015/01/24
+*%    Modified:     2017/02/07
 *%
-*%    java.util.zip.CRC32: 5ad216e5
+*%    java.util.zip.CRC32: 55d512c7
 *%
-*%    COPYRIGHT (C) 2013-2015 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2013-2017 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -32,7 +32,7 @@
 *%    [this is the MIT open source license -- please see www.opensource.org]
 *%
 
-*FileVersion: "2.2"
+*FileVersion: "2.3"
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
@@ -216,6 +216,7 @@ restore
 *Finisher NotInstalled/Not Installed: ""
 *Finisher FinRUBICONB/Finisher SR3130: ""
 *Finisher FinAMURBK/Finisher SR3150: ""
+*Finisher FinAMURBBK/Finisher SR3220: ""
 *Finisher FinAMUR/Finisher SR3140: ""
 *Finisher FinUYUNI/Finisher SR3180: ""
 *?Finisher: "
@@ -228,6 +229,7 @@ userdict /86f6369627 known {
 	    {
 		dup 39 eq {(FinRUBICONB) exit} if
 		dup 43 eq {(FinAMURBK) exit} if
+		dup 51 eq {(FinAMURBBK) exit} if
 		dup 42 eq {(FinAMUR) exit} if
 		dup 45 eq {(FinUYUNI)}{pop} ifelse
 	    } forall
@@ -513,7 +515,7 @@ restore
     dup [576 936]  (F) put
     dup [595 935]  (Folio) put
     dup [612 936]  (FanFoldGermanLegal) put
-    dup [792 1224] (11x17) put
+    dup [792 1224] (Tabloid) put
     dup [864 1296] (12x18) put
     dup [792 1080] (11x15) put
     dup [720 1008] (10x14) put
@@ -540,7 +542,7 @@ restore
     dup [576 936]  (F.FullBleed) put
     dup [595 935]  (Folio.FullBleed) put
     dup [612 936]  (FanFoldGermanLegal.FullBleed) put
-    dup [792 1224] (11x17.FullBleed) put
+    dup [792 1224] (Tabloid.FullBleed) put
     dup [864 1296] (12x18.FullBleed) put
     dup [792 1080] (11x15.FullBleed) put
     dup [720 1008] (10x14.FullBleed) put
@@ -1138,6 +1140,21 @@ restore
 <</OutputType (FinBooklet)>>setpagedevice\n&&
 } stopped cleartomark\n"
 *End
+*OutputBin FinAMURBBKUpper/Finisher SR3220 Upper Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinAMURBBKUpper"
+*FoomaticRIPOptionSetting OutputBin=FinAMURBBKUpper: "mark{\n&&
+<</OutputType (FinProof)>>setpagedevice\n&&
+} stopped cleartomark\n"
+*End
+*OutputBin FinAMURBBKShift/Finisher SR3220 Shift Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinAMURBBKShift"
+*FoomaticRIPOptionSetting OutputBin=FinAMURBBKShift: "mark{\n&&
+<</OutputType (FinShift)>>setpagedevice\n&&
+} stopped cleartomark\n"
+*End
+*OutputBin FinAMURBBKLower/Finisher SR3220 Booklet Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinAMURBBKLower"
+*FoomaticRIPOptionSetting OutputBin=FinAMURBBKLower: "mark{\n&&
+<</OutputType (FinBooklet)>>setpagedevice\n&&
+} stopped cleartomark\n"
+*End
 *OutputBin FinAMURUpper/Finisher SR3140 Upper Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinAMURUpper"
 *FoomaticRIPOptionSetting OutputBin=FinAMURUpper: "mark{\n&&
 <</OutputType (FinProof)>>setpagedevice\n&&
@@ -1163,31 +1180,38 @@ restore
 		    {
 			dup 39 eq {(FinRUBICONB) exit} if
 			dup 43 eq {(FinAMURBK) exit} if
+			dup 51 eq {(FinAMURBBK) exit} if
 			dup 42 eq {(FinAMUR) exit} if
 			dup 45 eq {(FinUYUNI)}{pop} ifelse
 		    } forall
 		}{pop} ifelse
 	} if
-  currentpagedevice /OutputType get 
+  currentpagedevice /OutputType get
 	dup (FinShift) eq {
-		pop 
+		pop
 		dup (FinRUBICONB) eq {pop (FinRUBICONBShift)} {
 		dup (FinAMURBK)   eq {pop (FinAMURBKShift)  } {
+		dup (FinAMURBBK)  eq {pop (FinAMURBBKShift) } {
 		dup (FinAMUR)     eq {pop (FinAMURShift)    } {
 		dup (FinUYUNI)    eq {pop (FinUYUNIShift)   } {
-			}ifelse 
-			}ifelse 
-			}ifelse 
+			}ifelse
+			}ifelse
+			}ifelse
+			}ifelse
 			}ifelse } {
 	dup (FinProof) eq {
-		pop 
+		pop
 		dup (FinAMURBK)   eq {pop (FinAMURBKUpper)  } {
+		dup (FinAMURBBK)  eq {pop (FinAMURBBKUpper) } {
 		dup (FinAMUR)     eq {pop (FinAMURUpper)    } {
-			}ifelse 
+			}ifelse
+			}ifelse
 			}ifelse } {
 	dup (FinBooklet) eq {
-		pop 
+		pop
 		dup (FinAMURBK)   eq {pop (FinAMURBKLower)  } {
+		dup (FinAMURBBK)  eq {pop (FinAMURBBKLower) } {
+			}ifelse
 			}ifelse } {
 	dup (1Bin) eq { pop (Bin1)} {
 	} ifelse
@@ -1952,6 +1976,66 @@ mark {\n&&
  >> /RDeviceProcSet /ProcSet findresource /SetJobType get exec\n&&
 }stopped cleartomark\n"
 *End
+*JobType HoldPrint/Hold Print: "%% FoomaticRIPOptionSetting: JobType=HoldPrint"
+*FoomaticRIPOptionSetting JobType=HoldPrint: "mark\n&&
+/usrcode where{pop}{/usrcode()def}ifelse\n&&
+(&user;) usrcode (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+cleartomark\n&&
+mark {\n&&
+ <<\n&&
+   /JobType 3\n&&
+   /JobInfo <<\n&&
+      /UserID (&user;)\n&&
+      /Time (20`date +%y%m%d%R | sed 's/://'`)\n&&
+      /JobID (&title;)\n&&
+      /HostLoginName (&user;)\n&&
+      /HostName (&host;)\n&&
+   >>\n&&
+ >> /RDeviceProcSet /ProcSet findresource /SetJobType get exec\n&&
+}stopped cleartomark\n"
+*End
+*JobType StoredPrint/Stored Print: "%% FoomaticRIPOptionSetting: JobType=StoredPrint"
+*FoomaticRIPOptionSetting JobType=StoredPrint: "mark\n&&
+/usrcode where{pop}{/usrcode()def}ifelse\n&&
+/sppswd where{pop}{/sppswd()def}ifelse\n&&
+(&user;) usrcode (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+cleartomark\n&&
+mark {\n&&
+ <<\n&&
+   /JobType 3\n&&
+   /JobInfo <<\n&&
+      /UserID (&user;)\n&&
+      /Time (20`date +%y%m%d%R | sed 's/://'`)\n&&
+      /Password sppswd\n&&
+      /JobID (&title;)\n&&
+      /HostLoginName (&user;)\n&&
+      /HostName (&host;)\n&&
+   >>\n&&
+   /JobAttr << /Save 1 /Public false >>\n&&
+ >> /RDeviceProcSet /ProcSet findresource /SetJobType get exec\n&&
+}stopped cleartomark\n"
+*End
+*JobType StoreandPrint/Store and Print: "%% FoomaticRIPOptionSetting: JobType=StoreandPrint"
+*FoomaticRIPOptionSetting JobType=StoreandPrint: "mark\n&&
+/usrcode where{pop}{/usrcode()def}ifelse\n&&
+/sppswd where{pop}{/sppswd()def}ifelse\n&&
+(&user;) usrcode (20`date +%y%m%d%R | sed 's/://'`) {setuserinfo} stopped\n&&
+cleartomark\n&&
+mark {\n&&
+ <<\n&&
+   /JobType 3\n&&
+   /JobInfo <<\n&&
+      /UserID (&user;)\n&&
+      /Time (20`date +%y%m%d%R | sed 's/://'`)\n&&
+      /Password sppswd\n&&
+      /JobID (&title;)\n&&
+      /HostLoginName (&user;)\n&&
+      /HostName (&host;)\n&&
+   >>\n&&
+   /JobAttr << /Save 2 /Public false >>\n&&
+ >> /RDeviceProcSet /ProcSet findresource /SetJobType get exec\n&&
+}stopped cleartomark\n"
+*End
 *JobType DocServer/Document Server: "%% FoomaticRIPOptionSetting: JobType=DocServer"
 *FoomaticRIPOptionSetting JobType=DocServer: "mark\n&&
 /usrcode where{pop}{/usrcode()def}ifelse\n&&
@@ -1990,6 +2074,24 @@ mark {\n&&
 *CustomLockedPrintPassword True/Custom Password: ""
 *ParamCustomLockedPrintPassword Password: 1 password 4 8
 *NonUIOrderDependency: 101 AnySetup *CustomLockedPrintPassword True
+
+*OpenUI *StoredPrintPassword/Stored Print Password (4-8 digits): PickOne
+*FoomaticRIPOption StoredPrintPassword: password CmdLine A
+*FoomaticRIPOptionMaxLength StoredPrintPassword:8
+*FoomaticRIPOptionAllowedChars StoredPrintPassword: "0-9"
+*OrderDependency: 106 AnySetup *StoredPrintPassword
+*FoomaticRIPOptionPrototype StoredPrintPassword: "/sppswd(%s)def\n"
+*DefaultStoredPrintPassword: None
+*StoredPrintPassword None/None: "/sppswd()def\n"
+*StoredPrintPassword 2001/2001: "/sppswd(2001)def\n"
+*StoredPrintPassword 2002/2002: "/sppswd(2002)def\n"
+*StoredPrintPassword 2003/2003: "/sppswd(2003)def\n"
+*CloseUI: *StoredPrintPassword
+
+*CustomStoredPrintPassword True/Custom Stored Print Password: ""
+*ParamCustomStoredPrintPassword Password: 1 password 4 8
+*NonUIOrderDependency: 107 AnySetup *CustomStoredPrintPassword True
+
 *OpenUI *DocServerPassword/Document Server Password (4-8 digits): PickOne
 *FoomaticRIPOption DocServerPassword: password CmdLine A
 *FoomaticRIPOptionMaxLength DocServerPassword:8
@@ -2006,6 +2108,7 @@ mark {\n&&
 *CustomDocServerPassword True/Custom Document Server Password: ""
 *ParamCustomDocServerPassword Password: 1 password 4 8
 *NonUIOrderDependency: 103 AnySetup *CustomDocServerPassword True
+
 *OpenUI *UserCode/User Code (up to 8 digits): PickOne
 *FoomaticRIPOption UserCode: string CmdLine A
 *FoomaticRIPOptionMaxLength UserCode:8
@@ -2022,6 +2125,7 @@ mark {\n&&
 *CustomUserCode True/Custom UserCode: ""
 *ParamCustomUserCode UserCode: 1 string 1 8
 *NonUIOrderDependency: 105 AnySetup *CustomUserCode True
+
 *CloseGroup: JobLog/Job Log
 *%========== Font ==========
 
@@ -2505,6 +2609,30 @@ mark {\n&&
 *UIConstraints: *StapleLocation RightW *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *StapleLocation UpperW
 *UIConstraints: *StapleLocation UpperW *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinAMURBBKUpper *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *StapleLocation UpperRight
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *StapleLocation LeftW
+*UIConstraints: *StapleLocation LeftW *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *StapleLocation RightW
+*UIConstraints: *StapleLocation RightW *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *StapleLocation UpperW
+*UIConstraints: *StapleLocation UpperW *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *StapleLocation CenterW
+*UIConstraints: *StapleLocation CenterW *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKShift *StapleLocation CenterW
+*UIConstraints: *StapleLocation CenterW *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKLower *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *StapleLocation UpperRight
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *StapleLocation LeftW
+*UIConstraints: *StapleLocation LeftW *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *StapleLocation RightW
+*UIConstraints: *StapleLocation RightW *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *StapleLocation UpperW
+*UIConstraints: *StapleLocation UpperW *OutputBin FinAMURBBKLower
 *UIConstraints: *OutputBin FinAMURUpper *StapleLocation UpperLeft
 *UIConstraints: *StapleLocation UpperLeft *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *StapleLocation UpperRight
@@ -2765,6 +2893,24 @@ mark {\n&&
 *UIConstraints: *RIPunch Upper3 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *RIPunch Upper4
 *UIConstraints: *RIPunch Upper4 *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *RIPunch Left2
+*UIConstraints: *RIPunch Left2 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *RIPunch Left3
+*UIConstraints: *RIPunch Left3 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *RIPunch Left4
+*UIConstraints: *RIPunch Left4 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *RIPunch Right2
+*UIConstraints: *RIPunch Right2 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *RIPunch Right3
+*UIConstraints: *RIPunch Right3 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *RIPunch Right4
+*UIConstraints: *RIPunch Right4 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *RIPunch Upper2
+*UIConstraints: *RIPunch Upper2 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *RIPunch Upper3
+*UIConstraints: *RIPunch Upper3 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *RIPunch Upper4
+*UIConstraints: *RIPunch Upper4 *OutputBin FinAMURBBKLower
 
 *%==========FoldType/Punch
 *UIConstraints: *RIFoldType OutsideTwofold *RIPunch Left2
@@ -2865,6 +3011,10 @@ mark {\n&&
 *UIConstraints: *RIFoldType OutsideTwofold *OutputBin FinAMURBKUpper
 *UIConstraints: *OutputBin FinAMURBKShift *RIFoldType OutsideTwofold
 *UIConstraints: *RIFoldType OutsideTwofold *OutputBin FinAMURBKShift
+*UIConstraints: *OutputBin FinAMURBBKUpper *RIFoldType OutsideTwofold
+*UIConstraints: *RIFoldType OutsideTwofold *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKShift *RIFoldType OutsideTwofold
+*UIConstraints: *RIFoldType OutsideTwofold *OutputBin FinAMURBBKShift
 *UIConstraints: *OutputBin FinAMURUpper *RIFoldType OutsideTwofold
 *UIConstraints: *RIFoldType OutsideTwofold *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURShift *RIFoldType OutsideTwofold
@@ -2895,6 +3045,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *Finisher NotInstalled
 *UIConstraints: *Finisher NotInstalled *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *Finisher NotInstalled
+*UIConstraints: *Finisher NotInstalled *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *Finisher NotInstalled
+*UIConstraints: *Finisher NotInstalled *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *Finisher NotInstalled
+*UIConstraints: *Finisher NotInstalled *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *Finisher NotInstalled
 *UIConstraints: *Finisher NotInstalled *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *Finisher NotInstalled
 *UIConstraints: *Finisher NotInstalled *OutputBin FinAMURShift
@@ -2909,6 +3065,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *Finisher FinRUBICONB
 *UIConstraints: *Finisher FinRUBICONB *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *Finisher FinRUBICONB
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *Finisher FinRUBICONB
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *Finisher FinRUBICONB
+*UIConstraints: *Finisher FinRUBICONB *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *Finisher FinRUBICONB
 *UIConstraints: *Finisher FinRUBICONB *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *Finisher FinRUBICONB
 *UIConstraints: *Finisher FinRUBICONB *OutputBin FinAMURShift
@@ -2917,12 +3079,32 @@ mark {\n&&
 *UIConstraints: *OutputBin FinUYUNIShift *Finisher FinRUBICONB
 *UIConstraints: *Finisher FinAMURBK *OutputBin FinRUBICONBShift
 *UIConstraints: *OutputBin FinRUBICONBShift *Finisher FinAMURBK
+*UIConstraints: *Finisher FinAMURBK *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *Finisher FinAMURBK
+*UIConstraints: *Finisher FinAMURBK *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *Finisher FinAMURBK
+*UIConstraints: *Finisher FinAMURBK *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *Finisher FinAMURBK
 *UIConstraints: *Finisher FinAMURBK *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *Finisher FinAMURBK
 *UIConstraints: *Finisher FinAMURBK *OutputBin FinAMURShift
 *UIConstraints: *OutputBin FinAMURShift *Finisher FinAMURBK
 *UIConstraints: *Finisher FinAMURBK *OutputBin FinUYUNIShift
 *UIConstraints: *OutputBin FinUYUNIShift *Finisher FinAMURBK
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinRUBICONBShift
+*UIConstraints: *OutputBin FinRUBICONBShift *Finisher FinAMURBBK
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinAMURBKUpper
+*UIConstraints: *OutputBin FinAMURBKUpper *Finisher FinAMURBBK
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinAMURBKShift
+*UIConstraints: *OutputBin FinAMURBKShift *Finisher FinAMURBBK
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinAMURBKLower
+*UIConstraints: *OutputBin FinAMURBKLower *Finisher FinAMURBBK
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinAMURUpper
+*UIConstraints: *OutputBin FinAMURUpper *Finisher FinAMURBBK
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinAMURShift
+*UIConstraints: *OutputBin FinAMURShift *Finisher FinAMURBBK
+*UIConstraints: *Finisher FinAMURBBK *OutputBin FinUYUNIShift
+*UIConstraints: *OutputBin FinUYUNIShift *Finisher FinAMURBBK
 *UIConstraints: *Finisher FinAMUR *OutputBin FinRUBICONBShift
 *UIConstraints: *OutputBin FinRUBICONBShift *Finisher FinAMUR
 *UIConstraints: *Finisher FinAMUR *OutputBin FinAMURBKUpper
@@ -2931,6 +3113,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *Finisher FinAMUR
 *UIConstraints: *Finisher FinAMUR *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *Finisher FinAMUR
+*UIConstraints: *Finisher FinAMUR *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *Finisher FinAMUR
+*UIConstraints: *Finisher FinAMUR *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *Finisher FinAMUR
+*UIConstraints: *Finisher FinAMUR *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *Finisher FinAMUR
 *UIConstraints: *Finisher FinAMUR *OutputBin FinUYUNIShift
 *UIConstraints: *OutputBin FinUYUNIShift *Finisher FinAMUR
 *UIConstraints: *Finisher FinUYUNI *OutputBin Standard
@@ -2943,6 +3131,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *Finisher FinUYUNI
 *UIConstraints: *Finisher FinUYUNI *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *Finisher FinUYUNI
+*UIConstraints: *Finisher FinUYUNI *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *Finisher FinUYUNI
+*UIConstraints: *Finisher FinUYUNI *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *Finisher FinUYUNI
+*UIConstraints: *Finisher FinUYUNI *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *Finisher FinUYUNI
 *UIConstraints: *Finisher FinUYUNI *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *Finisher FinUYUNI
 *UIConstraints: *Finisher FinUYUNI *OutputBin FinAMURShift
@@ -2951,34 +3145,56 @@ mark {\n&&
 *%==========MediaType/Destination
 *UIConstraints: *MediaType Labels *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *MediaType Labels
+*UIConstraints: *MediaType Labels *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *MediaType Labels
 *UIConstraints: *MediaType OHP *OutputBin Bin1
 *UIConstraints: *OutputBin Bin1 *MediaType OHP
 *UIConstraints: *MediaType OHP *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *MediaType OHP
+*UIConstraints: *MediaType OHP *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *MediaType OHP
 *UIConstraints: *MediaType Thick1 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *MediaType Thick1
+*UIConstraints: *MediaType Thick1 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *MediaType Thick1
 *UIConstraints: *MediaType Thick2 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *MediaType Thick2
+*UIConstraints: *MediaType Thick2 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *MediaType Thick2
 *UIConstraints: *MediaType Thick3 *OutputBin FinAMURBKUpper
 *UIConstraints: *OutputBin FinAMURBKUpper *MediaType Thick3
+*UIConstraints: *MediaType Thick3 *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *MediaType Thick3
 *UIConstraints: *MediaType Thick3 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *MediaType Thick3
+*UIConstraints: *MediaType Thick3 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *MediaType Thick3
 *UIConstraints: *MediaType Thick3 *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *MediaType Thick3
 *UIConstraints: *MediaType Thick4 *OutputBin FinAMURBKUpper
 *UIConstraints: *OutputBin FinAMURBKUpper *MediaType Thick4
+*UIConstraints: *MediaType Thick4 *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *MediaType Thick4
 *UIConstraints: *MediaType Thick4 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *MediaType Thick4
+*UIConstraints: *MediaType Thick4 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *MediaType Thick4
 *UIConstraints: *MediaType Thick4 *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *MediaType Thick4
 *UIConstraints: *MediaType Envelope *OutputBin External
 *UIConstraints: *OutputBin External *MediaType Envelope
 *UIConstraints: *MediaType Envelope *OutputBin FinAMURBKUpper
 *UIConstraints: *OutputBin FinAMURBKUpper *MediaType Envelope
+*UIConstraints: *MediaType Envelope *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *MediaType Envelope
 *UIConstraints: *MediaType Envelope *OutputBin FinAMURBKShift
 *UIConstraints: *OutputBin FinAMURBKShift *MediaType Envelope
+*UIConstraints: *MediaType Envelope *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *MediaType Envelope
 *UIConstraints: *MediaType Envelope *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *MediaType Envelope
+*UIConstraints: *MediaType Envelope *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *MediaType Envelope
 *UIConstraints: *MediaType Envelope *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *MediaType Envelope
 *UIConstraints: *MediaType Envelope *OutputBin FinAMURShift
@@ -2987,44 +3203,80 @@ mark {\n&&
 *%==========Paper Size/Destination
 *UIConstraints: *PageSize A5 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize A5
+*UIConstraints: *PageSize A5 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize A5
 *UIConstraints: *PageSize A6 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize A6
+*UIConstraints: *PageSize A6 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize A6
 *UIConstraints: *PageSize B6 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize B6
+*UIConstraints: *PageSize B6 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize B6
 *UIConstraints: *PageSize GovernmentLG *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize GovernmentLG
+*UIConstraints: *PageSize GovernmentLG *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize GovernmentLG
 *UIConstraints: *PageSize EngQuatro *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize EngQuatro
+*UIConstraints: *PageSize EngQuatro *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize EngQuatro
 *UIConstraints: *PageSize Statement *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize Statement
+*UIConstraints: *PageSize Statement *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize Statement
 *UIConstraints: *PageSize F *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize F
+*UIConstraints: *PageSize F *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize F
 *UIConstraints: *PageSize Folio *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize Folio
+*UIConstraints: *PageSize Folio *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize Folio
 *UIConstraints: *PageSize FanFoldGermanLegal *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize FanFoldGermanLegal
+*UIConstraints: *PageSize FanFoldGermanLegal *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize FanFoldGermanLegal
 *UIConstraints: *PageSize 12x18 *OutputBin FinAMURBKUpper
 *UIConstraints: *OutputBin FinAMURBKUpper *PageSize 12x18
 *UIConstraints: *PageSize 12x18 *OutputBin FinAMURBKShift
 *UIConstraints: *OutputBin FinAMURBKShift *PageSize 12x18
 *UIConstraints: *PageSize 12x18 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize 12x18
+*UIConstraints: *PageSize 12x18 *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageSize 12x18
+*UIConstraints: *PageSize 12x18 *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageSize 12x18
+*UIConstraints: *PageSize 12x18 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize 12x18
 *UIConstraints: *PageSize 12x18 *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageSize 12x18
 *UIConstraints: *PageSize 12x18 *OutputBin FinAMURShift
 *UIConstraints: *OutputBin FinAMURShift *PageSize 12x18
 *UIConstraints: *PageSize 11x15 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize 11x15
+*UIConstraints: *PageSize 11x15 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize 11x15
 *UIConstraints: *PageSize 10x14 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize 10x14
+*UIConstraints: *PageSize 10x14 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize 10x14
 *UIConstraints: *PageSize Executive *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize Executive
+*UIConstraints: *PageSize Executive *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize Executive
 *UIConstraints: *PageSize Env10 *OutputBin FinAMURBKUpper
 *UIConstraints: *OutputBin FinAMURBKUpper *PageSize Env10
 *UIConstraints: *PageSize Env10 *OutputBin FinAMURBKShift
 *UIConstraints: *OutputBin FinAMURBKShift *PageSize Env10
 *UIConstraints: *PageSize Env10 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize Env10
+*UIConstraints: *PageSize Env10 *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageSize Env10
+*UIConstraints: *PageSize Env10 *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageSize Env10
+*UIConstraints: *PageSize Env10 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize Env10
 *UIConstraints: *PageSize Env10 *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageSize Env10
 *UIConstraints: *PageSize Env10 *OutputBin FinAMURShift
@@ -3035,6 +3287,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *PageSize EnvMonarch
 *UIConstraints: *PageSize EnvMonarch *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageSize EnvMonarch
+*UIConstraints: *PageSize EnvMonarch *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize EnvMonarch
 *UIConstraints: *PageSize EnvMonarch *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageSize EnvMonarch
 *UIConstraints: *PageSize EnvMonarch *OutputBin FinAMURShift
@@ -3045,6 +3303,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *PageSize EnvC5
 *UIConstraints: *PageSize EnvC5 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageSize EnvC5
+*UIConstraints: *PageSize EnvC5 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize EnvC5
 *UIConstraints: *PageSize EnvC5 *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageSize EnvC5
 *UIConstraints: *PageSize EnvC5 *OutputBin FinAMURShift
@@ -3055,6 +3319,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *PageSize EnvC6
 *UIConstraints: *PageSize EnvC6 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize EnvC6
+*UIConstraints: *PageSize EnvC6 *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageSize EnvC6
+*UIConstraints: *PageSize EnvC6 *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageSize EnvC6
+*UIConstraints: *PageSize EnvC6 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize EnvC6
 *UIConstraints: *PageSize EnvC6 *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageSize EnvC6
 *UIConstraints: *PageSize EnvC6 *OutputBin FinAMURShift
@@ -3065,36 +3335,62 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *PageSize DLEnv
 *UIConstraints: *PageSize DLEnv *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize DLEnv
+*UIConstraints: *PageSize DLEnv *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageSize DLEnv
+*UIConstraints: *PageSize DLEnv *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageSize DLEnv
+*UIConstraints: *PageSize DLEnv *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize DLEnv
 *UIConstraints: *PageSize DLEnv *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageSize DLEnv
 *UIConstraints: *PageSize DLEnv *OutputBin FinAMURShift
 *UIConstraints: *OutputBin FinAMURShift *PageSize DLEnv
 *UIConstraints: *PageSize 8Kai *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize 8Kai
+*UIConstraints: *PageSize 8Kai *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize 8Kai
 *UIConstraints: *PageSize 16Kai *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize 16Kai
+*UIConstraints: *PageSize 16Kai *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize 16Kai
 
 *%==========BannerPageMediaType/Destination
 *UIConstraints: *RIBannerPageMediaType Labels *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *RIBannerPageMediaType Labels
+*UIConstraints: *RIBannerPageMediaType Labels *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *RIBannerPageMediaType Labels
 *UIConstraints: *RIBannerPageMediaType OHP *OutputBin Bin1
 *UIConstraints: *OutputBin Bin1 *RIBannerPageMediaType OHP
 *UIConstraints: *RIBannerPageMediaType OHP *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *RIBannerPageMediaType OHP
+*UIConstraints: *RIBannerPageMediaType OHP *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *RIBannerPageMediaType OHP
 *UIConstraints: *RIBannerPageMediaType Thick1 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *RIBannerPageMediaType Thick1
+*UIConstraints: *RIBannerPageMediaType Thick1 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *RIBannerPageMediaType Thick1
 *UIConstraints: *RIBannerPageMediaType Thick2 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *RIBannerPageMediaType Thick2
+*UIConstraints: *RIBannerPageMediaType Thick2 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *RIBannerPageMediaType Thick2
 *UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin FinAMURBKUpper
 *UIConstraints: *OutputBin FinAMURBKUpper *RIBannerPageMediaType Thick3
 *UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *RIBannerPageMediaType Thick3
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *RIBannerPageMediaType Thick3
+*UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *RIBannerPageMediaType Thick3
 *UIConstraints: *RIBannerPageMediaType Thick3 *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *RIBannerPageMediaType Thick3
 *UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin FinAMURBKUpper
 *UIConstraints: *OutputBin FinAMURBKUpper *RIBannerPageMediaType Thick4
 *UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *RIBannerPageMediaType Thick4
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *RIBannerPageMediaType Thick4
+*UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *RIBannerPageMediaType Thick4
 *UIConstraints: *RIBannerPageMediaType Thick4 *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *RIBannerPageMediaType Thick4
 *UIConstraints: *RIBannerPageMediaType Envelope *OutputBin External
@@ -3105,6 +3401,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *RIBannerPageMediaType Envelope
 *UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *RIBannerPageMediaType Envelope
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *RIBannerPageMediaType Envelope
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *RIBannerPageMediaType Envelope
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *RIBannerPageMediaType Envelope
 *UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *RIBannerPageMediaType Envelope
 *UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinAMURShift
@@ -3113,44 +3415,80 @@ mark {\n&&
 *%=========PageSize(FullBleed)/Destination
 *UIConstraints: *PageSize A5.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize A5.FullBleed
+*UIConstraints: *PageSize A5.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize A5.FullBleed
 *UIConstraints: *PageSize A6.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize A6.FullBleed
+*UIConstraints: *PageSize A6.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize A6.FullBleed
 *UIConstraints: *PageSize B6.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize B6.FullBleed
+*UIConstraints: *PageSize B6.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize B6.FullBleed
 *UIConstraints: *PageSize GovernmentLG.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize GovernmentLG.FullBleed
+*UIConstraints: *PageSize GovernmentLG.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize GovernmentLG.FullBleed
 *UIConstraints: *PageSize EngQuatro.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize EngQuatro.FullBleed
+*UIConstraints: *PageSize EngQuatro.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize EngQuatro.FullBleed
 *UIConstraints: *PageSize Statement.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize Statement.FullBleed
+*UIConstraints: *PageSize Statement.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize Statement.FullBleed
 *UIConstraints: *PageSize F.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize F.FullBleed
+*UIConstraints: *PageSize F.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize F.FullBleed
 *UIConstraints: *PageSize Folio.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize Folio.FullBleed
+*UIConstraints: *PageSize Folio.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize Folio.FullBleed
 *UIConstraints: *PageSize FanFoldGermanLegal.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize FanFoldGermanLegal.FullBleed
+*UIConstraints: *PageSize FanFoldGermanLegal.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize FanFoldGermanLegal.FullBleed
 *UIConstraints: *PageSize 12x18.FullBleed *OutputBin FinAMURBKUpper
 *UIConstraints: *OutputBin FinAMURBKUpper *PageSize 12x18.FullBleed
 *UIConstraints: *PageSize 12x18.FullBleed *OutputBin FinAMURBKShift
 *UIConstraints: *OutputBin FinAMURBKShift *PageSize 12x18.FullBleed
 *UIConstraints: *PageSize 12x18.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize 12x18.FullBleed
+*UIConstraints: *PageSize 12x18.FullBleed *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageSize 12x18.FullBleed
+*UIConstraints: *PageSize 12x18.FullBleed *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageSize 12x18.FullBleed
+*UIConstraints: *PageSize 12x18.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize 12x18.FullBleed
 *UIConstraints: *PageSize 12x18.FullBleed *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageSize 12x18.FullBleed
 *UIConstraints: *PageSize 12x18.FullBleed *OutputBin FinAMURShift
 *UIConstraints: *OutputBin FinAMURShift *PageSize 12x18.FullBleed
 *UIConstraints: *PageSize 11x15.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize 11x15.FullBleed
+*UIConstraints: *PageSize 11x15.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize 11x15.FullBleed
 *UIConstraints: *PageSize 10x14.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize 10x14.FullBleed
+*UIConstraints: *PageSize 10x14.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize 10x14.FullBleed
 *UIConstraints: *PageSize Executive.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize Executive.FullBleed
+*UIConstraints: *PageSize Executive.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize Executive.FullBleed
 *UIConstraints: *PageSize Env10.FullBleed *OutputBin FinAMURBKUpper
 *UIConstraints: *OutputBin FinAMURBKUpper *PageSize Env10.FullBleed
 *UIConstraints: *PageSize Env10.FullBleed *OutputBin FinAMURBKShift
 *UIConstraints: *OutputBin FinAMURBKShift *PageSize Env10.FullBleed
 *UIConstraints: *PageSize Env10.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize Env10.FullBleed
+*UIConstraints: *PageSize Env10.FullBleed *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageSize Env10.FullBleed
+*UIConstraints: *PageSize Env10.FullBleed *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageSize Env10.FullBleed
+*UIConstraints: *PageSize Env10.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize Env10.FullBleed
 *UIConstraints: *PageSize Env10.FullBleed *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageSize Env10.FullBleed
 *UIConstraints: *PageSize Env10.FullBleed *OutputBin FinAMURShift
@@ -3161,6 +3499,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *PageSize EnvMonarch.FullBleed
 *UIConstraints: *PageSize EnvMonarch.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize EnvMonarch.FullBleed
+*UIConstraints: *PageSize EnvMonarch.FullBleed *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageSize EnvMonarch.FullBleed
+*UIConstraints: *PageSize EnvMonarch.FullBleed *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageSize EnvMonarch.FullBleed
+*UIConstraints: *PageSize EnvMonarch.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize EnvMonarch.FullBleed
 *UIConstraints: *PageSize EnvMonarch.FullBleed *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageSize EnvMonarch.FullBleed
 *UIConstraints: *PageSize EnvMonarch.FullBleed *OutputBin FinAMURShift
@@ -3171,6 +3515,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *PageSize EnvC5.FullBleed
 *UIConstraints: *PageSize EnvC5.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize EnvC5.FullBleed
+*UIConstraints: *PageSize EnvC5.FullBleed *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageSize EnvC5.FullBleed
+*UIConstraints: *PageSize EnvC5.FullBleed *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageSize EnvC5.FullBleed
+*UIConstraints: *PageSize EnvC5.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize EnvC5.FullBleed
 *UIConstraints: *PageSize EnvC5.FullBleed *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageSize EnvC5.FullBleed
 *UIConstraints: *PageSize EnvC5.FullBleed *OutputBin FinAMURShift
@@ -3181,6 +3531,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *PageSize EnvC6.FullBleed
 *UIConstraints: *PageSize EnvC6.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize EnvC6.FullBleed
+*UIConstraints: *PageSize EnvC6.FullBleed *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageSize EnvC6.FullBleed
+*UIConstraints: *PageSize EnvC6.FullBleed *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageSize EnvC6.FullBleed
+*UIConstraints: *PageSize EnvC6.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize EnvC6.FullBleed
 *UIConstraints: *PageSize EnvC6.FullBleed *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageSize EnvC6.FullBleed
 *UIConstraints: *PageSize EnvC6.FullBleed *OutputBin FinAMURShift
@@ -3191,56 +3547,102 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *PageSize DLEnv.FullBleed
 *UIConstraints: *PageSize DLEnv.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize DLEnv.FullBleed
+*UIConstraints: *PageSize DLEnv.FullBleed *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageSize DLEnv.FullBleed
+*UIConstraints: *PageSize DLEnv.FullBleed *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageSize DLEnv.FullBleed
+*UIConstraints: *PageSize DLEnv.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize DLEnv.FullBleed
 *UIConstraints: *PageSize DLEnv.FullBleed *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageSize DLEnv.FullBleed
 *UIConstraints: *PageSize DLEnv.FullBleed *OutputBin FinAMURShift
 *UIConstraints: *OutputBin FinAMURShift *PageSize DLEnv.FullBleed
 *UIConstraints: *PageSize 8Kai.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize 8Kai.FullBleed
+*UIConstraints: *PageSize 8Kai.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize 8Kai.FullBleed
 *UIConstraints: *PageSize 16Kai.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageSize 16Kai.FullBleed
+*UIConstraints: *PageSize 16Kai.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageSize 16Kai.FullBleed
 
 *%=========PageRegion/Destination
 *UIConstraints: *PageRegion A5 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion A5
+*UIConstraints: *PageRegion A5 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion A5
 *UIConstraints: *PageRegion A6 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion A6
+*UIConstraints: *PageRegion A6 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion A6
 *UIConstraints: *PageRegion B6 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion B6
+*UIConstraints: *PageRegion B6 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion B6
 *UIConstraints: *PageRegion GovernmentLG *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion GovernmentLG
+*UIConstraints: *PageRegion GovernmentLG *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion GovernmentLG
 *UIConstraints: *PageRegion EngQuatro *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion EngQuatro
+*UIConstraints: *PageRegion EngQuatro *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion EngQuatro
 *UIConstraints: *PageRegion Statement *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion Statement
+*UIConstraints: *PageRegion Statement *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion Statement
 *UIConstraints: *PageRegion F *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion F
+*UIConstraints: *PageRegion F *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion F
 *UIConstraints: *PageRegion Folio *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion Folio
+*UIConstraints: *PageRegion Folio *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion Folio
 *UIConstraints: *PageRegion FanFoldGermanLegal *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion FanFoldGermanLegal
+*UIConstraints: *PageRegion FanFoldGermanLegal *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion FanFoldGermanLegal
 *UIConstraints: *PageRegion 12x18 *OutputBin FinAMURBKUpper
 *UIConstraints: *OutputBin FinAMURBKUpper *PageRegion 12x18
 *UIConstraints: *PageRegion 12x18 *OutputBin FinAMURBKShift
 *UIConstraints: *OutputBin FinAMURBKShift *PageRegion 12x18
 *UIConstraints: *PageRegion 12x18 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion 12x18
+*UIConstraints: *PageRegion 12x18 *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageRegion 12x18
+*UIConstraints: *PageRegion 12x18 *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageRegion 12x18
+*UIConstraints: *PageRegion 12x18 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion 12x18
 *UIConstraints: *PageRegion 12x18 *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageRegion 12x18
 *UIConstraints: *PageRegion 12x18 *OutputBin FinAMURShift
 *UIConstraints: *OutputBin FinAMURShift *PageRegion 12x18
 *UIConstraints: *PageRegion 11x15 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion 11x15
+*UIConstraints: *PageRegion 11x15 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion 11x15
 *UIConstraints: *PageRegion 10x14 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion 10x14
+*UIConstraints: *PageRegion 10x14 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion 10x14
 *UIConstraints: *PageRegion Executive *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion Executive
+*UIConstraints: *PageRegion Executive *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion Executive
 *UIConstraints: *PageRegion Env10 *OutputBin FinAMURBKUpper
 *UIConstraints: *OutputBin FinAMURBKUpper *PageRegion Env10
 *UIConstraints: *PageRegion Env10 *OutputBin FinAMURBKShift
 *UIConstraints: *OutputBin FinAMURBKShift *PageRegion Env10
 *UIConstraints: *PageRegion Env10 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageRegion Env10
+*UIConstraints: *PageRegion Env10 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion Env10
 *UIConstraints: *PageRegion Env10 *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageRegion Env10
 *UIConstraints: *PageRegion Env10 *OutputBin FinAMURShift
@@ -3251,6 +3653,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *PageRegion EnvMonarch
 *UIConstraints: *PageRegion EnvMonarch *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageRegion EnvMonarch
+*UIConstraints: *PageRegion EnvMonarch *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion EnvMonarch
 *UIConstraints: *PageRegion EnvMonarch *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageRegion EnvMonarch
 *UIConstraints: *PageRegion EnvMonarch *OutputBin FinAMURShift
@@ -3261,6 +3669,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *PageRegion EnvC5
 *UIConstraints: *PageRegion EnvC5 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageRegion EnvC5
+*UIConstraints: *PageRegion EnvC5 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion EnvC5
 *UIConstraints: *PageRegion EnvC5 *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageRegion EnvC5
 *UIConstraints: *PageRegion EnvC5 *OutputBin FinAMURShift
@@ -3271,6 +3685,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *PageRegion EnvC6
 *UIConstraints: *PageRegion EnvC6 *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion EnvC6
+*UIConstraints: *PageRegion EnvC6 *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageRegion EnvC6
+*UIConstraints: *PageRegion EnvC6 *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageRegion EnvC6
+*UIConstraints: *PageRegion EnvC6 *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion EnvC6
 *UIConstraints: *PageRegion EnvC6 *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageRegion EnvC6
 *UIConstraints: *PageRegion EnvC6 *OutputBin FinAMURShift
@@ -3281,56 +3701,102 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *PageRegion DLEnv
 *UIConstraints: *PageRegion DLEnv *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion DLEnv
+*UIConstraints: *PageRegion DLEnv *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageRegion DLEnv
+*UIConstraints: *PageRegion DLEnv *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageRegion DLEnv
+*UIConstraints: *PageRegion DLEnv *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion DLEnv
 *UIConstraints: *PageRegion DLEnv *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageRegion DLEnv
 *UIConstraints: *PageRegion DLEnv *OutputBin FinAMURShift
 *UIConstraints: *OutputBin FinAMURShift *PageRegion DLEnv
 *UIConstraints: *PageRegion 8Kai *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion 8Kai
+*UIConstraints: *PageRegion 8Kai *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion 8Kai
 *UIConstraints: *PageRegion 16Kai *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion 16Kai
+*UIConstraints: *PageRegion 16Kai *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion 16Kai
 
 *%=========PageRegion(FullBleed)/Destination
 *UIConstraints: *PageRegion A5.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion A5.FullBleed
+*UIConstraints: *PageRegion A5.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion A5.FullBleed
 *UIConstraints: *PageRegion A6.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion A6.FullBleed
+*UIConstraints: *PageRegion A6.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion A6.FullBleed
 *UIConstraints: *PageRegion B6.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion B6.FullBleed
+*UIConstraints: *PageRegion B6.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion B6.FullBleed
 *UIConstraints: *PageRegion GovernmentLG.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion GovernmentLG.FullBleed
+*UIConstraints: *PageRegion GovernmentLG.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion GovernmentLG.FullBleed
 *UIConstraints: *PageRegion EngQuatro.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion EngQuatro.FullBleed
+*UIConstraints: *PageRegion EngQuatro.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion EngQuatro.FullBleed
 *UIConstraints: *PageRegion Statement.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion Statement.FullBleed
+*UIConstraints: *PageRegion Statement.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion Statement.FullBleed
 *UIConstraints: *PageRegion F.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion F.FullBleed
+*UIConstraints: *PageRegion F.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion F.FullBleed
 *UIConstraints: *PageRegion Folio.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion Folio.FullBleed
+*UIConstraints: *PageRegion Folio.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion Folio.FullBleed
 *UIConstraints: *PageRegion FanFoldGermanLegal.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion FanFoldGermanLegal.FullBleed
+*UIConstraints: *PageRegion FanFoldGermanLegal.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion FanFoldGermanLegal.FullBleed
 *UIConstraints: *PageRegion 12x18.FullBleed *OutputBin FinAMURBKUpper
 *UIConstraints: *OutputBin FinAMURBKUpper *PageRegion 12x18.FullBleed
 *UIConstraints: *PageRegion 12x18.FullBleed *OutputBin FinAMURBKShift
 *UIConstraints: *OutputBin FinAMURBKShift *PageRegion 12x18.FullBleed
 *UIConstraints: *PageRegion 12x18.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion 12x18.FullBleed
+*UIConstraints: *PageRegion 12x18.FullBleed *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageRegion 12x18.FullBleed
+*UIConstraints: *PageRegion 12x18.FullBleed *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageRegion 12x18.FullBleed
+*UIConstraints: *PageRegion 12x18.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion 12x18.FullBleed
 *UIConstraints: *PageRegion 12x18.FullBleed *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageRegion 12x18.FullBleed
 *UIConstraints: *PageRegion 12x18.FullBleed *OutputBin FinAMURShift
 *UIConstraints: *OutputBin FinAMURShift *PageRegion 12x18.FullBleed
 *UIConstraints: *PageRegion 11x15.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion 11x15.FullBleed
+*UIConstraints: *PageRegion 11x15.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion 11x15.FullBleed
 *UIConstraints: *PageRegion 10x14.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion 10x14.FullBleed
+*UIConstraints: *PageRegion 10x14.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion 10x14.FullBleed
 *UIConstraints: *PageRegion Executive.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion Executive.FullBleed
+*UIConstraints: *PageRegion Executive.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion Executive.FullBleed
 *UIConstraints: *PageRegion Env10.FullBleed *OutputBin FinAMURBKUpper
 *UIConstraints: *OutputBin FinAMURBKUpper *PageRegion Env10.FullBleed
 *UIConstraints: *PageRegion Env10.FullBleed *OutputBin FinAMURBKShift
 *UIConstraints: *OutputBin FinAMURBKShift *PageRegion Env10.FullBleed
 *UIConstraints: *PageRegion Env10.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion Env10.FullBleed
+*UIConstraints: *PageRegion Env10.FullBleed *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageRegion Env10.FullBleed
+*UIConstraints: *PageRegion Env10.FullBleed *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageRegion Env10.FullBleed
+*UIConstraints: *PageRegion Env10.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion Env10.FullBleed
 *UIConstraints: *PageRegion Env10.FullBleed *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageRegion Env10.FullBleed
 *UIConstraints: *PageRegion Env10.FullBleed *OutputBin FinAMURShift
@@ -3341,6 +3807,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *PageRegion EnvMonarch.FullBleed
 *UIConstraints: *PageRegion EnvMonarch.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion EnvMonarch.FullBleed
+*UIConstraints: *PageRegion EnvMonarch.FullBleed *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageRegion EnvMonarch.FullBleed
+*UIConstraints: *PageRegion EnvMonarch.FullBleed *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageRegion EnvMonarch.FullBleed
+*UIConstraints: *PageRegion EnvMonarch.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion EnvMonarch.FullBleed
 *UIConstraints: *PageRegion EnvMonarch.FullBleed *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageRegion EnvMonarch.FullBleed
 *UIConstraints: *PageRegion EnvMonarch.FullBleed *OutputBin FinAMURShift
@@ -3351,6 +3823,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *PageRegion EnvC5.FullBleed
 *UIConstraints: *PageRegion EnvC5.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion EnvC5.FullBleed
+*UIConstraints: *PageRegion EnvC5.FullBleed *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageRegion EnvC5.FullBleed
+*UIConstraints: *PageRegion EnvC5.FullBleed *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageRegion EnvC5.FullBleed
+*UIConstraints: *PageRegion EnvC5.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion EnvC5.FullBleed
 *UIConstraints: *PageRegion EnvC5.FullBleed *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageRegion EnvC5.FullBleed
 *UIConstraints: *PageRegion EnvC5.FullBleed *OutputBin FinAMURShift
@@ -3361,6 +3839,12 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *PageRegion EnvC6.FullBleed
 *UIConstraints: *PageRegion EnvC6.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion EnvC6.FullBleed
+*UIConstraints: *PageRegion EnvC6.FullBleed *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageRegion EnvC6.FullBleed
+*UIConstraints: *PageRegion EnvC6.FullBleed *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageRegion EnvC6.FullBleed
+*UIConstraints: *PageRegion EnvC6.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion EnvC6.FullBleed
 *UIConstraints: *PageRegion EnvC6.FullBleed *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageRegion EnvC6.FullBleed
 *UIConstraints: *PageRegion EnvC6.FullBleed *OutputBin FinAMURShift
@@ -3371,14 +3855,24 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKShift *PageRegion DLEnv.FullBleed
 *UIConstraints: *PageRegion DLEnv.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion DLEnv.FullBleed
+*UIConstraints: *PageRegion DLEnv.FullBleed *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *PageRegion DLEnv.FullBleed
+*UIConstraints: *PageRegion DLEnv.FullBleed *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *PageRegion DLEnv.FullBleed
+*UIConstraints: *PageRegion DLEnv.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion DLEnv.FullBleed
 *UIConstraints: *PageRegion DLEnv.FullBleed *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *PageRegion DLEnv.FullBleed
 *UIConstraints: *PageRegion DLEnv.FullBleed *OutputBin FinAMURShift
 *UIConstraints: *OutputBin FinAMURShift *PageRegion DLEnv.FullBleed
 *UIConstraints: *PageRegion 8Kai.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion 8Kai.FullBleed
+*UIConstraints: *PageRegion 8Kai.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion 8Kai.FullBleed
 *UIConstraints: *PageRegion 16Kai.FullBleed *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *PageRegion 16Kai.FullBleed
+*UIConstraints: *PageRegion 16Kai.FullBleed *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *PageRegion 16Kai.FullBleed
 
 *%============CollateKind/Destination
 *UIConstraints: *RICollateKind RotateCollate *OutputBin Shift
@@ -3387,6 +3881,8 @@ mark {\n&&
 *UIConstraints: *OutputBin FinRUBICONBShift *RICollateKind RotateCollate
 *UIConstraints: *RICollateKind RotateCollate *OutputBin FinAMURBKShift
 *UIConstraints: *OutputBin FinAMURBKShift *RICollateKind RotateCollate
+*UIConstraints: *RICollateKind RotateCollate *OutputBin FinAMURBBKShift
+*UIConstraints: *OutputBin FinAMURBBKShift *RICollateKind RotateCollate
 *UIConstraints: *RICollateKind RotateCollate *OutputBin FinAMURShift
 *UIConstraints: *OutputBin FinAMURShift *RICollateKind RotateCollate
 *UIConstraints: *RICollateKind RotateCollate *OutputBin FinUYUNIShift
@@ -3403,6 +3899,10 @@ mark {\n&&
 *UIConstraints: *OutputBin FinAMURBKUpper *RICollateKind ShiftCollate
 *UIConstraints: *RICollateKind ShiftCollate *OutputBin FinAMURBKLower
 *UIConstraints: *OutputBin FinAMURBKLower *RICollateKind ShiftCollate
+*UIConstraints: *RICollateKind ShiftCollate *OutputBin FinAMURBBKUpper
+*UIConstraints: *OutputBin FinAMURBBKUpper *RICollateKind ShiftCollate
+*UIConstraints: *RICollateKind ShiftCollate *OutputBin FinAMURBBKLower
+*UIConstraints: *OutputBin FinAMURBBKLower *RICollateKind ShiftCollate
 *UIConstraints: *RICollateKind ShiftCollate *OutputBin FinAMURUpper
 *UIConstraints: *OutputBin FinAMURUpper *RICollateKind ShiftCollate
 
@@ -3853,6 +4353,8 @@ mark {\n&&
 *%============Finisher/OptionTray
 *UIConstraints: *Finisher FinAMURBK *OptionTray 1Cassette
 *UIConstraints: *OptionTray 1Cassette *Finisher FinAMURBK
+*UIConstraints: *Finisher FinAMURBBK *OptionTray 1Cassette
+*UIConstraints: *OptionTray 1Cassette *Finisher FinAMURBBK
 *UIConstraints: *Finisher FinAMUR *OptionTray 1Cassette
 *UIConstraints: *OptionTray 1Cassette *Finisher FinAMUR
 
@@ -3865,6 +4367,8 @@ mark {\n&&
 *UIConstraints: *ShiftTray Installed *Finisher FinRUBICONB
 *UIConstraints: *Finisher FinAMURBK *ShiftTray Installed
 *UIConstraints: *ShiftTray Installed *Finisher FinAMURBK
+*UIConstraints: *Finisher FinAMURBBK *ShiftTray Installed
+*UIConstraints: *ShiftTray Installed *Finisher FinAMURBBK
 *UIConstraints: *Finisher FinAMUR *ShiftTray Installed
 *UIConstraints: *ShiftTray Installed *Finisher FinAMUR
 *UIConstraints: *Finisher FinUYUNI *ShiftTray Installed
@@ -3875,6 +4379,8 @@ mark {\n&&
 *UIConstraints: *ExternalTray Installed *Finisher FinRUBICONB
 *UIConstraints: *Finisher FinAMURBK *ExternalTray Installed
 *UIConstraints: *ExternalTray Installed *Finisher FinAMURBK
+*UIConstraints: *Finisher FinAMURBBK *ExternalTray Installed
+*UIConstraints: *ExternalTray Installed *Finisher FinAMURBBK
 *UIConstraints: *Finisher FinAMUR *ExternalTray Installed
 *UIConstraints: *ExternalTray Installed *Finisher FinAMUR
 *UIConstraints: *Finisher FinUYUNI *ExternalTray Installed
