@@ -55,7 +55,7 @@
 *ColorDevice: True
 *DefaultColorSpace: CMYK
 *FileSystem: True
-*Throughput: "25"
+*Throughput: "35"
 *LandscapeOrientation: Minus90
 *TTRasterizer: Type42
 *% Driver-defined attributes...
@@ -103,7 +103,6 @@
 *LXlowPINchar: "0"
 *LXhiPINchar: "9"
 *1284DeviceID: "MFG: Lexmark ;MDL: Lexmark C9200 Series"
-*NonUIOrderDependency: "50 AnySetup *PnH"
 *PrinterType: "Laser"
 *RequiresPageRegion All: True
 *PrinterError: "Paper Jam"
@@ -189,11 +188,6 @@
 *DefaultTransfer: Factory
 *Transfer Factory: "{}"
 *Transfer Factory.Inverse: "{1 exch sub }"
-*cupsVersion: 1.4
-*cupsModelNumber: 0
-*cupsManualCopies: False
-*cupsFilter: "application/vnd.cups-postscript 0 /usr/lib/cups/filter/fax-pnh-filter"
-*cupsFilter: "application/vnd.cups-command 0 /usr/lib/cups/filter/CommandFileFilterG2"
 *cupsLanguages: "ar fr de it es ko ja ru pl pt zh_tw zh_cn"
 *UIConstraints: *OptTray2 False *InputSlot Tray2
 *UIConstraints: *InputSlot Tray2 *OptTray2 False
@@ -2569,37 +2563,6 @@
 *OptFold True/Installed: ""
 *CloseUI: *OptFold
 *CloseGroup: InstallableOptions
-*OpenGroup: JCL/JCL
-*OpenUI *PnH/Print and Hold: PickOne
-*OrderDependency: 0 JCLSetup *PnH
-*DefaultPnH: False
-*PnH False/Off: ""
-*PnH Verify: "@PJL SET JOBNAME = GETMYJOBNAME
-@PJL SET USERNAME = GEYMYUSERNAME
-@PJL SET HOLD = PROOF
-@PJL SET QTY = GETMYCOPIES<0A>"
-*End
-*PnH Repeat: "@PJL SET JOBNAME = GETMYJOBNAME
-@PJL SET USERNAME = GEYMYUSERNAME
-@PJL SET HOLD = ON
-@PJL SET HOLDTYPE = PUBLIC
-@PJL SET QTY = GETMYCOPIES<0A>"
-*End
-*PnH Reserve: "@PJL SET JOBNAME = GETMYJOBNAME
-@PJL SET USERNAME = GEYMYUSERNAME
-@PJL SET HOLD = STORE
-@PJL SET QTY = GETMYCOPIES<0A>"
-*End
-*CloseUI: *PnH
-*CustomPnH True/Confidential:"@PJL SET JOBNAME = GETMYJOBNAME
-@PJL SET USERNAME = GEYMYUSERNAME
-@PJL SET HOLD = ON
-@PJL SET HOLDTYPE = PRIVATE
-@PJL SET HOLDKEY = "\1"
-@PJL SET QTY = GETMYCOPIES<0A>"
-*End
-*ParamCustomPnH pin/Pin Number: 1 passcode 0 4
-*CloseGroup: JCL
 *OpenGroup: Finishing/Finishing
 *OpenUI *Duplex/Duplex: PickOne
 *OrderDependency: 0 AnySetup *Duplex
@@ -3042,12 +3005,6 @@
 *ar.Translation OptFold/الطي: ""
 *ar.OptFold False/غير مثبت: ""
 *ar.OptFold True/مثبت: ""
-*ar.Translation JCL/JCL: ""
-*ar.Translation PnH/الطباعة والتوقف: ""
-*ar.PnH False/إيقاف: ""
-*ar.PnH Verify/تحقق: ""
-*ar.PnH Repeat/تكرار: ""
-*ar.PnH Reserve/احتياطي: ""
 *ar.Translation Finishing/الإنهاء: ""
 *ar.Translation Duplex/على الوجهين: ""
 *ar.Duplex None/لا يوجد: ""
@@ -3279,8 +3236,6 @@
 *ar.LexBlankPage PrinterS/استخدام إعداد الطابعة: ""
 *ar.LexBlankPage False/إيقاف: ""
 *ar.LexBlankPage True/تشغيل: ""
-*ar.CustomPnH True/سري: ""
-*ar.ParamCustomPnH pin/رقم Pin: ""
 *fr.Translation Manufacturer/Lexmark: ""
 *fr.Translation ModelName/Lexmark C9200 Series: ""
 *fr.Translation ShortNickName/Lexmark C9200 Series: ""
@@ -3360,12 +3315,6 @@
 *fr.Translation OptFold/Plier: ""
 *fr.OptFold False/Pas installé: ""
 *fr.OptFold True/Installée: ""
-*fr.Translation JCL/JCL ( Langage de contrôle de tâche ): ""
-*fr.Translation PnH/Imprimer et suspendre: ""
-*fr.PnH False/Hors Fonction: ""
-*fr.PnH Verify/Vérifier: ""
-*fr.PnH Repeat/Répéter: ""
-*fr.PnH Reserve/Différer: ""
 *fr.Translation Finishing/Finition: ""
 *fr.Translation Duplex/Reliure Recto Verso: ""
 *fr.Duplex None/Hors Fonction: ""
@@ -3597,8 +3546,6 @@
 *fr.LexBlankPage PrinterS/Utiliser param. imprim.: ""
 *fr.LexBlankPage False/Hors Fonction: ""
 *fr.LexBlankPage True/En Fonction: ""
-*fr.CustomPnH True/Confidentiel: ""
-*fr.ParamCustomPnH pin/Numéro PIN: ""
 *de.Translation Manufacturer/Lexmark: ""
 *de.Translation ModelName/Lexmark C9200 Series: ""
 *de.Translation ShortNickName/Lexmark C9200 Series: ""
@@ -3678,12 +3625,6 @@
 *de.Translation OptFold/Falten: ""
 *de.OptFold False/Nicht Eingebaut: ""
 *de.OptFold True/Eingebaut: ""
-*de.Translation JCL/JCL: ""
-*de.Translation PnH/Drucken und Halten: ""
-*de.PnH False/Aus: ""
-*de.PnH Verify/Bestätigen: ""
-*de.PnH Repeat/Wiederholen: ""
-*de.PnH Reserve/Reservieren: ""
 *de.Translation Finishing/Papierausgabe: ""
 *de.Translation Duplex/Beidseitig Binderand: ""
 *de.Duplex None/Aus: ""
@@ -3915,8 +3856,6 @@
 *de.LexBlankPage PrinterS/Druckereinst. verw.: ""
 *de.LexBlankPage False/Aus: ""
 *de.LexBlankPage True/Ein: ""
-*de.CustomPnH True/Vertraulich: ""
-*de.ParamCustomPnH pin/PIN-Nummer: ""
 *it.Translation Manufacturer/Lexmark: ""
 *it.Translation ModelName/Lexmark C9200 Series: ""
 *it.Translation ShortNickName/Lexmark C9200 Series: ""
@@ -3996,12 +3935,6 @@
 *it.Translation OptFold/Piegatura: ""
 *it.OptFold False/Non Installato: ""
 *it.OptFold True/Installato: ""
-*it.Translation JCL/JCL: ""
-*it.Translation PnH/Stampa e conserva: ""
-*it.PnH False/Disabilitato: ""
-*it.PnH Verify/Verifica: ""
-*it.PnH Repeat/Ripeti: ""
-*it.PnH Reserve/Conserva: ""
 *it.Translation Finishing/Fascicolazione: ""
 *it.Translation Duplex/Fronte/Retro: ""
 *it.Duplex None/Disabilitato: ""
@@ -4233,8 +4166,6 @@
 *it.LexBlankPage PrinterS/Usa impost. stampante: ""
 *it.LexBlankPage False/Disabilitato: ""
 *it.LexBlankPage True/Abilitato: ""
-*it.CustomPnH True/Riservata: ""
-*it.ParamCustomPnH pin/Numero PIN: ""
 *es.Translation Manufacturer/Lexmark: ""
 *es.Translation ModelName/Lexmark C9200 Series: ""
 *es.Translation ShortNickName/Lexmark C9200 Series: ""
@@ -4314,12 +4245,6 @@
 *es.Translation OptFold/Doblar: ""
 *es.OptFold False/No Instalado: ""
 *es.OptFold True/Instalada: ""
-*es.Translation JCL/JCL: ""
-*es.Translation PnH/Imprimir y poner en espera: ""
-*es.PnH False/Desactivado: ""
-*es.PnH Verify/Verificar: ""
-*es.PnH Repeat/Repetir: ""
-*es.PnH Reserve/Reservar: ""
 *es.Translation Finishing/Acabado: ""
 *es.Translation Duplex/Encuadernado Doble: ""
 *es.Duplex None/Desactivado: ""
@@ -4551,8 +4476,6 @@
 *es.LexBlankPage PrinterS/Usar valores impresora: ""
 *es.LexBlankPage False/Desactivado: ""
 *es.LexBlankPage True/Activado: ""
-*es.CustomPnH True/Confidencial: ""
-*es.ParamCustomPnH pin/Número PIN: ""
 *ko.Translation Manufacturer/Lexmark: ""
 *ko.Translation ModelName/Lexmark C9200 Series: ""
 *ko.Translation ShortNickName/Lexmark C9200 Series: ""
@@ -4632,12 +4555,6 @@
 *ko.Translation OptFold/접기: ""
 *ko.OptFold False/설치되지 않음: ""
 *ko.OptFold True/설치됨: ""
-*ko.Translation JCL/JCL: ""
-*ko.Translation PnH/인쇄 후 대기: ""
-*ko.PnH False/꺼짐: ""
-*ko.PnH Verify/확인: ""
-*ko.PnH Repeat/반복: ""
-*ko.PnH Reserve/예약: ""
 *ko.Translation Finishing/마무리: ""
 *ko.Translation Duplex/양면: ""
 *ko.Duplex None/없음: ""
@@ -4869,8 +4786,6 @@
 *ko.LexBlankPage PrinterS/프린터 설정 사용: ""
 *ko.LexBlankPage False/꺼짐: ""
 *ko.LexBlankPage True/켜짐: ""
-*ko.CustomPnH True/기밀: ""
-*ko.ParamCustomPnH pin/Pin 번호: ""
 *ja.Translation Manufacturer/Lexmark: ""
 *ja.Translation ModelName/Lexmark C9200 Series: ""
 *ja.Translation ShortNickName/Lexmark C9200 Series: ""
@@ -4950,12 +4865,6 @@
 *ja.Translation OptFold/折る: ""
 *ja.OptFold False/インストールされていません: ""
 *ja.OptFold True/インストール済み: ""
-*ja.Translation JCL/JCL: ""
-*ja.Translation PnH/印刷して一時停止: ""
-*ja.PnH False/オフ: ""
-*ja.PnH Verify/確認: ""
-*ja.PnH Repeat/繰り返し: ""
-*ja.PnH Reserve/予約: ""
 *ja.Translation Finishing/仕上げ: ""
 *ja.Translation Duplex/両面印刷: ""
 *ja.Duplex None/なし: ""
@@ -5187,8 +5096,6 @@
 *ja.LexBlankPage PrinterS/プリンタ設定を使用: ""
 *ja.LexBlankPage False/オフ: ""
 *ja.LexBlankPage True/オン: ""
-*ja.CustomPnH True/秘密: ""
-*ja.ParamCustomPnH pin/暗証番号: ""
 *ru.Translation Manufacturer/Lexmark: ""
 *ru.Translation ModelName/Lexmark C9200 Series: ""
 *ru.Translation ShortNickName/Lexmark C9200 Series: ""
@@ -5268,12 +5175,6 @@
 *ru.Translation OptFold/Фальц: ""
 *ru.OptFold False/Не установлен: ""
 *ru.OptFold True/Установлен: ""
-*ru.Translation JCL/JCL: ""
-*ru.Translation PnH/Отложенная печать: ""
-*ru.PnH False/Выкл: ""
-*ru.PnH Verify/Проверить: ""
-*ru.PnH Repeat/Повторить: ""
-*ru.PnH Reserve/Резервировать: ""
 *ru.Translation Finishing/Оформление: ""
 *ru.Translation Duplex/Двусторонняя: ""
 *ru.Duplex None/Нет: ""
@@ -5505,8 +5406,6 @@
 *ru.LexBlankPage PrinterS/Use Printer Setting: ""
 *ru.LexBlankPage False/Выкл: ""
 *ru.LexBlankPage True/Вкл: ""
-*ru.CustomPnH True/Конфиденциально: ""
-*ru.ParamCustomPnH pin/PIN-код: ""
 *pl.Translation Manufacturer/Lexmark: ""
 *pl.Translation ModelName/Lexmark C9200 Series: ""
 *pl.Translation ShortNickName/Lexmark C9200 Series: ""
@@ -5586,12 +5485,6 @@
 *pl.Translation OptFold/Składanie: ""
 *pl.OptFold False/Nie zainstalowano: ""
 *pl.OptFold True/Zainstalowane: ""
-*pl.Translation JCL/JCL: ""
-*pl.Translation PnH/Drukowanie z zatrzymaniem: ""
-*pl.PnH False/Wyłączone: ""
-*pl.PnH Verify/Próbne: ""
-*pl.PnH Repeat/Powtarzane: ""
-*pl.PnH Reserve/Odroczone: ""
 *pl.Translation Finishing/Wykańczanie: ""
 *pl.Translation Duplex/Dwustronny: ""
 *pl.Duplex None/Brak: ""
@@ -5823,8 +5716,6 @@
 *pl.LexBlankPage PrinterS/Użyj ustawień drukarki: ""
 *pl.LexBlankPage False/Wyłączone: ""
 *pl.LexBlankPage True/Włączone: ""
-*pl.CustomPnH True/Poufne: ""
-*pl.ParamCustomPnH pin/Numer PIN: ""
 *pt.Translation Manufacturer/Lexmark: ""
 *pt.Translation ModelName/Lexmark C9200 Series: ""
 *pt.Translation ShortNickName/Lexmark C9200 Series: ""
@@ -5904,12 +5795,6 @@
 *pt.Translation OptFold/Dobrar: ""
 *pt.OptFold False/Năo Instalado: ""
 *pt.OptFold True/Instalada: ""
-*pt.Translation JCL/JCL: ""
-*pt.Translation PnH/Imprimir e reter: ""
-*pt.PnH False/Desligado: ""
-*pt.PnH Verify/Verificar: ""
-*pt.PnH Repeat/Repetir: ""
-*pt.PnH Reserve/Reservar: ""
 *pt.Translation Finishing/Acabamento: ""
 *pt.Translation Duplex/Modo Duplex: ""
 *pt.Duplex None/Nenhum: ""
@@ -6141,8 +6026,6 @@
 *pt.LexBlankPage PrinterS/Usar config. da impr.: ""
 *pt.LexBlankPage False/Desligado: ""
 *pt.LexBlankPage True/Ativar: ""
-*pt.CustomPnH True/Confidencial: ""
-*pt.ParamCustomPnH pin/Número PIN: ""
 *zh_tw.Translation Manufacturer/Lexmark: ""
 *zh_tw.Translation ModelName/Lexmark C9200 Series: ""
 *zh_tw.Translation ShortNickName/Lexmark C9200 Series: ""
@@ -6222,12 +6105,6 @@
 *zh_tw.Translation OptFold/摺疊: ""
 *zh_tw.OptFold False/未安裝: ""
 *zh_tw.OptFold True/已安裝: ""
-*zh_tw.Translation JCL/JCL: ""
-*zh_tw.Translation PnH/列印與保留: ""
-*zh_tw.PnH False/關: ""
-*zh_tw.PnH Verify/驗證: ""
-*zh_tw.PnH Repeat/重複: ""
-*zh_tw.PnH Reserve/保留: ""
 *zh_tw.Translation Finishing/輸出處理: ""
 *zh_tw.Translation Duplex/雙面列印: ""
 *zh_tw.Duplex None/無: ""
@@ -6459,8 +6336,6 @@
 *zh_tw.LexBlankPage PrinterS/使用印表機設定: ""
 *zh_tw.LexBlankPage False/關: ""
 *zh_tw.LexBlankPage True/開: ""
-*zh_tw.CustomPnH True/密件: ""
-*zh_tw.ParamCustomPnH pin/個人識別碼號碼: ""
 *zh_cn.Translation Manufacturer/Lexmark: ""
 *zh_cn.Translation ModelName/Lexmark C9200 Series: ""
 *zh_cn.Translation ShortNickName/Lexmark C9200 Series: ""
@@ -6540,12 +6415,6 @@
 *zh_cn.Translation OptFold/折叠: ""
 *zh_cn.OptFold False/未安装: ""
 *zh_cn.OptFold True/已安装: ""
-*zh_cn.Translation JCL/JCL: ""
-*zh_cn.Translation PnH/打印和保存: ""
-*zh_cn.PnH False/关: ""
-*zh_cn.PnH Verify/校验: ""
-*zh_cn.PnH Repeat/重复: ""
-*zh_cn.PnH Reserve/保留: ""
 *zh_cn.Translation Finishing/输出: ""
 *zh_cn.Translation Duplex/双面打印: ""
 *zh_cn.Duplex None/无: ""
@@ -6777,8 +6646,6 @@
 *zh_cn.LexBlankPage PrinterS/使用打印机设置: ""
 *zh_cn.LexBlankPage False/关: ""
 *zh_cn.LexBlankPage True/开: ""
-*zh_cn.CustomPnH True/保密: ""
-*zh_cn.ParamCustomPnH pin/Pin码: ""
 *DefaultFont: Courier
-*% End of LXC9200S.PPD, 307004 bytes.
+*% End of LXC9200S.PPD, 302650 bytes.
 *en.PageSize 8.5x13.4028/Oficio (México): ""

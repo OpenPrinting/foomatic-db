@@ -190,12 +190,6 @@
 *cupsCommands: "ReportLevels"
 *PrinterType: "Laser"
 *APICADriver: True
-*NonUIOrderDependency: "50 AnySetup *PnH"
-*NonUIOrderDependency: "50 AnySetup *FaxNumber"
-*cupsVersion: 1.4
-*cupsModelNumber: 0
-*cupsManualCopies: False
-*cupsFilter: "application/vnd.cups-postscript 0 /usr/lib/cups/filter/fax-pnh-filter"
 *cupsLanguages: "de es fr it pt ja ko zh_CN zh_TW ru pl"
 *UIConstraints: *Trays Tray1 *InputSlot Tray2
 *UIConstraints: *InputSlot Tray2 *Trays Tray1
@@ -1097,14 +1091,6 @@
 *UIConstraints: *ManualCMYK EuroCMYK *MediaColor FalseM
 *UIConstraints: *MediaColor FalseM *ManualCMYK VividCMYK
 *UIConstraints: *ManualCMYK VividCMYK *MediaColor FalseM
-*NonUIConstraints: *CustomFaxNumber True *PnH Verify
-*NonUIConstraints: *PnH Verify *CustomFaxNumber True
-*NonUIConstraints: *CustomFaxNumber True *PnH Repeat
-*NonUIConstraints: *PnH Repeat *CustomFaxNumber True
-*NonUIConstraints: *CustomFaxNumber True *PnH Reserve
-*NonUIConstraints: *PnH Reserve *CustomFaxNumber True
-*NonUIConstraints: *CustomFaxNumber True *CustomPnH True
-*NonUIConstraints: *CustomPnH True *CustomFaxNumber True
 *OpenUI *PageSize/Media Size: PickOne
 *OrderDependency: 30 AnySetup *PageSize
 *DefaultPageSize: Letter
@@ -1856,44 +1842,6 @@
 *End
 *CloseUI: *InputSlot
 *CloseGroup: Finishing
-*OpenGroup: JCL/JCL
-*OpenUI *PnH/Print and Hold: PickOne
-*OrderDependency: 0 JCLSetup *PnH
-*DefaultPnH: False
-*PnH False/Off: ""
-*PnH Verify: "@PJL SET JOBNAME = GETMYJOBNAME
-@PJL SET USERNAME = GEYMYUSERNAME
-@PJL SET HOLD = PROOF
-@PJL SET QTY = GETMYCOPIES<0A>"
-*End
-*PnH Repeat: "@PJL SET JOBNAME = GETMYJOBNAME
-@PJL SET USERNAME = GEYMYUSERNAME
-@PJL SET HOLD = ON
-@PJL SET HOLDTYPE = PUBLIC
-@PJL SET QTY = GETMYCOPIES<0A>"
-*End
-*PnH Reserve: "@PJL SET JOBNAME = GETMYJOBNAME
-@PJL SET USERNAME = GEYMYUSERNAME
-@PJL SET HOLD = STORE
-@PJL SET QTY = GETMYCOPIES<0A>"
-*End
-*CloseUI: *PnH
-*CustomPnH True/Confidential:"@PJL SET JOBNAME = GETMYJOBNAME
-@PJL SET USERNAME = GEYMYUSERNAME
-@PJL SET HOLD = ON
-@PJL SET HOLDTYPE = PRIVATE
-@PJL SET HOLDKEY = "\1"
-@PJL SET QTY = GETMYCOPIES<0A>"
-*End
-*ParamCustomPnH pin/Pin Number: 1 passcode 0 4
-*OpenUI *FaxNumber/Fax Number: PickOne
-*OrderDependency: 0 JCLSetup *FaxNumber
-*DefaultFaxNumber: False
-*FaxNumber False/Off: ""
-*CloseUI: *FaxNumber
-*CustomFaxNumber True/On:"@PJL LFAX PHONENUMBER = "\1" STATIONID = GETMYHOST<0A>"
-*ParamCustomFaxNumber faxNumber/Enter Fax Number: 1 string 0 32
-*CloseGroup: JCL
 *de.Translation Manufacturer/Lexmark: ""
 *de.Translation ModelName/Lexmark X740 Series: ""
 *de.Translation ShortNickName/Lexmark X740 Series: ""
@@ -2131,18 +2079,6 @@
 *de.InputSlot MultipurposeFeeder/Universal: ""
 *de.InputSlot ManualPaper/Papier manuell: ""
 *de.InputSlot ManualEnv/Briefumschlag manuell: ""
-*de.Translation JCL/JCL: ""
-*de.Translation PnH/Drucken und Halten: ""
-*de.PnH False/Aus: ""
-*de.PnH Verify/Bestätigen: ""
-*de.PnH Repeat/Wiederholen: ""
-*de.PnH Reserve/Reservieren: ""
-*de.Translation FaxNumber/Faxnummer: ""
-*de.FaxNumber False/Aus: ""
-*de.CustomPnH True/Vertraulich: ""
-*de.ParamCustomPnH pin/PIN-Nummer: ""
-*de.CustomFaxNumber True/Ein: ""
-*de.ParamCustomFaxNumber faxNumber/Faxnummer eingeben: ""
 *es.Translation Manufacturer/Lexmark: ""
 *es.Translation ModelName/Lexmark X740 Series: ""
 *es.Translation ShortNickName/Lexmark X740 Series: ""
@@ -2380,18 +2316,6 @@
 *es.InputSlot MultipurposeFeeder/Alimentador Multiuso: ""
 *es.InputSlot ManualPaper/Papel manual: ""
 *es.InputSlot ManualEnv/Sobre manual: ""
-*es.Translation JCL/JCL: ""
-*es.Translation PnH/Imprimir y poner en espera: ""
-*es.PnH False/Desactivado: ""
-*es.PnH Verify/Verificar: ""
-*es.PnH Repeat/Repetir: ""
-*es.PnH Reserve/Reservar: ""
-*es.Translation FaxNumber/Número de fax: ""
-*es.FaxNumber False/Desactivado: ""
-*es.CustomPnH True/Confidencial: ""
-*es.ParamCustomPnH pin/Número PIN: ""
-*es.CustomFaxNumber True/Activado: ""
-*es.ParamCustomFaxNumber faxNumber/Introducir número de fax: ""
 *fr.Translation Manufacturer/Lexmark: ""
 *fr.Translation ModelName/Lexmark X740 Series: ""
 *fr.Translation ShortNickName/Lexmark X740 Series: ""
@@ -2629,18 +2553,6 @@
 *fr.InputSlot MultipurposeFeeder/Bac Multifonction: ""
 *fr.InputSlot ManualPaper/Manuel papier: ""
 *fr.InputSlot ManualEnv/Enveloppe Manuel: ""
-*fr.Translation JCL/JCL ( Langage de contrôle de tâche ): ""
-*fr.Translation PnH/Imprimer et suspendre: ""
-*fr.PnH False/Hors Fonction: ""
-*fr.PnH Verify/Vérifier: ""
-*fr.PnH Repeat/Répéter: ""
-*fr.PnH Reserve/Différer: ""
-*fr.Translation FaxNumber/N° de télécopieur: ""
-*fr.FaxNumber False/Hors Fonction: ""
-*fr.CustomPnH True/Confidentiel: ""
-*fr.ParamCustomPnH pin/Numéro PIN: ""
-*fr.CustomFaxNumber True/En Fonction: ""
-*fr.ParamCustomFaxNumber faxNumber/Entrez numéro télécopie: ""
 *it.Translation Manufacturer/Lexmark: ""
 *it.Translation ModelName/Lexmark X740 Series: ""
 *it.Translation ShortNickName/Lexmark X740 Series: ""
@@ -2878,18 +2790,6 @@
 *it.InputSlot MultipurposeFeeder/Alimentatore multiuso: ""
 *it.InputSlot ManualPaper/Carta manuale: ""
 *it.InputSlot ManualEnv/Busta Manuale: ""
-*it.Translation JCL/JCL: ""
-*it.Translation PnH/Stampa e conserva: ""
-*it.PnH False/Disabilitato: ""
-*it.PnH Verify/Verifica: ""
-*it.PnH Repeat/Ripeti: ""
-*it.PnH Reserve/Conserva: ""
-*it.Translation FaxNumber/Numero fax: ""
-*it.FaxNumber False/Disabilitato: ""
-*it.CustomPnH True/Riservata: ""
-*it.ParamCustomPnH pin/Numero PIN: ""
-*it.CustomFaxNumber True/Abilitato: ""
-*it.ParamCustomFaxNumber faxNumber/Immettere num. fax: ""
 *pt.Translation Manufacturer/Lexmark: ""
 *pt.Translation ModelName/Lexmark X740 Series: ""
 *pt.Translation ShortNickName/Lexmark X740 Series: ""
@@ -3127,18 +3027,6 @@
 *pt.InputSlot MultipurposeFeeder/Alimentador Multipropósito: ""
 *pt.InputSlot ManualPaper/Papel Manual: ""
 *pt.InputSlot ManualEnv/Envelope Manual: ""
-*pt.Translation JCL/JCL: ""
-*pt.Translation PnH/Imprimir e reter: ""
-*pt.PnH False/Desligado: ""
-*pt.PnH Verify/Verificar: ""
-*pt.PnH Repeat/Repetir: ""
-*pt.PnH Reserve/Reservar: ""
-*pt.Translation FaxNumber/Número fax: ""
-*pt.FaxNumber False/Desligado: ""
-*pt.CustomPnH True/Confidencial: ""
-*pt.ParamCustomPnH pin/Número PIN: ""
-*pt.CustomFaxNumber True/Ativar: ""
-*pt.ParamCustomFaxNumber faxNumber/Digite nº do fax: ""
 *ja.Translation Manufacturer/Lexmark: ""
 *ja.Translation ModelName/Lexmark X740 Series: ""
 *ja.Translation ShortNickName/Lexmark X740 Series: ""
@@ -3376,18 +3264,6 @@
 *ja.InputSlot MultipurposeFeeder/多目的フィーダ: ""
 *ja.InputSlot ManualPaper/手差し用紙: ""
 *ja.InputSlot ManualEnv/手差し封筒: ""
-*ja.Translation JCL/JCL: ""
-*ja.Translation PnH/印刷して一時停止: ""
-*ja.PnH False/オフ: ""
-*ja.PnH Verify/確認: ""
-*ja.PnH Repeat/繰り返し: ""
-*ja.PnH Reserve/予約: ""
-*ja.Translation FaxNumber/FAX 番号: ""
-*ja.FaxNumber False/オフ: ""
-*ja.CustomPnH True/秘密: ""
-*ja.ParamCustomPnH pin/暗証番号: ""
-*ja.CustomFaxNumber True/オン: ""
-*ja.ParamCustomFaxNumber faxNumber/FAX 番号を入力: ""
 *ko.Translation Manufacturer/Lexmark: ""
 *ko.Translation ModelName/Lexmark X740 Series: ""
 *ko.Translation ShortNickName/Lexmark X740 Series: ""
@@ -3625,18 +3501,6 @@
 *ko.InputSlot MultipurposeFeeder/다용도 급지기: ""
 *ko.InputSlot ManualPaper/수동 용지: ""
 *ko.InputSlot ManualEnv/수동 봉투: ""
-*ko.Translation JCL/JCL: ""
-*ko.Translation PnH/인쇄 후 대기: ""
-*ko.PnH False/꺼짐: ""
-*ko.PnH Verify/확인: ""
-*ko.PnH Repeat/반복: ""
-*ko.PnH Reserve/예약: ""
-*ko.Translation FaxNumber/팩스 번호: ""
-*ko.FaxNumber False/꺼짐: ""
-*ko.CustomPnH True/기밀: ""
-*ko.ParamCustomPnH pin/Pin 번호: ""
-*ko.CustomFaxNumber True/켜짐: ""
-*ko.ParamCustomFaxNumber faxNumber/팩스 번호 입력: ""
 *zh_CN.Translation Manufacturer/Lexmark: ""
 *zh_CN.Translation ModelName/Lexmark X740 Series: ""
 *zh_CN.Translation ShortNickName/Lexmark X740 Series: ""
@@ -3874,18 +3738,6 @@
 *zh_CN.InputSlot MultipurposeFeeder/多功能进纸器: ""
 *zh_CN.InputSlot ManualPaper/手动纸张: ""
 *zh_CN.InputSlot ManualEnv/手动信封: ""
-*zh_CN.Translation JCL/JCL: ""
-*zh_CN.Translation PnH/打印和保存: ""
-*zh_CN.PnH False/关: ""
-*zh_CN.PnH Verify/校验: ""
-*zh_CN.PnH Repeat/重复: ""
-*zh_CN.PnH Reserve/保留: ""
-*zh_CN.Translation FaxNumber/传真号码: ""
-*zh_CN.FaxNumber False/关: ""
-*zh_CN.CustomPnH True/保密: ""
-*zh_CN.ParamCustomPnH pin/Pin码: ""
-*zh_CN.CustomFaxNumber True/开: ""
-*zh_CN.ParamCustomFaxNumber faxNumber/输入传真号码: ""
 *zh_TW.Translation Manufacturer/Lexmark: ""
 *zh_TW.Translation ModelName/Lexmark X740 Series: ""
 *zh_TW.Translation ShortNickName/Lexmark X740 Series: ""
@@ -4123,18 +3975,6 @@
 *zh_TW.InputSlot MultipurposeFeeder/多用途送紙器: ""
 *zh_TW.InputSlot ManualPaper/手動送紙: ""
 *zh_TW.InputSlot ManualEnv/手動信封: ""
-*zh_TW.Translation JCL/JCL: ""
-*zh_TW.Translation PnH/列印與保留: ""
-*zh_TW.PnH False/關: ""
-*zh_TW.PnH Verify/驗證: ""
-*zh_TW.PnH Repeat/重複: ""
-*zh_TW.PnH Reserve/保留: ""
-*zh_TW.Translation FaxNumber/傳真號碼: ""
-*zh_TW.FaxNumber False/關: ""
-*zh_TW.CustomPnH True/密件: ""
-*zh_TW.ParamCustomPnH pin/個人識別碼號碼: ""
-*zh_TW.CustomFaxNumber True/開: ""
-*zh_TW.ParamCustomFaxNumber faxNumber/輸入傳真號碼: ""
 *ru.Translation Manufacturer/Lexmark: ""
 *ru.Translation ModelName/Lexmark X740 Series: ""
 *ru.Translation ShortNickName/Lexmark X740 Series: ""
@@ -4372,18 +4212,6 @@
 *ru.InputSlot MultipurposeFeeder/Многоцелевое устройство подачи: ""
 *ru.InputSlot ManualPaper/Выбор бумаги вручную: ""
 *ru.InputSlot ManualEnv/Конверт вручную: ""
-*ru.Translation JCL/JCL: ""
-*ru.Translation PnH/Отложенная печать: ""
-*ru.PnH False/Выкл: ""
-*ru.PnH Verify/Проверить: ""
-*ru.PnH Repeat/Повторить: ""
-*ru.PnH Reserve/Резервировать: ""
-*ru.Translation FaxNumber/Номер факса: ""
-*ru.FaxNumber False/Выкл: ""
-*ru.CustomPnH True/Конфиденциально: ""
-*ru.ParamCustomPnH pin/PIN-код: ""
-*ru.CustomFaxNumber True/Вкл: ""
-*ru.ParamCustomFaxNumber faxNumber/Введите номер факса: ""
 *pl.Translation Manufacturer/Lexmark: ""
 *pl.Translation ModelName/Lexmark X740 Series: ""
 *pl.Translation ShortNickName/Lexmark X740 Series: ""
@@ -4621,18 +4449,6 @@
 *pl.InputSlot MultipurposeFeeder/Podajnik uniwersalny: ""
 *pl.InputSlot ManualPaper/Ręczny podajnik papieru: ""
 *pl.InputSlot ManualEnv/Ręczny kopert: ""
-*pl.Translation JCL/JCL: ""
-*pl.Translation PnH/Drukowanie z zatrzymaniem: ""
-*pl.PnH False/Wyłączone: ""
-*pl.PnH Verify/Próbne: ""
-*pl.PnH Repeat/Powtarzane: ""
-*pl.PnH Reserve/Odroczone: ""
-*pl.Translation FaxNumber/Numer faksu: ""
-*pl.FaxNumber False/Wyłączone: ""
-*pl.CustomPnH True/Poufne: ""
-*pl.ParamCustomPnH pin/Numer PIN: ""
-*pl.CustomFaxNumber True/Włączone: ""
-*pl.ParamCustomFaxNumber faxNumber/Wprowadź numer faksu: ""
 *DefaultFont: Courier
-*% End of LXX740S.PPD, 196887 bytes.
+*% End of LXX740S.PPD, 190171 bytes.
 *en.PageSize 8.5x13.4028/Oficio (México): ""
