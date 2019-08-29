@@ -1,0 +1,453 @@
+*PPD-Adobe: "4.3"
+*%
+*%  Printer Description file
+*%    for "RICOH SP 325SFNw PXL"
+*%
+*%    CreationDate: 2019/06/24
+*%
+*%    COPYRIGHT (C) 2019 RICOH COMPANY, LTD.
+*%    
+*%    Permission is hereby granted, free of charge, to any person obtaining
+*%    a copy of this software and associated documentation files (the
+*%    "Software"), to deal in the Software without restriction, including
+*%    without limitation the rights to use, copy, modify, merge, publish,
+*%    distribute, sublicense, and/or sell copies of the Software, and to
+*%    permit persons to whom the Software is furnished to do so, subject to
+*%    the following conditions:
+*%    
+*%    The above copyright notice and this permission notice shall be
+*%    included in all copies or substantial portions of the Software.
+*%    
+*%    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+*%    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+*%    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+*%    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+*%    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+*%    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+*%    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*%    
+*%    [this is the MIT open source license -- please see www.opensource.org]
+*%
+*FileVersion: "1.0"
+*FormatVersion: "4.3"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+*ModelName: "RICOH SP 325SFNw"
+*PCFileName: "RI9004E6.PPD"
+*Manufacturer: "RICOH"
+*Product: "(RICOH SP 325SFNw PXL)"
+*PSVersion: "(3018.102) 0"
+*ShortNickName: "RICOH SP 325SFNw PXL"
+*NickName: "RICOH SP 325SFNw PXL"
+*1284DeviceID: "MFG:RICOH;MDL:SP 325SFNw;CMD:PCLXL;"
+
+*cupsVersion: 1.6
+*cupsManualCopies: False
+*cupsCommands:     ""
+*cupsFilter: "application/vnd.cups-postscript 0 foomatic-rip"
+*cupsFilter: "application/vnd.cups-pdf 0 foomatic-rip"
+
+*FoomaticRIPUserEntityMaxLength: 8
+*FoomaticRIPHostEntityMaxLength: 63
+*FoomaticRIPTitleEntityMaxLength: 40
+*FoomaticRIPCommandLine: "(printf &apos;\033%%-12345X@PJL\n@PJL JOB\n@PJL SET COPIES=&copies;\n&apos;%G|sed &quot;s/\x26copies\x3b/1/&quot;);
+(gs -q -dBATCH -dPARANOIDSAFER -dNOPAUSE -dNOMEDIAATTRS -dNOINTERPOLATE -sDEVICE=pxlmono %B%A%C %D%E | sed &quot;s/^\x1b\x25-12345X//&quot; | sed &quot;s/\xc1\x01\x00\xf8\x31\x44/\x44/g&quot;);
+(printf &apos;@PJL\n@PJL EOJ\n\033%%-12345X&apos;)"
+*End
+
+*%========== Basic Device Capabilities ==========
+
+*LanguageLevel: "3"
+*ColorDevice: False
+*DefaultColorSpace: Gray
+*FileSystem: False
+*Throughput: "28"
+*LandscapeOrientation: Minus90
+*TTRasterizer: Type42
+*HWMargins: 12 12 12 12
+
+*OpenUI *PageSize/PageSize: PickOne
+*FoomaticRIPOption PageSize: enum CmdLine C
+*OrderDependency: 10 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize A4/A4 (210 x 297 mm): "%% FoomaticRIPOptionSetting: PageSize=A4"
+*FoomaticRIPOptionSetting PageSize=A4: " -sPAPERSIZE=a4 -sOutputFile=- - "
+*PageSize A5L/A5 (210 x 148 mm): "%% FoomaticRIPOptionSetting: PageSize=A5L"
+*FoomaticRIPOptionSetting PageSize=A5L: " -dDEVICEWIDTHPOINTS=595 -dDEVICEHEIGHTPOINTS=420 -sOutputFile=- -  | &&
+ sed &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x17\xf8\x25/g&quot;"
+*End
+*PageSize A5/A5 (148 x 210 mm): "%% FoomaticRIPOptionSetting: PageSize=A5"
+*FoomaticRIPOptionSetting PageSize=A5: " -sPAPERSIZE=a5 -sOutputFile=- - | sed &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x10\xf8\x25/g&quot;"
+*PageSize A6/A6 (105 x 148 mm): "%% FoomaticRIPOptionSetting: PageSize=A6"
+*FoomaticRIPOptionSetting PageSize=A6: " -dDEVICEWIDTHPOINTS=298 -dDEVICEHEIGHTPOINTS=420 -sOutputFile=- -  | &&
+ sed &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x11\xf8\x25/g&quot;"
+*End
+*PageSize B5/B5 JIS (182 x 257 mm): "%% FoomaticRIPOptionSetting: PageSize=B5"
+*FoomaticRIPOptionSetting PageSize=B5: " -dDEVICEWIDTHPOINTS=516 -dDEVICEHEIGHTPOINTS=729 -sOutputFile=- -  | &&
+ sed &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x0b\xf8\x25/g&quot;"
+*End
+*PageSize B6/B6 JIS (128 x 182 mm): "%% FoomaticRIPOptionSetting: PageSize=B6"
+*FoomaticRIPOptionSetting PageSize=B6: " -dDEVICEWIDTHPOINTS=363 -dDEVICEHEIGHTPOINTS=516 -sOutputFile=- -  | &&
+ sed &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x12\xf8\x25/g&quot;"
+*End
+*PageSize Legal/Legal (8.5 x 14): "%% FoomaticRIPOptionSetting: PageSize=Legal"
+*FoomaticRIPOptionSetting PageSize=Legal: " -sPAPERSIZE=legal -sOutputFile=- - | sed &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x01\xf8\x25/g&quot;"
+*PageSize Letter/Letter (8.5 x 11): "%% FoomaticRIPOptionSetting: PageSize=Letter"
+*FoomaticRIPOptionSetting PageSize=Letter: " -sPAPERSIZE=letter -sOutputFile=- - "
+*PageSize Statement/5.5x8.5: "%% FoomaticRIPOptionSetting: PageSize=Statement"
+*FoomaticRIPOptionSetting PageSize=Statement: " -dDEVICEWIDTHPOINTS=396 -dDEVICEHEIGHTPOINTS=612 -sOutputFile=- -  | &&
+ sed &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xC9\xf8\x25/g&quot;  | &&
+ sed &quot;s/\xf8\x28\xd5\x00\x00\xb0\x40\x00\x00\x08\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xC9\xf8\x25/g&quot;"
+*End
+*PageSize FanFoldGermanLegal/8.5x13: "%% FoomaticRIPOptionSetting: PageSize=FanFoldGermanLegal"
+*FoomaticRIPOptionSetting PageSize=FanFoldGermanLegal: " -dDEVICEWIDTHPOINTS=612 -dDEVICEHEIGHTPOINTS=936 -sOutputFile=- -  | &&
+ sed &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x82\xf8\x25/g&quot;"
+*End
+*PageSize Oficio/8.5x13.4: "%% FoomaticRIPOptionSetting: PageSize=Oficio"
+*FoomaticRIPOptionSetting PageSize=Oficio: " -dDEVICEWIDTHPOINTS=612 -dDEVICEHEIGHTPOINTS=965 -sOutputFile=- -  | &&
+ sed &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x83\xf8\x25/g&quot;  | &&
+ sed &quot;s/\xf8\x28\xd5\x00\x00\x08\x41\x0e\x74\x56\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\x83\xf8\x25/g&quot;"
+*End
+*PageSize IndianLG/Indian Legal (8.5x13.6): "%% FoomaticRIPOptionSetting: PageSize=IndianLG"
+*FoomaticRIPOptionSetting PageSize=IndianLG: " -dDEVICEWIDTHPOINTS=612 -dDEVICEHEIGHTPOINTS=979 -sOutputFile=- -  | &&
+ sed &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x86\xf8\x25/g&quot;  | &&
+ sed &quot;s/\xf8\x28\xd5\x00\x00\x08\x41\xf2\x8b\x59\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\x86\xf8\x25/g&quot;"
+*End
+*PageSize FOOLSCAP/Australian FOOLSCAP (8.11x13.3): "%% FoomaticRIPOptionSetting: PageSize=FOOLSCAP"
+*FoomaticRIPOptionSetting PageSize=FOOLSCAP: " -dDEVICEWIDTHPOINTS=584 -dDEVICEHEIGHTPOINTS=958 -sOutputFile=- -  | &&
+ sed &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x87\xf8\x25/g&quot;  | &&
+ sed &quot;s/\xf8\x28\xd5\x63\xc9\x01\x41\x48\xe1\x54\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\x87\xf8\x25/g&quot;"
+*End
+*PageSize Env10/Com10 Env. (4.125 x 9.5): "%% FoomaticRIPOptionSetting: PageSize=Env10"
+*FoomaticRIPOptionSetting PageSize=Env10: " -dDEVICEWIDTHPOINTS=297 -dDEVICEHEIGHTPOINTS=684 -sOutputFile=- -  | &&
+ sed &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x06\xf8\x25/g&quot;"
+*End
+*PageSize EnvMonarch/Monarch Env. (3.875 x 7.5): "%% FoomaticRIPOptionSetting: PageSize=EnvMonarch"
+*FoomaticRIPOptionSetting PageSize=EnvMonarch: " -dDEVICEWIDTHPOINTS=279 -dDEVICEHEIGHTPOINTS=540 -sOutputFile=- -  | &&
+ sed &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x07\xf8\x25/g&quot;"
+*End
+*PageSize EnvC5/C5 Env. (162 x 229 mm): "%% FoomaticRIPOptionSetting: PageSize=EnvC5"
+*FoomaticRIPOptionSetting PageSize=EnvC5: " -dDEVICEWIDTHPOINTS=459 -dDEVICEHEIGHTPOINTS=649 -sOutputFile=- -  | &&
+ sed &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x08\xf8\x25/g&quot;"
+*End
+*PageSize EnvC6/C6 Env. (114 x 162 mm): "%% FoomaticRIPOptionSetting: PageSize=EnvC6"
+*FoomaticRIPOptionSetting PageSize=EnvC6: " -dDEVICEWIDTHPOINTS=323 -dDEVICEHEIGHTPOINTS=459 -sOutputFile=- -  | &&
+ sed &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xca\xf8\x25/g&quot;  | &&
+ sed &quot;s/\xf8\x28\xd5\xc6\x92\x8f\x40\x00\x00\xcc\x40\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xca\xf8\x25/g&quot;"
+*End
+*PageSize DLEnv/DL Env. (110 x 220 mm): "%% FoomaticRIPOptionSetting: PageSize=DLEnv"
+*FoomaticRIPOptionSetting PageSize=DLEnv: " -dDEVICEWIDTHPOINTS=311 -dDEVICEHEIGHTPOINTS=623 -sOutputFile=- -  | &&
+ sed &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x09\xf8\x25/g&quot;"
+*End
+*PageSize 16Kai/16K (195 x 267 mm): "%% FoomaticRIPOptionSetting: PageSize=16Kai"
+*FoomaticRIPOptionSetting PageSize=16Kai: " -dDEVICEWIDTHPOINTS=553 -dDEVICEHEIGHTPOINTS=757 -sOutputFile=- -  | &&
+ sed &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\x57\xf8\x25/g&quot;"
+*End
+
+*CloseUI: *PageSize
+
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 10 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion A4/A4 (210 x 297 mm): "%% FoomaticRIPOptionSetting: PageSize=A4"
+*PageRegion A5L/A5 (210 x 148 mm): "%% FoomaticRIPOptionSetting: PageSize=A5L"
+*PageRegion A5/A5 (148 x 210 mm): "%% FoomaticRIPOptionSetting: PageSize=A5"
+*PageRegion A6/A6 (105 x 148 mm): "%% FoomaticRIPOptionSetting: PageSize=A6"
+*PageRegion B5/B5 JIS (182 x 257 mm): "%% FoomaticRIPOptionSetting: PageSize=B5"
+*PageRegion B6/B6 JIS (128 x 182 mm): "%% FoomaticRIPOptionSetting: PageSize=B6"
+*PageRegion Legal/Legal (8.5 x 14): "%% FoomaticRIPOptionSetting: PageSize=Legal"
+*PageRegion Letter/Letter (8.5 x 11): "%% FoomaticRIPOptionSetting: PageSize=Letter"
+*PageRegion Statement/5.5x8.5: "%% FoomaticRIPOptionSetting: PageSize=Statement"
+*PageRegion FanFoldGermanLegal/8.5x13: "%% FoomaticRIPOptionSetting: PageSize=FanFoldGermanLegal"
+*PageRegion Oficio/8.5x13.4: "%% FoomaticRIPOptionSetting: PageSize=Oficio"
+*PageRegion IndianLG/Indian Legal (8.5x13.6): "%% FoomaticRIPOptionSetting: PageSize=IndianLG"
+*PageRegion FOOLSCAP/Australian FOOLSCAP (8.11x13.3): "%% FoomaticRIPOptionSetting: PageSize=FOOLSCAP"
+*PageRegion Env10/Com10 Env. (4.125 x 9.5): "%% FoomaticRIPOptionSetting: PageSize=Env10"
+*PageRegion EnvMonarch/Monarch Env. (3.875 x 7.5): "%% FoomaticRIPOptionSetting: PageSize=EnvMonarch"
+*PageRegion EnvC5/C5 Env. (162 x 229 mm): "%% FoomaticRIPOptionSetting: PageSize=EnvC5"
+*PageRegion EnvC6/C6 Env. (114 x 162 mm): "%% FoomaticRIPOptionSetting: PageSize=EnvC6"
+*PageRegion DLEnv/DL Env. (110 x 220 mm): "%% FoomaticRIPOptionSetting: PageSize=DLEnv"
+*PageRegion 16Kai/16K (195 x 267 mm): "%% FoomaticRIPOptionSetting: PageSize=16Kai"
+
+*CloseUI: *PageRegion
+
+*DefaultImageableArea: Letter
+*ImageableArea A4/A4 (210 x 297 mm): "12 12 583 830"
+*ImageableArea A5L/A5 (210 x 148 mm): "12 12 583 408"
+*ImageableArea A5/A5 (148 x 210 mm): "12 12 408 583"
+*ImageableArea A6/A6 (105 x 148 mm): "12 12 285 408"
+*ImageableArea B5/B5 JIS (182 x 257 mm): "12 12 504 717"
+*ImageableArea B6/B6 JIS (128 x 182 mm): "12 12 351 504"
+*ImageableArea Legal/Legal (8.5 x 14): "12 12 600 996"
+*ImageableArea Letter/Letter (8.5 x 11): "12 12 600 780"
+*ImageableArea Statement/5.5 x 8.5: "12 12 384 600"
+*ImageableArea FanFoldGermanLegal/8.5 x 13: "12 12 600 924"
+*ImageableArea Oficio/8.5 x 13.4: "12 12 600 953"
+*ImageableArea IndianLG/Indian Legal (8.5x13.6): "12 12 600 967"
+*ImageableArea FOOLSCAP/Australian FOOLSCAP (8.11x13.3): "12 12 572 946"
+*ImageableArea Env10/Com10 Env. (4.125 x 9.5): "12 12 285 672"
+*ImageableArea EnvMonarch/Monarch Env. (3.875 x 7.5): "12 12 267 528"
+*ImageableArea EnvC5/C5 Env. (162 x 229 mm): "12 12 447 637"
+*ImageableArea EnvC6/C6 Env. (114 x 162 mm): "12 12 311 447"
+*ImageableArea DLEnv/DL Env. (110 x 220 mm): "12 12 299 611"
+*ImageableArea 16Kai/16K (195 x 267 mm): "12 12 541 745"
+
+*DefaultPaperDimension: Letter
+*PaperDimension A4/A4 (210 x 297 mm): "595 842"
+*PaperDimension A5L/A5 (210 x 148 mm): "595 420"
+*PaperDimension A5/A5 (148 x 210 mm): "420 595"
+*PaperDimension A6/A6 (105 x 148 mm): "297 420"
+*PaperDimension B5/B5 JIS (182 x 257 mm): "516 729"
+*PaperDimension B6/B6 JIS (128 x 182 mm): "363 516"
+*PaperDimension Legal/Legal (8.5 x 14): "612 1008"
+*PaperDimension Letter/Letter (8.5 x 11): "612 792"
+*PaperDimension Statement/5.5 x 8.5: "396 612"
+*PaperDimension FanFoldGermanLegal/8.5 x 13: "612 936"
+*PaperDimension Oficio/8.5 x 13.4: "612 965"
+*PaperDimension IndianLG/Indian Legal (8.5x13.6): "612 979"
+*PaperDimension FOOLSCAP/Australian FOOLSCAP (8.11x13.3): "584 958"
+*PaperDimension Env10/Com10 Env. (4.125 x 9.5): "297 684"
+*PaperDimension EnvMonarch/Monarch Env. (3.875 x 7.5): "279 540"
+*PaperDimension EnvC5/C5 Env. (162 x 229 mm): "459 649"
+*PaperDimension EnvC6/C6 Env. (114 x 162 mm): "323 459"
+*PaperDimension DLEnv/DL Env. (110 x 220 mm): "311 623"
+*PaperDimension 16Kai/16K (195 x 267 mm): "553 757"
+
+*OpenUI *Resolution/Resolution: PickOne
+*FoomaticRIPOption Resolution: enum Composite A
+*OrderDependency: 20 AnySetup *Resolution
+*DefaultResolution: 600dpi
+
+*Resolution 600dpi/600 x 600 dpi:  "%% FoomaticRIPOptionSetting: Resolution=600dpi"
+*FoomaticRIPOptionSetting Resolution=600dpi: "JCLResolution=600dpi GSResolution=600dpi"
+*Resolution 1200dpi/1200 x 1200 dpi:  "%% FoomaticRIPOptionSetting: Resolution=1200dpi"
+*FoomaticRIPOptionSetting Resolution=1200dpi: "JCLResolution=1200dpi GSResolution=1200dpi"
+*CloseUI: *Resolution
+
+*FoomaticRIPOption GSResolution: enum CmdLine A 15
+*FoomaticRIPOptionSetting GSResolution=FromResolution: ""
+*FoomaticRIPOptionSetting GSResolution=600dpi: " -r600x600"
+*FoomaticRIPOptionSetting GSResolution=1200dpi: " -r1200x1200"
+
+*FoomaticRIPOption JCLResolution: enum JCL A 15
+*FoomaticRIPOptionSetting JCLResolution=FromResolution: ""
+*FoomaticRIPOptionSetting JCLResolution=600dpi: "SET RESOLUTION=600
+@PJL SET BITSPERDOT=1"
+*FoomaticRIPOptionSetting JCLResolution=1200dpi: "SET RESOLUTION=1200
+@PJL SET BITSPERDOT=1"
+
+*OpenUI *InputSlot/InputSlot: PickOne
+*FoomaticRIPOption InputSlot: enum CmdLine E
+*OrderDependency: 10 AnySetup *InputSlot
+*DefaultInputSlot: Auto
+*InputSlot Auto/Auto Tray Select: "%% FoomaticRIPOptionSetting: InputSlot=Auto"
+*FoomaticRIPOptionSetting InputSlot=Auto: ""
+*InputSlot MultiTray/Bypass Tray: "%% FoomaticRIPOptionSetting: InputSlot=MultiTray"
+*FoomaticRIPOptionSetting InputSlot=MultiTray: " | sed &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x03\xf8\x26/g&quot;"
+*InputSlot 1Tray/Tray 1: "%% FoomaticRIPOptionSetting: InputSlot=1Tray"
+*FoomaticRIPOptionSetting InputSlot=1Tray: " | sed &quot;s/\xf8\x25\xc0[\x00\x01]\xf8\x26/\xf8\x25\xc0\x04\xf8\x26/g&quot;"
+*CloseUI: *InputSlot
+
+*OpenUI *Duplex/Duplex: PickOne
+*FoomaticRIPOption Duplex: enum Composite D
+*OrderDependency: 20 AnySetup *Duplex
+*DefaultDuplex: DuplexNoTumble
+*Duplex None/Off:  "%% FoomaticRIPOptionSetting: Duplex=None"
+*FoomaticRIPOptionSetting Duplex=None: "JCLDuplex=None GSDuplex=None"
+*Duplex DuplexNoTumble/Long Edge:  "%% FoomaticRIPOptionSetting: Duplex=DuplexNoTumble"
+*FoomaticRIPOptionSetting Duplex=DuplexNoTumble: "JCLDuplex=DuplexNoTumble GSDuplex=DuplexNoTumble"
+*Duplex DuplexTumble/Short Edge:  "%% FoomaticRIPOptionSetting: Duplex=DuplexTumble"
+*FoomaticRIPOptionSetting Duplex=DuplexTumble: "JCLDuplex=DuplexTumble GSDuplex=DuplexTumble"
+*CloseUI: *Duplex
+
+*FoomaticRIPOptionSetting Duplex=0: "JCLDuplex=None GSDuplex=None"
+*FoomaticRIPOptionSetting Duplex=LongEdge: "JCLDuplex=DuplexNoTumble GSDuplex=DuplexNoTumble"
+*FoomaticRIPOptionSetting Duplex=ShortEdge: "JCLDuplex=DuplexTumble GSDuplex=DuplexTumble"
+
+*FoomaticRIPOption GSDuplex: enum CmdLine D 50
+*FoomaticRIPOptionSetting GSDuplex=FromDuplex: ""
+*FoomaticRIPOptionSetting GSDuplex=None: ""
+*FoomaticRIPOptionSetting GSDuplex=DuplexNoTumble: "| sed &quot;s/\xf8\x26\xc0\x00\xf8\x34/\xf8\x26\xc0\x01\xf8\x35/g&quot;"
+*FoomaticRIPOptionSetting GSDuplex=DuplexTumble: "| sed &quot;s/\xf8\x26\xc0\x00\xf8\x34/\xf8\x26\xc0\x00\xf8\x35/g&quot;"
+
+*FoomaticRIPOption JCLDuplex: enum JCL D 50
+*FoomaticRIPOptionSetting JCLDuplex=FromDuplex: ""
+*FoomaticRIPOptionSetting JCLDuplex=None: "SET DUPLEX=OFF"
+*FoomaticRIPOptionSetting JCLDuplex=DuplexNoTumble: "SET DUPLEX=ON
+@PJL SET BINDING=LONGEDGE"
+*FoomaticRIPOptionSetting JCLDuplex=DuplexTumble: "SET DUPLEX=ON
+@PJL SET BINDING=SHORTEDGE"
+
+*%========== UI Constraints ==========
+
+*%==========Paper Size/Input Tray
+*UIConstraints: *InputSlot 1Tray *PageSize Env10
+*UIConstraints: *InputSlot 1Tray *PageSize EnvMonarch
+*UIConstraints: *InputSlot 1Tray *PageSize EnvC5
+*UIConstraints: *InputSlot 1Tray *PageSize EnvC6
+*UIConstraints: *InputSlot 1Tray *PageSize DLEnv
+
+*UIConstraints: *PageSize Env10 *InputSlot 1Tray
+*UIConstraints: *PageSize EnvMonarch *InputSlot 1Tray
+*UIConstraints: *PageSize EnvC5 *InputSlot 1Tray
+*UIConstraints: *PageSize EnvC6 *InputSlot 1Tray
+*UIConstraints: *PageSize DLEnv *InputSlot 1Tray
+
+*%==========Paper Region/Input Tray
+*UIConstraints: *InputSlot 1Tray *PageRegion Env10
+*UIConstraints: *InputSlot 1Tray *PageRegion EnvMonarch
+*UIConstraints: *InputSlot 1Tray *PageRegion DLEnv
+*UIConstraints: *InputSlot 1Tray *PageRegion EnvC6
+*UIConstraints: *InputSlot 1Tray *PageRegion EnvC5
+
+*UIConstraints: *PageRegion Env10 *InputSlot 1Tray
+*UIConstraints: *PageRegion EnvMonarch *InputSlot 1Tray
+*UIConstraints: *PageRegion DLEnv *InputSlot 1Tray
+*UIConstraints: *PageRegion EnvC6 *InputSlot 1Tray
+*UIConstraints: *PageRegion EnvC5 *InputSlot 1Tray
+
+*%==========Paper Size/Duplex
+*UIConstraints: *Duplex DuplexNoTumble *PageSize B5
+*UIConstraints: *Duplex DuplexNoTumble *PageSize B6
+*UIConstraints: *Duplex DuplexNoTumble *PageSize A5L
+*UIConstraints: *Duplex DuplexNoTumble *PageSize A5
+*UIConstraints: *Duplex DuplexNoTumble *PageSize A6
+*UIConstraints: *Duplex DuplexNoTumble *PageSize Statement
+*UIConstraints: *Duplex DuplexNoTumble *PageSize Env10
+*UIConstraints: *Duplex DuplexNoTumble *PageSize EnvMonarch
+*UIConstraints: *Duplex DuplexNoTumble *PageSize EnvC5
+*UIConstraints: *Duplex DuplexNoTumble *PageSize EnvC6
+*UIConstraints: *Duplex DuplexNoTumble *PageSize DLEnv
+*UIConstraints: *Duplex DuplexNoTumble *PageSize 16Kai
+
+*UIConstraints: *PageSize B5 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize B6 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize A5L *Duplex DuplexNoTumble
+*UIConstraints: *PageSize A5 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize A6 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize Statement *Duplex DuplexNoTumble
+*UIConstraints: *PageSize Env10 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize EnvMonarch *Duplex DuplexNoTumble
+*UIConstraints: *PageSize EnvC5 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize EnvC6 *Duplex DuplexNoTumble
+*UIConstraints: *PageSize DLEnv *Duplex DuplexNoTumble
+*UIConstraints: *PageSize 16Kai *Duplex DuplexNoTumble
+
+*UIConstraints: *Duplex DuplexTumble *PageSize B5
+*UIConstraints: *Duplex DuplexTumble *PageSize B6
+*UIConstraints: *Duplex DuplexTumble *PageSize A5L
+*UIConstraints: *Duplex DuplexTumble *PageSize A5
+*UIConstraints: *Duplex DuplexTumble *PageSize A6
+*UIConstraints: *Duplex DuplexTumble *PageSize Statement
+*UIConstraints: *Duplex DuplexTumble *PageSize Env10
+*UIConstraints: *Duplex DuplexTumble *PageSize EnvMonarch
+*UIConstraints: *Duplex DuplexTumble *PageSize EnvC5
+*UIConstraints: *Duplex DuplexTumble *PageSize EnvC6
+*UIConstraints: *Duplex DuplexTumble *PageSize DLEnv
+*UIConstraints: *Duplex DuplexTumble *PageSize 16Kai
+
+*UIConstraints: *PageSize B5 *Duplex DuplexTumble
+*UIConstraints: *PageSize B6 *Duplex DuplexTumble
+*UIConstraints: *PageSize A5L *Duplex DuplexTumble
+*UIConstraints: *PageSize A5 *Duplex DuplexTumble
+*UIConstraints: *PageSize A6 *Duplex DuplexTumble
+*UIConstraints: *PageSize Statement *Duplex DuplexTumble
+*UIConstraints: *PageSize Env10 *Duplex DuplexTumble
+*UIConstraints: *PageSize EnvMonarch *Duplex DuplexTumble
+*UIConstraints: *PageSize EnvC5 *Duplex DuplexTumble
+*UIConstraints: *PageSize EnvC6 *Duplex DuplexTumble
+*UIConstraints: *PageSize DLEnv *Duplex DuplexTumble
+*UIConstraints: *PageSize 16Kai *Duplex DuplexTumble
+
+*%==========Paper Region/Duplex
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion B5
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion B6
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion A5L
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion A5
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion A6
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion Statement
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion Env10
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion EnvMonarch
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion EnvC5
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion EnvC6
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion DLEnv
+*UIConstraints: *Duplex DuplexNoTumble *PageRegion 16Kai
+
+*UIConstraints: *PageRegion B5 *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion B6 *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion A5L *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion A5 *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion A6 *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion Statement *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion Env10 *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion EnvMonarch *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion EnvC5 *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion EnvC6 *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion DLEnv *Duplex DuplexNoTumble
+*UIConstraints: *PageRegion 16Kai *Duplex DuplexNoTumble
+
+*UIConstraints: *Duplex DuplexTumble *PageRegion B5
+*UIConstraints: *Duplex DuplexTumble *PageRegion B6
+*UIConstraints: *Duplex DuplexTumble *PageRegion A5L
+*UIConstraints: *Duplex DuplexTumble *PageRegion A5
+*UIConstraints: *Duplex DuplexTumble *PageRegion A6
+*UIConstraints: *Duplex DuplexTumble *PageRegion Statement
+*UIConstraints: *Duplex DuplexTumble *PageRegion Env10
+*UIConstraints: *Duplex DuplexTumble *PageRegion EnvMonarch
+*UIConstraints: *Duplex DuplexTumble *PageRegion EnvC5
+*UIConstraints: *Duplex DuplexTumble *PageRegion EnvC6
+*UIConstraints: *Duplex DuplexTumble *PageRegion DLEnv
+*UIConstraints: *Duplex DuplexTumble *PageRegion 16Kai
+
+*UIConstraints: *PageRegion B5 *Duplex DuplexTumble
+*UIConstraints: *PageRegion B6 *Duplex DuplexTumble
+*UIConstraints: *PageRegion A5L *Duplex DuplexTumble
+*UIConstraints: *PageRegion A5 *Duplex DuplexTumble
+*UIConstraints: *PageRegion A6 *Duplex DuplexTumble
+*UIConstraints: *PageRegion Statement *Duplex DuplexTumble
+*UIConstraints: *PageRegion Env10 *Duplex DuplexTumble
+*UIConstraints: *PageRegion EnvMonarch *Duplex DuplexTumble
+*UIConstraints: *PageRegion EnvC5 *Duplex DuplexTumble
+*UIConstraints: *PageRegion EnvC6 *Duplex DuplexTumble
+*UIConstraints: *PageRegion DLEnv *Duplex DuplexTumble
+*UIConstraints: *PageRegion 16Kai *Duplex DuplexTumble
+
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(1.05)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(1.05)" Standard ROM
+*Font AvantGarde-Demi: Standard "(1.05)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(1.05)" Standard ROM
+*Font Bookman-Demi: Standard "(1.05)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(1.05)" Standard ROM
+*Font Bookman-Light: Standard "(1.05)" Standard ROM
+*Font Bookman-LightItalic: Standard "(1.05)" Standard ROM
+*Font Courier: Standard "(1.05)" Standard ROM
+*Font Courier-Bold: Standard "(1.05)" Standard ROM
+*Font Courier-BoldOblique: Standard "(1.05)" Standard ROM
+*Font Courier-Oblique: Standard "(1.05)" Standard ROM
+*Font Helvetica: Standard "(1.05)" Standard ROM
+*Font Helvetica-Bold: Standard "(1.05)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(1.05)" Standard ROM
+*Font Helvetica-Narrow: Standard "(1.05)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(1.05)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(1.05)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(1.05)" Standard ROM
+*Font Helvetica-Oblique: Standard "(1.05)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(1.05)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(1.05)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(1.05)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(1.05)" Standard ROM
+*Font Palatino-Bold: Standard "(1.05)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(1.05)" Standard ROM
+*Font Palatino-Italic: Standard "(1.05)" Standard ROM
+*Font Palatino-Roman: Standard "(1.05)" Standard ROM
+*Font Symbol: Special "(001.005)" Special ROM
+*Font Times-Bold: Standard "(1.05)" Standard ROM
+*Font Times-BoldItalic: Standard "(1.05)" Standard ROM
+*Font Times-Italic: Standard "(1.05)" Standard ROM
+*Font Times-Roman: Standard "(1.05)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(1.05)" Standard ROM
+*Font ZapfDingbats: Special "(001.005)" Special ROM
+
+*% end of Printer Description file
