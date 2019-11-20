@@ -3,12 +3,12 @@
 *%  Printer Description file
 *%    for "Lanier Pro C7200 PS"
 *%
-*%    CreationDate: 2018/08/09
-*%    Modified:     2018/08/09
+*%    CreationDate: 2019/10/10
+*%    Modified:     2019/10/10
 *%
-*%    java.util.zip.CRC32: 1bbe88e4
+*%    java.util.zip.CRC32: 6580224f
 *%
-*%    COPYRIGHT (C) 2018 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2019 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -151,6 +151,8 @@ restore
 *Finisher NotInstalled/Not Installed: ""
 *Finisher FinCOLUMBIACBK/Finisher SR5060: ""
 *Finisher FinCOLUMBIAC/Finisher SR5050: ""
+*Finisher FinIGUAZUBK/Finisher SR5120: ""
+*Finisher FinIGUAZU/Finisher SR5110: ""
 *?Finisher: "
 save
 mark
@@ -167,6 +169,8 @@ userdict /86f6369627 get begin
     }bind def
 (FinCOLUMBIACBK)       	[37]   Isfit?
 (FinCOLUMBIAC)       	[44]   Isfit?
+(FinIGUAZUBK)       	[56]   Isfit?
+(FinIGUAZU)       	[55]   Isfit?
 end}{pop}ifelse
 }if
 = flush
@@ -290,6 +294,34 @@ restore
 *End
 *CloseUI: *BKLProcessor
 
+*OpenUI *NorthStar/Banner Sheet Booklet Processor: PickOne
+*DefaultNorthStar: NotInstalled
+*NorthStar NotInstalled/Not Installed: ""
+*NorthStar Installed/Installed: ""
+*?NorthStar: "
+save
+mark
+(NotInstalled)
+userdict /86f6369627 known {
+    userdict /86f6369627 get
+    /perifdict get /outslot get dup type /arraytype eq {
+userdict /86f6369627 get begin
+    /devdict 1 dict def /ret false def {devdict exch cvlit null put}forall
+    /Isfit? {  ret  {pop pop } {
+        /ret true def
+        {devdict exch known not {/ret false def pop exit}if} forall
+    }ifelse
+    }bind def
+(Installed)       	[59]   Isfit?
+end}{pop}ifelse
+}if
+= flush
+cleartomark
+restore
+"
+*End
+*CloseUI: *NorthStar
+
 *OpenUI *MultiHolePunchUnit/Multi-hole Punch Unit: PickOne
 *DefaultMultiHolePunchUnit: NotInstalled
 *MultiHolePunchUnit NotInstalled/Not Installed: ""
@@ -367,8 +399,8 @@ userdict /86f6369627 get begin
     }ifelse
     }bind def
 (FinISHIKARIC)       	[30]   Isfit?
-(FinTENRYUB)         	[31]   Isfit?
-(FinTwinLoopBinder)     [53]   Isfit?
+(FinTENRYUB)       	[31]   Isfit?
+(FinTwinLoopBinder)       	[53]   Isfit?
 end}{pop}ifelse
 }if
 = flush
@@ -405,6 +437,34 @@ restore
 "
 *End
 *CloseUI: *OptionInterfaceBox
+
+*OpenUI *SquareFoldUnit/Trimmer with BookFold: PickOne
+*DefaultSquareFoldUnit: NotInstalled
+*SquareFoldUnit NotInstalled/Not Installed: ""
+*SquareFoldUnit Installed/Installed: ""
+*?SquareFoldUnit: "
+save
+mark
+(NotInstalled)
+userdict /86f6369627 known {
+    userdict /86f6369627 get
+    /perifdict get /outslot get dup type /arraytype eq {
+userdict /86f6369627 get begin
+    /devdict 1 dict def /ret false def {devdict exch cvlit null put}forall
+    /Isfit? {  ret  {pop pop } {
+        /ret true def
+        {devdict exch known not {/ret false def pop exit}if} forall
+    }ifelse
+    }bind def
+(Installed)       	[58]   Isfit?
+end}{pop}ifelse
+}if
+= flush
+cleartomark
+restore
+"
+*End
+*CloseUI: *SquareFoldUnit
 
 *CloseGroup: InstallableOptions
 
@@ -1502,6 +1562,36 @@ userdict /RPS_MPdict get begin
 <</OutputType (FinShift)>>setpagedevice\n&&
 } stopped cleartomark\n"
 *End
+*OutputBin FinIGUAZUBKShift/Finisher SR5120 Shift Tray 1: "%% FoomaticRIPOptionSetting: OutputBin=FinIGUAZUBKShift"
+*FoomaticRIPOptionSetting OutputBin=FinIGUAZUBKShift: "mark{\n&&
+<</OutputType (FinShift)>>setpagedevice\n&&
+} stopped cleartomark\n"
+*End
+*OutputBin SecondFinIGUAZUBKShift/Finisher SR5120 Shift Tray 2: "%% FoomaticRIPOptionSetting: OutputBin=SecondFinIGUAZUBKShift"
+*FoomaticRIPOptionSetting OutputBin=SecondFinIGUAZUBKShift: "mark{\n&&
+<</OutputType (FinShift2)>>setpagedevice\n&&
+} stopped cleartomark\n"
+*End
+*OutputBin FinIGUAZUBKBKLower/Finisher SR5120 Booklet Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinIGUAZUBKBKLower"
+*FoomaticRIPOptionSetting OutputBin=FinIGUAZUBKBKLower: "mark{\n&&
+<</OutputType (FinBooklet)>>setpagedevice\n&&
+} stopped cleartomark\n"
+*End
+*OutputBin FinIGUAZUShift/Finisher SR5110 Shift Tray 1: "%% FoomaticRIPOptionSetting: OutputBin=FinIGUAZUShift"
+*FoomaticRIPOptionSetting OutputBin=FinIGUAZUShift: "mark{\n&&
+<</OutputType (FinShift)>>setpagedevice\n&&
+} stopped cleartomark\n"
+*End
+*OutputBin SecondFinIGUAZUShift/Finisher SR5110 Shift Tray 2: "%% FoomaticRIPOptionSetting: OutputBin=SecondFinIGUAZUShift"
+*FoomaticRIPOptionSetting OutputBin=SecondFinIGUAZUShift: "mark{\n&&
+<</OutputType (FinShift2)>>setpagedevice\n&&
+} stopped cleartomark\n"
+*End
+*OutputBin FinORIONBKLower/Trimmer with BookFold Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinORIONBKLower"
+*FoomaticRIPOptionSetting OutputBin=FinORIONBKLower: "mark{\n&&
+<</OutputType (FinBooklet)>>setpagedevice\n&&
+} stopped cleartomark\n"
+*End
 *OutputBin FinISHIKARI/Ring Binder Tray: "%% FoomaticRIPOptionSetting: OutputBin=FinISHIKARI"
 *FoomaticRIPOptionSetting OutputBin=FinISHIKARI: "mark{\n&&
 <</OutputType (SubFinRing)>>setpagedevice\n&&
@@ -1527,7 +1617,7 @@ userdict /RPS_MPdict get begin
 <</OutputType (FinShift)>>setpagedevice\n&&
 } stopped cleartomark\n"
 *End
-*OutputBin InterfaceBox/Extended Option's Tray: "%% FoomaticRIPOptionSetting: OutputBin=InterfaceBox"
+*OutputBin InterfaceBox/Extended Option Tray: "%% FoomaticRIPOptionSetting: OutputBin=InterfaceBox"
 *FoomaticRIPOptionSetting OutputBin=InterfaceBox: "mark{\n&&
 <</OutputType (FinExtFunc)>>setpagedevice\n&&
 } stopped cleartomark\n"
@@ -1562,6 +1652,11 @@ userdict /RPS_MPdict get begin
 <</OutputType (SubFinTwinLoop)>>setpagedevice\n&&
 } stopped cleartomark\n"
 *End
+*OutputBin NorthStarTray/Banner Sheet Booklet Processor Tray: "%% FoomaticRIPOptionSetting: OutputBin=NorthStarTray"
+*FoomaticRIPOptionSetting OutputBin=NorthStarTray: "mark{\n&&
+<</OutputType (FinBooklet)>>setpagedevice\n&&
+} stopped cleartomark\n"
+*End
 *?OutputBin: "
 save
 mark
@@ -1588,6 +1683,12 @@ userdict /86f6369627 get begin
 (FinCOLUMBIACBKLower)       	(FinBooklet)       	[37]   IsCurrentOutputType?
 (FinCOLUMBIACUpper)       	(FinProof)       	[44]   IsCurrentOutputType?
 (FinCOLUMBIACShift)       	(FinShift)       	[44]   IsCurrentOutputType?
+(FinIGUAZUBKShift)       	(FinShift)       	[56]   IsCurrentOutputType?
+(SecondFinIGUAZUBKShift)       	(FinShift2)       	[56]   IsCurrentOutputType?
+(FinIGUAZUBKBKLower)       	(FinBooklet)       	[56]   IsCurrentOutputType?
+(FinIGUAZUShift)       	(FinShift)       	[55]   IsCurrentOutputType?
+(SecondFinIGUAZUShift)       	(FinShift2)       	[55]   IsCurrentOutputType?
+(FinORIONBKLower)       	(FinBooklet)       	[58]   IsCurrentOutputType?
 (FinISHIKARI)       	(SubFinRing)       	[30]   IsCurrentOutputType?
 (FinTENRYU)       	(SubFinPerf)       	[31]   IsCurrentOutputType?
 (FinDONAUProof)       	(FoldProof)       	[33]   IsCurrentOutputType?
@@ -1600,6 +1701,7 @@ userdict /86f6369627 get begin
 (SecondStackerTray)       	(Stacker2)       	[36]   IsCurrentOutputType?
 (LargeStackerTray)       	(FinShift)       	[54]   IsCurrentOutputType?
 (TwinLoopBinderTray)       	(SubFinTwinLoop)       	[53]   IsCurrentOutputType?
+(NorthStarTray)       	(FinBooklet)       	[59]   IsCurrentOutputType?
 end}if
 = flush
 cleartomark
@@ -2113,6 +2215,9 @@ userdict /RPS_BPdict get begin\n&&
 *RIZfold Left/Left Fold: "<< /Fold 1
   /FoldDetails << /Type 7 /FoldType 0 /ImageRotation 3 >> >> setpagedevice"
 *End
+*?RIZfold: "
+"
+*End
 *CloseUI: *RIZfold
 
 *OpenUI *RIFoldType/Fold Type: PickOne
@@ -2142,6 +2247,9 @@ userdict /RPS_MFdict get begin /RPS_MF_FOLDTYPE 100 def end"
 *RIFoldType OutsideTwofold/Half Fold - Print Outside (Finisher Booklet Tray): "userdict /RPS_MFdict 1 dict put
 userdict /RPS_MFdict get begin /RPS_MF_FOLDTYPE 101 def end"
 *End
+*?RIFoldType: "
+"
+*End
 *CloseUI: *RIFoldType
 
 *OpenUI *OverlapFold/Multi-sheet Fold: PickOne
@@ -2164,6 +2272,9 @@ userdict /RPS_MFdict get begin /RPS_MF_FOLDTYPE 101 def end"
 /Stack true >>
 >> setpagedevice
 } if"
+*End
+*?OverlapFold: "
+"
 *End
 *CloseUI: *OverlapFold
 
@@ -2236,7 +2347,7 @@ userdict /RPS_MPdict known{
 
 *OpenUI *RIInserter/Binding Paper Source Tray: PickOne
 *OrderDependency: 265 AnySetup *RIInserter
-*DefaultRIInserter: Upper
+*DefaultRIInserter: 1Tray
 *RIInserter 1Tray/Tray 1: "userdict /RPS_BDdict 12 dict put
 userdict /RPS_BDdict get begin /RPS_BD_INSERTERTRAY 1 def end"
 *End
@@ -2475,6 +2586,70 @@ userdict /RPS_BDdict get begin
 }if"
 *End
 *CloseUI: *RITrim
+
+*OpenUI *RICoverPositionUB/Cover Position (Along Binding Edge): PickOne
+*OrderDependency: 286 AnySetup *RICoverPositionUB
+*DefaultRICoverPositionUB: None
+*RICoverPositionUB 20mm/2.0 mm: "userdict /RPS_BDdict get begin
+/RPS_BD_COVERPRINTPOSITIONH 5.7 def end"
+*End
+*RICoverPositionUB 15mm/1.5 mm: "userdict /RPS_BDdict get begin
+/RPS_BD_COVERPRINTPOSITIONH 4.3 def end"
+*End
+*RICoverPositionUB 10mm/1.0 mm: "userdict /RPS_BDdict get begin
+/RPS_BD_COVERPRINTPOSITIONH 2.8 def end"
+*End
+*RICoverPositionUB 5mm/0.5 mm: "userdict /RPS_BDdict get begin
+/RPS_BD_COVERPRINTPOSITIONH 1.4 def end"
+*End
+*RICoverPositionUB None/0 mm: "userdict /RPS_BDdict get begin
+/RPS_BD_COVERPRINTPOSITIONH 0 def end"
+*End
+*RICoverPositionUB M5mm/-0.5 mm: "userdict /RPS_BDdict get begin
+/RPS_BD_COVERPRINTPOSITIONH -1.4 def end"
+*End
+*RICoverPositionUB M10mm/-1.0 mm: "userdict /RPS_BDdict get begin
+/RPS_BD_COVERPRINTPOSITIONH -2.8 def end"
+*End
+*RICoverPositionUB M15mm/-1.5 mm: "userdict /RPS_BDdict get begin
+/RPS_BD_COVERPRINTPOSITIONH -4.3 def end"
+*End
+*RICoverPositionUB M20mm/-2.0 mm: "userdict /RPS_BDdict get begin
+/RPS_BD_COVERPRINTPOSITIONH -5.7 def end"
+*End
+*CloseUI: *RICoverPositionUB
+
+*OpenUI *RICoverPositionLR/Cover Position (Across Binding Edge): PickOne
+*OrderDependency: 287 AnySetup *RICoverPositionLR
+*DefaultRICoverPositionLR: None
+*RICoverPositionLR 20mm/2.0 mm: "userdict /RPS_BDdict get begin
+/RPS_BD_COVERPRINTPOSITIONV 5.7 def end"
+*End
+*RICoverPositionLR 15mm/1.5 mm: "userdict /RPS_BDdict get begin
+/RPS_BD_COVERPRINTPOSITIONV 4.3 def end"
+*End
+*RICoverPositionLR 10mm/1.0 mm: "userdict /RPS_BDdict get begin
+/RPS_BD_COVERPRINTPOSITIONV 2.8 def end"
+*End
+*RICoverPositionLR 5mm/0.5 mm: "userdict /RPS_BDdict get begin
+/RPS_BD_COVERPRINTPOSITIONV 1.4 def end"
+*End
+*RICoverPositionLR None/0 mm: "userdict /RPS_BDdict get begin
+/RPS_BD_COVERPRINTPOSITIONV 0 def end"
+*End
+*RICoverPositionLR M5mm/-0.5 mm: "userdict /RPS_BDdict get begin
+/RPS_BD_COVERPRINTPOSITIONV -1.4 def end"
+*End
+*RICoverPositionLR M10mm/-1.0 mm: "userdict /RPS_BDdict get begin
+/RPS_BD_COVERPRINTPOSITIONV -2.8 def end"
+*End
+*RICoverPositionLR M15mm/-1.5 mm: "userdict /RPS_BDdict get begin
+/RPS_BD_COVERPRINTPOSITIONV -4.3 def end"
+*End
+*RICoverPositionLR M20mm/-2.0 mm: "userdict /RPS_BDdict get begin
+/RPS_BD_COVERPRINTPOSITIONV -5.7 def end"
+*End
+*CloseUI: *RICoverPositionLR
 
 *OpenUI *RICutSize/Perfect Binding Finishing Size: PickOne
 *OrderDependency: 275 AnySetup *RICutSize
@@ -2937,70 +3112,6 @@ userdict /RPS_BDdict get begin
 *End
 *CloseUI: *RICutPositionBottom
 
-*OpenUI *RICoverPositionUB/Cover Position (Along Binding Edge): PickOne
-*OrderDependency: 286 AnySetup *RICoverPositionUB
-*DefaultRICoverPositionUB: None
-*RICoverPositionUB 20mm/2.0 mm: "userdict /RPS_BDdict get begin
-/RPS_BD_COVERPRINTPOSITIONH 5.7 def end"
-*End
-*RICoverPositionUB 15mm/1.5 mm: "userdict /RPS_BDdict get begin
-/RPS_BD_COVERPRINTPOSITIONH 4.3 def end"
-*End
-*RICoverPositionUB 10mm/1.0 mm: "userdict /RPS_BDdict get begin
-/RPS_BD_COVERPRINTPOSITIONH 2.8 def end"
-*End
-*RICoverPositionUB 5mm/0.5 mm: "userdict /RPS_BDdict get begin
-/RPS_BD_COVERPRINTPOSITIONH 1.4 def end"
-*End
-*RICoverPositionUB None/0 mm: "userdict /RPS_BDdict get begin
-/RPS_BD_COVERPRINTPOSITIONH 0 def end"
-*End
-*RICoverPositionUB M5mm/-0.5 mm: "userdict /RPS_BDdict get begin
-/RPS_BD_COVERPRINTPOSITIONH -1.4 def end"
-*End
-*RICoverPositionUB M10mm/-1.0 mm: "userdict /RPS_BDdict get begin
-/RPS_BD_COVERPRINTPOSITIONH -2.8 def end"
-*End
-*RICoverPositionUB M15mm/-1.5 mm: "userdict /RPS_BDdict get begin
-/RPS_BD_COVERPRINTPOSITIONH -4.3 def end"
-*End
-*RICoverPositionUB M20mm/-2.0 mm: "userdict /RPS_BDdict get begin
-/RPS_BD_COVERPRINTPOSITIONH -5.7 def end"
-*End
-*CloseUI: *RICoverPositionUB
-
-*OpenUI *RICoverPositionLR/Cover Position (Across Binding Edge): PickOne
-*OrderDependency: 287 AnySetup *RICoverPositionLR
-*DefaultRICoverPositionLR: None
-*RICoverPositionLR 20mm/2.0 mm: "userdict /RPS_BDdict get begin
-/RPS_BD_COVERPRINTPOSITIONV 5.7 def end"
-*End
-*RICoverPositionLR 15mm/1.5 mm: "userdict /RPS_BDdict get begin
-/RPS_BD_COVERPRINTPOSITIONV 4.3 def end"
-*End
-*RICoverPositionLR 10mm/1.0 mm: "userdict /RPS_BDdict get begin
-/RPS_BD_COVERPRINTPOSITIONV 2.8 def end"
-*End
-*RICoverPositionLR 5mm/0.5 mm: "userdict /RPS_BDdict get begin
-/RPS_BD_COVERPRINTPOSITIONV 1.4 def end"
-*End
-*RICoverPositionLR None/0 mm: "userdict /RPS_BDdict get begin
-/RPS_BD_COVERPRINTPOSITIONV 0 def end"
-*End
-*RICoverPositionLR M5mm/-0.5 mm: "userdict /RPS_BDdict get begin
-/RPS_BD_COVERPRINTPOSITIONV -1.4 def end"
-*End
-*RICoverPositionLR M10mm/-1.0 mm: "userdict /RPS_BDdict get begin
-/RPS_BD_COVERPRINTPOSITIONV -2.8 def end"
-*End
-*RICoverPositionLR M15mm/-1.5 mm: "userdict /RPS_BDdict get begin
-/RPS_BD_COVERPRINTPOSITIONV -4.3 def end"
-*End
-*RICoverPositionLR M20mm/-2.0 mm: "userdict /RPS_BDdict get begin
-/RPS_BD_COVERPRINTPOSITIONV -5.7 def end"
-*End
-*CloseUI: *RICoverPositionLR
-
 *OpenUI *RIRingPunch/Ring Binding Position: PickOne
 *OrderDependency: 288 AnySetup *RIRingPunch
 *DefaultRIRingPunch: Left
@@ -3039,6 +3150,10 @@ userdict /RPS_TLBDdict get begin
 *OrderDependency: 298 AnySetup *TrimmerCutAndPosition
 *DefaultTrimmerCutAndPosition: None
 *TrimmerCutAndPosition None/Do not Cut: "currentpagedevice /Bind get 0 eq {<</Trim 0>> setpagedevice} if"
+*TrimmerCutAndPosition On/On: "<<
+/Trim 2 /TrimDetails <</Type 1 /TrimType 2>>
+>> setpagedevice"
+*End
 *TrimmerCutAndPosition 20mm/2.0 mm: "<<
 /Trim 2 /TrimDetails <</Type 1 /TrimType 1 /TrimSide 5.7>>
 >> setpagedevice"
@@ -3115,6 +3230,22 @@ userdict /RPS_TLBDdict get begin
 /Trim 2 /TrimDetails <</Type 1 /TrimType 1 /TrimSide 56.7>>
 >> setpagedevice"
 *End
+*TrimmerCutAndPosition 210mm/21.0 mm: "<<
+/Trim 2 /TrimDetails <</Type 1 /TrimType 1 /TrimSide 59.5>>
+>> setpagedevice"
+*End
+*TrimmerCutAndPosition 220mm/22.0 mm: "<<
+/Trim 2 /TrimDetails <</Type 1 /TrimType 1 /TrimSide 62.4>>
+>> setpagedevice"
+*End
+*TrimmerCutAndPosition 230mm/23.0 mm: "<<
+/Trim 2 /TrimDetails <</Type 1 /TrimType 1 /TrimSide 65.2>>
+>> setpagedevice"
+*End
+*TrimmerCutAndPosition 240mm/24.0 mm: "<<
+/Trim 2 /TrimDetails <</Type 1 /TrimType 1 /TrimSide 68.0>>
+>> setpagedevice"
+*End
 *CloseUI: *TrimmerCutAndPosition
 
 *OpenUI *Faceup/Eject Face-up: PickOne
@@ -3123,6 +3254,17 @@ userdict /RPS_TLBDdict get begin
 *Faceup Off/Off: "<< /OutputFaceUp false >>setpagedevice"
 *Faceup On/On: "<< /OutputFaceUp true >>setpagedevice"
 *CloseUI: *Faceup
+
+*OpenUI *RISquareFold/BookFold: PickOne
+*OrderDependency: 299 AnySetup *RISquareFold
+*DefaultRISquareFold: SquareFoldOff
+*RISquareFold SquareFoldOff/Off: "(off) /RDeviceProcSet /ProcSet findresource
+/SetSquareFold get exec"
+*End
+*RISquareFold SquareFoldOn/On: "(on) /RDeviceProcSet /ProcSet findresource
+/SetSquareFold get exec"
+*End
+*CloseUI: *RISquareFold
 
 *%========== Booklet ==========
 *OpenUI *Booklet/Booklet: PickOne
@@ -3704,131 +3846,6 @@ userdict /RPS_BKdict get begin
 
 *%========== Color Balance Details ==========
 
-*OpenGroup: RIColorBalance/Color Balance Details
-
-*OpenUI *RISetColorBalance/Color Balance: PickOne
-*OrderDependency: 192 AnySetup *RISetColorBalance
-*DefaultRISetColorBalance: Off
-*RISetColorBalance Off/Off: ""
-*RISetColorBalance On/On: "mark {
-<<
-   /Brightness cbbrightness
-   /Contrast cbcontrast
-   /Gamma <<
-      /Cyan cbcyan
-      /Magenta cbmagenta
-      /Yellow cbyellow
-      /Black cbblack
-   >>
->> /RDeviceProcSet /ProcSet findresource /SetColorBalance get exec
-}stopped cleartomark"
-*End
-*CloseUI: *RISetColorBalance
-
-*OpenUI *RIcbBrightness/Brightness ( -50 to 50 ): PickOne
-*FoomaticRIPOption RIcbBrightness: int CmdLine A
-*FoomaticRIPOptionAllowedChars RIcbBrightness: "0-9-"
-*OrderDependency: 180 AnySetup *RIcbBrightness
-*FoomaticRIPOptionPrototype RIcbBrightness: "/cbbrightness %s def\n"
-*DefaultRIcbBrightness: 0
-*RIcbBrightness -50/-50: "/cbbrightness -50 def\n"
-*RIcbBrightness -25/-25: "/cbbrightness -25 def\n"
-*RIcbBrightness 0/0: "/cbbrightness 0 def\n"
-*RIcbBrightness 25/25: "/cbbrightness 25 def\n"
-*RIcbBrightness 50/50: "/cbbrightness 50 def\n"
-*CloseUI: *RIcbBrightness
-
-*CustomRIcbBrightness True/Custom: ""
-*ParamCustomRIcbBrightness RIcbBrightness: 1 int -50 50
-*NonUIOrderDependency: 181 AnySetup *CustomRIcbBrightness True
-
-*OpenUI *RIcbContrast/Contrast ( -50 to 50 ): PickOne
-*FoomaticRIPOption RIcbContrast: int CmdLine A
-*FoomaticRIPOptionAllowedChars RIcbContrast: "0-9-"
-*OrderDependency: 182 AnySetup *RIcbContrast
-*FoomaticRIPOptionPrototype RIcbContrast: "/cbcontrast %s def\n"
-*DefaultRIcbContrast: 0
-*RIcbContrast -50/-50: "/cbcontrast -50 def\n"
-*RIcbContrast -25/-25: "/cbcontrast -25 def\n"
-*RIcbContrast 0/0: "/cbcontrast 0 def\n"
-*RIcbContrast 25/25: "/cbcontrast 25 def\n"
-*RIcbContrast 50/50: "/cbcontrast 50 def\n"
-*CloseUI: *RIcbContrast
-
-*CustomRIcbContrast True/Custom: ""
-*ParamCustomRIcbContrast RIcbContrast: 1 int -50 50
-*NonUIOrderDependency: 183 AnySetup *CustomRIcbContrast True
-
-*OpenUI *RIcbBlack/Black ( -50 to 50 ): PickOne
-*FoomaticRIPOption RIcbBlack: int CmdLine A
-*FoomaticRIPOptionAllowedChars RIcbBlack: "0-9-"
-*OrderDependency: 184 AnySetup *RIcbBlack
-*FoomaticRIPOptionPrototype RIcbBlack: "/cbblack %s def\n"
-*DefaultRIcbBlack: 0
-*RIcbBlack -50/-50: "/cbblack -50 def\n"
-*RIcbBlack -25/-25: "/cbblack -25 def\n"
-*RIcbBlack 0/0: "/cbblack 0 def\n"
-*RIcbBlack 25/25: "/cbblack 25 def\n"
-*RIcbBlack 50/50: "/cbblack 50 def\n"
-*CloseUI: *RIcbBlack
-
-*CustomRIcbBlack True/Custom: ""
-*ParamCustomRIcbBlack RIcbBlack: 1 int -50 50
-*NonUIOrderDependency: 185 AnySetup *CustomRIcbBlack True
-
-*OpenUI *RIcbCyan/Cyan ( -50 to 50 ): PickOne
-*FoomaticRIPOption RIcbCyan: int CmdLine A
-*FoomaticRIPOptionAllowedChars RIcbCyan: "0-9-"
-*OrderDependency: 186 AnySetup *RIcbCyan
-*FoomaticRIPOptionPrototype RIcbCyan: "/cbcyan %s def\n"
-*DefaultRIcbCyan: 0
-*RIcbCyan -50/-50: "/cbcyan -50 def\n"
-*RIcbCyan -25/-25: "/cbcyan -25 def\n"
-*RIcbCyan 0/0: "/cbcyan 0 def\n"
-*RIcbCyan 25/25: "/cbcyan 25 def\n"
-*RIcbCyan 50/50: "/cbcyan 50 def\n"
-*CloseUI: *RIcbCyan
-
-*CustomRIcbCyan True/Custom: ""
-*ParamCustomRIcbCyan RIcbCyan: 1 int -50 50
-*NonUIOrderDependency: 187 AnySetup *CustomRIcbCyan True
-
-*OpenUI *RIcbMagenta/Magenta ( -50 to 50 ): PickOne
-*FoomaticRIPOption RIcbMagenta: int CmdLine A
-*FoomaticRIPOptionAllowedChars RIcbMagenta: "0-9-"
-*OrderDependency: 188 AnySetup *RIcbMagenta
-*FoomaticRIPOptionPrototype RIcbMagenta: "/cbmagenta %s def\n"
-*DefaultRIcbMagenta: 0
-*RIcbMagenta -50/-50: "/cbmagenta -50 def\n"
-*RIcbMagenta -25/-25: "/cbmagenta -25 def\n"
-*RIcbMagenta 0/0: "/cbmagenta 0 def\n"
-*RIcbMagenta 25/25: "/cbmagenta 25 def\n"
-*RIcbMagenta 50/50: "/cbmagenta 50 def\n"
-*CloseUI: *RIcbMagenta
-
-*CustomRIcbMagenta True/Custom: ""
-*ParamCustomRIcbMagenta RIcbMagenta: 1 int -50 50
-*NonUIOrderDependency: 189 AnySetup *CustomRIcbMagenta True
-
-*OpenUI *RIcbYellow/Yellow ( -50 to 50 ): PickOne
-*FoomaticRIPOption RIcbYellow: int CmdLine A
-*FoomaticRIPOptionAllowedChars RIcbYellow: "0-9-"
-*OrderDependency: 190 AnySetup *RIcbYellow
-*FoomaticRIPOptionPrototype RIcbYellow: "/cbyellow %s def\n"
-*DefaultRIcbYellow: 0
-*RIcbYellow -50/-50: "/cbyellow -50 def\n"
-*RIcbYellow -25/-25: "/cbyellow -25 def\n"
-*RIcbYellow 0/0: "/cbyellow 0 def\n"
-*RIcbYellow 25/25: "/cbyellow 25 def\n"
-*RIcbYellow 50/50: "/cbyellow 50 def\n"
-*CloseUI: *RIcbYellow
-
-*CustomRIcbYellow True/Custom: ""
-*ParamCustomRIcbYellow RIcbYellow: 1 int -50 50
-*NonUIOrderDependency: 191 AnySetup *CustomRIcbYellow True
-
-*CloseGroup: RIColorBalance
-
 *%========== Gray Levels and Halftoning ==========
 *AccurateScreensSupport: True
 *ScreenFreq: "85.0"
@@ -4045,6 +4062,134 @@ mark {\n&&
 *NonUIOrderDependency: 101 AnySetup *CustomUserId True
 
 *CloseGroup: JobLog/Job Log
+
+*%========== Color Balance Details ==========
+
+*OpenGroup: RIColorBalance/Color Balance Details
+
+*OpenUI *RISetColorBalance/Color Balance: PickOne
+*OrderDependency: 192 AnySetup *RISetColorBalance
+*DefaultRISetColorBalance: Off
+*RISetColorBalance Off/Off: ""
+*RISetColorBalance On/On: "mark {
+<<
+   /Brightness cbbrightness
+   /Contrast cbcontrast
+   /Gamma <<
+      /Cyan cbcyan
+      /Magenta cbmagenta
+      /Yellow cbyellow
+      /Black cbblack
+   >>
+>> /RDeviceProcSet /ProcSet findresource /SetColorBalance get exec
+}stopped cleartomark"
+*End
+*CloseUI: *RISetColorBalance
+
+*OpenUI *RIcbBrightness/Brightness ( -50 to 50 ): PickOne
+*FoomaticRIPOption RIcbBrightness: int CmdLine A
+*FoomaticRIPOptionAllowedChars RIcbBrightness: "0-9-"
+*OrderDependency: 180 AnySetup *RIcbBrightness
+*FoomaticRIPOptionPrototype RIcbBrightness: "/cbbrightness %s def\n"
+*DefaultRIcbBrightness: 0
+*RIcbBrightness -50/-50: "/cbbrightness -50 def\n"
+*RIcbBrightness -25/-25: "/cbbrightness -25 def\n"
+*RIcbBrightness 0/0: "/cbbrightness 0 def\n"
+*RIcbBrightness 25/25: "/cbbrightness 25 def\n"
+*RIcbBrightness 50/50: "/cbbrightness 50 def\n"
+*CloseUI: *RIcbBrightness
+
+*CustomRIcbBrightness True/Custom: ""
+*ParamCustomRIcbBrightness RIcbBrightness: 1 int -50 50
+*NonUIOrderDependency: 181 AnySetup *CustomRIcbBrightness True
+
+*OpenUI *RIcbContrast/Contrast ( -50 to 50 ): PickOne
+*FoomaticRIPOption RIcbContrast: int CmdLine A
+*FoomaticRIPOptionAllowedChars RIcbContrast: "0-9-"
+*OrderDependency: 182 AnySetup *RIcbContrast
+*FoomaticRIPOptionPrototype RIcbContrast: "/cbcontrast %s def\n"
+*DefaultRIcbContrast: 0
+*RIcbContrast -50/-50: "/cbcontrast -50 def\n"
+*RIcbContrast -25/-25: "/cbcontrast -25 def\n"
+*RIcbContrast 0/0: "/cbcontrast 0 def\n"
+*RIcbContrast 25/25: "/cbcontrast 25 def\n"
+*RIcbContrast 50/50: "/cbcontrast 50 def\n"
+*CloseUI: *RIcbContrast
+
+*CustomRIcbContrast True/Custom: ""
+*ParamCustomRIcbContrast RIcbContrast: 1 int -50 50
+*NonUIOrderDependency: 183 AnySetup *CustomRIcbContrast True
+
+*OpenUI *RIcbBlack/Black ( -50 to 50 ): PickOne
+*FoomaticRIPOption RIcbBlack: int CmdLine A
+*FoomaticRIPOptionAllowedChars RIcbBlack: "0-9-"
+*OrderDependency: 184 AnySetup *RIcbBlack
+*FoomaticRIPOptionPrototype RIcbBlack: "/cbblack %s def\n"
+*DefaultRIcbBlack: 0
+*RIcbBlack -50/-50: "/cbblack -50 def\n"
+*RIcbBlack -25/-25: "/cbblack -25 def\n"
+*RIcbBlack 0/0: "/cbblack 0 def\n"
+*RIcbBlack 25/25: "/cbblack 25 def\n"
+*RIcbBlack 50/50: "/cbblack 50 def\n"
+*CloseUI: *RIcbBlack
+
+*CustomRIcbBlack True/Custom: ""
+*ParamCustomRIcbBlack RIcbBlack: 1 int -50 50
+*NonUIOrderDependency: 185 AnySetup *CustomRIcbBlack True
+
+*OpenUI *RIcbCyan/Cyan ( -50 to 50 ): PickOne
+*FoomaticRIPOption RIcbCyan: int CmdLine A
+*FoomaticRIPOptionAllowedChars RIcbCyan: "0-9-"
+*OrderDependency: 186 AnySetup *RIcbCyan
+*FoomaticRIPOptionPrototype RIcbCyan: "/cbcyan %s def\n"
+*DefaultRIcbCyan: 0
+*RIcbCyan -50/-50: "/cbcyan -50 def\n"
+*RIcbCyan -25/-25: "/cbcyan -25 def\n"
+*RIcbCyan 0/0: "/cbcyan 0 def\n"
+*RIcbCyan 25/25: "/cbcyan 25 def\n"
+*RIcbCyan 50/50: "/cbcyan 50 def\n"
+*CloseUI: *RIcbCyan
+
+*CustomRIcbCyan True/Custom: ""
+*ParamCustomRIcbCyan RIcbCyan: 1 int -50 50
+*NonUIOrderDependency: 187 AnySetup *CustomRIcbCyan True
+
+*OpenUI *RIcbMagenta/Magenta ( -50 to 50 ): PickOne
+*FoomaticRIPOption RIcbMagenta: int CmdLine A
+*FoomaticRIPOptionAllowedChars RIcbMagenta: "0-9-"
+*OrderDependency: 188 AnySetup *RIcbMagenta
+*FoomaticRIPOptionPrototype RIcbMagenta: "/cbmagenta %s def\n"
+*DefaultRIcbMagenta: 0
+*RIcbMagenta -50/-50: "/cbmagenta -50 def\n"
+*RIcbMagenta -25/-25: "/cbmagenta -25 def\n"
+*RIcbMagenta 0/0: "/cbmagenta 0 def\n"
+*RIcbMagenta 25/25: "/cbmagenta 25 def\n"
+*RIcbMagenta 50/50: "/cbmagenta 50 def\n"
+*CloseUI: *RIcbMagenta
+
+*CustomRIcbMagenta True/Custom: ""
+*ParamCustomRIcbMagenta RIcbMagenta: 1 int -50 50
+*NonUIOrderDependency: 189 AnySetup *CustomRIcbMagenta True
+
+*OpenUI *RIcbYellow/Yellow ( -50 to 50 ): PickOne
+*FoomaticRIPOption RIcbYellow: int CmdLine A
+*FoomaticRIPOptionAllowedChars RIcbYellow: "0-9-"
+*OrderDependency: 190 AnySetup *RIcbYellow
+*FoomaticRIPOptionPrototype RIcbYellow: "/cbyellow %s def\n"
+*DefaultRIcbYellow: 0
+*RIcbYellow -50/-50: "/cbyellow -50 def\n"
+*RIcbYellow -25/-25: "/cbyellow -25 def\n"
+*RIcbYellow 0/0: "/cbyellow 0 def\n"
+*RIcbYellow 25/25: "/cbyellow 25 def\n"
+*RIcbYellow 50/50: "/cbyellow 50 def\n"
+*CloseUI: *RIcbYellow
+
+*CustomRIcbYellow True/Custom: ""
+*ParamCustomRIcbYellow RIcbYellow: 1 int -50 50
+*NonUIOrderDependency: 191 AnySetup *CustomRIcbYellow True
+
+*CloseGroup: RIColorBalance
+
 *%========== Font ==========
 
 *DefaultFont: Courier
@@ -4335,6 +4480,10 @@ mark {\n&&
 *UIConstraints: *RICollateKind ShiftCollate *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACUpper *RICollateKind ShiftCollate
 *UIConstraints: *RICollateKind ShiftCollate *OutputBin FinCOLUMBIACUpper
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RICollateKind ShiftCollate
+*UIConstraints: *RICollateKind ShiftCollate *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RICollateKind ShiftCollate
+*UIConstraints: *RICollateKind ShiftCollate *OutputBin FinORIONBKLower
 *UIConstraints: *OutputBin FinISHIKARI *RICollateKind ShiftCollate
 *UIConstraints: *RICollateKind ShiftCollate *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinTENRYU *RICollateKind ShiftCollate
@@ -4357,6 +4506,8 @@ mark {\n&&
 *UIConstraints: *RICollateKind ShiftCollate *OutputBin LargeStackerTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *RICollateKind ShiftCollate
 *UIConstraints: *RICollateKind ShiftCollate *OutputBin TwinLoopBinderTray
+*UIConstraints: *OutputBin NorthStarTray *RICollateKind ShiftCollate
+*UIConstraints: *RICollateKind ShiftCollate *OutputBin NorthStarTray
 
 *%==========Finisher/Staple
 *UIConstraints: *Finisher NotInstalled *StapleLocation UpperLeft
@@ -4383,6 +4534,18 @@ mark {\n&&
 *UIConstraints: *StapleLocation RightW *BKLProcessor Plockmatic
 *UIConstraints: *BKLProcessor Plockmatic *StapleLocation UpperW
 *UIConstraints: *StapleLocation UpperW *BKLProcessor Plockmatic
+
+*%==========North Star/Staple
+*UIConstraints: *NorthStar Installed *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation UpperLeft *NorthStar Installed
+*UIConstraints: *NorthStar Installed *StapleLocation UpperRight
+*UIConstraints: *StapleLocation UpperRight *NorthStar Installed
+*UIConstraints: *NorthStar Installed *StapleLocation LeftW
+*UIConstraints: *StapleLocation LeftW *NorthStar Installed
+*UIConstraints: *NorthStar Installed *StapleLocation RightW
+*UIConstraints: *StapleLocation RightW *NorthStar Installed
+*UIConstraints: *NorthStar Installed *StapleLocation UpperW
+*UIConstraints: *StapleLocation UpperW *NorthStar Installed
 
 *%==========Media Type/Staple
 *UIConstraints: *MediaType OHP *StapleLocation UpperLeft
@@ -4515,6 +4678,54 @@ mark {\n&&
 *UIConstraints: *StapleLocation CenterW *OutputBin FinCOLUMBIACUpper
 *UIConstraints: *OutputBin FinCOLUMBIACShift *StapleLocation CenterW
 *UIConstraints: *StapleLocation CenterW *OutputBin FinCOLUMBIACShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *StapleLocation UpperRight
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *StapleLocation LeftW
+*UIConstraints: *StapleLocation LeftW *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *StapleLocation RightW
+*UIConstraints: *StapleLocation RightW *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *StapleLocation UpperW
+*UIConstraints: *StapleLocation UpperW *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *StapleLocation CenterW
+*UIConstraints: *StapleLocation CenterW *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *StapleLocation CenterW
+*UIConstraints: *StapleLocation CenterW *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *StapleLocation UpperRight
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *StapleLocation LeftW
+*UIConstraints: *StapleLocation LeftW *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *StapleLocation RightW
+*UIConstraints: *StapleLocation RightW *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *StapleLocation UpperW
+*UIConstraints: *StapleLocation UpperW *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUShift *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *StapleLocation UpperRight
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *StapleLocation LeftW
+*UIConstraints: *StapleLocation LeftW *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *StapleLocation RightW
+*UIConstraints: *StapleLocation RightW *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *StapleLocation UpperW
+*UIConstraints: *StapleLocation UpperW *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *StapleLocation CenterW
+*UIConstraints: *StapleLocation CenterW *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *StapleLocation CenterW
+*UIConstraints: *StapleLocation CenterW *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin FinORIONBKLower *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation UpperLeft *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *StapleLocation UpperRight
+*UIConstraints: *StapleLocation UpperRight *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *StapleLocation LeftW
+*UIConstraints: *StapleLocation LeftW *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *StapleLocation RightW
+*UIConstraints: *StapleLocation RightW *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *StapleLocation UpperW
+*UIConstraints: *StapleLocation UpperW *OutputBin FinORIONBKLower
 *UIConstraints: *OutputBin FinISHIKARI *StapleLocation UpperLeft
 *UIConstraints: *StapleLocation UpperLeft *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *StapleLocation UpperRight
@@ -4625,6 +4836,8 @@ mark {\n&&
 *UIConstraints: *StapleLocation UpperW *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *StapleLocation CenterW
 *UIConstraints: *StapleLocation CenterW *OutputBin TwinLoopBinderTray
+*UIConstraints: *OutputBin NorthStarTray *StapleLocation None
+*UIConstraints: *StapleLocation None *OutputBin NorthStarTray
 
 *%==========Punch/Staple
 *UIConstraints: *RIPunch Left2 *StapleLocation CenterW
@@ -4645,40 +4858,10 @@ mark {\n&&
 *UIConstraints: *StapleLocation CenterW *RIPunch Upper3
 *UIConstraints: *RIPunch Upper4 *StapleLocation CenterW
 *UIConstraints: *StapleLocation CenterW *RIPunch Upper4
-*UIConstraints: *RIPunch GBCLeft *StapleLocation UpperLeft
-*UIConstraints: *StapleLocation UpperLeft *RIPunch GBCLeft
-*UIConstraints: *RIPunch GBCLeft *StapleLocation UpperRight
-*UIConstraints: *StapleLocation UpperRight *RIPunch GBCLeft
-*UIConstraints: *RIPunch GBCLeft *StapleLocation LeftW
-*UIConstraints: *StapleLocation LeftW *RIPunch GBCLeft
-*UIConstraints: *RIPunch GBCLeft *StapleLocation RightW
-*UIConstraints: *StapleLocation RightW *RIPunch GBCLeft
-*UIConstraints: *RIPunch GBCLeft *StapleLocation UpperW
-*UIConstraints: *StapleLocation UpperW *RIPunch GBCLeft
 *UIConstraints: *RIPunch GBCLeft *StapleLocation CenterW
 *UIConstraints: *StapleLocation CenterW *RIPunch GBCLeft
-*UIConstraints: *RIPunch GBCRight *StapleLocation UpperLeft
-*UIConstraints: *StapleLocation UpperLeft *RIPunch GBCRight
-*UIConstraints: *RIPunch GBCRight *StapleLocation UpperRight
-*UIConstraints: *StapleLocation UpperRight *RIPunch GBCRight
-*UIConstraints: *RIPunch GBCRight *StapleLocation LeftW
-*UIConstraints: *StapleLocation LeftW *RIPunch GBCRight
-*UIConstraints: *RIPunch GBCRight *StapleLocation RightW
-*UIConstraints: *StapleLocation RightW *RIPunch GBCRight
-*UIConstraints: *RIPunch GBCRight *StapleLocation UpperW
-*UIConstraints: *StapleLocation UpperW *RIPunch GBCRight
 *UIConstraints: *RIPunch GBCRight *StapleLocation CenterW
 *UIConstraints: *StapleLocation CenterW *RIPunch GBCRight
-*UIConstraints: *RIPunch GBCTop *StapleLocation UpperLeft
-*UIConstraints: *StapleLocation UpperLeft *RIPunch GBCTop
-*UIConstraints: *RIPunch GBCTop *StapleLocation UpperRight
-*UIConstraints: *StapleLocation UpperRight *RIPunch GBCTop
-*UIConstraints: *RIPunch GBCTop *StapleLocation LeftW
-*UIConstraints: *StapleLocation LeftW *RIPunch GBCTop
-*UIConstraints: *RIPunch GBCTop *StapleLocation RightW
-*UIConstraints: *StapleLocation RightW *RIPunch GBCTop
-*UIConstraints: *RIPunch GBCTop *StapleLocation UpperW
-*UIConstraints: *StapleLocation UpperW *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *StapleLocation CenterW
 *UIConstraints: *StapleLocation CenterW *RIPunch GBCTop
 *UIConstraints: *RIPunch DoubleLeft *StapleLocation UpperLeft
@@ -4812,7 +4995,7 @@ mark {\n&&
 *UIConstraints: *RIZfold Left *StapleLocation CenterW
 *UIConstraints: *StapleLocation CenterW *RIZfold Left
 
-*%==========Perfect/Ring/Twin Loop Binding/Staple
+*%==========Binding/Staple
 *UIConstraints: *RIBind PerfectBind *StapleLocation UpperLeft
 *UIConstraints: *StapleLocation UpperLeft *RIBind PerfectBind
 *UIConstraints: *RIBind PerfectBind *StapleLocation UpperRight
@@ -5151,6 +5334,66 @@ mark {\n&&
 *UIConstraints: *RIPunch DoubleRight *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIPunch DoubleTop
 *UIConstraints: *RIPunch DoubleTop *OutputBin FinCOLUMBIACBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIPunch Left2
+*UIConstraints: *RIPunch Left2 *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIPunch Left3
+*UIConstraints: *RIPunch Left3 *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIPunch Left4
+*UIConstraints: *RIPunch Left4 *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIPunch Right2
+*UIConstraints: *RIPunch Right2 *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIPunch Right3
+*UIConstraints: *RIPunch Right3 *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIPunch Right4
+*UIConstraints: *RIPunch Right4 *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIPunch Upper2
+*UIConstraints: *RIPunch Upper2 *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIPunch Upper3
+*UIConstraints: *RIPunch Upper3 *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIPunch Upper4
+*UIConstraints: *RIPunch Upper4 *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIPunch GBCLeft
+*UIConstraints: *RIPunch GBCLeft *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIPunch GBCRight
+*UIConstraints: *RIPunch GBCRight *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIPunch GBCTop
+*UIConstraints: *RIPunch GBCTop *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIPunch Left2
+*UIConstraints: *RIPunch Left2 *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIPunch Left3
+*UIConstraints: *RIPunch Left3 *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIPunch Left4
+*UIConstraints: *RIPunch Left4 *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIPunch Right2
+*UIConstraints: *RIPunch Right2 *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIPunch Right3
+*UIConstraints: *RIPunch Right3 *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIPunch Right4
+*UIConstraints: *RIPunch Right4 *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIPunch Upper2
+*UIConstraints: *RIPunch Upper2 *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIPunch Upper3
+*UIConstraints: *RIPunch Upper3 *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIPunch Upper4
+*UIConstraints: *RIPunch Upper4 *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIPunch GBCLeft
+*UIConstraints: *RIPunch GBCLeft *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIPunch GBCRight
+*UIConstraints: *RIPunch GBCRight *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIPunch GBCTop
+*UIConstraints: *RIPunch GBCTop *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *OutputBin FinORIONBKLower
 *UIConstraints: *OutputBin FinISHIKARI *RIPunch Left2
 *UIConstraints: *RIPunch Left2 *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIPunch Left3
@@ -5403,6 +5646,36 @@ mark {\n&&
 *UIConstraints: *RIPunch DoubleRight *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *RIPunch DoubleTop
 *UIConstraints: *RIPunch DoubleTop *OutputBin TwinLoopBinderTray
+*UIConstraints: *OutputBin NorthStarTray *RIPunch Left2
+*UIConstraints: *RIPunch Left2 *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIPunch Left3
+*UIConstraints: *RIPunch Left3 *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIPunch Left4
+*UIConstraints: *RIPunch Left4 *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIPunch Right2
+*UIConstraints: *RIPunch Right2 *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIPunch Right3
+*UIConstraints: *RIPunch Right3 *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIPunch Right4
+*UIConstraints: *RIPunch Right4 *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIPunch Upper2
+*UIConstraints: *RIPunch Upper2 *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIPunch Upper3
+*UIConstraints: *RIPunch Upper3 *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIPunch Upper4
+*UIConstraints: *RIPunch Upper4 *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIPunch GBCLeft
+*UIConstraints: *RIPunch GBCLeft *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIPunch GBCRight
+*UIConstraints: *RIPunch GBCRight *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIPunch GBCTop
+*UIConstraints: *RIPunch GBCTop *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIPunch DoubleLeft
+*UIConstraints: *RIPunch DoubleLeft *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIPunch DoubleRight
+*UIConstraints: *RIPunch DoubleRight *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIPunch DoubleTop
+*UIConstraints: *RIPunch DoubleTop *OutputBin NorthStarTray
 
 *%==========Fold Type/Punch
 *UIConstraints: *RIFoldType Twofold *RIPunch Left2
@@ -5654,7 +5927,7 @@ mark {\n&&
 *UIConstraints: *RIZfold Left *RIPunch DoubleTop
 *UIConstraints: *RIPunch DoubleTop *RIZfold Left
 
-*%==========Perfect/Ring/Twin Loop Binding/Punch
+*%==========Binding/Punch
 *UIConstraints: *RIBind PerfectBind *RIPunch Left2
 *UIConstraints: *RIPunch Left2 *RIBind PerfectBind
 *UIConstraints: *RIBind PerfectBind *RIPunch Left3
@@ -6011,6 +6284,18 @@ mark {\n&&
 *UIConstraints: *RIZfold Right *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIZfold Left
 *UIConstraints: *RIZfold Left *OutputBin FinCOLUMBIACBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIZfold Bottom
+*UIConstraints: *RIZfold Bottom *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIZfold Right
+*UIConstraints: *RIZfold Right *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIZfold Left
+*UIConstraints: *RIZfold Left *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIZfold Bottom
+*UIConstraints: *RIZfold Bottom *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIZfold Right
+*UIConstraints: *RIZfold Right *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIZfold Left
+*UIConstraints: *RIZfold Left *OutputBin FinORIONBKLower
 *UIConstraints: *OutputBin FinISHIKARI *RIZfold Bottom
 *UIConstraints: *RIZfold Bottom *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIZfold Right
@@ -6065,6 +6350,12 @@ mark {\n&&
 *UIConstraints: *RIZfold Right *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *RIZfold Left
 *UIConstraints: *RIZfold Left *OutputBin TwinLoopBinderTray
+*UIConstraints: *OutputBin NorthStarTray *RIZfold Bottom
+*UIConstraints: *RIZfold Bottom *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIZfold Right
+*UIConstraints: *RIZfold Right *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIZfold Left
+*UIConstraints: *RIZfold Left *OutputBin NorthStarTray
 
 *%==========Fold Type/Z-fold
 *UIConstraints: *RIFoldType Twofold *RIZfold Bottom
@@ -6110,7 +6401,7 @@ mark {\n&&
 *UIConstraints: *RIFoldType OutsideTwofold *RIZfold Left
 *UIConstraints: *RIZfold Left *RIFoldType OutsideTwofold
 
-*%==========Perfect/Ring/Twin Loop Binding/Z-fold
+*%==========Binding/Z-fold
 *UIConstraints: *RIBind PerfectBind *RIZfold Bottom
 *UIConstraints: *RIZfold Bottom *RIBind PerfectBind
 *UIConstraints: *RIBind PerfectBind *RIZfold Right
@@ -6171,6 +6462,10 @@ mark {\n&&
 *UIConstraints: *RIFoldType InsideTwofold *Finisher FinCOLUMBIAC
 *UIConstraints: *Finisher FinCOLUMBIAC *RIFoldType OutsideTwofold
 *UIConstraints: *RIFoldType OutsideTwofold *Finisher FinCOLUMBIAC
+*UIConstraints: *Finisher FinIGUAZU *RIFoldType InsideTwofold
+*UIConstraints: *RIFoldType InsideTwofold *Finisher FinIGUAZU
+*UIConstraints: *Finisher FinIGUAZU *RIFoldType OutsideTwofold
+*UIConstraints: *RIFoldType OutsideTwofold *Finisher FinIGUAZU
 
 *%==========Folding Unit/Fold Type
 *UIConstraints: *MultiFold NotInstalled *RIFoldType Twofold
@@ -6475,6 +6770,74 @@ mark {\n&&
 *UIConstraints: *RIFoldType Quarto *OutputBin FinCOLUMBIACShift
 *UIConstraints: *OutputBin FinCOLUMBIACShift *RIFoldType Gatefold
 *UIConstraints: *RIFoldType Gatefold *OutputBin FinCOLUMBIACShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *RIFoldType Twofold
+*UIConstraints: *RIFoldType Twofold *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *RIFoldType Threefold
+*UIConstraints: *RIFoldType Threefold *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *RIFoldType ThreefoldOut
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *RIFoldType Quarto
+*UIConstraints: *RIFoldType Quarto *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Gatefold *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *RIFoldType InsideTwofold
+*UIConstraints: *RIFoldType InsideTwofold *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *RIFoldType OutsideTwofold
+*UIConstraints: *RIFoldType OutsideTwofold *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *RIFoldType Twofold
+*UIConstraints: *RIFoldType Twofold *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *RIFoldType Threefold
+*UIConstraints: *RIFoldType Threefold *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *RIFoldType ThreefoldOut
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *RIFoldType Quarto
+*UIConstraints: *RIFoldType Quarto *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Gatefold *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *RIFoldType InsideTwofold
+*UIConstraints: *RIFoldType InsideTwofold *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *RIFoldType OutsideTwofold
+*UIConstraints: *RIFoldType OutsideTwofold *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIFoldType Twofold
+*UIConstraints: *RIFoldType Twofold *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIFoldType Threefold
+*UIConstraints: *RIFoldType Threefold *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIFoldType ThreefoldOut
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIFoldType Quarto
+*UIConstraints: *RIFoldType Quarto *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Gatefold *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUShift *RIFoldType Twofold
+*UIConstraints: *RIFoldType Twofold *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *RIFoldType Threefold
+*UIConstraints: *RIFoldType Threefold *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *RIFoldType ThreefoldOut
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *RIFoldType Quarto
+*UIConstraints: *RIFoldType Quarto *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Gatefold *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *RIFoldType Twofold
+*UIConstraints: *RIFoldType Twofold *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *RIFoldType Threefold
+*UIConstraints: *RIFoldType Threefold *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *RIFoldType ThreefoldOut
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *RIFoldType Quarto
+*UIConstraints: *RIFoldType Quarto *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Gatefold *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin FinORIONBKLower *RIFoldType Twofold
+*UIConstraints: *RIFoldType Twofold *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIFoldType Threefold
+*UIConstraints: *RIFoldType Threefold *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIFoldType ThreefoldOut
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIFoldType Quarto
+*UIConstraints: *RIFoldType Quarto *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Gatefold *OutputBin FinORIONBKLower
 *UIConstraints: *OutputBin FinISHIKARI *RIFoldType Twofold
 *UIConstraints: *RIFoldType Twofold *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIFoldType Threefold
@@ -6625,6 +6988,16 @@ mark {\n&&
 *UIConstraints: *RIFoldType InsideTwofold *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *RIFoldType OutsideTwofold
 *UIConstraints: *RIFoldType OutsideTwofold *OutputBin TwinLoopBinderTray
+*UIConstraints: *OutputBin NorthStarTray *RIFoldType Twofold
+*UIConstraints: *RIFoldType Twofold *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIFoldType Threefold
+*UIConstraints: *RIFoldType Threefold *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIFoldType ThreefoldOut
+*UIConstraints: *RIFoldType ThreefoldOut *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIFoldType Quarto
+*UIConstraints: *RIFoldType Quarto *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Gatefold *OutputBin NorthStarTray
 
 *%==========Multi-sheet Fold/Fold Type
 *UIConstraints: *OverlapFold On *RIFoldType None
@@ -6636,7 +7009,7 @@ mark {\n&&
 *UIConstraints: *OverlapFold On *RIFoldType OutsideTwofold
 *UIConstraints: *RIFoldType OutsideTwofold *OverlapFold On
 
-*%==========Perfect/Ring/Twin Loop Binding/Fold Type
+*%==========Binding/Fold Type
 *UIConstraints: *RIBind PerfectBind *RIFoldType Twofold
 *UIConstraints: *RIFoldType Twofold *RIBind PerfectBind
 *UIConstraints: *RIBind PerfectBind *RIFoldType Threefold
@@ -6747,16 +7120,80 @@ mark {\n&&
 *UIConstraints: *OutputBin FinCOLUMBIACUpper *Finisher NotInstalled
 *UIConstraints: *Finisher NotInstalled *OutputBin FinCOLUMBIACShift
 *UIConstraints: *OutputBin FinCOLUMBIACShift *Finisher NotInstalled
+*UIConstraints: *Finisher NotInstalled *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *Finisher NotInstalled
+*UIConstraints: *Finisher NotInstalled *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *Finisher NotInstalled
+*UIConstraints: *Finisher NotInstalled *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *Finisher NotInstalled
+*UIConstraints: *Finisher NotInstalled *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *Finisher NotInstalled
+*UIConstraints: *Finisher NotInstalled *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *Finisher NotInstalled
 *UIConstraints: *Finisher FinCOLUMBIACBK *OutputBin FinCOLUMBIACUpper
 *UIConstraints: *OutputBin FinCOLUMBIACUpper *Finisher FinCOLUMBIACBK
 *UIConstraints: *Finisher FinCOLUMBIACBK *OutputBin FinCOLUMBIACShift
 *UIConstraints: *OutputBin FinCOLUMBIACShift *Finisher FinCOLUMBIACBK
+*UIConstraints: *Finisher FinCOLUMBIACBK *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *Finisher FinCOLUMBIACBK
+*UIConstraints: *Finisher FinCOLUMBIACBK *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *Finisher FinCOLUMBIACBK
+*UIConstraints: *Finisher FinCOLUMBIACBK *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *Finisher FinCOLUMBIACBK
+*UIConstraints: *Finisher FinCOLUMBIACBK *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *Finisher FinCOLUMBIACBK
+*UIConstraints: *Finisher FinCOLUMBIACBK *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *Finisher FinCOLUMBIACBK
 *UIConstraints: *Finisher FinCOLUMBIAC *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *Finisher FinCOLUMBIAC
 *UIConstraints: *Finisher FinCOLUMBIAC *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *Finisher FinCOLUMBIAC
 *UIConstraints: *Finisher FinCOLUMBIAC *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *Finisher FinCOLUMBIAC
+*UIConstraints: *Finisher FinCOLUMBIAC *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *Finisher FinCOLUMBIAC
+*UIConstraints: *Finisher FinCOLUMBIAC *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *Finisher FinCOLUMBIAC
+*UIConstraints: *Finisher FinCOLUMBIAC *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *Finisher FinCOLUMBIAC
+*UIConstraints: *Finisher FinCOLUMBIAC *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *Finisher FinCOLUMBIAC
+*UIConstraints: *Finisher FinCOLUMBIAC *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *Finisher FinCOLUMBIAC
+*UIConstraints: *Finisher FinIGUAZUBK *OutputBin FinCOLUMBIACBKUpper
+*UIConstraints: *OutputBin FinCOLUMBIACBKUpper *Finisher FinIGUAZUBK
+*UIConstraints: *Finisher FinIGUAZUBK *OutputBin FinCOLUMBIACBKShift
+*UIConstraints: *OutputBin FinCOLUMBIACBKShift *Finisher FinIGUAZUBK
+*UIConstraints: *Finisher FinIGUAZUBK *OutputBin FinCOLUMBIACBKLower
+*UIConstraints: *OutputBin FinCOLUMBIACBKLower *Finisher FinIGUAZUBK
+*UIConstraints: *Finisher FinIGUAZUBK *OutputBin FinCOLUMBIACUpper
+*UIConstraints: *OutputBin FinCOLUMBIACUpper *Finisher FinIGUAZUBK
+*UIConstraints: *Finisher FinIGUAZUBK *OutputBin FinCOLUMBIACShift
+*UIConstraints: *OutputBin FinCOLUMBIACShift *Finisher FinIGUAZUBK
+*UIConstraints: *Finisher FinIGUAZUBK *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *Finisher FinIGUAZUBK
+*UIConstraints: *Finisher FinIGUAZUBK *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *Finisher FinIGUAZUBK
+*UIConstraints: *Finisher FinIGUAZUBK *OutputBin LargeStackerTray
+*UIConstraints: *OutputBin LargeStackerTray *Finisher FinIGUAZUBK
+*UIConstraints: *Finisher FinIGUAZU *OutputBin FinCOLUMBIACBKUpper
+*UIConstraints: *OutputBin FinCOLUMBIACBKUpper *Finisher FinIGUAZU
+*UIConstraints: *Finisher FinIGUAZU *OutputBin FinCOLUMBIACBKShift
+*UIConstraints: *OutputBin FinCOLUMBIACBKShift *Finisher FinIGUAZU
+*UIConstraints: *Finisher FinIGUAZU *OutputBin FinCOLUMBIACBKLower
+*UIConstraints: *OutputBin FinCOLUMBIACBKLower *Finisher FinIGUAZU
+*UIConstraints: *Finisher FinIGUAZU *OutputBin FinCOLUMBIACUpper
+*UIConstraints: *OutputBin FinCOLUMBIACUpper *Finisher FinIGUAZU
+*UIConstraints: *Finisher FinIGUAZU *OutputBin FinCOLUMBIACShift
+*UIConstraints: *OutputBin FinCOLUMBIACShift *Finisher FinIGUAZU
+*UIConstraints: *Finisher FinIGUAZU *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *Finisher FinIGUAZU
+*UIConstraints: *Finisher FinIGUAZU *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *Finisher FinIGUAZU
+*UIConstraints: *Finisher FinIGUAZU *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *Finisher FinIGUAZU
+*UIConstraints: *Finisher FinIGUAZU *OutputBin LargeStackerTray
+*UIConstraints: *OutputBin LargeStackerTray *Finisher FinIGUAZU
 
 *%==========Folding Unit/Destination
 *UIConstraints: *MultiFold NotInstalled *OutputBin FinDONAUProof
@@ -6767,6 +7204,8 @@ mark {\n&&
 *UIConstraints: *OutputBin Trimmer *TrimmerUnit NotInstalled
 *UIConstraints: *TrimmerUnit Installed *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerUnit Installed
+*UIConstraints: *TrimmerUnit Installed *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerUnit Installed
 
 *%==========Booklet Processor/Destination
 *UIConstraints: *BKLProcessor NotInstalled *OutputBin PlockmaticTray
@@ -6774,11 +7213,17 @@ mark {\n&&
 *UIConstraints: *BKLProcessor Plockmatic *OutputBin FinCOLUMBIACShift
 *UIConstraints: *OutputBin FinCOLUMBIACShift *BKLProcessor Plockmatic
 
-*%==========Perfect/Ring/Twin Loop Binding Unit/Destination
-*UIConstraints: *OptionBind NotInstalled *OutputBin FinTENRYU
-*UIConstraints: *OutputBin FinTENRYU *OptionBind NotInstalled
+*%==========North Star/Destination
+*UIConstraints: *NorthStar NotInstalled *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *NorthStar NotInstalled
+*UIConstraints: *NorthStar Installed *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *NorthStar Installed
+
+*%==========Perfect/Ring/eWire Binding Unit/Destination
 *UIConstraints: *OptionBind NotInstalled *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *OptionBind NotInstalled
+*UIConstraints: *OptionBind NotInstalled *OutputBin FinTENRYU
+*UIConstraints: *OutputBin FinTENRYU *OptionBind NotInstalled
 *UIConstraints: *OptionBind NotInstalled *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *OptionBind NotInstalled
 *UIConstraints: *OptionBind FinTENRYUB *OutputBin FinISHIKARI
@@ -6822,11 +7267,21 @@ mark {\n&&
 *UIConstraints: *OptionInterfaceBox Installed *OutputBin LargeStackerTray
 *UIConstraints: *OutputBin LargeStackerTray *OptionInterfaceBox Installed
 
+*%==========Square Fold Unit/Destination
+*UIConstraints: *SquareFoldUnit NotInstalled *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *SquareFoldUnit NotInstalled
+*UIConstraints: *SquareFoldUnit Installed *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *SquareFoldUnit Installed
+
 *%==========Media Type/Destination
 *UIConstraints: *MediaType Preprinted *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *MediaType Preprinted
 *UIConstraints: *MediaType Prepunched *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *MediaType Prepunched
 *UIConstraints: *MediaType Prepunched *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *MediaType Prepunched
 *UIConstraints: *MediaType Prepunched *OutputBin FinTENRYU
@@ -6835,6 +7290,10 @@ mark {\n&&
 *UIConstraints: *OutputBin Trimmer *MediaType Prepunched
 *UIConstraints: *MediaType Labels *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *MediaType Labels
+*UIConstraints: *MediaType Labels *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *MediaType Labels
+*UIConstraints: *MediaType Labels *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *MediaType Labels
 *UIConstraints: *MediaType Labels *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *MediaType Labels
 *UIConstraints: *MediaType Labels *OutputBin FinTENRYU
@@ -6849,12 +7308,20 @@ mark {\n&&
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *MediaType OHP
 *UIConstraints: *MediaType OHP *OutputBin FinCOLUMBIACShift
 *UIConstraints: *OutputBin FinCOLUMBIACShift *MediaType OHP
+*UIConstraints: *MediaType OHP *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *MediaType OHP
+*UIConstraints: *MediaType OHP *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *MediaType OHP
 *UIConstraints: *MediaType OHP *OutputBin FinTENRYU
 *UIConstraints: *OutputBin FinTENRYU *MediaType OHP
 *UIConstraints: *MediaType OHP *OutputBin Trimmer
 *UIConstraints: *OutputBin Trimmer *MediaType OHP
 *UIConstraints: *MediaType Index *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *MediaType Index
+*UIConstraints: *MediaType Index *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *MediaType Index
+*UIConstraints: *MediaType Index *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *MediaType Index
 *UIConstraints: *MediaType Index *OutputBin FinTENRYU
 *UIConstraints: *OutputBin FinTENRYU *MediaType Index
 *UIConstraints: *MediaType Index *OutputBin FinDONAUProof
@@ -6871,6 +7338,10 @@ mark {\n&&
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *MediaType Translucent
 *UIConstraints: *MediaType Translucent *OutputBin FinCOLUMBIACShift
 *UIConstraints: *OutputBin FinCOLUMBIACShift *MediaType Translucent
+*UIConstraints: *MediaType Translucent *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *MediaType Translucent
+*UIConstraints: *MediaType Translucent *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *MediaType Translucent
 *UIConstraints: *MediaType Translucent *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *MediaType Translucent
 *UIConstraints: *MediaType Translucent *OutputBin FinTENRYU
@@ -6879,6 +7350,10 @@ mark {\n&&
 *UIConstraints: *OutputBin Trimmer *MediaType Translucent
 *UIConstraints: *MediaType Envelope *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *MediaType Envelope
+*UIConstraints: *MediaType Envelope *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *MediaType Envelope
+*UIConstraints: *MediaType Envelope *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *MediaType Envelope
 *UIConstraints: *MediaType Envelope *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *MediaType Envelope
 *UIConstraints: *MediaType Envelope *OutputBin FinTENRYU
@@ -6895,6 +7370,10 @@ mark {\n&&
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *MediaType Magnet
 *UIConstraints: *MediaType Magnet *OutputBin FinCOLUMBIACUpper
 *UIConstraints: *OutputBin FinCOLUMBIACUpper *MediaType Magnet
+*UIConstraints: *MediaType Magnet *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *MediaType Magnet
+*UIConstraints: *MediaType Magnet *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *MediaType Magnet
 *UIConstraints: *MediaType Magnet *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *MediaType Magnet
 *UIConstraints: *MediaType Magnet *OutputBin FinTENRYU
@@ -6907,6 +7386,10 @@ mark {\n&&
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *MediaType ClearFile
 *UIConstraints: *MediaType ClearFile *OutputBin FinCOLUMBIACUpper
 *UIConstraints: *OutputBin FinCOLUMBIACUpper *MediaType ClearFile
+*UIConstraints: *MediaType ClearFile *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *MediaType ClearFile
+*UIConstraints: *MediaType ClearFile *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *MediaType ClearFile
 *UIConstraints: *MediaType ClearFile *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *MediaType ClearFile
 *UIConstraints: *MediaType ClearFile *OutputBin FinTENRYU
@@ -6919,6 +7402,10 @@ mark {\n&&
 *UIConstraints: *OutputBin SecondStackerTray *MediaType ClearFile
 *UIConstraints: *MediaType Carbonless *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *MediaType Carbonless
+*UIConstraints: *MediaType Carbonless *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *MediaType Carbonless
+*UIConstraints: *MediaType Carbonless *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *MediaType Carbonless
 *UIConstraints: *MediaType Carbonless *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *MediaType Carbonless
 *UIConstraints: *MediaType Carbonless *OutputBin FinTENRYU
@@ -6929,6 +7416,10 @@ mark {\n&&
 *UIConstraints: *OutputBin Trimmer *MediaType Carbonless
 *UIConstraints: *MediaType GlossyIndex *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *MediaType GlossyIndex
+*UIConstraints: *MediaType GlossyIndex *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *MediaType GlossyIndex
+*UIConstraints: *MediaType GlossyIndex *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *MediaType GlossyIndex
 *UIConstraints: *MediaType GlossyIndex *OutputBin FinTENRYU
 *UIConstraints: *OutputBin FinTENRYU *MediaType GlossyIndex
 *UIConstraints: *MediaType GlossyIndex *OutputBin FinDONAUProof
@@ -6941,6 +7432,10 @@ mark {\n&&
 *UIConstraints: *OutputBin SecondStackerTray *MediaType GlossyIndex
 *UIConstraints: *MediaType MatIndex *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *MediaType MatIndex
+*UIConstraints: *MediaType MatIndex *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *MediaType MatIndex
+*UIConstraints: *MediaType MatIndex *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *MediaType MatIndex
 *UIConstraints: *MediaType MatIndex *OutputBin FinTENRYU
 *UIConstraints: *OutputBin FinTENRYU *MediaType MatIndex
 *UIConstraints: *MediaType MatIndex *OutputBin FinDONAUProof
@@ -6953,6 +7448,10 @@ mark {\n&&
 *UIConstraints: *OutputBin SecondStackerTray *MediaType MatIndex
 *UIConstraints: *MediaType MoreGlossIndex *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *MediaType MoreGlossIndex
+*UIConstraints: *MediaType MoreGlossIndex *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *MediaType MoreGlossIndex
+*UIConstraints: *MediaType MoreGlossIndex *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *MediaType MoreGlossIndex
 *UIConstraints: *MediaType MoreGlossIndex *OutputBin FinTENRYU
 *UIConstraints: *OutputBin FinTENRYU *MediaType MoreGlossIndex
 *UIConstraints: *MediaType MoreGlossIndex *OutputBin FinDONAUProof
@@ -6965,6 +7464,10 @@ mark {\n&&
 *UIConstraints: *OutputBin SecondStackerTray *MediaType MoreGlossIndex
 *UIConstraints: *MediaType GlossyEnvelope *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *MediaType GlossyEnvelope
+*UIConstraints: *MediaType GlossyEnvelope *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *MediaType GlossyEnvelope
+*UIConstraints: *MediaType GlossyEnvelope *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *MediaType GlossyEnvelope
 *UIConstraints: *MediaType GlossyEnvelope *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *MediaType GlossyEnvelope
 *UIConstraints: *MediaType GlossyEnvelope *OutputBin FinTENRYU
@@ -6977,6 +7480,10 @@ mark {\n&&
 *UIConstraints: *OutputBin SecondStackerTray *MediaType GlossyEnvelope
 *UIConstraints: *MediaType MatEnvelope *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *MediaType MatEnvelope
+*UIConstraints: *MediaType MatEnvelope *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *MediaType MatEnvelope
+*UIConstraints: *MediaType MatEnvelope *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *MediaType MatEnvelope
 *UIConstraints: *MediaType MatEnvelope *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *MediaType MatEnvelope
 *UIConstraints: *MediaType MatEnvelope *OutputBin FinTENRYU
@@ -6989,6 +7496,10 @@ mark {\n&&
 *UIConstraints: *OutputBin SecondStackerTray *MediaType MatEnvelope
 *UIConstraints: *MediaType MoreGlossEnv *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *MediaType MoreGlossEnv
+*UIConstraints: *MediaType MoreGlossEnv *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *MediaType MoreGlossEnv
+*UIConstraints: *MediaType MoreGlossEnv *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *MediaType MoreGlossEnv
 *UIConstraints: *MediaType MoreGlossEnv *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *MediaType MoreGlossEnv
 *UIConstraints: *MediaType MoreGlossEnv *OutputBin FinTENRYU
@@ -7000,7 +7511,7 @@ mark {\n&&
 *UIConstraints: *MediaType MoreGlossEnv *OutputBin SecondStackerTray
 *UIConstraints: *OutputBin SecondStackerTray *MediaType MoreGlossEnv
 
-*%==========Perfect/Ring/Twin Loop Binding/Destination
+*%==========Binding/Destination
 *UIConstraints: *RIBind PerfectBind *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *RIBind PerfectBind
 *UIConstraints: *RIBind PerfectBind *OutputBin FinCOLUMBIACBKShift
@@ -7011,6 +7522,18 @@ mark {\n&&
 *UIConstraints: *OutputBin FinCOLUMBIACUpper *RIBind PerfectBind
 *UIConstraints: *RIBind PerfectBind *OutputBin FinCOLUMBIACShift
 *UIConstraints: *OutputBin FinCOLUMBIACShift *RIBind PerfectBind
+*UIConstraints: *RIBind PerfectBind *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *RIBind PerfectBind
+*UIConstraints: *RIBind PerfectBind *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *RIBind PerfectBind
+*UIConstraints: *RIBind PerfectBind *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIBind PerfectBind
+*UIConstraints: *RIBind PerfectBind *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *RIBind PerfectBind
+*UIConstraints: *RIBind PerfectBind *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *RIBind PerfectBind
+*UIConstraints: *RIBind PerfectBind *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIBind PerfectBind
 *UIConstraints: *RIBind PerfectBind *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIBind PerfectBind
 *UIConstraints: *RIBind PerfectBind *OutputBin FinDONAUProof
@@ -7033,6 +7556,8 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *RIBind PerfectBind
 *UIConstraints: *RIBind PerfectBind *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *RIBind PerfectBind
+*UIConstraints: *RIBind PerfectBind *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIBind PerfectBind
 *UIConstraints: *RIBind RingBind *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *RIBind RingBind
 *UIConstraints: *RIBind RingBind *OutputBin FinCOLUMBIACBKShift
@@ -7043,6 +7568,18 @@ mark {\n&&
 *UIConstraints: *OutputBin FinCOLUMBIACUpper *RIBind RingBind
 *UIConstraints: *RIBind RingBind *OutputBin FinCOLUMBIACShift
 *UIConstraints: *OutputBin FinCOLUMBIACShift *RIBind RingBind
+*UIConstraints: *RIBind RingBind *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *RIBind RingBind
+*UIConstraints: *RIBind RingBind *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *RIBind RingBind
+*UIConstraints: *RIBind RingBind *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIBind RingBind
+*UIConstraints: *RIBind RingBind *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *RIBind RingBind
+*UIConstraints: *RIBind RingBind *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *RIBind RingBind
+*UIConstraints: *RIBind RingBind *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIBind RingBind
 *UIConstraints: *RIBind RingBind *OutputBin FinTENRYU
 *UIConstraints: *OutputBin FinTENRYU *RIBind RingBind
 *UIConstraints: *RIBind RingBind *OutputBin FinDONAUProof
@@ -7065,6 +7602,8 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *RIBind RingBind
 *UIConstraints: *RIBind RingBind *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *RIBind RingBind
+*UIConstraints: *RIBind RingBind *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIBind RingBind
 *UIConstraints: *RIBind RingPunch *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *RIBind RingPunch
 *UIConstraints: *RIBind RingPunch *OutputBin FinCOLUMBIACBKShift
@@ -7075,6 +7614,18 @@ mark {\n&&
 *UIConstraints: *OutputBin FinCOLUMBIACUpper *RIBind RingPunch
 *UIConstraints: *RIBind RingPunch *OutputBin FinCOLUMBIACShift
 *UIConstraints: *OutputBin FinCOLUMBIACShift *RIBind RingPunch
+*UIConstraints: *RIBind RingPunch *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *RIBind RingPunch
+*UIConstraints: *RIBind RingPunch *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *RIBind RingPunch
+*UIConstraints: *RIBind RingPunch *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIBind RingPunch
+*UIConstraints: *RIBind RingPunch *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *RIBind RingPunch
+*UIConstraints: *RIBind RingPunch *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *RIBind RingPunch
+*UIConstraints: *RIBind RingPunch *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIBind RingPunch
 *UIConstraints: *RIBind RingPunch *OutputBin FinTENRYU
 *UIConstraints: *OutputBin FinTENRYU *RIBind RingPunch
 *UIConstraints: *RIBind RingPunch *OutputBin FinDONAUProof
@@ -7097,6 +7648,8 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *RIBind RingPunch
 *UIConstraints: *RIBind RingPunch *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *RIBind RingPunch
+*UIConstraints: *RIBind RingPunch *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIBind RingPunch
 *UIConstraints: *RIBind TwinLoopBind *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *RIBind TwinLoopBind
 *UIConstraints: *RIBind TwinLoopBind *OutputBin FinCOLUMBIACBKShift
@@ -7107,6 +7660,18 @@ mark {\n&&
 *UIConstraints: *OutputBin FinCOLUMBIACUpper *RIBind TwinLoopBind
 *UIConstraints: *RIBind TwinLoopBind *OutputBin FinCOLUMBIACShift
 *UIConstraints: *OutputBin FinCOLUMBIACShift *RIBind TwinLoopBind
+*UIConstraints: *RIBind TwinLoopBind *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *RIBind TwinLoopBind
+*UIConstraints: *RIBind TwinLoopBind *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *RIBind TwinLoopBind
+*UIConstraints: *RIBind TwinLoopBind *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIBind TwinLoopBind
+*UIConstraints: *RIBind TwinLoopBind *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *RIBind TwinLoopBind
+*UIConstraints: *RIBind TwinLoopBind *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *RIBind TwinLoopBind
+*UIConstraints: *RIBind TwinLoopBind *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIBind TwinLoopBind
 *UIConstraints: *RIBind TwinLoopBind *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIBind TwinLoopBind
 *UIConstraints: *RIBind TwinLoopBind *OutputBin FinTENRYU
@@ -7129,14 +7694,60 @@ mark {\n&&
 *UIConstraints: *OutputBin SecondStackerTray *RIBind TwinLoopBind
 *UIConstraints: *RIBind TwinLoopBind *OutputBin LargeStackerTray
 *UIConstraints: *OutputBin LargeStackerTray *RIBind TwinLoopBind
+*UIConstraints: *RIBind TwinLoopBind *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *RIBind TwinLoopBind
 
 *%==========Adjust Fore Edge Cut Position/Destination
+*UIConstraints: *TrimmerCutAndPosition On *OutputBin FinCOLUMBIACBKUpper
+*UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *OutputBin FinCOLUMBIACBKShift
+*UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *OutputBin FinCOLUMBIACBKLower
+*UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *OutputBin FinISHIKARI
+*UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *OutputBin FinTENRYU
+*UIConstraints: *OutputBin FinTENRYU *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *OutputBin Trimmer
+*UIConstraints: *OutputBin Trimmer *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *OutputBin SecondStackerUpperTray
+*UIConstraints: *OutputBin SecondStackerUpperTray *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *OutputBin LargeStackerTray
+*UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *OutputBin TwinLoopBinderTray
+*UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition On
 *UIConstraints: *TrimmerCutAndPosition 20mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 20mm
+*UIConstraints: *TrimmerCutAndPosition 20mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 20mm
+*UIConstraints: *TrimmerCutAndPosition 20mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 20mm
+*UIConstraints: *TrimmerCutAndPosition 20mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 20mm
+*UIConstraints: *TrimmerCutAndPosition 20mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *OutputBin FinTENRYU
@@ -7157,12 +7768,22 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 20mm
+*UIConstraints: *TrimmerCutAndPosition 20mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 30mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 30mm
 *UIConstraints: *TrimmerCutAndPosition 30mm *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 30mm
 *UIConstraints: *TrimmerCutAndPosition 30mm *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 30mm
+*UIConstraints: *TrimmerCutAndPosition 30mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 30mm
+*UIConstraints: *TrimmerCutAndPosition 30mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 30mm
+*UIConstraints: *TrimmerCutAndPosition 30mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 30mm
+*UIConstraints: *TrimmerCutAndPosition 30mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 30mm
 *UIConstraints: *TrimmerCutAndPosition 30mm *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 30mm
 *UIConstraints: *TrimmerCutAndPosition 30mm *OutputBin FinTENRYU
@@ -7183,12 +7804,22 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 30mm
 *UIConstraints: *TrimmerCutAndPosition 30mm *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 30mm
+*UIConstraints: *TrimmerCutAndPosition 30mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 30mm
 *UIConstraints: *TrimmerCutAndPosition 40mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 40mm
 *UIConstraints: *TrimmerCutAndPosition 40mm *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 40mm
 *UIConstraints: *TrimmerCutAndPosition 40mm *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 40mm
+*UIConstraints: *TrimmerCutAndPosition 40mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 40mm
+*UIConstraints: *TrimmerCutAndPosition 40mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 40mm
+*UIConstraints: *TrimmerCutAndPosition 40mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 40mm
+*UIConstraints: *TrimmerCutAndPosition 40mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 40mm
 *UIConstraints: *TrimmerCutAndPosition 40mm *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 40mm
 *UIConstraints: *TrimmerCutAndPosition 40mm *OutputBin FinTENRYU
@@ -7209,12 +7840,22 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 40mm
 *UIConstraints: *TrimmerCutAndPosition 40mm *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 40mm
+*UIConstraints: *TrimmerCutAndPosition 40mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 40mm
 *UIConstraints: *TrimmerCutAndPosition 50mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 50mm
 *UIConstraints: *TrimmerCutAndPosition 50mm *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 50mm
 *UIConstraints: *TrimmerCutAndPosition 50mm *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 50mm
+*UIConstraints: *TrimmerCutAndPosition 50mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 50mm
+*UIConstraints: *TrimmerCutAndPosition 50mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 50mm
+*UIConstraints: *TrimmerCutAndPosition 50mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 50mm
+*UIConstraints: *TrimmerCutAndPosition 50mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 50mm
 *UIConstraints: *TrimmerCutAndPosition 50mm *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 50mm
 *UIConstraints: *TrimmerCutAndPosition 50mm *OutputBin FinTENRYU
@@ -7235,12 +7876,22 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 50mm
 *UIConstraints: *TrimmerCutAndPosition 50mm *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 50mm
+*UIConstraints: *TrimmerCutAndPosition 50mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 50mm
 *UIConstraints: *TrimmerCutAndPosition 60mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 60mm
 *UIConstraints: *TrimmerCutAndPosition 60mm *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 60mm
 *UIConstraints: *TrimmerCutAndPosition 60mm *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 60mm
+*UIConstraints: *TrimmerCutAndPosition 60mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 60mm
+*UIConstraints: *TrimmerCutAndPosition 60mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 60mm
+*UIConstraints: *TrimmerCutAndPosition 60mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 60mm
+*UIConstraints: *TrimmerCutAndPosition 60mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 60mm
 *UIConstraints: *TrimmerCutAndPosition 60mm *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 60mm
 *UIConstraints: *TrimmerCutAndPosition 60mm *OutputBin FinTENRYU
@@ -7261,12 +7912,22 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 60mm
 *UIConstraints: *TrimmerCutAndPosition 60mm *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 60mm
+*UIConstraints: *TrimmerCutAndPosition 60mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 60mm
 *UIConstraints: *TrimmerCutAndPosition 70mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 70mm
 *UIConstraints: *TrimmerCutAndPosition 70mm *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 70mm
 *UIConstraints: *TrimmerCutAndPosition 70mm *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 70mm
+*UIConstraints: *TrimmerCutAndPosition 70mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 70mm
+*UIConstraints: *TrimmerCutAndPosition 70mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 70mm
+*UIConstraints: *TrimmerCutAndPosition 70mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 70mm
+*UIConstraints: *TrimmerCutAndPosition 70mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 70mm
 *UIConstraints: *TrimmerCutAndPosition 70mm *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 70mm
 *UIConstraints: *TrimmerCutAndPosition 70mm *OutputBin FinTENRYU
@@ -7287,12 +7948,22 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 70mm
 *UIConstraints: *TrimmerCutAndPosition 70mm *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 70mm
+*UIConstraints: *TrimmerCutAndPosition 70mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 70mm
 *UIConstraints: *TrimmerCutAndPosition 80mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 80mm
 *UIConstraints: *TrimmerCutAndPosition 80mm *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 80mm
 *UIConstraints: *TrimmerCutAndPosition 80mm *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 80mm
+*UIConstraints: *TrimmerCutAndPosition 80mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 80mm
+*UIConstraints: *TrimmerCutAndPosition 80mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 80mm
+*UIConstraints: *TrimmerCutAndPosition 80mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 80mm
+*UIConstraints: *TrimmerCutAndPosition 80mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 80mm
 *UIConstraints: *TrimmerCutAndPosition 80mm *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 80mm
 *UIConstraints: *TrimmerCutAndPosition 80mm *OutputBin FinTENRYU
@@ -7313,12 +7984,22 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 80mm
 *UIConstraints: *TrimmerCutAndPosition 80mm *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 80mm
+*UIConstraints: *TrimmerCutAndPosition 80mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 80mm
 *UIConstraints: *TrimmerCutAndPosition 90mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 90mm
 *UIConstraints: *TrimmerCutAndPosition 90mm *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 90mm
 *UIConstraints: *TrimmerCutAndPosition 90mm *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 90mm
+*UIConstraints: *TrimmerCutAndPosition 90mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 90mm
+*UIConstraints: *TrimmerCutAndPosition 90mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 90mm
+*UIConstraints: *TrimmerCutAndPosition 90mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 90mm
+*UIConstraints: *TrimmerCutAndPosition 90mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 90mm
 *UIConstraints: *TrimmerCutAndPosition 90mm *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 90mm
 *UIConstraints: *TrimmerCutAndPosition 90mm *OutputBin FinTENRYU
@@ -7339,12 +8020,22 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 90mm
 *UIConstraints: *TrimmerCutAndPosition 90mm *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 90mm
+*UIConstraints: *TrimmerCutAndPosition 90mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 90mm
 *UIConstraints: *TrimmerCutAndPosition 100mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 100mm
 *UIConstraints: *TrimmerCutAndPosition 100mm *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 100mm
 *UIConstraints: *TrimmerCutAndPosition 100mm *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 100mm
+*UIConstraints: *TrimmerCutAndPosition 100mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 100mm
+*UIConstraints: *TrimmerCutAndPosition 100mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 100mm
+*UIConstraints: *TrimmerCutAndPosition 100mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 100mm
+*UIConstraints: *TrimmerCutAndPosition 100mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 100mm
 *UIConstraints: *TrimmerCutAndPosition 100mm *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 100mm
 *UIConstraints: *TrimmerCutAndPosition 100mm *OutputBin FinTENRYU
@@ -7365,12 +8056,22 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 100mm
 *UIConstraints: *TrimmerCutAndPosition 100mm *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 100mm
+*UIConstraints: *TrimmerCutAndPosition 100mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 100mm
 *UIConstraints: *TrimmerCutAndPosition 110mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 110mm
 *UIConstraints: *TrimmerCutAndPosition 110mm *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 110mm
 *UIConstraints: *TrimmerCutAndPosition 110mm *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 110mm
+*UIConstraints: *TrimmerCutAndPosition 110mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 110mm
+*UIConstraints: *TrimmerCutAndPosition 110mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 110mm
+*UIConstraints: *TrimmerCutAndPosition 110mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 110mm
+*UIConstraints: *TrimmerCutAndPosition 110mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 110mm
 *UIConstraints: *TrimmerCutAndPosition 110mm *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 110mm
 *UIConstraints: *TrimmerCutAndPosition 110mm *OutputBin FinTENRYU
@@ -7391,12 +8092,22 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 110mm
 *UIConstraints: *TrimmerCutAndPosition 110mm *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 110mm
+*UIConstraints: *TrimmerCutAndPosition 110mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 110mm
 *UIConstraints: *TrimmerCutAndPosition 120mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 120mm
 *UIConstraints: *TrimmerCutAndPosition 120mm *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 120mm
 *UIConstraints: *TrimmerCutAndPosition 120mm *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 120mm
+*UIConstraints: *TrimmerCutAndPosition 120mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 120mm
+*UIConstraints: *TrimmerCutAndPosition 120mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 120mm
+*UIConstraints: *TrimmerCutAndPosition 120mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 120mm
+*UIConstraints: *TrimmerCutAndPosition 120mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 120mm
 *UIConstraints: *TrimmerCutAndPosition 120mm *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 120mm
 *UIConstraints: *TrimmerCutAndPosition 120mm *OutputBin FinTENRYU
@@ -7417,12 +8128,22 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 120mm
 *UIConstraints: *TrimmerCutAndPosition 120mm *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 120mm
+*UIConstraints: *TrimmerCutAndPosition 120mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 120mm
 *UIConstraints: *TrimmerCutAndPosition 130mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 130mm
 *UIConstraints: *TrimmerCutAndPosition 130mm *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 130mm
 *UIConstraints: *TrimmerCutAndPosition 130mm *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 130mm
+*UIConstraints: *TrimmerCutAndPosition 130mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 130mm
+*UIConstraints: *TrimmerCutAndPosition 130mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 130mm
+*UIConstraints: *TrimmerCutAndPosition 130mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 130mm
+*UIConstraints: *TrimmerCutAndPosition 130mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 130mm
 *UIConstraints: *TrimmerCutAndPosition 130mm *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 130mm
 *UIConstraints: *TrimmerCutAndPosition 130mm *OutputBin FinTENRYU
@@ -7443,12 +8164,22 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 130mm
 *UIConstraints: *TrimmerCutAndPosition 130mm *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 130mm
+*UIConstraints: *TrimmerCutAndPosition 130mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 130mm
 *UIConstraints: *TrimmerCutAndPosition 140mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 140mm
 *UIConstraints: *TrimmerCutAndPosition 140mm *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 140mm
 *UIConstraints: *TrimmerCutAndPosition 140mm *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 140mm
+*UIConstraints: *TrimmerCutAndPosition 140mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 140mm
+*UIConstraints: *TrimmerCutAndPosition 140mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 140mm
+*UIConstraints: *TrimmerCutAndPosition 140mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 140mm
+*UIConstraints: *TrimmerCutAndPosition 140mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 140mm
 *UIConstraints: *TrimmerCutAndPosition 140mm *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 140mm
 *UIConstraints: *TrimmerCutAndPosition 140mm *OutputBin FinTENRYU
@@ -7469,12 +8200,22 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 140mm
 *UIConstraints: *TrimmerCutAndPosition 140mm *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 140mm
+*UIConstraints: *TrimmerCutAndPosition 140mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 140mm
 *UIConstraints: *TrimmerCutAndPosition 150mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 150mm
 *UIConstraints: *TrimmerCutAndPosition 150mm *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 150mm
 *UIConstraints: *TrimmerCutAndPosition 150mm *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 150mm
+*UIConstraints: *TrimmerCutAndPosition 150mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 150mm
+*UIConstraints: *TrimmerCutAndPosition 150mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 150mm
+*UIConstraints: *TrimmerCutAndPosition 150mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 150mm
+*UIConstraints: *TrimmerCutAndPosition 150mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 150mm
 *UIConstraints: *TrimmerCutAndPosition 150mm *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 150mm
 *UIConstraints: *TrimmerCutAndPosition 150mm *OutputBin FinTENRYU
@@ -7495,12 +8236,22 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 150mm
 *UIConstraints: *TrimmerCutAndPosition 150mm *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 150mm
+*UIConstraints: *TrimmerCutAndPosition 150mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 150mm
 *UIConstraints: *TrimmerCutAndPosition 160mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 160mm
 *UIConstraints: *TrimmerCutAndPosition 160mm *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 160mm
 *UIConstraints: *TrimmerCutAndPosition 160mm *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 160mm
+*UIConstraints: *TrimmerCutAndPosition 160mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 160mm
+*UIConstraints: *TrimmerCutAndPosition 160mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 160mm
+*UIConstraints: *TrimmerCutAndPosition 160mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 160mm
+*UIConstraints: *TrimmerCutAndPosition 160mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 160mm
 *UIConstraints: *TrimmerCutAndPosition 160mm *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 160mm
 *UIConstraints: *TrimmerCutAndPosition 160mm *OutputBin FinTENRYU
@@ -7521,12 +8272,22 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 160mm
 *UIConstraints: *TrimmerCutAndPosition 160mm *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 160mm
+*UIConstraints: *TrimmerCutAndPosition 160mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 160mm
 *UIConstraints: *TrimmerCutAndPosition 170mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 170mm
 *UIConstraints: *TrimmerCutAndPosition 170mm *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 170mm
 *UIConstraints: *TrimmerCutAndPosition 170mm *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 170mm
+*UIConstraints: *TrimmerCutAndPosition 170mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 170mm
+*UIConstraints: *TrimmerCutAndPosition 170mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 170mm
+*UIConstraints: *TrimmerCutAndPosition 170mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 170mm
+*UIConstraints: *TrimmerCutAndPosition 170mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 170mm
 *UIConstraints: *TrimmerCutAndPosition 170mm *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 170mm
 *UIConstraints: *TrimmerCutAndPosition 170mm *OutputBin FinTENRYU
@@ -7547,12 +8308,22 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 170mm
 *UIConstraints: *TrimmerCutAndPosition 170mm *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 170mm
+*UIConstraints: *TrimmerCutAndPosition 170mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 170mm
 *UIConstraints: *TrimmerCutAndPosition 180mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 180mm
 *UIConstraints: *TrimmerCutAndPosition 180mm *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 180mm
 *UIConstraints: *TrimmerCutAndPosition 180mm *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 180mm
+*UIConstraints: *TrimmerCutAndPosition 180mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 180mm
+*UIConstraints: *TrimmerCutAndPosition 180mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 180mm
+*UIConstraints: *TrimmerCutAndPosition 180mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 180mm
+*UIConstraints: *TrimmerCutAndPosition 180mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 180mm
 *UIConstraints: *TrimmerCutAndPosition 180mm *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 180mm
 *UIConstraints: *TrimmerCutAndPosition 180mm *OutputBin FinTENRYU
@@ -7573,12 +8344,22 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 180mm
 *UIConstraints: *TrimmerCutAndPosition 180mm *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 180mm
+*UIConstraints: *TrimmerCutAndPosition 180mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 180mm
 *UIConstraints: *TrimmerCutAndPosition 190mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 190mm
 *UIConstraints: *TrimmerCutAndPosition 190mm *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 190mm
 *UIConstraints: *TrimmerCutAndPosition 190mm *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 190mm
+*UIConstraints: *TrimmerCutAndPosition 190mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 190mm
+*UIConstraints: *TrimmerCutAndPosition 190mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 190mm
+*UIConstraints: *TrimmerCutAndPosition 190mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 190mm
+*UIConstraints: *TrimmerCutAndPosition 190mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 190mm
 *UIConstraints: *TrimmerCutAndPosition 190mm *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 190mm
 *UIConstraints: *TrimmerCutAndPosition 190mm *OutputBin FinTENRYU
@@ -7599,12 +8380,22 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 190mm
 *UIConstraints: *TrimmerCutAndPosition 190mm *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 190mm
+*UIConstraints: *TrimmerCutAndPosition 190mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 190mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *OutputBin FinCOLUMBIACBKShift
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 200mm
+*UIConstraints: *TrimmerCutAndPosition 200mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 200mm
+*UIConstraints: *TrimmerCutAndPosition 200mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 200mm
+*UIConstraints: *TrimmerCutAndPosition 200mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 200mm
+*UIConstraints: *TrimmerCutAndPosition 200mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *OutputBin FinTENRYU
@@ -7625,12 +8416,162 @@ mark {\n&&
 *UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 200mm
+*UIConstraints: *TrimmerCutAndPosition 200mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 200mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *OutputBin FinCOLUMBIACBKUpper
+*UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *OutputBin FinCOLUMBIACBKShift
+*UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *OutputBin FinCOLUMBIACBKLower
+*UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *OutputBin FinISHIKARI
+*UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *OutputBin FinTENRYU
+*UIConstraints: *OutputBin FinTENRYU *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *OutputBin SecondStackerUpperTray
+*UIConstraints: *OutputBin SecondStackerUpperTray *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *OutputBin LargeStackerTray
+*UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *OutputBin TwinLoopBinderTray
+*UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *OutputBin FinCOLUMBIACBKUpper
+*UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *OutputBin FinCOLUMBIACBKShift
+*UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *OutputBin FinCOLUMBIACBKLower
+*UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *OutputBin FinISHIKARI
+*UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *OutputBin FinTENRYU
+*UIConstraints: *OutputBin FinTENRYU *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *OutputBin SecondStackerUpperTray
+*UIConstraints: *OutputBin SecondStackerUpperTray *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *OutputBin LargeStackerTray
+*UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *OutputBin TwinLoopBinderTray
+*UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *OutputBin FinCOLUMBIACBKUpper
+*UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *OutputBin FinCOLUMBIACBKShift
+*UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *OutputBin FinCOLUMBIACBKLower
+*UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *OutputBin FinISHIKARI
+*UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *OutputBin FinTENRYU
+*UIConstraints: *OutputBin FinTENRYU *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *OutputBin SecondStackerUpperTray
+*UIConstraints: *OutputBin SecondStackerUpperTray *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *OutputBin LargeStackerTray
+*UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *OutputBin TwinLoopBinderTray
+*UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *OutputBin FinCOLUMBIACBKUpper
+*UIConstraints: *OutputBin FinCOLUMBIACBKUpper *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *OutputBin FinCOLUMBIACBKShift
+*UIConstraints: *OutputBin FinCOLUMBIACBKShift *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *OutputBin FinCOLUMBIACBKLower
+*UIConstraints: *OutputBin FinCOLUMBIACBKLower *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *OutputBin FinISHIKARI
+*UIConstraints: *OutputBin FinISHIKARI *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *OutputBin FinTENRYU
+*UIConstraints: *OutputBin FinTENRYU *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin PlockmaticTray *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *OutputBin SecondStackerUpperTray
+*UIConstraints: *OutputBin SecondStackerUpperTray *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *OutputBin LargeStackerTray
+*UIConstraints: *OutputBin LargeStackerTray *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *OutputBin TwinLoopBinderTray
+*UIConstraints: *OutputBin TwinLoopBinderTray *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *OutputBin NorthStarTray
+*UIConstraints: *OutputBin NorthStarTray *TrimmerCutAndPosition 240mm
 
 *%==========Banner Page Media Type/Destination
 *UIConstraints: *RIBannerPageMediaType Preprinted *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIBannerPageMediaType Preprinted
 *UIConstraints: *RIBannerPageMediaType Prepunched *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIBannerPageMediaType Prepunched
+*UIConstraints: *RIBannerPageMediaType Prepunched *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIBannerPageMediaType Prepunched
+*UIConstraints: *RIBannerPageMediaType Prepunched *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIBannerPageMediaType Prepunched
 *UIConstraints: *RIBannerPageMediaType Prepunched *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIBannerPageMediaType Prepunched
 *UIConstraints: *RIBannerPageMediaType Prepunched *OutputBin FinTENRYU
@@ -7639,6 +8580,10 @@ mark {\n&&
 *UIConstraints: *OutputBin Trimmer *RIBannerPageMediaType Prepunched
 *UIConstraints: *RIBannerPageMediaType Labels *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIBannerPageMediaType Labels
+*UIConstraints: *RIBannerPageMediaType Labels *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIBannerPageMediaType Labels
+*UIConstraints: *RIBannerPageMediaType Labels *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIBannerPageMediaType Labels
 *UIConstraints: *RIBannerPageMediaType Labels *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIBannerPageMediaType Labels
 *UIConstraints: *RIBannerPageMediaType Labels *OutputBin FinTENRYU
@@ -7653,12 +8598,20 @@ mark {\n&&
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIBannerPageMediaType OHP
 *UIConstraints: *RIBannerPageMediaType OHP *OutputBin FinCOLUMBIACShift
 *UIConstraints: *OutputBin FinCOLUMBIACShift *RIBannerPageMediaType OHP
+*UIConstraints: *RIBannerPageMediaType OHP *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIBannerPageMediaType OHP
+*UIConstraints: *RIBannerPageMediaType OHP *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIBannerPageMediaType OHP
 *UIConstraints: *RIBannerPageMediaType OHP *OutputBin FinTENRYU
 *UIConstraints: *OutputBin FinTENRYU *RIBannerPageMediaType OHP
 *UIConstraints: *RIBannerPageMediaType OHP *OutputBin Trimmer
 *UIConstraints: *OutputBin Trimmer *RIBannerPageMediaType OHP
 *UIConstraints: *RIBannerPageMediaType Index *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIBannerPageMediaType Index
+*UIConstraints: *RIBannerPageMediaType Index *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIBannerPageMediaType Index
+*UIConstraints: *RIBannerPageMediaType Index *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIBannerPageMediaType Index
 *UIConstraints: *RIBannerPageMediaType Index *OutputBin FinTENRYU
 *UIConstraints: *OutputBin FinTENRYU *RIBannerPageMediaType Index
 *UIConstraints: *RIBannerPageMediaType Index *OutputBin FinDONAUProof
@@ -7675,6 +8628,10 @@ mark {\n&&
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIBannerPageMediaType Translucent
 *UIConstraints: *RIBannerPageMediaType Translucent *OutputBin FinCOLUMBIACShift
 *UIConstraints: *OutputBin FinCOLUMBIACShift *RIBannerPageMediaType Translucent
+*UIConstraints: *RIBannerPageMediaType Translucent *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIBannerPageMediaType Translucent
+*UIConstraints: *RIBannerPageMediaType Translucent *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIBannerPageMediaType Translucent
 *UIConstraints: *RIBannerPageMediaType Translucent *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIBannerPageMediaType Translucent
 *UIConstraints: *RIBannerPageMediaType Translucent *OutputBin FinTENRYU
@@ -7683,6 +8640,10 @@ mark {\n&&
 *UIConstraints: *OutputBin Trimmer *RIBannerPageMediaType Translucent
 *UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIBannerPageMediaType Envelope
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIBannerPageMediaType Envelope
+*UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIBannerPageMediaType Envelope
 *UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIBannerPageMediaType Envelope
 *UIConstraints: *RIBannerPageMediaType Envelope *OutputBin FinTENRYU
@@ -7699,6 +8660,10 @@ mark {\n&&
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIBannerPageMediaType Magnet
 *UIConstraints: *RIBannerPageMediaType Magnet *OutputBin FinCOLUMBIACUpper
 *UIConstraints: *OutputBin FinCOLUMBIACUpper *RIBannerPageMediaType Magnet
+*UIConstraints: *RIBannerPageMediaType Magnet *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIBannerPageMediaType Magnet
+*UIConstraints: *RIBannerPageMediaType Magnet *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIBannerPageMediaType Magnet
 *UIConstraints: *RIBannerPageMediaType Magnet *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIBannerPageMediaType Magnet
 *UIConstraints: *RIBannerPageMediaType Magnet *OutputBin FinTENRYU
@@ -7711,6 +8676,10 @@ mark {\n&&
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIBannerPageMediaType ClearFile
 *UIConstraints: *RIBannerPageMediaType ClearFile *OutputBin FinCOLUMBIACUpper
 *UIConstraints: *OutputBin FinCOLUMBIACUpper *RIBannerPageMediaType ClearFile
+*UIConstraints: *RIBannerPageMediaType ClearFile *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIBannerPageMediaType ClearFile
+*UIConstraints: *RIBannerPageMediaType ClearFile *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIBannerPageMediaType ClearFile
 *UIConstraints: *RIBannerPageMediaType ClearFile *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIBannerPageMediaType ClearFile
 *UIConstraints: *RIBannerPageMediaType ClearFile *OutputBin FinTENRYU
@@ -7723,6 +8692,10 @@ mark {\n&&
 *UIConstraints: *OutputBin SecondStackerTray *RIBannerPageMediaType ClearFile
 *UIConstraints: *RIBannerPageMediaType Carbonless *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIBannerPageMediaType Carbonless
+*UIConstraints: *RIBannerPageMediaType Carbonless *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIBannerPageMediaType Carbonless
+*UIConstraints: *RIBannerPageMediaType Carbonless *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIBannerPageMediaType Carbonless
 *UIConstraints: *RIBannerPageMediaType Carbonless *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIBannerPageMediaType Carbonless
 *UIConstraints: *RIBannerPageMediaType Carbonless *OutputBin FinTENRYU
@@ -7733,6 +8706,10 @@ mark {\n&&
 *UIConstraints: *OutputBin Trimmer *RIBannerPageMediaType Carbonless
 *UIConstraints: *RIBannerPageMediaType GlossyIndex *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIBannerPageMediaType GlossyIndex
+*UIConstraints: *RIBannerPageMediaType GlossyIndex *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIBannerPageMediaType GlossyIndex
+*UIConstraints: *RIBannerPageMediaType GlossyIndex *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIBannerPageMediaType GlossyIndex
 *UIConstraints: *RIBannerPageMediaType GlossyIndex *OutputBin FinTENRYU
 *UIConstraints: *OutputBin FinTENRYU *RIBannerPageMediaType GlossyIndex
 *UIConstraints: *RIBannerPageMediaType GlossyIndex *OutputBin FinDONAUProof
@@ -7745,6 +8722,10 @@ mark {\n&&
 *UIConstraints: *OutputBin SecondStackerTray *RIBannerPageMediaType GlossyIndex
 *UIConstraints: *RIBannerPageMediaType MatIndex *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIBannerPageMediaType MatIndex
+*UIConstraints: *RIBannerPageMediaType MatIndex *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIBannerPageMediaType MatIndex
+*UIConstraints: *RIBannerPageMediaType MatIndex *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIBannerPageMediaType MatIndex
 *UIConstraints: *RIBannerPageMediaType MatIndex *OutputBin FinTENRYU
 *UIConstraints: *OutputBin FinTENRYU *RIBannerPageMediaType MatIndex
 *UIConstraints: *RIBannerPageMediaType MatIndex *OutputBin FinDONAUProof
@@ -7757,6 +8738,10 @@ mark {\n&&
 *UIConstraints: *OutputBin SecondStackerTray *RIBannerPageMediaType MatIndex
 *UIConstraints: *RIBannerPageMediaType MoreGlossIndex *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIBannerPageMediaType MoreGlossIndex
+*UIConstraints: *RIBannerPageMediaType MoreGlossIndex *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIBannerPageMediaType MoreGlossIndex
+*UIConstraints: *RIBannerPageMediaType MoreGlossIndex *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIBannerPageMediaType MoreGlossIndex
 *UIConstraints: *RIBannerPageMediaType MoreGlossIndex *OutputBin FinTENRYU
 *UIConstraints: *OutputBin FinTENRYU *RIBannerPageMediaType MoreGlossIndex
 *UIConstraints: *RIBannerPageMediaType MoreGlossIndex *OutputBin FinDONAUProof
@@ -7769,6 +8754,10 @@ mark {\n&&
 *UIConstraints: *OutputBin SecondStackerTray *RIBannerPageMediaType MoreGlossIndex
 *UIConstraints: *RIBannerPageMediaType GlossyEnvelope *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIBannerPageMediaType GlossyEnvelope
+*UIConstraints: *RIBannerPageMediaType GlossyEnvelope *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIBannerPageMediaType GlossyEnvelope
+*UIConstraints: *RIBannerPageMediaType GlossyEnvelope *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIBannerPageMediaType GlossyEnvelope
 *UIConstraints: *RIBannerPageMediaType GlossyEnvelope *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIBannerPageMediaType GlossyEnvelope
 *UIConstraints: *RIBannerPageMediaType GlossyEnvelope *OutputBin FinTENRYU
@@ -7781,6 +8770,10 @@ mark {\n&&
 *UIConstraints: *OutputBin SecondStackerTray *RIBannerPageMediaType GlossyEnvelope
 *UIConstraints: *RIBannerPageMediaType MatEnvelope *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIBannerPageMediaType MatEnvelope
+*UIConstraints: *RIBannerPageMediaType MatEnvelope *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIBannerPageMediaType MatEnvelope
+*UIConstraints: *RIBannerPageMediaType MatEnvelope *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIBannerPageMediaType MatEnvelope
 *UIConstraints: *RIBannerPageMediaType MatEnvelope *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIBannerPageMediaType MatEnvelope
 *UIConstraints: *RIBannerPageMediaType MatEnvelope *OutputBin FinTENRYU
@@ -7793,6 +8786,10 @@ mark {\n&&
 *UIConstraints: *OutputBin SecondStackerTray *RIBannerPageMediaType MatEnvelope
 *UIConstraints: *RIBannerPageMediaType MoreGlossEnv *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIBannerPageMediaType MoreGlossEnv
+*UIConstraints: *RIBannerPageMediaType MoreGlossEnv *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIBannerPageMediaType MoreGlossEnv
+*UIConstraints: *RIBannerPageMediaType MoreGlossEnv *OutputBin FinORIONBKLower
+*UIConstraints: *OutputBin FinORIONBKLower *RIBannerPageMediaType MoreGlossEnv
 *UIConstraints: *RIBannerPageMediaType MoreGlossEnv *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIBannerPageMediaType MoreGlossEnv
 *UIConstraints: *RIBannerPageMediaType MoreGlossEnv *OutputBin FinTENRYU
@@ -7807,6 +8804,16 @@ mark {\n&&
 *%==========Interface Box Generic Function/Destination
 *UIConstraints: *RIGenericFunction GenericFunction1 *OutputBin Default
 *UIConstraints: *OutputBin Default *RIGenericFunction GenericFunction1
+*UIConstraints: *RIGenericFunction GenericFunction1 *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *RIGenericFunction GenericFunction1
+*UIConstraints: *RIGenericFunction GenericFunction1 *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *RIGenericFunction GenericFunction1
+*UIConstraints: *RIGenericFunction GenericFunction1 *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIGenericFunction GenericFunction1
+*UIConstraints: *RIGenericFunction GenericFunction1 *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *RIGenericFunction GenericFunction1
+*UIConstraints: *RIGenericFunction GenericFunction1 *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *RIGenericFunction GenericFunction1
 *UIConstraints: *RIGenericFunction GenericFunction1 *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIGenericFunction GenericFunction1
 *UIConstraints: *RIGenericFunction GenericFunction1 *OutputBin FinTENRYU
@@ -7827,6 +8834,16 @@ mark {\n&&
 *UIConstraints: *OutputBin TwinLoopBinderTray *RIGenericFunction GenericFunction1
 *UIConstraints: *RIGenericFunction GenericFunction2 *OutputBin Default
 *UIConstraints: *OutputBin Default *RIGenericFunction GenericFunction2
+*UIConstraints: *RIGenericFunction GenericFunction2 *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *RIGenericFunction GenericFunction2
+*UIConstraints: *RIGenericFunction GenericFunction2 *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *RIGenericFunction GenericFunction2
+*UIConstraints: *RIGenericFunction GenericFunction2 *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIGenericFunction GenericFunction2
+*UIConstraints: *RIGenericFunction GenericFunction2 *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *RIGenericFunction GenericFunction2
+*UIConstraints: *RIGenericFunction GenericFunction2 *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *RIGenericFunction GenericFunction2
 *UIConstraints: *RIGenericFunction GenericFunction2 *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIGenericFunction GenericFunction2
 *UIConstraints: *RIGenericFunction GenericFunction2 *OutputBin FinTENRYU
@@ -7847,6 +8864,16 @@ mark {\n&&
 *UIConstraints: *OutputBin TwinLoopBinderTray *RIGenericFunction GenericFunction2
 *UIConstraints: *RIGenericFunction GenericFunction3 *OutputBin Default
 *UIConstraints: *OutputBin Default *RIGenericFunction GenericFunction3
+*UIConstraints: *RIGenericFunction GenericFunction3 *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *RIGenericFunction GenericFunction3
+*UIConstraints: *RIGenericFunction GenericFunction3 *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *RIGenericFunction GenericFunction3
+*UIConstraints: *RIGenericFunction GenericFunction3 *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIGenericFunction GenericFunction3
+*UIConstraints: *RIGenericFunction GenericFunction3 *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *RIGenericFunction GenericFunction3
+*UIConstraints: *RIGenericFunction GenericFunction3 *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *RIGenericFunction GenericFunction3
 *UIConstraints: *RIGenericFunction GenericFunction3 *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIGenericFunction GenericFunction3
 *UIConstraints: *RIGenericFunction GenericFunction3 *OutputBin FinTENRYU
@@ -7867,6 +8894,16 @@ mark {\n&&
 *UIConstraints: *OutputBin TwinLoopBinderTray *RIGenericFunction GenericFunction3
 *UIConstraints: *RIGenericFunction GenericFunction4 *OutputBin Default
 *UIConstraints: *OutputBin Default *RIGenericFunction GenericFunction4
+*UIConstraints: *RIGenericFunction GenericFunction4 *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *RIGenericFunction GenericFunction4
+*UIConstraints: *RIGenericFunction GenericFunction4 *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *RIGenericFunction GenericFunction4
+*UIConstraints: *RIGenericFunction GenericFunction4 *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIGenericFunction GenericFunction4
+*UIConstraints: *RIGenericFunction GenericFunction4 *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *RIGenericFunction GenericFunction4
+*UIConstraints: *RIGenericFunction GenericFunction4 *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *RIGenericFunction GenericFunction4
 *UIConstraints: *RIGenericFunction GenericFunction4 *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIGenericFunction GenericFunction4
 *UIConstraints: *RIGenericFunction GenericFunction4 *OutputBin FinTENRYU
@@ -7887,6 +8924,16 @@ mark {\n&&
 *UIConstraints: *OutputBin TwinLoopBinderTray *RIGenericFunction GenericFunction4
 *UIConstraints: *RIGenericFunction GenericFunction5 *OutputBin Default
 *UIConstraints: *OutputBin Default *RIGenericFunction GenericFunction5
+*UIConstraints: *RIGenericFunction GenericFunction5 *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *RIGenericFunction GenericFunction5
+*UIConstraints: *RIGenericFunction GenericFunction5 *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *RIGenericFunction GenericFunction5
+*UIConstraints: *RIGenericFunction GenericFunction5 *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIGenericFunction GenericFunction5
+*UIConstraints: *RIGenericFunction GenericFunction5 *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *RIGenericFunction GenericFunction5
+*UIConstraints: *RIGenericFunction GenericFunction5 *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *RIGenericFunction GenericFunction5
 *UIConstraints: *RIGenericFunction GenericFunction5 *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIGenericFunction GenericFunction5
 *UIConstraints: *RIGenericFunction GenericFunction5 *OutputBin FinTENRYU
@@ -7907,6 +8954,16 @@ mark {\n&&
 *UIConstraints: *OutputBin TwinLoopBinderTray *RIGenericFunction GenericFunction5
 *UIConstraints: *RIGenericFunction GenericFunction6 *OutputBin Default
 *UIConstraints: *OutputBin Default *RIGenericFunction GenericFunction6
+*UIConstraints: *RIGenericFunction GenericFunction6 *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *RIGenericFunction GenericFunction6
+*UIConstraints: *RIGenericFunction GenericFunction6 *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *RIGenericFunction GenericFunction6
+*UIConstraints: *RIGenericFunction GenericFunction6 *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIGenericFunction GenericFunction6
+*UIConstraints: *RIGenericFunction GenericFunction6 *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *RIGenericFunction GenericFunction6
+*UIConstraints: *RIGenericFunction GenericFunction6 *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *RIGenericFunction GenericFunction6
 *UIConstraints: *RIGenericFunction GenericFunction6 *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIGenericFunction GenericFunction6
 *UIConstraints: *RIGenericFunction GenericFunction6 *OutputBin FinTENRYU
@@ -7927,6 +8984,16 @@ mark {\n&&
 *UIConstraints: *OutputBin TwinLoopBinderTray *RIGenericFunction GenericFunction6
 *UIConstraints: *RIGenericFunction GenericFunction7 *OutputBin Default
 *UIConstraints: *OutputBin Default *RIGenericFunction GenericFunction7
+*UIConstraints: *RIGenericFunction GenericFunction7 *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *RIGenericFunction GenericFunction7
+*UIConstraints: *RIGenericFunction GenericFunction7 *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *RIGenericFunction GenericFunction7
+*UIConstraints: *RIGenericFunction GenericFunction7 *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIGenericFunction GenericFunction7
+*UIConstraints: *RIGenericFunction GenericFunction7 *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *RIGenericFunction GenericFunction7
+*UIConstraints: *RIGenericFunction GenericFunction7 *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *RIGenericFunction GenericFunction7
 *UIConstraints: *RIGenericFunction GenericFunction7 *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIGenericFunction GenericFunction7
 *UIConstraints: *RIGenericFunction GenericFunction7 *OutputBin FinTENRYU
@@ -7947,6 +9014,16 @@ mark {\n&&
 *UIConstraints: *OutputBin TwinLoopBinderTray *RIGenericFunction GenericFunction7
 *UIConstraints: *RIGenericFunction GenericFunction8 *OutputBin Default
 *UIConstraints: *OutputBin Default *RIGenericFunction GenericFunction8
+*UIConstraints: *RIGenericFunction GenericFunction8 *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *RIGenericFunction GenericFunction8
+*UIConstraints: *RIGenericFunction GenericFunction8 *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *RIGenericFunction GenericFunction8
+*UIConstraints: *RIGenericFunction GenericFunction8 *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIGenericFunction GenericFunction8
+*UIConstraints: *RIGenericFunction GenericFunction8 *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *RIGenericFunction GenericFunction8
+*UIConstraints: *RIGenericFunction GenericFunction8 *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *RIGenericFunction GenericFunction8
 *UIConstraints: *RIGenericFunction GenericFunction8 *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIGenericFunction GenericFunction8
 *UIConstraints: *RIGenericFunction GenericFunction8 *OutputBin FinTENRYU
@@ -7967,6 +9044,16 @@ mark {\n&&
 *UIConstraints: *OutputBin TwinLoopBinderTray *RIGenericFunction GenericFunction8
 *UIConstraints: *RIGenericFunction GenericFunction9 *OutputBin Default
 *UIConstraints: *OutputBin Default *RIGenericFunction GenericFunction9
+*UIConstraints: *RIGenericFunction GenericFunction9 *OutputBin FinIGUAZUBKShift
+*UIConstraints: *OutputBin FinIGUAZUBKShift *RIGenericFunction GenericFunction9
+*UIConstraints: *RIGenericFunction GenericFunction9 *OutputBin SecondFinIGUAZUBKShift
+*UIConstraints: *OutputBin SecondFinIGUAZUBKShift *RIGenericFunction GenericFunction9
+*UIConstraints: *RIGenericFunction GenericFunction9 *OutputBin FinIGUAZUBKBKLower
+*UIConstraints: *OutputBin FinIGUAZUBKBKLower *RIGenericFunction GenericFunction9
+*UIConstraints: *RIGenericFunction GenericFunction9 *OutputBin FinIGUAZUShift
+*UIConstraints: *OutputBin FinIGUAZUShift *RIGenericFunction GenericFunction9
+*UIConstraints: *RIGenericFunction GenericFunction9 *OutputBin SecondFinIGUAZUShift
+*UIConstraints: *OutputBin SecondFinIGUAZUShift *RIGenericFunction GenericFunction9
 *UIConstraints: *RIGenericFunction GenericFunction9 *OutputBin FinISHIKARI
 *UIConstraints: *OutputBin FinISHIKARI *RIGenericFunction GenericFunction9
 *UIConstraints: *RIGenericFunction GenericFunction9 *OutputBin FinTENRYU
@@ -7986,7 +9073,7 @@ mark {\n&&
 *UIConstraints: *RIGenericFunction GenericFunction9 *OutputBin TwinLoopBinderTray
 *UIConstraints: *OutputBin TwinLoopBinderTray *RIGenericFunction GenericFunction9
 
-*%==========Perfect/Ring/Twin Loop Binding Unit/Perfect/Ring/Twin Loop Binding
+*%==========Perfect/Ring/eWire Binding Unit/Binding
 *UIConstraints: *OptionBind NotInstalled *RIBind PerfectBind
 *UIConstraints: *RIBind PerfectBind *OptionBind NotInstalled
 *UIConstraints: *OptionBind NotInstalled *RIBind RingBind
@@ -8012,7 +9099,7 @@ mark {\n&&
 *UIConstraints: *OptionBind FinTwinLoopBinder *RIBind RingPunch
 *UIConstraints: *RIBind RingPunch *OptionBind FinTwinLoopBinder
 
-*%==========Media Type/Perfect/Ring/Twin Loop Binding
+*%==========Media Type/Binding
 *UIConstraints: *MediaType Preprinted *RIBind RingBind
 *UIConstraints: *RIBind RingBind *MediaType Preprinted
 *UIConstraints: *MediaType Preprinted *RIBind RingPunch
@@ -8088,7 +9175,7 @@ mark {\n&&
 *UIConstraints: *MediaType MoreGlossEnv *RIBind RingPunch
 *UIConstraints: *RIBind RingPunch *MediaType MoreGlossEnv
 
-*%==========Perfect Binding Cutting Options/Perfect/Ring/Twin Loop Binding
+*%==========Perfect Binding Cutting Options/Binding
 *UIConstraints: *RITrim ForeEdgeSpecify *RIBind None
 *UIConstraints: *RIBind None *RITrim ForeEdgeSpecify
 *UIConstraints: *RITrim ForeEdgeSpecify *RIBind RingBind
@@ -8122,7 +9209,7 @@ mark {\n&&
 *UIConstraints: *RITrim 3EdgeCut *RIBind TwinLoopBind
 *UIConstraints: *RIBind TwinLoopBind *RITrim 3EdgeCut
 
-*%==========Adjust Image Position (Along Binding Edge)/Perfect/Ring/Twin Loop Binding
+*%==========Adjust Image Position (Along Binding Edge)/Binding
 *UIConstraints: *RIImagePositionUB 50mm *RIBind None
 *UIConstraints: *RIBind None *RIImagePositionUB 50mm
 *UIConstraints: *RIImagePositionUB 50mm *RIBind RingBind
@@ -8284,7 +9371,7 @@ mark {\n&&
 *UIConstraints: *RIImagePositionUB M50mm *RIBind TwinLoopBind
 *UIConstraints: *RIBind TwinLoopBind *RIImagePositionUB M50mm
 
-*%==========Adjust Image Position (Across Binding Edge)/Perfect/Ring/Twin Loop Binding
+*%==========Adjust Image Position (Across Binding Edge)/Binding
 *UIConstraints: *RIImagePositionLR 50mm *RIBind None
 *UIConstraints: *RIBind None *RIImagePositionLR 50mm
 *UIConstraints: *RIImagePositionLR 50mm *RIBind RingBind
@@ -8446,7 +9533,7 @@ mark {\n&&
 *UIConstraints: *RIImagePositionLR M50mm *RIBind TwinLoopBind
 *UIConstraints: *RIBind TwinLoopBind *RIImagePositionLR M50mm
 
-*%==========Perfect Binding Cover Sheet Print/Perfect/Ring/Twin Loop Binding
+*%==========Perfect Binding Cover Sheet Print/Binding
 *UIConstraints: *RICoverPrint SingleInside *RIBind None
 *UIConstraints: *RIBind None *RICoverPrint SingleInside
 *UIConstraints: *RICoverPrint SingleInside *RIBind RingBind
@@ -8472,7 +9559,7 @@ mark {\n&&
 *UIConstraints: *RICoverPrint Bothsides *RIBind TwinLoopBind
 *UIConstraints: *RIBind TwinLoopBind *RICoverPrint Bothsides
 
-*%==========Booklet/Perfect/Ring/Twin Loop Binding
+*%==========Booklet/Binding
 *UIConstraints: *Booklet OpenToLeft *RIBind PerfectBind
 *UIConstraints: *RIBind PerfectBind *Booklet OpenToLeft
 *UIConstraints: *Booklet OpenToLeft *RIBind RingBind
@@ -8506,7 +9593,7 @@ mark {\n&&
 *UIConstraints: *Booklet OpenToRightNoneRed *RIBind TwinLoopBind
 *UIConstraints: *RIBind TwinLoopBind *Booklet OpenToRightNoneRed
 
-*%==========Eject Face-up/Perfect/Ring/Twin Loop Binding
+*%==========Eject Face-up/Binding
 *UIConstraints: *Faceup On *RIBind PerfectBind
 *UIConstraints: *RIBind PerfectBind *Faceup On
 *UIConstraints: *Faceup On *RIBind RingBind
@@ -8529,6 +9616,56 @@ mark {\n&&
 *UIConstraints: *RIInserter Upper *RICoverPrint Bothsides
 *UIConstraints: *RICoverPrint Bothsides *RIInserter Lower
 *UIConstraints: *RIInserter Lower *RICoverPrint Bothsides
+
+*%==========Large Capacity Tray/Perfect Binding Paper Source Tray
+*UIConstraints: *LargeCapacityTray NotInstalled *RIInserter 3Tray
+*UIConstraints: *RIInserter 3Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *LargeCapacityTray NotInstalled *RIInserter 4Tray
+*UIConstraints: *RIInserter 4Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *LargeCapacityTray NotInstalled *RIInserter 5Tray
+*UIConstraints: *RIInserter 5Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *LargeCapacityTray NotInstalled *RIInserter 6Tray
+*UIConstraints: *RIInserter 6Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *LargeCapacityTray NotInstalled *RIInserter 7Tray
+*UIConstraints: *RIInserter 7Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *LargeCapacityTray NotInstalled *RIInserter 8Tray
+*UIConstraints: *RIInserter 8Tray *LargeCapacityTray NotInstalled
+*UIConstraints: *LargeCapacityTray LCTSIBERIAG *RIInserter 6Tray
+*UIConstraints: *RIInserter 6Tray *LargeCapacityTray LCTSIBERIAG
+*UIConstraints: *LargeCapacityTray LCTSIBERIAG *RIInserter 7Tray
+*UIConstraints: *RIInserter 7Tray *LargeCapacityTray LCTSIBERIAG
+*UIConstraints: *LargeCapacityTray LCTSIBERIAG *RIInserter 8Tray
+*UIConstraints: *RIInserter 8Tray *LargeCapacityTray LCTSIBERIAG
+*UIConstraints: *LargeCapacityTray LCTANATOLIA1 *RIInserter 5Tray
+*UIConstraints: *RIInserter 5Tray *LargeCapacityTray LCTANATOLIA1
+*UIConstraints: *LargeCapacityTray LCTANATOLIA1 *RIInserter 6Tray
+*UIConstraints: *RIInserter 6Tray *LargeCapacityTray LCTANATOLIA1
+*UIConstraints: *LargeCapacityTray LCTANATOLIA1 *RIInserter 7Tray
+*UIConstraints: *RIInserter 7Tray *LargeCapacityTray LCTANATOLIA1
+*UIConstraints: *LargeCapacityTray LCTANATOLIA1 *RIInserter 8Tray
+*UIConstraints: *RIInserter 8Tray *LargeCapacityTray LCTANATOLIA1
+*UIConstraints: *LargeCapacityTray LCTANATOLIA2 *RIInserter 7Tray
+*UIConstraints: *RIInserter 7Tray *LargeCapacityTray LCTANATOLIA2
+*UIConstraints: *LargeCapacityTray LCTANATOLIA2 *RIInserter 8Tray
+*UIConstraints: *RIInserter 8Tray *LargeCapacityTray LCTANATOLIA2
+
+*%==========Tray A/Perfect Binding Paper Source Tray
+*UIConstraints: *TrayA NotInstalled *RIInserter ATray
+*UIConstraints: *RIInserter ATray *TrayA NotInstalled
+
+*%==========Perfect/Ring/eWire Binding Unit/Perfect Binding Paper Source Tray
+*UIConstraints: *OptionBind NotInstalled *RIInserter Upper
+*UIConstraints: *RIInserter Upper *OptionBind NotInstalled
+*UIConstraints: *OptionBind NotInstalled *RIInserter Lower
+*UIConstraints: *RIInserter Lower *OptionBind NotInstalled
+*UIConstraints: *OptionBind FinISHIKARIC *RIInserter Upper
+*UIConstraints: *RIInserter Upper *OptionBind FinISHIKARIC
+*UIConstraints: *OptionBind FinISHIKARIC *RIInserter Lower
+*UIConstraints: *RIInserter Lower *OptionBind FinISHIKARIC
+*UIConstraints: *OptionBind FinTwinLoopBinder *RIInserter Upper
+*UIConstraints: *RIInserter Upper *OptionBind FinTwinLoopBinder
+*UIConstraints: *OptionBind FinTwinLoopBinder *RIInserter Lower
+*UIConstraints: *RIInserter Lower *OptionBind FinTwinLoopBinder
 
 *%==========Perfect Binding Finishing Size/Perfect Binding Cutting Options
 *UIConstraints: *RICutSize A3 *RITrim None
@@ -8892,6 +10029,28 @@ mark {\n&&
 *UIConstraints: *RIFinishPosition M50mm *RITrim 3EdgeCut
 *UIConstraints: *RITrim 3EdgeCut *RIFinishPosition M50mm
 
+*%==========Finisher/Adjust Fore Edge Cut Position
+*UIConstraints: *Finisher FinCOLUMBIACBK *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *Finisher FinCOLUMBIACBK
+*UIConstraints: *Finisher FinCOLUMBIACBK *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *Finisher FinCOLUMBIACBK
+*UIConstraints: *Finisher FinCOLUMBIACBK *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *Finisher FinCOLUMBIACBK
+*UIConstraints: *Finisher FinCOLUMBIACBK *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *Finisher FinCOLUMBIACBK
+*UIConstraints: *Finisher FinCOLUMBIAC *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *Finisher FinCOLUMBIAC
+*UIConstraints: *Finisher FinCOLUMBIAC *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *Finisher FinCOLUMBIAC
+*UIConstraints: *Finisher FinCOLUMBIAC *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *Finisher FinCOLUMBIAC
+*UIConstraints: *Finisher FinCOLUMBIAC *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *Finisher FinCOLUMBIAC
+
+*%==========Square Fold Unit/Adjust Fore Edge Cut Position
+*UIConstraints: *SquareFoldUnit NotInstalled *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *SquareFoldUnit NotInstalled
+
 *%==========Trimmer Unit/Adjust Fore Edge Cut Position
 *UIConstraints: *TrimmerUnit NotInstalled *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *TrimmerUnit NotInstalled
@@ -8931,8 +10090,20 @@ mark {\n&&
 *UIConstraints: *TrimmerCutAndPosition 190mm *TrimmerUnit NotInstalled
 *UIConstraints: *TrimmerUnit NotInstalled *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *TrimmerUnit NotInstalled
+*UIConstraints: *TrimmerUnit NotInstalled *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *TrimmerUnit NotInstalled
+*UIConstraints: *TrimmerUnit NotInstalled *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *TrimmerUnit NotInstalled
+*UIConstraints: *TrimmerUnit NotInstalled *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *TrimmerUnit NotInstalled
+*UIConstraints: *TrimmerUnit NotInstalled *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *TrimmerUnit NotInstalled
+*UIConstraints: *TrimmerUnit Installed *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *TrimmerUnit Installed
 
 *%==========Media Type/Adjust Fore Edge Cut Position
+*UIConstraints: *MediaType Prepunched *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *MediaType Prepunched
 *UIConstraints: *MediaType Prepunched *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *MediaType Prepunched
 *UIConstraints: *MediaType Prepunched *TrimmerCutAndPosition 30mm
@@ -8971,6 +10142,16 @@ mark {\n&&
 *UIConstraints: *TrimmerCutAndPosition 190mm *MediaType Prepunched
 *UIConstraints: *MediaType Prepunched *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *MediaType Prepunched
+*UIConstraints: *MediaType Prepunched *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *MediaType Prepunched
+*UIConstraints: *MediaType Labels *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *MediaType Labels
 *UIConstraints: *MediaType Labels *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *MediaType Labels
 *UIConstraints: *MediaType Labels *TrimmerCutAndPosition 30mm
@@ -9009,6 +10190,16 @@ mark {\n&&
 *UIConstraints: *TrimmerCutAndPosition 190mm *MediaType Labels
 *UIConstraints: *MediaType Labels *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *MediaType Labels
+*UIConstraints: *MediaType Labels *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *MediaType Labels
+*UIConstraints: *MediaType Labels *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *MediaType Labels
+*UIConstraints: *MediaType Labels *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *MediaType Labels
+*UIConstraints: *MediaType Labels *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *MediaType Labels
+*UIConstraints: *MediaType OHP *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *MediaType OHP
 *UIConstraints: *MediaType OHP *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *MediaType OHP
 *UIConstraints: *MediaType OHP *TrimmerCutAndPosition 30mm
@@ -9047,6 +10238,16 @@ mark {\n&&
 *UIConstraints: *TrimmerCutAndPosition 190mm *MediaType OHP
 *UIConstraints: *MediaType OHP *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *MediaType OHP
+*UIConstraints: *MediaType OHP *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *MediaType OHP
+*UIConstraints: *MediaType OHP *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *MediaType OHP
+*UIConstraints: *MediaType OHP *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *MediaType OHP
+*UIConstraints: *MediaType OHP *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *MediaType OHP
+*UIConstraints: *MediaType Index *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *MediaType Index
 *UIConstraints: *MediaType Index *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *MediaType Index
 *UIConstraints: *MediaType Index *TrimmerCutAndPosition 30mm
@@ -9085,6 +10286,16 @@ mark {\n&&
 *UIConstraints: *TrimmerCutAndPosition 190mm *MediaType Index
 *UIConstraints: *MediaType Index *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *MediaType Index
+*UIConstraints: *MediaType Index *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *MediaType Index
+*UIConstraints: *MediaType Index *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *MediaType Index
+*UIConstraints: *MediaType Index *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *MediaType Index
+*UIConstraints: *MediaType Index *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *MediaType Index
+*UIConstraints: *MediaType Translucent *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *MediaType Translucent
 *UIConstraints: *MediaType Translucent *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *MediaType Translucent
 *UIConstraints: *MediaType Translucent *TrimmerCutAndPosition 30mm
@@ -9123,6 +10334,16 @@ mark {\n&&
 *UIConstraints: *TrimmerCutAndPosition 190mm *MediaType Translucent
 *UIConstraints: *MediaType Translucent *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *MediaType Translucent
+*UIConstraints: *MediaType Translucent *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *MediaType Translucent
+*UIConstraints: *MediaType Translucent *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *MediaType Translucent
+*UIConstraints: *MediaType Translucent *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *MediaType Translucent
+*UIConstraints: *MediaType Translucent *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *MediaType Translucent
+*UIConstraints: *MediaType Envelope *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *MediaType Envelope
 *UIConstraints: *MediaType Envelope *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *MediaType Envelope
 *UIConstraints: *MediaType Envelope *TrimmerCutAndPosition 30mm
@@ -9161,6 +10382,16 @@ mark {\n&&
 *UIConstraints: *TrimmerCutAndPosition 190mm *MediaType Envelope
 *UIConstraints: *MediaType Envelope *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *MediaType Envelope
+*UIConstraints: *MediaType Envelope *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *MediaType Envelope
+*UIConstraints: *MediaType Envelope *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *MediaType Envelope
+*UIConstraints: *MediaType Envelope *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *MediaType Envelope
+*UIConstraints: *MediaType Envelope *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *MediaType Envelope
+*UIConstraints: *MediaType Magnet *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *MediaType Magnet
 *UIConstraints: *MediaType Magnet *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *MediaType Magnet
 *UIConstraints: *MediaType Magnet *TrimmerCutAndPosition 30mm
@@ -9199,6 +10430,16 @@ mark {\n&&
 *UIConstraints: *TrimmerCutAndPosition 190mm *MediaType Magnet
 *UIConstraints: *MediaType Magnet *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *MediaType Magnet
+*UIConstraints: *MediaType Magnet *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *MediaType Magnet
+*UIConstraints: *MediaType Magnet *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *MediaType Magnet
+*UIConstraints: *MediaType Magnet *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *MediaType Magnet
+*UIConstraints: *MediaType Magnet *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *MediaType Magnet
+*UIConstraints: *MediaType ClearFile *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *MediaType ClearFile
 *UIConstraints: *MediaType ClearFile *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *MediaType ClearFile
 *UIConstraints: *MediaType ClearFile *TrimmerCutAndPosition 30mm
@@ -9237,6 +10478,16 @@ mark {\n&&
 *UIConstraints: *TrimmerCutAndPosition 190mm *MediaType ClearFile
 *UIConstraints: *MediaType ClearFile *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *MediaType ClearFile
+*UIConstraints: *MediaType ClearFile *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *MediaType ClearFile
+*UIConstraints: *MediaType ClearFile *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *MediaType ClearFile
+*UIConstraints: *MediaType ClearFile *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *MediaType ClearFile
+*UIConstraints: *MediaType ClearFile *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *MediaType ClearFile
+*UIConstraints: *MediaType Carbonless *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *MediaType Carbonless
 *UIConstraints: *MediaType Carbonless *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *MediaType Carbonless
 *UIConstraints: *MediaType Carbonless *TrimmerCutAndPosition 30mm
@@ -9275,6 +10526,16 @@ mark {\n&&
 *UIConstraints: *TrimmerCutAndPosition 190mm *MediaType Carbonless
 *UIConstraints: *MediaType Carbonless *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *MediaType Carbonless
+*UIConstraints: *MediaType Carbonless *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *MediaType Carbonless
+*UIConstraints: *MediaType Carbonless *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *MediaType Carbonless
+*UIConstraints: *MediaType Carbonless *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *MediaType Carbonless
+*UIConstraints: *MediaType Carbonless *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *MediaType Carbonless
+*UIConstraints: *MediaType GlossyIndex *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *MediaType GlossyIndex
 *UIConstraints: *MediaType GlossyIndex *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *MediaType GlossyIndex
 *UIConstraints: *MediaType GlossyIndex *TrimmerCutAndPosition 30mm
@@ -9313,6 +10574,16 @@ mark {\n&&
 *UIConstraints: *TrimmerCutAndPosition 190mm *MediaType GlossyIndex
 *UIConstraints: *MediaType GlossyIndex *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *MediaType GlossyIndex
+*UIConstraints: *MediaType GlossyIndex *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *MediaType GlossyIndex
+*UIConstraints: *MediaType GlossyIndex *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *MediaType GlossyIndex
+*UIConstraints: *MediaType GlossyIndex *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *MediaType GlossyIndex
+*UIConstraints: *MediaType GlossyIndex *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *MediaType GlossyIndex
+*UIConstraints: *MediaType MatIndex *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *MediaType MatIndex
 *UIConstraints: *MediaType MatIndex *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *MediaType MatIndex
 *UIConstraints: *MediaType MatIndex *TrimmerCutAndPosition 30mm
@@ -9351,6 +10622,16 @@ mark {\n&&
 *UIConstraints: *TrimmerCutAndPosition 190mm *MediaType MatIndex
 *UIConstraints: *MediaType MatIndex *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *MediaType MatIndex
+*UIConstraints: *MediaType MatIndex *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *MediaType MatIndex
+*UIConstraints: *MediaType MatIndex *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *MediaType MatIndex
+*UIConstraints: *MediaType MatIndex *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *MediaType MatIndex
+*UIConstraints: *MediaType MatIndex *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *MediaType MatIndex
+*UIConstraints: *MediaType MoreGlossIndex *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *MediaType MoreGlossIndex
 *UIConstraints: *MediaType MoreGlossIndex *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *MediaType MoreGlossIndex
 *UIConstraints: *MediaType MoreGlossIndex *TrimmerCutAndPosition 30mm
@@ -9389,6 +10670,16 @@ mark {\n&&
 *UIConstraints: *TrimmerCutAndPosition 190mm *MediaType MoreGlossIndex
 *UIConstraints: *MediaType MoreGlossIndex *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *MediaType MoreGlossIndex
+*UIConstraints: *MediaType MoreGlossIndex *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *MediaType MoreGlossIndex
+*UIConstraints: *MediaType MoreGlossIndex *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *MediaType MoreGlossIndex
+*UIConstraints: *MediaType MoreGlossIndex *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *MediaType MoreGlossIndex
+*UIConstraints: *MediaType MoreGlossIndex *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *MediaType MoreGlossIndex
+*UIConstraints: *MediaType GlossyEnvelope *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *MediaType GlossyEnvelope
 *UIConstraints: *MediaType GlossyEnvelope *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *MediaType GlossyEnvelope
 *UIConstraints: *MediaType GlossyEnvelope *TrimmerCutAndPosition 30mm
@@ -9427,6 +10718,16 @@ mark {\n&&
 *UIConstraints: *TrimmerCutAndPosition 190mm *MediaType GlossyEnvelope
 *UIConstraints: *MediaType GlossyEnvelope *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *MediaType GlossyEnvelope
+*UIConstraints: *MediaType GlossyEnvelope *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *MediaType GlossyEnvelope
+*UIConstraints: *MediaType GlossyEnvelope *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *MediaType GlossyEnvelope
+*UIConstraints: *MediaType GlossyEnvelope *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *MediaType GlossyEnvelope
+*UIConstraints: *MediaType GlossyEnvelope *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *MediaType GlossyEnvelope
+*UIConstraints: *MediaType MatEnvelope *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *MediaType MatEnvelope
 *UIConstraints: *MediaType MatEnvelope *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *MediaType MatEnvelope
 *UIConstraints: *MediaType MatEnvelope *TrimmerCutAndPosition 30mm
@@ -9465,6 +10766,16 @@ mark {\n&&
 *UIConstraints: *TrimmerCutAndPosition 190mm *MediaType MatEnvelope
 *UIConstraints: *MediaType MatEnvelope *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *MediaType MatEnvelope
+*UIConstraints: *MediaType MatEnvelope *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *MediaType MatEnvelope
+*UIConstraints: *MediaType MatEnvelope *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *MediaType MatEnvelope
+*UIConstraints: *MediaType MatEnvelope *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *MediaType MatEnvelope
+*UIConstraints: *MediaType MatEnvelope *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *MediaType MatEnvelope
+*UIConstraints: *MediaType MoreGlossEnv *TrimmerCutAndPosition On
+*UIConstraints: *TrimmerCutAndPosition On *MediaType MoreGlossEnv
 *UIConstraints: *MediaType MoreGlossEnv *TrimmerCutAndPosition 20mm
 *UIConstraints: *TrimmerCutAndPosition 20mm *MediaType MoreGlossEnv
 *UIConstraints: *MediaType MoreGlossEnv *TrimmerCutAndPosition 30mm
@@ -9503,6 +10814,14 @@ mark {\n&&
 *UIConstraints: *TrimmerCutAndPosition 190mm *MediaType MoreGlossEnv
 *UIConstraints: *MediaType MoreGlossEnv *TrimmerCutAndPosition 200mm
 *UIConstraints: *TrimmerCutAndPosition 200mm *MediaType MoreGlossEnv
+*UIConstraints: *MediaType MoreGlossEnv *TrimmerCutAndPosition 210mm
+*UIConstraints: *TrimmerCutAndPosition 210mm *MediaType MoreGlossEnv
+*UIConstraints: *MediaType MoreGlossEnv *TrimmerCutAndPosition 220mm
+*UIConstraints: *TrimmerCutAndPosition 220mm *MediaType MoreGlossEnv
+*UIConstraints: *MediaType MoreGlossEnv *TrimmerCutAndPosition 230mm
+*UIConstraints: *TrimmerCutAndPosition 230mm *MediaType MoreGlossEnv
+*UIConstraints: *MediaType MoreGlossEnv *TrimmerCutAndPosition 240mm
+*UIConstraints: *TrimmerCutAndPosition 240mm *MediaType MoreGlossEnv
 
 *%==========Interface Box/Interface Box Generic Function
 *UIConstraints: *OptionInterfaceBox NotInstalled *RIGenericFunction GenericFunction1
@@ -9577,20 +10896,14 @@ mark {\n&&
 *UIConstraints: *RIBannerPageInputSlot 1Tray *RIBannerPageMediaType Glossy
 *UIConstraints: *RIBannerPageMediaType Glossy *RIBannerPageInputSlot 2Tray
 *UIConstraints: *RIBannerPageInputSlot 2Tray *RIBannerPageMediaType Glossy
-*UIConstraints: *RIBannerPageMediaType Glossy *RIBannerPageInputSlot ATray
-*UIConstraints: *RIBannerPageInputSlot ATray *RIBannerPageMediaType Glossy
 *UIConstraints: *RIBannerPageMediaType GlossCoated *RIBannerPageInputSlot 1Tray
 *UIConstraints: *RIBannerPageInputSlot 1Tray *RIBannerPageMediaType GlossCoated
 *UIConstraints: *RIBannerPageMediaType GlossCoated *RIBannerPageInputSlot 2Tray
 *UIConstraints: *RIBannerPageInputSlot 2Tray *RIBannerPageMediaType GlossCoated
-*UIConstraints: *RIBannerPageMediaType GlossCoated *RIBannerPageInputSlot ATray
-*UIConstraints: *RIBannerPageInputSlot ATray *RIBannerPageMediaType GlossCoated
 *UIConstraints: *RIBannerPageMediaType MatCoated *RIBannerPageInputSlot 1Tray
 *UIConstraints: *RIBannerPageInputSlot 1Tray *RIBannerPageMediaType MatCoated
 *UIConstraints: *RIBannerPageMediaType MatCoated *RIBannerPageInputSlot 2Tray
 *UIConstraints: *RIBannerPageInputSlot 2Tray *RIBannerPageMediaType MatCoated
-*UIConstraints: *RIBannerPageMediaType MatCoated *RIBannerPageInputSlot ATray
-*UIConstraints: *RIBannerPageInputSlot ATray *RIBannerPageMediaType MatCoated
 *UIConstraints: *RIBannerPageMediaType Envelope *RIBannerPageInputSlot 1Tray
 *UIConstraints: *RIBannerPageInputSlot 1Tray *RIBannerPageMediaType Envelope
 *UIConstraints: *RIBannerPageMediaType Envelope *RIBannerPageInputSlot 2Tray
@@ -9713,20 +11026,14 @@ mark {\n&&
 *UIConstraints: *InputSlot 1Tray *MediaType Glossy
 *UIConstraints: *MediaType Glossy *InputSlot 2Tray
 *UIConstraints: *InputSlot 2Tray *MediaType Glossy
-*UIConstraints: *MediaType Glossy *InputSlot ATray
-*UIConstraints: *InputSlot ATray *MediaType Glossy
 *UIConstraints: *MediaType GlossCoated *InputSlot 1Tray
 *UIConstraints: *InputSlot 1Tray *MediaType GlossCoated
 *UIConstraints: *MediaType GlossCoated *InputSlot 2Tray
 *UIConstraints: *InputSlot 2Tray *MediaType GlossCoated
-*UIConstraints: *MediaType GlossCoated *InputSlot ATray
-*UIConstraints: *InputSlot ATray *MediaType GlossCoated
 *UIConstraints: *MediaType MatCoated *InputSlot 1Tray
 *UIConstraints: *InputSlot 1Tray *MediaType MatCoated
 *UIConstraints: *MediaType MatCoated *InputSlot 2Tray
 *UIConstraints: *InputSlot 2Tray *MediaType MatCoated
-*UIConstraints: *MediaType MatCoated *InputSlot ATray
-*UIConstraints: *InputSlot ATray *MediaType MatCoated
 *UIConstraints: *MediaType Envelope *InputSlot 1Tray
 *UIConstraints: *InputSlot 1Tray *MediaType Envelope
 *UIConstraints: *MediaType Envelope *InputSlot 2Tray
@@ -10115,12 +11422,28 @@ mark {\n&&
 *UIConstraints: *Finisher NotInstalled *TrimmerUnit Installed
 *UIConstraints: *TrimmerUnit Installed *Finisher FinCOLUMBIAC
 *UIConstraints: *Finisher FinCOLUMBIAC *TrimmerUnit Installed
+*UIConstraints: *TrimmerUnit Installed *Finisher FinIGUAZU
+*UIConstraints: *Finisher FinIGUAZU *TrimmerUnit Installed
 
 *%==========Booklet Processor/Finisher
 *UIConstraints: *BKLProcessor Plockmatic *Finisher NotInstalled
 *UIConstraints: *Finisher NotInstalled *BKLProcessor Plockmatic
 *UIConstraints: *BKLProcessor Plockmatic *Finisher FinCOLUMBIACBK
 *UIConstraints: *Finisher FinCOLUMBIACBK *BKLProcessor Plockmatic
+*UIConstraints: *BKLProcessor Plockmatic *Finisher FinIGUAZUBK
+*UIConstraints: *Finisher FinIGUAZUBK *BKLProcessor Plockmatic
+*UIConstraints: *BKLProcessor Plockmatic *Finisher FinIGUAZU
+*UIConstraints: *Finisher FinIGUAZU *BKLProcessor Plockmatic
+
+*%==========North Star/Finisher
+*UIConstraints: *NorthStar Installed *Finisher NotInstalled
+*UIConstraints: *Finisher NotInstalled *NorthStar Installed
+*UIConstraints: *NorthStar Installed *Finisher FinCOLUMBIACBK
+*UIConstraints: *Finisher FinCOLUMBIACBK *NorthStar Installed
+*UIConstraints: *NorthStar Installed *Finisher FinCOLUMBIAC
+*UIConstraints: *Finisher FinCOLUMBIAC *NorthStar Installed
+*UIConstraints: *NorthStar Installed *Finisher FinIGUAZUBK
+*UIConstraints: *Finisher FinIGUAZUBK *NorthStar Installed
 
 *%==========Interface Box/Finisher
 *UIConstraints: *OptionInterfaceBox Installed *Finisher FinCOLUMBIACBK
@@ -10128,15 +11451,27 @@ mark {\n&&
 *UIConstraints: *OptionInterfaceBox Installed *Finisher FinCOLUMBIAC
 *UIConstraints: *Finisher FinCOLUMBIAC *OptionInterfaceBox Installed
 
+*%==========Square Fold Unit/Finisher
+*UIConstraints: *SquareFoldUnit Installed *Finisher NotInstalled
+*UIConstraints: *Finisher NotInstalled *SquareFoldUnit Installed
+*UIConstraints: *SquareFoldUnit Installed *Finisher FinCOLUMBIACBK
+*UIConstraints: *Finisher FinCOLUMBIACBK *SquareFoldUnit Installed
+*UIConstraints: *SquareFoldUnit Installed *Finisher FinCOLUMBIAC
+*UIConstraints: *Finisher FinCOLUMBIAC *SquareFoldUnit Installed
+*UIConstraints: *SquareFoldUnit Installed *Finisher FinIGUAZU
+*UIConstraints: *Finisher FinIGUAZU *SquareFoldUnit Installed
+
 *%==========Folding Unit/Stacker
 *UIConstraints: *MultiFold Installed *Stacker StackerDouble
 *UIConstraints: *Stacker StackerDouble *MultiFold Installed
 
-*%==========Perfect/Ring/Twin Loop Binding Unit/Stacker
+*%==========Perfect/Ring/eWire Binding Unit/Stacker
 *UIConstraints: *OptionBind FinTENRYUB *Stacker StackerDouble
 *UIConstraints: *Stacker StackerDouble *OptionBind FinTENRYUB
 *UIConstraints: *OptionBind FinISHIKARIC *Stacker StackerDouble
 *UIConstraints: *Stacker StackerDouble *OptionBind FinISHIKARIC
+*UIConstraints: *OptionBind FinTwinLoopBinder *Stacker StackerDouble
+*UIConstraints: *Stacker StackerDouble *OptionBind FinTwinLoopBinder
 
 *%==========Trimmer Unit/Large Stacker
 *UIConstraints: *TrimmerUnit Installed *LargeStacker Installed
@@ -10146,9 +11481,69 @@ mark {\n&&
 *UIConstraints: *BKLProcessor Plockmatic *LargeStacker Installed
 *UIConstraints: *LargeStacker Installed *BKLProcessor Plockmatic
 
-*%==========Perfect/Ring/Twin Loop Binding Unit/Multi-hole Punch Unit
+*%==========North Star/Large Stacker
+*UIConstraints: *NorthStar Installed *LargeStacker Installed
+*UIConstraints: *LargeStacker Installed *NorthStar Installed
+
+*%==========Square Fold Unit/Large Stacker
+*UIConstraints: *SquareFoldUnit Installed *LargeStacker Installed
+*UIConstraints: *LargeStacker Installed *SquareFoldUnit Installed
+
+*%==========Interface Box/Trimmer Unit
+*UIConstraints: *OptionInterfaceBox Installed *TrimmerUnit Installed
+*UIConstraints: *TrimmerUnit Installed *OptionInterfaceBox Installed
+
+*%==========Square Fold Unit/Trimmer Unit
+*UIConstraints: *SquareFoldUnit Installed *TrimmerUnit Installed
+*UIConstraints: *TrimmerUnit Installed *SquareFoldUnit Installed
+
+*%==========Interface Box/Booklet Processor
+*UIConstraints: *OptionInterfaceBox Installed *BKLProcessor Plockmatic
+*UIConstraints: *BKLProcessor Plockmatic *OptionInterfaceBox Installed
+
+*%==========Square Fold Unit/Booklet Processor
+*UIConstraints: *SquareFoldUnit Installed *BKLProcessor Plockmatic
+*UIConstraints: *BKLProcessor Plockmatic *SquareFoldUnit Installed
+
+*%==========Interface Box/North Star
+*UIConstraints: *OptionInterfaceBox Installed *NorthStar Installed
+*UIConstraints: *NorthStar Installed *OptionInterfaceBox Installed
+
+*%==========Perfect/Ring/eWire Binding Unit/Multi-hole Punch Unit
 *UIConstraints: *OptionBind FinTwinLoopBinder *MultiHolePunchUnit NotInstalled
 *UIConstraints: *MultiHolePunchUnit NotInstalled *OptionBind FinTwinLoopBinder
+
+*%==========Square Fold Unit/Interface Box
+*UIConstraints: *SquareFoldUnit Installed *OptionInterfaceBox Installed
+*UIConstraints: *OptionInterfaceBox Installed *SquareFoldUnit Installed
+
+*%==========Square Fold/Square Fold Unit
+*UIConstraints: *RISquareFold SquareFoldOn *SquareFoldUnit NotInstalled
+*UIConstraints: *SquareFoldUnit NotInstalled *RISquareFold SquareFoldOn
+
+*%==========Square Fold/Staple
+*UIConstraints: *RISquareFold SquareFoldOn *StapleLocation UpperLeft
+*UIConstraints: *StapleLocation UpperLeft *RISquareFold SquareFoldOn
+*UIConstraints: *RISquareFold SquareFoldOn *StapleLocation UpperRight
+*UIConstraints: *StapleLocation UpperRight *RISquareFold SquareFoldOn
+*UIConstraints: *RISquareFold SquareFoldOn *StapleLocation LeftW
+*UIConstraints: *StapleLocation LeftW *RISquareFold SquareFoldOn
+*UIConstraints: *RISquareFold SquareFoldOn *StapleLocation RightW
+*UIConstraints: *StapleLocation RightW *RISquareFold SquareFoldOn
+*UIConstraints: *RISquareFold SquareFoldOn *StapleLocation UpperW
+*UIConstraints: *StapleLocation UpperW *RISquareFold SquareFoldOn
+
+*%==========Square Fold/Fold Type
+*UIConstraints: *RISquareFold SquareFoldOn *RIFoldType Twofold
+*UIConstraints: *RIFoldType Twofold *RISquareFold SquareFoldOn
+*UIConstraints: *RISquareFold SquareFoldOn *RIFoldType Threefold
+*UIConstraints: *RIFoldType Threefold *RISquareFold SquareFoldOn
+*UIConstraints: *RISquareFold SquareFoldOn *RIFoldType ThreefoldOut
+*UIConstraints: *RIFoldType ThreefoldOut *RISquareFold SquareFoldOn
+*UIConstraints: *RISquareFold SquareFoldOn *RIFoldType Quarto
+*UIConstraints: *RIFoldType Quarto *RISquareFold SquareFoldOn
+*UIConstraints: *RISquareFold SquareFoldOn *RIFoldType Gatefold
+*UIConstraints: *RIFoldType Gatefold *RISquareFold SquareFoldOn
 
 *%==========Color Mode/Separate into CMYK
 *UIConstraints: *ColorModel Gray *RPSColorSep Cyan
