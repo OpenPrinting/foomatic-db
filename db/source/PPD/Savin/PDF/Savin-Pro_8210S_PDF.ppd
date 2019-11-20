@@ -4,9 +4,10 @@
 *%    for "Savin Pro 8210S PDF"
 *%
 *%    CreationDate: 2017/12/28
+*%    Modified:     2019/10/17
 *%
 *%
-*%    COPYRIGHT (C) 2017 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2017-2019 RICOH COMPANY, LTD.
 *%
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -30,7 +31,7 @@
 *%    [this is the MIT open source license -- please see www.opensource.org]
 *%
 
-*FileVersion: "1.0"
+*FileVersion: "1.1"
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
@@ -176,6 +177,7 @@
 *PageSize 8Kai/8K (267 x 390 mm): "@PJL SET FITTOPAGESIZE=K8<0A>"
 *PageSize 16Kai/16K (195 x 267 mm): "@PJL SET FITTOPAGESIZE=K16<0A>"
 *PageSize Oficio/8.5 x 13.4: "@PJL SET FITTOPAGESIZE=OFICIO<0A>"
+*PageSize 8.5x13.5/8.5 x 13.5: "@PJL SET FITTOPAGESIZE=F4A<0A>"
 *JCLCloseUI: *PageSize
 
 *JCLOpenUI *PageRegion: PickOne
@@ -215,6 +217,7 @@
 *PageRegion 8Kai/8K (267 x 390 mm): "@PJL SET PAPER=K8<0A>"
 *PageRegion 16Kai/16K (195 x 267 mm): "@PJL SET PAPER=K16<0A>"
 *PageRegion Oficio/8.5 x 13.4: "@PJL SET PAPER=OFICIO<0A>"
+*PageRegion 8.5x13.5/8.5 x 13.5: "@PJL SET PAPER=F4A<0A>"
 *JCLCloseUI: *PageRegion
 
 *DefaultImageableArea: Letter
@@ -252,6 +255,7 @@
 *ImageableArea 8Kai/8K (267 x 390 mm): "12 12 745 1094"
 *ImageableArea 16Kai/16K (195 x 267 mm): "12 12 541 745"
 *ImageableArea Oficio/8.5 x 13.4: "12 12 600 953"
+*ImageableArea 8.5x13.5/8.5 x 13.5: "12 12 600 960"
 
 *DefaultPaperDimension: Letter
 *PaperDimension A3/A3 (297 x 420 mm): "842 1191"
@@ -288,6 +292,7 @@
 *PaperDimension 8Kai/8K (267 x 390 mm): "757 1106"
 *PaperDimension 16Kai/16K (195 x 267 mm): "553 757"
 *PaperDimension Oficio/8.5 x 13.4: "612 965"
+*PaperDimension 8.5x13.5/8.5 x 13.5: "612 972"
 
 *JCLOpenUI *InputSlot: PickOne
 *OrderDependency: 100 JCLSetup *InputSlot
@@ -917,40 +922,10 @@
 *UIConstraints: *RIPunch UpperNEU4 *StapleLocation CenterW
 *UIConstraints: *StapleLocation CenterW *RIPunch UpperEU4
 *UIConstraints: *StapleLocation CenterW *RIPunch UpperNEU4
-*UIConstraints: *RIPunch GBCLeft *StapleLocation UpperLeft
-*UIConstraints: *StapleLocation UpperLeft *RIPunch GBCLeft
-*UIConstraints: *RIPunch GBCLeft *StapleLocation UpperRight
-*UIConstraints: *StapleLocation UpperRight *RIPunch GBCLeft
-*UIConstraints: *RIPunch GBCLeft *StapleLocation LeftW
-*UIConstraints: *StapleLocation LeftW *RIPunch GBCLeft
-*UIConstraints: *RIPunch GBCLeft *StapleLocation RightW
-*UIConstraints: *StapleLocation RightW *RIPunch GBCLeft
-*UIConstraints: *RIPunch GBCLeft *StapleLocation UpperW
-*UIConstraints: *StapleLocation UpperW *RIPunch GBCLeft
 *UIConstraints: *RIPunch GBCLeft *StapleLocation CenterW
 *UIConstraints: *StapleLocation CenterW *RIPunch GBCLeft
-*UIConstraints: *RIPunch GBCRight *StapleLocation UpperLeft
-*UIConstraints: *StapleLocation UpperLeft *RIPunch GBCRight
-*UIConstraints: *RIPunch GBCRight *StapleLocation UpperRight
-*UIConstraints: *StapleLocation UpperRight *RIPunch GBCRight
-*UIConstraints: *RIPunch GBCRight *StapleLocation LeftW
-*UIConstraints: *StapleLocation LeftW *RIPunch GBCRight
-*UIConstraints: *RIPunch GBCRight *StapleLocation RightW
-*UIConstraints: *StapleLocation RightW *RIPunch GBCRight
-*UIConstraints: *RIPunch GBCRight *StapleLocation UpperW
-*UIConstraints: *StapleLocation UpperW *RIPunch GBCRight
 *UIConstraints: *RIPunch GBCRight *StapleLocation CenterW
 *UIConstraints: *StapleLocation CenterW *RIPunch GBCRight
-*UIConstraints: *RIPunch GBCTop *StapleLocation UpperLeft
-*UIConstraints: *StapleLocation UpperLeft *RIPunch GBCTop
-*UIConstraints: *RIPunch GBCTop *StapleLocation UpperRight
-*UIConstraints: *StapleLocation UpperRight *RIPunch GBCTop
-*UIConstraints: *RIPunch GBCTop *StapleLocation LeftW
-*UIConstraints: *StapleLocation LeftW *RIPunch GBCTop
-*UIConstraints: *RIPunch GBCTop *StapleLocation RightW
-*UIConstraints: *StapleLocation RightW *RIPunch GBCTop
-*UIConstraints: *RIPunch GBCTop *StapleLocation UpperW
-*UIConstraints: *StapleLocation UpperW *RIPunch GBCTop
 *UIConstraints: *RIPunch GBCTop *StapleLocation CenterW
 *UIConstraints: *StapleLocation CenterW *RIPunch GBCTop
 *UIConstraints: *RIPunch DoubleLeft *StapleLocation UpperLeft
@@ -1936,6 +1911,22 @@
 *UIConstraints: *OutputBin FinTENRYU *PageSize Oficio
 *UIConstraints: *PageSize Oficio *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *PageSize Oficio
+*UIConstraints: *PageSize 8.5x13.5 *OutputBin FinISHIKARI
+*UIConstraints: *OutputBin FinISHIKARI *PageSize 8.5x13.5
+*UIConstraints: *PageSize 8.5x13.5 *OutputBin FinTENRYU
+*UIConstraints: *OutputBin FinTENRYU *PageSize 8.5x13.5
+*UIConstraints: *PageSize 8.5x13.5 *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *PageSize 8.5x13.5
+*UIConstraints: *PageSize 8.5x13.5 *OutputBin Trimmer
+*UIConstraints: *OutputBin Trimmer *PageSize 8.5x13.5
+*UIConstraints: *PageSize 8.5x13.5 *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin PlockmaticTray *PageSize 8.5x13.5
+*UIConstraints: *PageSize 8.5x13.5 *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *PageSize 8.5x13.5
+*UIConstraints: *PageSize 8.5x13.5 *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *PageSize 8.5x13.5
+*UIConstraints: *PageSize 8.5x13.5 *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *PageSize 8.5x13.5
 
 *%==========Paper Region/Destination
 *UIConstraints: *PageRegion A3 *OutputBin FinISHIKARI
@@ -2158,6 +2149,22 @@
 *UIConstraints: *OutputBin FinTENRYU *PageRegion Oficio
 *UIConstraints: *PageRegion Oficio *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin PlockmaticTray *PageRegion Oficio
+*UIConstraints: *PageRegion 8.5x13.5 *OutputBin FinISHIKARI
+*UIConstraints: *OutputBin FinISHIKARI *PageRegion 8.5x13.5
+*UIConstraints: *PageRegion 8.5x13.5 *OutputBin FinTENRYU
+*UIConstraints: *OutputBin FinTENRYU *PageRegion 8.5x13.5
+*UIConstraints: *PageRegion 8.5x13.5 *OutputBin FinDONAUProof
+*UIConstraints: *OutputBin FinDONAUProof *PageRegion 8.5x13.5
+*UIConstraints: *PageRegion 8.5x13.5 *OutputBin Trimmer
+*UIConstraints: *OutputBin Trimmer *PageRegion 8.5x13.5
+*UIConstraints: *PageRegion 8.5x13.5 *OutputBin PlockmaticTray
+*UIConstraints: *OutputBin PlockmaticTray *PageRegion 8.5x13.5
+*UIConstraints: *PageRegion 8.5x13.5 *OutputBin StackerUpperTray
+*UIConstraints: *OutputBin StackerUpperTray *PageRegion 8.5x13.5
+*UIConstraints: *PageRegion 8.5x13.5 *OutputBin StackerTray
+*UIConstraints: *OutputBin StackerTray *PageRegion 8.5x13.5
+*UIConstraints: *PageRegion 8.5x13.5 *OutputBin SecondStackerTray
+*UIConstraints: *OutputBin SecondStackerTray *PageRegion 8.5x13.5
 
 *%==========Adjust Fore Edge Cut Position/Destination
 
@@ -2600,6 +2607,8 @@
 *UIConstraints: *InputSlot 1Tray *PageSize 16Kai
 *UIConstraints: *PageSize Oficio *InputSlot 1Tray
 *UIConstraints: *InputSlot 1Tray *PageSize Oficio
+*UIConstraints: *PageSize 8.5x13.5 *InputSlot 1Tray
+*UIConstraints: *InputSlot 1Tray *PageSize 8.5x13.5
 
 *%==========Paper Region/Input Tray
 *UIConstraints: *PageRegion A5 *InputSlot 1Tray
@@ -2686,6 +2695,8 @@
 *UIConstraints: *InputSlot 1Tray *PageRegion 16Kai
 *UIConstraints: *PageRegion Oficio *InputSlot 1Tray
 *UIConstraints: *InputSlot 1Tray *PageRegion Oficio
+*UIConstraints: *PageRegion 8.5x13.5 *InputSlot 1Tray
+*UIConstraints: *InputSlot 1Tray *PageRegion 8.5x13.5
 
 *%==========Media Type/Input Tray
 *UIConstraints: *MediaType Labels *InputSlot 1Tray
