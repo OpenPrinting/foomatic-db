@@ -4,11 +4,11 @@
 *%    for "Savin Pro 8220S PXL"
 *%
 *%    CreationDate: 2017/01/24
-*%    Modified:     2017/07/27
+*%    Modified:     2019/10/12
 *%
 *%    java.util.zip.CRC32: 3373844b
 *%
-*%    COPYRIGHT (C) 2017 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2017-2019 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -32,7 +32,7 @@
 *%    [this is the MIT open source license -- please see www.opensource.org]
 *%
 
-*FileVersion: "1.1"
+*FileVersion: "1.2"
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
@@ -344,6 +344,11 @@
 *FoomaticRIPOptionSetting PageSize=Oficio: " -dDEVICEWIDTHPOINTS=612 -dDEVICEHEIGHTPOINTS=965 -sOutputFile=- -  | &&
  perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xf1\xf8\x25/g&quot;  | &&
  perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x08\x41\x0e\x74\x56\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xf1\xf8\x25/g&quot;"
+*End
+*PageSize 8.5x13.5/8.5 x 13.5: "%% FoomaticRIPOptionSetting: PageSize=8.5x13.5"
+*FoomaticRIPOptionSetting PageSize=8.5x13.5: " -dDEVICEWIDTHPOINTS=612 -dDEVICEHEIGHTPOINTS=972 -sOutputFile=- -  | &&
+ perl -p -e &quot;s/\xf8\x28\xc0.\xf8\x25/\xf8\x28\xc0\xf3\xf8\x25/g&quot;  | &&
+ perl -p -e &quot;s/\xf8\x28\xd5\x00\x00\x08\x41\x00\x00\x58\x41\xf8\x2f\xc0\x00\xf8\x30/\xf8\x28\xc0\xf3\xf8\x25/g&quot;"
 *End
 *CloseUI: *PageSize
 
@@ -794,6 +799,7 @@
 *PaperDimension 13x18/13 x 18: "936 1296"
 *PaperDimension FanFoldGermanLegal/8.5 x 13: "612 936"
 *PaperDimension Folio/8.25 x 13: "595 935"
+*PaperDimension 8.5x13.5/8.5 x 13.5: "612 972"
 *PaperDimension SRA3/SRA3 (320 x 450 mm): "907 1276"
 *PaperDimension 12x18/12 x 18: "864 1296"
 *PaperDimension SRA4/SRA4 (225 x 320 mm): "638 907"
@@ -832,6 +838,7 @@
 *PageRegion 13x18/13x18: "%% FoomaticRIPOptionSetting: PageSize=13x18"
 *PageRegion FanFoldGermanLegal/8.5x13: "%% FoomaticRIPOptionSetting: PageSize=FanFoldGermanLegal"
 *PageRegion Folio/8.25x13: "%% FoomaticRIPOptionSetting: PageSize=Folio"
+*PageRegion 8.5x13.5/8.5 x 13.5: "%% FoomaticRIPOptionSetting: PageSize=8.5x13.5"
 *PageRegion SRA3/SRA3 (320 x 450 mm): "%% FoomaticRIPOptionSetting: PageSize=SRA3"
 *PageRegion 12x18/12x18: "%% FoomaticRIPOptionSetting: PageSize=12x18"
 *PageRegion SRA4/SRA4 (225 x 320 mm): "%% FoomaticRIPOptionSetting: PageSize=SRA4"
@@ -869,6 +876,7 @@
 *ImageableArea 13x18/13 x 18: "12 12 924 1284"
 *ImageableArea FanFoldGermanLegal/8.5 x 13: "12 12 600 924"
 *ImageableArea Folio/8.25 x 13: "12 12 583 923"
+*ImageableArea 8.5x13.5/8.5 x 13.5: "12 12 600 960"
 *ImageableArea SRA3/SRA3 (320 x 450 mm): "12 12 895 1264"
 *ImageableArea 12x18/12 x 18: "12 12 852 1284"
 *ImageableArea SRA4/SRA4 (225 x 320 mm): "12 12 626 895"
@@ -1216,6 +1224,7 @@
 *UIConstraints: *PageSize GovernmentLG *OutputBin FinDONAUProof
 *UIConstraints: *RIZfold Right *MediaType Labels
 *UIConstraints: *InputSlot 7Tray *MediaType Carbonless
+*UIConstraints: *OutputBin FinISHIKARI *PageSize 8.5x13.5
 *UIConstraints: *RIBannerPageMediaType Carbonless *RIBannerPageInputSlot 1Tray
 *UIConstraints: *OutputBin FinCOLUMBIACBKShift *PageSize B6
 *UIConstraints: *TrimmerUnit Installed *Finisher FinCOLUMBIAC
@@ -1348,6 +1357,7 @@
 *UIConstraints: *PageSize 13x19 *InputSlot 3Tray
 *UIConstraints: *PageSize 13x19 *OutputBin PlockmaticTray
 *UIConstraints: *OutputBin StackerTray *RIZfold Bottom
+*UIConstraints: *OutputBin StackerTray *PageSize 8.5x13.5
 *UIConstraints: *MediaType Preprinted *OutputBin FinISHIKARI
 *UIConstraints: *RIZfold Bottom *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinTENRYU *PageSize A6
@@ -1390,6 +1400,7 @@
 *UIConstraints: *MediaType Envelope *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *MediaType Translucent *RIZfold Right
 *UIConstraints: *PageSize A6 *OutputBin PlockmaticTray
+*UIConstraints: *PageSize 8.5x13.5 *OutputBin Trimmer
 *UIConstraints: *InputSlot 1Tray *PageSize Statement
 *UIConstraints: *MediaType Carbonless *OutputBin FinCOLUMBIACBKLower
 *UIConstraints: *OutputBin FinISHIKARI *PageSize FanFoldGermanLegal
@@ -1413,6 +1424,7 @@
 *UIConstraints: *Finisher FinCOLUMBIAC *OutputBin FinCOLUMBIACBKUpper
 *UIConstraints: *RIZfold Right *MediaType Translucent
 *UIConstraints: *PageSize 13x19.2 *InputSlot 1Tray
+*UIConstraints: *PageSize 8.5x13.5 *OutputBin StackerTray
 *UIConstraints: *OutputBin FinDONAUProof *PageSize 10x15
 *UIConstraints: *OutputBin FinDONAUProof *PageSize 10x14
 *UIConstraints: *MediaType Bond *OutputBin FinTENRYU
@@ -1503,6 +1515,7 @@
 *UIConstraints: *RIZfold Left *MediaType Index
 *UIConstraints: *MediaType Envelope *StapleLocation UpperLeft
 *UIConstraints: *OutputBin SecondStackerTray *MediaType Envelope
+*UIConstraints: *OutputBin SecondStackerTray *PageSize 8.5x13.5
 *UIConstraints: *RIBannerPageInputSlot 3Tray *RIBannerPageMediaType Labels
 *UIConstraints: *MediaType Carbonless *StapleLocation RightW
 *UIConstraints: *RIBannerPageMediaType Bond *OutputBin FinISHIKARI
@@ -1658,6 +1671,7 @@
 *UIConstraints: *OutputBin FinTENRYU *RIBannerPageMediaType OHP
 *UIConstraints: *MediaType MatCoated *InputSlot 3Tray
 *UIConstraints: *OutputBin FinISHIKARI *RIBannerPageMediaType Carbonless
+*UIConstraints: *PageSize 8.5x13.5 *OutputBin PlockmaticTray
 *UIConstraints: *PageSize 13x19.2 *InputSlot 3Tray
 *UIConstraints: *RIBannerPageMediaType OHP *RIBannerPageInputSlot 3Tray
 *UIConstraints: *InputSlot 2Tray *PageSize 12.6x19.2
@@ -1679,6 +1693,7 @@
 *UIConstraints: *OutputBin FinTENRYU *PageSize GovernmentLG
 *UIConstraints: *OutputBin FinISHIKARI *MediaType Cardstock
 *UIConstraints: *RIBannerPageMediaType Translucent *OutputBin FinCOLUMBIACBKLower
+*UIConstraints: *OutputBin FinTENRYU *PageSize 8.5x13.5
 *UIConstraints: *MediaType Labels *RIZfold Right
 *UIConstraints: *InputSlot 10Tray *LargeCapacityTray LCTALASKAE
 *UIConstraints: *StapleLocation LeftW *OutputBin StackerTray
@@ -1694,6 +1709,7 @@
 *UIConstraints: *PageSize 10x14 *OutputBin FinDONAUProof
 *UIConstraints: *MediaType Index *OutputBin SecondStackerTray
 *UIConstraints: *InputSlot 7Tray *MediaType Labels
+*UIConstraints: *OutputBin StackerUpperTray *PageSize 8.5x13.5
 *UIConstraints: *OutputBin PlockmaticTray *StapleLocation None
 *UIConstraints: *OutputBin Trimmer *StapleLocation RightW
 *UIConstraints: *MediaType Translucent *StapleLocation UpperLeft
@@ -1703,6 +1719,7 @@
 *UIConstraints: *MediaType Envelope *StapleLocation UpperW
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *RIBannerPageMediaType OHP
 *UIConstraints: *RIBannerPageMediaType Translucent *RIBannerPageInputSlot 1Tray
+*UIConstraints: *PageSize 8.5x13.5 *OutputBin FinDONAUProof
 *UIConstraints: *MediaType Envelope *InputSlot 2Tray
 *UIConstraints: *OutputBin FinISHIKARI *RIZfold Left
 *UIConstraints: *Finisher NotInstalled *OutputBin FinCOLUMBIACShift
@@ -1742,6 +1759,7 @@
 *UIConstraints: *OutputBin PlockmaticTray *PageSize 16Kai
 *UIConstraints: *MediaType Envelope *OutputBin FinISHIKARI
 *UIConstraints: *StapleLocation UpperRight *OutputBin SecondStackerTray
+*UIConstraints: *PageSize 8.5x13.5 *OutputBin FinISHIKARI
 *UIConstraints: *MultiFold Installed *Stacker StackerDouble
 *UIConstraints: *MediaType Glossy *InputSlot 7Tray
 *UIConstraints: *Finisher NotInstalled *OutputBin FinCOLUMBIACUpper
@@ -1787,6 +1805,7 @@
 *UIConstraints: *PageSize B6 *InputSlot 1Tray
 *UIConstraints: *StapleLocation UpperW *MediaType Carbonless
 *UIConstraints: *OutputBin FinDONAUProof *StapleLocation CenterW
+*UIConstraints: *PageSize 8.5x13.5 *OutputBin StackerUpperTray
 *UIConstraints: *MediaType Carbonless *InputSlot 1Tray
 *UIConstraints: *RIBannerPageInputSlot 4Tray *LargeCapacityTray LCTANATOLIA1
 *UIConstraints: *RIBannerPageInputSlot 4Tray *LargeCapacityTray LCTANATOLIA2
@@ -1844,6 +1863,7 @@
 *UIConstraints: *InputSlot 9Tray *LargeCapacityTray LCTSIBERIAG
 *UIConstraints: *PageSize 11x15 *OutputBin FinDONAUProof
 *UIConstraints: *OutputBin SecondStackerTray *RIBannerPageMediaType Index
+*UIConstraints: *PageSize 8.5x13.5 *InputSlot 1Tray
 *UIConstraints: *StapleLocation RightW *OutputBin StackerUpperTray
 *UIConstraints: *InputSlot 1Tray *MediaType OHP
 *UIConstraints: *InputSlot 4Tray *MediaType Carbonless
@@ -1926,6 +1946,7 @@
 *UIConstraints: *RIBannerPageInputSlot 5Tray *LargeCapacityTray NotInstalled
 *UIConstraints: *InputSlot 3Tray *MediaType MatCoated
 *UIConstraints: *RIBannerPageInputSlot 1Tray *RIBannerPageMediaType Glossy
+*UIConstraints: *PageSize 8.5x13.5 *OutputBin SecondStackerTray
 *UIConstraints: *OutputBin FinTENRYU *PageSize SRA3
 *UIConstraints: *OutputBin FinISHIKARI *PageSize 12x18
 *UIConstraints: *OutputBin FinISHIKARI *StapleLocation CenterW
@@ -2041,6 +2062,7 @@
 *UIConstraints: *StapleLocation UpperW *OutputBin FinCOLUMBIACUpper
 *UIConstraints: *PageSize 11x15 *OutputBin FinTENRYU
 *UIConstraints: *MediaType Labels *OutputBin Trimmer
+*UIConstraints: *InputSlot 1Tray *PageSize 8.5x13.5
 *UIConstraints: *OutputBin FinTENRYU *MediaType Index
 *UIConstraints: *PageSize 10x15 *OutputBin PlockmaticTray
 *UIConstraints: *PageSize B6 *OutputBin Trimmer
@@ -2051,6 +2073,7 @@
 *UIConstraints: *PageSize 11x14 *OutputBin FinISHIKARI
 *UIConstraints: *PageSize 13x19.2 *InputSlot 2Tray
 *UIConstraints: *OutputBin PlockmaticTray *PageSize A5
+*UIConstraints: *OutputBin PlockmaticTray *PageSize 8.5x13.5
 *UIConstraints: *OutputBin PlockmaticTray *PageSize A6
 *UIConstraints: *PageSize Legal *OutputBin FinTENRYU
 *UIConstraints: *PageSize EngQuatro *OutputBin FinCOLUMBIACBKLower
@@ -2123,6 +2146,7 @@
 *UIConstraints: *RIZfold Left *MediaType OHP
 *UIConstraints: *PageSize GovernmentLG *OutputBin FinTENRYU
 *UIConstraints: *PageSize FanFoldGermanLegal *OutputBin FinDONAUProof
+*UIConstraints: *PageSize 8.5x13.5 *OutputBin FinTENRYU
 *UIConstraints: *RIBannerPageMediaType Envelope *RIBannerPageInputSlot 3Tray
 *UIConstraints: *Finisher FinCOLUMBIACBK *OutputBin FinCOLUMBIACShift
 *UIConstraints: *PageSize Statement *OutputBin FinCOLUMBIACBKLower
@@ -2139,6 +2163,7 @@
 *UIConstraints: *Finisher NotInstalled *StapleLocation CenterW
 *UIConstraints: *OutputBin PlockmaticTray *PageSize 310x432
 *UIConstraints: *LargeCapacityTray LCTANAANDSIB *RIBannerPageInputSlot 11Tray
+*UIConstraints: *OutputBin FinDONAUProof *PageSize 8.5x13.5
 *UIConstraints: *OutputBin FinCOLUMBIACBKLower *StapleLocation UpperW
 *UIConstraints: *MediaType Carbonless *InputSlot 4Tray
 *UIConstraints: *RIBannerPageInputSlot 9Tray *LargeCapacityTray LCTALASKAE
@@ -2163,6 +2188,7 @@
 *UIConstraints: *MediaType Envelope *OutputBin SecondStackerTray
 *UIConstraints: *OutputBin FinTENRYU *PageSize 10x14
 *UIConstraints: *OutputBin FinTENRYU *PageSize 10x15
+*UIConstraints: *OutputBin Trimmer *PageSize 8.5x13.5
 *UIConstraints: *OutputBin StackerUpperTray *RIZfold Bottom
 *UIConstraints: *RIBannerPageMediaType Carbonless *RIBannerPageInputSlot 7Tray
 *UIConstraints: *BKLProcessor NotInstalled *OutputBin PlockmaticTray
