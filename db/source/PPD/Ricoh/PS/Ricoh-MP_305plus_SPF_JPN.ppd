@@ -2,7 +2,7 @@
 *cupsLanguages: "ja"
 *%
 *%  Printer Description file
-*%    for "Ricoh Basic PS for Color LP/MFP"
+*%    for "Ricoh MP 305+ SPF JPN"
 *%
 *%    CreationDate: 2009/03/15
 *%    Modified:     2009/09/17
@@ -15,8 +15,9 @@
 *%    Modified:     2012/07/15 version 1.10.0
 *%    Modified:     2013/12/09 version 1.11.0
 *%    Modified:     2016/03/03 version 1.12.0
+*%    Modified:     2020/04/01 version 1.12.1
 *%
-*%    COPYRIGHT (C) 2009-2013 RICOH COMPANY, LTD.
+*%    COPYRIGHT (C) 2009-2020 RICOH COMPANY, LTD.
 *%    
 *%    Permission is hereby granted, free of charge, to any person obtaining
 *%    a copy of this software and associated documentation files (the
@@ -44,20 +45,20 @@
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
-*ModelName: "Ricoh Basic PS Color OSS"
-*PCFileName: "RILGC1E3.PPD"
+*ModelName: "Ricoh MP 305+ SPF JPN"
+*PCFileName: "RILGM1E3.PPD"
 *Manufacturer: "Ricoh"
-*Product: "(Ricoh Basic PS Color OSS)"
+*Product: "(Ricoh MP 305+ SPF JPN)"
 *PSVersion: "(3011.103) 2"
-*ShortNickName: "Ricoh Basic PS Color OSS"
-*NickName: "Ricoh Basic PS Color OSS"
+*ShortNickName: "Ricoh MP 305+ SPF JPN"
+*NickName: "Ricoh MP 305+ SPF JPN"
 
 *%========== Basic Device Capabilities ==========
 
 
 *LanguageLevel: "3"
-*ColorDevice: True
-*DefaultColorSpace: CMYK
+*ColorDevice: False
+*DefaultColorSpace: GRAY
 
 *TTRasterizer: Type42
 *End
@@ -344,24 +345,26 @@ false setedgetoedge"
 *End
 *CloseUI: *Collate
 
-*OpenUI *RIPrintMode/Toner Saving: PickOne
+*OpenUI *RIPrintMode/Print Mode: PickOne
 *OrderDependency: 45 AnySetup *RIPrintMode
 *DefaultRIPrintMode: 0rhit
-*RIPrintMode 0rhit/Off: "<<
-  /PostRenderingEnhance false>> setpagedevice"
+*RIPrintMode 0rhit/Through: "
+  (gray) RCsetdevicecolor
+  <</PostRenderingEnhance false>> setpagedevice"
 *End
-*RIPrintMode 3rhit/On: "<<
-  /PostRenderingEnhance true
-  /PostRenderingEnhanceDetails << /Type 34 /OutputMode 3>> >> setpagedevice"
+*RIPrintMode 1rhit/Edge Smoothing: "
+  (gray) RCsetdevicecolor
+  <</PostRenderingEnhance true
+  /PostRenderingEnhanceDetails << /Type 34
+  /OutputMode 0 >> >> setpagedevice"
+*End
+*RIPrintMode 3rhit/Toner Saving: "
+  (gray) RCsetdevicecolor
+  <</PostRenderingEnhance true
+  /PostRenderingEnhanceDetails << /Type 34
+  /OutputMode 3>> >> setpagedevice"
 *End
 *CloseUI: *RIPrintMode
-
-*OpenUI *ColorModel/Color Mode: PickOne
-*OrderDependency: 100 AnySetup *ColorModel
-*DefaultColorModel: CMYK
-*ColorModel CMYK/Color: "(cmyk) RCsetdevicecolor"
-*ColorModel Gray/Black and White: "(gray) RCsetdevicecolor"
-*CloseUI: *ColorModel
 
 *OpenUI *MediaType/Paper Type: PickOne
 *OrderDependency: 205 AnySetup *MediaType
@@ -585,7 +588,7 @@ false setedgetoedge"
 
 *cupsFilter: "application/vnd.cups-postscript 0 foomatic-rip"
 
-*FoomaticIDs: Ricoh-Basic_PS_Color Postscript
+*FoomaticIDs: Ricoh-Basic_PS_B_W Postscript
 
 *FoomaticRIPCommandLine: "(printf &apos;\033%%-12345X@PJL JOB\n%A%B%C%D&&
 @PJL ENTER LANGUAGE = POSTSCRIPT\n&apos;;cat -; &&
@@ -1136,7 +1139,7 @@ s/\x26title\x3B/unknown/g; &&
 
 *% end of Printer Description file
 *% Japanese localization
-*ja.Translation ModelName/Ricoh Basic PS Color: ""
+*ja.Translation ModelName/Ricoh MP 305+ SPF JPN: ""
 *ja.Translation General/General: ""
 *ja.Translation PageSize/用紙サイズ: ""
 *ja.PageSize A3/A3: ""
@@ -1194,12 +1197,10 @@ s/\x26title\x3B/unknown/g; &&
 *ja.Translation Collate/ソート: ""
 *ja.Collate False/しない: ""
 *ja.Collate True/する: ""
-*ja.Translation RIPrintMode/トナーセーブ: ""
-*ja.RIPrintMode 0rhit/オフ: ""
-*ja.RIPrintMode 3rhit/オン: ""
-*ja.Translation ColorModel/カラー選択: ""
-*ja.ColorModel CMYK/カラー: ""
-*ja.ColorModel Gray/モノクロ: ""
+*ja.Translation RIPrintMode/印字モード: ""
+*ja.RIPrintMode 0rhit/スムージングオフ: ""
+*ja.RIPrintMode 1rhit/スムージングオン: ""
+*ja.RIPrintMode 3rhit/トナーセーブ: ""
 *ja.Translation MediaType/用紙の種類: ""
 *ja.MediaType Auto/普通紙/再生紙: ""
 *ja.MediaType Plain/普通紙: ""
