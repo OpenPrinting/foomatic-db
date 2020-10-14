@@ -68,12 +68,12 @@
 *% =========================================================
 *%  Color & Gray Option
 *% =========================================================
-*OpenUI *ColorMode/Color Mode:  Boolean
-*OrderDependency: 70 AnySetup *ColorMode
-*DefaultColorMode: True
-*ColorMode False/Grayscale:  "<</ProcessColorModel /DeviceGray>> setpagedevice"
-*ColorMode True/Color:       "<</ProcessColorModel /DeviceCMYK>> setpagedevice"
-*CloseUI: *ColorMode
+*OpenUI *ColorModel/Color Mode:  PickOne
+*OrderDependency: 70 AnySetup *ColorModel
+*DefaultColorModel: CMYK
+*ColorModel Gray/Grayscale:  "<</ProcessColorModel /DeviceGray>> setpagedevice"
+*ColorModel CMYK/Color:       "<</ProcessColorModel /DeviceCMYK>> setpagedevice"
+*CloseUI: *ColorModel
 
 *% =========================================================
 *%  Black Optimization
@@ -446,8 +446,8 @@ save currentpagedevice /PageSize get aload pop
 *% =========================================================
 *%  ColorMode - BlackOptimization
 *% =========================================================
-*UIConstraints: *ColorMode False            *JCLBlackOptimization True
-*UIConstraints: *JCLBlackOptimization True  *ColorMode False
+*UIConstraints: *ColorModel Gray *JCLBlackOptimization True
+*UIConstraints: *JCLBlackOptimization True  *ColorModel Gray
 
 *% =========================================================
 *%  PageSize PostCard 4x6 - Media Type
