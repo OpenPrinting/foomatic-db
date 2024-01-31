@@ -1,0 +1,27 @@
+name: Create Tag on Each Date if Any Commit
+
+on:
+  schedule:
+    # Run daily
+    - cron: '29 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  create-tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Date as Tag
+        run: |
+          TAG_NAME=$(date '+%Y%m%d')
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          if [ -n "$(git log --since="24 hours ago" --pretty=format:'%h')" ]; then
+            git tag -a $TAG_NAME -m "Tag for $TAG_NAME"
+            git push origin $TAG_NAME
+          else
+            echo "No commits in the last 24 hours. Skipping tag creation."
+          fi
