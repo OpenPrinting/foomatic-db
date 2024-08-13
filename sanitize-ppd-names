@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# Sometimes contributed PPD files can have ugly file names, containing
+# spaces or other special characters which are difficult to handle in
+# shell scripts. Therefore it is recommended to run this script after
+# each commit of PPD files to sanitize the file names.
+#
+# Also rename uppercase .PPD extensions into lowercase .ppd
+#
+# When in the colned GIT repo the renaming is done with "git mv" so
+# that it can easily be applied with "git commit" afterwards.
+#
+# The script can also be run in a downloaded release, for example for
+# packaging for a Linux distribution. Then a simple "mv" is used.
+
+GIT=
+if [ -d .git ]; then
+    GIT=git
+fi
+
+find db/source/PPD -type f -printf "%p\n" | while read oldname; do
+    newname=`echo -n "$oldname" | perl -p -e 's/[^A-Za-z0-9\/\+\.-]+/_/g' | perl -p -e 's/\.PPD$/.ppd/'`
+    if test "$oldname" != "$newname"; then
+        echo Renaming "$oldname" to "$newname" 1>&2
+	$GIT mv "$oldname" "$newname"
+    fi
+done
